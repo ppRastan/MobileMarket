@@ -18,12 +18,12 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 /**
  * Created by ShaisteS on 12/27/2015.
  */
-public class PictureProductItemAdapter extends ArrayAdapter<Product> {
+public class PictureProductHomeItemAdapter extends ArrayAdapter<Product> {
 
     private Activity myContext;
     private ArrayList<Product> products;
 
-    public PictureProductItemAdapter(Context context, int resource, ArrayList<Product> allProduct) {
+    public PictureProductHomeItemAdapter(Context context, int resource, ArrayList<Product> allProduct) {
         super(context, resource, allProduct);
         myContext=(Activity)context;
         products=allProduct;
@@ -33,7 +33,7 @@ public class PictureProductItemAdapter extends ArrayAdapter<Product> {
     public View getView(int position, View convertView, ViewGroup parent){
 
         LayoutInflater inflater = myContext.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.picture_product_item, null);
+        View rowView = inflater.inflate(R.layout.picture_product_item_home, null);
         ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
         PicProductImage.setImageResource(products.get(position).getPic());
 

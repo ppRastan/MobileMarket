@@ -98,7 +98,7 @@ public class MainActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_contact:
-                QuickContactFragment.newInstance().show(getSupportFragmentManager(), "QuickContactFragment");
+                //QuickContactFragment.newInstance().show(getSupportFragmentManager(), "QuickContactFragment");
                 return true;
         }
         return super.onOptionsItemSelected(item);

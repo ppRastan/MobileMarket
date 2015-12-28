@@ -2,9 +2,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/search"
+        app:showAsAction="always"
+        android:title="@string/action_contact"/>
+    <item
+        android:id="@+id/action_sell"
+        android:icon="@drawable/ic_launcher"
+        app:showAsAction="always"
+        android:title="خرید" />
+
+    <item
         android:id="@+id/action_contact"
         android:icon="@drawable/ic_action_user"
         app:showAsAction="always"
-        android:title="@string/action_contact"/>
+        android:title="کاربر"/>
 
 </menu>
