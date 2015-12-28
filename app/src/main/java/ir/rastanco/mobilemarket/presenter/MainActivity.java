@@ -1,4 +1,4 @@
-package ir.rastanco.mobilemarket;/*
+package ir.rastanco.mobilemarket.presenter;/*
  * Copyright (C) 2013 Andreas Stuetz <andreas.stuetz@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,6 +38,7 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import ir.rastanco.mobilemarket.R;
 
 public class MainActivity extends ActionBarActivity {
 

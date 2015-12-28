@@ -1,4 +1,4 @@
-package ir.rastanco.mobilemarket;
+package ir.rastanco.mobilemarket.presenter;
 
 /**
  * Created by Samaneh on 12/20/2015.
@@ -21,13 +21,16 @@ package ir.rastanco.mobilemarket;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import butterknife.ButterKnife;
+import java.util.ArrayList;
+
+import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.Product;
 
 public class SuperAwesomeCardFragment extends Fragment {
 
@@ -54,10 +57,40 @@ public class SuperAwesomeCardFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_card,container,false);
-        ButterKnife.inject(this, rootView);
-        ViewCompat.setElevation(rootView, 50);
 
-        return rootView;
+        View mainView=null;
+
+        switch (position) {
+            case 0: {
+
+                mainView = inflater.inflate(R.layout.fragment_home, null);
+                ArrayList<Product> allProduct = new ArrayList<>();
+                Product aProduct1 = new Product();
+                aProduct1.setName("product1");
+                aProduct1.setPic(R.drawable.product_1);
+                allProduct.add(aProduct1);
+
+                Product aProduct2 = new Product();
+                aProduct2.setName("product2");
+                aProduct2.setPic(R.drawable.product_2);
+                allProduct.add(aProduct2);
+
+                Product aProduct3 = new Product();
+                aProduct3.setName("product3");
+                aProduct3.setPic(R.drawable.product_3);
+                allProduct.add(aProduct3);
+
+                ListView productListView = (ListView) mainView.findViewById(R.id.lstv_picProduct);
+                PictureProductItemAdapter adapter = new PictureProductItemAdapter(getActivity(), R.layout.picture_product_item, allProduct);
+                productListView.setAdapter(adapter);
+
+                break;
+            }
+            case 1: {
+                mainView = inflater.inflate(R.layout.fragment_photo, null);
+                break;
+            }
+        }
+        return mainView;
     }
 }

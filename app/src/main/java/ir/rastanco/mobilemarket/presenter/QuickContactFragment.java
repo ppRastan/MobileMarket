@@ -1,4 +1,4 @@
-package ir.rastanco.mobilemarket;
+package ir.rastanco.mobilemarket.presenter;
 
 /**
  * Created by Samaneh on 12/20/2015.
@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import ir.rastanco.mobilemarket.R;
 
 
 public class QuickContactFragment extends DialogFragment {
