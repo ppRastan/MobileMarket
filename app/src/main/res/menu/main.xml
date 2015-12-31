@@ -3,18 +3,18 @@
 
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/search"
+        android:icon="@drawable/ic_search"
         app:showAsAction="always"
-        android:title="@string/action_contact"/>
+        android:title="جست و جو" />
     <item
         android:id="@+id/action_sell"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/ic_sell"
         app:showAsAction="always"
         android:title="خرید" />
 
     <item
         android:id="@+id/action_contact"
-        android:icon="@drawable/ic_action_user"
+        android:icon="@drawable/ic_user"
         app:showAsAction="always"
         android:title="کاربر"/>
 

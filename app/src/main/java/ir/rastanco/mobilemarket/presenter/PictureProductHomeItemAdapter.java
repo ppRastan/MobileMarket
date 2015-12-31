@@ -39,7 +39,6 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product> {
 
         ImageButton shareImgB=(ImageButton)rowView.findViewById(R.id.imbt_share);
         shareImgB.setBackgroundColor(Color.TRANSPARENT);
-
         return rowView;
     }
 }

@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="app_name">فروشگاه موبایلی</string>
-    <string name="action_contact">فروشگاه موبایلی</string>
-    <string name="share">جستجو</string>
-    <string name="sorting">توصیه ها</string>
-    <string name="display">خانه</string>
-    <string name="delete">حذف</string>
-    <string name="search">خرید</string>
-    <string name="myFiles">تصاویر</string>
-    <string name="shered">اخبار</string>
+    <string name="app_name">دکوریس</string>
+    <string name="home">خانه</string>
+    <string name="photo">عکس</string>
+    <string name="sell">خرید</string>
+    <string name="papers">مقالات</string>
+    <string name="comment">نظرات</string>
 </resources>

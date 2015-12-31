@@ -2,32 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="طبقه بندی گروه"
             android:id="@+id/btn_category"
             android:layout_weight="1" />
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="طبقه بندی محصولات"
             android:id="@+id/btn_product"
             android:layout_weight="1" />
-
     </LinearLayout>
-
     <GridView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/gv_infoProduct"
-        android:numColumns="2" />
-
+        android:numColumns="2"
+        android:horizontalSpacing="@dimen/abc_edit_text_inset_horizontal_material"
+        android:verticalSpacing="@dimen/abc_edit_text_inset_horizontal_material" />
 </LinearLayout>

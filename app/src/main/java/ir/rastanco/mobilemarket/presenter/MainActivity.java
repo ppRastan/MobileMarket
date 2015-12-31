@@ -36,9 +36,13 @@ import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.Categories;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -53,6 +57,7 @@ public class MainActivity extends ActionBarActivity {
     private Drawable oldBackground = null;
     private int currentColor;
     private SystemBarTintManager mTintManager;
+    private ArrayList<Categories> allCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +68,6 @@ public class MainActivity extends ActionBarActivity {
         }
 
         //Start here
-
-
         ButterKnife.inject(this);
         setSupportActionBar(toolbar);
         // create our manager instance after the content view is set
@@ -74,7 +77,7 @@ public class MainActivity extends ActionBarActivity {
         adapter = new MyPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
-        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources()
+        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 5, getResources()
                 .getDisplayMetrics());
         pager.setPageMargin(pageMargin);
         pager.setCurrentItem(1);
@@ -86,8 +89,21 @@ public class MainActivity extends ActionBarActivity {
                 Toast.makeText(MainActivity.this, "Tab reselected: " + position, Toast.LENGTH_SHORT).show();
             }
         });
-    }
 
+        //Json Category
+        allCategory=new ArrayList<Categories>();
+        try {
+            allCategory=new AsyncTaskParseJson().execute("http://decoriss.com/json/get,com=category&parentnode=0&order=asc&cache=true").get();
+
+            for (int i=0;i<allCategory.size();i++)
+                System.out.println(allCategory.get(i).getTitle());
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -118,7 +134,6 @@ public class MainActivity extends ActionBarActivity {
             getSupportActionBar().setBackgroundDrawable(td);
             td.startTransition(200);
         }
-
         oldBackground = ld;
         currentColor = newColor;
     }
@@ -144,10 +159,11 @@ public class MainActivity extends ActionBarActivity {
     public class MyPagerAdapter extends FragmentPagerAdapter {
 
         private final String[] TITLES = {
-                getResources().getString(R.string.share)
-                ,getResources().getString(R.string.sorting)
-                ,getResources().getString(R.string.display)
-                ,getResources().getString(R.string.delete)
+                getResources().getString(R.string.home)
+                ,getResources().getString(R.string.photo)
+                ,getResources().getString(R.string.sell)
+                ,getResources().getString(R.string.papers)
+                ,getResources().getString(R.string.comment)
         };
 
         public MyPagerAdapter(FragmentManager fm) {
