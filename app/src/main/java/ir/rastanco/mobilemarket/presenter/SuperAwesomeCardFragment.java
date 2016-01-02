@@ -19,6 +19,7 @@ package ir.rastanco.mobilemarket.presenter;
  * limitations under the License.
  */
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -29,18 +30,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.Categories;
 import ir.rastanco.mobilemarket.dataModel.Product;
 
 public class SuperAwesomeCardFragment extends Fragment {
 
     private static final String ARG_POSITION = "position";
-
-
-    TextView textView;
-
     private int position;
+    private Bitmap imageProduct;
+
+
 
     public static SuperAwesomeCardFragment newInstance(int position) {
         SuperAwesomeCardFragment f = new SuperAwesomeCardFragment();
@@ -59,22 +61,48 @@ public class SuperAwesomeCardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+
+
         View mainView=null;
+
+        try {
+            imageProduct= new AsyncTaskDownloadImage().execute("http://decoriss.com/roots/wm.php?code=uploads/data/15/1514%20(1).jpg").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         ArrayList<Product> allProduct = new ArrayList<>();
         Product aProduct1 = new Product();
-        aProduct1.setName("product1");
-        aProduct1.setPic(R.drawable.product_1);
+        //aProduct1.setName("product1");
+        aProduct1.setAllImage(imageProduct);
         allProduct.add(aProduct1);
 
+        try {
+            imageProduct= new AsyncTaskDownloadImage().execute("http://decoriss.com/roots/wm.php?code=uploads/data/15/1513-2.jpg").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
         Product aProduct2 = new Product();
-        aProduct2.setName("product2");
-        aProduct2.setPic(R.drawable.product_2);
+        //aProduct2.setName("product2");
+        aProduct2.setAllImage(imageProduct);
         allProduct.add(aProduct2);
 
+        try {
+            imageProduct= new AsyncTaskDownloadImage().execute("http://decoriss.com/roots/wm.php?code=uploads/data/27/2701.jpg").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
         Product aProduct3 = new Product();
-        aProduct3.setName("product3");
-        aProduct3.setPic(R.drawable.product_3);
+        //aProduct3.setName("product3");
+        aProduct3.setAllImage(imageProduct);
         allProduct.add(aProduct3);
 
         switch (position) {

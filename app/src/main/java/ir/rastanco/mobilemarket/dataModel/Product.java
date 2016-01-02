@@ -1,5 +1,9 @@
 package ir.rastanco.mobilemarket.dataModel;
 
+import android.graphics.Bitmap;
+
+import java.util.ArrayList;
+
 /**
  * Created by ShaisteS on 12/27/2015.
  * Managing Product Information.
@@ -8,24 +12,23 @@ public class Product {
 
     private String title;
     private int id;
-    private int groupid;
+    private int groupId;
     private int price;
-    private int price_off;
+    private int priceOff;
     private int visits;
-    private int min_counts;
+    private int minCounts;
     private int stock;
-    private String tags;
-    private int q_rank;
-    private int comments_count;
-    private String name;
+    private String qualityRank; //a,b,c,d,e,f,g
+    private int commentsCount;
+    private String codeProduct; //Name(code)
     private String description;
-    private String overview;
-    private String sells;
-    private String seo_keywords;
-    private String seo_description;
-    private String timestamp;
-    private String images_path;
-    private int pic;
+    private int sellsCount;
+    private String timeStamp;
+    private int showAtHomeScreen;   //0 or 1
+    private String watermarkPath;
+    private String imagesMainPath;
+    private ArrayList<String> imagesPath;
+    private Bitmap allImage;
 
     public String getTitle() {
         return title;
@@ -43,12 +46,12 @@ public class Product {
         this.id = id;
     }
 
-    public int getGroupid() {
-        return groupid;
+    public int getGroupId() {
+        return groupId;
     }
 
-    public void setGroupid(int groupid) {
-        this.groupid = groupid;
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 
     public int getPrice() {
@@ -59,12 +62,12 @@ public class Product {
         this.price = price;
     }
 
-    public int getPrice_off() {
-        return price_off;
+    public int getPriceOff() {
+        return priceOff;
     }
 
-    public void setPrice_off(int price_off) {
-        this.price_off = price_off;
+    public void setPriceOff(int priceOff) {
+        this.priceOff = priceOff;
     }
 
     public int getVisits() {
@@ -75,12 +78,12 @@ public class Product {
         this.visits = visits;
     }
 
-    public int getMin_counts() {
-        return min_counts;
+    public int getMinCounts() {
+        return minCounts;
     }
 
-    public void setMin_counts(int min_counts) {
-        this.min_counts = min_counts;
+    public void setMinCounts(int minCounts) {
+        this.minCounts = minCounts;
     }
 
     public int getStock() {
@@ -91,36 +94,28 @@ public class Product {
         this.stock = stock;
     }
 
-    public String getTags() {
-        return tags;
+    public String getQualityRank() {
+        return qualityRank;
     }
 
-    public void setTags(String tags) {
-        this.tags = tags;
+    public void setQualityRank(String qualityRank) {
+        this.qualityRank = qualityRank;
     }
 
-    public int getQ_rank() {
-        return q_rank;
+    public int getCommentsCount() {
+        return commentsCount;
     }
 
-    public void setQ_rank(int q_rank) {
-        this.q_rank = q_rank;
+    public void setCommentsCount(int commentsCount) {
+        this.commentsCount = commentsCount;
     }
 
-    public int getComments_count() {
-        return comments_count;
+    public String getCodeProduct() {
+        return codeProduct;
     }
 
-    public void setComments_count(int comments_count) {
-        this.comments_count = comments_count;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setCodeProduct(String codeProduct) {
+        this.codeProduct = codeProduct;
     }
 
     public String getDescription() {
@@ -131,59 +126,59 @@ public class Product {
         this.description = description;
     }
 
-    public String getOverview() {
-        return overview;
+    public int getSellsCount() {
+        return sellsCount;
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
+    public void setSellsCount(int sellsCount) {
+        this.sellsCount = sellsCount;
     }
 
-    public String getSells() {
-        return sells;
+    public String getTimeStamp() {
+        return timeStamp;
     }
 
-    public void setSells(String sells) {
-        this.sells = sells;
+    public void setTimeStamp(String timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
-    public String getSeo_keywords() {
-        return seo_keywords;
+    public int getShowAtHomeScreen() {
+        return showAtHomeScreen;
     }
 
-    public void setSeo_keywords(String seo_keywords) {
-        this.seo_keywords = seo_keywords;
+    public void setShowAtHomeScreen(int showAtHomeScreen) {
+        this.showAtHomeScreen = showAtHomeScreen;
     }
 
-    public String getSeo_description() {
-        return seo_description;
+    public String getWatermarkPath() {
+        return watermarkPath;
     }
 
-    public void setSeo_description(String seo_description) {
-        this.seo_description = seo_description;
+    public void setWatermarkPath(String watermarkPath) {
+        this.watermarkPath = watermarkPath;
     }
 
-    public String getTimestamp() {
-        return timestamp;
+    public String getImagesMainPath() {
+        return imagesMainPath;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setImagesMainPath(String imagesMainPath) {
+        this.imagesMainPath = imagesMainPath;
     }
 
-    public String getImages_path() {
-        return images_path;
+    public ArrayList<String> getImagesPath() {
+        return imagesPath;
     }
 
-    public void setImages_path(String images_path) {
-        this.images_path = images_path;
+    public void setImagesPath(ArrayList<String> imagesPath) {
+        this.imagesPath = imagesPath;
     }
 
-    public int getPic() {
-        return pic;
+    public Bitmap getAllImage() {
+        return allImage;
     }
 
-    public void setPic(int pic) {
-        this.pic = pic;
+    public void setAllImage(Bitmap allImage) {
+        this.allImage = allImage;
     }
 }

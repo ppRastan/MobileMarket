@@ -2,6 +2,7 @@ package ir.rastanco.mobilemarket.presenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
@@ -22,6 +24,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product> {
 
     private Activity myContext;
     private ArrayList<Product> products;
+    private Bitmap imageProduct;
 
     public PictureProductHomeItemAdapter(Context context, int resource, ArrayList<Product> allProduct) {
         super(context, resource, allProduct);
@@ -32,10 +35,18 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product> {
 
     public View getView(int position, View convertView, ViewGroup parent){
 
+        try {
+            imageProduct= new AsyncTaskDownloadImage().execute("http://decoriss.com/roots/wm.php?code=uploads/data/15/1514%20(1).jpg").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
         LayoutInflater inflater = myContext.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.picture_product_item_home, null);
         ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
-        PicProductImage.setImageResource(products.get(position).getPic());
+        PicProductImage.setImageBitmap(products.get(position).getAllImage());
 
         ImageButton shareImgB=(ImageButton)rowView.findViewById(R.id.imbt_share);
         shareImgB.setBackgroundColor(Color.TRANSPARENT);

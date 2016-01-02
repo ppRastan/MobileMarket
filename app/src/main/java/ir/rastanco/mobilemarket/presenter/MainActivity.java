@@ -15,6 +15,7 @@ package ir.rastanco.mobilemarket.presenter;/*
  */
 
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -43,6 +44,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Categories;
+import ir.rastanco.mobilemarket.dataModel.Product;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -57,15 +59,12 @@ public class MainActivity extends ActionBarActivity {
     private Drawable oldBackground = null;
     private int currentColor;
     private SystemBarTintManager mTintManager;
-    private ArrayList<Categories> allCategory;
-
+    private ArrayList<Categories> allCategoryInfo;
+    private ArrayList<Product> allProductInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        }
 
         //Start here
         ButterKnife.inject(this);
@@ -81,7 +80,7 @@ public class MainActivity extends ActionBarActivity {
                 .getDisplayMetrics());
         pager.setPageMargin(pageMargin);
         pager.setCurrentItem(1);
-        changeColor(getResources().getColor(R.color.green));
+        changeColor(getResources().getColor(R.color.decoriss));
 
         tabs.setOnTabReselectedListener(new PagerSlidingTabStrip.OnTabReselectedListener() {
             @Override
@@ -90,14 +89,26 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        //Json Category
-        allCategory=new ArrayList<Categories>();
+        //Get Categories information From JSON File
+        allCategoryInfo=new ArrayList<Categories>();
         try {
-            allCategory=new AsyncTaskParseJson().execute("http://decoriss.com/json/get,com=category&parentnode=0&order=asc&cache=true").get();
+            allCategoryInfo=new AsyncTaskParseJsonCategory()
+                    .execute("http://decoriss.com/json/get,com=category&parentnode=0&cache=false").get();
 
-            for (int i=0;i<allCategory.size();i++)
-                System.out.println(allCategory.get(i).getTitle());
+            for (int i=0;i<allCategoryInfo.size();i++)
+                System.out.println(allCategoryInfo.get(i).getTitle());
 
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        //Get Products Information From JSON File
+        allProductInfo=new ArrayList<Product>();
+        try {
+            allProductInfo=new AsyncTaskParseJsonProduct().execute("http://decoriss.com/json/get,com=product&catid=44&cache=true").get();
+            for (int i=0;i<allProductInfo.size();i++)
+                System.out.println(allProductInfo.get(i).getTitle());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
