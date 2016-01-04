@@ -9,23 +9,32 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 
+import java.util.ArrayList;
+
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.Product;
 
 /**
  * Created by ShaisteS on 12/28/2015.
  * A Customize Adapter For Home Grid view
  *
  */
-public class PictureProductPhotoItemAdapter extends BaseAdapter {
+public class PictureProductPhotoItemAdapter extends BaseAdapter{
+
     private Context mContext;
+    private ArrayList<Product> allProduct;
 
     // Constructor
     public PictureProductPhotoItemAdapter(Context c) {
         mContext = c;
     }
 
+    public void setData(ArrayList<Product> product) {
+        allProduct = product;
+    }
+
     public int getCount() {
-        return mThumbIds.length;
+        return allProduct.size();
     }
 
     public Object getItem(int position) {
@@ -50,13 +59,7 @@ public class PictureProductPhotoItemAdapter extends BaseAdapter {
         {
             imageView = (ImageView) convertView;
         }
-        imageView.setImageResource(mThumbIds[position]);
+        imageView.setImageBitmap(allProduct.get(position).getAllNormalImage().get(0));
         return imageView;
     }
-
-    // Keep all Images in array
-    public Integer[] mThumbIds = {
-            R.drawable.product_1, R.drawable.product_2,
-            R.drawable.product_3, R.drawable.product_1
-    };
 }

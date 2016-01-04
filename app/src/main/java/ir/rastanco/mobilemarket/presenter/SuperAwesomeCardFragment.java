@@ -90,7 +90,9 @@ public class SuperAwesomeCardFragment extends Fragment {
             case 1: {
                 mainView = inflater.inflate(R.layout.fragment_photo, null);
                 GridView gridview = (GridView) mainView.findViewById(R.id.gv_photoProduct);
-                gridview.setAdapter(new PictureProductPhotoItemAdapter(getActivity()));
+                PictureProductPhotoItemAdapter adapter= new PictureProductPhotoItemAdapter(getActivity());
+                adapter.setData(products);
+                gridview.setAdapter(adapter);
                 break;
             }
             case 2:{
