@@ -61,6 +61,27 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 "watermarkPath text," +
                 "imagesMainPath text)");
         Log.v("create", "Create Table Product");
+
+        db.execSQL("create table tblImagesPathProduct"+
+                "(id Integer primary key AUTOINCREMENT," +
+                "fkProductId Integer not null," +
+                "imagePath text," +
+                "foreign key (fkProductId) references tblProduct(productId))");
+        Log.v("create", "Create Table Images Path For Product");
+
+        db.execSQL("create table tblNormalImageProduct"+
+                "(id Integer primary key AUTOINCREMENT," +
+                "fkProductId Integer not null," +
+                "normalImage BLOB," +
+                "foreign key (fkProductId) references tblProduct(productId))");
+        Log.v("create", "Create Table Normal Image For Product");
+
+        db.execSQL("create table tblWaterMarkImageProduct"+
+                "(id Integer primary key AUTOINCREMENT," +
+                "fkProductId Integer not null," +
+                "waterMarkImage BLOB," +
+                "foreign key (fkProductId) references tblProduct(productId))");
+        Log.v("create", "Create Table WaterMark Image For Product");
     }
 
     @Override
