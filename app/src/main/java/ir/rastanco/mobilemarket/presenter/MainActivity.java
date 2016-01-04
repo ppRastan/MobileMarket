@@ -17,6 +17,7 @@ package ir.rastanco.mobilemarket.presenter;/*
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -30,6 +31,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +47,8 @@ import butterknife.InjectView;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Categories;
 import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.presenter.parseJsonPresenter.ParseJsonCategory;
+import ir.rastanco.mobilemarket.utility.Configuration;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -68,6 +72,15 @@ public class MainActivity extends ActionBarActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            display.getSize(size);
+            Configuration.widthDisplay= String.valueOf(size.x);
+            Configuration.heightDisplay= String.valueOf(size.y);
+        }
+
         //Start here
         ButterKnife.inject(this);
         setSupportActionBar(toolbar);
@@ -90,32 +103,6 @@ public class MainActivity extends ActionBarActivity {
                 Toast.makeText(MainActivity.this, "Tab reselected: " + position, Toast.LENGTH_SHORT).show();
             }
         });
-
-        //Get Categories information From JSON File
-        allCategoryInfo=new ArrayList<Categories>();
-        try {
-            allCategoryInfo=new AsyncTaskParseJsonCategory()
-                    .execute("http://decoriss.com/json/get,com=category&parentnode=0&cache=false").get();
-
-            for (int i=0;i<allCategoryInfo.size();i++)
-                System.out.println(allCategoryInfo.get(i).getTitle());
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        //Get Products Information From JSON File
-        allProductInfo=new ArrayList<Product>();
-        try {
-            allProductInfo=new AsyncTaskParseJsonProduct().execute("http://decoriss.com/json/get,com=product&catid=44&cache=true").get();
-            for (int i=0;i<allProductInfo.size();i++)
-                System.out.println(allProductInfo.get(i).getTitle());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

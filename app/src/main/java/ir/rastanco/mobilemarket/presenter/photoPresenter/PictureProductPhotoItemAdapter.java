@@ -1,4 +1,4 @@
-package ir.rastanco.mobilemarket.presenter;
+package ir.rastanco.mobilemarket.presenter.photoPresenter;
 
 import android.content.Context;
 import android.view.View;

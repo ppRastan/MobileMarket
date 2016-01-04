@@ -1,4 +1,4 @@
-package ir.rastanco.mobilemarket.presenter;
+package ir.rastanco.mobilemarket.presenter.homePresenter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.serverHandler.DownloadImage;
 
 /**
  * Created by ShaisteS on 12/27/2015.
@@ -36,7 +37,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product> {
     public View getView(int position, View convertView, ViewGroup parent){
 
         try {
-            imageProduct= new AsyncTaskDownloadImage().execute("http://decoriss.com/roots/wm.php?code=uploads/data/15/1514%20(1).jpg").get();
+            imageProduct= new DownloadImage().execute("http://decoriss.com/roots/wm.php?code=uploads/data/15/1514%20(1).jpg").get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

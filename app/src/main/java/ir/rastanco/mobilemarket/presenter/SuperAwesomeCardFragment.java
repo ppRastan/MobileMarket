@@ -27,14 +27,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.dataModel.Categories;
 import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.serverHandler.DownloadImage;
+import ir.rastanco.mobilemarket.presenter.homePresenter.PictureProductHomeItemAdapter;
+import ir.rastanco.mobilemarket.presenter.photoPresenter.PictureProductPhotoItemAdapter;
+import ir.rastanco.mobilemarket.presenter.shopPresenter.PictureProductShopItemAdapter;
+import ir.rastanco.mobilemarket.utility.Configuration;
 
 public class SuperAwesomeCardFragment extends Fragment {
 
@@ -66,7 +69,8 @@ public class SuperAwesomeCardFragment extends Fragment {
         View mainView=null;
 
         try {
-            imageProduct= new AsyncTaskDownloadImage().execute("http://decoriss.com/roots/wm.php?code=uploads/data/15/1514%20(1).jpg").get();
+            imageProduct= new DownloadImage().execute("http://decoriss.com/roots/wm.php?code=uploads/data/15/1513-2.jpg&size="+
+                    Configuration.widthDisplay+"x"+Configuration.widthDisplay+"&q=30").get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -80,7 +84,8 @@ public class SuperAwesomeCardFragment extends Fragment {
         allProduct.add(aProduct1);
 
         try {
-            imageProduct= new AsyncTaskDownloadImage().execute("http://decoriss.com/roots/wm.php?code=uploads/data/15/1513-2.jpg").get();
+            imageProduct= new DownloadImage().execute("http://decoriss.com/roots/wm.php?code=uploads/data/15/1513-2.jpg&size="+
+                    Configuration.widthDisplay+"x"+Configuration.widthDisplay+"&q=30").get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -93,7 +98,8 @@ public class SuperAwesomeCardFragment extends Fragment {
         allProduct.add(aProduct2);
 
         try {
-            imageProduct= new AsyncTaskDownloadImage().execute("http://decoriss.com/roots/wm.php?code=uploads/data/27/2701.jpg").get();
+            imageProduct= new DownloadImage().execute("http://decoriss.com/roots/wm.php?code=uploads/data/15/1513-2.jpg&size="+
+                    Configuration.widthDisplay+"x"+Configuration.widthDisplay+"&q=30").get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

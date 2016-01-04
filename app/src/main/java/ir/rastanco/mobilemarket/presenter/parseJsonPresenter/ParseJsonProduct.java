@@ -1,6 +1,4 @@
-package ir.rastanco.mobilemarket.presenter;
-
-import android.os.AsyncTask;
+package ir.rastanco.mobilemarket.presenter.parseJsonPresenter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,24 +11,20 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 /**
  * Created by ShaisteS on 1/2/2016.
  */
-public class AsyncTaskParseJsonProduct extends AsyncTask<String, String, ArrayList<Product>> {
+public class ParseJsonProduct {
 
     private ArrayList<Product> allProduct;
-    private String yourJsonStringUrl;
     private JSONArray dataJsonArr;
     private ArrayList<String> imagePath;
 
-    @Override
-    protected ArrayList<Product> doInBackground(String... params) {
+   public ArrayList<Product> getAllProduct(String params) {
 
-        yourJsonStringUrl =params[0];
         dataJsonArr = null;
         allProduct=new ArrayList<Product>();
 
         try {
-            GetJsonFile jParser = new GetJsonFile();
-            String jsonFile=jParser.getJSONFromUrl(yourJsonStringUrl);
-            JSONObject json =new JSONObject(jsonFile);
+
+            JSONObject json =new JSONObject(params);
 
             dataJsonArr = json.getJSONArray("product");
             for (int i = 0; i < dataJsonArr.length(); i++)
@@ -70,8 +64,4 @@ public class AsyncTaskParseJsonProduct extends AsyncTask<String, String, ArrayLi
         }
         return allProduct;
     }
-
-    @Override
-    protected void onPreExecute() {}
-
 }
