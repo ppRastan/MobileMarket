@@ -10,6 +10,7 @@ import ir.rastanco.mobilemarket.dataModel.Categories;
 
 /**
  * Created by ShaisteS on 12/31/2015.
+ * This Class Parse Category Json String
  */
 public class ParseJsonCategory {
 

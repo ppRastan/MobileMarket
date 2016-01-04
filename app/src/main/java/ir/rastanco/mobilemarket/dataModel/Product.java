@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Created by ShaisteS on 12/27/2015.
- * Managing Product Information.
+ * This Class is Packaging Product Information
  */
 public class Product {
 

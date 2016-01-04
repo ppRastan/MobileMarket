@@ -13,6 +13,7 @@ import java.net.URL;
 
 /**
  * Created by ShaisteS 12/30/2015.
+ * This Class Connect to JSON File Url and return String
  */
 public class GetJsonFile extends AsyncTask<String,String,String> {
 

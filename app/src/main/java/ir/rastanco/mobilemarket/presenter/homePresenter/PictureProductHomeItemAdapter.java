@@ -20,6 +20,7 @@ import ir.rastanco.mobilemarket.dataModel.serverHandler.DownloadImage;
 
 /**
  * Created by ShaisteS on 12/27/2015.
+ * A Customize Adapter For Home List view
  */
 public class PictureProductHomeItemAdapter extends ArrayAdapter<Product> {
 

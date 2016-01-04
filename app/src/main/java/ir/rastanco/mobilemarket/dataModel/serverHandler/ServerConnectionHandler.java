@@ -11,6 +11,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by ShaisteS on 1394/10/14.
+ * This Class Manage All Connection to Server and DataBase
  */
 public class ServerConnectionHandler {
 

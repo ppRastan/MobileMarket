@@ -17,6 +17,7 @@ import ir.rastanco.mobilemarket.R;
 
 /**
  * Created by ShaisteS on 12/28/2015.
+ * A Customize Adapter For Shop Grid view
  */
 public class PictureProductShopItemAdapter extends BaseAdapter{
 

@@ -13,6 +13,7 @@ import java.net.URL;
 
 /**
  * Created by ShaisteS on 1394/10/14.
+ * This Class Connect To Image URL and return Image BitMap
  */
 public class DownloadImage extends AsyncTask<String, Void, Bitmap> {
 

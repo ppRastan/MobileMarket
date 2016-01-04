@@ -10,14 +10,14 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 
 /**
  * Created by ShaisteS on 1/2/2016.
+ * This Class Parse Product Json String
  */
 public class ParseJsonProduct {
 
     private ArrayList<Product> allProduct;
     private JSONArray dataJsonArr;
     private ArrayList<String> imagePath;
-
-   public ArrayList<Product> getAllProduct(String params) {
+    public ArrayList<Product> getAllProduct(String params) {
 
         dataJsonArr = null;
         allProduct=new ArrayList<Product>();

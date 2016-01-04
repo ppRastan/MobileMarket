@@ -2,8 +2,11 @@ package ir.rastanco.mobilemarket.dataModel;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 /**
  * Created by ShaisteS on 12/28/2015.
+ * This Class is Packaging Category Information
  */
 public class Categories {
 
@@ -14,7 +17,8 @@ public class Categories {
     private String name;
     private String normalImagePath;
     private String waterMarkedImagePath;
-    private Bitmap image;
+    private Bitmap normalImage;
+    private Bitmap waterMarkImage;
 
     public String getTitle() {
         return title;
@@ -72,11 +76,19 @@ public class Categories {
         this.waterMarkedImagePath = waterMarkedImagePath;
     }
 
-    public Bitmap getImage() {
-        return image;
+    public Bitmap getNormalImage() {
+        return normalImage;
     }
 
-    public void setImage(Bitmap image) {
-        this.image = image;
+    public void setNormalImage(Bitmap normalImage) {
+        this.normalImage = normalImage;
+    }
+
+    public Bitmap getWaterMarkImage() {
+        return waterMarkImage;
+    }
+
+    public void setWaterMarkImage(Bitmap waterMarkImage) {
+        this.waterMarkImage = waterMarkImage;
     }
 }
