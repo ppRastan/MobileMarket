@@ -47,7 +47,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product> {
         LayoutInflater inflater = myContext.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.picture_product_item_home, null);
         ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
-        PicProductImage.setImageBitmap(products.get(position).getAllImage());
+        PicProductImage.setImageBitmap(products.get(position).getAllNormalImage().get(0));
 
         ImageButton shareImgB=(ImageButton)rowView.findViewById(R.id.imbt_share);
         shareImgB.setBackgroundColor(Color.TRANSPARENT);

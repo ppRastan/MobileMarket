@@ -34,6 +34,7 @@ import java.util.concurrent.ExecutionException;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverHandler.DownloadImage;
+import ir.rastanco.mobilemarket.dataModel.serverHandler.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.homePresenter.PictureProductHomeItemAdapter;
 import ir.rastanco.mobilemarket.presenter.photoPresenter.PictureProductPhotoItemAdapter;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.PictureProductShopItemAdapter;
@@ -43,7 +44,10 @@ public class SuperAwesomeCardFragment extends Fragment {
 
     private static final String ARG_POSITION = "position";
     private int position;
-    private Bitmap imageProduct;
+
+    private ServerConnectionHandler sch;
+    private ArrayList<Product> products;
+
 
 
 
@@ -64,59 +68,22 @@ public class SuperAwesomeCardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
-
         View mainView=null;
 
-        try {
-            imageProduct= new DownloadImage().execute("http://decoriss.com/roots/wm.php?code=uploads/data/15/1513-2.jpg&size="+
-                    Configuration.widthDisplay+"x"+Configuration.widthDisplay+"&q=30").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+        sch=new ServerConnectionHandler();
+        products=new ArrayList<Product>();
+        products=sch.getAllProductInfoACategory("http://decoriss.com/json/get,com=product&catid=44&cache=true");
+        products=sch.convertImageUrlToBitmapForProduct(products);
 
-        ArrayList<Product> allProduct = new ArrayList<>();
-        Product aProduct1 = new Product();
-        //aProduct1.setName("product1");
-        aProduct1.setAllImage(imageProduct);
-        allProduct.add(aProduct1);
 
-        try {
-            imageProduct= new DownloadImage().execute("http://decoriss.com/roots/wm.php?code=uploads/data/15/1513-2.jpg&size="+
-                    Configuration.widthDisplay+"x"+Configuration.widthDisplay+"&q=30").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
 
-        Product aProduct2 = new Product();
-        //aProduct2.setName("product2");
-        aProduct2.setAllImage(imageProduct);
-        allProduct.add(aProduct2);
-
-        try {
-            imageProduct= new DownloadImage().execute("http://decoriss.com/roots/wm.php?code=uploads/data/15/1513-2.jpg&size="+
-                    Configuration.widthDisplay+"x"+Configuration.widthDisplay+"&q=30").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        Product aProduct3 = new Product();
-        //aProduct3.setName("product3");
-        aProduct3.setAllImage(imageProduct);
-        allProduct.add(aProduct3);
 
         switch (position) {
             case 0: {
 
                 mainView = inflater.inflate(R.layout.fragment_home, null);
                 ListView productListView = (ListView) mainView.findViewById(R.id.lstv_picProduct);
-                PictureProductHomeItemAdapter adapter = new PictureProductHomeItemAdapter(getActivity(), R.layout.picture_product_item_home, allProduct);
+                PictureProductHomeItemAdapter adapter = new PictureProductHomeItemAdapter(getActivity(), R.layout.picture_product_item_home,products);
                 productListView.setAdapter(adapter);
                 break;
             }

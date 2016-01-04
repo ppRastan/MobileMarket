@@ -15,7 +15,6 @@ package ir.rastanco.mobilemarket.presenter;/*
  */
 
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
@@ -40,14 +39,12 @@ import android.widget.Toast;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Categories;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.presenter.parseJsonPresenter.ParseJsonCategory;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 public class MainActivity extends ActionBarActivity {
