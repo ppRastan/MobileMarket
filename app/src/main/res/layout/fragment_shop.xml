@@ -23,7 +23,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/gv_infoProduct"
-        android:numColumns="2"
-        android:horizontalSpacing="@dimen/abc_edit_text_inset_horizontal_material"
-        android:verticalSpacing="@dimen/abc_edit_text_inset_horizontal_material" />
+        android:numColumns="2" />
 </LinearLayout>

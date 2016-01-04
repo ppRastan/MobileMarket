@@ -97,22 +97,9 @@ public class SuperAwesomeCardFragment extends Fragment {
             }
             case 2:{
 
-                 String[] info = {
-                        "Product1","Product2","Product3","Product4"
-                };
-
-                Integer[] pric  = {
-                        1200,1300,5000,2000
-                };
-
-                Integer[] mThumbIds = {
-                        R.drawable.product_1, R.drawable.product_2,
-                        R.drawable.product_3, R.drawable.product_1
-                };
-
                 mainView=inflater.inflate(R.layout.fragment_shop,null);
                 GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
-                gridview.setAdapter(new PictureProductShopItemAdapter(getActivity(),info,pric,mThumbIds));
+                gridview.setAdapter(new PictureProductShopItemAdapter(getActivity(),products));
                 break;
             }
         }

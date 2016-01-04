@@ -13,7 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.Product;
 
 /**
  * Created by ShaisteS on 12/28/2015.
@@ -21,27 +24,21 @@ import ir.rastanco.mobilemarket.R;
  */
 public class PictureProductShopItemAdapter extends BaseAdapter{
 
-    private String [] infoProducts;
-    private Integer[] priceProducts;
-    private Integer [] imageProducts;
-
     private Context context;
     private static LayoutInflater inflater=null;
+    private ArrayList<Product> allProduct;
 
-    public PictureProductShopItemAdapter(FragmentActivity mainActivity, String[] infoProduct, Integer[] priceProduct , Integer [] imageProduct) {
+    public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
-        infoProducts=infoProduct;
-        imageProducts=imageProduct;
-        priceProducts=priceProduct;
         context=mainActivity;
-        inflater = ( LayoutInflater )context.
-                getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        allProduct =products;
 
     }
 
     @Override
     public int getCount() {
-       return infoProducts.length;
+       return allProduct.size();
     }
 
     @Override
@@ -71,17 +68,10 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.priceP=(TextView) rowView.findViewById(R.id.txt_priceProduct);
         holder.imgP=(ImageButton) rowView.findViewById(R.id.imbt_picProduct);
 
-        holder.infoP.setText(infoProducts[position]);
-        holder.priceP.setText(priceProducts[position].toString());
-        holder.imgP.setImageResource(imageProducts[position]);
+        holder.infoP.setText(allProduct.get(position).getTitle());
+        holder.priceP.setText(String.valueOf(allProduct.get(position).getPrice()));
+        holder.imgP.setImageBitmap(allProduct.get(position).getAllNormalImage().get(0));
 
-        rowView.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-               Toast.makeText(context, "You Clicked " + infoProducts[position], Toast.LENGTH_LONG).show();
-            }
-        });
         return rowView;
     }
 

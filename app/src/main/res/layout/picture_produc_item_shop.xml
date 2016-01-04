@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="2dp">
 
     <ImageButton
         android:layout_width="200dp"
@@ -11,13 +12,16 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/txt_infoProduct" />
+        android:id="@+id/txt_infoProduct"
+        android:textColor="#050505"
+        android:textIsSelectable="false"
+        android:textSize="8dp"
+        android:gravity="center_vertical" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/txt_priceProduct" />
+        android:id="@+id/txt_priceProduct"
+        android:gravity="center_vertical"
+        android:textColor="#050505" />
 </LinearLayout>
