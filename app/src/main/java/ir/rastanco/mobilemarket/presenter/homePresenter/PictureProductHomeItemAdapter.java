@@ -16,7 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverHandler.DownloadImage;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.DownloadImage;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
