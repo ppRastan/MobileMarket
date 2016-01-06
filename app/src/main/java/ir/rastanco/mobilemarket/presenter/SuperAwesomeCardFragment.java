@@ -19,7 +19,6 @@ package ir.rastanco.mobilemarket.presenter;
  * limitations under the License.
  */
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -29,16 +28,13 @@ import android.widget.GridView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverHandler.DownloadImage;
-import ir.rastanco.mobilemarket.dataModel.serverHandler.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.homePresenter.PictureProductHomeItemAdapter;
 import ir.rastanco.mobilemarket.presenter.photoPresenter.PictureProductPhotoItemAdapter;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.PictureProductShopItemAdapter;
-import ir.rastanco.mobilemarket.utility.Configuration;
 
 public class SuperAwesomeCardFragment extends Fragment {
 
