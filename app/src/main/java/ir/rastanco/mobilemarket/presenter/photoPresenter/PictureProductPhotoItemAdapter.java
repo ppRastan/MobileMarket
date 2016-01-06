@@ -1,18 +1,23 @@
 package ir.rastanco.mobilemarket.presenter.photoPresenter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.serverHandler.DownloadImage;
+import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by ShaisteS on 12/28/2015.
@@ -49,8 +54,23 @@ public class PictureProductPhotoItemAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
 
+        Bitmap image=null;
+
+        try {
+            image=new DownloadImage()
+                    .execute(allProduct.get(position).getImagesMainPath()+
+                            allProduct.get(position).getImagesPath().get(0)+
+                            "&size="+
+                            Configuration.shopDisplaySize+"x"+Configuration.shopDisplaySize+
+                            "&q=30").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
         if (convertView == null) {
-            imageView = new ImageView(mContext);
+            imageView = new ImageButton(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(1,1,1,1);
@@ -59,7 +79,7 @@ public class PictureProductPhotoItemAdapter extends BaseAdapter{
         {
             imageView = (ImageView) convertView;
         }
-        imageView.setImageBitmap(allProduct.get(position).getAllNormalImage().get(0));
+        imageView.setImageBitmap(image);
         return imageView;
     }
 }

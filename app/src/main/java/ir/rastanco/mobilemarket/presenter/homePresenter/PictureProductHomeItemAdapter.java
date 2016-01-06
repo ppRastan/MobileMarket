@@ -17,6 +17,7 @@ import java.util.concurrent.ExecutionException;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverHandler.DownloadImage;
+import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by ShaisteS on 12/27/2015.
@@ -25,20 +26,27 @@ import ir.rastanco.mobilemarket.dataModel.serverHandler.DownloadImage;
 public class PictureProductHomeItemAdapter extends ArrayAdapter<Product> {
 
     private Activity myContext;
-    private ArrayList<Product> products;
+    private ArrayList<Product> allProduct;
     private Bitmap imageProduct;
 
-    public PictureProductHomeItemAdapter(Context context, int resource, ArrayList<Product> allProduct) {
-        super(context, resource, allProduct);
+    public PictureProductHomeItemAdapter(Context context, int resource, ArrayList<Product> products) {
+        super(context, resource,products);
         myContext=(Activity)context;
-        products=allProduct;
+        allProduct=products;
 
     }
 
     public View getView(int position, View convertView, ViewGroup parent){
 
+        Bitmap image=null;
+
         try {
-            imageProduct= new DownloadImage().execute("http://decoriss.com/roots/wm.php?code=uploads/data/15/1514%20(1).jpg").get();
+            image=new DownloadImage()
+                    .execute(allProduct.get(position).getImagesMainPath()+
+                            allProduct.get(position).getImagesPath().get(0)+
+                            "&size="+
+                            Configuration.homeDisplaySize+"x"+Configuration.homeDisplaySize+
+                            "&q=30").get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -48,7 +56,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product> {
         LayoutInflater inflater = myContext.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.picture_product_item_home, null);
         ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
-        PicProductImage.setImageBitmap(products.get(position).getAllNormalImage().get(0));
+        PicProductImage.setImageBitmap(image);
 
         ImageButton shareImgB=(ImageButton)rowView.findViewById(R.id.imbt_share);
         shareImgB.setBackgroundColor(Color.TRANSPARENT);

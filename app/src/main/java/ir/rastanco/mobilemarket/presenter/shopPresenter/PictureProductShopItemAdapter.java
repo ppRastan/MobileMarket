@@ -1,6 +1,7 @@
 package ir.rastanco.mobilemarket.presenter.shopPresenter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -14,9 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.serverHandler.DownloadImage;
+import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by ShaisteS on 12/28/2015.
@@ -62,15 +66,29 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
 
         Holder holder=new Holder();
         View rowView;
+        Bitmap image=null;
+
+        try {
+            image=new DownloadImage()
+                    .execute(allProduct.get(position).getImagesMainPath()+
+                            allProduct.get(position).getImagesPath().get(0)+
+                            "&size="+
+                            Configuration.shopDisplaySize+"x"+Configuration.shopDisplaySize+
+                            "&q=30").get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         rowView = inflater.inflate(R.layout.picture_produc_item_shop, null);
         holder.infoP=(TextView) rowView.findViewById(R.id.txt_infoProduct);
         holder.priceP=(TextView) rowView.findViewById(R.id.txt_priceProduct);
-        holder.imgP=(ImageButton) rowView.findViewById(R.id.imbt_picProduct);
+        holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
 
         holder.infoP.setText(allProduct.get(position).getTitle());
         holder.priceP.setText(String.valueOf(allProduct.get(position).getPrice()));
-        holder.imgP.setImageBitmap(allProduct.get(position).getAllNormalImage().get(0));
+        holder.imgP.setImageBitmap(image);
 
         return rowView;
     }

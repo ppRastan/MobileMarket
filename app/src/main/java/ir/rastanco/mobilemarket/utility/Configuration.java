@@ -12,6 +12,6 @@ public class Configuration {
         } else return new Configuration();
 
     }
-    public static String widthDisplay;
-    public static String heightDisplay;
+    public static String homeDisplaySize;
+    public static String shopDisplaySize;
 }

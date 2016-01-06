@@ -74,8 +74,9 @@ public class MainActivity extends ActionBarActivity {
         Point size = new Point();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             display.getSize(size);
-            Configuration.widthDisplay= String.valueOf(size.x);
-            Configuration.heightDisplay= String.valueOf(size.y);
+            Configuration.homeDisplaySize= String.valueOf(size.x);
+
+            Configuration.shopDisplaySize= String.valueOf((size.y)*0.5);
         }
 
         //Start here

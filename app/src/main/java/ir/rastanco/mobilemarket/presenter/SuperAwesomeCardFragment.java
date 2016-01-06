@@ -63,20 +63,16 @@ public class SuperAwesomeCardFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         position = getArguments().getInt(ARG_POSITION);
+        sch=new ServerConnectionHandler();
+        products=new ArrayList<Product>();
+        products=sch.getAllProductInfoACategory("http://decoriss.com/json/get,com=product&catid=44&cache=true");
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View mainView=null;
-
-        sch=new ServerConnectionHandler();
-        products=new ArrayList<Product>();
-        products=sch.getAllProductInfoACategory("http://decoriss.com/json/get,com=product&catid=44&cache=true");
-        products=sch.convertImageUrlToBitmapForProduct(products);
-
-
-
 
         switch (position) {
             case 0: {
