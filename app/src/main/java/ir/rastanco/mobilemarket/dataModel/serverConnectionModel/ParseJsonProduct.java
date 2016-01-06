@@ -1,4 +1,4 @@
-package ir.rastanco.mobilemarket.dataModel.serverHandler;
+package ir.rastanco.mobilemarket.dataModel.serverConnectionModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;

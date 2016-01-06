@@ -1,4 +1,4 @@
-package ir.rastanco.mobilemarket.dataModel.dataBaseHandler;
+package ir.rastanco.mobilemarket.dataModel.dataBaseConnectionModel;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
