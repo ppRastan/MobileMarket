@@ -13,7 +13,7 @@ package ir.rastanco.mobilemarket.presenter;/*
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+//parisan joined mobileMarket right now
 
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
