@@ -19,6 +19,7 @@ package ir.rastanco.mobilemarket.presenter;
  * limitations under the License.
  */
 
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -35,17 +36,14 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.presenter.homePresenter.PictureProductHomeItemAdapter;
 import ir.rastanco.mobilemarket.presenter.photoPresenter.PictureProductPhotoItemAdapter;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.PictureProductShopItemAdapter;
+import ir.rastanco.mobilemarket.utility.Configuration;
 
-public class SuperAwesomeCardFragment extends Fragment {
+public class SuperAwesomeCardFragment extends Fragment{
 
     private static final String ARG_POSITION = "position";
     private int position;
-
     private ServerConnectionHandler sch;
     private ArrayList<Product> products;
-
-
-
 
     public static SuperAwesomeCardFragment newInstance(int position) {
         SuperAwesomeCardFragment f = new SuperAwesomeCardFragment();
@@ -58,17 +56,19 @@ public class SuperAwesomeCardFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        position = getArguments().getInt(ARG_POSITION);
-        sch=new ServerConnectionHandler();
-        products=new ArrayList<Product>();
-        products=sch.getAllProductInfoACategory("http://decoriss.com/json/get,com=product&catid=44&cache=true");
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View mainView=null;
+
+        position = getArguments().getInt(ARG_POSITION);
+        Configuration.superACFragment=getContext();
+
+        sch=new ServerConnectionHandler(Configuration.superACFragment);
+        products=new ArrayList<Product>();
+        products=sch.getAllProductInfoACategory("http://decoriss.com/json/get,com=product&catid=44&cache=true");
+
 
         switch (position) {
             case 0: {
@@ -82,8 +82,8 @@ public class SuperAwesomeCardFragment extends Fragment {
             case 1: {
                 mainView = inflater.inflate(R.layout.fragment_photo, null);
                 GridView gridview = (GridView) mainView.findViewById(R.id.gv_photoProduct);
-                PictureProductPhotoItemAdapter adapter= new PictureProductPhotoItemAdapter(getActivity());
-                adapter.setData(products);
+                PictureProductPhotoItemAdapter adapter= new PictureProductPhotoItemAdapter(getActivity(),products);
+
                 gridview.setAdapter(adapter);
                 break;
             }
@@ -97,4 +97,5 @@ public class SuperAwesomeCardFragment extends Fragment {
         }
         return mainView;
     }
+
 }

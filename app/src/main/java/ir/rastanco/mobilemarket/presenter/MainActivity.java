@@ -15,7 +15,6 @@ package ir.rastanco.mobilemarket.presenter;/*
  */
 
 
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -34,17 +33,12 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
-
-import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.dataModel.Categories;
-import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 public class MainActivity extends ActionBarActivity {
@@ -60,12 +54,14 @@ public class MainActivity extends ActionBarActivity {
     private Drawable oldBackground = null;
     private int currentColor;
     private SystemBarTintManager mTintManager;
-    private ArrayList<Categories> allCategoryInfo;
-    private ArrayList<Product> allProductInfo;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Configuration.MainActivityFragment=this;
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
@@ -75,10 +71,8 @@ public class MainActivity extends ActionBarActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             display.getSize(size);
             Configuration.homeDisplaySize= String.valueOf(size.x);
-
-            Configuration.shopDisplaySize= String.valueOf((size.y)*0.5);
+            Configuration.shopDisplaySize= String.valueOf((size.x)*0.5);
         }
-
         //Start here
         ButterKnife.inject(this);
         setSupportActionBar(toolbar);
@@ -95,12 +89,6 @@ public class MainActivity extends ActionBarActivity {
         pager.setCurrentItem(1);
         changeColor(getResources().getColor(R.color.decoriss));
 
-        tabs.setOnTabReselectedListener(new PagerSlidingTabStrip.OnTabReselectedListener() {
-            @Override
-            public void onTabReselected(int position) {
-                Toast.makeText(MainActivity.this, "Tab reselected: " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -112,7 +100,6 @@ public class MainActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_contact:
-                //QuickContactFragment.newInstance().show(getSupportFragmentManager(), "QuickContactFragment");
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -134,11 +121,6 @@ public class MainActivity extends ActionBarActivity {
         }
         oldBackground = ld;
         currentColor = newColor;
-    }
-
-    public void onColorClicked(View v) {
-        int color = Color.parseColor(v.getTag().toString());
-        changeColor(color);
     }
 
     @Override

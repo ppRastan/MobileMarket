@@ -2,32 +2,39 @@ package ir.rastanco.mobilemarket.presenter.homePresenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.DownloadImage;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
+import ir.rastanco.mobilemarket.presenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by ShaisteS on 12/27/2015.
  * A Customize Adapter For Home List view
  */
-public class PictureProductHomeItemAdapter extends ArrayAdapter<Product> {
+public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
 
     private Activity myContext;
     private ArrayList<Product> allProduct;
     private Bitmap imageProduct;
+    ProgressBar imageLoading;
 
     public PictureProductHomeItemAdapter(Context context, int resource, ArrayList<Product> products) {
         super(context, resource,products);
@@ -36,30 +43,42 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product> {
 
     }
 
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(final int position, View convertView, ViewGroup parent){
 
         Bitmap image=null;
+        LayoutInflater inflater = myContext.getLayoutInflater();
+        final View rowView = inflater.inflate(R.layout.picture_product_item_home, null);
 
+
+        ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
+        ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
+        String picCounter = allProduct.get(position).getImagesPath().get(0);
         try {
-            image=new DownloadImage()
-                    .execute(allProduct.get(position).getImagesMainPath()+
-                            allProduct.get(position).getImagesPath().get(0)+
-                            "&size="+
-                            Configuration.homeDisplaySize+"x"+Configuration.homeDisplaySize+
-                            "&q=30").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+            picCounter= URLEncoder.encode(picCounter, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        String image_url_1 = allProduct.get(position).getImagesMainPath()+picCounter+
+                "&size="+
+                Configuration.homeDisplaySize+"x"+Configuration.homeDisplaySize+
+                "&q=30";
+        imgLoader.DisplayImage(image_url_1, PicProductImage);
 
-        LayoutInflater inflater = myContext.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.picture_product_item_home, null);
-        ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
-        PicProductImage.setImageBitmap(image);
+        //PicProductImage.setImageBitmap(image);
 
         ImageButton shareImgB=(ImageButton)rowView.findViewById(R.id.imbt_share);
         shareImgB.setBackgroundColor(Color.TRANSPARENT);
+
+        PicProductImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("thisProduct", allProduct.get(position));
+                Intent intent = new Intent(rowView.getContext(), ProductInfoActivity.class);
+                intent.putExtras(bundle);
+                rowView.getContext().startActivity(intent);
+            }
+        });
         return rowView;
     }
 }

@@ -1,20 +1,27 @@
 package ir.rastanco.mobilemarket.presenter.photoPresenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.DownloadImage;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
+import ir.rastanco.mobilemarket.presenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
@@ -24,60 +31,70 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  */
 public class PictureProductPhotoItemAdapter extends BaseAdapter{
 
-    private Context mContext;
+    private Context context;
+    private static LayoutInflater inflater=null;
     private ArrayList<Product> allProduct;
 
-    // Constructor
-    public PictureProductPhotoItemAdapter(Context c) {
-        mContext = c;
+    public PictureProductPhotoItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
+
+        context=mainActivity;
+        inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        allProduct =products;
+
     }
 
-    public void setData(ArrayList<Product> product) {
-        allProduct = product;
-    }
-
+    @Override
     public int getCount() {
         return allProduct.size();
     }
 
+    @Override
     public Object getItem(int position) {
-        return null;
+        return position;
     }
 
+    @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
-    // create a new ImageView for each item referenced by the Adapter
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
+    public class Holder
+    {
+        ImageView imgP;
+    }
+    @Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
-        Bitmap image=null;
+        Holder holder=new Holder();
+        Bitmap image;
 
+        final View rowView;
+        rowView = inflater.inflate(R.layout.picture_product_item_photo, null);
+        ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
+        holder.imgP=(ImageView) rowView.findViewById(R.id.imgb_picProduct);
+        String picCounter = allProduct.get(position).getImagesPath().get(0);
         try {
-            image=new DownloadImage()
-                    .execute(allProduct.get(position).getImagesMainPath()+
-                            allProduct.get(position).getImagesPath().get(0)+
-                            "&size="+
-                            Configuration.shopDisplaySize+"x"+Configuration.shopDisplaySize+
-                            "&q=30").get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+            picCounter= URLEncoder.encode(picCounter, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        String image_url_1 = allProduct.get(position).getImagesMainPath()+
+                picCounter+
+                "&size="+
+                Configuration.shopDisplaySize+"x"+Configuration.shopDisplaySize+
+                "&q=30";
+        imgLoader.DisplayImage(image_url_1, holder.imgP);
 
-        if (convertView == null) {
-            imageView = new ImageButton(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(1,1,1,1);
-        }
-        else
-        {
-            imageView = (ImageView) convertView;
-        }
-        imageView.setImageBitmap(image);
-        return imageView;
+        holder.imgP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle=new Bundle();
+                bundle.putSerializable("thisProduct",allProduct.get(position));
+                Intent intent=new Intent(rowView.getContext(), ProductInfoActivity.class);
+                intent.putExtras(bundle);
+                rowView.getContext().startActivity(intent);
+            }
+        });
+        return rowView;
     }
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by ShaisteS on 12/27/2015.
  * This Class is Packaging Product Information
  */
-public class Product {
+public class Product implements Serializable {
 
     private String title;
     private int id;
