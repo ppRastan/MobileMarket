@@ -1,4 +1,4 @@
-package ir.rastanco.mobilemarket.presenter.homePresenter;
+package ir.rastanco.mobilemarket.presenter.ArticlePresenter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,47 +9,47 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
- * Created by ShaisteS on 12/27/2015.
- * A Customize Adapter For Home List view
+ * Created by ShaisteS on 21/10/94
  */
-public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
+public class ArticleItemAdapter extends ArrayAdapter<Article>{
 
     private Activity myContext;
-    private ArrayList<Product> allProduct;
+    private ArrayList<Article> articles ;
 
-    public PictureProductHomeItemAdapter(Context context, int resource, ArrayList<Product> products) {
-        super(context, resource,products);
+    public ArticleItemAdapter(Context context,int resource, ArrayList<Article> allArticles) {
+        super(context, resource,allArticles);
         myContext=(Activity)context;
-        allProduct=products;
-
+        articles=allArticles;
     }
 
     public View getView(final int position, View convertView, ViewGroup parent){
 
         Bitmap image=null;
         LayoutInflater inflater = myContext.getLayoutInflater();
-        final View rowView = inflater.inflate(R.layout.picture_product_item_home, null);
+        final View rowView = inflater.inflate(R.layout.article_item, null);
 
 
         ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
         ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
-        String picCounter = allProduct.get(position).getImagesPath().get(0);
+
+        /*String picCounter = allProduct.get(position).getImagesPath().get(0);
         try {
             picCounter= URLEncoder.encode(picCounter, "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -61,9 +61,6 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
                 "&q=30";
         imgLoader.DisplayImage(image_url_1, PicProductImage);
 
-        ImageButton shareImgB=(ImageButton)rowView.findViewById(R.id.imbt_share);
-        shareImgB.setBackgroundColor(Color.TRANSPARENT);
-
         PicProductImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +70,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
                 intent.putExtras(bundle);
                 rowView.getContext().startActivity(intent);
             }
-        });
+        });*/
         return rowView;
     }
 }

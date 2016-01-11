@@ -23,4 +23,5 @@ public class Configuration {
     public static String shopDisplaySize;
     public static Context superACFragment;
     public static Context MainActivityFragment;
+    public static Context ProductInfoActivity;
 }
