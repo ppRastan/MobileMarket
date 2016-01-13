@@ -71,6 +71,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
                 bundle.putSerializable("allProducts", allProduct);
                 Intent intent = new Intent(rowView.getContext(), ProductInfoActivity.class);
                 intent.putExtras(bundle);
+                intent.putExtra("position",position);
                 rowView.getContext().startActivity(intent);
             }
         });

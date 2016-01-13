@@ -71,6 +71,7 @@ public class MainActivity extends ActionBarActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             display.getSize(size);
             Configuration.homeDisplaySize= String.valueOf(size.x);
+            Configuration.productInfoHeightSize=String.valueOf(size.x-100);
             Configuration.shopDisplaySize= String.valueOf((size.x)*0.5);
         }
         //Start here

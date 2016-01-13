@@ -89,6 +89,7 @@ public class PictureProductPhotoItemAdapter extends BaseAdapter{
                 bundle.putSerializable("allProducts",allProduct);
                 Intent intent=new Intent(rowView.getContext(), ProductInfoActivity.class);
                 intent.putExtras(bundle);
+                intent.putExtra("position",position);
                 rowView.getContext().startActivity(intent);
             }
         });

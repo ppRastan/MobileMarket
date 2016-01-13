@@ -69,7 +69,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         String image_url_Main = products.get(position).getImagesMainPath() +
                 picNum +
                 "&size=" +
-                Configuration.homeDisplaySize + "x" + Configuration.homeDisplaySize +
+                Configuration.homeDisplaySize + "x" + Configuration.productInfoHeightSize +
                 "&q=30";
         imgLoader.DisplayImage(image_url_Main, imgProduct);
         LinearLayout layout = (LinearLayout) viewLayout.findViewById(R.id.linear);

@@ -3,10 +3,12 @@ package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -40,5 +42,6 @@ public class ProductInfoActivity extends Activity {
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewPager=(ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(new FullScreenImageAdapter(this,allProducts));
+        viewPager.setCurrentItem(intent.getIntExtra("position",0));
     }
 }

@@ -21,6 +21,7 @@ public class Configuration {
     }
     public static String homeDisplaySize;
     public static String shopDisplaySize;
+    public static String productInfoHeightSize;
     public static Context superACFragment;
     public static Context MainActivityFragment;
     public static Context ProductInfoActivity;
