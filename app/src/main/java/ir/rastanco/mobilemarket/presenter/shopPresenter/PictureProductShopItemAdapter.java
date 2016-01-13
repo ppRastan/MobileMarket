@@ -96,7 +96,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
                 Bundle bundle=new Bundle();
-                bundle.putSerializable("thisProduct",allProduct.get(position));
+                bundle.putSerializable("allProducts",allProduct);
                 Intent intent=new Intent(rowView.getContext(), ProductInfoActivity.class);
                 intent.putExtras(bundle);
                 rowView.getContext().startActivity(intent);
