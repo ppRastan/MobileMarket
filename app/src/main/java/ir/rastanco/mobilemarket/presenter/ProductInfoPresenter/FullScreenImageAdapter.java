@@ -6,6 +6,8 @@ package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -57,7 +59,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         View viewLayout = inflater.inflate(R.layout.activity_product_info, container,
                 false);
 
-        ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
+        final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
         final ImageLoader imgLoader = new ImageLoader(Configuration.ProductInfoActivity); // important
         String picNum = products.get(position).getImagesPath().get(0);
         try {
@@ -74,7 +76,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         imgLoader.DisplayImage(image_url_Main, imgProduct);
         LinearLayout layout = (LinearLayout) viewLayout.findViewById(R.id.linear);
         for (int i = 0; i < products.get(position).getImagesPath().size(); i++) {
-            ImageView imageView = new ImageView(Configuration.ProductInfoActivity);
+            final ImageView imageView = new ImageView(Configuration.ProductInfoActivity);
             imageView.setId(i);
             imageView.setPadding(2, 0, 2, 0);
             layout.addView(imageView);
@@ -91,6 +93,29 @@ public class FullScreenImageAdapter extends PagerAdapter {
                     Configuration.shopDisplaySize + "x" + Configuration.shopDisplaySize +
                     "&q=30";
             imgLoader.DisplayImage(image_url_otherPic, imageView);
+
+            final int parentClickImage=position;
+            final int clickImageNum=i;
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    String picNum = products.get(parentClickImage).getImagesPath().get(clickImageNum);
+                    try {
+                        picNum = URLEncoder.encode(picNum, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    String image_url_otherPic = products.get(parentClickImage).getImagesMainPath() +
+                            picNum +
+                            "&size=" +
+                            Configuration.homeDisplaySize + "x" + Configuration.productInfoHeightSize +
+                            "&q=30";
+                    imgLoader.DisplayImage(image_url_otherPic,imgProduct);
+
+                }
+            });
         }
         ((ViewPager) container).addView(viewLayout);
         return viewLayout;
