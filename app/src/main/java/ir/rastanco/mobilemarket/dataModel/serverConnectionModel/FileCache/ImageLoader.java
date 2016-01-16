@@ -31,10 +31,12 @@ public class ImageLoader {
     FileCache fileCache;
     private Map<ImageView, String> imageViews= Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
     ExecutorService executorService;
+    private Context myContext;
 
     public ImageLoader(Context context){
         fileCache=new FileCache(context);
         executorService= Executors.newFixedThreadPool(5);
+        myContext=context;
     }
 
     final int stub_id= R.drawable.empty;

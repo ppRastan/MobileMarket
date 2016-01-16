@@ -31,8 +31,10 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleItemAdapter;
 import ir.rastanco.mobilemarket.presenter.homePresenter.PictureProductHomeItemAdapter;
 import ir.rastanco.mobilemarket.presenter.photoPresenter.PictureProductPhotoItemAdapter;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.PictureProductShopItemAdapter;
@@ -44,6 +46,7 @@ public class SuperAwesomeCardFragment extends Fragment{
     private int position;
     private ServerConnectionHandler sch;
     private ArrayList<Product> products;
+    private ArrayList<Article> articles;
 
     public static SuperAwesomeCardFragment newInstance(int position) {
         SuperAwesomeCardFragment f = new SuperAwesomeCardFragment();
@@ -83,7 +86,6 @@ public class SuperAwesomeCardFragment extends Fragment{
                 mainView = inflater.inflate(R.layout.fragment_photo, null);
                 GridView gridview = (GridView) mainView.findViewById(R.id.gv_photoProduct);
                 PictureProductPhotoItemAdapter adapter= new PictureProductPhotoItemAdapter(getActivity(),products);
-
                 gridview.setAdapter(adapter);
                 break;
             }
@@ -94,8 +96,15 @@ public class SuperAwesomeCardFragment extends Fragment{
                 gridview.setAdapter(new PictureProductShopItemAdapter(getActivity(),products));
                 break;
             }
+            case 3:{
+                /*mainView = inflater.inflate(R.layout.fragment_article, null);
+                ListView articleList = (ListView) mainView.findViewById(R.id.lv_article);
+                ArticleItemAdapter adapter = new ArticleItemAdapter(getActivity(), R.layout.article_item,articles);
+                articleList.setAdapter(adapter);*/
+                break;
+
+            }
         }
         return mainView;
     }
-
 }

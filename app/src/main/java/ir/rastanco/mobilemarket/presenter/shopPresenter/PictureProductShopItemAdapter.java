@@ -16,12 +16,11 @@ import android.widget.TextView;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
-import ir.rastanco.mobilemarket.presenter.ProductInfoActivity;
+import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
@@ -97,9 +96,10 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
                 Bundle bundle=new Bundle();
-                bundle.putSerializable("thisProduct",allProduct.get(position));
+                bundle.putSerializable("allProducts",allProduct);
                 Intent intent=new Intent(rowView.getContext(), ProductInfoActivity.class);
                 intent.putExtras(bundle);
+                intent.putExtra("position",position);
                 rowView.getContext().startActivity(intent);
             }
         });

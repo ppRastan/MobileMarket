@@ -5,7 +5,7 @@
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/lstv_picProduct"
+        android:id="@+id/lv_article"
         android:layout_gravity="center_horizontal|top"
         android:dividerHeight="2dp" />
 </FrameLayout>
