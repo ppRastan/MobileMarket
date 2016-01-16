@@ -15,6 +15,7 @@ package ir.rastanco.mobilemarket.presenter;/*
  */
 //parisan joined mobileMarket right now
 
+import android.content.Context;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -27,6 +28,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Display;
@@ -40,8 +42,9 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -89,6 +92,11 @@ public class MainActivity extends ActionBarActivity {
         pager.setCurrentItem(1);
         changeColor(getResources().getColor(R.color.decoriss));
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(new CalligraphyContextWrapper(newBase));
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
