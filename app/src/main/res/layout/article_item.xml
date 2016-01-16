@@ -7,11 +7,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/img_article"
-        android:layout_weight="1" />
+        android:layout_gravity="center"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txt_titleArticle"
-        android:layout_weight="1" />
+        android:layout_gravity="center" />
+
 </LinearLayout>

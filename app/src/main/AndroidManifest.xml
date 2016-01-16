@@ -29,6 +29,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".presenter.ProductInfoPresenter.ProductInfoActivity" />
+        <activity android:name=".presenter.UserProfilePresenter.UserProfileActivity"/>
     </application>
 
 </manifest>

@@ -7,10 +7,13 @@ import android.graphics.BitmapFactory;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Categories;
+import ir.rastanco.mobilemarket.dataModel.ParseJsonArticles;
+import ir.rastanco.mobilemarket.dataModel.ParseJsonProductOption;
 import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.ProductOption;
 import ir.rastanco.mobilemarket.dataModel.dataBaseConnectionModel.DataBaseHandler;
-import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by ShaisteS on 1394/10/14.
@@ -58,30 +61,34 @@ public class ServerConnectionHandler {
         ProductInfo=new ParseJsonProduct().getAllProduct(jsonProduct);
         return  ProductInfo;
     }
-    public ArrayList<Product> addImageToProductInfo(ArrayList<Product> productInfo){
-        ArrayList<Bitmap> images;
-        Bitmap image;
-        for (int i=0;i<productInfo.size();i++){
-            images=new ArrayList<Bitmap>();
-            for (int j=0;j<productInfo.get(i).getImagesPath().size();j++){
-                try {
-                    image=new DownloadImage()
-                            .execute(productInfo.get(i).getImagesMainPath()+
-                                    productInfo.get(i).getImagesPath().get(j)+
-                                    "&size="+
-                                    Configuration.homeDisplaySize+"x"+Configuration.homeDisplaySize+
-                                    "&q=30").get();
-                    images.add(image);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }
-            productInfo.get(i).setAllNormalImage(images);
-        }
-        return productInfo;
 
+    public ArrayList<ProductOption> getOptionsOfAProduct(String url){
+
+        GetJsonFile optionJson= new GetJsonFile();
+        String productInfoJson=null;
+        try {
+            productInfoJson=optionJson.execute(url).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        ParseJsonProductOption p=new  ParseJsonProductOption();
+        return p.getAllProductOptions(productInfoJson);
+    }
+    public ArrayList<Article> getAllArticlesAndNews(String url){
+
+        GetJsonFile g=new GetJsonFile();
+        String articlesInfo=null;
+        try {
+            articlesInfo=g.execute(url).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        ParseJsonArticles a=new ParseJsonArticles();
+        return a.getAllProductOptions(articlesInfo);
     }
 
     public Boolean emptyDBProduct(){
@@ -91,39 +98,11 @@ public class ServerConnectionHandler {
     public void addAllProductToTable(ArrayList<Product> allProduct){
         for (int i=0;i<allProduct.size();i++){
             dbh.insertAProduct(allProduct.get(i));
-            for (int j=0;j<allProduct.get(i).getAllNormalImage().size();j++)
-                dbh.insertNormalImageBitmap(allProduct.get(i).getId(), allProduct.get(i).getAllNormalImage().get(j));
-            for (int k=0;k<allProduct.get(i).getAllWaterMarkImage().size();k++)
-                dbh.insertWaterMarkImageBitmap(allProduct.get(i).getId(),allProduct.get(i).getAllWaterMarkImage().get(k));
-
         }
     }
     public ArrayList<Product> getAllProductFromTable(){
         ArrayList<Product> allProduct=new ArrayList<Product>();
-        ArrayList<byte[]> byteAllImage;
-        ArrayList<Bitmap> bitmapAllImage=new ArrayList<Bitmap>();
         allProduct=dbh.selectAllProduct();
-        for (int i=0; i<allProduct.size();i++){
-            byteAllImage=new ArrayList<byte[]>();
-            byteAllImage=dbh.selectNormalImageAProduct(allProduct.get(0).getId());
-            for (int j=0; j<byteAllImage.size();j++) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(byteAllImage.get(j), 0, byteAllImage.get(j).length);
-                bitmapAllImage.add(bitmap);
-            }
-            allProduct.get(i).setAllNormalImage(bitmapAllImage);
-
-        }
-        ArrayList<Bitmap> bitmapWAllImage=new ArrayList<Bitmap>();
-
-        for (int i=0; i<allProduct.size();i++){
-            byteAllImage=new ArrayList<byte[]>();
-            byteAllImage=dbh.selectWaterMarkImageAProduct(allProduct.get(0).getId());
-            for (int j=0; j<byteAllImage.size();j++) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(byteAllImage.get(j), 0, byteAllImage.get(j).length);
-                bitmapWAllImage.add(bitmap);
-            }
-            allProduct.get(i).setAllNormalImage(bitmapWAllImage);
-        }
         return allProduct;
     }
 

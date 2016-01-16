@@ -10,6 +10,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Product;
 
 /**
@@ -21,6 +22,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     private static Context dbContext;
     private Product aProduct;
     private ArrayList<Product> allProduct;
+    private ArrayList<Article> allArticles;
+    private Article aArticle;
 
     public DataBaseHandler(Context context) {
         super(context, "MobileMarket.dbo", null, 1);
@@ -41,7 +44,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 "waterMarkedImagePath text)");
         Log.v("create", "Create Table Category");
 
-        db.execSQL("create table tblProduct"+
+        db.execSQL("create table tblProduct" +
                 "(id Integer primary key AUTOINCREMENT," +
                 "title text," +
                 "productId Integer," +
@@ -62,26 +65,30 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 "imagesMainPath text)");
         Log.v("create", "Create Table Product");
 
-        db.execSQL("create table tblImagesPathProduct"+
+        db.execSQL("create table tblImagesPathProduct" +
                 "(id Integer primary key AUTOINCREMENT," +
                 "fkProductId Integer not null," +
                 "imagePath text," +
                 "foreign key (fkProductId) references tblProduct(productId))");
         Log.v("create", "Create Table Images Path For Product");
 
-        db.execSQL("create table tblNormalImageProduct"+
+        db.execSQL("create table tblProductOption" +
                 "(id Integer primary key AUTOINCREMENT," +
                 "fkProductId Integer not null," +
-                "normalImage BLOB," +
+                "titleoption text," +
+                "valueOption text," +
                 "foreign key (fkProductId) references tblProduct(productId))");
-        Log.v("create", "Create Table Normal Image For Product");
+        Log.v("create", "Create Table Options For Product");
 
-        db.execSQL("create table tblWaterMarkImageProduct" +
+        db.execSQL("create table tblArticle" +
                 "(id Integer primary key AUTOINCREMENT," +
-                "fkProductId Integer not null," +
-                "waterMarkImage BLOB," +
-                "foreign key (fkProductId) references tblProduct(productId))");
-        Log.v("create", "Create Table WaterMark Image For Product");
+                "title text," +
+                "brief text," +
+                "date text," +
+                "linkInWebsite text," +
+                "imageLink text");
+        Log.v("create", "Create Table Article");
+
     }
 
     @Override
@@ -146,32 +153,22 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return values;
     }
 
-    public void insertNormalImageBitmap(int productId,Bitmap image){
+    public void insertArticle(Article aArticle){
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert("tblNormalImageProduct", null,addFieldImageBitmap(productId, image));
-        Log.v("insert", "insert A Image Bitmap Product into Table");
+        db.insert("tblArticle", null,addFieldToArticleTable(aArticle));
+        Log.v("insert", "insert A Product into Table");
         db.close();
-
     }
-    private ContentValues addFieldImageBitmap(int productId,Bitmap image) {
+    private ContentValues addFieldToArticleTable(Article aArticle){
         ContentValues values = new ContentValues();
-        values.put("fkProductId", productId);
-        values.put("normalImage", String.valueOf(image));
+        values.put("title", aArticle.getTitle());
+        values.put("brief",aArticle.getBrief());
+        values.put("date", aArticle.getDate());
+        values.put("linkInWebsite", aArticle.getLinkInWebsite());
+        values.put("imageLink", aArticle.getImageLink());
         return values;
-    }
 
-    public void insertWaterMarkImageBitmap(int productId,Bitmap image){
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.insert("tblNormalImageProduct", null,addFieldWImageBitmap(productId, image));
-        Log.v("insert", "insert A waterMark Image Bitmap Product into Table");
-        db.close();
 
-    }
-    private ContentValues addFieldWImageBitmap(int productId,Bitmap image) {
-        ContentValues values = new ContentValues();
-        values.put("fkProductId", productId);
-        values.put("waterMarkImage", String.valueOf(image));
-        return values;
     }
 
     public ArrayList<Product> selectAllProduct(){
@@ -223,32 +220,33 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
         return path;
     }
-    public ArrayList<byte[]> selectNormalImageAProduct(int productId){
-        ArrayList<byte[]> nImage=new ArrayList<>();
+
+    public ArrayList<Article> selectAllArticle() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblNormalImageProduct where fkProductId=" + productId + "", null);
+        Cursor rs = db.rawQuery("select * from tblArticle", null);
+        allArticles = new ArrayList<Article>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    nImage.add(rs.getBlob(rs.getColumnIndex("normalImage")));
+                    Article aArticle = new Article();
+                    aArticle.setTitle(rs.getString(rs.getColumnIndex("title")));
+                    aArticle.setBrief(rs.getString(rs.getColumnIndex("brief")));
+                    aArticle.setDate(rs.getString(rs.getColumnIndex("date")));
+                    aArticle.setImageLink(rs.getString(rs.getColumnIndex("imageLink")));
+                    aArticle.setLinkInWebsite(rs.getString(rs.getColumnIndex("linkInWebsite")));
                 }
                 while (rs.moveToNext());
             }
+            rs.close();
         }
-        return nImage;
+        Log.v("select", "Select All Article");
+        return allArticles;
     }
-    public ArrayList<byte[]> selectWaterMarkImageAProduct(int productId){
-        ArrayList<byte[]> nImage=new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblWaterMarkImageProduct where fkProductId=" + productId + "", null);
-        if (rs != null) {
-            if (rs.moveToFirst()) {
-                do {
-                    nImage.add(rs.getBlob(rs.getColumnIndex("waterMarkImage")));
-                }
-                while (rs.moveToNext());
-            }
-        }
-        return nImage;
+
+    public Article selectArticle(int articleId){
+        //ToDo
+        Article article=new Article();
+        return article;
+
     }
 }

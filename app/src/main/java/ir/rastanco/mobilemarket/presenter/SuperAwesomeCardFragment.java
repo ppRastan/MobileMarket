@@ -32,8 +32,10 @@ import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
+import ir.rastanco.mobilemarket.dataModel.Categories;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleFragment;
 import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleItemAdapter;
 import ir.rastanco.mobilemarket.presenter.homePresenter.PictureProductHomeItemAdapter;
 import ir.rastanco.mobilemarket.presenter.photoPresenter.PictureProductPhotoItemAdapter;
@@ -47,6 +49,7 @@ public class SuperAwesomeCardFragment extends Fragment{
     private ServerConnectionHandler sch;
     private ArrayList<Product> products;
     private ArrayList<Article> articles;
+    private ArrayList<Categories> categoties;
 
     public static SuperAwesomeCardFragment newInstance(int position) {
         SuperAwesomeCardFragment f = new SuperAwesomeCardFragment();
@@ -69,8 +72,12 @@ public class SuperAwesomeCardFragment extends Fragment{
         Configuration.superACFragment=getContext();
 
         sch=new ServerConnectionHandler(Configuration.superACFragment);
+        categoties=new ArrayList<Categories>();
         products=new ArrayList<Product>();
-        products=sch.getAllProductInfoACategory("http://decoriss.com/json/get,com=product&catid=44&cache=true");
+        articles=new ArrayList<Article>();
+        categoties=sch.getAllCategoryInfo("http://decoriss.com/json/get,com=allcats&cache=false");
+        products=sch.getAllProductInfoACategory("http://decoriss.com/json/get,com=product&catid=57&cache=false");
+        articles=sch.getAllArticlesAndNews("http://decoriss.com/json/get,com=news&name=blog&order=desc&limit=1-33&cache=false");
 
 
         switch (position) {
@@ -97,10 +104,11 @@ public class SuperAwesomeCardFragment extends Fragment{
                 break;
             }
             case 3:{
-                /*mainView = inflater.inflate(R.layout.fragment_article, null);
+
+                mainView = inflater.inflate(R.layout.fragment_article_first, null);
                 ListView articleList = (ListView) mainView.findViewById(R.id.lv_article);
                 ArticleItemAdapter adapter = new ArticleItemAdapter(getActivity(), R.layout.article_item,articles);
-                articleList.setAdapter(adapter);*/
+                articleList.setAdapter(adapter);
                 break;
 
             }

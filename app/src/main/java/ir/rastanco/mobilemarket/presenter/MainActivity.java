@@ -30,9 +30,15 @@ import android.view.View;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import java.util.concurrent.ExecutionException;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.ParseJsonProductOption;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.GetJsonFile;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJsonProduct;
+import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserProfileActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 public class MainActivity extends ActionBarActivity {
@@ -95,6 +101,7 @@ public class MainActivity extends ActionBarActivity {
             Configuration.homeDisplaySize = String.valueOf(size.x);
             Configuration.productInfoHeightSize = String.valueOf(size.x - 100);
             Configuration.shopDisplaySize = String.valueOf((size.x) * 0.5);
+            Configuration.articleDisplaySize=String.valueOf((size.x) * 0.3);
         }
         //Start here
         ButterKnife.inject(this);
@@ -124,6 +131,8 @@ public class MainActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_contact:
+                Intent userProfileIntent=new Intent(this,UserProfileActivity.class);
+                this.startActivity(userProfileIntent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
