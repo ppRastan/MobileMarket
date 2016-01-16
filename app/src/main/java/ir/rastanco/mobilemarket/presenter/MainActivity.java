@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -22,6 +24,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.text.Html;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Menu;
@@ -60,6 +63,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(Html.fromHtml("<font color='#ff8c00'>Decoriss</font>"));
         setSupportActionBar(toolbar);
 
         Configuration.MainActivityFragment = this;
@@ -74,6 +78,7 @@ public class MainActivity extends ActionBarActivity {
 
         // add button listener
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
