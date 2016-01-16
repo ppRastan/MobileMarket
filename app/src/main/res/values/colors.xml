@@ -3,7 +3,6 @@
     <color name="psts_background_tab_pressed">#1AFFFFFF</color>
     <color name="psts_background_tab_pressed_ripple">#AAFFFFFF</color>
     <color name="background_window">#FFE5E5E5</color>
-    <color name="green">#689F38</color>
     <color name="greenDark">#3E5F22</color>
     <color name="banana">#FFCC00</color>
     <color name="orange">#ff8c00</color>

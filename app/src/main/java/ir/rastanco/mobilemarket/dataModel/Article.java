@@ -5,7 +5,10 @@ package ir.rastanco.mobilemarket.dataModel;
  */
 public class Article {
     private String title;
-    private String content;
+    private String brief;
+    private String date;
+    private String LinkInWebsite;
+    private String ImageLink;
 
     public String getTitle() {
         return title;
@@ -15,11 +18,35 @@ public class Article {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getBrief() {
+        return brief;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getLinkInWebsite() {
+        return LinkInWebsite;
+    }
+
+    public void setLinkInWebsite(String linkInWebsite) {
+        LinkInWebsite = linkInWebsite;
+    }
+
+    public String getImageLink() {
+        return ImageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        ImageLink = imageLink;
     }
 }

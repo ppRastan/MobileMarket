@@ -27,7 +27,7 @@ public class ParseJsonCategory {
 
             JSONObject json =new JSONObject(params);
 
-            dataJsonArr = json.getJSONArray("category");
+            dataJsonArr = json.getJSONArray("allcats");
             for (int i = 0; i < dataJsonArr.length(); i++)
             {
                 JSONObject c = dataJsonArr.getJSONObject(i);
@@ -39,6 +39,13 @@ public class ParseJsonCategory {
                 aCategory.setName(c.getString("n"));
                 aCategory.setNormalImagePath(c.getString("i"));
                 aCategory.setWaterMarkedImagePath("wm");
+                if (c.has("sub1")){
+                    JSONArray sub1Array=c.getJSONArray("sub1");
+                    for (int j=0;j<sub1Array.length();j++){
+                        JSONObject sub1object=sub1Array.getJSONObject(j);
+                    }
+                }
+
                 allCategory.add(aCategory);
             }
 

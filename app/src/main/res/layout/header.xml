@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:layout_alignParentTop="true"
-    android:background="#ffffff">
+    android:background="#AAFFFFFF">
 
     <TextView
         android:layout_width="wrap_content"

@@ -1,7 +1,5 @@
 package ir.rastanco.mobilemarket.dataModel;
 
-import android.graphics.Bitmap;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -29,8 +27,7 @@ public class Product implements Serializable {
     private String watermarkPath;
     private String imagesMainPath;
     private ArrayList<String> imagesPath;
-    private ArrayList<Bitmap> allNormalImage;
-    private ArrayList<Bitmap> allWaterMarkImage;
+    private ArrayList<ProductOption> productProductOptions;
 
     public String getTitle() {
         return title;
@@ -176,19 +173,11 @@ public class Product implements Serializable {
         this.imagesPath = imagesPath;
     }
 
-    public ArrayList<Bitmap> getAllNormalImage() {
-        return allNormalImage;
+    public ArrayList<ProductOption> getProductProductOptions() {
+        return productProductOptions;
     }
 
-    public void setAllNormalImage(ArrayList<Bitmap> allNormalImage) {
-        this.allNormalImage = allNormalImage;
-    }
-
-    public ArrayList<Bitmap> getAllWaterMarkImage() {
-        return allWaterMarkImage;
-    }
-
-    public void setAllWaterMarkImage(ArrayList<Bitmap> allWaterMarkImage) {
-        this.allWaterMarkImage = allWaterMarkImage;
+    public void setProductProductOptions(ArrayList<ProductOption> productProductOptions) {
+        this.productProductOptions = productProductOptions;
     }
 }

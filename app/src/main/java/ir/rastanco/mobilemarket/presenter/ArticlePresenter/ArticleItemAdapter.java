@@ -13,6 +13,7 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -47,21 +48,22 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
 
 
         ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
-        ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
-
-        /*String picCounter = allProduct.get(position).getImagesPath().get(0);
-        try {
-            picCounter= URLEncoder.encode(picCounter, "UTF-8");
+        ImageView articleImage = (ImageView) rowView.findViewById(R.id.img_article);
+        String articleImageURL= articles.get(position).getImageLink()+
+                "&size="+
+                Configuration.articleDisplaySize+"x"+Configuration.articleDisplaySize+
+                "&q=30";
+        /*try {
+            articleImageURL= URLEncoder.encode(articleImageURL, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        }
-        String image_url_1 = allProduct.get(position).getImagesMainPath()+picCounter+
-                "&size="+
-                Configuration.homeDisplaySize+"x"+Configuration.homeDisplaySize+
-                "&q=30";
-        imgLoader.DisplayImage(image_url_1, PicProductImage);
+        }*/
+        imgLoader.DisplayImage(articleImageURL, articleImage);
 
-        PicProductImage.setOnClickListener(new View.OnClickListener() {
+        TextView articleTitle=(TextView)rowView.findViewById(R.id.txt_titleArticle);
+        articleTitle.setText(articles.get(position).getTitle());
+
+        /*articleImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();

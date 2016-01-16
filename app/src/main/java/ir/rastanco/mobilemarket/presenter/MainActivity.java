@@ -4,8 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -21,22 +19,29 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-import android.text.Html;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import java.util.concurrent.ExecutionException;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.ParseJsonProductOption;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.GetJsonFile;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJsonProduct;
+import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserProfileActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends ActionBarActivity {
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -55,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(Html.fromHtml("<font color='#ff8c00'>Decoriss</font>"));
         setSupportActionBar(toolbar);
 
         Configuration.MainActivityFragment = this;
@@ -70,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
         // add button listener
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
             Configuration.homeDisplaySize = String.valueOf(size.x);
             Configuration.productInfoHeightSize = String.valueOf(size.x - 100);
             Configuration.shopDisplaySize = String.valueOf((size.x) * 0.5);
+            Configuration.articleDisplaySize=String.valueOf((size.x) * 0.3);
         }
         //Start here
         ButterKnife.inject(this);
@@ -127,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_contact:
+                Intent userProfileIntent=new Intent(this,UserProfileActivity.class);
+                this.startActivity(userProfileIntent);
                 return true;
         }
         return super.onOptionsItemSelected(item);
