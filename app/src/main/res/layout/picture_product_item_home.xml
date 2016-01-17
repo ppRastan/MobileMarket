@@ -6,11 +6,13 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/decoriss">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/img_picProduct"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/img_picProduct"
+            android:background="@color/white"/>
 
         <ImageButton
             android:layout_width="wrap_content"
@@ -26,17 +28,21 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:weightSum="2"
+        android:background="@color/white">
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:id="@+id/imbt_transaction"
+            android:background="@color/white"
             android:src="@android:drawable/ic_input_get"
             android:layout_weight="1" />
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:background="@color/white"
+            android:layout_height="match_parent"
             android:text="ذخیره"
             android:id="@+id/btn_save"
             android:layout_weight="1" />

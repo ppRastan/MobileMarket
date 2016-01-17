@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    android:background="@color/background_window">
+
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/lstv_picProduct"
         android:layout_gravity="center_horizontal|top"
-        android:dividerHeight="2dp" />
+        android:dividerHeight="8dp" />
 </FrameLayout>
