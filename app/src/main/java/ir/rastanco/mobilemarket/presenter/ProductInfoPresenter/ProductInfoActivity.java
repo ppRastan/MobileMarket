@@ -20,6 +20,7 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
  * Created by ShaisteS on 1394/10/16.
@@ -44,4 +45,10 @@ public class ProductInfoActivity extends Activity {
         viewPager.setAdapter(new FullScreenImageAdapter(this,allProducts));
         viewPager.setCurrentItem(intent.getIntExtra("position",0));
     }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(new CalligraphyContextWrapper(newBase));
+    }
 }
+

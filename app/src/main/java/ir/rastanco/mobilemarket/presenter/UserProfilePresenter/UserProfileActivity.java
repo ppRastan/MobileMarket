@@ -1,5 +1,6 @@
 package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import ir.rastanco.mobilemarket.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class UserProfileActivity extends AppCompatActivity {
 
@@ -49,5 +51,9 @@ public class UserProfileActivity extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(new CalligraphyContextWrapper(newBase));
     }
 }
