@@ -13,18 +13,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="طبقه بندی گروه"
-            android:textColor="@color/orange"
             android:id="@+id/btn_category"
-            android:shadowColor="@color/orange"
             android:layout_weight="1" />
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="طبقه بندی محصولات"
-            android:textColor="@color/orange"
             android:id="@+id/btn_product"
-            android:shadowColor="@color/orange"
             android:layout_weight="1" />
 
     </LinearLayout>

@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:layout_alignParentTop="true"
-    android:background="#AAFFFFFF">
+    android:background="@color/white">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:text="دکوریس"
         android:id="@+id/textView"
         android:layout_centerVertical="true"

@@ -78,7 +78,7 @@ public class MainActivity extends ActionBarActivity {
 
         // add button listener
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
+        fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.decoriss)));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

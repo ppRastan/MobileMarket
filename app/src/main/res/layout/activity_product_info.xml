@@ -34,19 +34,19 @@
             android:layout_height="match_parent">
 
             <ImageButton
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/imbt_share"
                 android:layout_weight="1" />
 
             <ImageButton
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/imbt_save"
                 android:layout_weight="1" />
 
             <ImageButton
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/imgbt_info"
                 android:layout_weight="1" />
