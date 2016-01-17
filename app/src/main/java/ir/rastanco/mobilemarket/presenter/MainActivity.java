@@ -21,6 +21,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
@@ -44,7 +45,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJsonProduct
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserProfileActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
@@ -63,7 +64,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(Html.fromHtml("<font color='#080808'>Decoriss</font>"));
         setSupportActionBar(toolbar);
 
         Configuration.MainActivityFragment = this;
