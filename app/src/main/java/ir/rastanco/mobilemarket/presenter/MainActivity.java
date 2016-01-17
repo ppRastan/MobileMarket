@@ -45,7 +45,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJsonProduct
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserProfileActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
-//test my connection to github
+//test parisa's  connection to github
 public class MainActivity extends AppCompatActivity {
 
     @InjectView(R.id.toolbar)
