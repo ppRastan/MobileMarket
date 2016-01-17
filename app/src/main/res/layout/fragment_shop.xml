@@ -6,15 +6,18 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="2">
+        android:weightSum="2"
+        android:background="@color/white">
         <Button
             android:layout_width="0dp"
+            android:background="@color/white"
             android:layout_height="wrap_content"
             android:text="طبقه بندی گروه"
             android:id="@+id/btn_category"
             android:layout_weight="1" />
         <Button
             android:layout_width="0dp"
+            android:background="@color/white"
             android:layout_height="wrap_content"
             android:text="طبقه بندی محصولات"
             android:id="@+id/btn_product"
@@ -25,5 +28,6 @@
         android:layout_height="match_parent"
         android:id="@+id/gv_infoProduct"
         android:numColumns="2"
-        android:verticalSpacing="2dp" />
+        android:verticalSpacing="4dp"
+        android:horizontalSpacing="4dp"/>
 </LinearLayout>
