@@ -23,15 +23,13 @@
             app:pstsIndicatorColor="@color/orange"
             app:pstsIndicatorHeight="6dp"
             android:clickable="true"
-
             app:pstsShouldExpand="true"
             />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             tools:context=".presenter.MainActivity"/>
 
     </LinearLayout>
@@ -42,6 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@mipmap/ic_call" />
+        android:src="@mipmap/call" />
 
 </android.support.design.widget.CoordinatorLayout>

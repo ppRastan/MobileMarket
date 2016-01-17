@@ -25,6 +25,8 @@
         android:layout_below="@+id/toolbar"
         android:background="?attr/colorPrimary"
         android:elevation="6dp"
+        app:pstsIndicatorColor="@color/orange"
+        app:pstsIndicatorHeight="6dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
 

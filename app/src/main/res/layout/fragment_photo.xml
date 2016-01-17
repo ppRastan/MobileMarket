@@ -33,6 +33,7 @@
         android:layout_height="match_parent"
         android:id="@+id/gv_photoProduct"
         android:numColumns="auto_fit"
-        android:verticalSpacing="2dp" />
+        android:verticalSpacing="4dp"
+        android:horizontalSpacing="4dp"/>
 
 </LinearLayout>
