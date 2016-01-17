@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(Html.fromHtml("<font color='#ff8c00'>Decoriss</font>"));
+        toolbar.setTitle(Html.fromHtml("<font color='#080808'>Decoriss</font>"));
         setSupportActionBar(toolbar);
 
         Configuration.MainActivityFragment = this;
