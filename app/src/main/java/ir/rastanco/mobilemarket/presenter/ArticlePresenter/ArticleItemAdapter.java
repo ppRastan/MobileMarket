@@ -2,28 +2,19 @@ package ir.rastanco.mobilemarket.presenter.ArticlePresenter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
-import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
-import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
@@ -35,7 +26,7 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
     private ArrayList<Article> articles ;
 
     public ArticleItemAdapter(Context context,int resource, ArrayList<Article> allArticles) {
-        super(context, resource,allArticles);
+        super(context, resource, allArticles);
         myContext=(Activity)context;
         articles=allArticles;
     }
@@ -75,4 +66,6 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
         });*/
         return rowView;
     }
+
 }
+
