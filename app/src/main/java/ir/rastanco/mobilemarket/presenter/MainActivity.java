@@ -34,14 +34,15 @@ import android.view.View;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-import java.util.concurrent.ExecutionException;
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.dataModel.ParseJsonProductOption;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.GetJsonFile;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJsonProduct;
+import ir.rastanco.mobilemarket.dataModel.Article;
+import ir.rastanco.mobilemarket.dataModel.Category;
+import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserProfileActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
@@ -60,6 +61,12 @@ public class MainActivity extends AppCompatActivity {
     private int currentColor;
     private SystemBarTintManager mTintManager;
 
+
+    private ServerConnectionHandler sch;
+    private ArrayList<Product> products;
+    private ArrayList<Article> articles;
+    private ArrayList<Category> categories;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +76,29 @@ public class MainActivity extends AppCompatActivity {
 
         Configuration.MainActivityFragment = this;
         Configuration.AplicationCOntext=getBaseContext();
+        sch=new ServerConnectionHandler(Configuration.MainActivityFragment);
+        categories=new ArrayList<Category>();
+        products=new ArrayList<Product>();
+        articles=new ArrayList<Article>();
 
+        if (sch.emptyDBCategory()){
+            categories=sch.getAllCategoryInfoURL("http://decoriss.com/json/get,com=allcats&cache=false");
+            sch.addAllCategoryToTable(categories);
+        }
+
+        if (sch.emptyDBProduct()){
+            for (int i=0;i<categories.size();i++){
+                products=sch.getAllProductInfoACategoryURL("http://decoriss.com/json/get,com=product&" +
+                        "catid=" + categories.get(i).getId() + "&cache=false");
+                sch.addAllProductToTable(products);
+
+            }
+        }
+
+        if (sch.emptyDBArticle()){
+            articles=sch.getAllArticlesAndNewsURL("http://decoriss.com/json/get,com=news&name=blog&order=desc&limit=1-50&cache=false");
+            sch.addAllArticlesToTable(articles);
+        }
 
         // add PhoneStateListener
         PhoneCallListener phoneListener = new PhoneCallListener();
@@ -124,7 +153,6 @@ public class MainActivity extends AppCompatActivity {
         pager.setPageMargin(pageMargin);
         pager.setCurrentItem(1);
         changeColor(getResources().getColor(R.color.decoriss));
-
     }
 
     @Override

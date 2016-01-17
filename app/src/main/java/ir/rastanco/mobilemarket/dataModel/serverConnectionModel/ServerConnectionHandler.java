@@ -1,16 +1,17 @@
 package ir.rastanco.mobilemarket.dataModel.serverConnectionModel;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import ir.rastanco.mobilemarket.dataModel.Article;
-import ir.rastanco.mobilemarket.dataModel.Categories;
-import ir.rastanco.mobilemarket.dataModel.ParseJsonArticles;
-import ir.rastanco.mobilemarket.dataModel.ParseJsonProductOption;
+import ir.rastanco.mobilemarket.dataModel.Category;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.GetJsonFile;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonArticles;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonCategory;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductOption;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.ProductOption;
 import ir.rastanco.mobilemarket.dataModel.dataBaseConnectionModel.DataBaseHandler;
@@ -29,7 +30,48 @@ public class ServerConnectionHandler {
         dbh=new DataBaseHandler(myContext);
     }
 
-    public ArrayList<Categories> getAllCategoryInfo(String url){
+    public Boolean emptyDBProduct(){
+        Boolean empty=dbh.emptyProductTable();
+        return empty;
+    }
+    public Boolean emptyDBCategory(){
+        Boolean empty=dbh.emptyCategoryTable();
+        return empty;
+    }
+
+    public Boolean emptyDBArticle(){
+        Boolean empty=dbh.emptyArticleTable();
+        return empty;
+    }
+
+    public void addAllCategoryToTable(ArrayList<Category> allCategories){
+        for (int i=0;i<allCategories.size();i++){
+            dbh.insertACategory(allCategories.get(i));
+        }
+    }
+    public void addAllProductToTable(ArrayList<Product> allProducts){
+        for (int i=0;i<allProducts.size();i++){
+            dbh.insertAProduct(allProducts.get(i));
+        }
+    }
+    public void addAllArticlesToTable(ArrayList<Article> allArticles){
+        for (int i=0;i<allArticles.size();i++)
+            dbh.insertArticle(allArticles.get(i));
+    }
+
+    public ArrayList<Category> getAllCategoryInfoTable(){
+
+        return dbh.selectAllCategory();
+    }
+    public ArrayList<Product> getAllProductFromTable(){
+        return dbh.selectAllProduct();
+    }
+    public ArrayList<Article> getAllArticlesFromTable(){
+        return dbh.selectAllArticle();
+    }
+
+
+    public ArrayList<Category> getAllCategoryInfoURL(String url){
 
         GetJsonFile jParserCategory = new GetJsonFile();
         String jsonCategory= null;
@@ -40,13 +82,13 @@ public class ServerConnectionHandler {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        ArrayList<Categories> allCategoryInfo=new ArrayList<Categories>();
+        ArrayList<Category> allCategoryInfo=new ArrayList<Category>();
         allCategoryInfo=new ParseJsonCategory().getAllCategory(jsonCategory);
 
         return allCategoryInfo;
 
     }
-    public ArrayList<Product> getAllProductInfoACategory(String url){
+    public ArrayList<Product> getAllProductInfoACategoryURL(String url){
 
         GetJsonFile jParserProduct = new GetJsonFile();
         String jsonProduct= null;
@@ -60,6 +102,20 @@ public class ServerConnectionHandler {
         ArrayList<Product> ProductInfo=new ArrayList<Product>();
         ProductInfo=new ParseJsonProduct().getAllProduct(jsonProduct);
         return  ProductInfo;
+    }
+    public ArrayList<Article> getAllArticlesAndNewsURL(String url){
+
+        GetJsonFile g=new GetJsonFile();
+        String articlesInfo=null;
+        try {
+            articlesInfo=g.execute(url).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        ParseJsonArticles a=new ParseJsonArticles();
+        return a.getAllProductOptions(articlesInfo);
     }
 
     public ArrayList<ProductOption> getOptionsOfAProduct(String url){
@@ -76,34 +132,6 @@ public class ServerConnectionHandler {
         ParseJsonProductOption p=new  ParseJsonProductOption();
         return p.getAllProductOptions(productInfoJson);
     }
-    public ArrayList<Article> getAllArticlesAndNews(String url){
 
-        GetJsonFile g=new GetJsonFile();
-        String articlesInfo=null;
-        try {
-            articlesInfo=g.execute(url).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        ParseJsonArticles a=new ParseJsonArticles();
-        return a.getAllProductOptions(articlesInfo);
-    }
-
-    public Boolean emptyDBProduct(){
-        Boolean empty=dbh.emptyProductTable();
-        return empty;
-    }
-    public void addAllProductToTable(ArrayList<Product> allProduct){
-        for (int i=0;i<allProduct.size();i++){
-            dbh.insertAProduct(allProduct.get(i));
-        }
-    }
-    public ArrayList<Product> getAllProductFromTable(){
-        ArrayList<Product> allProduct=new ArrayList<Product>();
-        allProduct=dbh.selectAllProduct();
-        return allProduct;
-    }
 
 }

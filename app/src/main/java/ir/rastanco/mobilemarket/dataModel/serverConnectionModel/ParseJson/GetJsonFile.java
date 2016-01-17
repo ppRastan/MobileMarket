@@ -1,4 +1,4 @@
-package ir.rastanco.mobilemarket.dataModel.serverConnectionModel;
+package ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson;
 
 import android.os.AsyncTask;
 import android.util.Log;

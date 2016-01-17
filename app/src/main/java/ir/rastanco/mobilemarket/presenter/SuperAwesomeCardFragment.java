@@ -32,10 +32,8 @@ import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
-import ir.rastanco.mobilemarket.dataModel.Categories;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleFragment;
 import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleItemAdapter;
 import ir.rastanco.mobilemarket.presenter.homePresenter.PictureProductHomeItemAdapter;
 import ir.rastanco.mobilemarket.presenter.photoPresenter.PictureProductPhotoItemAdapter;
@@ -49,7 +47,6 @@ public class SuperAwesomeCardFragment extends Fragment{
     private ServerConnectionHandler sch;
     private ArrayList<Product> products;
     private ArrayList<Article> articles;
-    private ArrayList<Categories> categoties;
 
     public static SuperAwesomeCardFragment newInstance(int position) {
         SuperAwesomeCardFragment f = new SuperAwesomeCardFragment();
@@ -72,12 +69,10 @@ public class SuperAwesomeCardFragment extends Fragment{
         Configuration.superACFragment=getContext();
 
         sch=new ServerConnectionHandler(Configuration.superACFragment);
-        categoties=new ArrayList<Categories>();
         products=new ArrayList<Product>();
         articles=new ArrayList<Article>();
-        categoties=sch.getAllCategoryInfo("http://decoriss.com/json/get,com=allcats&cache=false");
-        products=sch.getAllProductInfoACategory("http://decoriss.com/json/get,com=product&catid=57&cache=false");
-        articles=sch.getAllArticlesAndNews("http://decoriss.com/json/get,com=news&name=blog&order=desc&limit=1-33&cache=false");
+        products=sch.getAllProductFromTable();
+        articles=sch.getAllArticlesFromTable();
 
 
         switch (position) {

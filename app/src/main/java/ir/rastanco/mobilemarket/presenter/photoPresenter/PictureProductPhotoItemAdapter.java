@@ -85,10 +85,10 @@ public class PictureProductPhotoItemAdapter extends BaseAdapter{
         holder.imgP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle=new Bundle();
-                bundle.putSerializable("allProducts",allProduct);
+                /*Bundle bundle=new Bundle();
+                bundle.putSerializable("allProducts",allProduct);*/
                 Intent intent=new Intent(rowView.getContext(), ProductInfoActivity.class);
-                intent.putExtras(bundle);
+                //intent.putExtras(bundle);
                 intent.putExtra("position",position);
                 rowView.getContext().startActivity(intent);
             }

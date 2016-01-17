@@ -1,4 +1,4 @@
-package ir.rastanco.mobilemarket.dataModel.serverConnectionModel;
+package ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,6 +56,9 @@ public class ParseJsonProduct {
                 }
                 aProduct.setImagesPath(imagePath);
 
+                ParseJsonProductOption po=new ParseJsonProductOption();
+                aProduct.setProductOptions(po.getAllProductOptions("http://decoriss.com/json/get,com=options&" +
+                                "pid="+aProduct.getId()+"&pgid="+aProduct.getGroupId()+"&cache=false"));
                 allProduct.add(aProduct);
             }
 

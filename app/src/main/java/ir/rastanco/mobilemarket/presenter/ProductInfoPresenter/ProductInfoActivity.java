@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -38,8 +39,10 @@ public class ProductInfoActivity extends Activity {
         Configuration.ProductInfoActivity = this;
 
         Intent intent = this.getIntent();
-        Bundle bundle = intent.getExtras();
-        allProducts = (ArrayList<Product>) bundle.getSerializable("allProducts");
+        /*Bundle bundle = intent.getExtras();
+        allProducts = (ArrayList<Product>) bundle.getSerializable("allProducts");*/
+        ServerConnectionHandler sch=new ServerConnectionHandler(Configuration.ProductInfoActivity);
+        allProducts=sch.getAllProductFromTable();
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewPager=(ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(new FullScreenImageAdapter(this,allProducts));

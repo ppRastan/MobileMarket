@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Created by ShaisteS on 12/27/2015.
  * This Class is Packaging Product Information
  */
-public class Product implements Serializable {
+public class Product {
 
     private String title;
     private int id;
@@ -27,7 +27,7 @@ public class Product implements Serializable {
     private String watermarkPath;
     private String imagesMainPath;
     private ArrayList<String> imagesPath;
-    private ArrayList<ProductOption> productProductOptions;
+    private ArrayList<ProductOption> producOptions;
 
     public String getTitle() {
         return title;
@@ -173,11 +173,11 @@ public class Product implements Serializable {
         this.imagesPath = imagesPath;
     }
 
-    public ArrayList<ProductOption> getProductProductOptions() {
-        return productProductOptions;
+    public ArrayList<ProductOption> getProductOptions() {
+        return producOptions;
     }
 
-    public void setProductProductOptions(ArrayList<ProductOption> productProductOptions) {
-        this.productProductOptions = productProductOptions;
+    public void setProductOptions(ArrayList<ProductOption> productProductOptions) {
+        this.producOptions = productProductOptions;
     }
 }

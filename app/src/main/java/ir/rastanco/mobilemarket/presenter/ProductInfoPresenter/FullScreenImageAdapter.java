@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
+import ir.rastanco.mobilemarket.presenter.homePresenter.PictureProductHomeItemAdapter;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 public class FullScreenImageAdapter extends PagerAdapter {
@@ -52,12 +54,16 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        ImageView imgDisplay;
 
         inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View viewLayout = inflater.inflate(R.layout.activity_product_info, container,
-                false);
+        View viewLayout = inflater.inflate(R.layout.activity_product_info, container,false);
+
+        ListView productInfo = (ListView) viewLayout.findViewById(R.id.lv_productInfo);
+        ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.ProductInfoActivity,
+                R.layout.product_info_item,products.get(position).getProductOptions());
+        productInfo.setAdapter(adapter);
+
 
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
         final ImageLoader imgLoader = new ImageLoader(Configuration.ProductInfoActivity); // important
@@ -75,9 +81,9 @@ public class FullScreenImageAdapter extends PagerAdapter {
                 "&q=30";
         imgLoader.DisplayImage(image_url_Main, imgProduct);
         LinearLayout layout = (LinearLayout) viewLayout.findViewById(R.id.linear);
-        for (int i = 0; i < products.get(position).getImagesPath().size(); i++) {
+        for (int i = 1; i < products.get(position).getImagesPath().size(); i++) {
             final ImageView imageView = new ImageView(Configuration.ProductInfoActivity);
-            imageView.setId(i);
+            imageView.setId(i-1);
             imageView.setPadding(2, 0, 2, 0);
             layout.addView(imageView);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -90,7 +96,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
             String image_url_otherPic = products.get(position).getImagesMainPath() +
                     picNum +
                     "&size=" +
-                    Configuration.shopDisplaySize + "x" + Configuration.shopDisplaySize +
+                    Configuration.articleDisplaySize + "x" + Configuration.articleDisplaySize +
                     "&q=30";
             imgLoader.DisplayImage(image_url_otherPic, imageView);
 
