@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        tabs = (PagerSlidingTabStrip)findViewById(R.id.tabs);
         Configuration.MainActivityFragment = this;
         Configuration.AplicationCOntext=getBaseContext();
         sch=new ServerConnectionHandler(Configuration.MainActivityFragment);
@@ -153,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
         pager.setPageMargin(pageMargin);
         pager.setCurrentItem(1);
         changeColor(getResources().getColor(R.color.decoriss));
+
     }
 
     @Override
@@ -205,12 +207,15 @@ public class MainActivity extends AppCompatActivity {
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
 
+
         private final String[] TITLES = {
                 getResources().getString(R.string.home)
                 , getResources().getString(R.string.photo)
                 , getResources().getString(R.string.sell)
                 , getResources().getString(R.string.papers)
                 , getResources().getString(R.string.comment)
+
+
         };
 
         public MyPagerAdapter(FragmentManager fm) {
