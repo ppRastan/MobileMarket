@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -28,6 +29,8 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Product> products;
     private ArrayList<Article> articles;
     private ArrayList<Category> categories;
+    private LinearLayout mTabsLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         tabs = (PagerSlidingTabStrip)findViewById(R.id.tabs);
+        tabs.setTextColor(getResources().getColorStateList(R.color.tab_text_color));
         Configuration.MainActivityFragment = this;
         Configuration.AplicationCOntext=getBaseContext();
         sch=new ServerConnectionHandler(Configuration.MainActivityFragment);
@@ -152,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
         changeColor(getResources().getColor(R.color.decoriss));
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
