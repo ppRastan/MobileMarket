@@ -101,11 +101,13 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Cursor rs = db.rawQuery( "select * from tblCategory", null );
         if (rs.moveToFirst() ) {
             //Not empty
+            rs.close();
             return false;
         }
         else
         {
             //Is Empty
+            rs.close();
             return true;
         }
     }
@@ -115,11 +117,13 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Cursor rs = db.rawQuery( "select * from tblProduct", null );
         if (rs.moveToFirst() ) {
             //Not empty
+            rs.close();
             return false;
         }
         else
         {
             //Is Empty
+            rs.close();
             return true;
         }
     }
@@ -129,11 +133,13 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Cursor rs = db.rawQuery( "select * from tblArticle", null );
         if (rs.moveToFirst() ) {
             //Not empty
+            rs.close();
             return false;
         }
         else
         {
             //Is Empty
+            rs.close();
             return true;
         }
     }
@@ -324,6 +330,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 }
                 while (rs.moveToNext());
             }
+            rs.close();
         }
         return options;
     }
@@ -353,7 +360,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     public Article selectOneArticle(int articleId){
         //ToDo
         Article article=new Article();
-
         return article;
 
     }
