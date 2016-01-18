@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Article> articles;
     private ArrayList<Category> categories;
     private LinearLayout mTabsLinearLayout;
+    private Typeface font;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +76,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         tabs = (PagerSlidingTabStrip)findViewById(R.id.tabs);
         tabs.setTextColor(getResources().getColorStateList(R.color.tab_text_color));
+       // tabs.setTypeface();
         Configuration.MainActivityFragment = this;
         Configuration.AplicationCOntext=getBaseContext();
         sch=new ServerConnectionHandler(Configuration.MainActivityFragment);
