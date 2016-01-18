@@ -46,6 +46,7 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserProfileActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 //test parisa's  connection to github
 public class MainActivity extends AppCompatActivity {
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         tabs = (PagerSlidingTabStrip)findViewById(R.id.tabs);
         tabs.setTextColor(getResources().getColorStateList(R.color.tab_text_color));
-       // tabs.setTypeface();
+
         Configuration.MainActivityFragment = this;
         Configuration.AplicationCOntext=getBaseContext();
         sch=new ServerConnectionHandler(Configuration.MainActivityFragment);
@@ -162,7 +163,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(new CalligraphyContextWrapper(newBase));
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);

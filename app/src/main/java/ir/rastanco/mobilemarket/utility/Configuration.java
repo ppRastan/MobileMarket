@@ -15,6 +15,7 @@ public class Configuration {
         } else return new Configuration();
 
     }
+    public static Context activityContext;
     public static String homeDisplaySize;
     public static String shopDisplaySize;
     public static String productInfoHeightSize;

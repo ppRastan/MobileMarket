@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Decoriss</string>
     <string name="home">خانه</string>
-    <string name="photo">عکس</string>
+    <string name="photo">عکس ها</string>
     <string name="sell">خرید</string>
     <string name="papers">مقالات</string>
     <string name="comment">نظرات</string>
