@@ -12,6 +12,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +31,8 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -62,14 +65,15 @@ public class MainActivity extends AppCompatActivity {
     private Drawable oldBackground = null;
     private int currentColor;
     private SystemBarTintManager mTintManager;
+    private AutoCompleteTextView textToSearch;
+    private ImageButton backButton;
 
 
     private ServerConnectionHandler sch;
     private ArrayList<Product> products;
     private ArrayList<Article> articles;
     private ArrayList<Category> categories;
-    private LinearLayout mTabsLinearLayout;
-    private Typeface font;
+    private LinearLayout toolbarSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,6 +184,26 @@ public class MainActivity extends AppCompatActivity {
                 Intent userProfileIntent=new Intent(this,UserProfileActivity.class);
                 this.startActivity(userProfileIntent);
                 return true;
+            case R.id.action_search:
+            {
+                backButton = (ImageButton)findViewById(R.id.back_button);
+                toolbarSearch = (LinearLayout)findViewById(R.id.toolbar_search);
+                toolbar.setVisibility(View.GONE);
+                toolbarSearch.setVisibility(View.VISIBLE);
+                backButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        toolbarSearch.setVisibility(View.GONE);
+                        toolbar.setVisibility(View.VISIBLE);
+
+                    }
+                });
+
+                break;
+            }
+
+            case R.id.action_sell :
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
