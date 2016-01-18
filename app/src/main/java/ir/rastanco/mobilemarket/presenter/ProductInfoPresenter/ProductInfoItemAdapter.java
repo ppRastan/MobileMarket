@@ -22,7 +22,7 @@ public class ProductInfoItemAdapter extends ArrayAdapter<ProductOption> {
     private Activity myContext;
 
     public ProductInfoItemAdapter(Context context, int resource, ArrayList<ProductOption> allProductOptions) {
-        super(context, resource);
+        super(context, resource,allProductOptions);
         options = allProductOptions;
         myContext = (Activity) context;
     }
@@ -30,11 +30,11 @@ public class ProductInfoItemAdapter extends ArrayAdapter<ProductOption> {
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = myContext.getLayoutInflater();
-        final View rowView = inflater.inflate(R.layout.picture_product_item_home, null);
+        final View rowView = inflater.inflate(R.layout.product_info_item, null);
 
         TextView txtTitle=(TextView)rowView.findViewById(R.id.txt_title);
         TextView txtValue=(TextView)rowView.findViewById(R.id.txt_value);
-        txtTitle.setText(options.get(position).getTitle());
+        txtTitle.setText(options.get(position).getTitle()+" : ");
         txtValue.setText(options.get(position).getValue());
 
         return rowView;
