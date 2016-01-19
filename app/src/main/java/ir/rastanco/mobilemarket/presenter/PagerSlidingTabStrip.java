@@ -158,10 +158,10 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
         String tabTextTypefaceName = "yekan_font.ttf";
         // Use Roboto Medium as the default typeface from API 21 onwards
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             tabTextTypefaceName = "yekan_font.ttf";
             mTabTextTypefaceStyle = Typeface.NORMAL;
-        }
+//        }
 
         // get custom attrs for tabs and container
         a = context.obtainStyledAttributes(attrs, R.styleable.PagerSlidingTabStrip);
