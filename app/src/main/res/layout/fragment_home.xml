@@ -5,10 +5,21 @@
     android:padding="8dp"
     android:background="@color/background_window">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/lstv_picProduct"
         android:layout_gravity="center_horizontal|top"
         android:dividerHeight="8dp" />
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 </FrameLayout>

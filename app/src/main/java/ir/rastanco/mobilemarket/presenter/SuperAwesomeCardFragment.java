@@ -21,7 +21,9 @@ package ir.rastanco.mobilemarket.presenter;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,16 +88,54 @@ public class SuperAwesomeCardFragment extends Fragment{
             }
             case 1: {
                 mainView = inflater.inflate(R.layout.fragment_photo, null);
-                GridView gridview = (GridView) mainView.findViewById(R.id.gv_photoProduct);
+                final GridView gridview = (GridView) mainView.findViewById(R.id.gv_photoProduct);
                 PictureProductPhotoItemAdapter adapter= new PictureProductPhotoItemAdapter(getActivity(),products);
                 gridview.setAdapter(adapter);
+                final SwipeRefreshLayout mSwipeRefreshLayout= (SwipeRefreshLayout)
+                        mainView.findViewById(R.id.swipe_refresh_layout);
+                mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                sch.refreshProduct();
+                                products = sch.getAllProductFromTable();
+                                PictureProductShopItemAdapter newAdapter = new
+                                        PictureProductShopItemAdapter(getActivity(), products);
+                                gridview.setAdapter(newAdapter);
+                                mSwipeRefreshLayout.setRefreshing(false);
+                            }
+                        }, 5000);
+                    }
+                });
                 break;
             }
+
             case 2:{
 
                 mainView=inflater.inflate(R.layout.fragment_shop,null);
-                GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
-                gridview.setAdapter(new PictureProductShopItemAdapter(getActivity(),products));
+                final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
+                final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
+                gridview.setAdapter(adapter);
+                final SwipeRefreshLayout mSwipeRefreshLayout= (SwipeRefreshLayout)
+                        mainView.findViewById(R.id.swipe_refresh_layout);
+                mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                sch.refreshProduct();
+                                products=sch.getAllProductFromTable();
+                                PictureProductShopItemAdapter newAdapter=new
+                                        PictureProductShopItemAdapter(getActivity(),products);
+                                gridview.setAdapter(newAdapter);
+                                mSwipeRefreshLayout.setRefreshing(false);
+                            }
+                        },5000);
+                    }
+                });
                 break;
             }
             case 3:{

@@ -24,4 +24,5 @@ public class Configuration {
     public static Context MainActivityFragment;
     public static Context ProductInfoActivity;
     public static Context AplicationCOntext;
+    public static String FirstTimeStamp;
 }

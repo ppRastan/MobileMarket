@@ -42,6 +42,7 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserProfileActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -158,12 +159,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (sch.emptyDBProduct()){
-            for (int i=0;i<categories.size();i++){
-                products=sch.getAllProductInfoACategoryURL("http://decoriss.com/json/get,com=product&" +
-                        "catid=" + categories.get(i).getId() + "&cache=false");
-                sch.addAllProductToTable(products);
 
-            }
+            ParseJsonProduct pjp=new ParseJsonProduct(Configuration.MainActivityFragment);
+            pjp.execute("http://decoriss.com/json/get,com=product&newfromts=1352689345&cache=false");
         }
 
         if (sch.emptyDBArticle()){

@@ -1,35 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipe_refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:background="@color/white">
-        <Button
-            android:layout_width="0dp"
-            android:background="@color/white"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="طبقه بندی گروه"
-            android:textSize="12dp"
-            android:id="@+id/btn_category"
-            android:layout_weight="1" />
-        <Button
-            android:layout_width="0dp"
-            android:textSize="12dp"
-            android:background="@color/white"
-            android:layout_height="wrap_content"
-            android:text="طبقه بندی محصولات"
-            android:id="@+id/btn_product"
-            android:layout_weight="1" />
+            android:weightSum="2"
+            android:background="@color/white">
+            <Button
+                android:layout_width="0dp"
+                android:background="@color/white"
+                android:layout_height="wrap_content"
+                android:text="طبقه بندی گروه"
+                android:textSize="12dp"
+                android:id="@+id/btn_category"
+                android:layout_weight="1" />
+            <Button
+                android:layout_width="0dp"
+                android:textSize="12dp"
+                android:background="@color/white"
+                android:layout_height="wrap_content"
+                android:text="طبقه بندی محصولات"
+                android:id="@+id/btn_product"
+                android:layout_weight="1" />
+        </LinearLayout>
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/gv_infoProduct"
+            android:numColumns="2"
+            android:verticalSpacing="4dp"
+            android:horizontalSpacing="4dp"/>
     </LinearLayout>
-    <GridView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/gv_infoProduct"
-        android:numColumns="2"
-        android:verticalSpacing="4dp"
-        android:horizontalSpacing="4dp"/>
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

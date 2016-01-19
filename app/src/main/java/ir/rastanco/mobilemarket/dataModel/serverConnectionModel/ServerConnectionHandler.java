@@ -7,14 +7,14 @@ import java.util.concurrent.ExecutionException;
 
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
+import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.ProductOption;
+import ir.rastanco.mobilemarket.dataModel.dataBaseConnectionModel.DataBaseHandler;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.GetJsonFile;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonArticles;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonCategory;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductOption;
-import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.ProductOption;
-import ir.rastanco.mobilemarket.dataModel.dataBaseConnectionModel.DataBaseHandler;
 
 /**
  * Created by ShaisteS on 1394/10/14.
@@ -51,8 +51,14 @@ public class ServerConnectionHandler {
     }
     public void addAllProductToTable(ArrayList<Product> allProducts){
         for (int i=0;i<allProducts.size();i++){
-            dbh.insertAProduct(allProducts.get(i));
+            if(dbh.ExistAProduct(allProducts.get(i).getId()))
+               dbh.updateAProduct(allProducts.get(i));
+            else
+                dbh.insertAProduct(allProducts.get(i));
         }
+        if (allProducts.size()>0)
+            setLastTimeStamp(allProducts.get(0).getTimeStamp());
+
     }
     public void addAllArticlesToTable(ArrayList<Article> allArticles){
         for (int i=0;i<allArticles.size();i++)
@@ -88,21 +94,7 @@ public class ServerConnectionHandler {
         return allCategoryInfo;
 
     }
-    public ArrayList<Product> getAllProductInfoACategoryURL(String url){
 
-        GetJsonFile jParserProduct = new GetJsonFile();
-        String jsonProduct= null;
-        try {
-            jsonProduct = jParserProduct.execute(url).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        ArrayList<Product> ProductInfo=new ArrayList<Product>();
-        ProductInfo=new ParseJsonProduct().getAllProduct(jsonProduct);
-        return  ProductInfo;
-    }
     public ArrayList<Article> getAllArticlesAndNewsURL(String url){
 
         GetJsonFile g=new GetJsonFile();
@@ -133,5 +125,33 @@ public class ServerConnectionHandler {
         return p.getAllProductOptions(productInfoJson);
     }
 
+    public void setLastTimeStamp(String timeStamp){
+        if(dbh.emptySettingTable()){
+            dbh.insertSetting(timeStamp);
+        }
+        else
+            dbh.updateTimeStamp(timeStamp);
 
+    }
+    public String getLastTimeStamp(){
+        return dbh.selectLastTimeStamp();
+    }
+
+    public void refreshProduct(){
+        String lastTimeStamp=getLastTimeStamp();
+        ParseJsonProduct pjp=new ParseJsonProduct(context);
+        String url="http://decoriss.com/json/get,com=product&newfromts="+
+                lastTimeStamp+"&cache=false";
+        try {
+            pjp.execute(url).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteAProduct(int productId){
+        dbh.deleteAProduct(productId);
+    }
 }

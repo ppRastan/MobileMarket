@@ -1,6 +1,5 @@
 package ir.rastanco.mobilemarket.dataModel;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -139,6 +138,14 @@ public class Product {
 
     public void setTimeStamp(String timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public ArrayList<ProductOption> getProducOptions() {
+        return producOptions;
+    }
+
+    public void setProducOptions(ArrayList<ProductOption> producOptions) {
+        this.producOptions = producOptions;
     }
 
     public int getShowAtHomeScreen() {
