@@ -3,6 +3,7 @@ package ir.rastanco.mobilemarket.presenter.shopPresenter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,10 +33,11 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private static LayoutInflater inflater=null;
     private ArrayList<Product> allProduct;
     private ProgressBar imageLoading;
-
+    private Typeface font;
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
         context=mainActivity;
+        font = Typeface.createFromAsset(mainActivity.getAssets(),"yekan_font.ttf");
         inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         allProduct =products;
 
@@ -73,7 +75,8 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.infoP=(TextView) rowView.findViewById(R.id.txt_infoProduct);
         holder.priceP=(TextView) rowView.findViewById(R.id.txt_priceProduct);
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
-
+        holder.infoP.setTypeface(font);
+        holder.priceP.setTypeface(font);
         ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
         String picCounter = allProduct.get(position).getImagesPath().get(0);
         try {
