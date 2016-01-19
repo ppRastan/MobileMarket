@@ -106,12 +106,12 @@ public class MainActivity extends AppCompatActivity {
                 .getDisplayMetrics());
         pager.setPageMargin(pageMargin);
         pager.setCurrentItem(1);
-        this.setDecourissThemColor();
+        this.setDecorissThemColour();
 
 
     }
 
-    private void setDecourissThemColor() {
+    private void setDecorissThemColour() {
         changeColor(getResources().getColor(R.color.decoriss));
     }
 
