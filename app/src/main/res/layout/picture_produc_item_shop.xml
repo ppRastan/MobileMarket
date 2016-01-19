@@ -8,6 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imbt_picProduct"
+        android:padding="4dp"
         android:background="@color/white"/>
 
     <TextView
@@ -41,7 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/ic_shop"
+            android:src="@mipmap/ic_shop_toolbar"
             android:id="@+id/basket_toolbar"
             android:background="@color/white"/>
         <ImageButton
@@ -55,7 +56,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/ic_like"
+            android:src="@mipmap/ic_like_toolbar"
             android:id="@+id/empty_like_toolbar"
             android:background="@color/white"/>
     </LinearLayout>

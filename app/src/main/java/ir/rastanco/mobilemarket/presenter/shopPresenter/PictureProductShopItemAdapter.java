@@ -37,6 +37,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private ArrayList<Product> allProduct;
     private ProgressBar imageLoading;
     private Typeface font;
+    private boolean isLikeButtonClicked = true;
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
         context=mainActivity;
@@ -93,14 +94,23 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.likeToolBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.likeToolBar.setImageResource(R.mipmap.ic_liked_fill);
+                if(isLikeButtonClicked == false){
 
+                    holder.likeToolBar.setImageResource(R.mipmap.ic_like_fill_toolbar);
+                    isLikeButtonClicked = true;
+                    //TODO display area here
+                }
+                else if(isLikeButtonClicked){
+                    holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);
+                    isLikeButtonClicked = false;
+                    //TODO exit area mode
+                }
             }
         });
         holder.basketToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.basketToolbar.setImageResource(R.mipmap.ic_green_basket);
+                holder.basketToolbar.setImageResource(R.mipmap.ic_shop_green_toolbar);
             }
         });
         holder.infoP.setTypeface(font);
