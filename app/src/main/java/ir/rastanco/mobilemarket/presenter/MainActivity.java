@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             display.getSize(size);
             Configuration.homeDisplaySize = String.valueOf(size.x);
             Configuration.productInfoHeightSize = String.valueOf(size.x - 100);
-            Configuration.shopDisplaySize = String.valueOf(((size.x) * 0.5)-10);
+            Configuration.shopDisplaySize = String.valueOf(((size.x) * 0.5)-12);
             Configuration.articleDisplaySize=String.valueOf((size.x) * 0.3);
         }
         ButterKnife.inject(this);

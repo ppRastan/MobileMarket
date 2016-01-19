@@ -43,7 +43,8 @@
             android:numColumns="auto_fit"
             android:verticalSpacing="4dp"
             android:horizontalSpacing="2dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:paddingRight="4dp" />
 
     </LinearLayout>
 </android.support.v4.widget.SwipeRefreshLayout>
