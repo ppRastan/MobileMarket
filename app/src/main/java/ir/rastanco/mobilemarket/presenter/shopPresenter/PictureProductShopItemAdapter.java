@@ -4,14 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.media.Image;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -63,11 +66,14 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         TextView infoP;
         TextView priceP;
         ImageView imgP;
+        ImageButton shareToolBar;
+        ImageButton basketToolbar;
+        ImageButton likeToolBar;
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        Holder holder=new Holder();
+        final Holder holder=new Holder();
         Bitmap image=null;
 
         final View rowView;
@@ -75,6 +81,28 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.infoP=(TextView) rowView.findViewById(R.id.txt_infoProduct);
         holder.priceP=(TextView) rowView.findViewById(R.id.txt_priceProduct);
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
+        holder.shareToolBar = (ImageButton)rowView.findViewById(R.id.share_toolbar);
+        holder.basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
+        holder.likeToolBar = (ImageButton)rowView.findViewById(R.id.empty_like_toolbar);
+        holder.shareToolBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(Configuration.getConfig().activityContext,"share this product",Toast.LENGTH_SHORT).show();
+            }
+        });
+        holder.likeToolBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.likeToolBar.setImageResource(R.mipmap.ic_liked_fill);
+
+            }
+        });
+        holder.basketToolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.basketToolbar.setImageResource(R.mipmap.ic_green_basket);
+            }
+        });
         holder.infoP.setTypeface(font);
         holder.priceP.setTypeface(font);
         ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important

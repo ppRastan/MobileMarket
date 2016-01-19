@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imbt_picProduct" />
+        android:id="@+id/imbt_picProduct"
+        android:background="@color/white"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -15,6 +17,7 @@
         android:textColor="@color/black"
         android:textIsSelectable="false"
         android:textSize="13dp"
+        android:background="@color/white"
         android:gravity="center" />
 
     <TextView
@@ -24,5 +27,36 @@
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="13dp"
+        android:background="@color/white"
         />
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:weightSum="3"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_shop"
+            android:id="@+id/basket_toolbar"
+            android:background="@color/white"/>
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/share_toolbar"
+            android:src="@mipmap/ic_share_toolbar"
+            android:background="@color/white"/>
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_like"
+            android:id="@+id/empty_like_toolbar"
+            android:background="@color/white"/>
+    </LinearLayout>
 </LinearLayout>
