@@ -46,6 +46,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.utility.Configuration;
 
 
 public class PagerSlidingTabStrip extends HorizontalScrollView {
@@ -103,7 +104,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private boolean isPaddingMiddle = false;
     private boolean isTabTextAllCaps = true;
 
-    private Typeface mTabTextTypeface = null;
+    private Typeface mTabTextTypeface;
     private int mTabTextTypefaceStyle = Typeface.BOLD;
 
     private int mScrollOffset;
@@ -155,10 +156,10 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         mPaddingRight = padding > 0 ? padding : a.getDimensionPixelSize(PADDING_RIGHT_INDEX, 0);
         a.recycle();
 
-        String tabTextTypefaceName = "sans-serif";
+        String tabTextTypefaceName = "yekan_font.ttf";
         // Use Roboto Medium as the default typeface from API 21 onwards
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            tabTextTypefaceName = "sans-serif-medium";
+            tabTextTypefaceName = "yekan_font.ttf";
             mTabTextTypefaceStyle = Typeface.NORMAL;
         }
 
@@ -431,6 +432,11 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
     public void setOnPageChangeListener(OnPageChangeListener listener) {
         this.mDelegatePageListener = listener;
+    }
+
+    public void addFont() {
+        Typeface font = Typeface.createFromAsset(Configuration.activityContext.getAssets(),"yekan_font.ttf");
+
     }
 
     private class PageListener implements OnPageChangeListener {
