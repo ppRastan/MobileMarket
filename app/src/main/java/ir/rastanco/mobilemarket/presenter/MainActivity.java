@@ -5,14 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.TransitionDrawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,7 +31,6 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -51,7 +47,6 @@ import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserProfileActivi
 import ir.rastanco.mobilemarket.utility.Configuration;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-//test parisa's  connection to github
 public class MainActivity extends AppCompatActivity {
 
     @InjectView(R.id.toolbar)
@@ -60,38 +55,103 @@ public class MainActivity extends AppCompatActivity {
     PagerSlidingTabStrip tabs;
     @InjectView(R.id.pager)
     ViewPager pager;
-
     private MyPagerAdapter adapter;
     private Drawable oldBackground = null;
     private int currentColor;
     private SystemBarTintManager mTintManager;
     private AutoCompleteTextView textToSearch;
     private ImageButton backButton;
-
-
     private ServerConnectionHandler sch;
     private ArrayList<Product> products;
     private ArrayList<Article> articles;
     private ArrayList<Category> categories;
     private LinearLayout toolbarSearch;
-
+    private PhoneCallListener phoneListener;
+    private  TelephonyManager telephonyManager;
+    private FloatingActionButton fab;
+    private  Display display;
+    private Point size;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        this.CreatePageRightToLeft();
+        this.addActionBar();
+        this.addFontAndColors();
+        this.addServerConnection();
+        this.checkDbState();
+        this.phoneManager();
+        this.setFAb();
+        this.displayWindow();
+        }
+
+    private void displayWindow() {
+        display = getWindowManager().getDefaultDisplay();
+        size = new Point();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            display.getSize(size);
+            Configuration.homeDisplaySize = String.valueOf(size.x);
+            Configuration.productInfoHeightSize = String.valueOf(size.x - 100);
+            Configuration.shopDisplaySize = String.valueOf((size.x) * 0.5);
+            Configuration.articleDisplaySize=String.valueOf((size.x) * 0.3);
+        }
+        ButterKnife.inject(this);
         setSupportActionBar(toolbar);
+        mTintManager = new SystemBarTintManager(this);
+        mTintManager.setStatusBarTintEnabled(true);
+        adapter = new MyPagerAdapter(getSupportFragmentManager());
+        pager.setAdapter(adapter);
+        tabs.setViewPager(pager);
+        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 5, getResources()
+                .getDisplayMetrics());
+        pager.setPageMargin(pageMargin);
+        pager.setCurrentItem(1);
+        this.setDecourissThemColor();
 
-        tabs = (PagerSlidingTabStrip)findViewById(R.id.tabs);
-        tabs.setTextColor(getResources().getColorStateList(R.color.tab_text_color));
 
-        Configuration.MainActivityFragment = this;
-        Configuration.AplicationCOntext=getBaseContext();
-        sch=new ServerConnectionHandler(Configuration.MainActivityFragment);
-        categories=new ArrayList<Category>();
-        products=new ArrayList<Product>();
-        articles=new ArrayList<Article>();
+    }
 
+    private void setDecourissThemColor() {
+        changeColor(getResources().getColor(R.color.decoriss));
+    }
+
+    private void CreatePageRightToLeft() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        }
+    }
+
+    private void setFAb()
+    {
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.decoriss)));
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:00000000000"));
+                if (ActivityCompat.checkSelfPermission(Configuration.MainActivityFragment, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                if (ActivityCompat.checkSelfPermission(Configuration.MainActivityFragment, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                startActivity(callIntent);
+
+            }
+        });
+
+    }
+
+    private void phoneManager() {
+        phoneListener = new PhoneCallListener();
+        telephonyManager = (TelephonyManager) this
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        telephonyManager.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
+
+    }
+
+    private void checkDbState() {
         if (sch.emptyDBCategory()){
             categories=sch.getAllCategoryInfoURL("http://decoriss.com/json/get,com=allcats&cache=false");
             sch.addAllCategoryToTable(categories);
@@ -110,61 +170,26 @@ public class MainActivity extends AppCompatActivity {
             articles=sch.getAllArticlesAndNewsURL("http://decoriss.com/json/get,com=news&name=blog&order=desc&limit=1-50&cache=false");
             sch.addAllArticlesToTable(articles);
         }
+    }
 
-        // add PhoneStateListener
-        PhoneCallListener phoneListener = new PhoneCallListener();
-        TelephonyManager telephonyManager = (TelephonyManager) this
-                .getSystemService(Context.TELEPHONY_SERVICE);
-        telephonyManager.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
+    private void addServerConnection() {
+        Configuration.MainActivityFragment = this;
+        Configuration.AplicationCOntext=getBaseContext();
+        sch=new ServerConnectionHandler(Configuration.MainActivityFragment);
+        categories=new ArrayList<Category>();
+        products=new ArrayList<Product>();
+        articles=new ArrayList<Article>();
+    }
 
-        // add button listener
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.decoriss)));
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:00000000000"));
-                if (ActivityCompat.checkSelfPermission(Configuration.MainActivityFragment, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                if (ActivityCompat.checkSelfPermission(Configuration.MainActivityFragment, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                startActivity(callIntent);
+    private void addFontAndColors() {
 
-            }
-        });
+        tabs = (PagerSlidingTabStrip)findViewById(R.id.tabs);
+        tabs.setTextColor(getResources().getColorStateList(R.color.tab_text_color));
+    }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        }
-
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            display.getSize(size);
-            Configuration.homeDisplaySize = String.valueOf(size.x);
-            Configuration.productInfoHeightSize = String.valueOf(size.x - 100);
-            Configuration.shopDisplaySize = String.valueOf((size.x) * 0.5);
-            Configuration.articleDisplaySize=String.valueOf((size.x) * 0.3);
-        }
-        //Start here
-        ButterKnife.inject(this);
+    private void addActionBar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // create our manager instance after the content view is set
-        mTintManager = new SystemBarTintManager(this);
-        // enable status bar tint
-        mTintManager.setStatusBarTintEnabled(true);
-        adapter = new MyPagerAdapter(getSupportFragmentManager());
-        pager.setAdapter(adapter);
-        tabs.setViewPager(pager);
-        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 5, getResources()
-                .getDisplayMetrics());
-        pager.setPageMargin(pageMargin);
-        pager.setCurrentItem(1);
-        changeColor(getResources().getColor(R.color.decoriss));
-
     }
 
     @Override
