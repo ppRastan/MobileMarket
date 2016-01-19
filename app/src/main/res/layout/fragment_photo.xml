@@ -42,7 +42,8 @@
             android:id="@+id/gv_photoProduct"
             android:numColumns="auto_fit"
             android:verticalSpacing="4dp"
-            android:horizontalSpacing="4dp"/>
+            android:horizontalSpacing="2dp"
+            android:layout_gravity="center" />
 
     </LinearLayout>
 </android.support.v4.widget.SwipeRefreshLayout>
