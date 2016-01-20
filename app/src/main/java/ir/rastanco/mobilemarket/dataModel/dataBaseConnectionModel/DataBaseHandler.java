@@ -353,6 +353,24 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return allProducts;
     }
 
+    public Product selectAProduct(int productId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from tblProduct where productId="+productId, null);
+        aProduct= new Product();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                    aProduct.setTitle(rs.getString(rs.getColumnIndex("title")));
+                    aProduct.setPrice(rs.getInt(rs.getColumnIndex("price")));
+                    aProduct.setPriceOff(rs.getInt(rs.getColumnIndex("priceOff")));
+                    aProduct.setImagesMainPath(rs.getString(rs.getColumnIndex("imagesMainPath")));
+
+            }
+            rs.close();
+        }
+        Log.v("select", "Select A Product");
+        return aProduct;
+    }
+
     public ArrayList<String> selectAllImagePathAProduct(int productId) {
         ArrayList<String> path = new ArrayList<String>();
         SQLiteDatabase db = this.getReadableDatabase();

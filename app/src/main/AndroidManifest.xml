@@ -30,6 +30,7 @@
         </activity>
         <activity android:name=".presenter.ProductInfoPresenter.ProductInfoActivity" />
         <activity android:name=".presenter.UserProfilePresenter.UserProfileActivity"/>
+        <activity android:name=".presenter.shoppingBagPresenter.ShoppingBagActivity"/>
     </application>
 
 </manifest>

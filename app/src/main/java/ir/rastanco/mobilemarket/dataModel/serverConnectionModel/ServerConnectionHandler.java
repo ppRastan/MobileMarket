@@ -12,7 +12,9 @@ import ir.rastanco.mobilemarket.dataModel.ProductOption;
 import ir.rastanco.mobilemarket.dataModel.dataBaseConnectionModel.DataBaseHandler;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.GetJsonFile;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonArticles;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonAuthorize;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonCategory;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonKey;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductOption;
 
@@ -77,6 +79,10 @@ public class ServerConnectionHandler {
     }
 
 
+    public Product getAProduct(int productId){
+        return  dbh.selectAProduct(productId);
+    }
+
     public ArrayList<Category> getAllCategoryInfoURL(String url){
 
         GetJsonFile jParserCategory = new GetJsonFile();
@@ -94,7 +100,6 @@ public class ServerConnectionHandler {
         return allCategoryInfo;
 
     }
-
     public ArrayList<Article> getAllArticlesAndNewsURL(String url){
 
         GetJsonFile g=new GetJsonFile();
@@ -153,5 +158,40 @@ public class ServerConnectionHandler {
 
     public void deleteAProduct(int productId){
         dbh.deleteAProduct(productId);
+    }
+
+    public String GetKey(String url){
+
+        GetJsonFile jSONKey = new GetJsonFile();
+        String jsonKeyString= null;
+        try {
+            jsonKeyString = jSONKey.execute(url).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        ParseJsonKey pjk= new ParseJsonKey();
+        return  pjk.getKey(jsonKeyString);
+    }
+
+    public ArrayList<String> GetAuthorizeResponse(String hashInfo,String key){
+
+        String url="http://decoriss.com/json/get,com=login&u="+hashInfo+
+                "&k="+key;
+        GetJsonFile jsonAuth = new GetJsonFile();
+        String jsonKeyString= null;
+        try {
+            jsonKeyString = jsonAuth.execute(url).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        ParseJsonAuthorize pja= new ParseJsonAuthorize();
+        return  pja.getResponse(jsonKeyString);
+
     }
 }

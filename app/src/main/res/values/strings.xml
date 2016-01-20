@@ -8,4 +8,6 @@
     <string name="comment">نظرات</string>
     <string name="title_activity_main">Decoriss</string>
     <string name="search_in_decoriss">جستوجو در دکوریس</string>
+    <string name="tab1_userProfile">پروفایل کاربری</string>
+    <string name="tab2_userAccunt">حساب کاربری</string>
 </resources>
