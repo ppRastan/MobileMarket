@@ -2,6 +2,7 @@ package ir.rastanco.mobilemarket.utility;
 
 
 import android.content.Context;
+import android.support.v4.view.ViewPager;
 
 /**
  * Created by ShaisteS on 1394/10/14.
@@ -24,5 +25,7 @@ public class Configuration {
     public static Context MainActivityFragment;
     public static Context ProductInfoActivity;
     public static Context AplicationCOntext;
-    public static String FirstTimeStamp;
+    public static Context UserInformationFragment;
+    public static ViewPager UserProfileViewPager;
+
 }

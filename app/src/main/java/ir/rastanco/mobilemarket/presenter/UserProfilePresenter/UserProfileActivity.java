@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.utility.Configuration;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class UserProfileActivity extends AppCompatActivity {
@@ -21,16 +22,18 @@ public class UserProfileActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab1_userProfile));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.tab2_userAccunt));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        Configuration.UserProfileViewPager=viewPager;
         final UserPagerAdapter adapter = new UserPagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);

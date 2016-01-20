@@ -45,6 +45,7 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserProfileActivity;
+import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -206,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_contact:
                 Intent userProfileIntent=new Intent(this,UserProfileActivity.class);
                 this.startActivity(userProfileIntent);
-                return true;
+               break;
             case R.id.action_search:
             {
                 backButton = (ImageButton)findViewById(R.id.back_button);
@@ -226,6 +227,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             case R.id.action_sell :
+                Intent shoppingBagIntent=new Intent(this, ShoppingBagActivity.class);
+                this.startActivity(shoppingBagIntent);
                 break;
         }
         return super.onOptionsItemSelected(item);
