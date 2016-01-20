@@ -18,7 +18,7 @@
         <LinearLayout
             android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?actionBarSize"
             android:weightSum="10"
             android:id="@+id/toolbar_search"
             android:orientation="horizontal">
@@ -30,19 +30,12 @@
                 android:background="@color/background_window"
                 android:id="@+id/back_button"
                 android:src="@mipmap/ic_back"/>
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@color/background_window"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:src="@mipmap/small_search_icon"/>
 
             <AutoCompleteTextView
                 android:layout_width="0dp"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_height="wrap_content"
-                android:layout_weight="7"
+                android:layout_weight="8"
                 android:hint="@string/search_in_decoriss"
                 android:layoutDirection="rtl"
                 android:background="@color/background_window"
@@ -78,6 +71,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@mipmap/call" />
+        android:src="@mipmap/ic_phone" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -10,7 +10,7 @@ import android.widget.TextView;
 public class MyCustomTextView extends TextView {
     public MyCustomTextView(Context context) {
         super(context);
-        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "yekan_font.ttf"));
+        this.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/yekan_font.ttf"));
 
     }
 }

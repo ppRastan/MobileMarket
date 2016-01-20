@@ -156,10 +156,10 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         mPaddingRight = padding > 0 ? padding : a.getDimensionPixelSize(PADDING_RIGHT_INDEX, 0);
         a.recycle();
 
-        String tabTextTypefaceName = "yekan_font.ttf";
+        String tabTextTypefaceName = "fonts/yekan_font.ttf";
         // Use Roboto Medium as the default typeface from API 21 onwards
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            tabTextTypefaceName = "yekan_font.ttf";
+            tabTextTypefaceName = "fonts/yekan_font.ttf";
             mTabTextTypefaceStyle = Typeface.NORMAL;
 //        }
 
@@ -435,7 +435,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     }
 
     public void addFont() {
-        Typeface font = Typeface.createFromAsset(Configuration.activityContext.getAssets(),"yekan_font.ttf");
+        Typeface font = Typeface.createFromAsset(Configuration.activityContext.getAssets(), "fonts/yekan_font.ttf");
 
     }
 

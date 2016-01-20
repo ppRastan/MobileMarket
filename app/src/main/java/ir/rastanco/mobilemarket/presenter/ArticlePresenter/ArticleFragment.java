@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.lang.reflect.Type;
-
 import ir.rastanco.mobilemarket.R;
 
 /**
@@ -28,7 +26,7 @@ public class ArticleFragment extends Fragment {
     }
 
     private void setFont() {
-        font = Typeface.createFromAsset(getActivity().getAssets(), "yekan_font.ttf");
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/yekan_font.ttf");
         articleText = (TextView) getView().findViewById(R.id.txt_titleArticle);
         seeMoreBtn = (Button)getView().findViewById(R.id.btn_next);
         articleText.setTypeface(font);

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
-import android.media.Image;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,11 +36,13 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private ArrayList<Product> allProduct;
     private ProgressBar imageLoading;
     private Typeface font;
+    private Typeface bZarFont;
     private boolean isLikeButtonClicked = true;
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
         context=mainActivity;
-        font = Typeface.createFromAsset(mainActivity.getAssets(),"yekan_font.ttf");
+        font = Typeface.createFromAsset(mainActivity.getAssets(), "fonts/yekan_font.ttf");
+        bZarFont = Typeface.createFromAsset(mainActivity.getAssets(),"fonts/B Zar.ttf");
         inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         allProduct =products;
 
@@ -96,7 +97,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             public void onClick(View v) {
                 if(isLikeButtonClicked == false){
 
-                    holder.likeToolBar.setImageResource(R.mipmap.ic_like_fill_toolbar);
+                    holder.likeToolBar.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     isLikeButtonClicked = true;
                     //TODO display area here
                 }
@@ -110,11 +111,11 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.basketToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.basketToolbar.setImageResource(R.mipmap.ic_shop_green_toolbar);
+                holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
             }
         });
         holder.infoP.setTypeface(font);
-        holder.priceP.setTypeface(font);
+        holder.priceP.setTypeface(bZarFont);
         ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
         String picCounter = allProduct.get(position).getImagesPath().get(0);
         try {

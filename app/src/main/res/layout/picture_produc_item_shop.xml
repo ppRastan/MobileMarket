@@ -18,6 +18,7 @@
         android:textColor="@color/black"
         android:textIsSelectable="false"
         android:textSize="13dp"
+        android:layout_gravity="center_vertical|center_horizontal"
         android:background="@color/white"
         android:gravity="center" />
 
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/txt_priceProduct"
         android:gravity="center"
+        android:layout_gravity="center_horizontal|center_vertical"
         android:textColor="@color/black"
         android:textSize="13dp"
         android:background="@color/white"
@@ -33,7 +35,7 @@
     <LinearLayout
 
         android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
+        android:layout_height="wrap_content"
         android:weightSum="3"
         android:background="@color/white"
         android:orientation="horizontal">
@@ -42,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@mipmap/ic_shop_toolbar"
+            android:src="@mipmap/bye_toolbar"
             android:id="@+id/basket_toolbar"
             android:background="@color/white"/>
         <ImageButton

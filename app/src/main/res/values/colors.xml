@@ -5,9 +5,9 @@
     <color name="background_window">#FFE5E5E5</color>
     <color name="greenDark">#3E5F22</color>
     <color name="banana">#FFCC00</color>
-    <color name="orange">#FE642E</color>
+    <color name="orange">#DF0101</color>
     <color name="decoriss">#FAFAFA</color>
     <color name="black">#000000</color>
     <color name="white">#fdfdfd</color>
-    <color name="fab_green_color">#7de65e</color>
+    <color name="fab_color">#FAFAFA</color>
 </resources>
