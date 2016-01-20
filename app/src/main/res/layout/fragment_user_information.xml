@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/img_logo"
         android:layout_marginTop="31dp"
-        android:src="@drawable/logo"
+        android:src="@drawable/ic_logo"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
