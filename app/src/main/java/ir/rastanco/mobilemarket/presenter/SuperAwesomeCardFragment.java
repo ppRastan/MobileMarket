@@ -20,6 +20,8 @@ package ir.rastanco.mobilemarket.presenter;
  */
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -27,6 +29,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 
@@ -91,6 +94,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                 final GridView gridview = (GridView) mainView.findViewById(R.id.gv_photoProduct);
                 PictureProductPhotoItemAdapter adapter= new PictureProductPhotoItemAdapter(getActivity(),products);
                 gridview.setAdapter(adapter);
+
                 final SwipeRefreshLayout mSwipeRefreshLayout= (SwipeRefreshLayout)
                         mainView.findViewById(R.id.swipe_refresh_layout);
                 mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -144,6 +148,18 @@ public class SuperAwesomeCardFragment extends Fragment{
                 ListView articleList = (ListView) mainView.findViewById(R.id.lv_article);
                 ArticleItemAdapter adapter = new ArticleItemAdapter(getActivity(), R.layout.article_item,articles);
                 articleList.setAdapter(adapter);
+                final View finalMainView = mainView;
+                articleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_VIEW);
+                        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                        intent.setData(Uri.parse(articles.get(position).getLinkInWebsite()));
+                        finalMainView.getContext().startActivity(intent);
+                    }
+                });
                 break;
 
             }

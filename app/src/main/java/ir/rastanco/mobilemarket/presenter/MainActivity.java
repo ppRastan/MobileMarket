@@ -23,6 +23,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Menu;
@@ -35,6 +36,8 @@ import android.widget.LinearLayout;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -85,7 +88,22 @@ public class MainActivity extends AppCompatActivity {
         this.phoneManager();
         this.setFAb();
         this.displayWindow();
+
+        Map<Integer,String> test=new HashMap();
+        test=sch.getCategoryTitle();
+
+        for (Map.Entry<Integer,String> entry : test.entrySet()) {
+           Log.d("Category:",entry.getValue());
         }
+
+        Map<Integer,String> test2=new HashMap();
+        test2=sch.getProductTitle();
+
+        for (Map.Entry<Integer,String> entry : test2.entrySet()) {
+            Log.d("Product:",entry.getValue());
+        }
+
+    }
 
     private void displayWindow() {
         display = getWindowManager().getDefaultDisplay();

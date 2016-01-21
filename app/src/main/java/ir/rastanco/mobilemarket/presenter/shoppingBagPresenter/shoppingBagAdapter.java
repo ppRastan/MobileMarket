@@ -9,12 +9,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by ShaisteS on 1394/10/30.
@@ -44,10 +47,27 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         aProduct=sch.getAProduct(selectedProducts.get(position));
 
         ImageView imgProduct=(ImageView)rowView.findViewById(R.id.img_productImage);
-        TextView txtProductInfo=(TextView) rowView.findViewById(R.id.txt_productTitle);
+        TextView txtProductTitle=(TextView) rowView.findViewById(R.id.txt_productTitle);
+        TextView txtProductPrice=(TextView) rowView.findViewById(R.id.txt_productPrice);
+        TextView txtProductOff=(TextView) rowView.findViewById(R.id.txt_productOff);
 
-        txtProductInfo.setText(aProduct.getTitle());
+        ImageLoader imgLoader = new ImageLoader(myContext); // important
+        String picCounter = aProduct.getImagesPath().get(0);
+        try {
+            picCounter= URLEncoder.encode(picCounter, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String image_url_1 = aProduct.getImagesMainPath()+
+                picCounter+
+                "&size="+
+                Configuration.articleDisplaySize+"x"+Configuration.articleDisplaySize+
+                "&q=30";
+        imgLoader.DisplayImage(image_url_1, imgProduct);
 
+        txtProductTitle.setText(aProduct.getTitle());
+        txtProductPrice.setText("قیمت :"+String.valueOf(aProduct.getPrice()));
+        txtProductOff.setText("تخفیف : "+String.valueOf(aProduct.getPriceOff()));
 
         return rowView;
 

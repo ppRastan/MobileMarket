@@ -8,6 +8,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.utility.Configuration;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
@@ -15,12 +17,18 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  */
 public class ShoppingBagActivity extends Activity {
 
+    private ServerConnectionHandler sch;
+
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_bag);
 
+        Configuration.ShoppingBagActivity=this;
+        sch=new ServerConnectionHandler(Configuration.ShoppingBagActivity);
+
         ArrayList<Integer> productsId=new ArrayList<Integer>();
-        productsId.add(5142);
+        productsId=sch.getProductForShopping();
 
         ListView lvShoppingBag=(ListView)findViewById(R.id.lv_shoppingBag);
         shoppingBagAdapter adapter= new shoppingBagAdapter(this, R.layout.activity_shopping_bag,productsId);

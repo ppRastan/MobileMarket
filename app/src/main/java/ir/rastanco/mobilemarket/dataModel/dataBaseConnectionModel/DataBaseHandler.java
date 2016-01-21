@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
@@ -41,6 +43,11 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 "lastTimeStamp String)");
         Log.v("create", "Create Setting Table");
 
+        db.execSQL("create table tblShopping" +
+                "(id Integer primary key AUTOINCREMENT," +
+                "fkProductId Integer unique," +
+                "foreign key (fkProductId) references tblProduct(productId))");
+        Log.v("create", "Create Shopping Table");
 
         db.execSQL("create table tblCategory" +
                 "(id Integer primary key AUTOINCREMENT," +
@@ -116,7 +123,19 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
     }
 
-
+    public Boolean emptyShoppingTable() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from tblShopping", null);
+        if (rs.moveToFirst()) {
+            //Not empty
+            rs.close();
+            return false;
+        } else {
+            //Is Empty
+            rs.close();
+            return true;
+        }
+    }
     public Boolean emptyCategoryTable() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblCategory", null);
@@ -181,6 +200,15 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("insert", "insert A TimeStamp into Table");
         db.close();
 
+    }
+
+    public void insertShoppingBag(int productID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("fkProductId", productID);
+        db.insert("tblShopping", null, values);
+        Log.v("insert", "insert A ProductId into Shopping Table");
+        db.close();
     }
 
     public void insertACategory(Category aCategory) {
@@ -294,6 +322,24 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return timeStamp;
     }
 
+    public ArrayList<Integer> selectAllProductShopping(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from tblShopping", null);
+        ArrayList<Integer> allProductsId=new ArrayList<Integer>();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    allProductsId.add(rs.getInt(rs.getColumnIndex("fkProductId")));
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select All Product Id From Shopping Table ");
+        return  allProductsId;
+
+    }
+
     public ArrayList<Category> selectAllCategory() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblCategory", null);
@@ -314,6 +360,42 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
         Log.v("select", "Select All Category");
         return allCategories;
+    }
+
+    public Map<Integer,String> selectAllCategoryTitle(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select catId,title from tblCategory", null);
+        Map<Integer,String> categoryTitles = new HashMap<Integer,String>();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    categoryTitles.put(rs.getInt(rs.getColumnIndex("catId")),
+                            rs.getString(rs.getColumnIndex("title")));
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select All Category Title and ID");
+        return categoryTitles;
+    }
+
+    public Map<Integer,String> selectAllProductTitle(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select productId,title from tblProduct", null);
+        Map<Integer,String> productTitle = new HashMap<Integer,String>();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    productTitle.put(rs.getInt(rs.getColumnIndex("productId")),
+                            rs.getString(rs.getColumnIndex("title")));
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select All Product Title and ID");
+        return productTitle;
     }
 
     public ArrayList<Product> selectAllProduct() {
@@ -363,7 +445,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                     aProduct.setPrice(rs.getInt(rs.getColumnIndex("price")));
                     aProduct.setPriceOff(rs.getInt(rs.getColumnIndex("priceOff")));
                     aProduct.setImagesMainPath(rs.getString(rs.getColumnIndex("imagesMainPath")));
-
             }
             rs.close();
         }
@@ -451,6 +532,13 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         db.delete("tblProduct", "productId=" + productId + "", null);
         db.close();
         Log.v("delete", "Delete A Product");
+    }
+
+    public void deleteAProductShopping(int productId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("tblShopping", "fkProductId=" + productId + "", null);
+        db.close();
+        Log.v("delete", "Delete A Product from Shopping Table");
     }
 
 }

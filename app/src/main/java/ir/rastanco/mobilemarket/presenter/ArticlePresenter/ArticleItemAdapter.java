@@ -2,7 +2,9 @@ package ir.rastanco.mobilemarket.presenter.ArticlePresenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,26 +46,10 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
                 "&size="+
                 Configuration.articleDisplaySize+"x"+Configuration.articleDisplaySize+
                 "&q=30";
-        /*try {
-            articleImageURL= URLEncoder.encode(articleImageURL, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }*/
         imgLoader.DisplayImage(articleImageURL, articleImage);
 
         TextView articleTitle=(TextView)rowView.findViewById(R.id.txt_titleArticle);
         articleTitle.setText(articles.get(position).getTitle());
-
-        /*articleImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("thisProduct", allProduct.get(position));
-                Intent intent = new Intent(rowView.getContext(), ProductInfoActivity.class);
-                intent.putExtras(bundle);
-                rowView.getContext().startActivity(intent);
-            }
-        });*/
         return rowView;
     }
 

@@ -3,6 +3,7 @@ package ir.rastanco.mobilemarket.dataModel.serverConnectionModel;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import ir.rastanco.mobilemarket.dataModel.Article;
@@ -80,7 +81,9 @@ public class ServerConnectionHandler {
 
 
     public Product getAProduct(int productId){
-        return  dbh.selectAProduct(productId);
+        Product aProduct= dbh.selectAProduct(productId);
+        aProduct.setImagesPath(dbh.selectAllImagePathAProduct(productId));
+        return aProduct;
     }
 
     public ArrayList<Category> getAllCategoryInfoURL(String url){
@@ -193,5 +196,24 @@ public class ServerConnectionHandler {
         ParseJsonAuthorize pja= new ParseJsonAuthorize();
         return  pja.getResponse(jsonKeyString);
 
+    }
+
+    public void addProductToShoppingBag(int productId){
+        dbh.insertShoppingBag(productId);
+    }
+
+    public ArrayList<Integer> getProductForShopping(){
+        return dbh.selectAllProductShopping();
+    }
+
+    public void deleteAProductShopping(int productId){
+        dbh.deleteAProductShopping(productId);
+    }
+
+    public Map<Integer,String> getCategoryTitle(){
+        return dbh.selectAllCategoryTitle();
+    }
+    public Map<Integer,String> getProductTitle(){
+        return dbh.selectAllProductTitle();
     }
 }

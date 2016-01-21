@@ -16,16 +16,21 @@ public class Configuration {
         } else return new Configuration();
 
     }
-    public static Context activityContext;
+
     public static String homeDisplaySize;
     public static String shopDisplaySize;
     public static String productInfoHeightSize;
     public static String articleDisplaySize;
+
+    public static Context activityContext;
     public static Context superACFragment;
     public static Context MainActivityFragment;
     public static Context ProductInfoActivity;
     public static Context AplicationCOntext;
     public static Context UserInformationFragment;
+    public static Context ShoppingBagActivity;
+
     public static ViewPager UserProfileViewPager;
+
 
 }
