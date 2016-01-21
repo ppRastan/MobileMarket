@@ -71,6 +71,8 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         ImageButton shareToolBar;
         ImageButton basketToolbar;
         ImageButton likeToolBar;
+        ImageButton saleButton;
+        boolean isForSale ;
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -80,6 +82,8 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
 
         final View rowView;
         rowView = inflater.inflate(R.layout.picture_produc_item_shop, null);
+        holder.isForSale = true;
+        holder.saleButton = (ImageButton)rowView.findViewById(R.id.sale_button);
         holder.infoP=(TextView) rowView.findViewById(R.id.txt_infoProduct);
         holder.priceP=(TextView) rowView.findViewById(R.id.txt_priceProduct);
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
@@ -138,12 +142,21 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             public void onClick(View v) {
                 /*Bundle bundle=new Bundle();
                 bundle.putSerializable("allProducts",allProduct);*/
-                Intent intent=new Intent(rowView.getContext(), ProductInfoActivity.class);
+                Intent intent = new Intent(rowView.getContext(), ProductInfoActivity.class);
                 //intent.putExtras(bundle);
-                intent.putExtra("position",position);
+                intent.putExtra("position", position);
                 rowView.getContext().startActivity(intent);
             }
         });
+        if(holder.isForSale)
+        {
+            holder.saleButton.setVisibility(View.VISIBLE);
+        }
+        else if(holder.isForSale == false)
+        {
+            holder.saleButton.setVisibility(View.INVISIBLE);
+        }
+
         return rowView;
     }
 
