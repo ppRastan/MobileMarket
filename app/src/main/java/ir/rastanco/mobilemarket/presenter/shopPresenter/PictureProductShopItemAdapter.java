@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
@@ -38,6 +39,9 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private Typeface font;
     private Typeface bZarFont;
     private boolean isLikeButtonClicked = true;
+    private boolean isSelectedForShop=false;
+    private ServerConnectionHandler sch;
+
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
         context=mainActivity;
@@ -45,6 +49,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         bZarFont = Typeface.createFromAsset(mainActivity.getAssets(),"fonts/B Zar.ttf");
         inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         allProduct =products;
+        sch=new ServerConnectionHandler(Configuration.superACFragment);
 
     }
 
@@ -86,10 +91,12 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.shareToolBar = (ImageButton)rowView.findViewById(R.id.share_toolbar);
         holder.basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
         holder.likeToolBar = (ImageButton)rowView.findViewById(R.id.empty_like_toolbar);
+
+
         holder.shareToolBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(Configuration.getConfig().activityContext,"share this product",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"share this product",Toast.LENGTH_SHORT).show();
             }
         });
         holder.likeToolBar.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +118,18 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.basketToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
+
+                if (isSelectedForShop==false) {
+                    holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
+                    isSelectedForShop=true;
+                    sch.addProductToShoppingBag(allProduct.get(position).getId());
+                }
+
+                else if (isSelectedForShop==true){
+                    holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
+                    isSelectedForShop=false;
+                    sch.deleteAProductShopping(allProduct.get(position).getId());
+                }
             }
         });
         holder.infoP.setTypeface(font);
@@ -136,11 +154,8 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.imgP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Bundle bundle=new Bundle();
-                bundle.putSerializable("allProducts",allProduct);*/
-                Intent intent=new Intent(rowView.getContext(), ProductInfoActivity.class);
-                //intent.putExtras(bundle);
-                intent.putExtra("position",position);
+                Intent intent = new Intent(rowView.getContext(), ProductInfoActivity.class);
+                intent.putExtra("position", position);
                 rowView.getContext().startActivity(intent);
             }
         });
