@@ -44,20 +44,26 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center_horizontal|center_vertical"
             android:src="@mipmap/bye_toolbar"
+            android:padding="3dp"
             android:id="@+id/basket_toolbar"
             android:background="@color/white"/>
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
             android:layout_weight="1"
             android:id="@+id/share_toolbar"
             android:src="@mipmap/ic_share_toolbar"
+            android:padding="3dp"
             android:background="@color/white"/>
         <ImageButton
             android:layout_width="0dp"
+            android:layout_gravity="center_vertical|center_horizontal"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:padding="3dp"
             android:src="@mipmap/ic_like_toolbar"
             android:id="@+id/empty_like_toolbar"
             android:background="@color/white"/>
