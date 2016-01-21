@@ -48,7 +48,7 @@ import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserProfileActivi
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
+//parisa rashidi nezhad connection
 public class MainActivity extends AppCompatActivity {
 
     @InjectView(R.id.toolbar)
