@@ -10,4 +10,6 @@
     <string name="search_in_decoriss">جستوجو در دکوریس</string>
     <string name="tab1_userProfile">پروفایل کاربری</string>
     <string name="tab2_userAccunt">حساب کاربری</string>
+    <string name="group">دسته</string>
+    <string name="acording_to">براساس</string>
 </resources>
