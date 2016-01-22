@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -22,19 +21,24 @@ import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.ProductOption;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 public class FullScreenImageAdapter extends PagerAdapter {
 
     private Activity activity;
     private ArrayList<Product> products;
+    private ArrayList<ProductOption> options;
     private LayoutInflater inflater;
+    private ServerConnectionHandler sch;
 
     // constructor
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts) {
         this.activity = activity;
         this.products=allProducts;
+        sch=new ServerConnectionHandler(Configuration.ProductInfoActivity);
     }
 
     @Override
@@ -44,7 +48,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((ScrollView) object);
+        return view == ((LinearLayout) object);
     }
 
     @Override
@@ -54,11 +58,13 @@ public class FullScreenImageAdapter extends PagerAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View viewLayout = inflater.inflate(R.layout.activity_product_info, container,false);
 
+        options=new ArrayList<ProductOption>();
+        options=sch.getOptionsOfAProduct("http://decoriss.com/json/get,com=options&pid="+
+                        products.get(position).getId()+"&pgid="+products.get(position).getGroupId()+"&cache=false");
         ListView productInfo = (ListView) viewLayout.findViewById(R.id.lv_productInfo);
         ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.ProductInfoActivity,
-                R.layout.product_info_item,products.get(position).getProductOptions());
+                R.layout.product_info_item,options);
         productInfo.setAdapter(adapter);
-
 
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
         final ImageLoader imgLoader = new ImageLoader(Configuration.ProductInfoActivity); // important
@@ -124,7 +130,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ((ViewPager) container).removeView((ScrollView) object);
+        ((ViewPager) container).removeView((LinearLayout) object);
 
     }
 }
