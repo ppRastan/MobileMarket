@@ -29,6 +29,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
@@ -94,7 +95,6 @@ public class SuperAwesomeCardFragment extends Fragment{
                 final GridView gridview = (GridView) mainView.findViewById(R.id.gv_photoProduct);
                 PictureProductPhotoItemAdapter adapter= new PictureProductPhotoItemAdapter(getActivity(),products);
                 gridview.setAdapter(adapter);
-
                 final SwipeRefreshLayout mSwipeRefreshLayout= (SwipeRefreshLayout)
                         mainView.findViewById(R.id.swipe_refresh_layout);
                 mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -124,17 +124,39 @@ public class SuperAwesomeCardFragment extends Fragment{
                 gridview.setAdapter(adapter);
                 final SwipeRefreshLayout mSwipeRefreshLayout= (SwipeRefreshLayout)
                         mainView.findViewById(R.id.swipe_refresh_layout);
-                mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+                mSwipeRefreshLayout.setEnabled(false);
+
+                gridview.setOnScrollListener(new AbsListView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+                    }
+                    @Override
+                    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                        boolean enable = false;
+                        if(gridview != null && gridview.getChildCount() > 0){
+                            // check if the first item of the list is visible
+                            boolean firstItemVisible = gridview.getFirstVisiblePosition() == 0;
+                            // check if the top of the first item is visible
+                            boolean topOfFirstItemVisible = gridview.getChildAt(0).getTop() == 0;
+                            // enabling or disabling the refresh layout
+                            enable = firstItemVisible && topOfFirstItemVisible;
+                        }
+                        mSwipeRefreshLayout.setEnabled(enable);
+
+                    }
+                });
+               mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                     @Override
                     public void onRefresh() {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 sch.refreshProduct();
-                                products=sch.getAllProductFromTable();
-                                PictureProductShopItemAdapter newAdapter=new
-                                        PictureProductShopItemAdapter(getActivity(),products);
-                                gridview.setAdapter(newAdapter);
+                                adapter.notifyDataSetChanged();
+                                gridview.setAdapter(adapter);
                                 mSwipeRefreshLayout.setRefreshing(false);
                             }
                         },5000);

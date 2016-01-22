@@ -72,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Category> categories;
     private LinearLayout toolbarSearch;
     private PhoneCallListener phoneListener;
-    private  TelephonyManager telephonyManager;
+    private TelephonyManager telephonyManager;
     private FloatingActionButton fab;
-    private  Display display;
+    private Display display;
     private Point size;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

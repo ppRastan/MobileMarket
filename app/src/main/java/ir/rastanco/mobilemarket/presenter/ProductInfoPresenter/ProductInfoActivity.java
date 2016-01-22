@@ -31,8 +31,6 @@ public class ProductInfoActivity extends Activity {
         Configuration.ProductInfoActivity = this;
 
         Intent intent = this.getIntent();
-        /*Bundle bundle = intent.getExtras();
-        allProducts = (ArrayList<Product>) bundle.getSerializable("allProducts");*/
         ServerConnectionHandler sch=new ServerConnectionHandler(Configuration.ProductInfoActivity);
         allProducts=sch.getAllProductFromTable();
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
