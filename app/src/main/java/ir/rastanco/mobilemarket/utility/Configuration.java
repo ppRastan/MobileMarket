@@ -29,6 +29,7 @@ public class Configuration {
     public static Context AplicationCOntext;
     public static Context UserInformationFragment;
     public static Context ShoppingBagActivity;
+    public static Context UserAccountFragment;
 
     public static ViewPager UserProfileViewPager;
 

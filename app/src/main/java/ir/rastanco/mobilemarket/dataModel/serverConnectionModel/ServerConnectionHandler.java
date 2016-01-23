@@ -10,12 +10,15 @@ import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.ProductOption;
+import ir.rastanco.mobilemarket.dataModel.ProductShop;
+import ir.rastanco.mobilemarket.dataModel.UserInfo;
 import ir.rastanco.mobilemarket.dataModel.dataBaseConnectionModel.DataBaseHandler;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.GetJsonFile;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonArticles;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonAuthorize;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonCategory;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonKey;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonLastShop;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductOption;
 
@@ -198,6 +201,23 @@ public class ServerConnectionHandler {
 
     }
 
+    public ArrayList<ProductShop> getLastProductShop(String url){
+
+        GetJsonFile jsonLastShop = new GetJsonFile();
+        String jsonLastShopString= null;
+        try {
+            jsonLastShopString = jsonLastShop.execute(url).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        ParseJsonLastShop pjl= new ParseJsonLastShop();
+        return  pjl.getLastShop(jsonLastShopString);
+
+    }
+
     public void addProductToShoppingBag(int productId){
         dbh.insertShoppingBag(productId);
     }
@@ -215,5 +235,22 @@ public class ServerConnectionHandler {
     }
     public Map<Integer,String> getProductTitle(){
         return dbh.selectAllProductTitle();
+    }
+
+    public void addUserInfoToTable(UserInfo aUser){
+        if(dbh.emptyUserInfoTable()){
+            dbh.insertUserInfo(aUser);
+        }
+        else{
+            dbh.deleteUserInfo();
+            dbh.insertUserInfo(aUser);
+        }
+    }
+
+    public UserInfo getUserInfo(){
+        if (dbh.emptyUserInfoTable())
+            return null;
+        else
+            return dbh.selectUserInformation();
     }
 }

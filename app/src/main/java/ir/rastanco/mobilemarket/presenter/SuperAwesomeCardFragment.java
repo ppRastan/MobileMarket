@@ -20,6 +20,9 @@ package ir.rastanco.mobilemarket.presenter;
  */
 
 
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,11 +32,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -137,11 +143,12 @@ public class SuperAwesomeCardFragment extends Fragment{
                     public void onScrollStateChanged(AbsListView view, int scrollState) {
 
                     }
+
                     @Override
                     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
                         boolean enable = false;
-                        if(gridview != null && gridview.getChildCount() > 0){
+                        if (gridview != null && gridview.getChildCount() > 0) {
                             // check if the first item of the list is visible
                             boolean firstItemVisible = gridview.getFirstVisiblePosition() == 0;
                             // check if the top of the first item is visible
@@ -154,19 +161,38 @@ public class SuperAwesomeCardFragment extends Fragment{
                     }
                 });
                mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                   @Override
+                   public void onRefresh() {
+                       new Handler().postDelayed(new Runnable() {
+                           @Override
+                           public void run() {
+                               sch.refreshProduct();
+                               adapter.notifyDataSetChanged();
+                               gridview.setAdapter(adapter);
+                               mSwipeRefreshLayout.setRefreshing(false);
+                           }
+                       }, 5000);
+                   }
+               });
+
+                Button btnCategory=(Button)mainView.findViewById(R.id.group_dialog);
+                btnCategory.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onRefresh() {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                sch.refreshProduct();
-                                adapter.notifyDataSetChanged();
-                                gridview.setAdapter(adapter);
-                                mSwipeRefreshLayout.setRefreshing(false);
-                            }
-                        },5000);
+                    public void onClick(View v) {
+                        Toast.makeText(getActivity(),"group click",
+                                Toast.LENGTH_LONG).show();
+
                     }
                 });
+
+                /*Button btnSubGroup=(Button)mainView.findViewById(R.id.acordingto_dialog);
+                btnSubGroup.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getActivity(),"Subgroup click",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });*/
                 break;
             }
             case 3:{

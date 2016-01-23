@@ -15,6 +15,7 @@ import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.ProductOption;
+import ir.rastanco.mobilemarket.dataModel.UserInfo;
 
 /**
  * Created by ShaisteS on 1394/10/14.
@@ -37,6 +38,13 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        db.execSQL("create table tblUserInfo" +
+                "(id Integer primary key AUTOINCREMENT," +
+                "userId Integer," +
+                "userEmail String," +
+                "userLoginStatus Integer)");
+        Log.v("create", "Create User Information Table");
 
         db.execSQL("create table tblSetting" +
                 "(id Integer primary key AUTOINCREMENT," +
@@ -107,6 +115,20 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+    }
+
+    public Boolean emptyUserInfoTable() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from tblUserInfo", null);
+        if (rs.moveToFirst()) {
+            //Not empty
+            rs.close();
+            return false;
+        } else {
+            //Is Empty
+            rs.close();
+            return true;
+        }
     }
 
     public Boolean emptySettingTable() {
@@ -191,6 +213,23 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
             return false;
         }
     }
+
+    public void insertUserInfo(UserInfo aUser) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert("tblUserInfo", null, addFieldToUserInfoTable(aUser));
+        Log.v("insert", "insert A UserInformation into Table");
+        db.close();
+
+    }
+
+    private ContentValues addFieldToUserInfoTable(UserInfo aUser) {
+        ContentValues values = new ContentValues();
+        values.put("userId", aUser.getUserId());
+        values.put("userEmail", aUser.getUserEmail());
+        values.put("userLoginStatus", aUser.getUserLoginStatus());
+        return values;
+    }
+
 
     public void insertSetting(String timeStamp) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -320,6 +359,22 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
         Log.v("select", "Select TimeStamp");
         return timeStamp;
+    }
+
+    public UserInfo selectUserInformation() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from tblUserInfo", null);
+        UserInfo aUser=new UserInfo();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                aUser.setUserEmail(rs.getString(rs.getColumnIndex("userEmail")));
+                aUser.setUserId(rs.getInt(rs.getColumnIndex("userId")));
+                aUser.setUserLoginStatus(rs.getInt(rs.getColumnIndex("userLoginStatus")));
+            }
+            rs.close();
+        }
+        Log.v("select", "Select User Information");
+        return aUser;
     }
 
     public ArrayList<Integer> selectAllProductShopping(){
@@ -540,5 +595,13 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         db.close();
         Log.v("delete", "Delete A Product from Shopping Table");
     }
+
+    public void deleteUserInfo() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("tblUserInfo",null, null);
+        db.close();
+        Log.v("delete", "Delete A User Information from Table");
+    }
+
 
 }

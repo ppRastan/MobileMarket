@@ -14,6 +14,7 @@ import android.widget.EditText;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.UserInfo;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.Security;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -47,19 +48,23 @@ public class UserInformation extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UserInfo aUser=new UserInfo();
                 String key=sch.GetKey("http://decoriss.com/json/get,com=auth");
                 //String key="974401741";
-                user= String.valueOf(username.getText());
-                //user="mahdavikia.m@gmail.com";
-                pass= String.valueOf(password.getText());
-                //pass="1234";
+                //user= String.valueOf(username.getText());
+                user="mahdavikia.m@gmail.com";
+                aUser.setUserEmail(user);
+                //pass= String.valueOf(password.getText());
+                pass="1234";
                 String hashInfo=sec.encode(user,pass,key);
                 ArrayList<String> response=new ArrayList<String>();
                 response=sch.GetAuthorizeResponse(hashInfo,key);
                 Log.d("Response:",response.get(0));
                 if(response.get(0).equals("")){
+                    aUser.setUserId(Integer.parseInt(response.get(1)));
+                    aUser.setUserLoginStatus(1);
+                    sch.addUserInfoToTable(aUser);
                     Configuration.UserProfileViewPager.setCurrentItem(1);
-
                 }
             }
         });
