@@ -10,6 +10,22 @@
     <string name="search_in_decoriss">جستوجو در دکوریس</string>
     <string name="tab1_userProfile">پروفایل کاربری</string>
     <string name="tab2_userAccunt">حساب کاربری</string>
-    <string name="group">دسته</string>
+    <string name="group">دسته ها</string>
+    <string name="all">همه</string>
+    <string name="group1">گروه 1</string>
+    <string name="group2">گروه 2</string>
+    <string name="group3">گروه 3</string>
     <string name="acording_to">براساس</string>
+    <array name="entry">
+        <item>group1</item>
+        <item>group2</item>
+        <item>group3</item>
+        <item>group4</item>
+        <item>group5</item>
+        <item>group1</item>
+        <item>group2</item>
+        <item>group3</item>
+        <item>group4</item>
+        <item>group5</item>
+    </array>
 </resources>

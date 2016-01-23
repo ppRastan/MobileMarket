@@ -23,8 +23,8 @@
         android:background="#10f7f7f7"
         android:padding="4dp"
         android:layout_alignParentTop="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentStart="false" />
+        android:layout_alignParentRight="false"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
 
     <TextView

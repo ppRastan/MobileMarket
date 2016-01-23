@@ -3,27 +3,10 @@ package ir.rastanco.mobilemarket.presenter;
 /**
  * Created by Samaneh on 12/20/2015.
  */
-/*
- * Copyright (C) 2013 Andreas Stuetz <andreas.stuetz@gmail.com>
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,14 +15,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -60,8 +43,14 @@ public class SuperAwesomeCardFragment extends Fragment{
     private ServerConnectionHandler sch;
     private ArrayList<Product> products;
     private ArrayList<Article> articles;
-    private Button groupBtn;
-    private Button acordingToBtn;
+    private Button btnCategory;
+    private Button btnSubGroup;
+    private Dialog dialogGroup;
+    private Dialog dialogSubGroup;
+    private ImageButton btnReset;
+    private ImageButton btnCancelAlertDialog;
+    private TextView subGroupTextView;
+    private TextView groupTextView;
 
     public static SuperAwesomeCardFragment newInstance(int position) {
         SuperAwesomeCardFragment f = new SuperAwesomeCardFragment();
@@ -79,7 +68,7 @@ public class SuperAwesomeCardFragment extends Fragment{
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View mainView=null;
 
         position = getArguments().getInt(ARG_POSITION);
@@ -174,32 +163,57 @@ public class SuperAwesomeCardFragment extends Fragment{
                        }, 5000);
                    }
                });
-
-                Button btnCategory=(Button)mainView.findViewById(R.id.group_dialog);
+                subGroupTextView = (TextView)mainView.findViewById(R.id.acordingto_dialog_text);
+                groupTextView = (TextView)mainView.findViewById(R.id.group_dialog_text);
+                btnCategory=(Button)mainView.findViewById(R.id.group_dialog);
                 btnCategory.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getActivity(),"group click",
-                                Toast.LENGTH_LONG).show();
+                        dialogGroup = new Dialog(getActivity());
+                        dialogGroup.setContentView(R.layout.title_alertdialog_for_group);
+                        btnCancelAlertDialog = (ImageButton)v.findViewById(R.id.cancel);
+//                        btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                           //     dialogSubGroup.dismiss();
+//                            }
+//                        });
+//                        btnReset = (ImageButton)v.findViewById(R.id.reset_action);
+//                        btnReset.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                dialogGroup.dismiss();
+//                                groupTextView.setText(R.string.all);
+//                                groupTextView.setBackgroundColor(Color.BLACK);
+//                            }
+//                        });
+                        TextView text = (TextView) dialogGroup.findViewById(R.id.title_alertdialog_group);
+                        text.setText(getActivity().getString(R.string.group));
+                        dialogGroup.setCancelable(true);
+                        dialogGroup.show();
+
 
                     }
                 });
 
-                /*Button btnSubGroup=(Button)mainView.findViewById(R.id.acordingto_dialog);
+                btnSubGroup=(Button)mainView.findViewById(R.id.acording_to_dialog);
                 btnSubGroup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getActivity(),"Subgroup click",
-                                Toast.LENGTH_LONG).show();
+                        dialogSubGroup = new Dialog(getActivity());
+                        dialogSubGroup.setContentView(R.layout.title_alertdialog_for_sub_group);
+                        TextView text = (TextView) dialogSubGroup.findViewById(R.id.title_alertdialog_group);
+                        text.setText(getActivity().getString(R.string.acording_to));
+                        dialogSubGroup.show();
                     }
-                });*/
+                });
                 break;
             }
-            case 3:{
+            case 3: {
 
                 mainView = inflater.inflate(R.layout.fragment_article_first, null);
                 ListView articleList = (ListView) mainView.findViewById(R.id.lv_article);
-                ArticleItemAdapter adapter = new ArticleItemAdapter(getActivity(), R.layout.article_item,articles);
+                ArticleItemAdapter adapter = new ArticleItemAdapter(getActivity(), R.layout.article_item, articles);
                 articleList.setAdapter(adapter);
                 final View finalMainView = mainView;
                 articleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
