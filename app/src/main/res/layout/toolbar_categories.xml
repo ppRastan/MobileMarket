@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar_categories"
+    app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:padding="2dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/white"
+        android:weightSum="2"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="0dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/acording_to"
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:textSize="13dp"
+            android:id="@+id/acordingto_dialog"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="13dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:text="@string/group"
+            android:textColor="@color/black"
+            android:id="@+id/group_dialog"
+            android:background="@color/white"/>
+
+   </LinearLayout>
+
+
+    </android.support.v7.widget.Toolbar>

@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 
@@ -53,6 +54,8 @@ public class SuperAwesomeCardFragment extends Fragment{
     private ServerConnectionHandler sch;
     private ArrayList<Product> products;
     private ArrayList<Article> articles;
+    private Button groupBtn;
+    private Button acordingToBtn;
 
     public static SuperAwesomeCardFragment newInstance(int position) {
         SuperAwesomeCardFragment f = new SuperAwesomeCardFragment();
@@ -66,6 +69,8 @@ public class SuperAwesomeCardFragment extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
