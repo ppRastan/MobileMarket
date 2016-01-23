@@ -1,5 +1,7 @@
 package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -34,6 +36,9 @@ public class UserInformation extends Fragment {
         Configuration.UserInformationFragment=getContext();
         sch=new ServerConnectionHandler(Configuration.UserInformationFragment);
         Button btnLogin=(Button) userProfileView.findViewById(R.id.btn_login);
+        Button btnSignUp=(Button) userProfileView.findViewById(R.id.btn_signup);
+        Button btnForgotPass=(Button) userProfileView.findViewById(R.id.btn_forgot);
+
         final EditText username=(EditText) userProfileView.findViewById(R.id.et_username);
         final EditText password=(EditText) userProfileView.findViewById(R.id.et_password);
 
@@ -42,12 +47,12 @@ public class UserInformation extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //String key=sch.GetKey("http://decoriss.com/json/get,com=auth");
-                String key="974401741";
-                //user= String.valueOf(username.getText());
-                user="mahdavikia.m@gmail.com";
-                //pass= String.valueOf(password.getText());
-                pass="1234";
+                String key=sch.GetKey("http://decoriss.com/json/get,com=auth");
+                //String key="974401741";
+                user= String.valueOf(username.getText());
+                //user="mahdavikia.m@gmail.com";
+                pass= String.valueOf(password.getText());
+                //pass="1234";
                 String hashInfo=sec.encode(user,pass,key);
                 ArrayList<String> response=new ArrayList<String>();
                 response=sch.GetAuthorizeResponse(hashInfo,key);
@@ -58,6 +63,31 @@ public class UserInformation extends Fragment {
                 }
             }
         });
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("http://decoriss.com/register,ثبت-نام_"));
+                userProfileView.getContext().startActivity(intent);
+            }
+        });
+
+        btnForgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("http://decoriss.com/forgetpassword,فراموشی-رمز-عبور_"));
+                userProfileView.getContext().startActivity(intent);
+            }
+        });
+
         return userProfileView;
     }
 }
