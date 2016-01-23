@@ -21,6 +21,7 @@
         android:src="@mipmap/ic_sale"
         android:id="@+id/sale_button"
         android:background="#10f7f7f7"
+        android:padding="4dp"
         android:layout_alignParentTop="false"
         android:layout_alignParentLeft="false"
         android:layout_alignParentStart="false" />

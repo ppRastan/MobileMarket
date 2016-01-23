@@ -18,6 +18,7 @@ import ir.rastanco.mobilemarket.R;
  */
 public class BadgeDrawable extends Drawable{
     private float mTextSize;
+    //private int myColor = Configuration.activityContext.getResources().getColor(R.color.green);
     private Paint mBadgePaint;
     private Paint mTextPaint;
     private Rect mTxtRect = new Rect();
@@ -28,12 +29,10 @@ public class BadgeDrawable extends Drawable{
     public BadgeDrawable(Context context) {
         //mTextSize = context.getResources().getDimension(R.dimen.badge_text_size);
         mTextSize = 12F;
-
         mBadgePaint = new Paint();
-        mBadgePaint.setColor(Color.GREEN);
+        mBadgePaint.setColor(Color.RED);
         mBadgePaint.setAntiAlias(true);
         mBadgePaint.setStyle(Paint.Style.FILL);
-
         mTextPaint = new Paint();
         mTextPaint.setColor(Color.WHITE);
         mTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
