@@ -50,7 +50,8 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserProfileActivity;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.Utils2;
+import ir.rastanco.mobilemarket.utility.CounterIconUtils;
+import ir.rastanco.mobilemarket.utility.CounterIconUtils;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 //parisa rashidi nezhad connection
 public class MainActivity extends AppCompatActivity {
@@ -219,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem item = menu.findItem(R.id.action_notifications);
         LayerDrawable icon = (LayerDrawable) item.getIcon();
-        Utils2.setBadgeCount(this, icon,4);
+        CounterIconUtils.setBadgeCount(this, icon, 4);
         return true;
     }
 

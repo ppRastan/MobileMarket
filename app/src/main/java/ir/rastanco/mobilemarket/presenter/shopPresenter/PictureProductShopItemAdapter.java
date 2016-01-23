@@ -3,12 +3,15 @@ package ir.rastanco.mobilemarket.presenter.shopPresenter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -76,6 +79,8 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         ImageButton shareToolBar;
         ImageButton basketToolbar;
         ImageButton likeToolBar;
+        Button button;
+        Button button1;
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -85,6 +90,20 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
 
         final View rowView;
         rowView = inflater.inflate(R.layout.picture_produc_item_shop, null);
+//        holder.button = (Button)rowView.findViewById(R.id.acording_to_dialog);
+//        holder.button = (Button)rowView.findViewById(R.id.group_dialog);
+//        holder.button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(Configuration.activityContext.getApplicationContext(),"dkfhf",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        holder.button1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(Configuration.activityContext.getApplicationContext(),"dkfhf",Toast.LENGTH_SHORT).show();
+//            }
+//        });
         holder.infoP=(TextView) rowView.findViewById(R.id.txt_infoProduct);
         holder.priceP=(TextView) rowView.findViewById(R.id.txt_priceProduct);
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);

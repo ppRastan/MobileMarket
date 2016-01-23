@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_sale"
         android:id="@+id/sale_button"
-        android:background="@color/white"
+        android:background="#10f7f7f7"
         android:layout_alignParentTop="false"
         android:layout_alignParentLeft="false"
         android:layout_alignParentStart="false" />

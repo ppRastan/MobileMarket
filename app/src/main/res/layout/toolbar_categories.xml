@@ -23,7 +23,7 @@
             android:textColor="@color/black"
             android:background="@color/white"
             android:textSize="13dp"
-            android:id="@+id/acordingto_dialog"/>
+            android:id="@+id/acording_to_dialog"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
