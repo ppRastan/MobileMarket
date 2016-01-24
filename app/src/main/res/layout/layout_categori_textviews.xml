@@ -14,17 +14,7 @@
         android:background="@color/white"
         android:weightSum="2"
         android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/all"
-            android:textColor="@color/orange"
-            android:background="@color/white"
-            android:textSize="11dp"
-            android:gravity="center_horizontal|center_vertical"
-            android:id="@+id/acordingto_dialog_text"/>
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -32,10 +22,20 @@
             android:textSize="11dp"
             android:gravity="center_horizontal|center_vertical"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:text="@string/all"
             android:textColor="@color/orange"
             android:id="@+id/group_dialog_text"
             android:background="@color/white"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/orange"
+            android:background="@color/white"
+            android:textSize="11dp"
+            android:gravity="center_horizontal|center_vertical"
+            android:id="@+id/acordingto_dialog_text"/>
 
     </LinearLayout>
 

@@ -253,4 +253,16 @@ public class ServerConnectionHandler {
         else
             return dbh.selectUserInformation();
     }
+
+    public Map<Integer,String> filterCategories(){
+        return dbh.selectParentCategories();
+    }
+
+    public Map<Integer,String> filterSubCategory(int categoryId){
+        return dbh.selectChildOfACategory(categoryId);
+    }
+
+    public ArrayList<Product> getAllProductOfACategory(int groupId){
+        return dbh.selectAllProductOfACategory(groupId);
+    }
 }

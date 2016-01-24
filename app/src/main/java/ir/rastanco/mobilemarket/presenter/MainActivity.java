@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         this.setFAb();
         this.displayWindow();
 
-        Map<Integer,String> test=new HashMap();
+        /*Map<Integer,String> test=new HashMap();
         test=sch.getCategoryTitle();
 
         for (Map.Entry<Integer,String> entry : test.entrySet()) {
@@ -104,6 +104,20 @@ public class MainActivity extends AppCompatActivity {
 
         for (Map.Entry<Integer,String> entry : test2.entrySet()) {
             Log.d("Product:",entry.getValue());
+        }
+
+        Map<Integer,String> test3=new HashMap();
+        test3=sch.filterCategories();
+
+        for (Map.Entry<Integer,String> entry : test3.entrySet()) {
+            Log.d("CAtegory:",entry.getValue()+entry.getKey());
+        }*/
+
+        Map<Integer,String> test4=new HashMap();
+        test4=sch.filterSubCategory(57);
+
+        for (Map.Entry<Integer,String> entry : test4.entrySet()) {
+            Log.d("Product:",entry.getValue()+entry.getKey());
         }
 
     }

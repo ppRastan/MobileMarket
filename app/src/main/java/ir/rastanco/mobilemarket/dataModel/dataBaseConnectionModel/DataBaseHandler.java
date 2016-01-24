@@ -417,6 +417,42 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return allCategories;
     }
 
+    public Map<Integer,String> selectParentCategories(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId=0", null);
+        Map<Integer,String> categoryTitles = new HashMap<Integer,String>();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    categoryTitles.put(rs.getInt(rs.getColumnIndex("catId")),
+                            rs.getString(rs.getColumnIndex("title")));
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select All Parent Categories Title and ID");
+        return categoryTitles;
+    }
+
+    public Map<Integer,String> selectChildOfACategory(int parentID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId="+parentID, null);
+        Map<Integer,String> categoryTitles = new HashMap<Integer,String>();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    categoryTitles.put(rs.getInt(rs.getColumnIndex("catId")),
+                            rs.getString(rs.getColumnIndex("title")));
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select All Child of A Category Title and ID");
+        return categoryTitles;
+    }
+
     public Map<Integer,String> selectAllCategoryTitle(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select catId,title from tblCategory", null);
@@ -456,6 +492,43 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     public ArrayList<Product> selectAllProduct() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblProduct order by id desc", null);
+        allProducts = new ArrayList<Product>();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    Product aProduct = new Product();
+                    aProduct.setTitle(rs.getString(rs.getColumnIndex("title")));
+                    aProduct.setId(rs.getInt(rs.getColumnIndex("productId")));
+                    aProduct.setGroupId(rs.getInt(rs.getColumnIndex("groupId")));
+                    aProduct.setPrice(rs.getInt(rs.getColumnIndex("price")));
+                    aProduct.setPriceOff(rs.getInt(rs.getColumnIndex("priceOff")));
+                    aProduct.setVisits(rs.getInt(rs.getColumnIndex("visits")));
+                    aProduct.setMinCounts(rs.getInt(rs.getColumnIndex("minCounts")));
+                    aProduct.setStock(rs.getInt(rs.getColumnIndex("stock")));
+                    aProduct.setQualityRank(rs.getString(rs.getColumnIndex("qualityRank")));
+                    aProduct.setCommentsCount(rs.getInt(rs.getColumnIndex("commentsCount")));
+                    aProduct.setCodeProduct(rs.getString(rs.getColumnIndex("codeProduct")));
+                    aProduct.setDescription(rs.getString(rs.getColumnIndex("description")));
+                    aProduct.setSellsCount(rs.getInt(rs.getColumnIndex("sellsCount")));
+                    aProduct.setTimeStamp(rs.getString(rs.getColumnIndex("timeStamp")));
+                    aProduct.setShowAtHomeScreen(rs.getInt(rs.getColumnIndex("showAtHomeScreen")));
+                    aProduct.setWatermarkPath(rs.getString(rs.getColumnIndex("watermarkPath")));
+                    aProduct.setImagesMainPath(rs.getString(rs.getColumnIndex("imagesMainPath")));
+                    aProduct.setImagesPath(selectAllImagePathAProduct(aProduct.getId()));
+                    aProduct.setProductOptions(selectAllOptionProduct(aProduct.getId()));
+                    allProducts.add(aProduct);
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select All Product");
+        return allProducts;
+    }
+
+    public ArrayList<Product> selectAllProductOfACategory(int categoryId){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from tblProduct where groupId="+categoryId+" "+ "order by id desc ", null);
         allProducts = new ArrayList<Product>();
         if (rs != null) {
             if (rs.moveToFirst()) {
