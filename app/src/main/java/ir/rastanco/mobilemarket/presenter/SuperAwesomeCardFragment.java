@@ -180,7 +180,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                     categoryTitle.add(entry.getValue());
                 }
                 final String[] categorySelected = new String[1];
-                categorySelected[0]="همه";
+                categorySelected[0]=getActivity().getString(R.string.all);
 
                 groupTextView = (TextView)mainView.findViewById(R.id.group_dialog_text);
                 btnCategory=(Button)mainView.findViewById(R.id.group_dialog);
@@ -211,7 +211,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                 });
 
                 final String[] subCategorySelected = new String[1];
-                subCategorySelected[0]="همه";
+                subCategorySelected[0]=getActivity().getString(R.string.all);
                 subGroupTextView = (TextView)mainView.findViewById(R.id.acordingto_dialog_text);
                 btnSubGroup=(Button)mainView.findViewById(R.id.acording_to_dialog);
                 btnSubGroup.setOnClickListener(new View.OnClickListener() {
@@ -241,45 +241,44 @@ public class SuperAwesomeCardFragment extends Fragment{
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 subCategorySelected[0] = (String) parent.getItemAtPosition(position);
                                 subGroupTextView.setText(subCategorySelected[0]);
-                                int productIDFilter=0;
+                                int productIDFilter = 0;
                                 for (Map.Entry<Integer, String> entry : subCategory.entrySet()) {
-                                    if(entry.getValue().equals(subCategorySelected[0]))
-                                        productIDFilter =entry.getKey();
+                                    if (entry.getValue().equals(subCategorySelected[0]))
+                                        productIDFilter = entry.getKey();
                                     Log.d("filter", String.valueOf(productIDFilter));
                                 }
 
-                                Map<Integer,String> finalFilter=sch.filterSubCategory(productIDFilter);
-                                ArrayList<Product> helpProduct=new ArrayList<Product>();
-                                ArrayList<Product> finalFilterProduct=new ArrayList<Product>();
+                                Map<Integer, String> finalFilter = sch.filterSubCategory(productIDFilter);
+                                ArrayList<Product> helpProduct = new ArrayList<Product>();
+                                ArrayList<Product> finalFilterProduct = new ArrayList<Product>();
 
-                                if (finalFilter.size()>0){
+                                if (finalFilter.size() > 0) {
                                     for (Map.Entry<Integer, String> entry : finalFilter.entrySet()) {
-                                        helpProduct=sch.getAllProductOfACategory(entry.getKey());
-                                        for (int i=0;i<helpProduct.size();i++)
-                                                finalFilterProduct.add(helpProduct.get(i));
+                                        helpProduct = sch.getAllProductOfACategory(entry.getKey());
+                                        for (int i = 0; i < helpProduct.size(); i++)
+                                            finalFilterProduct.add(helpProduct.get(i));
                                     }
-                                }
-                                else
-                                    finalFilterProduct=sch.getAllProductOfACategory(productIDFilter);
+                                } else
+                                    finalFilterProduct = sch.getAllProductOfACategory(productIDFilter);
 
 
                                 for (Map.Entry<Integer, String> entry : finalFilter.entrySet()) {
-                                    helpProduct=sch.getAllProductOfACategory(entry.getKey());
-                                    if (helpProduct.size()>0){
-                                        for (int i=0;i<helpProduct.size();i++)
+                                    helpProduct = sch.getAllProductOfACategory(entry.getKey());
+                                    if (helpProduct.size() > 0) {
+                                        for (int i = 0; i < helpProduct.size(); i++)
                                             finalFilterProduct.add(helpProduct.get(i));
-                                    }
-                                    else
-                                        finalFilterProduct=sch.getAllProductOfACategory(productIDFilter);
+                                    } else
+                                        finalFilterProduct = sch.getAllProductOfACategory(productIDFilter);
 
                                 }
-                                PictureProductShopItemAdapter newAdapter=new  PictureProductShopItemAdapter(getActivity(),finalFilterProduct);
+                                PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), finalFilterProduct);
                                 gridview.setAdapter(newAdapter);
                                 newAdapter.notifyDataSetChanged();
                                 dialogSubGroup.dismiss();
 
                             }
                         });
+                        dialogSubGroup.setCancelable(true);
                         dialogSubGroup.show();
                     }
                 });
