@@ -54,9 +54,7 @@
             android:layout_width="fill_parent"
             android:divider="@color/white"
             android:background="@color/white"
-            android:layout_height="wrap_content"
-            android:entries="@array/entry"
-            android:choiceMode="multipleChoice"
+            android:layout_height="220dp"
             />
 
     </LinearLayout>
