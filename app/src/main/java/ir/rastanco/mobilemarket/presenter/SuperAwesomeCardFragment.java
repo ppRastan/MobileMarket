@@ -248,8 +248,32 @@ public class SuperAwesomeCardFragment extends Fragment{
                                     Log.d("filter", String.valueOf(productIDFilter));
                                 }
 
-                                products=sch.getAllProductOfACategory(productIDFilter);
-                                PictureProductShopItemAdapter newAdapter=new  PictureProductShopItemAdapter(getActivity(),products);
+                                Map<Integer,String> finalFilter=sch.filterSubCategory(productIDFilter);
+                                ArrayList<Product> helpProduct=new ArrayList<Product>();
+                                ArrayList<Product> finalFilterProduct=new ArrayList<Product>();
+
+                                if (finalFilter.size()>0){
+                                    for (Map.Entry<Integer, String> entry : finalFilter.entrySet()) {
+                                        helpProduct=sch.getAllProductOfACategory(entry.getKey());
+                                        for (int i=0;i<helpProduct.size();i++)
+                                                finalFilterProduct.add(helpProduct.get(i));
+                                    }
+                                }
+                                else
+                                    finalFilterProduct=sch.getAllProductOfACategory(productIDFilter);
+
+
+                                for (Map.Entry<Integer, String> entry : finalFilter.entrySet()) {
+                                    helpProduct=sch.getAllProductOfACategory(entry.getKey());
+                                    if (helpProduct.size()>0){
+                                        for (int i=0;i<helpProduct.size();i++)
+                                            finalFilterProduct.add(helpProduct.get(i));
+                                    }
+                                    else
+                                        finalFilterProduct=sch.getAllProductOfACategory(productIDFilter);
+
+                                }
+                                PictureProductShopItemAdapter newAdapter=new  PictureProductShopItemAdapter(getActivity(),finalFilterProduct);
                                 gridview.setAdapter(newAdapter);
                                 newAdapter.notifyDataSetChanged();
                                 dialogSubGroup.dismiss();
