@@ -7,6 +7,7 @@ package ir.rastanco.mobilemarket.presenter;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,8 +52,10 @@ public class SuperAwesomeCardFragment extends Fragment{
     private Button btnSubGroup;
     private Dialog dialogGroup;
     private Dialog dialogSubGroup;
-    private ImageButton btnReset;
+    private ImageButton btnResetAlertDialog;
     private ImageButton btnCancelAlertDialog;
+    private ImageButton btnResetSubGroup;
+    private ImageButton btnCancleSubGroup;
     private TextView subGroupTextView;
     private TextView groupTextView;
 
@@ -189,7 +192,23 @@ public class SuperAwesomeCardFragment extends Fragment{
                     public void onClick(View v) {
                         dialogGroup = new Dialog(getActivity());
                         dialogGroup.setContentView(R.layout.title_alertdialog_for_group);
-                        btnCancelAlertDialog = (ImageButton) v.findViewById(R.id.cancel);
+                        btnCancelAlertDialog = (ImageButton) dialogGroup.findViewById(R.id.cancel);
+                        btnResetAlertDialog = (ImageButton)dialogGroup.findViewById(R.id.reset_action);
+                        btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                               dialogGroup.dismiss();
+                            }
+                        });
+                        btnResetAlertDialog.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                categorySelected[0]=getActivity().getString(R.string.all);
+                                groupTextView.setText(categorySelected[0]);
+                                dialogGroup.dismiss();
+
+                            }
+                        });
                         TextView text = (TextView) dialogGroup.findViewById(R.id.title_alertdialog_group);
 
                         final ListView listCategory = (ListView) dialogGroup.findViewById(R.id.list);
@@ -219,6 +238,22 @@ public class SuperAwesomeCardFragment extends Fragment{
                     public void onClick(View v) {
                         dialogSubGroup = new Dialog(getActivity());
                         dialogSubGroup.setContentView(R.layout.title_alertdialog_for_sub_group);
+                        btnResetSubGroup = (ImageButton)dialogSubGroup.findViewById(R.id.reset_action_subgroup);
+                        btnCancleSubGroup = (ImageButton)dialogSubGroup.findViewById(R.id.cancel_action_subgroup);
+                        btnCancleSubGroup.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialogSubGroup.dismiss();
+                            }
+                        });
+                        btnResetSubGroup.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                subCategorySelected[0]=getActivity().getString(R.string.all);
+                                dialogSubGroup.dismiss();
+                                subGroupTextView.setText(categorySelected[0]);
+                            }
+                        });
                         TextView text = (TextView) dialogSubGroup.findViewById(R.id.title_alertdialog_group);
                         int subCategoryId=0;
 

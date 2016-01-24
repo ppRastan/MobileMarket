@@ -25,6 +25,7 @@
             android:textColor="@color/orange"
             android:layout_marginBottom="3dp"
             android:id="@+id/group_dialog_text"
+            android:text="@string/all"
             android:background="@color/white"/>
 
         <TextView
@@ -35,6 +36,7 @@
             android:textColor="@color/orange"
             android:background="@color/white"
             android:textSize="11dp"
+            android:text="@string/all"
             android:layout_marginBottom="3dp"
             android:gravity="center_horizontal|center_vertical"
             android:id="@+id/acordingto_dialog_text"/>
