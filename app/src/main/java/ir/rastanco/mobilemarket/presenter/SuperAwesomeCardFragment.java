@@ -134,15 +134,13 @@ public class SuperAwesomeCardFragment extends Fragment{
                 gridview.setAdapter(adapter);
                 final SwipeRefreshLayout mSwipeRefreshLayout= (SwipeRefreshLayout)
                         mainView.findViewById(R.id.swipe_refresh_layout);
-
+                //refresh grid view
                 mSwipeRefreshLayout.setEnabled(false);
-
                 gridview.setOnScrollListener(new AbsListView.OnScrollListener() {
                     @Override
                     public void onScrollStateChanged(AbsListView view, int scrollState) {
 
                     }
-
                     @Override
                     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
@@ -176,7 +174,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                    }
                });
 
-                //Filter Title
+                //Filter Category
                 final Map<Integer, String> filterCategory = sch.filterCategories();
                 final ArrayList<String> categoryTitle = new ArrayList<String>();
                 for (Map.Entry<Integer, String> entry : filterCategory.entrySet()) {
@@ -229,6 +227,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                     }
                 });
 
+                //Filter Subcategory
                 final String[] subCategorySelected = new String[1];
                 subCategorySelected[0]=getActivity().getString(R.string.all);
                 subGroupTextView = (TextView)mainView.findViewById(R.id.acordingto_dialog_text);
@@ -293,19 +292,10 @@ public class SuperAwesomeCardFragment extends Fragment{
                                         for (int i = 0; i < helpProduct.size(); i++)
                                             finalFilterProduct.add(helpProduct.get(i));
                                     }
-                                } else
+                                }
+                                else
                                     finalFilterProduct = sch.getAllProductOfACategory(productIDFilter);
 
-
-                                for (Map.Entry<Integer, String> entry : finalFilter.entrySet()) {
-                                    helpProduct = sch.getAllProductOfACategory(entry.getKey());
-                                    if (helpProduct.size() > 0) {
-                                        for (int i = 0; i < helpProduct.size(); i++)
-                                            finalFilterProduct.add(helpProduct.get(i));
-                                    } else
-                                        finalFilterProduct = sch.getAllProductOfACategory(productIDFilter);
-
-                                }
                                 PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), finalFilterProduct);
                                 gridview.setAdapter(newAdapter);
                                 newAdapter.notifyDataSetChanged();
