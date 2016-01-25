@@ -80,7 +80,8 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         final Holder holder=new Holder();
-        int image= R.drawable.ic_logo;
+        int image= R.drawable.logo;
+
 
         final View rowView;
         rowView = inflater.inflate(R.layout.picture_produc_item_shop, null);
