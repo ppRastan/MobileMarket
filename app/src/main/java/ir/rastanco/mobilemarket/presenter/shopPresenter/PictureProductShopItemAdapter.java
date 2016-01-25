@@ -80,8 +80,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         final Holder holder=new Holder();
-        int image= R.mipmap.decoriss_icon;
-
+        Bitmap image=null;
 
         final View rowView;
         rowView = inflater.inflate(R.layout.picture_produc_item_shop, null);
@@ -146,7 +145,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         imgLoader.DisplayImage(image_url_1, holder.imgP);
         holder.infoP.setText(allProduct.get(position).getTitle());
         holder.priceP.setText(String.valueOf(allProduct.get(position).getPrice()));
-        holder.imgP.setImageResource(image);
+        holder.imgP.setImageBitmap(image);
         holder.imgP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
