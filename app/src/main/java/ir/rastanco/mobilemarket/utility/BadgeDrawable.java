@@ -10,6 +10,7 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
 
 import ir.rastanco.mobilemarket.R;
 
@@ -18,7 +19,6 @@ import ir.rastanco.mobilemarket.R;
  */
 public class BadgeDrawable extends Drawable{
     private float mTextSize;
-    //private int myColor = Configuration.activityContext.getResources().getColor(R.color.green);
     private Paint mBadgePaint;
     private Paint mTextPaint;
     private Rect mTxtRect = new Rect();
@@ -27,10 +27,9 @@ public class BadgeDrawable extends Drawable{
     private boolean mWillDraw = false;
 
     public BadgeDrawable(Context context) {
-        //mTextSize = context.getResources().getDimension(R.dimen.badge_text_size);
         mTextSize = 12F;
         mBadgePaint = new Paint();
-        mBadgePaint.setColor(Color.RED);
+        mBadgePaint.setColor(Color.parseColor("#31a140"));
         mBadgePaint.setAntiAlias(true);
         mBadgePaint.setStyle(Paint.Style.FILL);
         mTextPaint = new Paint();
