@@ -80,7 +80,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         final Holder holder=new Holder();
-        Bitmap image=null;
+        int image= R.drawable.ic_logo;
 
         final View rowView;
         rowView = inflater.inflate(R.layout.picture_produc_item_shop, null);
@@ -101,13 +101,12 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.likeToolBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isLikeButtonClicked == false){
+                if (isLikeButtonClicked == false) {
 
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     isLikeButtonClicked = true;
                     //TODO display area here
-                }
-                else if(isLikeButtonClicked){
+                } else if (isLikeButtonClicked) {
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);
                     isLikeButtonClicked = false;
                     //TODO exit area mode
@@ -118,15 +117,13 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
 
-                if (isSelectedForShop==false) {
+                if (isSelectedForShop == false) {
                     holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
-                    isSelectedForShop=true;
+                    isSelectedForShop = true;
                     sch.addProductToShoppingBag(allProduct.get(position).getId());
-                }
-
-                else if (isSelectedForShop==true){
+                } else if (isSelectedForShop == true) {
                     holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
-                    isSelectedForShop=false;
+                    isSelectedForShop = false;
                     sch.deleteAProductShopping(allProduct.get(position).getId());
                 }
             }
@@ -148,7 +145,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         imgLoader.DisplayImage(image_url_1, holder.imgP);
         holder.infoP.setText(allProduct.get(position).getTitle());
         holder.priceP.setText(String.valueOf(allProduct.get(position).getPrice()));
-        holder.imgP.setImageBitmap(image);
+        holder.imgP.setImageResource(image);
 
         holder.imgP.setOnClickListener(new View.OnClickListener() {
             @Override
