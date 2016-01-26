@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.Gravity;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -39,7 +40,8 @@ public class ImageLoader {
         myContext=context;
     }
 
-    final int stub_id= R.drawable.empty;
+    final int stub_id= R.mipmap.decoriss;
+
     public void DisplayImage(String url, ImageView imageView)
     {
         imageViews.put(imageView, url);
@@ -156,10 +158,19 @@ public class ImageLoader {
         {
             if(imageViewReused(photoToLoad))
                 return;
-            if(bitmap!=null)
+            if(bitmap!=null) {
+
                 photoToLoad.imageView.setImageBitmap(bitmap);
+                photoToLoad.imageView.setForegroundGravity(Gravity.CENTER_VERTICAL);
+                photoToLoad.imageView.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
+            }
             else
+            {
+
                 photoToLoad.imageView.setImageResource(stub_id);
+                photoToLoad.imageView.setForegroundGravity(Gravity.CENTER_VERTICAL);
+                photoToLoad.imageView.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
+        }
         }
     }
 

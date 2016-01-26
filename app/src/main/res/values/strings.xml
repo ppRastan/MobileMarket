@@ -20,5 +20,12 @@
     <string name="enter">ورود</string>
     <string name="login">ثبت نام</string>
     <string name="forget_password">رمز عبور را فراموش کرده ام !</string>
+    <string name="share_email_native">ارسال با ایمیل</string>
+    <string name="share_email_subject">ارسال شده از برنامه دکوریس</string>
+    <string name="share_chooser_text">share chooser text</string>
+    <string name="share_twitter">share twitter</string>
+    <string name="share_facebook">share face book</string>
+    <string name="share_sms">share sms</string>
+    <string name="share_email_gmail">share email gmail</string>
 
 </resources>
