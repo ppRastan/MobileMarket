@@ -23,7 +23,7 @@
           android:layout_marginRight="1dp"
           android:gravity="right"
           android:text="@string/your_basket"
-          android:textColor="@color/white"
+          android:textColor="@color/black"
           android:textSize="17dp"/>
 
         <ImageButton
