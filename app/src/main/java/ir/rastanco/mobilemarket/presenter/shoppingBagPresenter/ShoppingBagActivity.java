@@ -13,7 +13,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 /**
- * Created by ShaisteS on 1394/10/30.
+ ** Created by ShaisteS on 1394/10/30.
  */
 public class ShoppingBagActivity extends Activity {
 
