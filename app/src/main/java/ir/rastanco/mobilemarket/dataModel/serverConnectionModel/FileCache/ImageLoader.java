@@ -161,19 +161,11 @@ public class ImageLoader {
             if(bitmap!=null) {
 
                 photoToLoad.imageView.setImageBitmap(bitmap);
-                photoToLoad.imageView.setForegroundGravity(Gravity.CENTER_VERTICAL);
-                photoToLoad.imageView.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
-                photoToLoad.imageView.getLayoutParams().height = 500;
-                photoToLoad.imageView.getLayoutParams().width = 500;
             }
             else
             {
 
                 photoToLoad.imageView.setImageResource(stub_id);
-                photoToLoad.imageView.getLayoutParams().height = 300;
-                photoToLoad.imageView.getLayoutParams().width = 300 ;
-                photoToLoad.imageView.setForegroundGravity(Gravity.CENTER_VERTICAL);
-                photoToLoad.imageView.setForegroundGravity(Gravity.CENTER_HORIZONTAL);
 
         }
         }

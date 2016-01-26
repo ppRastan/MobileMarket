@@ -117,12 +117,10 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
 
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     isLikeButtonClicked = true;
-                    //TODO display area here
                 }
                 else if(isLikeButtonClicked){
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);
                     isLikeButtonClicked = false;
-                    //TODO exit area mode
                 }
             }
         });
