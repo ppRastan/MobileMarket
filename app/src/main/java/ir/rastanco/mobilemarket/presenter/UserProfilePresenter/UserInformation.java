@@ -32,7 +32,6 @@ public class UserInformation extends Fragment {
     private Security sec;
     private String user;
     private String pass;
-    private Typeface font;
     private Button btnLogin;
     private Button btnSignUp;
     private Button btnForgotPass;
@@ -42,7 +41,6 @@ public class UserInformation extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
          final View userProfileView= inflater.inflate(R.layout.fragment_user_information, container, false);
-         font = Typeface.createFromAsset(getActivity().getAssets(),"fonts/yekan_font.ttf");
          Configuration.UserInformationFragment=getContext();
          sch=new ServerConnectionHandler(Configuration.UserInformationFragment);
          btnLogin=(Button) userProfileView.findViewById(R.id.btn_login);
@@ -51,7 +49,6 @@ public class UserInformation extends Fragment {
          username=(EditText) userProfileView.findViewById(R.id.et_username);
          password=(EditText) userProfileView.findViewById(R.id.et_password);
          sec=new Security();
-         this.setYekanFont();
          btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,12 +101,5 @@ public class UserInformation extends Fragment {
         return userProfileView;
     }
 
-    private void setYekanFont() {
-        btnLogin.setTypeface(font);
-        btnSignUp.setTypeface(font);
-        btnForgotPass.setTypeface(font);
-        username.setTypeface(font);
-        password.setTypeface(font);
 
-    }
 }

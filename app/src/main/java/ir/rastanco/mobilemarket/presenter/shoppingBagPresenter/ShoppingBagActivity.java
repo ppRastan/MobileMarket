@@ -48,8 +48,4 @@ public class ShoppingBagActivity extends Activity {
 
     }
 
-    @Override
-    protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(new CalligraphyContextWrapper(newBase));
-    }
 }

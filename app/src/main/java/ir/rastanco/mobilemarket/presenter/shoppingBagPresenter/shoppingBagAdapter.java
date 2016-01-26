@@ -31,7 +31,6 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  * Created by ShaisteS on 1394/10/30.
  */
 public class shoppingBagAdapter extends ArrayAdapter<Integer> {
-    private Typeface font;
     private Activity myContext;
     private ArrayList<Integer> selectedProducts;
     private Product aProduct;
@@ -43,7 +42,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         selectedProducts = productsId;
         myContext =(Activity) context;
         sch=new ServerConnectionHandler(context);
-        font = Typeface.createFromAsset(myContext.getAssets(),"fonts/B Zar.ttf");
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -60,9 +58,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         TextView txtProductOff=(TextView) rowView.findViewById(R.id.txt_productOff);
         ImageButton btnDelete=(ImageButton)rowView.findViewById(R.id.imb_delete);
         TextView totalPrice = (TextView)rowView.findViewById(R.id.txt_total_price);
-        txtProductOff.setTypeface(font);
-        txtProductPrice.setTypeface(font);
-        totalPrice.setTypeface(font);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

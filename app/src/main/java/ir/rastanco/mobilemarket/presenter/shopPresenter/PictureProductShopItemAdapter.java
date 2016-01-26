@@ -50,7 +50,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
         context=mainActivity;
-        bZarFont = Typeface.createFromAsset(mainActivity.getAssets(),"fonts/B Zar.ttf");
         inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         allProduct =products;
         sch=new ServerConnectionHandler(Configuration.superACFragment);
@@ -142,8 +141,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 }
             }
         });
-        holder.infoP.setTypeface(bZarFont);
-        holder.priceP.setTypeface(bZarFont);
         ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
         String picCounter = allProduct.get(position).getImagesPath().get(0);
         try {
