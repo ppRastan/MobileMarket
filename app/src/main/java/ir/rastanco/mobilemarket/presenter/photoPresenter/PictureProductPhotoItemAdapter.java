@@ -31,6 +31,7 @@ public class PictureProductPhotoItemAdapter extends BaseAdapter{
     private static LayoutInflater inflater=null;
     private ArrayList<Product> allProduct;
 
+
     public PictureProductPhotoItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
         context=mainActivity;
@@ -62,7 +63,6 @@ public class PictureProductPhotoItemAdapter extends BaseAdapter{
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         Holder holder=new Holder();
-        Bitmap image;
 
         final View rowView;
         rowView = inflater.inflate(R.layout.picture_product_item_photo, null);
@@ -84,8 +84,8 @@ public class PictureProductPhotoItemAdapter extends BaseAdapter{
         holder.imgP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent=new Intent(rowView.getContext(), ProductInfoActivity.class);
+                intent.putParcelableArrayListExtra("allProduct",allProduct);
                 intent.putExtra("position",position);
                 rowView.getContext().startActivity(intent);
             }

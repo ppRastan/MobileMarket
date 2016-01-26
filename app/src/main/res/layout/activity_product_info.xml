@@ -23,11 +23,4 @@
             android:orientation="horizontal" >
         </LinearLayout>
     </HorizontalScrollView>
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/lv_productInfo"
-        android:scrollbars="none"/>
-
 </LinearLayout>

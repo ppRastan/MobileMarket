@@ -3,6 +3,10 @@ package ir.rastanco.mobilemarket.utility;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.View;
+
+import ir.rastanco.mobilemarket.R;
 
 /**
  * Created by ShaisteS on 1394/10/14.
@@ -30,6 +34,7 @@ public class Configuration {
     public static Context UserInformationFragment;
     public static Context ShoppingBagActivity;
     public static Context UserAccountFragment;
+    public static Context ProductOptionFragment;
 
     public static ViewPager UserProfileViewPager;
 

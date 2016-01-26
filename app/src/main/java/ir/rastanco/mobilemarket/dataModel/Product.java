@@ -1,12 +1,15 @@
 package ir.rastanco.mobilemarket.dataModel;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
  * Created by ShaisteS on 12/27/2015.
  * This Class is Packaging Product Information
  */
-public class Product {
+public class Product  implements Parcelable {
 
     private String title;
     private int id;
@@ -27,6 +30,43 @@ public class Product {
     private String imagesMainPath;
     private ArrayList<String> imagesPath;
     private ArrayList<ProductOption> producOptions;
+
+    public Product(Parcel in) {
+        title = in.readString();
+        id = in.readInt();
+        groupId = in.readInt();
+        price = in.readInt();
+        priceOff = in.readInt();
+        visits = in.readInt();
+        minCounts = in.readInt();
+        stock = in.readInt();
+        qualityRank = in.readString();
+        commentsCount = in.readInt();
+        codeProduct = in.readString();
+        description = in.readString();
+        sellsCount = in.readInt();
+        timeStamp = in.readString();
+        showAtHomeScreen = in.readInt();
+        watermarkPath = in.readString();
+        imagesMainPath = in.readString();
+        imagesPath = in.createStringArrayList();
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
+
+    public Product() {
+
+    }
 
     public String getTitle() {
         return title;
@@ -186,5 +226,32 @@ public class Product {
 
     public void setProductOptions(ArrayList<ProductOption> productProductOptions) {
         this.producOptions = productProductOptions;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeInt(id);
+        dest.writeInt(groupId);
+        dest.writeInt(price);
+        dest.writeInt(priceOff);
+        dest.writeInt(visits);
+        dest.writeInt(minCounts);
+        dest.writeInt(stock);
+        dest.writeString(qualityRank);
+        dest.writeInt(commentsCount);
+        dest.writeString(codeProduct);
+        dest.writeString(description);
+        dest.writeInt(sellsCount);
+        dest.writeString(timeStamp);
+        dest.writeInt(showAtHomeScreen);
+        dest.writeString(watermarkPath);
+        dest.writeString(imagesMainPath);
+        dest.writeStringList(imagesPath);
     }
 }

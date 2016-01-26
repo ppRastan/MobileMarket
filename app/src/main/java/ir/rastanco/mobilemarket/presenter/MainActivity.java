@@ -91,35 +91,6 @@ public class MainActivity extends AppCompatActivity {
         this.phoneManager();
         this.setFAb();
         this.displayWindow();
-
-        /*Map<Integer,String> test=new HashMap();
-        test=sch.getCategoryTitle();
-
-        for (Map.Entry<Integer,String> entry : test.entrySet()) {
-           Log.d("Category:",entry.getValue());
-        }
-
-        Map<Integer,String> test2=new HashMap();
-        test2=sch.getProductTitle();
-
-        for (Map.Entry<Integer,String> entry : test2.entrySet()) {
-            Log.d("Product:",entry.getValue());
-        }
-
-        Map<Integer,String> test3=new HashMap();
-        test3=sch.filterCategories();
-
-        for (Map.Entry<Integer,String> entry : test3.entrySet()) {
-            Log.d("CAtegory:",entry.getValue()+entry.getKey());
-        }*/
-
-        Map<Integer,String> test4=new HashMap();
-        test4=sch.filterSubCategory(57);
-
-        for (Map.Entry<Integer,String> entry : test4.entrySet()) {
-            Log.d("Product:",entry.getValue()+entry.getKey());
-        }
-
     }
 
     private void displayWindow() {
@@ -264,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
 
-            case R.id.action_sell :
+            case R.id.action_notifications :
                 Intent shoppingBagIntent=new Intent(this, ShoppingBagActivity.class);
                 this.startActivity(shoppingBagIntent);
                 break;
