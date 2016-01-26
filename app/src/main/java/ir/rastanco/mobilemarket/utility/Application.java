@@ -7,7 +7,7 @@ public final class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
         FontsOverride.setDefaultFont(this, "DEFAULT", "fonts/droidkufi-bold.ttf");
-        FontsOverride.setDefaultFont(this, "MONOSPACE","fonts/droidkufi-bold.ttf");
+        FontsOverride.setDefaultFont(this, "MONOSPACE","fonts/B Traffic.ttf.ttf");
         FontsOverride.setDefaultFont(this, "SERIF", "fonts/droidkufi-bold.ttf");
         FontsOverride.setDefaultFont(this, "SANS_SERIF", "fonts/droidkufi-bold.ttf");
     }
