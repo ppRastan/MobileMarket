@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <include layout="@layout/shopping_bag_toolbar"/>
+    <include layout="@layout/total_basket_price_toolbar"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black">
+    </LinearLayout>
 
     <ListView
         android:layout_width="match_parent"
@@ -12,7 +20,13 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ثبت سفارش در فروشگاه دکوریس"
+        android:layout_height="?actionBarSize"
+        android:textColor="@color/white"
+        android:background="@color/green"
+        android:layoutDirection="rtl"
+        android:drawableLeft="@mipmap/finish_shopping"
+        android:drawablePadding="4dp"
+        android:text="@string/finish_shopping"
         android:id="@+id/id_ok_shop" />
+
 </LinearLayout>

@@ -1,8 +1,12 @@
 package ir.rastanco.mobilemarket.presenter.shoppingBagPresenter;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -26,7 +31,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  * Created by ShaisteS on 1394/10/30.
  */
 public class shoppingBagAdapter extends ArrayAdapter<Integer> {
-
+    private Typeface font;
     private Activity myContext;
     private ArrayList<Integer> selectedProducts;
     private Product aProduct;
@@ -38,7 +43,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         selectedProducts = productsId;
         myContext =(Activity) context;
         sch=new ServerConnectionHandler(context);
-
+        font = Typeface.createFromAsset(myContext.getAssets(),"fonts/B Zar.ttf");
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -54,18 +59,36 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         TextView txtProductPrice=(TextView) rowView.findViewById(R.id.txt_productPrice);
         TextView txtProductOff=(TextView) rowView.findViewById(R.id.txt_productOff);
         ImageButton btnDelete=(ImageButton)rowView.findViewById(R.id.imb_delete);
-
+        txtProductOff.setTypeface(font);
+        txtProductPrice.setTypeface(font);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sch.addProductToShoppingBag(aProduct.getId());
-                for (int i=0;i<selectedProducts.size();i++){
-                    if (aProduct.getId()==selectedProducts.get(i)){
-                        selectedProducts.remove(i);
-                        sch.deleteAProductShopping(aProduct.getId());
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(myContext);
+                alertDialog.setMessage(R.string.confirm_to_delete);
+                alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int which) {
+
+
+                                        sch.addProductToShoppingBag(aProduct.getId());
+                                        for (int i=0;i<selectedProducts.size();i++){
+                                        if (aProduct.getId()==selectedProducts.get(i)){
+                                            selectedProducts.remove(i);
+                                             sch.deleteAProductShopping(aProduct.getId());
+                                              }
+                                               }
+                                                updateList(selectedProducts);
                     }
-                }
-                updateList(selectedProducts);
+                });
+
+                alertDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                alertDialog.show();
+
             }
         });
 
