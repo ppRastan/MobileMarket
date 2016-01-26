@@ -2,10 +2,13 @@ package ir.rastanco.mobilemarket.presenter.shoppingBagPresenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,6 +53,21 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         TextView txtProductTitle=(TextView) rowView.findViewById(R.id.txt_productTitle);
         TextView txtProductPrice=(TextView) rowView.findViewById(R.id.txt_productPrice);
         TextView txtProductOff=(TextView) rowView.findViewById(R.id.txt_productOff);
+        ImageButton btnDelete=(ImageButton)rowView.findViewById(R.id.imb_delete);
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sch.addProductToShoppingBag(aProduct.getId());
+                for (int i=0;i<selectedProducts.size();i++){
+                    if (aProduct.getId()==selectedProducts.get(i)){
+                        selectedProducts.remove(i);
+                        sch.deleteAProductShopping(aProduct.getId());
+                    }
+                }
+                updateList(selectedProducts);
+            }
+        });
 
         ImageLoader imgLoader = new ImageLoader(myContext); // important
         String picCounter = aProduct.getImagesPath().get(0);
@@ -72,4 +90,11 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         return rowView;
 
     }
+
+    public void updateList(ArrayList<Integer> results) {
+        selectedProducts = results;
+        //Triggers the list update
+        notifyDataSetChanged();
+    }
+
 }

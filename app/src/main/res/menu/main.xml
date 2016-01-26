@@ -7,11 +7,6 @@
         app:showAsAction="always"
         android:title="جست و جو" />
     <item
-        android:id="@+id/action_sell"
-        android:icon="@mipmap/ic_shop"
-        app:showAsAction="always"
-        android:title="خرید" />
-    <item
         android:id="@+id/action_notifications"
         android:icon="@drawable/ic_menu_notifications"
         android:title="Notifications"

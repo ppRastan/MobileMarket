@@ -65,10 +65,8 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
         PicProductImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Bundle bundle = new Bundle();
-                bundle.putSerializable("allProducts", allProduct);*/
                 Intent intent = new Intent(rowView.getContext(), ProductInfoActivity.class);
-                //intent.putExtras(bundle);
+                intent.putParcelableArrayListExtra("allProduct",allProduct);
                 intent.putExtra("position",position);
                 rowView.getContext().startActivity(intent);
             }

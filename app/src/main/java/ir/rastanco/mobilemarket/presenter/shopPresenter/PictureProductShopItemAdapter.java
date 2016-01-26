@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -26,6 +29,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageL
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.CounterIconUtils;
 
 /**
  * Created by ShaisteS on 12/28/2015.
@@ -41,6 +45,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private boolean isLikeButtonClicked = true;
     private boolean isSelectedForShop=false;
     private ServerConnectionHandler sch;
+    private CounterIconUtils ciu;
 
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
@@ -91,6 +96,13 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
         holder.likeToolBar = (ImageButton)rowView.findViewById(R.id.empty_like_toolbar);
 
+        if (sch.checkSelectProductForShop(allProduct.get(position).getId()))
+            holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
+        else
+            holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
+
+
+
 
         holder.shareToolBar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,12 +113,13 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.likeToolBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isLikeButtonClicked == false) {
+                if(isLikeButtonClicked == false){
 
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     isLikeButtonClicked = true;
                     //TODO display area here
-                } else if (isLikeButtonClicked) {
+                }
+                else if(isLikeButtonClicked){
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);
                     isLikeButtonClicked = false;
                     //TODO exit area mode
@@ -117,13 +130,16 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
 
-                if (isSelectedForShop == false) {
+                if (isSelectedForShop==false) {
                     holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
-                    isSelectedForShop = true;
+                    isSelectedForShop=true;
                     sch.addProductToShoppingBag(allProduct.get(position).getId());
-                } else if (isSelectedForShop == true) {
+
+                }
+
+                else if (isSelectedForShop==true){
                     holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
-                    isSelectedForShop = false;
+                    isSelectedForShop=false;
                     sch.deleteAProductShopping(allProduct.get(position).getId());
                 }
             }
@@ -146,10 +162,12 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.infoP.setText(allProduct.get(position).getTitle());
         holder.priceP.setText(String.valueOf(allProduct.get(position).getPrice()));
         holder.imgP.setImageBitmap(image);
+
         holder.imgP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(rowView.getContext(), ProductInfoActivity.class);
+                intent.putParcelableArrayListExtra("allProduct",allProduct);
                 intent.putExtra("position", position);
                 rowView.getContext().startActivity(intent);
             }

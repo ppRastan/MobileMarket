@@ -395,6 +395,26 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     }
 
+    public boolean ExistAProductShopping(int productId){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from tblShopping where fkProductId="+productId, null);
+        if (rs.moveToFirst()) {
+            rs.close();
+           return true;
+        }
+        else {
+            rs.close();
+            return false;
+        }
+
+    }
+
+    public int CounterProductShopping(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from tblShopping", null);
+        return  rs.getCount();
+    }
+
     public ArrayList<Category> selectAllCategory() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblCategory", null);
@@ -569,6 +589,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         aProduct= new Product();
         if (rs != null) {
             if (rs.moveToFirst()) {
+                    aProduct.setId(rs.getInt(rs.getColumnIndex("productId")));
                     aProduct.setTitle(rs.getString(rs.getColumnIndex("title")));
                     aProduct.setPrice(rs.getInt(rs.getColumnIndex("price")));
                     aProduct.setPriceOff(rs.getInt(rs.getColumnIndex("priceOff")));

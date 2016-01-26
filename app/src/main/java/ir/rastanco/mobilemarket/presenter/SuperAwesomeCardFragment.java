@@ -15,6 +15,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -72,7 +74,10 @@ public class SuperAwesomeCardFragment extends Fragment{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
     }
 
 
@@ -248,7 +253,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                         btnResetSubGroup.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                subCategorySelected[0]=getActivity().getString(R.string.all);
+                                subCategorySelected[0] = getActivity().getString(R.string.all);
                                 dialogSubGroup.dismiss();
                                 subGroupTextView.setText(categorySelected[0]);
                             }
@@ -292,8 +297,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                                         for (int i = 0; i < helpProduct.size(); i++)
                                             finalFilterProduct.add(helpProduct.get(i));
                                     }
-                                }
-                                else
+                                } else
                                     finalFilterProduct = sch.getAllProductOfACategory(productIDFilter);
 
                                 PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), finalFilterProduct);

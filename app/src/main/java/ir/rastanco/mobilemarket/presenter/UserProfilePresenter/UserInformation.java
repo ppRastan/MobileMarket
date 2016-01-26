@@ -52,41 +52,40 @@ public class UserInformation extends Fragment {
          password=(EditText) userProfileView.findViewById(R.id.et_password);
          sec=new Security();
          this.setYekanFont();
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                btnLogin.setTextColor(Color.RED);
-
-//                UserInfo aUser=new UserInfo();
-//                String key=sch.GetKey("http://decoriss.com/json/get,com=auth");
-//                //String key="974401741";
-//                //user= String.valueOf(username.getText());
-//                user="mahdavikia.m@gmail.com";
-//                aUser.setUserEmail(user);
-//                //pass= String.valueOf(password.getText());
-//                pass="1234";
-//                String hashInfo=sec.encode(user,pass,key);
-//                ArrayList<String> response=new ArrayList<String>();
-//                response=sch.GetAuthorizeResponse(hashInfo,key);
-//                Log.d("Response:",response.get(0));
-//                if(response.get(0).equals("")){
-//                    aUser.setUserId(Integer.parseInt(response.get(1)));
-//                    aUser.setUserLoginStatus(1);
-//                    sch.addUserInfoToTable(aUser);
-//                    Configuration.UserProfileViewPager.setCurrentItem(1);
-//                }
+                UserInfo aUser=new UserInfo();
+                String key=sch.GetKey("http://decoriss.com/json/get,com=auth");
+                //String key="974401741";
+                //user= String.valueOf(username.getText());
+                user="mahdavikia.m@gmail.com";
+                aUser.setUserEmail(user);
+                //pass= String.valueOf(password.getText());
+                pass="1234";
+                String hashInfo=sec.encode(user,pass,key);
+                ArrayList<String> response=new ArrayList<String>();
+                response=sch.GetAuthorizeResponse(hashInfo,key);
+                Log.d("Response:",response.get(0));
+                if(response.get(0).equals("")){
+                    aUser.setUserId(Integer.parseInt(response.get(1)));
+                    aUser.setUserLoginStatus(1);
+                    sch.addUserInfoToTable(aUser);
+                    Configuration.UserProfileViewPager.setCurrentItem(1);
+                }
             }
         });
 
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 btnSignUp.setTextColor(Color.RED);
-//                Intent intent = new Intent();
-//                intent.setAction(Intent.ACTION_VIEW);
-//                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-//                intent.setData(Uri.parse("http://decoriss.com/register,ثبت-نام_"));
-//                userProfileView.getContext().startActivity(intent);
+                btnSignUp.setTextColor(Color.RED);
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("http://decoriss.com/register,ثبت-نام_"));
+                userProfileView.getContext().startActivity(intent);
             }
         });
 
@@ -94,11 +93,11 @@ public class UserInformation extends Fragment {
             @Override
             public void onClick(View v) {
                 btnForgotPass.setTextColor(Color.RED);
-//                Intent intent = new Intent();
-//                intent.setAction(Intent.ACTION_VIEW);
-//                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-//                intent.setData(Uri.parse("http://decoriss.com/forgetpassword,فراموشی-رمز-عبور_"));
-//                userProfileView.getContext().startActivity(intent);
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("http://decoriss.com/forgetpassword,فراموشی-رمز-عبور_"));
+                userProfileView.getContext().startActivity(intent);
             }
         });
 

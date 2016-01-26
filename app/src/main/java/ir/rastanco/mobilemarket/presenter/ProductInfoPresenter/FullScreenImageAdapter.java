@@ -33,17 +33,19 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private ArrayList<ProductOption> options;
     private LayoutInflater inflater;
     private ServerConnectionHandler sch;
+    private int productsSize;
 
     // constructor
-    public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts) {
+    public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
         this.products=allProducts;
+        this.productsSize=allProductSize;
         sch=new ServerConnectionHandler(Configuration.ProductInfoActivity);
     }
 
     @Override
     public int getCount() {
-        return products.size();
+        return productsSize;
     }
 
     @Override
@@ -58,13 +60,13 @@ public class FullScreenImageAdapter extends PagerAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View viewLayout = inflater.inflate(R.layout.activity_product_info, container,false);
 
-        options=new ArrayList<ProductOption>();
+        /*options=new ArrayList<ProductOption>();
         options=sch.getOptionsOfAProduct("http://decoriss.com/json/get,com=options&pid="+
                         products.get(position).getId()+"&pgid="+products.get(position).getGroupId()+"&cache=false");
         ListView productInfo = (ListView) viewLayout.findViewById(R.id.lv_productInfo);
         ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.ProductInfoActivity,
                 R.layout.product_info_item,options);
-        productInfo.setAdapter(adapter);
+        productInfo.setAdapter(adapter);*/
 
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
         final ImageLoader imgLoader = new ImageLoader(Configuration.ProductInfoActivity); // important

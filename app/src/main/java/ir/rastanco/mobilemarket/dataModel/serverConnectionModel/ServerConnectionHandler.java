@@ -265,4 +265,12 @@ public class ServerConnectionHandler {
     public ArrayList<Product> getAllProductOfACategory(int groupId){
         return dbh.selectAllProductOfACategory(groupId);
     }
+
+    public int getCountProductShop(){
+        return dbh.CounterProductShopping();
+    }
+
+    public boolean checkSelectProductForShop(int productId){
+        return dbh.ExistAProductShopping(productId);
+    }
 }
