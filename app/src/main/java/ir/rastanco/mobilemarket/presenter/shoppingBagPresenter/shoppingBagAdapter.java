@@ -59,8 +59,10 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         TextView txtProductPrice=(TextView) rowView.findViewById(R.id.txt_productPrice);
         TextView txtProductOff=(TextView) rowView.findViewById(R.id.txt_productOff);
         ImageButton btnDelete=(ImageButton)rowView.findViewById(R.id.imb_delete);
+        TextView totalPrice = (TextView)rowView.findViewById(R.id.txt_total_price);
         txtProductOff.setTypeface(font);
         txtProductPrice.setTypeface(font);
+        totalPrice.setTypeface(font);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -109,7 +111,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         txtProductTitle.setText(aProduct.getTitle());
         txtProductPrice.setText("قیمت :"+String.valueOf(aProduct.getPrice()));
         txtProductOff.setText("تخفیف : "+String.valueOf(aProduct.getPriceOff()));
-
+        totalPrice.setText("قابل پرداخت :" + String.valueOf(aProduct.getPrice()-aProduct.getPriceOff()));
         return rowView;
 
     }
