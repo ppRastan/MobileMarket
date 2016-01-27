@@ -34,7 +34,6 @@ public class ProductOptionActivity extends Activity {
         sch=new ServerConnectionHandler(Configuration.ProductOptionFragment);
         options=new ArrayList<ProductOption>();
         options=sch.getProductOption(productId,groupId);
-        sch.addProductOptionsToTable(productId,options);
         ListView lvProductOption=(ListView)findViewById(R.id.lv_productOption);
         ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.ProductOptionFragment,
                 R.layout.product_info_item,options);

@@ -293,9 +293,11 @@ public class ServerConnectionHandler {
     public ArrayList<ProductOption> getProductOption(int productId,int groupId){
         ArrayList<ProductOption> options=new ArrayList<ProductOption>();
         options=dbh.selectAllOptionProduct(productId);
-        if(options.size()==0)
-            options=getOptionsOfAProductFromURL("http://decoriss.com/json/get,com=options&pid=" +
+        if(options.size()==0) {
+            options = getOptionsOfAProductFromURL("http://decoriss.com/json/get,com=options&pid=" +
                     String.valueOf(productId) + "&pgid=" + String.valueOf(groupId) + "&cache=false");
+            addProductOptionsToTable(productId,options);
+        }
         return options;
     }
 }
