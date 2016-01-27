@@ -6,14 +6,19 @@ package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -50,23 +55,30 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((LinearLayout) object);
+        return view == ((RelativeLayout) object);
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
 
         inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View viewLayout = inflater.inflate(R.layout.activity_product_info, container,false);
+        final View viewLayout = inflater.inflate(R.layout.activity_product_info, container,false);
 
-        /*options=new ArrayList<ProductOption>();
-        options=sch.getOptionsOfAProduct("http://decoriss.com/json/get,com=options&pid="+
-                        products.get(position).getId()+"&pgid="+products.get(position).getGroupId()+"&cache=false");
-        ListView productInfo = (ListView) viewLayout.findViewById(R.id.lv_productInfo);
-        ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.ProductInfoActivity,
-                R.layout.product_info_item,options);
-        productInfo.setAdapter(adapter);*/
+        /*TextView headerTitle=(TextView)viewLayout.findViewById(R.id.headerTitle);
+        headerTitle.setText(products.get(position).getTitle());*/
+
+        ImageButton btnInfo=(ImageButton)viewLayout.findViewById(R.id.img_info);
+        btnInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentProductInfo = new Intent(viewLayout.getContext(),ProductOptionActivity.class);
+                intentProductInfo.putExtra("productId", products.get(position).getId());
+                intentProductInfo.putExtra("groupId", products.get(position).getGroupId());
+                viewLayout.getContext().startActivity(intentProductInfo);
+
+            }
+        });
 
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
         final ImageLoader imgLoader = new ImageLoader(Configuration.ProductInfoActivity); // important
@@ -121,7 +133,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
                             "&size=" +
                             Configuration.homeDisplaySize + "x" + Configuration.productInfoHeightSize +
                             "&q=30";
-                    imgLoader.DisplayImage(image_url_otherPic,imgProduct);
+                    imgLoader.DisplayImage(image_url_otherPic, imgProduct);
 
                 }
             });
@@ -132,7 +144,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ((ViewPager) container).removeView((LinearLayout) object);
+        ((ViewPager) container).removeView((RelativeLayout) object);
 
     }
 }

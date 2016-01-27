@@ -31,6 +31,7 @@
         <activity android:name=".presenter.ProductInfoPresenter.ProductInfoActivity" />
         <activity android:name=".presenter.UserProfilePresenter.UserProfileActivity"/>
         <activity android:name=".presenter.shoppingBagPresenter.ShoppingBagActivity"/>
+        <activity android:name=".presenter.ProductInfoPresenter.ProductOptionActivity"/>
     </application>
 
 </manifest>

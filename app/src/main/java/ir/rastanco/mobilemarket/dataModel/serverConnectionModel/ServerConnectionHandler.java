@@ -1,5 +1,6 @@
 package ir.rastanco.mobilemarket.dataModel.serverConnectionModel;
 
+import android.app.VoiceInteractor;
 import android.content.Context;
 
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class ServerConnectionHandler {
                 dbh.insertAProduct(allProducts.get(i));
         }
         if (allProducts.size()>0)
-            setLastTimeStamp(allProducts.get(0).getTimeStamp());
+            setLastTimeStamp(allProducts.get(0).getTimeStamp(),"25");
 
     }
     public void addAllArticlesToTable(ArrayList<Article> allArticles){
@@ -79,10 +80,9 @@ public class ServerConnectionHandler {
         return dbh.selectAllProduct();
     }
     public ArrayList<Article> getAllArticlesFromTable(){
+
         return dbh.selectAllArticle();
     }
-
-
     public Product getAProduct(int productId){
         Product aProduct= dbh.selectAProduct(productId);
         aProduct.setImagesPath(dbh.selectAllImagePathAProduct(productId));
@@ -120,8 +120,7 @@ public class ServerConnectionHandler {
         ParseJsonArticles a=new ParseJsonArticles();
         return a.getAllProductOptions(articlesInfo);
     }
-
-    public ArrayList<ProductOption> getOptionsOfAProduct(String url){
+    public ArrayList<ProductOption> getOptionsOfAProductFromURL(String url){
 
         GetJsonFile optionJson= new GetJsonFile();
         String productInfoJson=null;
@@ -136,9 +135,9 @@ public class ServerConnectionHandler {
         return p.getAllProductOptions(productInfoJson);
     }
 
-    public void setLastTimeStamp(String timeStamp){
-        if(dbh.emptySettingTable()){
-            dbh.insertSetting(timeStamp);
+    public void setLastTimeStamp(String timeStamp,String lastArticlesNum){
+        if(dbh.emptyTimeStamp()){
+            dbh.insertSetting(timeStamp,lastArticlesNum);
         }
         else
             dbh.updateTimeStamp(timeStamp);
@@ -160,6 +159,19 @@ public class ServerConnectionHandler {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+    }
+    public void refreshArticles(){
+        String lastArticlesNum=dbh.selectLastArticlesNum();
+        int endArticle=Integer.parseInt(lastArticlesNum)+100;
+        ParseJsonArticles pja=new ParseJsonArticles();
+        String url="http://decoriss.com/json/get,com=news&name=blog&order=desc&limit="
+                +lastArticlesNum+"-"+String.valueOf(endArticle)+"&cache=false";
+        addAllArticlesToTable(getAllArticlesAndNewsURL(url));
+
+    }
+
+    public void setLastArticlesNum(String lastNum){
+        dbh.updateLastArticlesNum(lastNum);
     }
 
     public void deleteAProduct(int productId){
@@ -272,5 +284,18 @@ public class ServerConnectionHandler {
 
     public boolean checkSelectProductForShop(int productId){
         return dbh.ExistAProductShopping(productId);
+    }
+
+    public void addProductOptionsToTable(int productId,ArrayList<ProductOption> options){
+        for (int i=0;i<options.size();i++)
+            dbh.insertOptionProduct(productId,options.get(i).getTitle(),options.get(i).getValue());
+}
+    public ArrayList<ProductOption> getProductOption(int productId,int groupId){
+        ArrayList<ProductOption> options=new ArrayList<ProductOption>();
+        options=dbh.selectAllOptionProduct(productId);
+        if(options.size()==0)
+            options=getOptionsOfAProductFromURL("http://decoriss.com/json/get,com=options&pid=" +
+                    String.valueOf(productId) + "&pgid=" + String.valueOf(groupId) + "&cache=false");
+        return options;
     }
 }
