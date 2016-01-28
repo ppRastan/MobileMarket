@@ -48,7 +48,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
         db.execSQL("create table tblSetting" +
                 "(id Integer primary key AUTOINCREMENT," +
-                "lastTimeStamp String)");
+                "lastTimeStamp String," +
+                "lastArticlesNum String)");
         Log.v("create", "Create Setting Table");
 
         db.execSQL("create table tblShopping" +
@@ -103,7 +104,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
         db.execSQL("create table tblArticle" +
                 "(id Integer primary key AUTOINCREMENT," +
-                "title text," +
+                "title text unique," +
                 "brief text," +
                 "date text," +
                 "linkInWebsite text," +
@@ -114,8 +115,9 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
     }
+
+
 
     public Boolean emptyUserInfoTable() {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -130,8 +132,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
             return true;
         }
     }
-
-    public Boolean emptySettingTable() {
+    public Boolean emptyTimeStamp() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblSetting", null);
         if (rs.moveToFirst()) {
@@ -144,7 +145,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
             return true;
         }
     }
-
     public Boolean emptyShoppingTable() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblShopping", null);
@@ -171,7 +171,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
             return true;
         }
     }
-
     public Boolean emptyProductTable() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblProduct", null);
@@ -185,7 +184,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
             return true;
         }
     }
-
     public Boolean emptyArticleTable() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblArticle", null);
@@ -199,7 +197,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
             return true;
         }
     }
-
     public Boolean ExistAProduct(int productId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select productId from tblProduct where productId=" + productId, null);
@@ -214,6 +211,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
     }
 
+
     public void insertUserInfo(UserInfo aUser) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert("tblUserInfo", null, addFieldToUserInfoTable(aUser));
@@ -221,7 +219,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         db.close();
 
     }
-
     private ContentValues addFieldToUserInfoTable(UserInfo aUser) {
         ContentValues values = new ContentValues();
         values.put("userId", aUser.getUserId());
@@ -229,18 +226,16 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         values.put("userLoginStatus", aUser.getUserLoginStatus());
         return values;
     }
-
-
-    public void insertSetting(String timeStamp) {
+    public void insertSetting(String timeStamp,String lastArticlesNum) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("lastTimeStamp", timeStamp);
+        values.put("lastArticlesNum",lastArticlesNum);
         db.insert("tblSetting", null, values);
         Log.v("insert", "insert A TimeStamp into Table");
         db.close();
 
     }
-
     public void insertShoppingBag(int productID) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -249,14 +244,12 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("insert", "insert A ProductId into Shopping Table");
         db.close();
     }
-
     public void insertACategory(Category aCategory) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert("tblCategory", null, addFieldToCategoryTable(aCategory));
         Log.v("insert", "insert A Category into Table");
         db.close();
     }
-
     private ContentValues addFieldToCategoryTable(Category aCategory) {
         ContentValues values = new ContentValues();
         values.put("title", aCategory.getTitle());
@@ -265,7 +258,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         values.put("hasChild", aCategory.getHasChild());
         return values;
     }
-
     public void insertAProduct(Product aProduct) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert("tblProduct", null, addFieldToProductTable(aProduct));
@@ -274,7 +266,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("insert", "insert A Product into Table");
         db.close();
     }
-
     private ContentValues addFieldToProductTable(Product aProduct) {
         ContentValues values = new ContentValues();
         values.put("title", aProduct.getTitle());
@@ -297,7 +288,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("insert", "insert A Field into Product Table");
         return values;
     }
-
     public void insertImagePathProduct(int productId, String path) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert("tblImagesPathProduct", null, addFieldImagePath(productId, path));
@@ -305,14 +295,12 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         db.close();
 
     }
-
     private ContentValues addFieldImagePath(int productId, String path) {
         ContentValues values = new ContentValues();
         values.put("fkProductId", productId);
         values.put("imagePath", path);
         return values;
     }
-
     public void insertOptionProduct(int productId, String title, String value) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert("tblProductOption", null, addFieldOptionProduct(productId, title, value));
@@ -320,7 +308,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         db.close();
 
     }
-
     private ContentValues addFieldOptionProduct(int productId, String title, String value) {
         ContentValues values = new ContentValues();
         values.put("fkProductId", productId);
@@ -328,14 +315,12 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         values.put("valueOption", value);
         return values;
     }
-
     public void insertArticle(Article aArticle) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert("tblArticle", null, addFieldToArticleTable(aArticle));
         Log.v("insert", "insert A Product into Table");
         db.close();
     }
-
     private ContentValues addFieldToArticleTable(Article aArticle) {
         ContentValues values = new ContentValues();
         values.put("title", aArticle.getTitle());
@@ -346,6 +331,9 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return values;
 
     }
+
+
+
 
     public String selectLastTimeStamp() {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -360,7 +348,19 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select TimeStamp");
         return timeStamp;
     }
-
+    public String selectLastArticlesNum() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select lastArticlesNum from tblSetting", null);
+        String timeStamp = "";
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                timeStamp = rs.getString(rs.getColumnIndex("lastArticlesNum"));
+            }
+            rs.close();
+        }
+        Log.v("select", "Select Last Articles Num ");
+        return timeStamp;
+    }
     public UserInfo selectUserInformation() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblUserInfo", null);
@@ -376,7 +376,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select User Information");
         return aUser;
     }
-
     public ArrayList<Integer> selectAllProductShopping(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblShopping", null);
@@ -394,7 +393,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return  allProductsId;
 
     }
-
     public boolean ExistAProductShopping(int productId){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblShopping where fkProductId="+productId, null);
@@ -408,13 +406,11 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
 
     }
-
     public int CounterProductShopping(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblShopping", null);
         return  rs.getCount();
     }
-
     public ArrayList<Category> selectAllCategory() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblCategory", null);
@@ -436,7 +432,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Category");
         return allCategories;
     }
-
     public Map<Integer,String> selectParentCategories(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId=0", null);
@@ -454,7 +449,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Parent Categories Title and ID");
         return categoryTitles;
     }
-
     public Map<Integer,String> selectChildOfACategory(int parentID){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId="+parentID, null);
@@ -472,7 +466,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Child of A Category Title and ID");
         return categoryTitles;
     }
-
     public Map<Integer,String> selectAllCategoryTitle(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select catId,title from tblCategory", null);
@@ -490,7 +483,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Category Title and ID");
         return categoryTitles;
     }
-
     public Map<Integer,String> selectAllProductTitle(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select productId,title from tblProduct", null);
@@ -508,7 +500,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Product Title and ID");
         return productTitle;
     }
-
     public ArrayList<Product> selectAllProduct() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblProduct order by id desc", null);
@@ -545,7 +536,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Product");
         return allProducts;
     }
-
     public ArrayList<Product> selectAllProductOfACategory(int categoryId){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblProduct where groupId="+categoryId+" "+ "order by id desc ", null);
@@ -582,7 +572,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Product");
         return allProducts;
     }
-
     public Product selectAProduct(int productId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblProduct where productId="+productId, null);
@@ -600,7 +589,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select A Product");
         return aProduct;
     }
-
     public ArrayList<String> selectAllImagePathAProduct(int productId) {
         ArrayList<String> path = new ArrayList<String>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -616,7 +604,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
         return path;
     }
-
     public ArrayList<ProductOption> selectAllOptionProduct(int productId) {
         ArrayList<ProductOption> options = new ArrayList<ProductOption>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -635,7 +622,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
         return options;
     }
-
     public ArrayList<Article> selectAllArticle() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblArticle", null);
@@ -659,6 +645,9 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return allArticles;
     }
 
+
+
+
     public void updateTimeStamp(String TimeStamp) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -667,13 +656,23 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("update", "Update Last time stamp");
 
     }
+    public void updateLastArticlesNum(String lastNum) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("lastArticlesNum", lastNum);
+        db.update("tblSetting", values, null, null);
+        Log.v("update", "Update Last Articles Num");
 
+    }
     public void updateAProduct(Product aProduct) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.update("tblProduct", addFieldToProductTable(aProduct),
                 "productId=" + aProduct.getId(), null);
         Log.v("update", "Update a Product");
     }
+
+
+
 
     public void deleteAProduct(int productId) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -682,14 +681,12 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         db.close();
         Log.v("delete", "Delete A Product");
     }
-
     public void deleteAProductShopping(int productId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("tblShopping", "fkProductId=" + productId + "", null);
         db.close();
         Log.v("delete", "Delete A Product from Shopping Table");
     }
-
     public void deleteUserInfo() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("tblUserInfo",null, null);

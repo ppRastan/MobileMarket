@@ -1,0 +1,24 @@
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipe_refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/background_window"></LinearLayout>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lv_article"
+            android:layout_gravity="center_horizontal|top"
+            android:dividerHeight="2dp"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

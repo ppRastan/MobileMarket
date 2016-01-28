@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (sch.emptyDBArticle()){
-            articles=sch.getAllArticlesAndNewsURL("http://decoriss.com/json/get,com=news&name=blog&order=desc&limit=1-50&cache=false");
+            articles=sch.getAllArticlesAndNewsURL("http://decoriss.com/json/get,com=news&name=blog&order=desc&limit=0-25&cache=false");
             sch.addAllArticlesToTable(articles);
         }
     }

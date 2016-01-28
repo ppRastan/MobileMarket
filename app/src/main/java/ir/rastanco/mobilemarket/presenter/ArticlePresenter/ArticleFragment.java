@@ -17,14 +17,16 @@ public class ArticleFragment extends Fragment {
 
     private TextView articleText;
     private Button seeMoreBtn;
+    private Typeface font;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.setFont();
-        return inflater.inflate(R.layout.fragment_article_first, container, false);
+        return inflater.inflate(R.layout.fragment_article, container, false);
     }
 
     private void setFont() {
+        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/yekan_font.ttf");
         articleText = (TextView) getView().findViewById(R.id.txt_titleArticle);
-        seeMoreBtn = (Button)getView().findViewById(R.id.btn_next);
+        articleText.setTypeface(font);
     }
 }

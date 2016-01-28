@@ -309,9 +309,22 @@ public class SuperAwesomeCardFragment extends Fragment{
             }
             case 3: {
 
-                mainView = inflater.inflate(R.layout.fragment_article_first, null);
-                ListView articleList = (ListView) mainView.findViewById(R.id.lv_article);
-                ArticleItemAdapter adapter = new ArticleItemAdapter(getActivity(), R.layout.article_item, articles);
+                mainView = inflater.inflate(R.layout.fragment_article, null);
+                final ListView articleList = (ListView) mainView.findViewById(R.id.lv_article);
+
+                final int[] startItem = {0};
+                final int[] endItem = new int[1];
+                if (articles.size()>25)
+                    endItem[0] =25;
+                else
+                    endItem[0] =articles.size();
+                ArrayList<Article> customArticles=new ArrayList<Article>();
+                for(int i= startItem[0];i< endItem[0];i++){
+                    customArticles.add(articles.get(i));
+
+                }
+                final ArticleItemAdapter adapter = new ArticleItemAdapter(getActivity(),
+                        R.layout.article_item, customArticles);
                 articleList.setAdapter(adapter);
                 final View finalMainView = mainView;
                 articleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -323,6 +336,65 @@ public class SuperAwesomeCardFragment extends Fragment{
                         intent.addCategory(Intent.CATEGORY_BROWSABLE);
                         intent.setData(Uri.parse(articles.get(position).getLinkInWebsite()));
                         finalMainView.getContext().startActivity(intent);
+                    }
+                });
+
+                final SwipeRefreshLayout srlArticles=(SwipeRefreshLayout)mainView.findViewById(R.id.swipe_refresh_layout);
+                srlArticles.setEnabled(false);
+                srlArticles.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                sch.refreshArticles();
+                                articles = sch.getAllArticlesFromTable();
+                                ArrayList<Article> helpArticlesShow=new ArrayList<Article>();
+                                for (int i = 0; i < 25; i++) {
+                                    helpArticlesShow.add(articles.get(i));
+
+                                }
+                                ArticleItemAdapter newAdapter = new ArticleItemAdapter(getActivity(),
+                                        R.layout.article_item, helpArticlesShow);
+                                articleList.setAdapter(newAdapter);
+                                newAdapter.notifyDataSetChanged();
+                                srlArticles.setRefreshing(false);
+                            }
+                        }, 5000);
+                    }
+                });
+
+                articleList.setOnScrollListener(new AbsListView.OnScrollListener() {
+                    public void onScrollStateChanged(AbsListView view, int scrollState) {
+                    }
+
+                    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                        boolean enable = false;
+                        if (articleList != null && articleList.getChildCount() > 0) {
+                            // check if the first item of the list is visible
+                            boolean firstItemVisible = articleList.getFirstVisiblePosition() == 0;
+                            // check if the top of the first item is visible
+                            boolean topOfFirstItemVisible = articleList.getChildAt(0).getTop() == 0;
+                            // enabling or disabling the refresh layout
+                            enable = firstItemVisible && topOfFirstItemVisible;
+                        }
+                        srlArticles.setEnabled(enable);
+
+                        if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0 && endItem[0] < articles.size()) {
+                            ArrayList<Article> customArticles = new ArrayList<Article>();
+                            startItem[0] = endItem[0];
+                            if (endItem[0] + 25 < articles.size())
+                                endItem[0] = endItem[0] + 25;
+                            else
+                                endItem[0] = articles.size();
+                            for (int i = startItem[0]; i < endItem[0] - 1; i++) {
+                                customArticles.add(articles.get(i));
+                                adapter.add(articles.get(i));
+                            }
+                            adapter.notifyDataSetChanged();
+
+                        }
                     }
                 });
                 break;

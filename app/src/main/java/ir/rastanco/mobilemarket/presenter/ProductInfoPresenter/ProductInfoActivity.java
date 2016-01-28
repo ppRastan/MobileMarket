@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 
 import java.util.ArrayList;
@@ -36,8 +37,8 @@ public class ProductInfoActivity extends Activity {
         ServerConnectionHandler sch=new ServerConnectionHandler(Configuration.ProductInfoActivity);
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewPager=(ViewPager)findViewById(R.id.pager);
-        viewPager.setAdapter(new FullScreenImageAdapter(this,allProducts,allProducts.size()));
-        viewPager.setCurrentItem(intent.getIntExtra("position",0));
+        viewPager.setAdapter(new FullScreenImageAdapter(this, allProducts, allProducts.size()));
+        viewPager.setCurrentItem(intent.getIntExtra("position", 0));
     }
 
 

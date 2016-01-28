@@ -1,10 +1,8 @@
 package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
 
-import android.app.Fragment;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -18,25 +16,27 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 /**
  * Created by shaisteS on 1394/11/05
  */
-public class ProductOptionFragment extends Fragment {
+public class ProductOptionActivity extends Activity {
 
     private ArrayList<ProductOption> options;
     private ServerConnectionHandler sch;
     private Product aProduct;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_product_option);
+        Configuration.ProductOptionFragment=this;
 
-        final View productOption = inflater.inflate(R.layout.product_info_fragment, container, false);
+        Intent intent = this.getIntent();
+        int productId=intent.getIntExtra("productId", 0);
+        int groupId=intent.getIntExtra("groupId",0);
 
-        Configuration.ProductOptionFragment=getContext();
         sch=new ServerConnectionHandler(Configuration.ProductOptionFragment);
         options=new ArrayList<ProductOption>();
-        options=sch.getOptionsOfAProduct("http://decoriss.com/json/get,com=options&pid="+
-                aProduct.getId()+"&pgid="+aProduct.getGroupId()+"&cache=false");
-        ListView lvProductOption=(ListView)productOption.findViewById(R.id.lv_productOption);
-        ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.ProductInfoActivity,
+        options=sch.getProductOption(productId,groupId);
+        ListView lvProductOption=(ListView)findViewById(R.id.lv_productOption);
+        ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.ProductOptionFragment,
                 R.layout.product_info_item,options);
         lvProductOption.setAdapter(adapter);
-        return productOption;
     }
 }

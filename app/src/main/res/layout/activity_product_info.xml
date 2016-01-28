@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/white">
+
+        <!--<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:id="@+id/headerTitle"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />-->
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/img_productInfo" />
+        android:id="@+id/img_productInfo"
+        android:layout_below="@+id/header" />
 
     <HorizontalScrollView
         android:id="@+id/horizontal_scroll"
@@ -15,7 +42,8 @@
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:layout_above="@+id/footer">
         <LinearLayout
             android:id="@+id/linear"
             android:layout_width="wrap_content"
@@ -23,4 +51,33 @@
             android:orientation="horizontal" >
         </LinearLayout>
     </HorizontalScrollView>
-</LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:id="@+id/img_share"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@mipmap/ic_share"
+            android:background="@color/white" />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:id="@+id/img_info"
+            android:src="@android:drawable/ic_menu_info_details"
+            android:background="@color/white"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+</RelativeLayout>
