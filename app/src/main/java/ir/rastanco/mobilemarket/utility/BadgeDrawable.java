@@ -1,7 +1,6 @@
 package ir.rastanco.mobilemarket.utility;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
@@ -10,9 +9,6 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
-
-import ir.rastanco.mobilemarket.R;
 
 /**
  * Created by ParisaRashidhi on 22/01/2016.
@@ -27,7 +23,7 @@ public class BadgeDrawable extends Drawable{
     private boolean mWillDraw = false;
 
     public BadgeDrawable(Context context) {
-        mTextSize = 12F;
+        mTextSize = 18F;
         mBadgePaint = new Paint();
         mBadgePaint.setColor(Color.parseColor("#31a140"));
         mBadgePaint.setAntiAlias(true);

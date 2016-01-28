@@ -68,27 +68,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:weightSum="7">
+        android:gravity="center"
+        >
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
             android:text="@string/number_of_shopping_items"
+            android:layout_gravity="center_vertical|center_horizontal"
             android:textColor="@color/black"/>
         <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
-        android:hint="1"
-        android:textColor="@color/black"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="1"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:textColor="@color/black"/>
+
         <Spinner
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/sp_counter"
             android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_weight="1" />
+             />
 
     </LinearLayout>
 
@@ -105,7 +106,7 @@
     <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="1dp"
-    android:background="@color/black">
+    android:background="@color/background_window">
 
 </LinearLayout>
 </LinearLayout>

@@ -1,14 +1,12 @@
 package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
 
 import android.app.Fragment;
-import android.app.VoiceInteractor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;

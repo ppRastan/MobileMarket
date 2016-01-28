@@ -2,7 +2,6 @@ package ir.rastanco.mobilemarket.presenter.photoPresenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;

@@ -1,6 +1,5 @@
 package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -11,7 +10,7 @@ import android.view.View;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+//import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class UserProfileActivity extends AppCompatActivity {
 

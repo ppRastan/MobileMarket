@@ -3,13 +3,10 @@ package ir.rastanco.mobilemarket.presenter.shopPresenter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
-import android.graphics.drawable.LayerDrawable;
-import android.os.Bundle;
-import android.os.Parcelable;
+import android.media.Image;
 import android.support.v4.app.FragmentActivity;
+import android.text.style.ImageSpan;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -41,7 +38,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private static LayoutInflater inflater=null;
     private ArrayList<Product> allProduct;
     private ProgressBar imageLoading;
-    private Typeface bZarFont;
     private boolean isLikeButtonClicked = true;
     private boolean isSelectedForShop=false;
     private ServerConnectionHandler sch;
@@ -79,18 +75,24 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         ImageButton shareToolBar;
         ImageButton basketToolbar;
         ImageButton likeToolBar;
+        ImageButton offerLeft;
+        ImageButton offerRight;
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         final Holder holder=new Holder();
-        Bitmap image=null;
+        final Bitmap image=null;
 
         final View rowView;
         rowView = inflater.inflate(R.layout.picture_produc_item_shop, null);
         holder.infoP=(TextView) rowView.findViewById(R.id.txt_infoProduct);
         holder.priceP=(TextView) rowView.findViewById(R.id.txt_priceProduct);
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
+        holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
+        holder.offerLeft.setVisibility(View.INVISIBLE);
+        holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
+        holder.offerRight.setVisibility(View.VISIBLE);
         holder.shareToolBar = (ImageButton)rowView.findViewById(R.id.share_toolbar);
         holder.basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
         holder.likeToolBar = (ImageButton)rowView.findViewById(R.id.empty_like_toolbar);
@@ -107,6 +109,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
                 Toast.makeText(context,"share this product",Toast.LENGTH_SHORT).show();
+
             }
         });
         holder.likeToolBar.setOnClickListener(new View.OnClickListener() {

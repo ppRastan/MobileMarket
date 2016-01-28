@@ -1,7 +1,5 @@
 package ir.rastanco.mobilemarket.utility;
 
-import ir.rastanco.mobilemarket.utility.FontsOverride;
-
 public final class Application extends android.app.Application {
     @Override
     public void onCreate() {

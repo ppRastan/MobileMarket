@@ -2,10 +2,8 @@ package ir.rastanco.mobilemarket.dataModel.serverConnectionModel;
 
 import android.util.Base64;
 
-import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.PublicKey;
 
 /**
  * Created by ShaisteS on 1394/10/30.

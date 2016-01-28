@@ -53,7 +53,6 @@ import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivi
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 //parisa rashidi nezhad connection
 public class MainActivity extends AppCompatActivity {
 
@@ -125,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void CreatePageRightToLeft() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
     }
@@ -203,8 +203,13 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem item = menu.findItem(R.id.action_notifications);
         LayerDrawable icon = (LayerDrawable) item.getIcon();
-        CounterIconUtils.setBadgeCount(this, icon, 4);
+        CounterIconUtils.setBadgeCount(this, icon, filBasketColor());
         return true;
+    }
+
+    private int filBasketColor() {
+        //TODO fill this by basket items
+        return 5;
     }
 
     @Override
