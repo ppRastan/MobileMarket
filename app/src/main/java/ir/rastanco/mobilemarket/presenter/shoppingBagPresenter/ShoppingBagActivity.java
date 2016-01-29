@@ -36,13 +36,13 @@ public class ShoppingBagActivity extends Activity {
                 startActivity(new Intent(ShoppingBagActivity.this, MainActivity.class));
             }
         });
-       // okShop = (Button)findViewById(R.id.ok_shop);
-       // okShop.setOnClickListener(new View.OnClickListener() {
-       //     @Override
-       //     public void onClick(View v) {
+        okShop = (Button)findViewById(R.id.ok_shop);
+        okShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        //    }
-       // });
+            }
+        });
         Configuration.ShoppingBagActivity=this;
         sch=new ServerConnectionHandler(Configuration.ShoppingBagActivity);
 

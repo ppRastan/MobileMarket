@@ -7,18 +7,17 @@ package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.RatingBar;
+import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -44,11 +43,16 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private ImageButton btnShare;
     private ImageButton btnLike;
     private ImageButton btnBuy;
+    private RatingBar rateOfProduct;
+    private boolean isLikeButtonClicked = true;
+    private  boolean isSelectedForShop=false;
+    private ArrayList<Product> allProduct;
     // constructor
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
         this.products=allProducts;
         this.productsSize=allProductSize;
+        Activity context;
         sch=new ServerConnectionHandler(Configuration.ProductInfoActivity);
     }
 
@@ -59,7 +63,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((RelativeLayout) object);
+        return view == ((LinearLayout) object);
     }
 
     @Override
@@ -72,6 +76,11 @@ public class FullScreenImageAdapter extends PagerAdapter {
         /*TextView headerTitle=(TextView)viewLayout.findViewById(R.id.headerTitle);
         headerTitle.setText(products.get(position).getTitle());*/
 
+        rateOfProduct = (RatingBar)viewLayout.findViewById(R.id.rank_of_product);
+        rateOfProduct.setNumStars(5);
+        //TODO for shayeste
+        //please fill ratingbar items dynamicly
+        rateOfProduct.setRating(2);
         btnInfo=(ImageButton)viewLayout.findViewById(R.id.img_info);
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,17 +93,42 @@ public class FullScreenImageAdapter extends PagerAdapter {
             }
         });
         btnBuy = (ImageButton)viewLayout.findViewById(R.id.shopping_full_screen);
+//        if (sch.checkSelectProductForShop(allProduct.get(position).getId()))
+//            btnBuy.setImageResource(R.mipmap.green_bye_toolbar);
+//        else
+//            btnBuy.setImageResource(R.mipmap.bye_toolbar);
+
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+//                if (isSelectedForShop==false) {
+//                    btnBuy.setImageResource(R.mipmap.green_bye_toolbar);
+//                    isSelectedForShop=true;
+//                    sch.addProductToShoppingBag(allProduct.get(position).getId());
+//
+//                }
+//
+//                else if (isSelectedForShop==true){
+//                    btnBuy.setImageResource(R.mipmap.bye_toolbar);
+//                    isSelectedForShop=false;
+//                    sch.deleteAProductShopping(allProduct.get(position).getId());
+//                }
             }
         });
         btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(isLikeButtonClicked == false){
 
+                    btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
+                    isLikeButtonClicked = true;
+                }
+                else if(isLikeButtonClicked) {
+                    btnLike.setImageResource(R.mipmap.ic_like_toolbar);
+                    isLikeButtonClicked = false;
+                }
             }
         });
         btnShare = (ImageButton)viewLayout.findViewById(R.id.img_share_full_screen);
@@ -175,7 +209,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ((ViewPager) container).removeView((RelativeLayout) object);
+        ((ViewPager) container).removeView((LinearLayout) object);
 
     }
 }
