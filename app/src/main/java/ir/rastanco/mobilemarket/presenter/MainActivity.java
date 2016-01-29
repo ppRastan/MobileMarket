@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private Display display;
     private Point size;
+    private int shopCounter;
     private ShoppingBagActivity shoppingBagActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +88,7 @@ public class MainActivity extends AppCompatActivity {
         this.phoneManager();
         this.setFAb();
         this.displayWindow();
-
-        int shopCounter=sch.getCountProductShop();
+        shopCounter=sch.getCountProductShop();
     }
 
     private void displayWindow() {
@@ -206,8 +206,9 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private int filBasketColor() {
-        return 6;
+    private int filBasketColor()
+    {
+        return  shopCounter;
     }
 
     @Override
