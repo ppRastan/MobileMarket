@@ -32,6 +32,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -78,10 +79,12 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private Display display;
     private Point size;
+    private ShoppingBagActivity shoppingBagActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        shoppingBagActivity = new ShoppingBagActivity();
         this.CreatePageRightToLeft();
         this.addActionBar();
         this.addFontAndColors();
@@ -208,8 +211,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private int filBasketColor() {
-        //TODO fill this by basket items
-        return 5;
+        return 6;
     }
 
     @Override
@@ -238,10 +240,18 @@ public class MainActivity extends AppCompatActivity {
             }
 
             case R.id.action_notifications :
-                Intent shoppingBagIntent=new Intent(this, ShoppingBagActivity.class);
-                this.startActivity(shoppingBagIntent);
+               // if(shoppingBagActivity.shoppedItems == 0 )
+                //{
+                  //  Toast.makeText(getApplicationContext(),"basket is empty",Toast.LENGTH_SHORT).show();
+                //}
+                //else
+               // {
+                    Intent shoppingBagIntent = new Intent(this, ShoppingBagActivity.class);
+                    this.startActivity(shoppingBagIntent);
+                //}
                 break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
