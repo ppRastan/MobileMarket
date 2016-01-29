@@ -23,7 +23,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Menu;
@@ -36,8 +35,6 @@ import android.widget.LinearLayout;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -45,13 +42,11 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.ProductShop;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserProfileActivity;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.CounterIconUtils;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
 //parisa rashidi nezhad connection
 public class MainActivity extends AppCompatActivity {
@@ -90,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
         this.phoneManager();
         this.setFAb();
         this.displayWindow();
+
+        int shopCounter=sch.getCountProductShop();
     }
 
     private void displayWindow() {
@@ -109,10 +106,10 @@ public class MainActivity extends AppCompatActivity {
         adapter = new MyPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
-        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 5, getResources()
+        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 6, getResources()
                 .getDisplayMetrics());
         pager.setPageMargin(pageMargin);
-        pager.setCurrentItem(1);
+        pager.setCurrentItem(0);
         this.setDecorissThemColour();
 
 
@@ -280,13 +277,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         private final String[] TITLES = {
-                getResources().getString(R.string.home)
+                  getResources().getString(R.string.home)
                 , getResources().getString(R.string.photo)
                 , getResources().getString(R.string.sell)
                 , getResources().getString(R.string.papers)
                 , getResources().getString(R.string.comment)
-
-
         };
 
         public MyPagerAdapter(FragmentManager fm) {
