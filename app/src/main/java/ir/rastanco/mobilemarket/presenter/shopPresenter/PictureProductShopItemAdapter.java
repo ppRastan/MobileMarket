@@ -1,14 +1,24 @@
 package ir.rastanco.mobilemarket.presenter.shopPresenter;
 
+import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
+import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import android.text.style.ImageSpan;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -19,6 +29,8 @@ import android.widget.Toast;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
@@ -77,6 +89,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         ImageButton likeToolBar;
         ImageButton offerLeft;
         ImageButton offerRight;
+        Product mProduct;
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -93,10 +106,18 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.offerLeft.setVisibility(View.INVISIBLE);
         holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
         holder.offerRight.setVisibility(View.VISIBLE);
+        if (!(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)) {
+            holder.offerRight.setVisibility(View.INVISIBLE);
+            holder.offerLeft.setVisibility(View.VISIBLE);
+        }
+        holder.offerLeft.setVisibility(View.VISIBLE);
         holder.shareToolBar = (ImageButton)rowView.findViewById(R.id.share_toolbar);
         holder.basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
         holder.likeToolBar = (ImageButton)rowView.findViewById(R.id.empty_like_toolbar);
-
+        holder.mProduct=new Product();
+//        if(holder.mProduct.getPriceOff() != 0) {
+//
+//        }
         if (sch.checkSelectProductForShop(allProduct.get(position).getId()))
             holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
         else
@@ -108,7 +129,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.shareToolBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"share this product",Toast.LENGTH_SHORT).show();
+
 
             }
         });
