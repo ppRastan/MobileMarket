@@ -502,7 +502,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
     public ArrayList<Product> selectAllProduct() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblProduct order by id desc", null);
+        Cursor rs = db.rawQuery("select * from tblProduct order by id ASC", null);
         allProducts = new ArrayList<Product>();
         if (rs != null) {
             if (rs.moveToFirst()) {

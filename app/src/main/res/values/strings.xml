@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Decoriss</string>
-    <string name="home">خانه</string>
-    <string name="photo">عکس</string>
-    <string name="sell">خرید</string>
-    <string name="papers">مقالات</string>
-    <string name="comment">نظرات</string>
+    <string name="first_page">خانه</string>
+    <string name="second_page">مبلمان منزل</string>
+    <string name="third_page">کالای خواب</string>
+    <string name="fourth_page">نوزاد و نوجوان</string>
+    <string name="fifth_page">مقاله</string>
+    <string name="sixth_page">مشاوره</string>
     <string name="title_activity_main">Decoriss</string>
     <string name="search_in_decoriss">جستجو در محصولات</string>
     <string name="tab1_userProfile">پروفایل کاربری</string>

@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         shoppingBagActivity = new ShoppingBagActivity();
-        this.CreatePageRightToLeft();
+        //this.CreatePageRightToLeft();
         this.addActionBar();
         this.addFontAndColors();
         this.addServerConnection();
@@ -287,11 +287,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         private final String[] TITLES = {
-                  getResources().getString(R.string.home)
-                , getResources().getString(R.string.photo)
-                , getResources().getString(R.string.sell)
-                , getResources().getString(R.string.papers)
-                , getResources().getString(R.string.comment)
+                  getResources().getString(R.string.first_page)
+                , getResources().getString(R.string.second_page)
+                , getResources().getString(R.string.third_page)
+                , getResources().getString(R.string.fourth_page)
+                , getResources().getString(R.string.fifth_page)
+                , getResources().getString(R.string.sixth_page)
         };
 
         public MyPagerAdapter(FragmentManager fm) {

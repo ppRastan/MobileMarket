@@ -33,7 +33,6 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleItemAdapter;
 import ir.rastanco.mobilemarket.presenter.homePresenter.PictureProductHomeItemAdapter;
-import ir.rastanco.mobilemarket.presenter.photoPresenter.PictureProductPhotoItemAdapter;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.PictureProductShopItemAdapter;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
@@ -99,33 +98,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                 productListView.setAdapter(adapter);
                 break;
             }
-            case 1: {
-                mainView = inflater.inflate(R.layout.fragment_photo, null);
-                final GridView gridview = (GridView) mainView.findViewById(R.id.gv_photoProduct);
-                PictureProductPhotoItemAdapter adapter= new PictureProductPhotoItemAdapter(getActivity(),products);
-                gridview.setAdapter(adapter);
-                final SwipeRefreshLayout mSwipeRefreshLayout= (SwipeRefreshLayout)
-                        mainView.findViewById(R.id.swipe_refresh_layout);
-                mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                sch.refreshProduct();
-                                products = sch.getAllProductFromTable();
-                                PictureProductShopItemAdapter newAdapter = new
-                                        PictureProductShopItemAdapter(getActivity(), products);
-                                gridview.setAdapter(newAdapter);
-                                mSwipeRefreshLayout.setRefreshing(false);
-                            }
-                        }, 5000);
-                    }
-                });
-                break;
-            }
-
-            case 2:{
+            case 1:{
 
                 mainView=inflater.inflate(R.layout.fragment_shop,null);
                 final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
@@ -307,7 +280,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                 });
                 break;
             }
-            case 3: {
+            case 4: {
 
                 mainView = inflater.inflate(R.layout.fragment_article, null);
                 final ListView articleList = (ListView) mainView.findViewById(R.id.lv_article);
