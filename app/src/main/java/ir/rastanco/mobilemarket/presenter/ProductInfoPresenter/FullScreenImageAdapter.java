@@ -39,7 +39,11 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private LayoutInflater inflater;
     private ServerConnectionHandler sch;
     private int productsSize;
-
+    private ImageButton btnInfo;
+    private ImageButton btnShareByTelegram;
+    private ImageButton btnShare;
+    private ImageButton btnLike;
+    private ImageButton btnBuy;
     // constructor
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
@@ -68,7 +72,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         /*TextView headerTitle=(TextView)viewLayout.findViewById(R.id.headerTitle);
         headerTitle.setText(products.get(position).getTitle());*/
 
-        ImageButton btnInfo=(ImageButton)viewLayout.findViewById(R.id.img_info);
+        btnInfo=(ImageButton)viewLayout.findViewById(R.id.img_info);
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +83,34 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
             }
         });
+        btnBuy = (ImageButton)viewLayout.findViewById(R.id.shopping_full_screen);
+        btnBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
+        btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
+        btnLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        btnShare = (ImageButton)viewLayout.findViewById(R.id.img_share_full_screen);
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        btnShareByTelegram = (ImageButton)viewLayout.findViewById(R.id.telegram_share);
+        btnShareByTelegram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
         final ImageLoader imgLoader = new ImageLoader(Configuration.ProductInfoActivity); // important
         String picNum = products.get(position).getImagesPath().get(0);
