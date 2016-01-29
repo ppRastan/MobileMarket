@@ -36,5 +36,6 @@
     <string name="number">30000</string>
     <string name="finish_shopping">خرید خود را نهایی کنید</string>
     <string name="number_of_shopping_items">تعداد :</string>
+    <string name="added_to_basket">کالا به سبد خرید شما افزوده شد</string>
 
 </resources>
