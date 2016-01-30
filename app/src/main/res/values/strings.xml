@@ -42,6 +42,7 @@
     <string name="price">قابل پرداخت :</string>
     <string name="peice">قیمت :</string>
     <string name="price_off">تخفیف :</string>
+    <string name="telegram_not_installed">تلگرام روی گوشی شما نصب نیست</string>
     <string-array name="spinnerItems">
         <item>1</item>
         <item>2</item>

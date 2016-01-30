@@ -7,6 +7,7 @@ package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -46,12 +47,13 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private boolean isLikeButtonClicked = true;
     private  boolean isSelectedForShop=false;
     private ArrayList<Product> allProduct;
+    private Context context;
     // constructor
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
         this.products=allProducts;
         this.productsSize=allProductSize;
-        Activity context;
+        activity =(Activity) context;
         sch=new ServerConnectionHandler(Configuration.ProductInfoActivity);
     }
 
@@ -119,24 +121,27 @@ public class FullScreenImageAdapter extends PagerAdapter {
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                if(isLikeButtonClicked == false){
+                if (isLikeButtonClicked == false) {
 
                     btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     isLikeButtonClicked = true;
-                }
-                else if(isLikeButtonClicked){
-                    btnLike.setImageResource(R.mipmap.ic_like_toolbar);
+                } else if (isLikeButtonClicked) {
+                   btnLike.setImageResource(R.mipmap.ic_like_toolbar);
                     isLikeButtonClicked = false;
                 }
             }
-        });
+    });
         btnShare = (ImageButton)viewLayout.findViewById(R.id.img_share_full_screen);
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+//                Intent sendIntent = new Intent();
+//                sendIntent.setAction(Intent.ACTION_SEND);
+//                sendIntent.putExtra(Intent.EXTRA_SUBJECT, Context.getResources().getString(R.string.barcode_scanner));
+//                sendIntent.putExtra(Intent.EXTRA_TEXT, "http://cafebazaar.ir/app/?id=com.Arvand.HundredPercent");
+//                sendIntent.setType("text/plain");
+//                Context.startActivity(sendIntent);
             }
         });
         btnShareByTelegram = (ImageButton)viewLayout.findViewById(R.id.telegram_share);
@@ -144,6 +149,33 @@ public class FullScreenImageAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
 
+                final String appName = "org.telegram.messenger";
+                    String msg = "Decoriss";
+                final boolean isAppInstalled = isAppAvailable(activity.getApplicationContext(), appName);
+                if (isAppInstalled) {
+                    Intent myIntent = new Intent(Intent.ACTION_SEND);
+                    myIntent.setType("text/plain");
+                    myIntent.setPackage(appName);
+                    myIntent.putExtra(Intent.EXTRA_TEXT, msg);//
+                    activity.startActivity(Intent.createChooser(myIntent, "Share with"));
+                }
+                else
+                {
+                    Toast.makeText(activity.getApplicationContext(), activity.getResources().getString(R.string.telegram_not_installed), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            private boolean isAppAvailable(Context applicationContext, String appName) {
+                PackageManager pm = activity.getPackageManager();
+                try
+                {
+                    pm.getPackageInfo(appName, PackageManager.GET_ACTIVITIES);
+                    return true;
+                }
+                catch (PackageManager.NameNotFoundException e)
+                {
+                    return false;
+                }
             }
         });
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
