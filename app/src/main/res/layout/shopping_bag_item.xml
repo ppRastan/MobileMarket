@@ -157,7 +157,7 @@
                 android:background="@color/white"
                 android:layout_gravity="left"
                 android:gravity="left"
-                android:text="@string/price_off"/>
+                android:text="@string/price"/>
         </LinearLayout>
 
 

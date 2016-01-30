@@ -39,14 +39,14 @@
         android:weightSum="4"
         >
 
-        <RatingBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:id="@+id/rank_of_product"
-            android:isIndicator="true"
-            android:numStars="5"
-            />
+        <!--<RatingBar-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical|center_horizontal"-->
+            <!--android:id="@+id/rank_of_product"-->
+            <!--android:isIndicator="true"-->
+            <!--android:numStars="5"-->
+            <!--/>-->
 
         <HorizontalScrollView
             android:id="@+id/horizontal_scroll"
