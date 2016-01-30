@@ -39,6 +39,8 @@
     <string name="added_to_basket">کالا به سبد خرید شما افزوده شد</string>
     <string name="delete">حذف</string>
     <string name="price">قابل پرداخت :</string>
+    <string name="peice">قیمت :</string>
+    <string name="price_off">تخفیف :</string>
     <string-array name="spinnerItems">
         <item>1</item>
         <item>2</item>

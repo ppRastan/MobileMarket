@@ -35,19 +35,67 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:padding="3dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:id="@+id/txt_productPrice"
-            android:textSize="18dp"
-            android:layout_gravity="center"
-            android:gravity="center_vertical|center_horizontal"
-            android:background="@color/white"/>
-        <TextView
-            android:padding="3dp"
+            android:orientation="horizontal"
+            android:weightSum="4">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:textSize="18dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:background="@color/white"
+                android:text="@string/toman"
+                android:textColor="@color/black"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:padding="3dp"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:id="@+id/txt_productPrice"
+                android:textSize="18dp"
+                android:layout_gravity="center"
+                android:gravity="center_vertical|center_horizontal"
+                android:background="@color/white"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                android:layout_gravity="left"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/peice"/>
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:textSize="18dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:background="@color/white"
+                android:text="@string/toman"
+                android:textColor="@color/orange"/>
+
+            <TextView
+            android:padding="3dp"
+            android:layout_width="0dp"
+                android:layout_weight="2"
             android:layout_height="wrap_content"
             android:textColor="@color/orange"
             android:id="@+id/txt_productOff"
@@ -55,16 +103,61 @@
             android:layout_gravity="center"
             android:gravity="center_vertical|center_horizontal"
             android:background="@color/white"/>
-        <TextView
-            android:padding="3dp"
-            android:id="@+id/txt_total_price"
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="18dp"
+                android:textColor="@color/orange"
+                android:background="@color/white"
+                android:layout_gravity="left"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/price_off"/>
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="18dp"
-            android:gravity="center_vertical|center_horizontal"
-            android:background="@color/white"
-            android:textColor="@color/green"/>
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:textSize="18dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:background="@color/white"
+                android:text="@string/toman"
+                android:textColor="@color/green"/>
+
+            <TextView
+                android:padding="3dp"
+                android:id="@+id/txt_total_price"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="18dp"
+                android:gravity="center_vertical|center_horizontal"
+                android:background="@color/white"
+                android:textColor="@color/green"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="18dp"
+                android:textColor="@color/green"
+                android:background="@color/white"
+                android:layout_gravity="left"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/price_off"/>
+        </LinearLayout>
+
 
 
     </LinearLayout>
@@ -90,8 +183,6 @@
             android:text="@string/number_of_shopping_items"
             android:layout_gravity="center_vertical|center_horizontal"
             android:textColor="@color/black"/>
-
-
     </LinearLayout>
 
     <Button
