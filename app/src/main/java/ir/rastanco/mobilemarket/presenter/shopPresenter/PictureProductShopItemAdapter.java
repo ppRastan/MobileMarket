@@ -39,7 +39,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private static LayoutInflater inflater=null;
     private ArrayList<Product> allProduct;
     private ProgressBar imageLoading;
-    private boolean isLikeButtonClicked = true;
+    private boolean isLikeButtonClicked = false;
     private boolean isSelectedForShop=false;
     private ServerConnectionHandler sch;
     private CounterIconUtils ciu;

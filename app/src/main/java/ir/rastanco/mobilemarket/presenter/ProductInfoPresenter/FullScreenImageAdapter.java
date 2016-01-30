@@ -44,7 +44,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private ImageButton btnLike;
     private ImageButton btnBuy;
     private RatingBar rateOfProduct;
-    private boolean isLikeButtonClicked = true;
+    private boolean isLikeButtonClicked = false;
     private  boolean isSelectedForShop=false;
     private ArrayList<Product> allProduct;
     private Context context;
@@ -121,16 +121,17 @@ public class FullScreenImageAdapter extends PagerAdapter {
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isLikeButtonClicked == false) {
+                if(isLikeButtonClicked == false){
 
                     btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     isLikeButtonClicked = true;
-                } else if (isLikeButtonClicked) {
-                   btnLike.setImageResource(R.mipmap.ic_like_toolbar);
+                }
+                else if(isLikeButtonClicked){
+                    btnLike.setImageResource(R.mipmap.ic_like_toolbar);
                     isLikeButtonClicked = false;
                 }
             }
-    });
+        });
         btnShare = (ImageButton)viewLayout.findViewById(R.id.img_share_full_screen);
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
