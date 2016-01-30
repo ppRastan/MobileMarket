@@ -7,7 +7,6 @@ package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -17,8 +16,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
@@ -122,12 +119,14 @@ public class FullScreenImageAdapter extends PagerAdapter {
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 if(isLikeButtonClicked == false){
 
                     btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     isLikeButtonClicked = true;
                 }
-                else if(isLikeButtonClicked) {
+                else if(isLikeButtonClicked){
                     btnLike.setImageResource(R.mipmap.ic_like_toolbar);
                     isLikeButtonClicked = false;
                 }
