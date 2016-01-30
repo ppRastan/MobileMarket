@@ -39,7 +39,7 @@
     <string name="added_to_basket">کالا به سبد خرید شما افزوده شد</string>
     <string name="delete">حذف</string>
     <string name="price">قابل پرداخت :</string>
-    <array name="spinnerItems">
+    <string-array name="spinnerItems">
         <item>1</item>
         <item>2</item>
         <item>3</item>
@@ -70,6 +70,6 @@
         <item>28</item>
         <item>29</item>
         <item>30</item>
-    </array>
+    </string-array>
 
 </resources>
