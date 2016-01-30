@@ -206,15 +206,14 @@ public class SuperAwesomeCardFragment extends Fragment{
                                 gridview.setAdapter(newAdapter);
                                 newAdapter.notifyDataSetChanged();
 
-
-
-
                             }
                         });
                         dialogGroup.setCancelable(true);
                         dialogGroup.show();
                     }
                 });
+                ///Filter in Product Features
+
                 break;
             }
             case 2:{
