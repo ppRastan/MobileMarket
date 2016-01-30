@@ -3,6 +3,7 @@ package ir.rastanco.mobilemarket.presenter.shopPresenter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
@@ -41,10 +43,12 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private boolean isSelectedForShop=false;
     private ServerConnectionHandler sch;
     private CounterIconUtils ciu;
+    private Typeface brafficFont;
 
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
         context=mainActivity;
+        brafficFont = Typeface.createFromAsset(context.getAssets(), "fonts/B Traffic.ttf");
         inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         allProduct =products;
         sch=new ServerConnectionHandler(Configuration.superACFragment);
@@ -84,10 +88,12 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         final Holder holder=new Holder();
         final Bitmap image=null;
         holder.mProduct = new Product();
+
         final View rowView;
         rowView = inflater.inflate(R.layout.picture_produc_item_shop, null);
         holder.infoP=(TextView) rowView.findViewById(R.id.txt_infoProduct);
         holder.priceP=(TextView) rowView.findViewById(R.id.txt_priceProduct);
+        holder.priceP.setTypeface(brafficFont);
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
         holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
         holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
@@ -96,7 +102,8 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         {
             holder.offerRight.setVisibility(View.VISIBLE);
         }
-        if (!(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)) {
+        if (!(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1))
+        {
             holder.offerRight.setVisibility(View.INVISIBLE);
             if(holder.mProduct.getPriceOff() != 0) {
 
@@ -172,7 +179,10 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 "&q=30";
         imgLoader.DisplayImage(image_url_1, holder.imgP);
         holder.infoP.setText(allProduct.get(position).getTitle());
-        holder.priceP.setText(String.valueOf(allProduct.get(position).getPrice()));
+        String priceOfCurrentGood = String.valueOf(allProduct.get(position).getPrice());
+        double amountOfFinalPrice = Double.parseDouble(priceOfCurrentGood);
+        DecimalFormat formatter = new DecimalFormat("#,###,000");
+        holder.priceP.setText(formatter.format(amountOfFinalPrice)+"  "+"تومان");
         holder.imgP.setImageBitmap(image);
 
         holder.imgP.setOnClickListener(new View.OnClickListener() {
