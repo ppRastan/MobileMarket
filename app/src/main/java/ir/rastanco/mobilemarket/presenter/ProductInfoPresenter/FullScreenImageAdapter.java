@@ -136,12 +136,12 @@ public class FullScreenImageAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
 
-//                Intent sendIntent = new Intent();
-//                sendIntent.setAction(Intent.ACTION_SEND);
-//                sendIntent.putExtra(Intent.EXTRA_SUBJECT, Context.getResources().getString(R.string.barcode_scanner));
-//                sendIntent.putExtra(Intent.EXTRA_TEXT, "http://cafebazaar.ir/app/?id=com.Arvand.HundredPercent");
-//                sendIntent.setType("text/plain");
-//                Context.startActivity(sendIntent);
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                //TODO add the link you want to share bellow
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "http://cafebazaar.ir/app/?id=com.Arvand.HundredPercent");
+                sendIntent.setType("text/plain");
+                activity.startActivity(sendIntent);
             }
         });
         btnShareByTelegram = (ImageButton)viewLayout.findViewById(R.id.telegram_share);
