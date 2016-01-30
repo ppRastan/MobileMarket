@@ -4,16 +4,19 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
@@ -30,6 +33,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private ArrayList<Integer> selectedProducts;
     private Product aProduct;
     private ServerConnectionHandler sch;
+//    private Spinner spinnerCounter;
 
     public shoppingBagAdapter(Context context, int resource, ArrayList<Integer> productsId) {
         super(context, resource, productsId);
@@ -46,12 +50,12 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
         aProduct=new Product();
         aProduct=sch.getAProduct(selectedProducts.get(position));
-
+        //spinnerCounter = (Spinner)rowView.findViewById(R.id.spinner_counter);
         ImageView imgProduct=(ImageView)rowView.findViewById(R.id.img_productImage);
         TextView txtProductTitle=(TextView) rowView.findViewById(R.id.txt_productTitle);
         TextView txtProductPrice=(TextView) rowView.findViewById(R.id.txt_productPrice);
         TextView txtProductOff=(TextView) rowView.findViewById(R.id.txt_productOff);
-        ImageButton btnDelete=(ImageButton)rowView.findViewById(R.id.imb_delete);
+        Button btnDelete=(Button)rowView.findViewById(R.id.imb_delete);
         TextView totalPrice = (TextView)rowView.findViewById(R.id.txt_total_price);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,14 +66,14 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
                     public void onClick(DialogInterface dialog,int which) {
 
 
-                                        sch.addProductToShoppingBag(aProduct.getId());
-                                        for (int i=0;i<selectedProducts.size();i++){
-                                        if (aProduct.getId()==selectedProducts.get(i)){
-                                            selectedProducts.remove(i);
-                                             sch.deleteAProductShopping(aProduct.getId());
-                                              }
-                                               }
-                                                updateList(selectedProducts);
+                        sch.addProductToShoppingBag(aProduct.getId());
+                        for (int i=0;i<selectedProducts.size();i++){
+                            if (aProduct.getId()==selectedProducts.get(i)){
+                                selectedProducts.remove(i);
+                                sch.deleteAProductShopping(aProduct.getId());
+                            }
+                        }
+                        updateList(selectedProducts);
                     }
                 });
 
@@ -96,12 +100,29 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
                 "&size="+
                 Configuration.articleDisplaySize+"x"+Configuration.articleDisplaySize+
                 "&q=30";
+        Typeface trafficFont = Typeface.createFromAsset(getContext().getAssets(),"fonts/B Traffic.ttf");
         imgLoader.DisplayImage(image_url_1, imgProduct);
 
         txtProductTitle.setText(aProduct.getTitle());
-        txtProductPrice.setText("قیمت :"+String.valueOf(aProduct.getPrice()));
-        txtProductOff.setText("تخفیف : "+String.valueOf(aProduct.getPriceOff()));
-        totalPrice.setText("قابل پرداخت :" + String.valueOf(aProduct.getPrice()-aProduct.getPriceOff()));
+        String numberProductPrice = String.valueOf(aProduct.getPrice());
+        double amount = Double.parseDouble(numberProductPrice);
+
+
+        String numberProducePriceOff = String.valueOf(aProduct.getPriceOff());
+        double amountOfPriceOff = Double.parseDouble(numberProducePriceOff);
+
+
+        String numberOfFinalPrice = String.valueOf(aProduct.getPrice() - aProduct.getPriceOff());
+        double amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
+
+        DecimalFormat formatter = new DecimalFormat("#,###,000");
+
+        txtProductPrice.setText("قیمت :"+formatter.format(amount));
+        txtProductOff.setText("تخفیف : "+formatter.format(amountOfPriceOff));
+        totalPrice.setText("قابل پرداخت :" +formatter.format(amountOfFinalPrice));
+        txtProductPrice.setTypeface(trafficFont);
+        txtProductOff.setTypeface(trafficFont);
+        totalPrice.setTypeface(trafficFont);
         return rowView;
 
     }

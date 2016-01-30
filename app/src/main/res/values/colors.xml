@@ -11,4 +11,6 @@
     <color name="white">#fdfdfd</color>
     <color name="fab_color">#FAFAFA</color>
     <color name="green">#31a140</color>
+    <color name="golden">#ffd700</color>
+    <color name="red">#fc0a01</color>
 </resources>
