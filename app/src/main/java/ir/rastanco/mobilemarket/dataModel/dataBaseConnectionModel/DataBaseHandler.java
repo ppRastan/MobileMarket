@@ -9,6 +9,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ir.rastanco.mobilemarket.dataModel.Article;
@@ -449,6 +450,24 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Parent Categories Title and ID");
         return categoryTitles;
     }
+
+    public ArrayList<Integer> selectChildIdOfACategory(int parentID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select catId from tblCategory where parentId=" + parentID, null);
+        ArrayList<Integer> categoryId = new ArrayList<Integer>();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    categoryId.add(rs.getInt(rs.getColumnIndex("catId")));
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select All Child of A Category ID");
+        return categoryId;
+    }
+
     public Map<Integer,String> selectChildOfACategory(int parentID){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId="+parentID, null);
@@ -466,6 +485,25 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Child of A Category Title and ID");
         return categoryTitles;
     }
+
+    public Map<Integer,String> selectMainCategoryTitle(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId=0", null);
+        Map<Integer,String> categoryTitles = new HashMap<Integer,String>();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    categoryTitles.put(rs.getInt(rs.getColumnIndex("catId")),
+                            rs.getString(rs.getColumnIndex("title")));
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select Main Category Title and ID");
+        return categoryTitles;
+    }
+
     public Map<Integer,String> selectAllCategoryTitle(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select catId,title from tblCategory", null);

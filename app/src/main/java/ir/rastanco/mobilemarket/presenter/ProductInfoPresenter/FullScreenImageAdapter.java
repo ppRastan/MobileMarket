@@ -76,8 +76,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
         /*TextView headerTitle=(TextView)viewLayout.findViewById(R.id.headerTitle);
         headerTitle.setText(products.get(position).getTitle());*/
 
-        rateOfProduct = (RatingBar)viewLayout.findViewById(R.id.rank_of_product);
-        rateOfProduct.setNumStars(5);
+        /*rateOfProduct = (RatingBar)viewLayout.findViewById(R.id.rank_of_product);
+        rateOfProduct.setNumStars(5);*/
         //TODO for shayeste
         //TODO please fill ratingbar items dynamicly
         rateOfProduct.setRating(2);

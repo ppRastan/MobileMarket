@@ -83,17 +83,72 @@ public class ServerConnectionHandler {
         return allCategoryInfo;
 
     }
-    public Map<Integer,String> getCategoryTitle(){
-        return dbh.selectAllCategoryTitle();
+
+    public int getMainCategoryId(String catTitle) {
+        Map<Integer, String> catTitleMap = dbh.selectMainCategoryTitle();
+        int catId = 0;
+        for (Map.Entry<Integer, String> entry : catTitleMap.entrySet()) {
+            if (entry.getValue().equals(catTitle))
+                catId = entry.getKey();
+        }
+        return catId;
     }
 
-    public Map<Integer,String> filterCategories(){
-        return dbh.selectParentCategories();
+    public ArrayList<Integer> ChildOfACategory(String title){
+        int catId=getMainCategoryId(title);
+        ArrayList<Integer> subCategoriesId=new ArrayList<Integer>();
+        subCategoriesId=dbh.selectChildIdOfACategory(catId);
+      return subCategoriesId;
+    }
+    public ArrayList<Integer> childOfASubCategory(int subCategoryId){
+        ArrayList<Integer> childSubCategoriesId=new ArrayList<Integer>();
+        childSubCategoriesId=dbh.selectChildIdOfACategory(subCategoryId);
+        return childSubCategoriesId;
+    }
+    public ArrayList<Product> ProductOfASubCategory(int subcategoryId){
+        return dbh.selectAllProductOfACategory(subcategoryId);
+    }
+    public ArrayList<Product> ProductOfMainCategory(String title){
+        ArrayList<Product> products=new ArrayList<Product>();
+        ArrayList<Integer> childOfMainCategory=new ArrayList<Integer>();
+        childOfMainCategory=ChildOfACategory(title);
+        for (int i=0;i<childOfMainCategory.size();i++){
+            ArrayList<Product> helpProduct=new ArrayList<Product>();
+            helpProduct=ProductOFASubCategory(childOfMainCategory.get(i));
+            for (int j=0;j<helpProduct.size();j++)
+                products.add(helpProduct.get(j));
+        }
+        return products;
     }
 
-    public Map<Integer,String> filterSubCategory(int categoryId){
-        return dbh.selectChildOfACategory(categoryId);
+    public ArrayList<Product> ProductOFASubCategory(int subCatId){
+        ArrayList<Product> products=new ArrayList<Product>();
+        ArrayList<Integer> childofSubCategory=new ArrayList<Integer>();
+        childofSubCategory=childOfASubCategory(subCatId);
+        if (childofSubCategory.size()==0){
+
+            ArrayList<Product> helpProducts=new ArrayList<Product>();
+            helpProducts=ProductOfASubCategory(subCatId);
+            for (int k=0;k<helpProducts.size();k++)
+                products.add(helpProducts.get(k));
+
+        }
+        else{
+            for (int j=0;j<childofSubCategory.size();j++){
+                ArrayList<Product> helpProducts=new ArrayList<Product>();
+                helpProducts=ProductOfASubCategory(childofSubCategory.get(j));
+                for (int k=0;k<helpProducts.size();k++)
+                    products.add(helpProducts.get(k));
+            }
+        }
+        return products;
     }
+    public Map<Integer,String> getFilterSubCategory(String title){
+        int mainCatId=getMainCategoryId(title);
+        return dbh.selectChildOfACategory(mainCatId);
+
+    }
+
 
 
 
@@ -154,7 +209,6 @@ public class ServerConnectionHandler {
     public Map<Integer,String> getProductTitle(){
         return dbh.selectAllProductTitle();
     }
-
     public void deleteAProduct(int productId){
         dbh.deleteAProduct(productId);
     }
