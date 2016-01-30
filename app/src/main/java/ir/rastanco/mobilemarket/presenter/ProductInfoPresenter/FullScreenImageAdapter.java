@@ -79,7 +79,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         rateOfProduct = (RatingBar)viewLayout.findViewById(R.id.rank_of_product);
         rateOfProduct.setNumStars(5);
         //TODO for shayeste
-        //please fill ratingbar items dynamicly
+        //TODO please fill ratingbar items dynamicly
         rateOfProduct.setRating(2);
         btnInfo=(ImageButton)viewLayout.findViewById(R.id.img_info);
         btnInfo.setOnClickListener(new View.OnClickListener() {

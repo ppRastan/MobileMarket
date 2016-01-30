@@ -44,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:id="@+id/rank_of_product"
+                android:isIndicator="true"
                 android:numStars="5"
                 />
 
