@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         shoppingBagActivity = new ShoppingBagActivity();
-        //this.CreatePageRightToLeft();
+        this.CreatePageRightToLeft();
         this.addActionBar();
         this.addFontAndColors();
         this.addServerConnection();
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:00000000000"));
+                callIntent.setData(Uri.parse("tel:02166558994"));
                 if (ActivityCompat.checkSelfPermission(Configuration.MainActivityFragment, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }

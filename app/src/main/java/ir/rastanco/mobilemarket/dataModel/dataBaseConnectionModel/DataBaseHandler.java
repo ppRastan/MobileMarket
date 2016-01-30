@@ -610,6 +610,43 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Product");
         return allProducts;
     }
+
+    public ArrayList<Product> selectProductSmallerPrice(String price){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from tblProduct where price <="+price+" "+ "order by id desc ", null);
+        allProducts = new ArrayList<Product>();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    Product aProduct = new Product();
+                    aProduct.setTitle(rs.getString(rs.getColumnIndex("title")));
+                    aProduct.setId(rs.getInt(rs.getColumnIndex("productId")));
+                    aProduct.setGroupId(rs.getInt(rs.getColumnIndex("groupId")));
+                    aProduct.setPrice(rs.getInt(rs.getColumnIndex("price")));
+                    aProduct.setPriceOff(rs.getInt(rs.getColumnIndex("priceOff")));
+                    aProduct.setVisits(rs.getInt(rs.getColumnIndex("visits")));
+                    aProduct.setMinCounts(rs.getInt(rs.getColumnIndex("minCounts")));
+                    aProduct.setStock(rs.getInt(rs.getColumnIndex("stock")));
+                    aProduct.setQualityRank(rs.getString(rs.getColumnIndex("qualityRank")));
+                    aProduct.setCommentsCount(rs.getInt(rs.getColumnIndex("commentsCount")));
+                    aProduct.setCodeProduct(rs.getString(rs.getColumnIndex("codeProduct")));
+                    aProduct.setDescription(rs.getString(rs.getColumnIndex("description")));
+                    aProduct.setSellsCount(rs.getInt(rs.getColumnIndex("sellsCount")));
+                    aProduct.setTimeStamp(rs.getString(rs.getColumnIndex("timeStamp")));
+                    aProduct.setShowAtHomeScreen(rs.getInt(rs.getColumnIndex("showAtHomeScreen")));
+                    aProduct.setWatermarkPath(rs.getString(rs.getColumnIndex("watermarkPath")));
+                    aProduct.setImagesMainPath(rs.getString(rs.getColumnIndex("imagesMainPath")));
+                    aProduct.setImagesPath(selectAllImagePathAProduct(aProduct.getId()));
+                    aProduct.setProductOptions(selectAllOptionProduct(aProduct.getId()));
+                    allProducts.add(aProduct);
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select All Product that Price Smaller from A Range");
+        return allProducts;
+    }
     public Product selectAProduct(int productId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblProduct where productId="+productId, null);

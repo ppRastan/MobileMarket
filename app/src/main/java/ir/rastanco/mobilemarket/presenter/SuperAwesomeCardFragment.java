@@ -213,6 +213,126 @@ public class SuperAwesomeCardFragment extends Fragment{
                     }
                 });
                 ///Filter in Product Features
+                final String[] subCategorySelected = new String[1];
+                subCategorySelected[0]=getActivity().getString(R.string.all);
+                subGroupTextView = (TextView)mainView.findViewById(R.id.acordingto_dialog_text);
+                btnSubGroup=(Button)mainView.findViewById(R.id.acording_to_dialog);
+                btnSubGroup.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialogSubGroup = new Dialog(getActivity());
+                        dialogSubGroup.setContentView(R.layout.title_alertdialog_for_sub_group);
+                        btnResetSubGroup = (ImageButton)dialogSubGroup.findViewById(R.id.reset_action_subgroup);
+                        btnCancleSubGroup = (ImageButton)dialogSubGroup.findViewById(R.id.cancel_action_subgroup);
+                        btnCancleSubGroup.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialogSubGroup.dismiss();
+                            }
+                        });
+                        btnResetSubGroup.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                subCategorySelected[0] = getActivity().getString(R.string.all);
+                                dialogSubGroup.dismiss();
+                                subGroupTextView.setText(categorySelected[0]);
+                            }
+                        });
+                        TextView text = (TextView) dialogSubGroup.findViewById(R.id.title_alertdialog_group);
+                        ArrayList<String> subCategoryTitle=new ArrayList<String>();
+                        subCategoryTitle.add("قیمت");
+                        subCategoryTitle.add("تحویل در");
+                        subCategoryTitle.add("امتیاز");
+                        subCategoryTitle.add("برند");
+
+                        final ListView listCategory = (ListView) dialogSubGroup.findViewById(R.id.list);
+                        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                                android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
+                        listCategory.setAdapter(adapter);
+
+                        listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                if(position==0)
+                                {
+                                    dialogSubGroup.dismiss();
+                                    final Dialog dialogPrice = new Dialog(getActivity());
+                                    dialogPrice.setContentView(R.layout.title_alertdialog_for_sub_group);
+                                    ImageButton btnResetPrice = (ImageButton)dialogPrice.findViewById(R.id.reset_action_subgroup);
+                                    ImageButton btnCanclePrice = (ImageButton)dialogPrice.findViewById(R.id.cancel_action_subgroup);
+                                    btnCanclePrice.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialogPrice.dismiss();
+                                        }
+                                    });
+                                    btnResetPrice.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            subCategorySelected[0] = getActivity().getString(R.string.all);
+                                            dialogPrice.dismiss();
+                                            subGroupTextView.setText(categorySelected[0]);
+                                        }
+                                    });
+                                    TextView text = (TextView) dialogPrice.findViewById(R.id.title_alertdialog_group);
+                                    ArrayList<String> subCategoryTitle=new ArrayList<String>();
+                                    subCategoryTitle.add(" تا سقف 1 میلیون تومان");
+                                    subCategoryTitle.add("تا سقف 5 میلیون تومان");
+                                    subCategoryTitle.add("تا سقف 10 میلیون تومان");
+                                    subCategoryTitle.add("بالاتر از 10 میلیون تومان");
+
+                                    final ListView listPrice = (ListView) dialogPrice.findViewById(R.id.list);
+                                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                                            android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
+                                    listPrice.setAdapter(adapter);
+                                    listPrice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                            final ArrayList<Product> productPrice = new ArrayList<Product>();
+                                            if (position == 0) {
+                                                for (int i = 0; i < products.size(); i++) {
+                                                    if (products.get(i).getPrice() <= 1000000)
+                                                        productPrice.add(products.get(i));
+                                                }
+                                            }
+                                            if (position == 1) {
+                                                for (int i = 0; i < products.size(); i++) {
+                                                    if (products.get(i).getPrice() <= 5000000 && products.get(i).getPrice()>1000000)
+                                                        productPrice.add(products.get(i));
+                                                }
+                                            }
+
+                                            if (position == 2) {
+                                                for (int i = 0; i < products.size(); i++) {
+                                                    if (products.get(i).getPrice() <= 10000000 && products.get(i).getPrice()>5000000)
+                                                        productPrice.add(products.get(i));
+                                                }
+                                            }
+                                            if (position == 3) {
+                                                for (int i = 0; i < products.size(); i++) {
+                                                    if (products.get(i).getPrice() > 10000000)
+                                                        productPrice.add(products.get(i));
+                                                }
+                                            }
+                                            PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), productPrice);
+                                            gridview.setAdapter(newAdapter);
+                                            newAdapter.notifyDataSetChanged();
+                                            dialogPrice.dismiss();
+                                        }
+                                    });
+                                    dialogPrice.show();
+
+
+                                }
+
+                            }
+                        });
+                        dialogSubGroup.setCancelable(true);
+                        dialogSubGroup.show();
+                    }
+                });
+
+
 
                 break;
             }

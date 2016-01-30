@@ -51,7 +51,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 
 public class PagerSlidingTabStrip extends HorizontalScrollView {
 
-    public static final int DEF_VALUE_TAB_TEXT_ALPHA = 150;
+    public static final int DEF_VALUE_TAB_TEXT_ALPHA = 200;
     private static final int[] ANDROID_ATTRS = new int[]{
             android.R.attr.textColorPrimary,
             android.R.attr.padding,
@@ -92,8 +92,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private int mDividerPadding = 0;
     private int mDividerColor;
 
-    private int mTabPadding = 12;
-    private int mTabTextSize = 14;
+    private int mTabPadding = 4;
+    private int mTabTextSize = 12;
     private ColorStateList mTabTextColor = null;
 
     private int mPaddingLeft = 0;
@@ -158,10 +158,10 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
         String tabTextTypefaceName = "fonts/yekan_font.ttf";
         // Use Roboto Medium as the default typeface from API 21 onwards
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             tabTextTypefaceName = "fonts/yekan_font.ttf";
             mTabTextTypefaceStyle = Typeface.NORMAL;
-//        }
+       }
 
         // get custom attrs for tabs and container
         a = context.obtainStyledAttributes(attrs, R.styleable.PagerSlidingTabStrip);
