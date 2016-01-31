@@ -56,6 +56,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         db.execSQL("create table tblShopping" +
                 "(id Integer primary key AUTOINCREMENT," +
                 "fkProductId Integer unique," +
+                "numberPurchased Integer," +
                 "foreign key (fkProductId) references tblProduct(productId))");
         Log.v("create", "Create Shopping Table");
 
@@ -237,10 +238,11 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         db.close();
 
     }
-    public void insertShoppingBag(int productID) {
+    public void insertShoppingBag(int productID, int numberPurchased) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("fkProductId", productID);
+        values.put("numberPurchased",numberPurchased);
         db.insert("tblShopping", null, values);
         Log.v("insert", "insert A ProductId into Shopping Table");
         db.close();

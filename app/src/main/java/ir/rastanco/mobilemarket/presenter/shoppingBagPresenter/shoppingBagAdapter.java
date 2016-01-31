@@ -33,7 +33,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private ArrayList<Integer> selectedProducts;
     private Product aProduct;
     private ServerConnectionHandler sch;
-//    private Spinner spinnerCounter;
+    private Spinner spinnerCounter;
 
     public shoppingBagAdapter(Context context, int resource, ArrayList<Integer> productsId) {
         super(context, resource, productsId);
@@ -50,7 +50,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
         aProduct=new Product();
         aProduct=sch.getAProduct(selectedProducts.get(position));
-        //spinnerCounter = (Spinner)rowView.findViewById(R.id.spinner_counter);
+        spinnerCounter = (Spinner)rowView.findViewById(R.id.spinner_counter);
         ImageView imgProduct=(ImageView)rowView.findViewById(R.id.img_productImage);
         TextView txtProductTitle=(TextView) rowView.findViewById(R.id.txt_productTitle);
         TextView txtProductPrice=(TextView) rowView.findViewById(R.id.txt_productPrice);
@@ -65,8 +65,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
                 alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int which) {
 
-
-                        sch.addProductToShoppingBag(aProduct.getId());
+                        sch.addProductToShoppingBag(aProduct.getId(),1);
                         for (int i=0;i<selectedProducts.size();i++){
                             if (aProduct.getId()==selectedProducts.get(i)){
                                 selectedProducts.remove(i);
@@ -103,16 +102,23 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         Typeface trafficFont = Typeface.createFromAsset(getContext().getAssets(),"fonts/B Traffic.ttf");
         imgLoader.DisplayImage(image_url_1, imgProduct);
 
+
         txtProductTitle.setText(aProduct.getTitle());
+
+        //Price and off Set
+        int finalPrice=0;
+        int off=0;
+        if(aProduct.getPriceOff()!=0)
+            off=(aProduct.getPrice()*aProduct.getPriceOff())/100;
+        finalPrice=aProduct.getPrice()-off;
+        ///Price
         String numberProductPrice = String.valueOf(aProduct.getPrice());
         double amount = Double.parseDouble(numberProductPrice);
-
-
-        String numberProducePriceOff = String.valueOf(aProduct.getPriceOff());
+        ///off
+        String numberProducePriceOff = String.valueOf(off);
         double amountOfPriceOff = Double.parseDouble(numberProducePriceOff);
-
-
-        String numberOfFinalPrice = String.valueOf(aProduct.getPrice() - aProduct.getPriceOff());
+        ///FinalPrice
+        String numberOfFinalPrice = String.valueOf(finalPrice);
         double amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
 
         DecimalFormat formatter = new DecimalFormat("#,###,000");

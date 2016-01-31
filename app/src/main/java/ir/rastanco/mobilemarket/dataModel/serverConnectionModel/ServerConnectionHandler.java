@@ -331,8 +331,8 @@ public class ServerConnectionHandler {
         return  pjl.getLastShop(jsonLastShopString);
 
     }
-    public void addProductToShoppingBag(int productId){
-        dbh.insertShoppingBag(productId);
+    public void addProductToShoppingBag(int productId,int number){
+        dbh.insertShoppingBag(productId,number);
     }
 
     public ArrayList<Integer> getProductForShopping(){

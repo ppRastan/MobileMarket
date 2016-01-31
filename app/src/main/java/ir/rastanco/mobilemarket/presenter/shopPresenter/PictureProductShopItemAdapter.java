@@ -153,7 +153,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 if (isSelectedForShop==false) {
                     holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
                     isSelectedForShop=true;
-                    sch.addProductToShoppingBag(allProduct.get(position).getId());
+                    sch.addProductToShoppingBag(allProduct.get(position).getId(),1);
                     Toast.makeText(context,context.getResources().getString(R.string.added_to_basket),Toast.LENGTH_SHORT).show();
 
                 }
