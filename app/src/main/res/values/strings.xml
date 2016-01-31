@@ -43,6 +43,7 @@
     <string name="peice">قیمت :</string>
     <string name="price_off">تخفیف :</string>
     <string name="telegram_not_installed">تلگرام روی گوشی شما نصب نیست</string>
+    <string name="goods_info">مشخصات کالا</string>
     <string-array name="spinnerItems">
         <item>1</item>
         <item>2</item>

@@ -43,9 +43,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private ImageButton btnShare;
     private ImageButton btnLike;
     private ImageButton btnBuy;
-    private RatingBar rateOfProduct;
     private boolean isLikeButtonClicked = false;
-    private  boolean isSelectedForShop=false;
     private ArrayList<Product> allProduct;
     private Context context;
     // constructor
@@ -81,7 +79,6 @@ public class FullScreenImageAdapter extends PagerAdapter {
         //rateOfProduct.setNumStars(5);
         //TODO for shayeste
         //TODO please fill ratingbar items dynamicly
-//        rateOfProduct.setRating(2);
         btnInfo=(ImageButton)viewLayout.findViewById(R.id.img_info);
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,34 +91,21 @@ public class FullScreenImageAdapter extends PagerAdapter {
             }
         });
         btnBuy = (ImageButton)viewLayout.findViewById(R.id.shopping_full_screen);
-//        if (sch.checkSelectProductForShop(allProduct.get(position).getId()))
-//            btnBuy.setImageResource(R.mipmap.green_bye_toolbar);
-//        else
-//            btnBuy.setImageResource(R.mipmap.bye_toolbar);
 
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-//                if (isSelectedForShop==false) {
-//                    btnBuy.setImageResource(R.mipmap.green_bye_toolbar);
-//                    isSelectedForShop=true;
-//                    sch.addProductToShoppingBag(allProduct.get(position).getId());
-//
-//                }
-//
-//                else if (isSelectedForShop==true){
-//                    btnBuy.setImageResource(R.mipmap.bye_toolbar);
-//                    isSelectedForShop=false;
-//                    sch.deleteAProductShopping(allProduct.get(position).getId());
-//                }
+
             }
         });
         btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if(isLikeButtonClicked == false){
+            public void onClick(View v)
+            {
+
+                if(!isLikeButtonClicked){
 
                     btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     isLikeButtonClicked = true;

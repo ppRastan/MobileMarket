@@ -2,25 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:weightSum="2"
-    android:gravity="center_vertical">
+    android:weightSum="10"
+    >
 
     <TextView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/txt_value"
-        android:layout_weight="1"
-        android:layout_gravity="center"
-        android:gravity="center_vertical"
+        android:layout_weight="7"
+        android:layout_gravity="left"
+        android:textColor="@color/black"
+        android:layout_marginLeft="3dp"
+        android:gravity="center_vertical|center_horizontal"
         android:text="value" />
 
     <TextView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:layout_height="match_parent"
         android:id="@+id/txt_title"
-        android:layout_weight="1"
-        android:layout_gravity="center"
-        android:gravity="center_vertical"
+        android:layout_marginRight="10dp"
+        android:layout_weight="3"
+        android:gravity="center_vertical|center_horizontal"
         android:text="title" />
 
 </LinearLayout>
