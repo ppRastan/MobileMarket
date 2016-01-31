@@ -40,6 +40,5 @@ public class ProductInfoActivity extends Activity {
         viewPager.setCurrentItem(intent.getIntExtra("position", 0));
     }
 
-
 }
 

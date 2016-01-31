@@ -26,7 +26,7 @@ public class ProductOptionActivity extends Activity {
     private Product aProduct;
     private RatingBar rankOfProduct;
     private ImageButton btnBack;
-
+    private boolean onBackBtnPressed = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,14 +38,14 @@ public class ProductOptionActivity extends Activity {
         int groupId=intent.getIntExtra("groupId",0);
         rankOfProduct = (RatingBar)findViewById(R.id.rank_of_product);
         rankOfProduct.setRating(5);
-        rankOfProduct.setPadding(3,3,3,3);
+        rankOfProduct.setPadding(3, 3, 3, 3);
         btnBack = (ImageButton)findViewById(R.id.back_full_screen);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //startActivity(new Intent(ProductOptionActivity.this,FullScreenImageAdapter.class));
-
+                onBackBtnPressed = true;
+                checkBackButtonState();
             }
         });
         sch=new ServerConnectionHandler(Configuration.ProductOptionFragment);
@@ -55,5 +55,12 @@ public class ProductOptionActivity extends Activity {
         ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.ProductOptionFragment,
                 R.layout.product_info_item,options);
         lvProductOption.setAdapter(adapter);
+    }
+
+    private void checkBackButtonState() {
+        if(onBackBtnPressed)
+        {
+            super.onBackPressed();
+        }
     }
 }

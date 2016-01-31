@@ -11,12 +11,12 @@ import android.content.pm.PackageManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
@@ -30,7 +30,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageL
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
-public class FullScreenImageAdapter extends PagerAdapter {
+public class FullScreenImageAdapter extends PagerAdapter{
 
     private Activity activity;
     private ArrayList<Product> products;
@@ -46,6 +46,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private boolean isLikeButtonClicked = false;
     private ArrayList<Product> allProduct;
     private Context context;
+    private float y1, y2;
+    private View viewLayout;
     // constructor
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
@@ -54,7 +56,37 @@ public class FullScreenImageAdapter extends PagerAdapter {
         activity =(Activity) context;
         sch=new ServerConnectionHandler(Configuration.ProductInfoActivity);
     }
+    public boolean onTouchEvent(MotionEvent touchevent , final int position)
+    {
+        switch (touchevent.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+            {
+                y1 = touchevent.getY();
+                break;
+            }
+            case MotionEvent.ACTION_UP:
+            {
+                y2 = touchevent.getY();
 
+                if (y1 < y2)
+                {
+                    Intent intentProductInfo = new Intent(viewLayout.getContext(),ProductOptionActivity.class);
+                    intentProductInfo.putExtra("productId", products.get(position).getId());
+                    intentProductInfo.putExtra("groupId", products.get(position).getGroupId());
+                    viewLayout.getContext().startActivity(intentProductInfo);
+                }
+
+                if (y1 > y2)
+                {
+
+                }
+
+                break;
+            }
+        }
+        return false;
+    }
     @Override
     public int getCount() {
         return productsSize;
@@ -70,28 +102,20 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
         inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View viewLayout = inflater.inflate(R.layout.activity_product_info, container,false);
-
-        /*TextView headerTitle=(TextView)viewLayout.findViewById(R.id.headerTitle);
-        headerTitle.setText(products.get(position).getTitle());*/
-
-        //rateOfProduct = (RatingBar)viewLayout.findViewById(R.id.rank_of_product);
-        //rateOfProduct.setNumStars(5);
-        //TODO for shayeste
-        //TODO please fill ratingbar items dynamicly
+        viewLayout = inflater.inflate(R.layout.activity_product_info, container,false);
         btnInfo=(ImageButton)viewLayout.findViewById(R.id.img_info);
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentProductInfo = new Intent(viewLayout.getContext(),ProductOptionActivity.class);
+                Intent intentProductInfo = new Intent(viewLayout.getContext(), ProductOptionActivity.class);
                 intentProductInfo.putExtra("productId", products.get(position).getId());
                 intentProductInfo.putExtra("groupId", products.get(position).getGroupId());
                 viewLayout.getContext().startActivity(intentProductInfo);
 
             }
         });
-        btnBuy = (ImageButton)viewLayout.findViewById(R.id.shopping_full_screen);
 
+        btnBuy = (ImageButton)viewLayout.findViewById(R.id.shopping_full_screen);
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,15 +129,15 @@ public class FullScreenImageAdapter extends PagerAdapter {
             public void onClick(View v)
             {
 
-                if(!isLikeButtonClicked){
-
-                    btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
-                    isLikeButtonClicked = true;
-                }
-                else if(isLikeButtonClicked){
-                    btnLike.setImageResource(R.mipmap.ic_like_toolbar);
-                    isLikeButtonClicked = false;
-                }
+//                if(!isLikeButtonClicked){
+//
+//                    btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
+//                    isLikeButtonClicked = true;
+//                }
+//                else if(isLikeButtonClicked){
+//                    btnLike.setImageResource(R.mipmap.ic_like_toolbar);
+//                    isLikeButtonClicked = false;
+//                }
             }
         });
         btnShare = (ImageButton)viewLayout.findViewById(R.id.img_share_full_screen);
@@ -129,38 +153,15 @@ public class FullScreenImageAdapter extends PagerAdapter {
                 activity.startActivity(sendIntent);
             }
         });
+
+
         btnShareByTelegram = (ImageButton)viewLayout.findViewById(R.id.telegram_share);
         btnShareByTelegram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                final String appName = "org.telegram.messenger";
-                    String msg = "Decoriss";
-                final boolean isAppInstalled = isAppAvailable(activity.getApplicationContext(), appName);
-                if (isAppInstalled) {
-                    Intent myIntent = new Intent(Intent.ACTION_SEND);
-                    myIntent.setType("text/plain");
-                    myIntent.setPackage(appName);
-                    myIntent.putExtra(Intent.EXTRA_TEXT, msg);//
-                    activity.startActivity(Intent.createChooser(myIntent, "Share with"));
-                }
-                else
-                {
-                    Toast.makeText(activity.getApplicationContext(), activity.getResources().getString(R.string.telegram_not_installed), Toast.LENGTH_SHORT).show();
-                }
-            }
+                shareByTelegram();
 
-            private boolean isAppAvailable(Context applicationContext, String appName) {
-                PackageManager pm = activity.getPackageManager();
-                try
-                {
-                    pm.getPackageInfo(appName, PackageManager.GET_ACTIVITIES);
-                    return true;
-                }
-                catch (PackageManager.NameNotFoundException e)
-                {
-                    return false;
-                }
             }
         });
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
@@ -224,6 +225,38 @@ public class FullScreenImageAdapter extends PagerAdapter {
         ((ViewPager) container).addView(viewLayout);
         return viewLayout;
     }
+
+    private void shareByTelegram() {
+
+        final String appName = "org.telegram.messenger";
+        String msg = "Decoriss";
+        final boolean isAppInstalled = isAppAvailable(activity.getApplicationContext(), appName);
+        if (isAppInstalled) {
+            Intent myIntent = new Intent(Intent.ACTION_SEND);
+            myIntent.setType("text/plain");
+            myIntent.setPackage(appName);
+            myIntent.putExtra(Intent.EXTRA_TEXT, msg);//
+            activity.startActivity(Intent.createChooser(myIntent, "Share with"));
+        }
+        else
+        {
+            Toast.makeText(activity.getApplicationContext(), activity.getResources().getString(R.string.telegram_not_installed), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean isAppAvailable(Context applicationContext, String appName) {
+        PackageManager pm = activity.getPackageManager();
+        try
+        {
+            pm.getPackageInfo(appName, PackageManager.GET_ACTIVITIES);
+            return true;
+        }
+        catch (PackageManager.NameNotFoundException e)
+        {
+            return false;
+        }
+    }
+
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
