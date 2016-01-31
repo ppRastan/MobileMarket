@@ -37,8 +37,9 @@ public class ProductOptionActivity extends Activity {
         int productId=intent.getIntExtra("productId", 0);
         int groupId=intent.getIntExtra("groupId",0);
         rankOfProduct = (RatingBar)findViewById(R.id.rank_of_product);
-        rankOfProduct.setRating(2);
-        btnBack = (ImageButton)findViewById(R.id.back_info);
+        rankOfProduct.setRating(5);
+        rankOfProduct.setPadding(3,3,3,3);
+        btnBack = (ImageButton)findViewById(R.id.back_full_screen);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
