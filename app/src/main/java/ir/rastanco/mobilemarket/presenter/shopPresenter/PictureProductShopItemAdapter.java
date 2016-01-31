@@ -114,7 +114,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 holder.offerLeft.setVisibility(View.INVISIBLE);
             }
         }
-        holder.shareToolBar = (ImageButton)rowView.findViewById(R.id.share_toolbar);
+        holder.shareToolBar = (ImageButton)rowView.findViewById(R.id.share_toolbar_in_main_page);
         holder.basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
         holder.likeToolBar = (ImageButton)rowView.findViewById(R.id.empty_like_toolbar);
         if (sch.checkSelectProductForShop(allProduct.get(position).getId()))
@@ -129,6 +129,12 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
 
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                //TODO add the link you want to share bellow
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "http://cafebazaar.ir/app/?id=com.Arvand.HundredPercent");
+                sendIntent.setType("text/plain");
+                context.startActivity(sendIntent);
 
             }
         });
