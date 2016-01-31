@@ -168,6 +168,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                     holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
                     isSelectedForShop=false;
                     sch.deleteAProductShopping(allProduct.get(position).getId());
+                    Toast.makeText(context,context.getResources().getString(R.string.delete_from_basket),Toast.LENGTH_SHORT).show();
                 }
             }
         });
