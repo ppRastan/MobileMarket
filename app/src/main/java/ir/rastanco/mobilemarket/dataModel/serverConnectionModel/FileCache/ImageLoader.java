@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -39,7 +40,7 @@ public class ImageLoader {
         myContext=context;
     }
 
-    final int stub_id= R.mipmap.decoriss;
+    final int stub_id= R.drawable.logo_light;
 
     public void DisplayImage(String url, ImageView imageView)
     {
