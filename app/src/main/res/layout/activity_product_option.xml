@@ -4,9 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:weightSum="12">
+    android:weightSum="10">
 <LinearLayout
-    android:layout_marginTop="12dp"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="1"
@@ -33,7 +32,19 @@
         android:background="@color/decoriss"/>
 
 </LinearLayout>
-            <ListView
+
+    <RatingBar
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_width="wrap_content"
+        android:isIndicator="true"
+        android:id="@+id/rank_of_product"
+        style="@style/goodRatingBar"
+        android:numStars="5"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+    <ListView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="8"
@@ -41,15 +52,5 @@
                 android:id="@+id/lv_productOption"
                 android:background="@color/white"/>
 
-        <RatingBar
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_width="wrap_content"
-            android:isIndicator="true"
-            android:id="@+id/rank_of_product"
-            android:padding="4dp"
-            style="@style/goodRatingBar"
-            android:numStars="5"
-            android:layout_height="0dp"
-            android:layout_weight="3" />
 
 </LinearLayout>
