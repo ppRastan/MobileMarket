@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
@@ -30,11 +31,13 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
 
     private Activity myContext;
     private ArrayList<Product> allProduct;
+    private ServerConnectionHandler sch;
 
     public PictureProductHomeItemAdapter(Context context, int resource, ArrayList<Product> products) {
         super(context, resource,products);
         myContext=(Activity)context;
         allProduct=products;
+        sch=new ServerConnectionHandler(context);
 
     }
 
@@ -65,8 +68,10 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
         PicProductImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ArrayList<Product> newAllProduct=new ArrayList<Product>();
+                newAllProduct=sch.getSpecialProduct();
                 Intent intent = new Intent(rowView.getContext(), ProductInfoActivity.class);
-                intent.putParcelableArrayListExtra("allProduct",allProduct);
+                intent.putParcelableArrayListExtra("allProduct",newAllProduct);
                 intent.putExtra("position",position);
                 rowView.getContext().startActivity(intent);
             }

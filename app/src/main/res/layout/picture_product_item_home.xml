@@ -11,8 +11,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/img_picProduct"
-            android:background="@color/white"/>
+            android:id="@+id/img_picProduct" />
 
         <ImageButton
             android:layout_width="wrap_content"

@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by ShaisteS on 12/27/2015.
  * This Class is Packaging Product Information
  */
-public class Product  implements Parcelable {
+public class Product implements Parcelable {
 
     private String title;
     private int id;
@@ -25,13 +25,19 @@ public class Product  implements Parcelable {
     private String description;
     private int sellsCount;
     private String timeStamp;
-    private int showAtHomeScreen;   //0 or 1
+    private int showAtHomeScreen;   //0=no show or 1=show
     private String watermarkPath;
     private String imagesMainPath;
+    private int like;   //0=dislike or 1=like
+    private String linkInSite;
     private ArrayList<String> imagesPath;
     private ArrayList<ProductOption> producOptions;
 
-    public Product(Parcel in) {
+    public Product() {
+
+    }
+
+    protected Product(Parcel in) {
         title = in.readString();
         id = in.readInt();
         groupId = in.readInt();
@@ -49,6 +55,8 @@ public class Product  implements Parcelable {
         showAtHomeScreen = in.readInt();
         watermarkPath = in.readString();
         imagesMainPath = in.readString();
+        like = in.readInt();
+        linkInSite = in.readString();
         imagesPath = in.createStringArrayList();
     }
 
@@ -63,10 +71,6 @@ public class Product  implements Parcelable {
             return new Product[size];
         }
     };
-
-    public Product() {
-
-    }
 
     public String getTitle() {
         return title;
@@ -212,6 +216,22 @@ public class Product  implements Parcelable {
         this.imagesMainPath = imagesMainPath;
     }
 
+    public int getLike() {
+        return like;
+    }
+
+    public void setLike(int like) {
+        this.like = like;
+    }
+
+    public String getLinkInSite() {
+        return linkInSite;
+    }
+
+    public void setLinkInSite(String linkInSite) {
+        this.linkInSite = linkInSite;
+    }
+
     public ArrayList<String> getImagesPath() {
         return imagesPath;
     }
@@ -252,6 +272,8 @@ public class Product  implements Parcelable {
         dest.writeInt(showAtHomeScreen);
         dest.writeString(watermarkPath);
         dest.writeString(imagesMainPath);
+        dest.writeInt(like);
+        dest.writeString(linkInSite);
         dest.writeStringList(imagesPath);
     }
 }

@@ -24,6 +24,7 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Connect;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
@@ -83,6 +84,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
                             }
                         }
                         updateList(selectedProducts);
+                        Connect.setMyBoolean(false);
                     }
                 });
 

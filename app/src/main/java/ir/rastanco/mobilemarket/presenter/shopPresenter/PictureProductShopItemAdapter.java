@@ -25,6 +25,7 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Connect;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
@@ -122,7 +123,29 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         else
             holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
 
+        holder.basketToolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                if (isSelectedForShop==false) {
+                    holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
+                    isSelectedForShop=true;
+                    sch.addProductToShoppingBag(allProduct.get(position).getId(),1);
+                    Toast.makeText(context,context.getResources().getString(R.string.added_to_basket),Toast.LENGTH_SHORT).show();
+                    Connect.setMyBoolean(true);
+
+                }
+
+                else if (isSelectedForShop==true){
+                    holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
+                    isSelectedForShop=false;
+                    sch.deleteAProductShopping(allProduct.get(position).getId());
+                    Toast.makeText(context,context.getResources().getString(R.string.delete_from_basket),Toast.LENGTH_SHORT).show();
+                    Connect.setMyBoolean(false);
+
+                }
+            }
+        });
 
 
         holder.shareToolBar.setOnClickListener(new View.OnClickListener() {
@@ -138,40 +161,34 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
 
             }
         });
+
+        if (allProduct.get(position).getLike()==0){
+            //this Product No Favorite
+            holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);
+            isLikeButtonClicked=false;
+        }
+        else{
+
+            holder.likeToolBar.setImageResource(R.mipmap.ic_like_filled_toolbar);
+            isLikeButtonClicked=true;
+        }
+
         holder.likeToolBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isLikeButtonClicked == false){
-
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     isLikeButtonClicked = true;
+                    sch.changeProductLike(allProduct.get(position).getId(), 1);
                 }
                 else if(isLikeButtonClicked){
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);
                     isLikeButtonClicked = false;
+                    sch.changeProductLike(allProduct.get(position).getId(), 0);
                 }
             }
         });
-        holder.basketToolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                if (isSelectedForShop==false) {
-                    holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
-                    isSelectedForShop=true;
-                    sch.addProductToShoppingBag(allProduct.get(position).getId(),1);
-                    Toast.makeText(context,context.getResources().getString(R.string.added_to_basket),Toast.LENGTH_SHORT).show();
-
-                }
-
-                else if (isSelectedForShop==true){
-                    holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
-                    isSelectedForShop=false;
-                    sch.deleteAProductShopping(allProduct.get(position).getId());
-                    Toast.makeText(context,context.getResources().getString(R.string.delete_from_basket),Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
         ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
         String picCounter = allProduct.get(position).getImagesPath().get(0);
         try {

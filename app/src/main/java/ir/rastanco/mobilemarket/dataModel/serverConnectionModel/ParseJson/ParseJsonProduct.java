@@ -124,6 +124,7 @@ public class ParseJsonProduct extends AsyncTask<String, String, String> {
                 aProduct.setShowAtHomeScreen(Integer.parseInt(c.getString("h")));
                 aProduct.setWatermarkPath(c.getString("wm"));
                 aProduct.setImagesMainPath(c.getString("ipath"));
+                aProduct.setLinkInSite(c.getString("l"));
                 for (int j=0;j<10;j++){
                     String counter="i"+j;
                     if (c.has(counter))

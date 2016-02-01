@@ -43,7 +43,6 @@ public class FullScreenImageAdapter extends PagerAdapter{
     private ImageButton btnShare;
     private ImageButton btnLike;
     private ImageButton btnBuy;
-    private boolean isLikeButtonClicked = false;
     private ArrayList<Product> allProduct;
     private Context context;
     private float y1, y2;
@@ -98,11 +97,40 @@ public class FullScreenImageAdapter extends PagerAdapter{
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, final int position) {
+    public Object instantiateItem(final ViewGroup container, final int position) {
 
         inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewLayout = inflater.inflate(R.layout.activity_product_info, container,false);
+
+        btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
+        if (products.get(position).getLike()==0){
+            //this Product No Favorite
+            btnLike.setImageResource(R.mipmap.ic_like_toolbar);
+        }
+        else{
+
+            btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
+        }
+        btnLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                if(products.get(position).getLike()==0){
+
+                    btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
+                    products.get(position).setLike(1);
+                    sch.changeProductLike(products.get(position).getId(), 1);
+                }
+                else if(products.get(position).getLike()==1){
+                    btnLike.setImageResource(R.mipmap.ic_like_toolbar);
+                    products.get(position).setLike(0);
+                    sch.changeProductLike(products.get(position).getId(), 0);
+                }
+            }
+        });
+
+
         btnInfo=(ImageButton)viewLayout.findViewById(R.id.img_info);
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +144,10 @@ public class FullScreenImageAdapter extends PagerAdapter{
         });
 
         btnBuy = (ImageButton)viewLayout.findViewById(R.id.shopping_full_screen);
+        if (sch.checkSelectProductForShop(products.get(position).getId()))
+            btnBuy.setImageResource(R.mipmap.green_bye_toolbar);
+        else
+            btnBuy.setImageResource(R.mipmap.bye_toolbar);
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,23 +155,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
 
             }
         });
-        btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
-        btnLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
 
-//                if(!isLikeButtonClicked){
-//
-//                    btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
-//                    isLikeButtonClicked = true;
-//                }
-//                else if(isLikeButtonClicked){
-//                    btnLike.setImageResource(R.mipmap.ic_like_toolbar);
-//                    isLikeButtonClicked = false;
-//                }
-            }
-        });
         btnShare = (ImageButton)viewLayout.findViewById(R.id.img_share_full_screen);
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,7 +164,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 //TODO add the link you want to share bellow
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "http://cafebazaar.ir/app/?id=com.Arvand.HundredPercent");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, products.get(position).getLinkInSite());
                 sendIntent.setType("text/plain");
                 activity.startActivity(sendIntent);
             }
@@ -160,7 +176,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
             @Override
             public void onClick(View v) {
 
-                shareByTelegram();
+                shareByTelegram(position);
 
             }
         });
@@ -226,10 +242,10 @@ public class FullScreenImageAdapter extends PagerAdapter{
         return viewLayout;
     }
 
-    private void shareByTelegram() {
+    private void shareByTelegram(int position) {
 
         final String appName = "org.telegram.messenger";
-        String msg = "Decoriss";
+        String msg = products.get(position).getLinkInSite();
         final boolean isAppInstalled = isAppAvailable(activity.getApplicationContext(), appName);
         if (isAppInstalled) {
             Intent myIntent = new Intent(Intent.ACTION_SEND);

@@ -48,6 +48,7 @@ import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserProfileActivi
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
+
 //parisa rashidi nezhad connection
 public class MainActivity extends AppCompatActivity {
 
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private Point size;
     private int shopCounter;
     private ShoppingBagActivity shoppingBagActivity;
+    private Menu menu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +91,16 @@ public class MainActivity extends AppCompatActivity {
         this.setFAb();
         this.displayWindow();
         shopCounter=sch.getCountProductShop();
+
+        Connect.addMyBooleanListener(new ConnectionBooleanChangeListener() {
+            @Override
+            public void OnMyBooleanChanged() {
+                MenuItem item = menu.findItem(R.id.action_notifications);
+                LayerDrawable icon = (LayerDrawable) item.getIcon();
+                CounterIconUtils.setBadgeCount(Configuration.MainActivityFragment,
+                        icon, sch.getCountProductShop());
+            }
+        });
     }
 
     private void displayWindow() {
@@ -199,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu=menu;
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem item = menu.findItem(R.id.action_notifications);
         LayerDrawable icon = (LayerDrawable) item.getIcon();

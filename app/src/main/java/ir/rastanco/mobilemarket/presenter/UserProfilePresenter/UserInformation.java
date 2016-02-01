@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -53,11 +54,11 @@ public class UserInformation extends Fragment {
                 UserInfo aUser=new UserInfo();
                 String key=sch.GetKey("http://decoriss.com/json/get,com=auth");
                 //String key="974401741";
-                //user= String.valueOf(username.getText());
-                user="mahdavikia.m@gmail.com";
+                user= String.valueOf(username.getText());
+                //user="mahdavikia.m@gmail.com";
                 aUser.setUserEmail(user);
-                //pass= String.valueOf(password.getText());
-                pass="1234";
+                pass= String.valueOf(password.getText());
+                //pass="1234";
                 String hashInfo=sec.encode(user,pass,key);
                 ArrayList<String> response=new ArrayList<String>();
                 response=sch.GetAuthorizeResponse(hashInfo,key);
@@ -68,6 +69,12 @@ public class UserInformation extends Fragment {
                     sch.addUserInfoToTable(aUser);
                     Configuration.UserProfileViewPager.setCurrentItem(1);
                 }
+                if (response.get(0).equals("key_expired"))
+                    Toast.makeText(getActivity(), "دوباره تلاش کنید، سپاسگزار",
+                            Toast.LENGTH_LONG).show();
+                if (response.get(0).equals("user_pass_invalid"))
+                    Toast.makeText(getActivity(), "نام کاربری یا رمز ورود صحیح نمی باشد",
+                            Toast.LENGTH_LONG).show();
             }
         });
 

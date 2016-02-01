@@ -50,8 +50,6 @@ public class ServerConnectionHandler {
     }
 
 
-
-
     //Category
     public Boolean emptyDBCategory(){
         Boolean empty=dbh.emptyCategoryTable();
@@ -159,7 +157,6 @@ public class ServerConnectionHandler {
         Boolean empty=dbh.emptyProductTable();
         return empty;
     }
-
     public void addAllProductToTable(ArrayList<Product> allProducts){
         for (int i=0;i<allProducts.size();i++){
             if(dbh.ExistAProduct(allProducts.get(i).getId()))
@@ -206,6 +203,11 @@ public class ServerConnectionHandler {
             e.printStackTrace();
         }
     }
+
+    public ArrayList<Product> getSpecialProduct(){
+        return dbh.selectSpecialProduct();
+    }
+
     public Map<Integer,String> getProductTitle(){
         return dbh.selectAllProductTitle();
     }
@@ -214,6 +216,10 @@ public class ServerConnectionHandler {
     }
     public ArrayList<Product> getAllProductOfACategory(int groupId){
         return dbh.selectAllProductOfACategory(groupId);
+    }
+
+    public void addAProductOptionsToTable(int productId,ProductOption aOptions){
+        dbh.insertOptionProduct(productId, aOptions.getTitle(), aOptions.getValue());
     }
     public void addProductOptionsToTable(int productId,ArrayList<ProductOption> options){
         for (int i=0;i<options.size();i++)
@@ -230,9 +236,24 @@ public class ServerConnectionHandler {
         return options;
     }
 
+    public void refreshProductOption(int groupId,int productId){
+        ArrayList<ProductOption> options=new ArrayList<ProductOption>();
+        options = getOptionsOfAProductFromURL("http://decoriss.com/json/get,com=options&pid=" +
+                String.valueOf(productId) + "&pgid=" + String.valueOf(groupId) + "&cache=false");
+        for (int i=0;i<options.size();i++){
+            if (dbh.ExistAProductIdInOptionTable(productId)){
+                if (dbh.ExistAProductOption(productId,options.get(i).getTitle()))
+                    dbh.updateAProductOption(productId,options.get(i));
+            }
+            else
+                addAProductOptionsToTable(productId,options.get(i));
+        }
+        addProductOptionsToTable(productId,options);
+    }
 
-
-
+    public void changeProductLike(int productId,int like){
+        dbh.updateAProductLike(productId,like);
+    }
 
     //article
     public Boolean emptyDBArticle(){
@@ -270,6 +291,7 @@ public class ServerConnectionHandler {
         addAllArticlesToTable(getAllArticlesAndNewsURL(url));
 
     }
+
     public void setLastArticlesNum(String lastNum){
         dbh.updateLastArticlesNum(lastNum);
     }
