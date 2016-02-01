@@ -177,6 +177,14 @@
             android:entries="@array/spinnerItems"
             android:layout_gravity="center_vertical|center_horizontal"
             />
+        <!--<EditText-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="1"-->
+            <!--android:id="@+id/spinner_value"-->
+            <!--android:padding="3dp"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:layout_gravity="center_horizontal|center_vertical"/>-->
 
         <TextView
             android:padding="4dp"
