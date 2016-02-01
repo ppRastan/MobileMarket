@@ -51,7 +51,7 @@
                 android:layout_toLeftOf="@id/button_text"
                 android:paddingTop="10dip"
                 android:paddingBottom="10dip"
-                android:src="@mipmap/finish_shopping" />
+                android:src="@mipmap/basket_white" />
         </RelativeLayout>
     </RelativeLayout>
 

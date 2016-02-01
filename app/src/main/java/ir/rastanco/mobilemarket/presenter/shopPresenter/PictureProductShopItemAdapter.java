@@ -155,6 +155,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 //TODO add the link you want to share bellow
+                sendIntent.putExtra(Intent.EXTRA_SUBJECT,"برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار دکوریس را دانلود کنید :");
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "http://cafebazaar.ir/app/?id=com.Arvand.HundredPercent");
                 sendIntent.setType("text/plain");
                 context.startActivity(sendIntent);

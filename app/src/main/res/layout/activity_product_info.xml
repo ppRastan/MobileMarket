@@ -11,13 +11,19 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_weight="7"
+        android:layout_weight="5"
         android:layout_height="0dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:weightSum="5">
 
+        <include layout="@layout/toolbar_full_screen_page"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_weight="2"/>
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
             android:id="@+id/img_productInfo"
             android:layout_below="@+id/header" />
     </LinearLayout>
@@ -25,17 +31,17 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_weight="3"
+        android:layout_weight="5"
         android:layout_height="0dp"
         android:background="@color/white"
         android:orientation="vertical"
-        android:weightSum="6">
+        android:weightSum="5">
 
         <HorizontalScrollView
             android:id="@+id/horizontal_scroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4"
+            android:layout_weight="3"
             android:scrollbars="none"
             android:layout_above="@+id/footer">
             <LinearLayout
@@ -45,7 +51,20 @@
                 android:orientation="horizontal" >
             </LinearLayout>
         </HorizontalScrollView>
-        <include layout="@layout/footer_full_screen"/>
+
+        <include layout="@layout/footer_full_screen"
+            android:layout_weight="1"
+            android:layout_height="0dp"
+            android:layout_width="match_parent" />
+
+        <Button
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:layout_weight="1"
+          android:text="@string/bye"
+          android:background="@color/green"
+          android:textColor="@color/white"/>
+
 
     </LinearLayout>
 
