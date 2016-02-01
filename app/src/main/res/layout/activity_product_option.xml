@@ -18,6 +18,7 @@
         android:layout_weight="8"
         android:background="@color/decoriss"
         android:text="@string/goods_info"
+        android:id="@+id/name_of_currrent_product"
         android:layout_gravity="right"
         android:gravity="center_vertical"
         android:textColor="@color/black"
@@ -32,9 +33,6 @@
         android:background="@color/decoriss"/>
 
 </LinearLayout>
-
-
-
     <ListView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

@@ -17,10 +17,14 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
@@ -47,6 +51,9 @@ public class FullScreenImageAdapter extends PagerAdapter{
     private Context context;
     private float y1, y2;
     private View viewLayout;
+    private TextView nameOfCurrentProduct;
+    private TextView priceOfCurrentProduct;
+    private Product aProduct;
     // constructor
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
@@ -54,6 +61,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
         this.productsSize=allProductSize;
         activity =(Activity) context;
         sch=new ServerConnectionHandler(Configuration.ProductInfoActivity);
+        aProduct=new Product();
     }
     public boolean onTouchEvent(MotionEvent touchevent , final int position)
     {
@@ -102,7 +110,11 @@ public class FullScreenImageAdapter extends PagerAdapter{
         inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewLayout = inflater.inflate(R.layout.activity_product_info, container,false);
-
+        nameOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.name_of_photo);
+        priceOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.price_of_photo);
+        //TODO get and display name and price of product
+        nameOfCurrentProduct.setText("میز");
+        priceOfCurrentProduct.setText("300000");
         btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
         if (products.get(position).getLike()==0){
             //this Product No Favorite

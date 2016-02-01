@@ -34,6 +34,7 @@
             android:textColor="@color/black"
             android:text="price"
             android:textSize="17dp"
+            android:id="@+id/price_of_photo"
             android:gravity="right"
             android:layout_marginRight="15dp"
             android:layout_gravity="center_horizontal|center_vertical"/>
@@ -42,6 +43,7 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:text="name"
+            android:id="@+id/name_of_photo"
             android:textSize="17dp"
             android:textColor="@color/black"
             android:gravity="right"

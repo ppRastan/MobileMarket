@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -26,6 +27,7 @@ public class ProductOptionActivity extends Activity {
     private Product aProduct;
     private RatingBar rankOfProduct;
     private ImageButton btnBack;
+    private TextView nameOfCurrentProduct;
     private boolean onBackBtnPressed = false;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,9 @@ public class ProductOptionActivity extends Activity {
         Intent intent = this.getIntent();
         int productId=intent.getIntExtra("productId", 0);
         int groupId=intent.getIntExtra("groupId",0);
+        nameOfCurrentProduct = (TextView)findViewById(R.id.name_of_currrent_product);
+        //TODO for shayeste set name of product here
+        nameOfCurrentProduct.setText("name of product");
         rankOfProduct = (RatingBar)findViewById(R.id.rank_of_product);
         rankOfProduct.setRating(5);
         rankOfProduct.setPadding(3, 3, 3, 3);
