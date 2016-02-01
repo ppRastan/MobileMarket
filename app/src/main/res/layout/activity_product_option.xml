@@ -33,15 +33,6 @@
         android:background="@color/decoriss"/>
 
 </LinearLayout>
-    <!--<ScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:orientation="vertical"-->
-            <!--android:weightSum="10">-->
-
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -49,26 +40,16 @@
                 android:scrollbars="vertical"
                 android:id="@+id/lv_productOption"
                 android:background="@color/white"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:gravity="center_vertical|center_horizontal">
+
         <RatingBar
+            android:layout_gravity="center_horizontal|center_vertical"
             android:layout_width="wrap_content"
-            android:numStars="5"
             android:isIndicator="true"
-            android:layout_height="match_parent"
             android:id="@+id/rank_of_product"
-            android:layout_gravity="center_vertical|center_horizontal"
+            android:padding="4dp"
             style="@style/goodRatingBar"
-            />
-
-    </LinearLayout>
-
-        <!--</LinearLayout>-->
-
-    <!--</ScrollView>-->
+            android:numStars="5"
+            android:layout_height="0dp"
+            android:layout_weight="3" />
 
 </LinearLayout>
