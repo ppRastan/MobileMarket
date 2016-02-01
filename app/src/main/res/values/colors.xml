@@ -13,4 +13,5 @@
     <color name="green">#31a140</color>
     <color name="golden">#ffd700</color>
     <color name="red">#fc0a01</color>
+    <color name="selected_item_in_categori">#b46e6e</color>
 </resources>

@@ -6,6 +6,7 @@ package ir.rastanco.mobilemarket.presenter;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -164,6 +165,8 @@ public class SuperAwesomeCardFragment extends Fragment{
                 btnCategory.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        btnCategory.setTextColor(Color.parseColor("#b46e6e"));
+                        btnSubGroup.setTextColor(Color.BLACK);
                         dialogGroup = new Dialog(getActivity());
                         dialogGroup.setContentView(R.layout.title_alertdialog_for_group);
                         btnCancelAlertDialog = (ImageButton) dialogGroup.findViewById(R.id.cancel);
@@ -220,6 +223,8 @@ public class SuperAwesomeCardFragment extends Fragment{
                 btnSubGroup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        btnSubGroup.setTextColor(Color.parseColor("#b46e6e"));
+                        btnCategory.setTextColor(Color.BLACK);
                         dialogSubGroup = new Dialog(getActivity());
                         dialogSubGroup.setContentView(R.layout.title_alertdialog_for_sub_group);
                         btnResetSubGroup = (ImageButton)dialogSubGroup.findViewById(R.id.reset_action_subgroup);
