@@ -9,8 +9,8 @@
     android:layout_height="match_parent"
     >
     <ImageView
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:foregroundGravity="center_horizontal|center_vertical"
         android:id="@+id/imbt_picProduct"
         android:padding="4dp"
