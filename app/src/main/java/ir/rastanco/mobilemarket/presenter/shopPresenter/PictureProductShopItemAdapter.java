@@ -1,20 +1,23 @@
 package ir.rastanco.mobilemarket.presenter.shopPresenter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -31,6 +34,8 @@ import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivi
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
 
+import static android.app.PendingIntent.getActivity;
+
 /**
  * Created by ShaisteS on 12/28/2015.
  * A Customize Adapter For Shop Grid view
@@ -45,7 +50,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private ServerConnectionHandler sch;
     private CounterIconUtils ciu;
     private Typeface brafficFont;
-    private final Context context;
+    private  Context context;
 
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
@@ -56,7 +61,8 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         sch=new ServerConnectionHandler(Configuration.superACFragment);
 
     }
-    public PictureProductShopItemAdapter(Context context) {
+    public PictureProductShopItemAdapter(Context context)
+    {
         this.context = context;
     }
 
@@ -157,12 +163,33 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
 
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_SUBJECT,"برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار \" دکوریس \" را دانلود کنید:");
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "http://cafebazaar.ir/app/?id=com.Arvand.HundredPercent");
-                sendIntent.setType("text/plain");
-                context.startActivity(sendIntent);
+                final Dialog shareDialog = new Dialog(context);
+                shareDialog.setContentView(R.layout.share_alert_dialog);
+                ImageButton cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
+                final Button sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
+                final EditText textToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
+                cancelShareDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        shareDialog.dismiss();
+                    }
+                });
+                sendBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String TextToSend = String.valueOf(textToShare.getText());
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار \" دکوریس \" را دانلود کنید:");
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "http://cafebazaar.ir/app/?id=com.Arvand.HundredPercent");
+                        sendIntent.setType("text/plain");
+//                        sendIntent.getExtras(TextToSend);
+                        context.startActivity(sendIntent);
+
+                    }
+                });
+                shareDialog.setCancelable(true);
+                shareDialog.show();
 
             }
         });

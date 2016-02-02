@@ -131,8 +131,8 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
         DecimalFormat formatter = new DecimalFormat("#,###,000");
 
-        txtProductPrice.setText("قیمت:"+"     "+formatter.format(amount)+ " " + "تومان");
-        totalPrice.setText("قیمت برای شما:"+"     "+formatter.format(amountOfFinalPrice) + " " +"تومان");
+        txtProductPrice.setText("قیمت:"+"     "+ formatter.format(amount)+ " " + "تومان");
+        totalPrice.setText("قیمت برای شما:"+"     " +formatter.format(amountOfFinalPrice) + " " +"تومان");
         txtProductPrice.setTypeface(trafficFont);
         totalPrice.setTypeface(trafficFont);
         return rowView;
