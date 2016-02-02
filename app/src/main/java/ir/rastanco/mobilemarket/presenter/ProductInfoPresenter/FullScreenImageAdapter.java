@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -112,8 +113,13 @@ public class FullScreenImageAdapter extends PagerAdapter{
         viewLayout = inflater.inflate(R.layout.activity_product_info, container,false);
         nameOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.name_of_photo);
         priceOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.price_of_photo);
+        String numberOfFinalPrice = String.valueOf(String.valueOf(products.get(position).getPrice()));
+        double amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
+        Typeface font = Typeface.createFromAsset(activity.getAssets(),"fonts/B Traffic.ttf");
+        DecimalFormat formatter = new DecimalFormat("#,###,000");
         nameOfCurrentProduct.setText(products.get(position).getTitle());
-        priceOfCurrentProduct.setText(String.valueOf(products.get(position).getPrice()));
+        priceOfCurrentProduct.setText(formatter.format(amountOfFinalPrice)+" " + "تومان");
+        priceOfCurrentProduct.setTypeface(font);
         btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
         if (products.get(position).getLike()==0){
             //this Product No Favorite
@@ -154,18 +160,18 @@ public class FullScreenImageAdapter extends PagerAdapter{
             }
         });
 
-        btnBuy = (ImageButton)viewLayout.findViewById(R.id.shopping_full_screen);
-        if (sch.checkSelectProductForShop(products.get(position).getId()))
-            btnBuy.setImageResource(R.mipmap.green_bye_toolbar);
-        else
-            btnBuy.setImageResource(R.mipmap.bye_toolbar);
-        btnBuy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-            }
-        });
+//        btnBuy = (ImageButton)viewLayout.findViewById(R.id.shopping_full_screen);
+//        if (sch.checkSelectProductForShop(products.get(position).getId()))
+//            btnBuy.setImageResource(R.mipmap.green_bye_toolbar);
+//        else
+//            btnBuy.setImageResource(R.mipmap.bye_toolbar);
+//        btnBuy.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//            }
+//        });
 
         btnShare = (ImageButton)viewLayout.findViewById(R.id.img_share_full_screen);
         btnShare.setOnClickListener(new View.OnClickListener() {
