@@ -27,6 +27,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageL
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Connect;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
+import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
 
@@ -36,7 +37,6 @@ import ir.rastanco.mobilemarket.utility.CounterIconUtils;
  */
 public class PictureProductShopItemAdapter extends BaseAdapter{
 
-    private Context context;
     private static LayoutInflater inflater=null;
     private ArrayList<Product> allProduct;
     private ProgressBar imageLoading;
@@ -45,6 +45,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private ServerConnectionHandler sch;
     private CounterIconUtils ciu;
     private Typeface brafficFont;
+    private final Context context;
 
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
@@ -54,6 +55,9 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         allProduct =products;
         sch=new ServerConnectionHandler(Configuration.superACFragment);
 
+    }
+    public PictureProductShopItemAdapter(Context context) {
+        this.context = context;
     }
 
     @Override
@@ -131,7 +135,8 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                     holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
                     isSelectedForShop=true;
                     sch.addProductToShoppingBag(allProduct.get(position).getId(),1);
-                    Toast.makeText(context,context.getResources().getString(R.string.added_to_basket),Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context,context.getResources().getString(R.string.added_to_basket),Toast.LENGTH_SHORT).show();
+                    context.startActivity(new Intent(context,ShoppingBagActivity.class));
                     Connect.setMyBoolean(true);
                     isSelectedForShop = true;
 
