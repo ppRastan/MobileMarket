@@ -110,14 +110,14 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         if (!(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1))
         {
             holder.offerRight.setVisibility(View.INVISIBLE);
-       //     if(holder.mProduct.getPriceOff() != 0) {
+           if(holder.mProduct.getPriceOff() != 0) {
 
                 holder.offerLeft.setVisibility(View.VISIBLE);
-         //   }
-           // else
-            //{
-              //  holder.offerLeft.setVisibility(View.INVISIBLE);
-            //}
+            }
+            else
+            {
+                holder.offerLeft.setVisibility(View.INVISIBLE);
+            }
         }
         holder.shareToolBar = (ImageButton)rowView.findViewById(R.id.share_toolbar_in_main_page);
         holder.basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
