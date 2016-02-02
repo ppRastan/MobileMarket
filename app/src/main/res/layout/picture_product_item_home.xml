@@ -16,7 +16,7 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_share"
+            android:src="@mipmap/ic_share_toolbar"
             android:id="@+id/imbt_share"
             android:layout_alignParentTop="false"
             android:layout_alignParentLeft="false"
