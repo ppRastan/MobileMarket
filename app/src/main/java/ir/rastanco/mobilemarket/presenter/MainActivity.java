@@ -50,6 +50,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
 
 //parisa rashidi nezhad connection
+//recommit
 public class MainActivity extends AppCompatActivity {
 
     @InjectView(R.id.toolbar)
