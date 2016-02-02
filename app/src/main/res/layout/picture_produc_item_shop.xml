@@ -50,7 +50,8 @@
         android:id="@+id/txt_infoProduct"
         android:textColor="@color/black"
         android:textIsSelectable="false"
-        android:textSize="13dp"
+        android:textSize="15dp"
+        android:singleLine="true"
         android:layout_gravity="center_vertical|center_horizontal"
         android:background="@color/white"
         android:gravity="center" />
@@ -62,7 +63,7 @@
         android:gravity="center"
         android:layout_gravity="center_horizontal|center_vertical"
         android:textColor="@color/black"
-        android:textSize="13dp"
+        android:textSize="15dp"
         android:background="@color/white"
         />
     <LinearLayout
