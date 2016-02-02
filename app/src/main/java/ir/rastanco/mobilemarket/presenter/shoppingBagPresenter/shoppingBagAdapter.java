@@ -131,15 +131,16 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
         DecimalFormat formatter = new DecimalFormat("#,###,000");
 
-        txtProductPrice.setText(formatter.format(amount));
-        totalPrice.setText(formatter.format(amountOfFinalPrice));
+        txtProductPrice.setText("قیمت:"+"     "+formatter.format(amount)+ " " + "تومان");
+        totalPrice.setText("قیمت برای شما:"+"     "+formatter.format(amountOfFinalPrice) + " " +"تومان");
         txtProductPrice.setTypeface(trafficFont);
         totalPrice.setTypeface(trafficFont);
         return rowView;
 
     }
 
-    public void updateList(ArrayList<Integer> results) {
+    public void updateList(ArrayList<Integer> results)
+    {
         selectedProducts = results;
         //Triggers the list update
         notifyDataSetChanged();
