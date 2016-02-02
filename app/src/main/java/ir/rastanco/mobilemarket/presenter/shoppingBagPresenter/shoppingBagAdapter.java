@@ -55,18 +55,14 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         final View rowView = inflater.inflate(R.layout.shopping_bag_item, null);
         aProduct=new Product();
         aProduct=sch.getAProduct(selectedProducts.get(position));
-        spinnerCounter = (Spinner)rowView.findViewById(R.id.spinner_counter);
+        spinnerCounter = (Spinner)rowView.findViewById(R.id.spinner);
         spinnerValueInString = spinnerCounter.getSelectedItem().toString();
         spinnerValueInInteger = Integer.parseInt(spinnerValueInString);
-        //spinnerValue = (EditText)rowView.findViewById(R.id.spinner_value);
-        //spinnerValue.setText(spinnerValueInString);
-        //spinnerValue.setTypeface(trafficFont);
-        ImageView imgProduct=(ImageView)rowView.findViewById(R.id.img_productImage);
-        TextView txtProductTitle=(TextView) rowView.findViewById(R.id.txt_productTitle);
-        TextView txtProductPrice=(TextView) rowView.findViewById(R.id.txt_productPrice);
-        TextView txtProductOff=(TextView) rowView.findViewById(R.id.txt_productOff);
-        Button btnDelete=(Button)rowView.findViewById(R.id.imb_delete);
-        TextView totalPrice = (TextView)rowView.findViewById(R.id.txt_total_price);
+        ImageView imgProduct=(ImageView)rowView.findViewById(R.id.shopping__bag_img);
+        TextView txtProductTitle=(TextView) rowView.findViewById(R.id.shopping_bag_txt_productTitle);
+        TextView txtProductPrice=(TextView) rowView.findViewById(R.id.shopping_bag_price_Of_product);
+        Button btnDelete=(Button)rowView.findViewById(R.id._shopping_bag_delete_btn);
+        TextView totalPrice = (TextView)rowView.findViewById(R.id.shopping_bag_price_for_you);
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,10 +132,8 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         DecimalFormat formatter = new DecimalFormat("#,###,000");
 
         txtProductPrice.setText(formatter.format(amount));
-        txtProductOff.setText(formatter.format(amountOfPriceOff));
         totalPrice.setText(formatter.format(amountOfFinalPrice));
         txtProductPrice.setTypeface(trafficFont);
-        txtProductOff.setTypeface(trafficFont);
         totalPrice.setTypeface(trafficFont);
         return rowView;
 

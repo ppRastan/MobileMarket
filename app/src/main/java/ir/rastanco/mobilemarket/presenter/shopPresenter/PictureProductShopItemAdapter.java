@@ -135,7 +135,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                     holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
                     isSelectedForShop=true;
                     sch.addProductToShoppingBag(allProduct.get(position).getId(),1);
-                    //Toast.makeText(context,context.getResources().getString(R.string.added_to_basket),Toast.LENGTH_SHORT).show();
                     context.startActivity(new Intent(context,ShoppingBagActivity.class));
                     Connect.setMyBoolean(true);
                     isSelectedForShop = true;
@@ -146,7 +145,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                     holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
                     isSelectedForShop=false;
                     sch.deleteAProductShopping(allProduct.get(position).getId());
-                    Toast.makeText(context,context.getResources().getString(R.string.delete_from_basket),Toast.LENGTH_SHORT).show();
                     Connect.setMyBoolean(false);
                     isSelectedForShop = false;
 

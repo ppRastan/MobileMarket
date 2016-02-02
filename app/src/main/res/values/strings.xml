@@ -39,7 +39,7 @@
     <string name="number_of_shopping_items">تعداد :</string>
     <string name="added_to_basket">کالا به سبد خرید شما افزوده شد</string>
     <string name="delete">حذف</string>
-    <string name="price">قابل پرداخت :</string>
+    <string name="price">قیمت برای شما:</string>
     <string name="peice">قیمت :</string>
     <string name="price_off">تخفیف :</string>
     <string name="telegram_not_installed">تلگرام روی گوشی شما نصب نیست</string>
@@ -58,25 +58,5 @@
         <item>8</item>
         <item>9</item>
         <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-        <item>24</item>
-        <item>25</item>
-        <item>26</item>
-        <item>27</item>
-        <item>28</item>
-        <item>29</item>
-        <item>30</item>
     </string-array>
 </resources>

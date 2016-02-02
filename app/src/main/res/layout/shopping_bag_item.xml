@@ -1,217 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/background_window"
+    >
+<android.support.v7.widget.CardView
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
-    <LinearLayout
+    >
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:weightSum="3"
-        android:background="@color/white"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:textSize="17dp"
-            android:layout_height="match_parent"
-            android:textColor="@color/black"
-            android:id="@+id/txt_productTitle"
-            android:background="@color/white"
-            android:gravity="center_vertical|center_horizontal"
-            android:singleLine="false"/>
+        android:layout_height="match_parent"
+        android:padding="13dp"
+        android:background="@color/white">
+
+
         <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:id="@+id/img_productImage"
-            android:background="@color/white"
-            android:layout_gravity="right"
-            android:paddingTop="7dp" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="4">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:textSize="18dp"
-                android:gravity="right"
-                android:background="@color/white"
-                android:text="@string/toman"
-                android:textColor="@color/black"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:padding="3dp"
-                android:layout_height="match_parent"
-                android:textColor="@color/black"
-                android:id="@+id/txt_productPrice"
-                android:textSize="18dp"
-                android:layout_gravity="center"
-                android:gravity="center_vertical|center_horizontal"
-                android:background="@color/white"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textSize="18dp"
-                android:textColor="@color/black"
-                android:background="@color/white"
-                android:layout_gravity="left"
-                android:gravity="left"
-                android:text="@string/peice"/>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="4">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:textSize="18dp"
-                android:gravity="right"
-                android:background="@color/white"
-                android:text="@string/toman"
-                android:textColor="@color/orange"/>
-
-            <TextView
-            android:padding="3dp"
-            android:layout_width="0dp"
-                android:layout_weight="2"
-            android:layout_height="wrap_content"
-            android:textColor="@color/orange"
-            android:id="@+id/txt_productOff"
-            android:textSize="18dp"
-            android:layout_gravity="center"
-            android:gravity="center_vertical|center_horizontal"
-            android:background="@color/white"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textSize="18dp"
-                android:textColor="@color/orange"
-                android:background="@color/white"
-                android:layout_gravity="left"
-                android:gravity="left"
-                android:text="@string/price_off"/>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="4">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:textSize="18dp"
-                android:gravity="right"
-                android:background="@color/white"
-                android:text="@string/toman"
-                android:textColor="@color/green"/>
-
-            <TextView
-                android:padding="3dp"
-                android:id="@+id/txt_total_price"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="18dp"
-                android:gravity="center_vertical|center_horizontal"
-                android:background="@color/white"
-                android:textColor="@color/green"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textSize="18dp"
-                android:textColor="@color/green"
-                android:background="@color/white"
-                android:layout_gravity="left"
-                android:gravity="left"
-                android:text="@string/price"/>
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        >
-        <Spinner
+            android:id="@+id/shopping__bag_img"
             android:layout_width="wrap_content"
+            android:background="@color/white"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner_counter"
-            android:padding="4dp"
-            android:entries="@array/spinnerItems"
-            android:layout_gravity="center_vertical|center_horizontal"
-            />
-        <!--<EditText-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:hint="1"-->
-            <!--android:id="@+id/spinner_value"-->
-            <!--android:padding="3dp"-->
-            <!--android:textColor="@color/black"-->
-            <!--android:layout_gravity="center_horizontal|center_vertical"/>-->
+            android:scaleType="centerCrop"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/shopping_bag_txt_productTitle"
+            android:layout_toEndOf="@+id/shopping_bag_txt_productTitle" />
 
         <TextView
-            android:padding="4dp"
+            android:background="@color/white"
+            android:id="@+id/shopping_bag_txt_productTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/number_of_shopping_items"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:textColor="@color/black"/>
-    </LinearLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imb_delete"
-        android:layout_gravity="left"
-        android:layout_weight="1"
-        android:padding="7dp"
-        android:background="@color/white"
-        android:text="@string/delete"
-        android:textSize="14dp"
-        android:textColor="@color/red"/>
+            android:maxLines="1"
+            android:padding="20dp"
+            android:text="title"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            android:layout_alignBottom="@+id/shopping__bag_img"
+            android:layout_centerHorizontal="true" />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/background_window">
+        <Spinner
+            android:background="@color/white"
+            android:entries="@array/spinnerItems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="#666"
+            android:textSize="12dp"
+            android:id="@+id/spinner"
+            android:layout_below="@+id/shopping_bag_txt_productTitle"
+            android:layout_alignLeft="@+id/shopping_bag_txt_productTitle"
+            android:layout_alignStart="@+id/shopping_bag_txt_productTitle" />
+        <TextView
+android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinner"
+            android:padding="8dp"
+            android:text="price"
+            android:id="@+id/shopping_bag_price_Of_product"
+            android:textColor="@color/black"
+            android:layout_marginRight="13dp"
+            android:textSize="14dp"
+            android:gravity="center_horizontal|right"/>
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/shopping_bag_price_Of_product"
+            android:maxLines="3"
+            android:padding="8dp"
+            android:text="price"
+            android:background="@color/white"
+            android:id="@+id/shopping_bag_price_for_you"
+            android:textColor="@color/green"
+            android:textSize="14dp"
+            android:layout_marginRight="13dp"
+            android:gravity="center_horizontal|right"/>
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="2dp"
+           android:padding="5dp"
+           android:layout_below="@+id/shopping_bag_price_for_you"
+           android:background="@color/background_window"
+           android:id="@+id/relative_layout">
+
+       </RelativeLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delete"
+            android:textColor="@color/orange"
+            android:padding="4dp"
+            android:id="@+id/_shopping_bag_delete_btn"
+            android:gravity="left|center_vertical"
+            android:background="@color/white"
+            android:layout_below="@+id/relative_layout"/>
+    </RelativeLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>
