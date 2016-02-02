@@ -31,7 +31,7 @@
     <string name="your_basket">سبد خرید شما</string>
     <string name="total_prica">جمع کل خرید</string>
     <string name="toman">تومان</string>
-    <string name="confirm_to_delete">آیامایل به حذف محصول از سبد خرید هستید ؟</string>
+    <string name="confirm_to_delete">آیا مایل به حذف محصول از سبد خرید هستید؟</string>
     <string name="yes">بله</string>
     <string name="no">خیر</string>
     <string name="number">30000</string>
@@ -79,5 +79,4 @@
         <item>29</item>
         <item>30</item>
     </string-array>
-<string-array name="text_to_share"></string-array>
 </resources>

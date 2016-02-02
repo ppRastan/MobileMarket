@@ -133,6 +133,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                     sch.addProductToShoppingBag(allProduct.get(position).getId(),1);
                     Toast.makeText(context,context.getResources().getString(R.string.added_to_basket),Toast.LENGTH_SHORT).show();
                     Connect.setMyBoolean(true);
+                    isSelectedForShop = true;
 
                 }
 
@@ -142,6 +143,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                     sch.deleteAProductShopping(allProduct.get(position).getId());
                     Toast.makeText(context,context.getResources().getString(R.string.delete_from_basket),Toast.LENGTH_SHORT).show();
                     Connect.setMyBoolean(false);
+                    isSelectedForShop = false;
 
                 }
             }
@@ -154,7 +156,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
 
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_SUBJECT,"برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار دکوریس را دانلود کنید :");
+                sendIntent.putExtra(Intent.EXTRA_SUBJECT,"برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار \" دکوریس \" را دانلود کنید:");
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "http://cafebazaar.ir/app/?id=com.Arvand.HundredPercent");
                 sendIntent.setType("text/plain");
                 context.startActivity(sendIntent);

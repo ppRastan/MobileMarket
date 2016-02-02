@@ -174,7 +174,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
 
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_SUBJECT,"برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار دکوریس را دانلود کنید :");
+                sendIntent.putExtra(Intent.EXTRA_SUBJECT,"برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار \" دکوریس \" را دانلود کنید:");
                 sendIntent.putExtra(Intent.EXTRA_TEXT, products.get(position).getLinkInSite());
                 sendIntent.setType("text/plain");
                 activity.startActivity(sendIntent);
@@ -260,7 +260,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
         final boolean isAppInstalled = isAppAvailable(activity.getApplicationContext(), appName);
         if (isAppInstalled) {
             Intent myIntent = new Intent(Intent.ACTION_SEND);
-            myIntent.putExtra(Intent.EXTRA_SUBJECT,"برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار دکوریس را دانلود کنید :");
+            myIntent.putExtra(Intent.EXTRA_SUBJECT,"برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار \" دکوریس \" را دانلود کنید:");
             myIntent.setType("text/plain");
             myIntent.setPackage(appName);
             myIntent.putExtra(Intent.EXTRA_TEXT, msg);//
