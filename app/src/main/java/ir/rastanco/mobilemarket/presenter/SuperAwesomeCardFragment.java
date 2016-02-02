@@ -957,7 +957,6 @@ public class SuperAwesomeCardFragment extends Fragment{
                                 adapter.add(articles.get(i));
                             }
                             adapter.notifyDataSetChanged();
-
                         }
                     }
                 });

@@ -34,13 +34,15 @@ public class ProductOptionActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_option);
         Configuration.ProductOptionFragment=this;
+        sch=new ServerConnectionHandler(Configuration.ProductOptionFragment);
 
         Intent intent = this.getIntent();
         int productId=intent.getIntExtra("productId", 0);
         int groupId=intent.getIntExtra("groupId",0);
+        aProduct=new Product();
+        aProduct=sch.getAProduct(productId);
         nameOfCurrentProduct = (TextView)findViewById(R.id.name_of_currrent_product);
-        //TODO for shayeste set name of product here
-        nameOfCurrentProduct.setText("name of product");
+        nameOfCurrentProduct.setText(aProduct.getTitle());
         rankOfProduct = (RatingBar)findViewById(R.id.rank_of_product);
         rankOfProduct.setRating(5);
         rankOfProduct.setPadding(3, 3, 3, 3);

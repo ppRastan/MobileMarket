@@ -112,9 +112,8 @@ public class FullScreenImageAdapter extends PagerAdapter{
         viewLayout = inflater.inflate(R.layout.activity_product_info, container,false);
         nameOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.name_of_photo);
         priceOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.price_of_photo);
-        //TODO get and display name and price of product
-        nameOfCurrentProduct.setText("میز");
-        priceOfCurrentProduct.setText("300000");
+        nameOfCurrentProduct.setText(products.get(position).getTitle());
+        priceOfCurrentProduct.setText(String.valueOf(products.get(position).getPrice()));
         btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
         if (products.get(position).getLike()==0){
             //this Product No Favorite
@@ -175,7 +174,6 @@ public class FullScreenImageAdapter extends PagerAdapter{
 
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                //TODO add the link you want to share bellow
                 sendIntent.putExtra(Intent.EXTRA_SUBJECT,"برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار دکوریس را دانلود کنید :");
                 sendIntent.putExtra(Intent.EXTRA_TEXT, products.get(position).getLinkInSite());
                 sendIntent.setType("text/plain");
