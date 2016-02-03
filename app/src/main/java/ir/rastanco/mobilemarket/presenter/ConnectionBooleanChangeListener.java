@@ -5,4 +5,5 @@ package ir.rastanco.mobilemarket.presenter;
  */
 interface ConnectionBooleanChangeListener {
     public void OnMyBooleanChanged();
+
 }

@@ -415,7 +415,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select User Information");
         return aUser;
     }
-    public ArrayList<Integer> selectAllProductShopping(){
+    public ArrayList<Integer> selectAllIdProductShopping(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblShopping", null);
         ArrayList<Integer> allProductsId=new ArrayList<Integer>();
@@ -430,6 +430,24 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
         Log.v("select", "Select All Product Id From Shopping Table ");
         return  allProductsId;
+
+    }
+    public Map<Integer,Integer> selectAllProductShopping(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from tblShopping", null);
+        Map<Integer,Integer> allProductsShop=new HashMap<Integer,Integer>();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    allProductsShop.put(rs.getInt(rs.getColumnIndex("fkProductId")),
+                            rs.getInt(rs.getColumnIndex("numberPurchased")));
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select All Products Info From Shopping Table ");
+        return  allProductsShop;
 
     }
     public boolean ExistAProductShopping(int productId){
@@ -471,9 +489,9 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Category");
         return allCategories;
     }
-    public Map<Integer,String> selectParentCategories(){
+    public Map<Integer,String> selectMainCategories(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId=0", null);
+        Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId=0 order by catId desc", null);
         Map<Integer,String> categoryTitles = new HashMap<Integer,String>();
         if (rs != null) {
             if (rs.moveToFirst()) {
@@ -491,7 +509,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     public ArrayList<Integer> selectChildIdOfACategory(int parentID){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select catId from tblCategory where parentId=" + parentID, null);
+        Cursor rs = db.rawQuery("select catId from tblCategory where parentId= " + parentID+" order by catId ASC", null);
         ArrayList<Integer> categoryId = new ArrayList<Integer>();
         if (rs != null) {
             if (rs.moveToFirst()) {
@@ -508,7 +526,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     public Map<Integer,String> selectChildOfACategory(int parentID){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId="+parentID, null);
+        Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId="+parentID+" order by catId desc", null);
         Map<Integer,String> categoryTitles = new HashMap<Integer,String>();
         if (rs != null) {
             if (rs.moveToFirst()) {
@@ -864,6 +882,15 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         db.update("tblProduct",values,
                 "productId=" +productId, null);
         Log.v("update", "Update a Product Like");
+    }
+
+    public void updateAShoppingNumberPurchased(int productId,int count) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values=new ContentValues();
+        values.put("numberPurchased",count);
+        db.update("tblShopping",values,
+                "fkProductId=" +productId, null);
+        Log.v("update", "Update a shopping Number Purchased");
     }
 
 

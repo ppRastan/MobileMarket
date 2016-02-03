@@ -2,6 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/update"
+        android:icon="@mipmap/decoriss_icon"
+        app:showAsAction="always"
+        android:title="به روز رسانی"/>
+
+    <item
         android:id="@+id/action_search"
         android:icon="@mipmap/ic_search"
         app:showAsAction="always"

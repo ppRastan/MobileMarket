@@ -54,11 +54,11 @@ public class UserInformation extends Fragment {
                 UserInfo aUser=new UserInfo();
                 String key=sch.GetKey("http://decoriss.com/json/get,com=auth");
                 //String key="974401741";
-                user= String.valueOf(username.getText());
-                //user="mahdavikia.m@gmail.com";
+                //user= String.valueOf(username.getText());
+                user="mahdavikia.m@gmail.com";
                 aUser.setUserEmail(user);
-                pass= String.valueOf(password.getText());
-                //pass="1234";
+                //pass= String.valueOf(password.getText());
+                pass="1234";
                 String hashInfo=sec.encode(user,pass,key);
                 ArrayList<String> response=new ArrayList<String>();
                 response=sch.GetAuthorizeResponse(hashInfo,key);

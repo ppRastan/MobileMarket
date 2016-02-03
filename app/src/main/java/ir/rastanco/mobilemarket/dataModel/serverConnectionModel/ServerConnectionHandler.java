@@ -64,6 +64,10 @@ public class ServerConnectionHandler {
 
         return dbh.selectAllCategory();
     }
+
+    public Map<Integer,String> getMainCategory(){
+        return dbh.selectMainCategories();
+    }
     public ArrayList<Category> getAllCategoryInfoURL(String url){
 
         GetJsonFile jParserCategory = new GetJsonFile();
@@ -357,8 +361,11 @@ public class ServerConnectionHandler {
         dbh.insertShoppingBag(productId,number);
     }
 
-    public ArrayList<Integer> getProductForShopping(){
+    public Map<Integer,Integer> getAllProductShopping(){
         return dbh.selectAllProductShopping();
+    }
+    public ArrayList<Integer> getProductShoppingID(){
+        return dbh.selectAllIdProductShopping();
     }
 
     public void deleteAProductShopping(int productId){
@@ -368,6 +375,9 @@ public class ServerConnectionHandler {
         return dbh.CounterProductShopping();
     }
 
+    public void changeShoppingNunmber(int productId,int count){
+        dbh.updateAShoppingNumberPurchased(productId,count);
+    }
 
 
 

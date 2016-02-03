@@ -8,12 +8,15 @@ import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -60,9 +63,44 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         spinnerValueInInteger = Integer.parseInt(spinnerValueInString);
         ImageView imgProduct=(ImageView)rowView.findViewById(R.id.shopping__bag_img);
         TextView txtProductTitle=(TextView) rowView.findViewById(R.id.shopping_bag_txt_productTitle);
-        TextView txtProductPrice=(TextView) rowView.findViewById(R.id.shopping_bag_price_Of_product);
+        final TextView txtProductPrice=(TextView) rowView.findViewById(R.id.shopping_bag_price_Of_product);
         Button btnDelete=(Button)rowView.findViewById(R.id._shopping_bag_delete_btn);
-        TextView totalPrice = (TextView)rowView.findViewById(R.id.shopping_bag_price_for_you);
+        final TextView totalPrice = (TextView)rowView.findViewById(R.id.shopping_bag_price_for_you);
+
+        spinnerCounter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                int counterSelected=Integer.parseInt(spinnerCounter.getSelectedItem().toString());
+                int finalPrice=0;
+                int off = 0;
+                if(aProduct.getPriceOff()!=0)
+                    off=((aProduct.getPrice()*aProduct.getPriceOff())/100);
+                finalPrice=((aProduct.getPrice()*counterSelected)-(off*counterSelected));
+                ///Price
+                String numberProductPrice = String.valueOf(aProduct.getPrice()*counterSelected);
+                double amount = Double.parseDouble(numberProductPrice);
+                ///off
+                String numberProducePriceOff = String.valueOf(off*counterSelected);
+                double amountOfPriceOff = Double.parseDouble(numberProducePriceOff);
+                ///FinalPrice
+                String numberOfFinalPrice = String.valueOf(finalPrice);
+                double amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
+
+                DecimalFormat formatter = new DecimalFormat("#,###,000");
+
+                txtProductPrice.setText("قیمت:"+"     "+ formatter.format(amount)+ " " + "تومان");
+                totalPrice.setText("قیمت برای شما:"+"     " +formatter.format(amountOfFinalPrice) + " " +"تومان");
+                txtProductPrice.setTypeface(trafficFont);
+                totalPrice.setTypeface(trafficFont);
+                sch.changeShoppingNunmber(aProduct.getId(),counterSelected);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override

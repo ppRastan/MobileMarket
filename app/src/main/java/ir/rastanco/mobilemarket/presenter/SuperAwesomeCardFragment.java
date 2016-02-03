@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import ir.rastanco.mobilemarket.R;
@@ -44,6 +45,10 @@ public class SuperAwesomeCardFragment extends Fragment{
     private ServerConnectionHandler sch;
     private ArrayList<Product> products;
     private ArrayList<Article> articles;
+    private Map<Integer,String> mainCategory;
+    private String second_page;
+    private String third_page;
+    private String fourth_page;
     private Button btnCategory;
     private Button btnSubGroup;
     private Dialog dialogGroup;
@@ -84,9 +89,25 @@ public class SuperAwesomeCardFragment extends Fragment{
         Configuration.superACFragment=getContext();
 
         sch=new ServerConnectionHandler(Configuration.superACFragment);
+        mainCategory= new HashMap<Integer,String>();
+        mainCategory=sch.getMainCategory();
         products=new ArrayList<Product>();
         articles=new ArrayList<Article>();
         articles=sch.getAllArticlesFromTable();
+
+        ArrayList<String> mainCategoryTitle=new ArrayList<String>();
+        for (Map.Entry<Integer, String> entry : mainCategory.entrySet()) {
+            mainCategoryTitle.add(entry.getValue());
+        }
+        /*second_page=mainCategoryTitle.get(0);
+        third_page=mainCategoryTitle.get(1);
+        fourth_page=mainCategoryTitle.get(2);*/
+
+        second_page=getResources().getString(R.string.second_page);
+        third_page=getResources().getString(R.string.third_page);
+        fourth_page=getResources().getString(R.string.fourth_page);
+
+
 
 
         switch (position) {
@@ -142,7 +163,8 @@ public class SuperAwesomeCardFragment extends Fragment{
                 break;
             }
             case 1:{
-                products=sch.ProductOfMainCategory("مبلمان منزل");
+
+                products=sch.ProductOfMainCategory(second_page);
                 mainView=inflater.inflate(R.layout.fragment_shop, null);
                 final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
                 final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
@@ -179,10 +201,10 @@ public class SuperAwesomeCardFragment extends Fragment{
                            @Override
                            public void run() {
                                sch.refreshProduct();
-                               for (int i=0;i<products.size();i++){
+                               /*for (int i=0;i<products.size();i++){
                                    sch.refreshProductOption(products.get(i).getGroupId(),products.get(i).getId());
-                               }
-                               products=sch.ProductOfMainCategory("مبلمان منزل");
+                               }*/
+                               products=sch.ProductOfMainCategory(second_page);
                                PictureProductShopItemAdapter newAdapter=new  PictureProductShopItemAdapter(getActivity(),products);
                                gridview.setAdapter(newAdapter);
                                newAdapter.notifyDataSetChanged();
@@ -194,7 +216,7 @@ public class SuperAwesomeCardFragment extends Fragment{
 
                 //Filter
                 ///FilterSubCategory
-                final Map<Integer, String> filterSubCategory = sch.getFilterSubCategory("مبلمان منزل");
+                final Map<Integer, String> filterSubCategory = sch.getFilterSubCategory(second_page);
                 final ArrayList<String> subCategoryTitle = new ArrayList<String>();
                 for (Map.Entry<Integer, String> entry : filterSubCategory.entrySet()) {
                     subCategoryTitle.add(entry.getValue());
@@ -202,7 +224,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                 final String[] categorySelected = new String[1];
                 categorySelected[0]=getActivity().getString(R.string.all);
                 final int[] categoryIdSelected = new int[1];
-                categoryIdSelected[0]=sch.getMainCategoryId("مبلمان منزل");
+                categoryIdSelected[0]=sch.getMainCategoryId(second_page);
 
                 groupTextView = (TextView)mainView.findViewById(R.id.group_dialog_text);
                 btnCategory=(Button)mainView.findViewById(R.id.group_dialog);
@@ -389,7 +411,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                 break;
             }
             case 2:{
-                products=sch.ProductOfMainCategory("کالای خواب");
+                products=sch.ProductOfMainCategory(third_page);
                 mainView=inflater.inflate(R.layout.fragment_shop, null);
                 final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
                 final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
@@ -426,7 +448,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                             @Override
                             public void run() {
                                 sch.refreshProduct();
-                                products=sch.ProductOfMainCategory("کالای خواب");
+                                products=sch.ProductOfMainCategory(third_page);
                                 PictureProductShopItemAdapter newAdapter=new  PictureProductShopItemAdapter(getActivity(),products);
                                 gridview.setAdapter(newAdapter);
                                 newAdapter.notifyDataSetChanged();
@@ -437,7 +459,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                 });
                 //Filter
                 ///FilterSubCategory
-                final Map<Integer, String> filterSubCategory = sch.getFilterSubCategory("کالای خواب");
+                final Map<Integer, String> filterSubCategory = sch.getFilterSubCategory(third_page);
                 final ArrayList<String> subCategoryTitle = new ArrayList<String>();
                 for (Map.Entry<Integer, String> entry : filterSubCategory.entrySet()) {
                     subCategoryTitle.add(entry.getValue());
@@ -445,7 +467,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                 final String[] categorySelected = new String[1];
                 categorySelected[0]=getActivity().getString(R.string.all);
                 final int[] categoryIdSelected = new int[1];
-                categoryIdSelected[0]=sch.getMainCategoryId("کالای خواب");
+                categoryIdSelected[0]=sch.getMainCategoryId(third_page);
 
                 groupTextView = (TextView)mainView.findViewById(R.id.group_dialog_text);
                 btnCategory=(Button)mainView.findViewById(R.id.group_dialog);
@@ -631,7 +653,7 @@ public class SuperAwesomeCardFragment extends Fragment{
 
             case 3:{
 
-                products=sch.ProductOfMainCategory("نوزاد و نوجوان");
+                products=sch.ProductOfMainCategory(fourth_page);
                 mainView=inflater.inflate(R.layout.fragment_shop, null);
                 final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
                 final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
@@ -668,7 +690,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                             @Override
                             public void run() {
                                 sch.refreshProduct();
-                                products=sch.ProductOfMainCategory("نوزاد و نوجوان");
+                                products=sch.ProductOfMainCategory(fourth_page);
                                 PictureProductShopItemAdapter newAdapter=new  PictureProductShopItemAdapter(getActivity(),products);
                                 gridview.setAdapter(newAdapter);
                                 newAdapter.notifyDataSetChanged();
@@ -679,7 +701,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                 });
                 //Filter
                 ///FilterSubCategory
-                final Map<Integer, String> filterSubCategory = sch.getFilterSubCategory("نوزاد و نوجوان");
+                final Map<Integer, String> filterSubCategory = sch.getFilterSubCategory(fourth_page);
                 final ArrayList<String> subCategoryTitle = new ArrayList<String>();
                 for (Map.Entry<Integer, String> entry : filterSubCategory.entrySet()) {
                     subCategoryTitle.add(entry.getValue());
@@ -687,7 +709,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                 final String[] categorySelected = new String[1];
                 categorySelected[0]=getActivity().getString(R.string.all);
                 final int[] categoryIdSelected = new int[1];
-                categoryIdSelected[0]=sch.getMainCategoryId("نوزاد و نوجوان");
+                categoryIdSelected[0]=sch.getMainCategoryId(fourth_page);
 
                 groupTextView = (TextView)mainView.findViewById(R.id.group_dialog_text);
                 btnCategory=(Button)mainView.findViewById(R.id.group_dialog);

@@ -38,7 +38,7 @@ public class Security {
         return generatedInformation;
     }
 
-    private String Base64(String information){
+    public String Base64(String information){
         return Base64.encodeToString(information.getBytes(),Base64.NO_WRAP); //0 or No_WRAP
     }
 
