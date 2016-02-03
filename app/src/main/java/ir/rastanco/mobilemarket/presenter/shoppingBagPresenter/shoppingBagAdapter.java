@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -88,8 +85,8 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
                 DecimalFormat formatter = new DecimalFormat("#,###,000");
 
-                txtProductPrice.setText("قیمت:"+"     "+ formatter.format(amount)+ " " + "تومان");
-                totalPrice.setText("قیمت برای شما:"+"     " +formatter.format(amountOfFinalPrice) + " " +"تومان");
+                txtProductPrice.setText("قیمت:" + "     " + formatter.format(amount) + " " + "تومان");
+                totalPrice.setText("قیمت برای شما:" + "     " + formatter.format(amountOfFinalPrice) + " " + "تومان");
                 sch.changeShoppingNunmber(aProduct.getId(),counterSelected);
             }
 
@@ -165,8 +162,8 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
         DecimalFormat formatter = new DecimalFormat("#,###,000");
 
-        txtProductPrice.setText("قیمت:"+"     "+ formatter.format(amount)+ "  " + "تومان");
-        totalPrice.setText("قیمت برای شما:"+"     " +formatter.format(amountOfFinalPrice) + "  " +"تومان");
+        txtProductPrice.setText("قیمت:" + "     " + formatter.format(amount) + "  " + "تومان");
+        totalPrice.setText("قیمت برای شما:" + "     " + formatter.format(amountOfFinalPrice) + "  " + "تومان");
         return rowView;
 
     }

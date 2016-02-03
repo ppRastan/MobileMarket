@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -20,8 +19,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -117,7 +114,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
         double amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
         DecimalFormat formatter = new DecimalFormat("#,###,000");
         nameOfCurrentProduct.setText(products.get(position).getTitle());
-        priceOfCurrentProduct.setText(formatter.format(amountOfFinalPrice)+" " + "تومان");
+        priceOfCurrentProduct.setText(formatter.format(amountOfFinalPrice) + " " + "تومان");
         btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
         if (products.get(position).getLike()==0){
             //this Product No Favorite
