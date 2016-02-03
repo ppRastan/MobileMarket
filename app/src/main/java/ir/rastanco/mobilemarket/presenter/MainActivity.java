@@ -393,7 +393,7 @@ public class MainActivity extends AppCompatActivity {
                         .getExternalStorageDirectory().toString()
                         + "/Download/Decoriss.apk");
 
-                byte data[] = new byte[1024];
+                byte data[] = new byte[2048];
 
                 long total = 0;
 
