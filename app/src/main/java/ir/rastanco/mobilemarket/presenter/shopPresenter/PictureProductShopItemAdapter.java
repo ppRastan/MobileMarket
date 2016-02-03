@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +33,6 @@ import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivi
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
 
-import static android.app.PendingIntent.getActivity;
-
 /**
  * Created by ShaisteS on 12/28/2015.
  * A Customize Adapter For Shop Grid view
@@ -45,7 +42,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private static LayoutInflater inflater=null;
     private ArrayList<Product> allProduct;
     private ProgressBar imageLoading;
-    private boolean isLikeButtonClicked = false;
+    private boolean isLikeButtonClicked = true;
     private boolean isSelectedForShop=false;
     private ServerConnectionHandler sch;
     private CounterIconUtils ciu;
