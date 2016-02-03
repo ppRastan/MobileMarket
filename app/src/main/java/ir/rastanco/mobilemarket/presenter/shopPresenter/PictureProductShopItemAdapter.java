@@ -104,6 +104,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         rowView = inflater.inflate(R.layout.picture_produc_item_shop, null);
 
         holder.infoP=(TextView) rowView.findViewById(R.id.txt_infoProduct);
+        holder.infoP.setTypeface(yekanFont);
         holder.priceP=(TextView) rowView.findViewById(R.id.txt_priceProduct);
         holder.priceP.setTypeface(yekanFont);
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
