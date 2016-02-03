@@ -93,7 +93,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private int mDividerColor;
 
     private int mTabPadding =7;
-    private int mTabTextSize = 10;
+    private int mTabTextSize = 13;
     private ColorStateList mTabTextColor = null;
 
     private int mPaddingLeft = 0;
@@ -200,8 +200,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         if (fontFamily != null) {
             tabTextTypefaceName = fontFamily;
         }
-        mTabTextTypeface = Typeface.create(tabTextTypefaceName, mTabTextTypefaceStyle);
-
+        //mTabTextTypeface = Typeface.create(tabTextTypefaceName, mTabTextTypefaceStyle);
+         mTabTextTypeface = Typeface.createFromAsset(getContext().getAssets(),"fonts/B Koodak Bold_p30download.com.ttf");
         //Bottom padding for the tabs container parent view to show indicator and underline
         setTabsContainerParentViewPaddings();
 
