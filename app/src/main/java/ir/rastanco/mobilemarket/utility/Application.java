@@ -4,6 +4,6 @@ public final class Application extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/B Kamran Bold_p30download.com.ttf");
+        FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/B Tabssom_p30download.com.ttf");
     }
 }
