@@ -4,8 +4,8 @@
     <color name="psts_background_tab_pressed_ripple">#AAFFFFFF</color>
     <color name="background_window">#d7d5d5</color>
     <color name="greenDark">#3E5F22</color>
-    <color name="banana">#DF0101</color>
-    <color name="orange">#DF0101</color>
+    <color name="banana">#EB4D2A</color>
+    <color name="orange">#EB4D2A</color>
     <color name="decoriss">#FAFAFA</color>
     <color name="black">#000000</color>
     <color name="light_black">#393737</color>
@@ -13,6 +13,6 @@
     <color name="fab_color">#FAFAFA</color>
     <color name="green">#31a140</color>
     <color name="golden">#ffd700</color>
-    <color name="red">#fc0a01</color>
+    <color name="red">#EB4D2A</color>
     <color name="selected_item_in_categori">#b46e6e</color>
 </resources>
