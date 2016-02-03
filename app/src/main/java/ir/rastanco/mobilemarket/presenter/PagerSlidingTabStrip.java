@@ -201,7 +201,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
             tabTextTypefaceName = fontFamily;
         }
         //mTabTextTypeface = Typeface.create(tabTextTypefaceName, mTabTextTypefaceStyle);
-         mTabTextTypeface = Typeface.createFromAsset(getContext().getAssets(),"fonts/B Koodak Bold_p30download.com.ttf");
+         mTabTextTypeface = Typeface.createFromAsset(getContext().getAssets(),"fonts/Droid.Arabic.Kufi_p30download.com.TTF");
         //Bottom padding for the tabs container parent view to show indicator and underline
         setTabsContainerParentViewPaddings();
 
