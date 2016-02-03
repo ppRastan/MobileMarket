@@ -176,13 +176,12 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 sendBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String TextToSend = String.valueOf(textToShare.getText());
+                        final String TextToSend = String.valueOf(textToShare.getText());
                         Intent sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.putExtra(Intent.EXTRA_SUBJECT, "برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار \" دکوریس \" را دانلود کنید:");
+                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,TextToSend);
                         sendIntent.putExtra(Intent.EXTRA_TEXT, "http://cafebazaar.ir/app/?id=com.Arvand.HundredPercent");
                         sendIntent.setType("text/plain");
-//                        sendIntent.getExtras(TextToSend);
                         context.startActivity(sendIntent);
 
                     }

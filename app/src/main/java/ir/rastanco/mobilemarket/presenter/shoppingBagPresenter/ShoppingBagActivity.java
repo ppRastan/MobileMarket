@@ -2,6 +2,7 @@ package ir.rastanco.mobilemarket.presenter.shoppingBagPresenter;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -43,6 +44,7 @@ public class ShoppingBagActivity extends Activity {
         Configuration.ShoppingBagActivity=this;
         sec=new Security();
         setContentView(R.layout.activity_shopping_bag);
+        Typeface yekan= Typeface.createFromAsset(getAssets(),"fonts/Yekan_3.ttf");
         totalPrice = (TextView)findViewById(R.id.total_price);
         closeShoppingPage = (ImageButton)findViewById(R.id.close_shopping_page);
         closeShoppingPage.setOnClickListener(new View.OnClickListener() {
@@ -111,13 +113,12 @@ public class ShoppingBagActivity extends Activity {
             price=product.getPrice()-off;
             finalPrice=finalPrice+price;
         }
-
         totalPrice.setText(String.valueOf(finalPrice));
         String numberProductPrice = String.valueOf(totalPrice.getText());
         double finalPriceToolbar = Double.parseDouble(numberProductPrice);
         DecimalFormat formatter = new DecimalFormat("#,###,000");
         totalPrice.setText(formatter.format(finalPriceToolbar));
-
+        //totalPrice.setTypeface(yekan);
 
 
 

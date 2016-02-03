@@ -42,6 +42,7 @@
         android:textSize="13dp"
         android:textColor="@color/black"
         android:id="@+id/text_to_send"
+        android:hint="@string/text_to_send"
         android:padding="4dp"/>
     <Button
         android:background="@color/white"

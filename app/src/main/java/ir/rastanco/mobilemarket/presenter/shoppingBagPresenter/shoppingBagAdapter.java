@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
         LayoutInflater inflater = myContext.getLayoutInflater();
         final View rowView = inflater.inflate(R.layout.shopping_bag_item, null);
+        final Typeface yekan= Typeface.createFromAsset(myContext.getAssets(), "fonts/Yekan_3.ttf");
         aProduct=new Product();
         aProduct=sch.getAProduct(selectedProducts.get(position));
         spinnerCounter = (Spinner)rowView.findViewById(R.id.spinner);
@@ -87,7 +89,9 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
                 txtProductPrice.setText("قیمت:" + "     " + formatter.format(amount) + " " + "تومان");
                 totalPrice.setText("قیمت برای شما:" + "     " + formatter.format(amountOfFinalPrice) + " " + "تومان");
-                sch.changeShoppingNunmber(aProduct.getId(),counterSelected);
+                sch.changeShoppingNunmber(aProduct.getId(), counterSelected);
+                //totalPrice.setTypeface(yekan);
+                //txtProductPrice.setTypeface(yekan);
             }
 
             @Override
