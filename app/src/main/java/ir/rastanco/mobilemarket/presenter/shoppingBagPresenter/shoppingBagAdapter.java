@@ -47,13 +47,14 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         selectedProducts = productsId;
         myContext =(Activity) context;
         sch=new ServerConnectionHandler(context);
+
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = myContext.getLayoutInflater();
         final View rowView = inflater.inflate(R.layout.shopping_bag_item, null);
-        final Typeface yekan= Typeface.createFromAsset(myContext.getAssets(), "fonts/Yekan_3.ttf");
+        //final Typeface traficFont= Typeface.createFromAsset(myContext.getAssets(), "fonts/Yekan_3.ttf");
         aProduct=new Product();
         aProduct=sch.getAProduct(selectedProducts.get(position));
         spinnerCounter = (Spinner)rowView.findViewById(R.id.spinner);
@@ -90,8 +91,8 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
                 txtProductPrice.setText("قیمت:" + "     " + formatter.format(amount) + " " + "تومان");
                 totalPrice.setText("قیمت برای شما:" + "     " + formatter.format(amountOfFinalPrice) + " " + "تومان");
                 sch.changeShoppingNunmber(aProduct.getId(), counterSelected);
-                //totalPrice.setTypeface(yekan);
-                //txtProductPrice.setTypeface(yekan);
+                //totalPrice.setTypeface(traficFont);
+                //txtProductPrice.setTypeface(traficFont);
             }
 
             @Override
