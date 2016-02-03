@@ -57,7 +57,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         allProduct =products;
         sch=new ServerConnectionHandler(Configuration.superACFragment);
-        yekanFont = Typeface.createFromAsset(context.getAssets(),"fonts/B Nazanin_p30download.com.ttf");
+        yekanFont = Typeface.createFromAsset(context.getAssets(),"fonts/B Kamran Bold_p30download.com.ttf");
 
     }
     public PictureProductShopItemAdapter(Context context)
