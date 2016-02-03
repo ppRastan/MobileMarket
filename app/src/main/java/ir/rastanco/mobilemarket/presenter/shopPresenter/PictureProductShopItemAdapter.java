@@ -50,14 +50,12 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private ServerConnectionHandler sch;
     private CounterIconUtils ciu;
     private  Context context;
-    Typeface koodakFont;
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
         context=mainActivity;
         inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         allProduct =products;
         sch=new ServerConnectionHandler(Configuration.superACFragment);
-        koodakFont = Typeface.createFromAsset(context.getAssets(),"fonts/B Koodak Bold_p30download.com.ttf");
 
     }
     public PictureProductShopItemAdapter(Context context)
@@ -105,7 +103,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
 
         holder.infoP=(TextView) rowView.findViewById(R.id.txt_infoProduct);
         holder.priceP=(TextView) rowView.findViewById(R.id.txt_priceProduct);
-        holder.priceP.setTypeface(koodakFont);
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
         holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
         holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
