@@ -45,7 +45,6 @@ public class ShoppingBagActivity extends Activity {
         Configuration.ShoppingBagActivity=this;
         sec=new Security();
         setContentView(R.layout.activity_shopping_bag);
-        Typeface btraffic= Typeface.createFromAsset(getAssets(),"fonts/B Traffic.ttf");
         totalPrice = (TextView)findViewById(R.id.total_price);
         closeShoppingPage = (ImageButton)findViewById(R.id.close_shopping_page);
         closeShoppingPage.setOnClickListener(new View.OnClickListener() {
@@ -119,7 +118,6 @@ public class ShoppingBagActivity extends Activity {
         String numberProductPrice = String.valueOf(totalPrice.getText());
         double finalPriceToolbar = Double.parseDouble(numberProductPrice);
         DecimalFormat formatter = new DecimalFormat("#,###,000");
-        totalPrice.setTypeface(btraffic);
         totalPrice.setText(formatter.format(finalPriceToolbar));
 
 

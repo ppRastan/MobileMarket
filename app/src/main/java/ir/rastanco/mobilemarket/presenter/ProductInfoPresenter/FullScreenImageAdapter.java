@@ -115,11 +115,9 @@ public class FullScreenImageAdapter extends PagerAdapter{
         priceOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.price_of_photo);
         String numberOfFinalPrice = String.valueOf(String.valueOf(products.get(position).getPrice()));
         double amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
-        Typeface font = Typeface.createFromAsset(activity.getAssets(),"fonts/B Traffic.ttf");
         DecimalFormat formatter = new DecimalFormat("#,###,000");
         nameOfCurrentProduct.setText(products.get(position).getTitle());
         priceOfCurrentProduct.setText(formatter.format(amountOfFinalPrice)+" " + "تومان");
-        priceOfCurrentProduct.setTypeface(font);
         btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
         if (products.get(position).getLike()==0){
             //this Product No Favorite

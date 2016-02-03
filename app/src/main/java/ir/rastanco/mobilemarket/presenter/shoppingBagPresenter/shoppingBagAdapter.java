@@ -42,7 +42,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private String spinnerValueInString;
     private int spinnerValueInInteger;
     EditText spinnerValue;
-    private Typeface trafficFont;
 
     public shoppingBagAdapter(Context context, int resource, ArrayList<Integer> productsId) {
         super(context, resource, productsId);
@@ -91,8 +90,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
                 txtProductPrice.setText("قیمت:"+"     "+ formatter.format(amount)+ " " + "تومان");
                 totalPrice.setText("قیمت برای شما:"+"     " +formatter.format(amountOfFinalPrice) + " " +"تومان");
-                txtProductPrice.setTypeface(trafficFont);
-                totalPrice.setTypeface(trafficFont);
                 sch.changeShoppingNunmber(aProduct.getId(),counterSelected);
             }
 
@@ -145,7 +142,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
                 "&size="+
                 Configuration.articleDisplaySize+"x"+Configuration.articleDisplaySize+
                 "&q=30";
-        trafficFont = Typeface.createFromAsset(getContext().getAssets(),"fonts/B Traffic.ttf");
         imgLoader.DisplayImage(image_url_1, imgProduct);
 
 
@@ -171,8 +167,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
         txtProductPrice.setText("قیمت:"+"     "+ formatter.format(amount)+ "  " + "تومان");
         totalPrice.setText("قیمت برای شما:"+"     " +formatter.format(amountOfFinalPrice) + "  " +"تومان");
-        //txtProductPrice.setTypeface(trafficFont);
-        //totalPrice.setTypeface(trafficFont);
         return rowView;
 
     }
@@ -180,7 +174,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     public void updateList(ArrayList<Integer> results)
     {
         selectedProducts = results;
-        //Triggers the list update
         notifyDataSetChanged();
     }
 

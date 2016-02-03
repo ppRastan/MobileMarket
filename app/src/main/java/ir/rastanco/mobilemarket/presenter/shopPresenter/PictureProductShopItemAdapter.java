@@ -55,7 +55,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
         context=mainActivity;
-        brafficFont = Typeface.createFromAsset(context.getAssets(), "fonts/B Traffic.ttf");
         inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         allProduct =products;
         sch=new ServerConnectionHandler(Configuration.superACFragment);
