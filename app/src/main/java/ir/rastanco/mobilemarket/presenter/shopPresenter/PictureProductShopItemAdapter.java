@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.app.FragmentActivity;
@@ -47,7 +48,13 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private ServerConnectionHandler sch;
     private CounterIconUtils ciu;
     private  Context context;
-    Typeface yekanFont;
+    private Typeface yekanFont;
+    private String textToSend = null;
+    private Dialog shareDialog;
+    private ImageButton cancelShareDialog;
+    private Button sendBtn;
+    private EditText editTextToShare;
+    private Intent sendIntent;
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
         context=mainActivity;
@@ -161,12 +168,11 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.shareToolBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                final Dialog shareDialog = new Dialog(context);
+                shareDialog = new Dialog(context);
                 shareDialog.setContentView(R.layout.share_alert_dialog);
-                ImageButton cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
-                final Button sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
-                final EditText textToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
+                cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
+                sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
+                editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
                 cancelShareDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -176,10 +182,17 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 sendBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        final String TextToSend = String.valueOf(textToShare.getText());
-                        Intent sendIntent = new Intent();
+                        sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
+                        textToSend = editTextToShare.getText().toString();
+                        sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,TextToSend);
+                        if(textToSend.matches("")){
+                            sendIntent.putExtra(Intent.EXTRA_SUBJECT,context.getResources().getString(R.string.text_to_send));
+                        }
+                        else {
+                            sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
+                        }
+
                         sendIntent.putExtra(Intent.EXTRA_TEXT, "http://cafebazaar.ir/app/?id=com.Arvand.HundredPercent");
                         sendIntent.setType("text/plain");
                         context.startActivity(sendIntent);
