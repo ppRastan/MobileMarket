@@ -49,15 +49,15 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private boolean isSelectedForShop=false;
     private ServerConnectionHandler sch;
     private CounterIconUtils ciu;
-    private Typeface brafficFont;
     private  Context context;
-
+    Typeface koodakFont;
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
         context=mainActivity;
         inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         allProduct =products;
         sch=new ServerConnectionHandler(Configuration.superACFragment);
+        koodakFont = Typeface.createFromAsset(context.getAssets(),"fonts/B Koodak Bold_p30download.com.ttf");
 
     }
     public PictureProductShopItemAdapter(Context context)
@@ -91,6 +91,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         ImageButton offerLeft;
         ImageButton offerRight;
         Product mProduct;
+
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -101,9 +102,11 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
 
         final View rowView;
         rowView = inflater.inflate(R.layout.picture_produc_item_shop, null);
+
         holder.infoP=(TextView) rowView.findViewById(R.id.txt_infoProduct);
+        holder.infoP.setTypeface(koodakFont);
         holder.priceP=(TextView) rowView.findViewById(R.id.txt_priceProduct);
-        holder.priceP.setTypeface(brafficFont);
+        holder.priceP.setTypeface(koodakFont);
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
         holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
         holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);

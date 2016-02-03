@@ -44,7 +44,7 @@ public class ShoppingBagActivity extends Activity {
         Configuration.ShoppingBagActivity=this;
         sec=new Security();
         setContentView(R.layout.activity_shopping_bag);
-        Typeface trafficFont= Typeface.createFromAsset(getAssets(),"fonts/B Koodak Bold_p30download.com.ttf");
+        //Typeface trafficFont= Typeface.createFromAsset(getAssets(),"fonts/B Koodak Bold_p30download.com.ttf");
         totalPrice = (TextView)findViewById(R.id.total_price);
         closeShoppingPage = (ImageButton)findViewById(R.id.close_shopping_page);
         closeShoppingPage.setOnClickListener(new View.OnClickListener() {
@@ -118,7 +118,7 @@ public class ShoppingBagActivity extends Activity {
         double finalPriceToolbar = Double.parseDouble(numberProductPrice);
         DecimalFormat formatter = new DecimalFormat("#,###,000");
         totalPrice.setText(formatter.format(finalPriceToolbar)+"   "+ "تومان");
-        totalPrice.setTypeface(trafficFont);
+       // totalPrice.setTypeface(trafficFont);
 
 
 
