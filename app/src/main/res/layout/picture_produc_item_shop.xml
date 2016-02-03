@@ -20,7 +20,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_offer_right_red"
+        android:src="@mipmap/ic_offer_right_orange"
         android:id="@+id/ic_offer_right"
         android:background="#10f7f7f7"
         android:padding="4dp"
@@ -32,7 +32,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_offer_left_red"
+        android:src="@mipmap/ic_offer_left_orange"
         android:id="@+id/ic_offer_left"
         android:background="#10f7f7f7"
         android:padding="4dp"
