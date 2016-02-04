@@ -5,15 +5,19 @@ package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
  */
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -52,6 +56,13 @@ public class FullScreenImageAdapter extends PagerAdapter{
     private TextView nameOfCurrentProduct;
     private TextView priceOfCurrentProduct;
     private Product aProduct;
+    private String textToSend = null;
+    private Dialog shareDialog;
+    private ImageButton cancelShareDialog;
+    private Button sendBtn;
+    private EditText editTextToShare;
+    private Intent sendIntent;
+
     // constructor
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
@@ -172,13 +183,40 @@ public class FullScreenImageAdapter extends PagerAdapter{
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                shareDialog = new Dialog(context);
+                shareDialog.setContentView(R.layout.share_alert_dialog);
+                cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
+                sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
+                editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
+                cancelShareDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        shareDialog.dismiss();
+                    }
+                });
+                sendBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
+                        textToSend = editTextToShare.getText().toString();
+                        sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        if(textToSend.matches("")){
+                            sendIntent.putExtra(Intent.EXTRA_SUBJECT,context.getResources().getString(R.string.text_to_send));
+                        }
+                        else {
+                            sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
+                        }
 
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_SUBJECT,"برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار \" دکوریس \" را دانلود کنید:");
-                sendIntent.putExtra(Intent.EXTRA_TEXT, products.get(position).getLinkInSite());
-                sendIntent.setType("text/plain");
-                activity.startActivity(sendIntent);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, products.get(position).getLinkInSite());
+                        sendIntent.setType("text/plain");
+                        context.startActivity(sendIntent);
+
+                    }
+                });
+                shareDialog.setCancelable(true);
+                shareDialog.show();
+
             }
         });
 
