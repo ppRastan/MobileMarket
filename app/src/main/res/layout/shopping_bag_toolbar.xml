@@ -8,32 +8,5 @@
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="10"
-        android:id="@+id/main_toolbar"
-        android:orientation="horizontal">
 
-
-      <TextView
-          android:layout_width="0dp"
-          android:layout_height="match_parent"
-          android:layout_weight="8"
-          android:layout_marginRight="1dp"
-          android:text="@string/your_basket"
-          android:gravity="center_vertical|right"
-          android:textColor="@color/black"
-          android:textSize="17dp"/>
-
-        <ImageButton
-            android:layout_width="0dp"
-            android:layout_weight="2"
-
-            android:id="@+id/close_shopping_page"
-            android:background="@color/decoriss"
-            android:src="@mipmap/ic_cancel_dialog"
-            android:layout_height="match_parent" />
-
-        </LinearLayout>
 </android.support.v7.widget.Toolbar>

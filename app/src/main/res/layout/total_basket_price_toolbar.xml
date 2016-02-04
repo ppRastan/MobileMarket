@@ -3,40 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/my_toolbar"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/decoriss"
     android:layout_width="match_parent"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="8"
-        android:id="@+id/shopping_toolbar"
-        android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="5"
-                    android:layout_height="match_parent"
-                    android:padding="3dp"
-                    android:gravity="center_vertical|left"
-                    android:id="@+id/total_price"
-                    android:textColor="@color/green"
-                    android:textSize="18dp"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_marginRight="2dp"
-            android:layout_weight="3"
-            android:layout_height="match_parent"
-            android:text="@string/total_prica"
-            android:singleLine="true"
-            android:layout_gravity="right"
-            android:gravity="right|center_vertical"
-            android:textColor="@color/green"
-            android:paddingRight="9dp"
-            android:textSize="16dp"/>
-
-
-    </LinearLayout>
 </android.support.v7.widget.Toolbar>

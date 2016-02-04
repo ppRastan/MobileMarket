@@ -2,41 +2,95 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:weightSum="10.5"
     android:layout_height="match_parent"
     android:background="@color/decoriss">
-    <include layout="@layout/shopping_bag_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        />
-    <include layout="@layout/total_basket_price_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-       />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="10"
-        android:background="@color/white">
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:background="@color/decoriss"></LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="10"
+            android:background="@color/decoriss"
+            android:id="@+id/main_toolbar"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:layout_marginRight="1dp"
+                android:text="@string/your_basket"
+                android:gravity="center_vertical|right"
+                android:textColor="@color/black"
+                android:textSize="17dp"/>
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:id="@+id/close_shopping_page"
+                android:background="@color/decoriss"
+                android:src="@mipmap/ic_cancel_dialog"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:weightSum="8"
+            android:background="@color/decoriss"
+            android:id="@+id/shopping_toolbar"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="match_parent"
+                android:padding="3dp"
+                android:gravity="center_vertical|left"
+                android:id="@+id/total_price"
+                android:textColor="@color/green"
+                android:textSize="18dp"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="3"
+                android:layout_height="match_parent"
+                android:text="@string/total_prica"
+                android:singleLine="true"
+                android:layout_gravity="right"
+                android:gravity="right|center_vertical"
+                android:textColor="@color/green"
+                android:paddingRight="9dp"
+                android:textSize="16dp"/>
+        </LinearLayout>
         <ListView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8.5"
+            android:layout_weight="7"
             android:id="@+id/lv_shoppingBag"
             android:layout_gravity="right"
             android:divider="@color/white"
             android:background="@color/white"/>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="@color/green"
+    android:gravity="center_vertical|center_horizontal">
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:background="@color/green"
+        android:textColor="@color/white"
+        android:text="@string/finish_shopping"
+        android:textSize="14dp"
+        android:id="@+id/ok_shop"
+        android:drawableLeft="@mipmap/finish_shopping"
+        android:drawablePadding="5dp"/>
+</LinearLayout>
 
-
-            <Button
-            android:layout_height="0dp"
-            android:layout_weight="1.5"
-            android:layout_width="match_parent"
-            android:background="@color/green"
-            android:textColor="@color/white"
-                android:layoutDirection="rtl"
-
-            android:text="@string/bye"
-            android:id="@+id/ok_shop" />
        </LinearLayout>
-    </LinearLayout>
