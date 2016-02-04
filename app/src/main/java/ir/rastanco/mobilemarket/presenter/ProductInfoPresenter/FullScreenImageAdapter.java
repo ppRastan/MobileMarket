@@ -183,7 +183,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shareDialog = new Dialog(context);
+                shareDialog = new Dialog(activity);
                 shareDialog.setContentView(R.layout.share_alert_dialog);
                 cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
                 sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
@@ -202,7 +202,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
                         if(textToSend.matches("")){
-                            sendIntent.putExtra(Intent.EXTRA_SUBJECT,context.getResources().getString(R.string.text_to_send));
+                            sendIntent.putExtra(Intent.EXTRA_SUBJECT,activity.getResources().getString(R.string.text_to_send));
                         }
                         else {
                             sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
@@ -210,7 +210,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
 
                         sendIntent.putExtra(Intent.EXTRA_TEXT, products.get(position).getLinkInSite());
                         sendIntent.setType("text/plain");
-                        context.startActivity(sendIntent);
+                        activity.startActivity(sendIntent);
 
                     }
                 });
@@ -298,18 +298,47 @@ public class FullScreenImageAdapter extends PagerAdapter{
         return viewLayout;
     }
 
-    private void shareByTelegram(int position) {
+    private void shareByTelegram(final int position) {
 
         final String appName = "org.telegram.messenger";
-        String msg = products.get(position).getLinkInSite();
+        final String msg = products.get(position).getLinkInSite();
         final boolean isAppInstalled = isAppAvailable(activity.getApplicationContext(), appName);
         if (isAppInstalled) {
-            Intent myIntent = new Intent(Intent.ACTION_SEND);
-            myIntent.putExtra(Intent.EXTRA_SUBJECT,"برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار \" دکوریس \" را دانلود کنید:");
-            myIntent.setType("text/plain");
-            myIntent.setPackage(appName);
-            myIntent.putExtra(Intent.EXTRA_TEXT, msg);//
-            activity.startActivity(Intent.createChooser(myIntent, "Share with"));
+            shareDialog = new Dialog(activity);
+            shareDialog.setContentView(R.layout.share_alert_dialog);
+            cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
+            sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
+            editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
+            cancelShareDialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    shareDialog.dismiss();
+                }
+            });
+            sendBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
+                    textToSend = editTextToShare.getText().toString();
+                    sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    if(textToSend.matches("")){
+                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,activity.getResources().getString(R.string.text_to_send));
+                    }
+                    else {
+                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
+                    }
+
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, msg);
+                    sendIntent.setType("text/plain");
+                    sendIntent.setPackage(appName);
+                    activity.startActivity(sendIntent);
+
+                }
+            });
+            shareDialog.setCancelable(true);
+            shareDialog.show();
+
         }
         else
         {
