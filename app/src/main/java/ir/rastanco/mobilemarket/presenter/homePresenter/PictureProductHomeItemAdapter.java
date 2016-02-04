@@ -1,14 +1,18 @@
 package ir.rastanco.mobilemarket.presenter.homePresenter;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -32,7 +36,13 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
     private Activity myContext;
     private ArrayList<Product> allProduct;
     private ServerConnectionHandler sch;
-
+    private ImageButton shareBtn;
+    private String textToSend = null;
+    private Dialog shareDialog;
+    private ImageButton cancelShareDialog;
+    private Button sendBtn;
+    private EditText editTextToShare;
+    private Intent sendIntent;
     public PictureProductHomeItemAdapter(Context context, int resource, ArrayList<Product> products) {
         super(context, resource,products);
         myContext=(Activity)context;
@@ -46,7 +56,46 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
         Bitmap image=null;
         LayoutInflater inflater = myContext.getLayoutInflater();
         final View rowView = inflater.inflate(R.layout.picture_product_item_home, null);
+        shareBtn = (ImageButton) rowView.findViewById(R.id.imbt_share);
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                shareDialog = new Dialog(myContext);
+                shareDialog.setContentView(R.layout.share_alert_dialog);
+                cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
+                sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
+                editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
+                cancelShareDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        shareDialog.dismiss();
+                    }
+                });
+                sendBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
+                        textToSend = editTextToShare.getText().toString();
+                        sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        if(textToSend.matches("")){
+                            sendIntent.putExtra(Intent.EXTRA_SUBJECT,myContext.getResources().getString(R.string.text_to_send));
+                        }
+                        else {
+                            sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
+                        }
+
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "http://cafebazaar.ir/app/?id=com.Arvand.HundredPercent");
+                        sendIntent.setType("text/plain");
+                        myContext.startActivity(sendIntent);
+
+                    }
+                });
+                shareDialog.setCancelable(true);
+                shareDialog.show();
+            }
+        });
 
         ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
         ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);

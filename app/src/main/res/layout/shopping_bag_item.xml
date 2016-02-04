@@ -20,9 +20,9 @@
 
         <ImageView
             android:id="@+id/shopping__bag_img"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:background="@color/white"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:scaleType="centerCrop"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/shopping_bag_txt_productTitle"
@@ -43,7 +43,7 @@
 
 
         <Spinner
-            android:background="@color/white"
+            android:labelFor="@string/number_of_shopping_items"
             android:entries="@array/spinnerItems"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,13 +54,7 @@
             android:layout_below="@+id/shopping_bag_txt_productTitle"
             android:layout_alignLeft="@+id/shopping_bag_txt_productTitle"
             android:layout_alignStart="@+id/shopping_bag_txt_productTitle" />
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/number_of_shopping_items"-->
-            <!--android:textColor="@color/black"-->
-            <!--android:id="@+id/number_of_products"-->
-            <!--/>-->
+
         <TextView
 android:background="@color/white"
             android:layout_width="match_parent"
