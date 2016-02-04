@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -231,12 +230,11 @@ public class SuperAwesomeCardFragment extends Fragment{
                 btnCategory.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        btnCategory.setTextColor(Color.parseColor("#b46e6e"));
-                        btnSubGroup.setTextColor(Color.BLACK);
                         dialogGroup = new Dialog(getActivity());
                         dialogGroup.setContentView(R.layout.title_alertdialog_for_group);
                         btnCancelAlertDialog = (ImageButton) dialogGroup.findViewById(R.id.cancel);
                         btnResetAlertDialog = (ImageButton)dialogGroup.findViewById(R.id.reset_action);
+                        groupTextView.setTextColor(Color.parseColor("#EB4D2A"));
                         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -289,12 +287,11 @@ public class SuperAwesomeCardFragment extends Fragment{
                 btnSubGroup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        btnSubGroup.setTextColor(Color.parseColor("#b46e6e"));
-                        btnCategory.setTextColor(Color.BLACK);
                         dialogSubGroup = new Dialog(getActivity());
                         dialogSubGroup.setContentView(R.layout.title_alertdialog_for_sub_group);
                         btnResetSubGroup = (ImageButton)dialogSubGroup.findViewById(R.id.reset_action_subgroup);
                         btnCancleSubGroup = (ImageButton)dialogSubGroup.findViewById(R.id.cancel_action_subgroup);
+                        subGroupTextView.setTextColor(Color.parseColor("#EB4D2A"));
                         btnCancleSubGroup.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -478,6 +475,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                         dialogGroup.setContentView(R.layout.title_alertdialog_for_group);
                         btnCancelAlertDialog = (ImageButton) dialogGroup.findViewById(R.id.cancel);
                         btnResetAlertDialog = (ImageButton)dialogGroup.findViewById(R.id.reset_action);
+                        groupTextView.setTextColor(Color.parseColor("#EB4D2A"));
                         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -532,8 +530,10 @@ public class SuperAwesomeCardFragment extends Fragment{
                     public void onClick(View v) {
                         dialogSubGroup = new Dialog(getActivity());
                         dialogSubGroup.setContentView(R.layout.title_alertdialog_for_sub_group);
+                        subGroupTextView.setTextColor(Color.parseColor("#EB4D2A"));
                         btnResetSubGroup = (ImageButton)dialogSubGroup.findViewById(R.id.reset_action_subgroup);
                         btnCancleSubGroup = (ImageButton)dialogSubGroup.findViewById(R.id.cancel_action_subgroup);
+                        subGroupTextView.setTextColor(Color.parseColor("#EB4D2A"));
                         btnCancleSubGroup.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -720,6 +720,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                         dialogGroup.setContentView(R.layout.title_alertdialog_for_group);
                         btnCancelAlertDialog = (ImageButton) dialogGroup.findViewById(R.id.cancel);
                         btnResetAlertDialog = (ImageButton)dialogGroup.findViewById(R.id.reset_action);
+                        groupTextView.setTextColor(Color.parseColor("#EB4D2A"));
                         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -776,6 +777,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                         dialogSubGroup.setContentView(R.layout.title_alertdialog_for_sub_group);
                         btnResetSubGroup = (ImageButton)dialogSubGroup.findViewById(R.id.reset_action_subgroup);
                         btnCancleSubGroup = (ImageButton)dialogSubGroup.findViewById(R.id.cancel_action_subgroup);
+                        subGroupTextView.setTextColor(Color.parseColor("#EB4D2A"));
                         btnCancleSubGroup.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
