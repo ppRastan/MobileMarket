@@ -2,6 +2,7 @@ package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +21,13 @@ public class ProductInfoItemAdapter extends ArrayAdapter<ProductOption> {
 
     private ArrayList<ProductOption> options;
     private Activity myContext;
+    private Typeface yekanFont;
 
     public ProductInfoItemAdapter(Context context, int resource, ArrayList<ProductOption> allProductOptions) {
         super(context, resource,allProductOptions);
         options = allProductOptions;
         myContext = (Activity) context;
+        yekanFont = Typeface.createFromAsset(myContext.getAssets(),"fonts/yekan.ttf");
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -35,7 +38,9 @@ public class ProductInfoItemAdapter extends ArrayAdapter<ProductOption> {
         TextView txtTitle=(TextView)rowView.findViewById(R.id.txt_title);
         TextView txtValue=(TextView)rowView.findViewById(R.id.txt_value);
         txtTitle.setText(options.get(position).getTitle()+" : ");
+        txtTitle.setTypeface(yekanFont);
         txtValue.setText(options.get(position).getValue());
+        txtValue.setTypeface(yekanFont);
 
         return rowView;
     }

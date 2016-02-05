@@ -32,10 +32,7 @@
         android:background="@color/decoriss"/>
 
 </LinearLayout>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -72,5 +69,4 @@
     <!--android:layout_weight="2"-->
     <!--/>-->
 </LinearLayout>
-</ScrollView>
     </LinearLayout>
