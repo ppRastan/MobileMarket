@@ -25,7 +25,7 @@ public class ProductOptionActivity extends Activity {
     private ArrayList<ProductOption> options;
     private ServerConnectionHandler sch;
     private Product aProduct;
-    private RatingBar rankOfProduct;
+    //private RatingBar rankOfProduct;
     private ImageButton btnBack;
     private TextView nameOfCurrentProduct;
     private boolean onBackBtnPressed = false;
@@ -43,9 +43,9 @@ public class ProductOptionActivity extends Activity {
         aProduct=sch.getAProduct(productId);
         nameOfCurrentProduct = (TextView)findViewById(R.id.name_of_currrent_product);
         nameOfCurrentProduct.setText(aProduct.getTitle());
-        rankOfProduct = (RatingBar)findViewById(R.id.rank_of_product);
-        rankOfProduct.setRating(5);
-        rankOfProduct.setPadding(3, 3, 3, 3);
+        //rankOfProduct = (RatingBar)findViewById(R.id.rank_of_product);
+        //rankOfProduct.setRating(5);
+        //rankOfProduct.setPadding(3, 3, 3, 3);
         btnBack = (ImageButton)findViewById(R.id.back_full_screen);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
