@@ -27,7 +27,6 @@ public class ProductInfoActivity extends Activity {
     private ViewPager viewPager;
     private float y1, y2;
     private MotionEvent touchEvent;
-    private RatingBar customRatingBar;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +41,6 @@ public class ProductInfoActivity extends Activity {
         viewPager=(ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(new FullScreenImageAdapter(this, allProducts, allProducts.size()));
         viewPager.setCurrentItem(intent.getIntExtra("position", 0));
-        customRatingBar = (RatingBar)findViewById(R.id.rank_of_product);
 
     }
 

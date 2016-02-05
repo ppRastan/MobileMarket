@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -48,13 +49,11 @@ public class FullScreenImageAdapter extends PagerAdapter{
     private ImageButton btnShareByTelegram;
     private ImageButton btnShare;
     private ImageButton btnLike;
-    private ImageButton btnBuy;
     private ArrayList<Product> allProduct;
     private Context context;
     private float y1, y2;
     private View viewLayout;
     private TextView nameOfCurrentProduct;
-    private TextView priceOfCurrentProduct;
     private Product aProduct;
     private String textToSend = null;
     private Dialog shareDialog;
@@ -62,7 +61,10 @@ public class FullScreenImageAdapter extends PagerAdapter{
     private Button sendBtn;
     private EditText editTextToShare;
     private Intent sendIntent;
-
+    private Button addToBasketBtn;
+    String numberOfFinalPrice;
+    double amountOfFinalPrice;
+    DecimalFormat formatter;
     // constructor
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
@@ -119,14 +121,17 @@ public class FullScreenImageAdapter extends PagerAdapter{
         inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewLayout = inflater.inflate(R.layout.activity_product_info, container,false);
-        //nameOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.name_of_photo);
-        //priceOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.price_of_photo);
-        String numberOfFinalPrice = String.valueOf(String.valueOf(products.get(position).getPrice()));
-        double amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
-        DecimalFormat formatter = new DecimalFormat("#,###,000");
+        Typeface yekanFont = Typeface.createFromAsset(activity.getAssets(),"fonts/yekan.ttf");
+        nameOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.name_of_photo);
+        nameOfCurrentProduct.setTypeface(yekanFont);
+        addToBasketBtn = (Button)viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
+        numberOfFinalPrice = String.valueOf(String.valueOf(products.get(position).getPrice()));
+        amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
+        formatter = new DecimalFormat("#,###,000");
         nameOfCurrentProduct.setText(products.get(position).getTitle());
-        priceOfCurrentProduct.setText(formatter.format(amountOfFinalPrice) + " " + "تومان");
         btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
+        addToBasketBtn.setText(formatter.format(amountOfFinalPrice)+ "  " + "تومان");
+        addToBasketBtn.setTypeface(yekanFont);
         if (products.get(position).getLike()==0){
             //this Product No Favorite
             btnLike.setImageResource(R.mipmap.ic_like_toolbar);
@@ -165,20 +170,6 @@ public class FullScreenImageAdapter extends PagerAdapter{
 
             }
         });
-
-//        btnBuy = (ImageButton)viewLayout.findViewById(R.id.shopping_full_screen);
-//        if (sch.checkSelectProductForShop(products.get(position).getId()))
-//            btnBuy.setImageResource(R.mipmap.green_bye_toolbar);
-//        else
-//            btnBuy.setImageResource(R.mipmap.bye_toolbar);
-//        btnBuy.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//
-//            }
-//        });
-
         btnShare = (ImageButton)viewLayout.findViewById(R.id.img_share_full_screen);
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override

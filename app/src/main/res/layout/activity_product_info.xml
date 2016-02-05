@@ -7,6 +7,27 @@
     android:orientation="vertical"
     android:weightSum="10"
     >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/decoriss"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:orientation="horizontal"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="name"
+            android:id="@+id/name_of_photo"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            />
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:orientation="vertical"
@@ -14,38 +35,34 @@
         android:layout_weight="5"
         android:layout_height="0dp"
         android:background="@color/white"
-        android:weightSum="5">
+        android:weightSum="6">
 
-        <include layout="@layout/toolbar_full_screen_page"
-            android:layout_height="0dp"
-            android:layout_width="match_parent"
-            android:layout_weight="2"
-            />
         <ImageView
-            android:paddingTop="5dp"
+            android:padding="9dp"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
+            android:layout_height="match_parent"
             android:id="@+id/img_productInfo"
-            android:layout_below="@+id/header" />
+             />
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_weight="5"
+        android:layout_weight="4"
         android:layout_height="0dp"
         android:background="@color/white"
         android:orientation="vertical"
         android:weightSum="5">
 
         <HorizontalScrollView
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:id="@+id/horizontal_scroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
             android:scrollbars="none"
-            android:layout_above="@+id/footer">
+           >
             <LinearLayout
                 android:id="@+id/linear"
                 android:layout_width="wrap_content"
@@ -54,27 +71,70 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <include layout="@layout/footer_full_screen"
-            android:layout_weight="1"
-            android:layout_height="0dp"
-            android:layout_width="match_parent" />
-
         <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="@color/green">
+            android:background="@color/white"
+            android:weightSum="4">
 
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:id="@+id/img_share_full_screen"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:src="@mipmap/ic_share_toolbar"
+                android:background="@color/white" />
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@mipmap/telegram"
+                android:id="@+id/telegram_share"
+                android:background="@color/white"
+                android:layout_gravity="center_vertical|center_horizontal"/>
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/add_to_favorite"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="@color/white"
+                android:src="@mipmap/ic_like_toolbar"/>
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:id="@+id/img_info"
+                android:src="@mipmap/about_toolbar"
+                android:background="@color/white"
+                android:layout_gravity="center_horizontal|center_vertical" />
         </LinearLayout>
-        <!--<Button-->
-          <!--android:layout_width="match_parent"-->
-          <!--android:layout_height="0dp"-->
-          <!--android:layout_weight="1"-->
-          <!--android:text="@string/bye"-->
-          <!--android:background="@color/green"-->
-          <!--android:textColor="@color/white"/>-->
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="@color/green"
+    android:gravity="center">
 
-    </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:background="@color/green"
+        android:text="@string/bye"
+        android:id="@+id/full_screen_add_to_basket_btn"
+        android:textColor="@color/white"
+        android:drawablePadding="8dp"
+        android:drawableRight="@mipmap/basket_white"
+        />
 
 </LinearLayout>
+        </LinearLayout>
+            </LinearLayout>
