@@ -16,7 +16,7 @@
     <application
         android:allowBackup="true"
         android:name=".utility.Application"
-        android:icon="@mipmap/ic_circle_decoriss_icon"
+        android:icon="@mipmap/ic_launcher_icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
