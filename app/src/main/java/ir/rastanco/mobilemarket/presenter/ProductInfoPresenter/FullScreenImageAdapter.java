@@ -48,7 +48,6 @@ public class FullScreenImageAdapter extends PagerAdapter{
     private ImageButton btnInfo;
     private ImageButton btnShareByTelegram;
     private ImageButton btnShare;
-    private ImageButton btnLike;
     private ArrayList<Product> allProduct;
     private Context context;
     private float y1, y2;
@@ -129,9 +128,11 @@ public class FullScreenImageAdapter extends PagerAdapter{
         amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
         formatter = new DecimalFormat("#,###,000");
         nameOfCurrentProduct.setText(products.get(position).getTitle());
-        btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
-        addToBasketBtn.setText(formatter.format(amountOfFinalPrice)+ "  " + "تومان");
+        final ImageButton btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
+        addToBasketBtn.setText(formatter.format(amountOfFinalPrice) + "  " + "تومان");
         addToBasketBtn.setTypeface(yekanFont);
+
+
         if (products.get(position).getLike()==0){
             //this Product No Favorite
             btnLike.setImageResource(R.mipmap.ic_like_toolbar);
@@ -149,6 +150,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
                     btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     products.get(position).setLike(1);
                     sch.changeProductLike(products.get(position).getId(), 1);
+
                 }
                 else if(products.get(position).getLike()==1){
                     btnLike.setImageResource(R.mipmap.ic_like_toolbar);
