@@ -119,8 +119,8 @@ public class FullScreenImageAdapter extends PagerAdapter{
         inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewLayout = inflater.inflate(R.layout.activity_product_info, container,false);
-        nameOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.name_of_photo);
-        priceOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.price_of_photo);
+        //nameOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.name_of_photo);
+        //priceOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.price_of_photo);
         String numberOfFinalPrice = String.valueOf(String.valueOf(products.get(position).getPrice()));
         double amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
         DecimalFormat formatter = new DecimalFormat("#,###,000");
