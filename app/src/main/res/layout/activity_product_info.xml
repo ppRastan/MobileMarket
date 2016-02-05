@@ -14,7 +14,7 @@
         android:background="@color/decoriss"
         android:layout_gravity="center_horizontal|center_vertical"
         android:orientation="horizontal"
-        xmlns:android="http://schemas.android.com/apk/res/android">
+        >
 
         <TextView
             android:layout_width="match_parent"
@@ -38,7 +38,7 @@
         android:weightSum="6">
 
         <ImageView
-            android:padding="9dp"
+            android:padding="7dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/img_productInfo"
@@ -48,28 +48,30 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_weight="4"
+        android:layout_weight="3.40"
         android:layout_height="0dp"
         android:background="@color/white"
         android:orientation="vertical"
         android:weightSum="5">
 
-        <HorizontalScrollView
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:id="@+id/horizontal_scroll"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:scrollbars="none"
-           >
+
             <LinearLayout
                 android:id="@+id/linear"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="3"
                 android:orientation="horizontal" >
+                <HorizontalScrollView
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:id="@+id/horizontal_scroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"
+                    >
+                </HorizontalScrollView>
             </LinearLayout>
-        </HorizontalScrollView>
+
 
         <LinearLayout
             android:orientation="horizontal"
