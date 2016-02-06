@@ -125,6 +125,7 @@
         android:gravity="center"
         android:layout_height="match_parent"
         android:background="@color/green"
+        style="?android:attr/borderlessButtonStyle"
         android:text="@string/bye"
         android:id="@+id/full_screen_add_to_basket_btn"
         android:textColor="@color/white"
