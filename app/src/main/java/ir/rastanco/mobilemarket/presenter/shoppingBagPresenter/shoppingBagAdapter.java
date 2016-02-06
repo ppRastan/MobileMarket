@@ -39,6 +39,8 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private Spinner spinnerCounter;
     private String spinnerValueInString;
     private int spinnerValueInInteger;
+    private TextView txtProductPrice;
+    private  TextView totalPrice;
     EditText spinnerValue;
 
     public shoppingBagAdapter(Context context, int resource, ArrayList<Integer> productsId) {
@@ -62,9 +64,9 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         spinnerValueInInteger = Integer.parseInt(spinnerValueInString);
         ImageView imgProduct=(ImageView)rowView.findViewById(R.id.shopping__bag_img);
         TextView txtProductTitle=(TextView) rowView.findViewById(R.id.shopping_bag_txt_productTitle);
-        final TextView txtProductPrice=(TextView) rowView.findViewById(R.id.shopping_bag_price_Of_product);
+        txtProductPrice=(TextView) rowView.findViewById(R.id.shopping_bag_price_Of_product);
         Button btnDelete=(Button)rowView.findViewById(R.id._shopping_bag_delete_btn);
-        final TextView totalPrice = (TextView)rowView.findViewById(R.id.shopping_bag_price_for_you);
+        totalPrice = (TextView)rowView.findViewById(R.id.shopping_bag_price_for_you);
 
         spinnerCounter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
