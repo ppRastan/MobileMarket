@@ -13,7 +13,7 @@ import ir.rastanco.mobilemarket.dataModel.ProductOption;
 import ir.rastanco.mobilemarket.dataModel.ProductShop;
 import ir.rastanco.mobilemarket.dataModel.UserInfo;
 import ir.rastanco.mobilemarket.dataModel.dataBaseConnectionModel.DataBaseHandler;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.GetJsonFile;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.GetFile;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonArticles;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonAuthorize;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonCategory;
@@ -38,7 +38,7 @@ public class ServerConnectionHandler {
 
     //Setting
     public void setLastTimeStamp(String timeStamp,String lastArticlesNum){
-        if(dbh.emptyTimeStamp()){
+        if(dbh.emptySettingTable()){
             dbh.insertSetting(timeStamp,lastArticlesNum);
         }
         else
@@ -47,6 +47,18 @@ public class ServerConnectionHandler {
     }
     public String getLastTimeStamp(){
         return dbh.selectLastTimeStamp();
+    }
+
+    public Boolean emptySetting(){
+        return dbh.emptySettingTable();
+    }
+
+    public void addSettingApp(String firstTimeStamp,String articleNum,String version){
+        dbh.insertSettingApp(firstTimeStamp,articleNum,version);
+    }
+
+    public void updateVersionApp(String newVersin){
+        dbh.updateLastVersion(newVersin);
     }
 
 
@@ -70,7 +82,7 @@ public class ServerConnectionHandler {
     }
     public ArrayList<Category> getAllCategoryInfoURL(String url){
 
-        GetJsonFile jParserCategory = new GetJsonFile();
+        GetFile jParserCategory = new GetFile();
         String jsonCategory= null;
         try {
             jsonCategory = jParserCategory.execute(url).get();
@@ -182,7 +194,7 @@ public class ServerConnectionHandler {
     }
     public ArrayList<ProductOption> getOptionsOfAProductFromURL(String url){
 
-        GetJsonFile optionJson= new GetJsonFile();
+        GetFile optionJson= new GetFile();
         String productInfoJson=null;
         try {
             productInfoJson=optionJson.execute(url).get();
@@ -274,7 +286,7 @@ public class ServerConnectionHandler {
     }
     public ArrayList<Article> getAllArticlesAndNewsURL(String url){
 
-        GetJsonFile g=new GetJsonFile();
+        GetFile g=new GetFile();
         String articlesInfo=null;
         try {
             articlesInfo=g.execute(url).get();
@@ -303,7 +315,7 @@ public class ServerConnectionHandler {
     //Security
     public String GetKey(String url){
 
-        GetJsonFile jSONKey = new GetJsonFile();
+        GetFile jSONKey = new GetFile();
         String jsonKeyString= null;
         try {
             jsonKeyString = jSONKey.execute(url).get();
@@ -321,7 +333,7 @@ public class ServerConnectionHandler {
 
         String url="http://decoriss.com/json/get,com=login&u="+hashInfo+
                 "&k="+key;
-        GetJsonFile jsonAuth = new GetJsonFile();
+        GetFile jsonAuth = new GetFile();
         String jsonKeyString= null;
         try {
             jsonKeyString = jsonAuth.execute(url).get();
@@ -343,7 +355,7 @@ public class ServerConnectionHandler {
     }
     public ArrayList<ProductShop> getLastProductShop(String url){
 
-        GetJsonFile jsonLastShop = new GetJsonFile();
+        GetFile jsonLastShop = new GetFile();
         String jsonLastShopString= null;
         try {
             jsonLastShopString = jsonLastShop.execute(url).get();
@@ -398,5 +410,37 @@ public class ServerConnectionHandler {
             return null;
         else
             return dbh.selectUserInformation();
+    }
+
+    //Version Of App
+    public String getLastVersionInServer(String url){
+
+        String lastVersionInServer=dbh.selectLastVersionApp();
+
+        GetFile getFileVersionFrmURL=new GetFile();
+        try {
+            lastVersionInServer = getFileVersionFrmURL.execute(url).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        lastVersionInServer=lastVersionInServer.replace("\n","");
+        return lastVersionInServer;
+
+    }
+    public boolean checkNewVersion(String url){
+
+        String lastVersionInDB=dbh.selectLastVersionApp();
+        String lastVersionInServer=getLastVersionInServer(url);
+        String finalVersion="";
+
+        for(int i=0;i<lastVersionInServer.length()-1;i++)
+            finalVersion= finalVersion+String.valueOf(lastVersionInServer.charAt(i+1));
+
+        if(finalVersion.equals(lastVersionInDB))
+            return false;
+        else
+            return true;
     }
 }

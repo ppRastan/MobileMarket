@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     private int shopCounter;
     private ShoppingBagActivity shoppingBagActivity;
     private Menu menu;
+    private String version;
 
     private ProgressDialog pDialog;
     public static final int progress_bar_type = 0;
@@ -206,6 +207,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkDbState() {
+
+        if (sch.emptySetting())
+            sch.addSettingApp("1352689345","25","1.0.0");
+
         if (sch.emptyDBCategory()){
             categories=sch.getAllCategoryInfoURL("http://decoriss.com/json/get,com=allcats&cache=false");
             sch.addAllCategoryToTable(categories);
@@ -221,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
             articles=sch.getAllArticlesAndNewsURL("http://decoriss.com/json/get,com=news&name=blog&order=desc&limit=0-25&cache=false");
             sch.addAllArticlesToTable(articles);
         }
+
     }
 
     private void addServerConnection() {
@@ -251,6 +257,13 @@ public class MainActivity extends AppCompatActivity {
         MenuItem item = menu.findItem(R.id.action_notifications);
         LayerDrawable icon = (LayerDrawable) item.getIcon();
         CounterIconUtils.setBadgeCount(this, icon, filBasketColor());
+
+        MenuItem upgradeItem=menu.findItem(R.id.update);
+        if(sch.checkNewVersion("http://decoriss.com/app/Version.txt"))
+            upgradeItem.setVisible(true);
+        else
+            upgradeItem.setVisible(false);
+
         return true;
     }
 
@@ -296,6 +309,7 @@ public class MainActivity extends AppCompatActivity {
                 //}
                 break;
             case R.id.update:
+                version=sch.getLastVersionInServer("http://decoriss.com/app/Version.apk");
                 new DownloadFileFromURL(this).execute("http://decoriss.com/app/Decoriss.apk");
                 break;
         }
@@ -418,6 +432,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/download/" + "Decoriss.apk")), "application/vnd.android.package-archive");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
+                sch.updateVersionApp(version);
 
             } catch (Exception e) {
                 Log.e("Error: ", e.getMessage());

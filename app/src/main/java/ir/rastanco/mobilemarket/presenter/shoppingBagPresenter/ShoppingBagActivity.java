@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 import ir.rastanco.mobilemarket.R;
@@ -120,6 +121,37 @@ public class ShoppingBagActivity extends Activity {
         double finalPriceToolbar = Double.parseDouble(numberProductPrice);
         DecimalFormat formatter = new DecimalFormat("#,###,000");
         totalPrice.setText(formatter.format(finalPriceToolbar)+"   "+ "تومان");
+
+
+        Observer.addShoppingCancelListener(new ShoppingCancelListener() {
+            @Override
+            public void ShoppingChanged() {
+                Map<Integer, Integer> refreshProductsId = new Hashtable<Integer, Integer>();
+                refreshProductsId = sch.getAllProductShopping();
+                int finalPrice = 0;
+                //Total Price
+                int price;
+                int off;
+                for (Map.Entry<Integer, Integer> entry : refreshProductsId.entrySet()) {
+                    price = 0;
+                    off = 0;
+                    Product product = new Product();
+                    product = sch.getAProduct(entry.getKey());
+                    if (product.getPriceOff() != 0)
+                        off = (product.getPrice() * product.getPriceOff()) / 100;
+                    price = (product.getPrice() * entry.getValue()) - (off * entry.getValue());
+                    finalPrice = finalPrice + price;
+
+                }
+
+                totalPrice.setText(String.valueOf(finalPrice));
+                String numberProductPrice = String.valueOf(totalPrice.getText());
+                double finalPriceToolbar = Double.parseDouble(numberProductPrice);
+                DecimalFormat formatter = new DecimalFormat("#,###,000");
+                totalPrice.setText(formatter.format(finalPriceToolbar) + "   " + "تومان");
+
+            }
+        });
     }
 
 }
