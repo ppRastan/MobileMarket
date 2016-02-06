@@ -50,7 +50,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         db.execSQL("create table tblSetting" +
                 "(id Integer primary key AUTOINCREMENT," +
                 "lastTimeStamp String," +
-                "lastArticlesNum String)");
+                "lastArticlesNum String," +
+                "lastVersionOfApp String)");
         Log.v("create", "Create Setting Table");
 
         db.execSQL("create table tblShopping" +
@@ -136,7 +137,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
             return true;
         }
     }
-    public Boolean emptyTimeStamp() {
+    public Boolean emptySettingTable() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblSetting", null);
         if (rs.moveToFirst()) {
@@ -247,6 +248,17 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
 
+    public void insertSettingApp(String lastTimeStamp,String articlesNum,String version) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values=new ContentValues();
+        values.put("lastTimeStamp",lastTimeStamp);
+        values.put("lastArticlesNum",articlesNum);
+        values.put("lastVersionOfApp",version);
+        db.insert("tblSetting", null,values);
+        Log.v("insert", "insert Setting for App");
+        db.close();
+
+    }
 
     public void insertUserInfo(UserInfo aUser) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -372,6 +384,19 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
 
+    public String selectLastVersionApp() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select lastVersionOfApp from tblSetting", null);
+        String lastVersion = "";
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                lastVersion = rs.getString(rs.getColumnIndex("lastVersionOfApp"));
+            }
+            rs.close();
+        }
+        Log.v("select", "Select Last Version Of App ");
+        return lastVersion;
+    }
 
 
     public String selectLastTimeStamp() {
@@ -842,6 +867,15 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
 
+
+    public void updateLastVersion(String newVersion) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("lastVersionOfApp", newVersion);
+        db.update("tblSetting", values, null, null);
+        Log.v("update", "Update Last Version Off App");
+
+    }
 
 
     public void updateTimeStamp(String TimeStamp) {

@@ -15,7 +15,7 @@ import java.net.URL;
  * Created by ShaisteS 12/30/2015.
  * This Class Connect to JSON File Url and return String
  */
-public class GetJsonFile extends AsyncTask<String,String,String> {
+public class GetFile extends AsyncTask<String,String,String> {
 
     private static InputStream is = null;
     private static String jsonString = "";
@@ -53,7 +53,7 @@ public class GetJsonFile extends AsyncTask<String,String,String> {
             e.printStackTrace();
         }
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is,"UTF-8"), 8);
             StringBuilder sb = new StringBuilder();
             String line = null;
             while ((line = reader.readLine()) != null) {

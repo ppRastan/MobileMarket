@@ -118,6 +118,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
                         }
                         updateList(selectedProducts);
                         Connect.setMyBoolean(false);
+                        Observer.setShoppingCancel(true);
                     }
                 });
 
