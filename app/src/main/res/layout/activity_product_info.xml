@@ -30,8 +30,6 @@
 
 
     <LinearLayout
-        android:paddingTop="3dp"
-        android:paddingBottom="2dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_weight="4.5"
