@@ -61,9 +61,10 @@ public class FullScreenImageAdapter extends PagerAdapter{
     private EditText editTextToShare;
     private Intent sendIntent;
     private Button addToBasketBtn;
-    String numberOfFinalPrice;
-    double amountOfFinalPrice;
-    DecimalFormat formatter;
+    private String numberOfFinalPrice;
+    private double amountOfFinalPrice;
+    private DecimalFormat formatter;
+    private Typeface yekanFont;
     // constructor
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
@@ -120,7 +121,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
         inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewLayout = inflater.inflate(R.layout.activity_product_info, container,false);
-        Typeface yekanFont = Typeface.createFromAsset(activity.getAssets(),"fonts/yekan.ttf");
+        yekanFont = Typeface.createFromAsset(activity.getAssets(), "fonts/yekan.ttf");
         nameOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.name_of_photo);
         nameOfCurrentProduct.setTypeface(yekanFont);
         addToBasketBtn = (Button)viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
@@ -247,10 +248,9 @@ public class FullScreenImageAdapter extends PagerAdapter{
 
         for (int i = counter; i < products.get(position).getImagesPath().size(); i++) {
             final ImageView imageView = new ImageView(Configuration.ProductInfoActivity);
-            imageView.setId(i-1);
-            imageView.setPadding(2, 0, 2, 0);
+            imageView.setId(i - 1);
+            imageView.setPadding(0, 0, 0, 0);
             layout.addView(imageView);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             picNum = products.get(position).getImagesPath().get(i);
             try {
                 picNum = URLEncoder.encode(picNum, "UTF-8");
