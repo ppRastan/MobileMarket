@@ -391,6 +391,10 @@ public class ServerConnectionHandler {
         dbh.updateAShoppingNumberPurchased(productId,count);
     }
 
+    public void emptyShoppingBag(){
+        dbh.deleteAllShoppingTable();
+    }
+
 
 
 

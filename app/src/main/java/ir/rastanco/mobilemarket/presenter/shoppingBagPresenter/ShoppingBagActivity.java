@@ -23,6 +23,7 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.UserInfo;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.Security;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Connect;
 import ir.rastanco.mobilemarket.presenter.MainActivity;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserProfileActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -38,6 +39,7 @@ public class ShoppingBagActivity extends Activity {
     private Button okShop;
     private TextView totalPrice;
     private Security sec;
+    private ArrayList<Integer> productsId;
     Typeface yekanFont;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,49 +58,13 @@ public class ShoppingBagActivity extends Activity {
                 startActivity(new Intent(ShoppingBagActivity.this, MainActivity.class));
             }
         });
-        okShop = (Button)findViewById(R.id.ok_shop);
-        okShop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Map<Integer,Integer> shopInfo=new HashMap<Integer, Integer>();
-                shopInfo=sch.getAllProductShopping();
-                if (shopInfo.size()==0){
-                    Toast.makeText(Configuration.ShoppingBagActivity,"کالایی انتخاب نگردیده است",
-                            Toast.LENGTH_LONG).show();
-                }
-                else {
-                    UserInfo user=sch.getUserInfo();
-                    if(user==null){
-                        Intent shoppingBagIntent = new Intent(Configuration.ShoppingBagActivity, UserProfileActivity.class);
-                        startActivity(shoppingBagIntent);
-                    }
-
-                    else {
-                        String url="http://decoriss.com/app,data=";
-                        String urlInfo=user.getUserEmail()+"##";
-                        for (Map.Entry<Integer, Integer> entry : shopInfo.entrySet())
-                            urlInfo=urlInfo+entry.getKey()+"_"+entry.getValue()+"#";
-
-                        urlInfo=sec.Base64(urlInfo);
-                        url=url+urlInfo;
-                        Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_VIEW);
-                        intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                        intent.setData(Uri.parse(url));
-                        startActivity(intent);
-
-
-                    }
-                }
-            }
-        });
         Configuration.ShoppingBagActivity=this;
         sch=new ServerConnectionHandler(Configuration.ShoppingBagActivity);
 
-        ArrayList<Integer> productsId=new ArrayList<Integer>();
+        productsId=new ArrayList<Integer>();
         productsId=sch.getProductShoppingID();
 
-        ListView lvShoppingBag=(ListView)findViewById(R.id.lv_shoppingBag);
+        final ListView lvShoppingBag=(ListView)findViewById(R.id.lv_shoppingBag);
         shoppingBagAdapter adapter= new shoppingBagAdapter(this, R.layout.activity_shopping_bag,productsId);
         lvShoppingBag.setAdapter(adapter);
 
@@ -122,6 +88,46 @@ public class ShoppingBagActivity extends Activity {
         DecimalFormat formatter = new DecimalFormat("#,###,000");
         totalPrice.setText(formatter.format(finalPriceToolbar)+"   "+ "تومان");
 
+        okShop = (Button)findViewById(R.id.ok_shop);
+        okShop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Map<Integer, Integer> shopInfo = new HashMap<Integer, Integer>();
+                shopInfo = sch.getAllProductShopping();
+                if (shopInfo.size() == 0) {
+                    Toast.makeText(Configuration.ShoppingBagActivity, "کالایی انتخاب نگردیده است",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    UserInfo user = sch.getUserInfo();
+                    if (user == null) {
+                        Intent shoppingBagIntent = new Intent(Configuration.ShoppingBagActivity, UserProfileActivity.class);
+                        startActivity(shoppingBagIntent);
+                    } else {
+                        String url = "http://decoriss.com/app,data=";
+                        String urlInfo = user.getUserEmail() + "##";
+                        for (Map.Entry<Integer, Integer> entry : shopInfo.entrySet())
+                            urlInfo = urlInfo + entry.getKey() + "_" + entry.getValue() + "#";
+
+                        urlInfo = sec.Base64(urlInfo);
+                        url = url + urlInfo;
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_VIEW);
+                        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                        intent.setData(Uri.parse(url));
+                        startActivity(intent);
+                        sch.emptyShoppingBag();
+                        Observer.setShoppingCancel(true);
+                        Connect.setMyBoolean(false);
+                        productsId = sch.getProductShoppingID();
+                        shoppingBagAdapter adapter = new shoppingBagAdapter(Configuration.ShoppingBagActivity, R.layout.activity_shopping_bag, productsId);
+                        lvShoppingBag.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+
+                    }
+                }
+            }
+        });
+
 
         Observer.addShoppingCancelListener(new ShoppingCancelListener() {
             @Override
@@ -143,7 +149,6 @@ public class ShoppingBagActivity extends Activity {
                     finalPrice = finalPrice + price;
 
                 }
-
                 totalPrice.setText(String.valueOf(finalPrice));
                 String numberProductPrice = String.valueOf(totalPrice.getText());
                 double finalPriceToolbar = Double.parseDouble(numberProductPrice);

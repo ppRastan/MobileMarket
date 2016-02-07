@@ -947,4 +947,11 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         db.close();
         Log.v("delete", "Delete A User Information from Table");
     }
+
+    public void deleteAllShoppingTable() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("tblShopping",null, null);
+        db.close();
+        Log.v("delete", "Delete All Record From Shopping Table");
+    }
 }
