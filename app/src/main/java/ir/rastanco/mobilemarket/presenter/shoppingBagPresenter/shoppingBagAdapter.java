@@ -48,7 +48,12 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private TextView textOfSpinner;
     private ArrayList<String> spinnerList ;
     private Typeface yekanFont;
-
+    private LayoutInflater inflater;
+    private View rowView;
+    private View spinnerView;
+    private ImageView imgProduct;
+    private TextView txtProductTitle;
+    private Button btnDelete;
     public shoppingBagAdapter(Context context, int resource, ArrayList<Integer> productsId) {
         super(context, resource, productsId);
 
@@ -62,16 +67,15 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
     private void fillSpinnerItems() {
 
-        for(int i=1 ; i<= 30 ; i++)
+        for(int i=1 ; i<= 10 ; i++)
             spinnerList.add(String.valueOf(i));
-
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        LayoutInflater inflater = myContext.getLayoutInflater();
-        final View rowView = inflater.inflate(R.layout.shopping_bag_item, null);
-        final View spinnerView = inflater.inflate(R.layout.spinner_item , null);
+        inflater = myContext.getLayoutInflater();
+        rowView = inflater.inflate(R.layout.shopping_bag_item, null);
+        spinnerView = inflater.inflate(R.layout.spinner_item, null);
         textOfSpinner = (TextView)spinnerView.findViewById(R.id.spinner_text);
         yekanFont= Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf");
 
@@ -84,10 +88,10 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         spinnerCounter.setAdapter(adapter);
         spinnerValueInString = spinnerCounter.getSelectedItem().toString();
         spinnerValueInInteger = Integer.parseInt(spinnerValueInString);
-        ImageView imgProduct=(ImageView)rowView.findViewById(R.id.shopping__bag_img);
-        TextView txtProductTitle=(TextView) rowView.findViewById(R.id.shopping_bag_txt_productTitle);
+        imgProduct=(ImageView)rowView.findViewById(R.id.shopping__bag_img);
+        txtProductTitle=(TextView) rowView.findViewById(R.id.shopping_bag_txt_productTitle);
         txtProductPrice=(TextView) rowView.findViewById(R.id.shopping_bag_price_Of_product);
-        Button btnDelete=(Button)rowView.findViewById(R.id._shopping_bag_delete_btn);
+        btnDelete=(Button)rowView.findViewById(R.id._shopping_bag_delete_btn);
         totalPrice = (TextView)rowView.findViewById(R.id.shopping_bag_price_for_you);
 
         spinnerCounter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -112,8 +116,8 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
                 DecimalFormat formatter = new DecimalFormat("#,###,000");
 
-                txtProductPrice.setText("قیمت:" + "     " + formatter.format(amount) + " " + "تومان");
-                totalPrice.setText("قیمت برای شما:" + "     " + formatter.format(amountOfFinalPrice) + " " + "تومان");
+                txtProductPrice.setText(myContext.getResources().getString(R.string.peice)+ "     " + formatter.format(amount) + " " + myContext.getResources().getString(R.string.toman));
+                totalPrice.setText(myContext.getResources().getString(R.string.price)+ "     " + formatter.format(amountOfFinalPrice) + " " +myContext.getResources().getString(R.string.toman));
                 sch.changeShoppingNunmber(aProduct.getId(), counterSelected);
                 totalPrice.setTypeface(yekanFont);
                 txtProductPrice.setTypeface(yekanFont);
