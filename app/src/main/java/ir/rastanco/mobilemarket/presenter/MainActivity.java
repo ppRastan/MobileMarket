@@ -298,15 +298,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             case R.id.action_notifications :
-               // if(shoppingBagActivity.shoppedItems == 0 )
-                //{
-                  //  Toast.makeText(getApplicationContext(),"basket is empty",Toast.LENGTH_SHORT).show();
-                //}
-                //else
-               // {
                 Intent shoppingBagIntent = new Intent(this, ShoppingBagActivity.class);
                 this.startActivity(shoppingBagIntent);
-                //}
                 break;
             case R.id.update:
                 version=sch.getLastVersionInServer("http://decoriss.com/app/Version.apk");

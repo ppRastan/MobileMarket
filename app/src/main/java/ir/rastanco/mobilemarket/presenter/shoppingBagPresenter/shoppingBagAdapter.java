@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +18,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
@@ -41,7 +44,10 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private int spinnerValueInInteger;
     private TextView txtProductPrice;
     private  TextView totalPrice;
-    EditText spinnerValue;
+    private EditText spinnerValue;
+    private TextView textOfSpinner;
+    private ArrayList<String> spinnerList ;
+    private Typeface yekanFont;
 
     public shoppingBagAdapter(Context context, int resource, ArrayList<Integer> productsId) {
         super(context, resource, productsId);
@@ -49,6 +55,15 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         selectedProducts = productsId;
         myContext =(Activity) context;
         sch=new ServerConnectionHandler(context);
+        spinnerList = new ArrayList<String>();
+        this.fillSpinnerItems();
+
+    }
+
+    private void fillSpinnerItems() {
+
+        for(int i=1 ; i<= 30 ; i++)
+            spinnerList.add(String.valueOf(i));
 
     }
 
@@ -56,10 +71,17 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
         LayoutInflater inflater = myContext.getLayoutInflater();
         final View rowView = inflater.inflate(R.layout.shopping_bag_item, null);
-        final Typeface traficFont= Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf");
+        final View spinnerView = inflater.inflate(R.layout.spinner_item , null);
+        textOfSpinner = (TextView)spinnerView.findViewById(R.id.spinner_text);
+        yekanFont= Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf");
+
+
         aProduct=new Product();
         aProduct=sch.getAProduct(selectedProducts.get(position));
         spinnerCounter = (Spinner)rowView.findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(myContext, R.layout.spinner_item, spinnerList);
+
+        spinnerCounter.setAdapter(adapter);
         spinnerValueInString = spinnerCounter.getSelectedItem().toString();
         spinnerValueInInteger = Integer.parseInt(spinnerValueInString);
         ImageView imgProduct=(ImageView)rowView.findViewById(R.id.shopping__bag_img);
@@ -93,8 +115,8 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
                 txtProductPrice.setText("قیمت:" + "     " + formatter.format(amount) + " " + "تومان");
                 totalPrice.setText("قیمت برای شما:" + "     " + formatter.format(amountOfFinalPrice) + " " + "تومان");
                 sch.changeShoppingNunmber(aProduct.getId(), counterSelected);
-                totalPrice.setTypeface(traficFont);
-                txtProductPrice.setTypeface(traficFont);
+                totalPrice.setTypeface(yekanFont);
+                txtProductPrice.setTypeface(yekanFont);
             }
 
             @Override
