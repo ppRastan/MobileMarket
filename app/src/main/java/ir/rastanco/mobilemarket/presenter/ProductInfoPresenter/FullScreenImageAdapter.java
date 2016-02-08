@@ -35,6 +35,9 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.ProductOption;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Connect;
+import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.Observer;
+import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 public class FullScreenImageAdapter extends PagerAdapter{
@@ -120,7 +123,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
 
         inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        viewLayout = inflater.inflate(R.layout.activity_product_info, container,false);
+        viewLayout = inflater.inflate(R.layout.activity_product_info, container, false);
         yekanFont = Typeface.createFromAsset(activity.getAssets(), "fonts/yekan.ttf");
         nameOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.name_of_photo);
         nameOfCurrentProduct.setTypeface(yekanFont);
@@ -129,9 +132,18 @@ public class FullScreenImageAdapter extends PagerAdapter{
         amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
         formatter = new DecimalFormat("#,###,000");
         nameOfCurrentProduct.setText(products.get(position).getTitle());
+
         final ImageButton btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
         addToBasketBtn.setText(formatter.format(amountOfFinalPrice) + "  " + "تومان");
         addToBasketBtn.setTypeface(yekanFont);
+        addToBasketBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sch.addProductToShoppingBag(products.get(position).getId(),1);
+                Configuration.ProductInfoActivity.startActivity(new Intent(Configuration.ProductInfoActivity, ShoppingBagActivity.class));
+                Connect.setMyBoolean(true);
+            }
+        });
 
         sch.getProductOption(products.get(position).getId(),
                 products.get(position).getGroupId());
