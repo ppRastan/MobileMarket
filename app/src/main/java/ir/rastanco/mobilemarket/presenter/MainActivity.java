@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new MyPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
-        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 6, getResources()
+        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 5, getResources()
                 .getDisplayMetrics());
         pager.setPageMargin(pageMargin);
         pager.setCurrentItem(0);
@@ -465,7 +465,6 @@ public class MainActivity extends AppCompatActivity {
                 , getResources().getString(R.string.third_page)
                 , getResources().getString(R.string.fourth_page)
                 , getResources().getString(R.string.fifth_page)
-                , getResources().getString(R.string.sixth_page)
         };
 
 
