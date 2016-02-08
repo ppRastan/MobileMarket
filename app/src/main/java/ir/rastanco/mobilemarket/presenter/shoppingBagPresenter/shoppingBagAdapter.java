@@ -200,6 +200,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         spinnerValueInString = spinnerCounter.getSelectedItem().toString();
         spinnerValueInInteger = Integer.parseInt(spinnerValueInString);
         textOfSpinner = (TextView)spinnerView.findViewById(R.id.spinner_text);
+
     }
 
     public void updateList(ArrayList<Integer> results)

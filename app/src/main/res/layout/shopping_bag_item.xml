@@ -51,6 +51,7 @@
             android:padding="8dp"
             android:textColor="#666"
             android:textSize="12dp"
+            style="@style/spinner"
             android:id="@+id/spinner"
             android:layout_below="@+id/shopping_bag_txt_productTitle"
             android:layout_alignLeft="@+id/shopping_bag_txt_productTitle"
