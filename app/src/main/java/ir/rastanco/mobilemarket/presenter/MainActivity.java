@@ -36,6 +36,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -107,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         shoppingBagActivity = new ShoppingBagActivity();
         this.CreatePageRightToLeft();
+        Toast.makeText(getApplicationContext(),"this toast is for test!",Toast.LENGTH_LONG).show();
         this.addActionBar();
         this.addFontAndColors();
         this.addServerConnection();
