@@ -85,7 +85,7 @@ public class ShoppingBagActivity extends Activity {
         String numberProductPrice = String.valueOf(totalPrice.getText());
         double finalPriceToolbar = Double.parseDouble(numberProductPrice);
         DecimalFormat formatter = new DecimalFormat("#,###,000");
-        totalPrice.setText(formatter.format(finalPriceToolbar)+"   "+ getResources().getString(R.string.toman));
+        totalPrice.setText(formatter.format(finalPriceToolbar)+"   "+ getResources().getString(R.string.toman)+" ");
 
         okShop = (Button)findViewById(R.id.ok_shop);
         okShop.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +152,7 @@ public class ShoppingBagActivity extends Activity {
                 String numberProductPrice = String.valueOf(totalPrice.getText());
                 double finalPriceToolbar = Double.parseDouble(numberProductPrice);
                 DecimalFormat formatter = new DecimalFormat("#,###,000");
-                totalPrice.setText(formatter.format(finalPriceToolbar) + "   " + getResources().getString(R.string.toman));
+                totalPrice.setText(formatter.format(finalPriceToolbar) + "   " + getResources().getString(R.string.toman)+" ");
 
             }
         });
