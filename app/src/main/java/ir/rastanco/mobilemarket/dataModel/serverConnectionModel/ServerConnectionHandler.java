@@ -278,17 +278,40 @@ public class ServerConnectionHandler {
                     if (brandsTitle.size()==0)
                         brandsTitle.add(productOptions.get(k).getValue());
                     else{
+                        boolean statusExist=false;
+                        boolean statusNotExist=true;
                         for (int j=0;j<brandsTitle.size();j++){
-                            if (productOptions.get(k).getValue() != brandsTitle.get(j))
-                                brandsTitle.add(productOptions.get(k).getValue());
-                        }
+                            if (productOptions.get(k).getValue().equals(brandsTitle.get(j))){
+                                statusExist=true;
+                            }
+                            else{
+                                statusNotExist=true;
 
+                            }
+                        }
+                        if (statusExist==false && statusNotExist==true)
+                            brandsTitle.add(productOptions.get(k).getValue());
                     }
 
                 }
             }
         }
         return brandsTitle;
+    }
+
+    public ArrayList<Product> getAllProductOfABrand(ArrayList<Product> products,String brandTitle) {
+        ArrayList<Product> productsOfABrand = new ArrayList<Product>();
+        for (int i = 0; i < products.size(); i++) {
+            ArrayList<ProductOption> productOptions = new ArrayList<ProductOption>();
+            productOptions = dbh.selectProductBrand(products.get(i).getId());
+            for (int k = 0; k < productOptions.size(); k++) {
+                if (productOptions.get(k).getValue().equals(brandTitle)) {
+                    productsOfABrand.add(products.get(i));
+
+                }
+            }
+        }
+        return productsOfABrand;
     }
 
     public void changeProductLike(int productId,int like){
