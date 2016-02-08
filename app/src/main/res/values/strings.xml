@@ -50,6 +50,7 @@
     <string name="pm_to_friend">پیام به دوست</string>
     <string name="share">ارسال</string>
     <string name="text_to_send"> برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار \" دکوریس \" را دانلود کنید:</string>
+    <string name="empty_basket">سبد خرید شما خالی است!</string>
     <string-array name="spinnerItems">
         <item>1</item>
         <item>2</item>
