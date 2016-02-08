@@ -40,8 +40,8 @@ public class ShoppingBagActivity extends Activity {
     private TextView totalPrice;
     private Security sec;
     private ArrayList<Integer> productsId;
-    Typeface yekanFont;
-
+    private Typeface yekanFont;
+    private ListView lvShoppingBag;
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -63,8 +63,7 @@ public class ShoppingBagActivity extends Activity {
 
         productsId=new ArrayList<Integer>();
         productsId=sch.getProductShoppingID();
-
-        final ListView lvShoppingBag=(ListView)findViewById(R.id.lv_shoppingBag);
+        lvShoppingBag=(ListView)findViewById(R.id.lv_shoppingBag);
         shoppingBagAdapter adapter= new shoppingBagAdapter(this, R.layout.activity_shopping_bag,productsId);
         lvShoppingBag.setAdapter(adapter);
 
@@ -86,7 +85,7 @@ public class ShoppingBagActivity extends Activity {
         String numberProductPrice = String.valueOf(totalPrice.getText());
         double finalPriceToolbar = Double.parseDouble(numberProductPrice);
         DecimalFormat formatter = new DecimalFormat("#,###,000");
-        totalPrice.setText(formatter.format(finalPriceToolbar)+"   "+ "تومان");
+        totalPrice.setText(formatter.format(finalPriceToolbar)+"   "+ getResources().getString(R.string.toman));
 
         okShop = (Button)findViewById(R.id.ok_shop);
         okShop.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +94,7 @@ public class ShoppingBagActivity extends Activity {
                 Map<Integer, Integer> shopInfo = new HashMap<Integer, Integer>();
                 shopInfo = sch.getAllProductShopping();
                 if (shopInfo.size() == 0) {
-                    Toast.makeText(Configuration.ShoppingBagActivity, "کالایی انتخاب نگردیده است",
+                    Toast.makeText(Configuration.ShoppingBagActivity,getResources().getString(R.string.empty_basket),
                             Toast.LENGTH_LONG).show();
                 } else {
                     UserInfo user = sch.getUserInfo();
@@ -153,7 +152,7 @@ public class ShoppingBagActivity extends Activity {
                 String numberProductPrice = String.valueOf(totalPrice.getText());
                 double finalPriceToolbar = Double.parseDouble(numberProductPrice);
                 DecimalFormat formatter = new DecimalFormat("#,###,000");
-                totalPrice.setText(formatter.format(finalPriceToolbar) + "   " + "تومان");
+                totalPrice.setText(formatter.format(finalPriceToolbar) + "   " + getResources().getString(R.string.toman));
 
             }
         });
