@@ -165,9 +165,6 @@ public class ServerConnectionHandler {
 
 
 
-
-
-
     //Product
     public Boolean emptyDBProduct(){
         Boolean empty=dbh.emptyProductTable();
