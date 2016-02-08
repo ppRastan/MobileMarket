@@ -426,12 +426,20 @@ public class SuperAwesomeCardFragment extends Fragment{
                                     final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                                             android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
                                     listBrand.setAdapter(adapter);
-
-
-
-
+                                    listBrand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                            String brandTile=(String)parent.getItemAtPosition(position);
+                                            subGroupTextView.setText(brandTile);
+                                            PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(),
+                                                    sch.getAllProductOfABrand(products,brandTile));
+                                            gridview.setAdapter(newAdapter);
+                                            newAdapter.notifyDataSetChanged();
+                                            dialogBrand.dismiss();
+                                        }
+                                    });
+                                    dialogBrand.show();
                                 }
-
                             }
                         });
                         dialogSubGroup.setCancelable(true);
@@ -670,6 +678,48 @@ public class SuperAwesomeCardFragment extends Fragment{
                                         }
                                     });
                                     dialogPrice.show();
+                                }
+                                //Filter Brand
+                                if (position==1){
+                                    dialogSubGroup.dismiss();
+                                    final Dialog dialogBrand = new Dialog(getActivity());
+                                    dialogBrand.setContentView(R.layout.title_alertdialog_for_sub_group);
+                                    ImageButton btnResetPrice = (ImageButton)dialogBrand.findViewById(R.id.reset_action_subgroup);
+                                    ImageButton btnCanclePrice = (ImageButton)dialogBrand.findViewById(R.id.cancel_action_subgroup);
+                                    btnCanclePrice.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialogBrand.dismiss();
+                                        }
+                                    });
+                                    btnResetPrice.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            subCategorySelected[0] = getActivity().getString(R.string.all);
+                                            dialogBrand.dismiss();
+                                            subGroupTextView.setText(categorySelected[0]);
+                                        }
+                                    });
+                                    TextView text = (TextView) dialogBrand.findViewById(R.id.title_alertdialog_group);
+                                    ArrayList<String> subCategoryTitle=new ArrayList<String>();
+                                    subCategoryTitle=sch.getAllBrands(products);
+                                    final ListView listBrand = (ListView) dialogBrand.findViewById(R.id.list);
+                                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                                            android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
+                                    listBrand.setAdapter(adapter);
+                                    listBrand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                            String brandTile=(String)parent.getItemAtPosition(position);
+                                            subGroupTextView.setText(brandTile);
+                                            PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(),
+                                                    sch.getAllProductOfABrand(products,brandTile));
+                                            gridview.setAdapter(newAdapter);
+                                            newAdapter.notifyDataSetChanged();
+                                            dialogBrand.dismiss();
+                                        }
+                                    });
+                                    dialogBrand.show();
                                 }
 
                             }
@@ -913,6 +963,48 @@ public class SuperAwesomeCardFragment extends Fragment{
                                     });
                                     dialogPrice.show();
                                 }
+                                //Filter Brand
+                                if (position==1){
+                                    dialogSubGroup.dismiss();
+                                    final Dialog dialogBrand = new Dialog(getActivity());
+                                    dialogBrand.setContentView(R.layout.title_alertdialog_for_sub_group);
+                                    ImageButton btnResetPrice = (ImageButton)dialogBrand.findViewById(R.id.reset_action_subgroup);
+                                    ImageButton btnCanclePrice = (ImageButton)dialogBrand.findViewById(R.id.cancel_action_subgroup);
+                                    btnCanclePrice.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            dialogBrand.dismiss();
+                                        }
+                                    });
+                                    btnResetPrice.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            subCategorySelected[0] = getActivity().getString(R.string.all);
+                                            dialogBrand.dismiss();
+                                            subGroupTextView.setText(categorySelected[0]);
+                                        }
+                                    });
+                                    TextView text = (TextView) dialogBrand.findViewById(R.id.title_alertdialog_group);
+                                    ArrayList<String> subCategoryTitle=new ArrayList<String>();
+                                    subCategoryTitle=sch.getAllBrands(products);
+                                    final ListView listBrand = (ListView) dialogBrand.findViewById(R.id.list);
+                                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                                            android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
+                                    listBrand.setAdapter(adapter);
+                                    listBrand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                            String brandTile=(String)parent.getItemAtPosition(position);
+                                            subGroupTextView.setText(brandTile);
+                                            PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(),
+                                                    sch.getAllProductOfABrand(products,brandTile));
+                                            gridview.setAdapter(newAdapter);
+                                            newAdapter.notifyDataSetChanged();
+                                            dialogBrand.dismiss();
+                                        }
+                                    });
+                                    dialogBrand.show();
+                                }
 
                             }
                         });
@@ -1014,7 +1106,6 @@ public class SuperAwesomeCardFragment extends Fragment{
                     }
                 });
                 break;
-
             }
         }
         return mainView;

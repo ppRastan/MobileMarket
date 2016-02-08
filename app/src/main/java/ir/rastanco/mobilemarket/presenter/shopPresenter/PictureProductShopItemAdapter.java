@@ -55,16 +55,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private Button sendBtn;
     private EditText editTextToShare;
     private Intent sendIntent;
-    private Holder holder;
-    private Bitmap image;
-    private View rowView;
-    private ImageLoader imgLoader;
-    private String picCounter;
-    private Intent intent;
-    private String image_url_1;
-    private String priceOfCurrentGood;
-    private double amountOfFinalPrice;
-    private DecimalFormat formatter;
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
         context=mainActivity;
@@ -96,62 +86,51 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
 
     public class Holder
     {
-        private TextView nameOfProduct;
-        private TextView priceOfProduct;
-        private ImageView imageOfProduct;
-        private ImageButton shareToolBar;
-        private ImageButton basketToolbar;
-        private ImageButton likeToolBar;
-        private ImageButton offerLeft;
-        private ImageButton offerRight;
-        private Product mProduct;
+        TextView infoP;
+        TextView priceP;
+        ImageView imgP;
+        ImageButton shareToolBar;
+        ImageButton basketToolbar;
+        ImageButton likeToolBar;
+        ImageButton offerLeft;
+        ImageButton offerRight;
+        Product mProduct;
 
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        holder=new Holder();
-        image=null;
+        final Holder holder=new Holder();
+        final Bitmap image=null;
         holder.mProduct = new Product();
+
+        final View rowView;
         rowView = inflater.inflate(R.layout.picture_produc_item_shop, null);
-        this.setProductOfferIcon();
-        this.setProductNameAndPrice();
-        picCounter = allProduct.get(position).getImagesPath().get(0);
-        this.setProductToolbar(position);
-        imgLoader = new ImageLoader(Configuration.superACFragment); // important
 
-        try {
-            picCounter= URLEncoder.encode(picCounter, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        holder.infoP=(TextView) rowView.findViewById(R.id.txt_infoProduct);
+        holder.infoP.setTypeface(yekanFont);
+        holder.priceP=(TextView) rowView.findViewById(R.id.txt_priceProduct);
+        holder.priceP.setTypeface(yekanFont);
+        holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
+        holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
+        holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
+        holder.offerLeft.setVisibility(View.INVISIBLE);
+        //if(holder.mProduct.getPriceOff() != 0)
+        //{
+            holder.offerRight.setVisibility(View.VISIBLE);
+        //}
+        if (!(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1))
+        {
+            holder.offerRight.setVisibility(View.INVISIBLE);
+         //  if(holder.mProduct.getPriceOff() != 0) {
+
+                holder.offerLeft.setVisibility(View.VISIBLE);
+           // }
+           // else
+           // {
+             //   holder.offerLeft.setVisibility(View.INVISIBLE);
+            //}
         }
-        image_url_1 = allProduct.get(position).getImagesMainPath()+
-                picCounter+
-                "&size="+
-                Configuration.shopDisplaySize+"x"+Configuration.shopDisplaySize+
-                "&q=30";
-        imgLoader.DisplayImage(image_url_1, holder.imageOfProduct);
-        holder.nameOfProduct.setText(allProduct.get(position).getTitle());
-        priceOfCurrentGood = String.valueOf(allProduct.get(position).getPrice());
-        amountOfFinalPrice = Double.parseDouble(priceOfCurrentGood);
-        formatter = new DecimalFormat("#,###,000");
-        holder.priceOfProduct.setText(formatter.format(amountOfFinalPrice) + "  " + context.getResources().getString(R.string.toman));
-        holder.imageOfProduct.setImageBitmap(image);
-
-        holder.imageOfProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intent = new Intent(rowView.getContext(), ProductInfoActivity.class);
-                intent.putParcelableArrayListExtra("allProduct", allProduct);
-                intent.putExtra("position", position);
-                rowView.getContext().startActivity(intent);
-            }
-        });
-        return rowView;
-    }
-
-    private void setProductToolbar(final int position) {
-
         holder.shareToolBar = (ImageButton)rowView.findViewById(R.id.share_toolbar_in_main_page);
         holder.basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
         holder.likeToolBar = (ImageButton)rowView.findViewById(R.id.empty_like_toolbar);
@@ -205,6 +184,10 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                     public void onClick(View v) {
                         sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
                         textToSend = editTextToShare.getText().toString();
+                        String share=textToSend+"\n\n"+
+                                allProduct.get(position).getLinkInSite()+ "\n\n"+
+                                context.getResources().getString(R.string.text_to_advertise)+"\n\n"
+                                +"لینک دانلود اپلیکیشن دوریس";
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
                         if(textToSend.matches("")){
@@ -214,7 +197,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                             sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
                         }
 
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, "http://cafebazaar.ir/app/?id=com.Arvand.HundredPercent");
+                        sendIntent.putExtra(Intent.EXTRA_TEXT,share);
                         sendIntent.setType("text/plain");
                         context.startActivity(sendIntent);
 
@@ -252,37 +235,42 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 }
             }
         });
-    }
 
-    private void setProductNameAndPrice() {
-        holder.nameOfProduct =(TextView) rowView.findViewById(R.id.txt_infoProduct);
-        holder.nameOfProduct.setTypeface(yekanFont);
-        holder.priceOfProduct =(TextView) rowView.findViewById(R.id.txt_priceProduct);
-        holder.priceOfProduct.setTypeface(yekanFont);
-        holder.imageOfProduct =(ImageView) rowView.findViewById(R.id.imbt_picProduct);
-    }
-
-    private void setProductOfferIcon() {
-
-        holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
-        holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
-        holder.offerLeft.setVisibility(View.INVISIBLE);
-        //if(holder.mProduct.getPriceOff() != 0)
-        //{
-        holder.offerRight.setVisibility(View.VISIBLE);
-        //}
-        if (!(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1))
-        {
-            holder.offerRight.setVisibility(View.INVISIBLE);
-            //  if(holder.mProduct.getPriceOff() != 0) {
-
-            holder.offerLeft.setVisibility(View.VISIBLE);
-            // }
-            // else
-            // {
-            //   holder.offerLeft.setVisibility(View.INVISIBLE);
-            //}
+        ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
+        String picCounter = allProduct.get(position).getImagesPath().get(0);
+        try {
+            picCounter= URLEncoder.encode(picCounter, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
+        String image_url_1 = allProduct.get(position).getImagesMainPath()+
+                picCounter+
+                "&size="+
+                Configuration.shopDisplaySize+"x"+Configuration.shopDisplaySize+
+                "&q=30";
+        imgLoader.DisplayImage(image_url_1, holder.imgP);
+        holder.infoP.setText(allProduct.get(position).getTitle());
+        String priceOfCurrentGood = String.valueOf(allProduct.get(position).getPrice());
+        double amountOfFinalPrice = Double.parseDouble(priceOfCurrentGood);
+        DecimalFormat formatter = new DecimalFormat("#,###,000");
+        holder.priceP.setText(formatter.format(amountOfFinalPrice)+"  "+"تومان");
+        holder.imgP.setImageBitmap(image);
+
+        holder.imgP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(rowView.getContext(), ProductInfoActivity.class);
+                intent.putParcelableArrayListExtra("allProduct",allProduct);
+                intent.putExtra("position", position);
+                rowView.getContext().startActivity(intent);
+            }
+        });
+
+        //Add Product Option
+        /*sch.getProductOption(allProduct.get(position).getId(),
+                allProduct.get(position).getGroupId());*/
+
+        return rowView;
     }
 
 }
