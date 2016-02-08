@@ -621,7 +621,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
     public ArrayList<Product> selectAllProduct() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblProduct order by id ASC", null);
+        Cursor rs = db.rawQuery("select * from tblProduct order by id Desc", null);
         allProducts = new ArrayList<Product>();
         if (rs != null) {
             if (rs.moveToFirst()) {
@@ -659,7 +659,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
     public ArrayList<Product> selectAllProductOfACategory(int categoryId){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblProduct where groupId="+categoryId+" "+ "order by id desc ", null);
+        Cursor rs = db.rawQuery("select * from tblProduct where groupId="+categoryId+" "+ "order by id ASC ", null);
         allProducts = new ArrayList<Product>();
         if (rs != null) {
             if (rs.moveToFirst()) {
@@ -737,7 +737,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     public ArrayList<Product> selectSpecialProduct(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblProduct where priceOff !=0 or showAtHomeScreen=1 order by id desc ", null);
+        Cursor rs = db.rawQuery("select * from tblProduct where priceOff !=0 or showAtHomeScreen=1 order by id ASC ", null);
         allProducts = new ArrayList<Product>();
         if (rs != null) {
             if (rs.moveToFirst()) {

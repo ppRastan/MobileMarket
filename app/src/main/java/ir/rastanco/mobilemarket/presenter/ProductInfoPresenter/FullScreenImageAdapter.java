@@ -14,6 +14,7 @@ import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -34,6 +35,9 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.ProductOption;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Connect;
+import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.Observer;
+import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 public class FullScreenImageAdapter extends PagerAdapter{
@@ -49,6 +53,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
     private ImageButton btnShare;
     private ArrayList<Product> allProduct;
     private Context context;
+    private float y1, y2;
     private View viewLayout;
     private TextView nameOfCurrentProduct;
     private Product aProduct;
@@ -63,13 +68,6 @@ public class FullScreenImageAdapter extends PagerAdapter{
     private double amountOfFinalPrice;
     private DecimalFormat formatter;
     private Typeface yekanFont;
-    private  boolean isAppInstalled;
-    private String appName;
-    private String msg;
-    private ImageView imgProduct;
-    private ImageLoader imgLoader;
-    private String picNum;
-    private LinearLayout layout;
     // constructor
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
@@ -78,6 +76,37 @@ public class FullScreenImageAdapter extends PagerAdapter{
         activity =(Activity) context;
         sch=new ServerConnectionHandler(Configuration.ProductInfoActivity);
         aProduct=new Product();
+    }
+    public boolean onTouchEvent(MotionEvent touchevent , final int position)
+    {
+        switch (touchevent.getAction())
+        {
+            case MotionEvent.ACTION_DOWN:
+            {
+                y1 = touchevent.getY();
+                break;
+            }
+            case MotionEvent.ACTION_UP:
+            {
+                y2 = touchevent.getY();
+
+                if (y1 < y2)
+                {
+                    Intent intentProductInfo = new Intent(viewLayout.getContext(),ProductOptionActivity.class);
+                    intentProductInfo.putExtra("productId", products.get(position).getId());
+                    intentProductInfo.putExtra("groupId", products.get(position).getGroupId());
+                    viewLayout.getContext().startActivity(intentProductInfo);
+                }
+
+                if (y1 > y2)
+                {
+
+                }
+
+                break;
+            }
+        }
+        return false;
     }
     @Override
     public int getCount() {
@@ -94,11 +123,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
 
         inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        viewLayout = inflater.inflate(R.layout.activity_product_info, container,false);
-        
-        this.createEachFullScreenPage();
-        //this.setYekanFont();
-        //this.addToolbar();
+        viewLayout = inflater.inflate(R.layout.activity_product_info, container, false);
         yekanFont = Typeface.createFromAsset(activity.getAssets(), "fonts/yekan.ttf");
         nameOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.name_of_photo);
         nameOfCurrentProduct.setTypeface(yekanFont);
@@ -107,9 +132,18 @@ public class FullScreenImageAdapter extends PagerAdapter{
         amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
         formatter = new DecimalFormat("#,###,000");
         nameOfCurrentProduct.setText(products.get(position).getTitle());
+
         final ImageButton btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
-        addToBasketBtn.setText(formatter.format(amountOfFinalPrice) + "  " + activity.getResources().getString(R.string.toman));
+        addToBasketBtn.setText(formatter.format(amountOfFinalPrice) + "  " + "تومان");
         addToBasketBtn.setTypeface(yekanFont);
+        addToBasketBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sch.addProductToShoppingBag(products.get(position).getId(),1);
+                Configuration.ProductInfoActivity.startActivity(new Intent(Configuration.ProductInfoActivity, ShoppingBagActivity.class));
+                Connect.setMyBoolean(true);
+            }
+        });
 
         sch.getProductOption(products.get(position).getId(),
                 products.get(position).getGroupId());
@@ -210,9 +244,9 @@ public class FullScreenImageAdapter extends PagerAdapter{
 
             }
         });
-        imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
-        imgLoader = new ImageLoader(Configuration.ProductInfoActivity); // important
-        picNum = products.get(position).getImagesPath().get(0);
+        final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
+        final ImageLoader imgLoader = new ImageLoader(Configuration.ProductInfoActivity); // important
+        String picNum = products.get(position).getImagesPath().get(0);
         try {
             picNum = URLEncoder.encode(picNum, "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -225,7 +259,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
                 Configuration.homeDisplaySize + "x" + Configuration.productInfoHeightSize +
                 "&q=30";
         imgLoader.DisplayImage(image_url_Main, imgProduct);
-        layout = (LinearLayout) viewLayout.findViewById(R.id.linear);
+        LinearLayout layout = (LinearLayout) viewLayout.findViewById(R.id.linear);
         int counter;
         if(products.get(position).getImagesPath().size()>1)
             counter=0;
@@ -277,14 +311,11 @@ public class FullScreenImageAdapter extends PagerAdapter{
         return viewLayout;
     }
 
-    private void createEachFullScreenPage() {
-    }
-
     private void shareByTelegram(final int position) {
 
-        appName = "org.telegram.messenger";
-        msg = products.get(position).getLinkInSite();
-        isAppInstalled = isTelegramAvalableNow(activity.getApplicationContext(), appName);
+        final String appName = "org.telegram.messenger";
+        final String msg = products.get(position).getLinkInSite();
+        final boolean isAppInstalled = isAppAvailable(activity.getApplicationContext(), appName);
         if (isAppInstalled) {
             shareDialog = new Dialog(activity);
             shareDialog.setContentView(R.layout.share_alert_dialog);
@@ -332,7 +363,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
         }
     }
 
-    private boolean isTelegramAvalableNow(Context applicationContext, String appName) {
+    private boolean isAppAvailable(Context applicationContext, String appName) {
         PackageManager pm = activity.getPackageManager();
         try
         {
