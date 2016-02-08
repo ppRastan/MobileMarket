@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         shoppingBagActivity = new ShoppingBagActivity();
         this.CreatePageRightToLeft();
-        Toast.makeText(getApplicationContext(),"this toast is for test!",Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(),"this toast is for test!",Toast.LENGTH_LONG).show();
         this.addActionBar();
         this.addFontAndColors();
         this.addServerConnection();
