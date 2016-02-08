@@ -40,65 +40,53 @@ public class ShoppingBagActivity extends Activity {
     private TextView totalPrice;
     private Security sec;
     private ArrayList<Integer> productsId;
-    private Typeface yekanFont;
-    private ListView lvShoppingBag;
-    private int finalPrice=0;
-    private int price;
-    private int off;
-    private double finalPriceToolbar;
-    private String numberProductPrice;
-    private DecimalFormat formatter;
-    private Product product;
-    private UserInfo user;
-    private String urlInfo;
-    private Intent shoppingBagIntent;
-    private Intent intent;
+    Typeface yekanFont;
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         Configuration.ShoppingBagActivity=this;
         sec=new Security();
         setContentView(R.layout.activity_shopping_bag);
-        this.addToolbar();
-        Configuration.ShoppingBagActivity=this;
-        sch=new ServerConnectionHandler(Configuration.ShoppingBagActivity);
-        productsId=new ArrayList<Integer>();
-        productsId=sch.getProductShoppingID();
-        this.setListView();
-        this.setTotalPrice();
-        this.setFont();
-        this.setFormatOfNumbers();
-        this.finishShopping();
-        this.setObserverForShoppingBag();
-    }
-
-    private void setObserverForShoppingBag() {
-
-        Observer.addShoppingCancelListener(new ShoppingCancelListener() {
+        yekanFont= Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
+        totalPrice = (TextView)findViewById(R.id.total_price);
+        totalPrice.setTypeface(yekanFont);
+        closeShoppingPage = (ImageButton)findViewById(R.id.close_shopping_page);
+        closeShoppingPage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void ShoppingChanged() {
-                Map<Integer, Integer> refreshProductsId = new Hashtable<Integer, Integer>();
-                refreshProductsId = sch.getAllProductShopping();
-                int finalPrice = 0;
-                int price;
-                int off;
-                for (Map.Entry<Integer, Integer> entry : refreshProductsId.entrySet()) {
-                    price = 0;
-                    off = 0;
-                    product = new Product();
-                    product = sch.getAProduct(entry.getKey());
-                    if (product.getPriceOff() != 0)
-                        off = (product.getPrice() * product.getPriceOff()) / 100;
-                    price = (product.getPrice() * entry.getValue()) - (off * entry.getValue());
-                    finalPrice = finalPrice + price;
-
-                }
-
+            public void onClick(View v) {
+                startActivity(new Intent(ShoppingBagActivity.this, MainActivity.class));
             }
         });
-    }
+        Configuration.ShoppingBagActivity=this;
+        sch=new ServerConnectionHandler(Configuration.ShoppingBagActivity);
 
-    private void finishShopping() {
+        productsId=new ArrayList<Integer>();
+        productsId=sch.getProductShoppingID();
+
+        final ListView lvShoppingBag=(ListView)findViewById(R.id.lv_shoppingBag);
+        shoppingBagAdapter adapter= new shoppingBagAdapter(this, R.layout.activity_shopping_bag,productsId);
+        lvShoppingBag.setAdapter(adapter);
+
+        //Total Price
+        int finalPrice=0;
+        int price;
+        int off;
+        for(int i=0;i<productsId.size();i++){
+            price=0;
+            off=0;
+            Product product=new Product();
+            product=sch.getAProduct(productsId.get(i));
+            if(product.getPriceOff()!=0)
+                off=(product.getPrice()*product.getPriceOff())/100;
+            price=product.getPrice()-off;
+            finalPrice=finalPrice+price;
+        }
+        totalPrice.setText(String.valueOf(finalPrice));
+        String numberProductPrice = String.valueOf(totalPrice.getText());
+        double finalPriceToolbar = Double.parseDouble(numberProductPrice);
+        DecimalFormat formatter = new DecimalFormat("#,###,000");
+        totalPrice.setText(formatter.format(finalPriceToolbar)+"   "+ "تومان");
 
         okShop = (Button)findViewById(R.id.ok_shop);
         okShop.setOnClickListener(new View.OnClickListener() {
@@ -107,22 +95,22 @@ public class ShoppingBagActivity extends Activity {
                 Map<Integer, Integer> shopInfo = new HashMap<Integer, Integer>();
                 shopInfo = sch.getAllProductShopping();
                 if (shopInfo.size() == 0) {
-                    Toast.makeText(Configuration.ShoppingBagActivity,getResources().getString(R.string.empty_basket),
+                    Toast.makeText(Configuration.ShoppingBagActivity, "کالایی انتخاب نگردیده است",
                             Toast.LENGTH_LONG).show();
                 } else {
-                    user = sch.getUserInfo();
+                    UserInfo user = sch.getUserInfo();
                     if (user == null) {
-                        shoppingBagIntent = new Intent(Configuration.ShoppingBagActivity, UserProfileActivity.class);
+                        Intent shoppingBagIntent = new Intent(Configuration.ShoppingBagActivity, UserProfileActivity.class);
                         startActivity(shoppingBagIntent);
                     } else {
                         String url = "http://decoriss.com/app,data=";
-                        urlInfo = user.getUserEmail() + "##";
+                        String urlInfo = user.getUserEmail() + "##";
                         for (Map.Entry<Integer, Integer> entry : shopInfo.entrySet())
                             urlInfo = urlInfo + entry.getKey() + "_" + entry.getValue() + "#";
 
                         urlInfo = sec.Base64(urlInfo);
                         url = url + urlInfo;
-                        intent = new Intent();
+                        Intent intent = new Intent();
                         intent.setAction(Intent.ACTION_VIEW);
                         intent.addCategory(Intent.CATEGORY_BROWSABLE);
                         intent.setData(Uri.parse(url));
@@ -139,53 +127,36 @@ public class ShoppingBagActivity extends Activity {
                 }
             }
         });
-    }
 
-    private void setFormatOfNumbers() {
-        formatter = new DecimalFormat("#,###,000");
-        numberProductPrice = String.valueOf(totalPrice.getText());
-        finalPriceToolbar = Double.parseDouble(numberProductPrice);
-        totalPrice.setText(formatter.format(finalPriceToolbar) + "   " + "تومان");
-    }
 
-    private void setTotalPrice() {
-
-        for(int i=0;i<productsId.size();i++){
-            price=0;
-            off=0;
-            Product product=new Product();
-            product=sch.getAProduct(productsId.get(i));
-            if(product.getPriceOff()!=0)
-                off=(product.getPrice()*product.getPriceOff())/100;
-            price=product.getPrice()-off;
-            finalPrice=finalPrice+price;
-        }
-        totalPrice.setText(String.valueOf(finalPrice));
-    }
-
-    private void setListView() {
-
-        lvShoppingBag=(ListView)findViewById(R.id.lv_shoppingBag);
-        shoppingBagAdapter adapter= new shoppingBagAdapter(this, R.layout.activity_shopping_bag,productsId);
-        lvShoppingBag.setAdapter(adapter);
-
-    }
-
-    private void addToolbar() {
-
-        totalPrice = (TextView)findViewById(R.id.total_price);
-        closeShoppingPage = (ImageButton)findViewById(R.id.close_shopping_page);
-        closeShoppingPage.setOnClickListener(new View.OnClickListener() {
+        Observer.addShoppingCancelListener(new ShoppingCancelListener() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShoppingBagActivity.this, MainActivity.class));
+            public void ShoppingChanged() {
+                Map<Integer, Integer> refreshProductsId = new Hashtable<Integer, Integer>();
+                refreshProductsId = sch.getAllProductShopping();
+                int finalPrice = 0;
+                //Total Price
+                int price;
+                int off;
+                for (Map.Entry<Integer, Integer> entry : refreshProductsId.entrySet()) {
+                    price = 0;
+                    off = 0;
+                    Product product = new Product();
+                    product = sch.getAProduct(entry.getKey());
+                    if (product.getPriceOff() != 0)
+                        off = (product.getPrice() * product.getPriceOff()) / 100;
+                    price = (product.getPrice() * entry.getValue()) - (off * entry.getValue());
+                    finalPrice = finalPrice + price;
+
+                }
+                totalPrice.setText(String.valueOf(finalPrice));
+                String numberProductPrice = String.valueOf(totalPrice.getText());
+                double finalPriceToolbar = Double.parseDouble(numberProductPrice);
+                DecimalFormat formatter = new DecimalFormat("#,###,000");
+                totalPrice.setText(formatter.format(finalPriceToolbar) + "   " + "تومان");
+
             }
         });
-    }
-
-    private void setFont() {
-        yekanFont= Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
-        totalPrice.setTypeface(yekanFont);
     }
 
 }
