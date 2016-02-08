@@ -190,17 +190,12 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                                 +"لینک دانلود اپلیکیشن دوریس";
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
-                        if(textToSend.matches("")){
-                            sendIntent.putExtra(Intent.EXTRA_SUBJECT,context.getResources().getString(R.string.text_to_send));
-                        }
-                        else {
                             sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
-                        }
-
+                            sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
                         sendIntent.putExtra(Intent.EXTRA_TEXT,share);
                         sendIntent.setType("text/plain");
                         context.startActivity(sendIntent);
-
+                        shareDialog.cancel();
                     }
                 });
                 shareDialog.setCancelable(true);

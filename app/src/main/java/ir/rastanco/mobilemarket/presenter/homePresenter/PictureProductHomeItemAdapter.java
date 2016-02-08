@@ -77,28 +77,24 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
                     public void onClick(View v) {
                         sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
                         textToSend = editTextToShare.getText().toString();
-                        String Share=textToSend+"\n\n"+
-                                allProduct.get(position).getLinkInSite()+ "\n\n"+
-                                myContext.getResources().getString(R.string.text_to_advertise)+"\n\n"
-                                +"لینک دانلود اپلیکیشن دوریس";
+                        String Share = textToSend + "\n\n" +
+                                allProduct.get(position).getLinkInSite() + "\n\n" +
+                                myContext.getResources().getString(R.string.text_to_advertise) + "\n\n"
+                                + "لینک دانلود اپلیکیشن دوریس";
 
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
-                        if(textToSend.matches("")){
-                            sendIntent.putExtra(Intent.EXTRA_SUBJECT,myContext.getResources().getString(R.string.text_to_send));
-                        }
-                        else {
-                            sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
-                        }
-
-                        sendIntent.putExtra(Intent.EXTRA_TEXT,Share);
+                        sendIntent.putExtra(Intent.EXTRA_SUBJECT, textToSend);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
                         sendIntent.setType("text/plain");
                         myContext.startActivity(sendIntent);
 
                     }
                 });
+
                 shareDialog.setCancelable(true);
                 shareDialog.show();
+                shareDialog.cancel();
             }
         });
 

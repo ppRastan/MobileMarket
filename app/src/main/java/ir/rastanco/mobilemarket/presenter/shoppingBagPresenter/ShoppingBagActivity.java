@@ -68,7 +68,7 @@ public class ShoppingBagActivity extends Activity {
         lvShoppingBag.setAdapter(adapter);
 
         //Total Price
-        int finalPrice=0;
+        int finalPrice= 0;
         int price;
         int off;
         for(int i=0;i<productsId.size();i++){

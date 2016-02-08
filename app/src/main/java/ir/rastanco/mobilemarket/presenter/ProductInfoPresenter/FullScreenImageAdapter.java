@@ -14,7 +14,6 @@ import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -36,7 +35,6 @@ import ir.rastanco.mobilemarket.dataModel.ProductOption;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Connect;
-import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.Observer;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
@@ -53,7 +51,6 @@ public class FullScreenImageAdapter extends PagerAdapter{
     private ImageButton btnShare;
     private ArrayList<Product> allProduct;
     private Context context;
-    private float y1, y2;
     private View viewLayout;
     private TextView nameOfCurrentProduct;
     private Product aProduct;
@@ -76,38 +73,9 @@ public class FullScreenImageAdapter extends PagerAdapter{
         activity =(Activity) context;
         sch=new ServerConnectionHandler(Configuration.ProductInfoActivity);
         aProduct=new Product();
+
     }
-    public boolean onTouchEvent(MotionEvent touchevent , final int position)
-    {
-        switch (touchevent.getAction())
-        {
-            case MotionEvent.ACTION_DOWN:
-            {
-                y1 = touchevent.getY();
-                break;
-            }
-            case MotionEvent.ACTION_UP:
-            {
-                y2 = touchevent.getY();
 
-                if (y1 < y2)
-                {
-                    Intent intentProductInfo = new Intent(viewLayout.getContext(),ProductOptionActivity.class);
-                    intentProductInfo.putExtra("productId", products.get(position).getId());
-                    intentProductInfo.putExtra("groupId", products.get(position).getGroupId());
-                    viewLayout.getContext().startActivity(intentProductInfo);
-                }
-
-                if (y1 > y2)
-                {
-
-                }
-
-                break;
-            }
-        }
-        return false;
-    }
     @Override
     public int getCount() {
         return productsSize;
@@ -207,30 +175,26 @@ public class FullScreenImageAdapter extends PagerAdapter{
                 sendBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
                         textToSend = editTextToShare.getText().toString();
                         String Share=textToSend+"\n\n"+
                                 products.get(position).getLinkInSite()+ "\n\n"+
                                 Configuration.ProductInfoActivity.getResources().getString(R.string.text_to_advertise)+"\n\n"
                                 +"لینک دانلود اپلیکیشن دوریس";
+
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
-                        if(textToSend.matches("")){
-                            sendIntent.putExtra(Intent.EXTRA_SUBJECT,activity.getResources().getString(R.string.text_to_send));
-                        }
-                        else {
-                            sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
-                        }
-
+                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
                         sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
                         sendIntent.setType("text/plain");
                         activity.startActivity(sendIntent);
+                        shareDialog.cancel();
 
                     }
                 });
                 shareDialog.setCancelable(true);
                 shareDialog.show();
-
             }
         });
 
@@ -338,19 +302,14 @@ public class FullScreenImageAdapter extends PagerAdapter{
                             Configuration.ProductInfoActivity.getResources().getString(R.string.text_to_advertise)+"\n\n"
                             +"لینک دانلود اپلیکیشن دوریس";
 
-                    sendIntent = new Intent();
-                    sendIntent.setAction(Intent.ACTION_SEND);
-                    if(textToSend.matches("")){
-                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,activity.getResources().getString(R.string.text_to_send));
-                    }
-                    else {
-                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
-                    }
-
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
+                        sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
                     sendIntent.setType("text/plain");
                     sendIntent.setPackage(appName);
-                    activity.startActivity(sendIntent);
+                        activity.startActivity(sendIntent);
+                    shareDialog.cancel();
 
                 }
             });
