@@ -286,7 +286,6 @@ public class ServerConnectionHandler {
                             }
                             else{
                                 statusNotExist=true;
-
                             }
                         }
                         if (statusExist==false && statusNotExist==true)

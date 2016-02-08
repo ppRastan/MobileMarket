@@ -184,6 +184,10 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                     public void onClick(View v) {
                         sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
                         textToSend = editTextToShare.getText().toString();
+                        String share=textToSend+"\n\n"+
+                                allProduct.get(position).getLinkInSite()+ "\n\n"+
+                                context.getResources().getString(R.string.text_to_advertise)+"\n\n"
+                                +"لینک دانلود اپلیکیشن دوریس";
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
                         if(textToSend.matches("")){
@@ -193,7 +197,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                             sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
                         }
 
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, "http://cafebazaar.ir/app/?id=com.Arvand.HundredPercent");
+                        sendIntent.putExtra(Intent.EXTRA_TEXT,share);
                         sendIntent.setType("text/plain");
                         context.startActivity(sendIntent);
 
@@ -261,6 +265,11 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 rowView.getContext().startActivity(intent);
             }
         });
+
+        //Add Product Option
+        /*sch.getProductOption(allProduct.get(position).getId(),
+                allProduct.get(position).getGroupId());*/
+
         return rowView;
     }
 

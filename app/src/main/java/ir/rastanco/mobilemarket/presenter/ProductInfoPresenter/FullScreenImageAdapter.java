@@ -133,6 +133,9 @@ public class FullScreenImageAdapter extends PagerAdapter{
         addToBasketBtn.setText(formatter.format(amountOfFinalPrice) + "  " + "تومان");
         addToBasketBtn.setTypeface(yekanFont);
 
+        sch.getProductOption(products.get(position).getId(),
+                products.get(position).getGroupId());
+
 
         if (products.get(position).getLike()==0){
             //this Product No Favorite
@@ -341,7 +344,6 @@ public class FullScreenImageAdapter extends PagerAdapter{
             });
             shareDialog.setCancelable(true);
             shareDialog.show();
-
         }
         else
         {
@@ -361,7 +363,6 @@ public class FullScreenImageAdapter extends PagerAdapter{
             return false;
         }
     }
-
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {

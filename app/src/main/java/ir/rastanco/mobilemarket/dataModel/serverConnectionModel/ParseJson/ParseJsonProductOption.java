@@ -34,7 +34,6 @@ public class ParseJsonProductOption {
                 productProductOptions.add(aOption);
             }
 
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
