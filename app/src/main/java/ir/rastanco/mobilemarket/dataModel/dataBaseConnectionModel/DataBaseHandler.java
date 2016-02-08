@@ -827,20 +827,23 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return options;
     }
 
-    public ArrayList<Integer> selectProductBrand(String brand) {
-        ArrayList<Integer> productId = new ArrayList<Integer>();
+    public ArrayList<ProductOption> selectProductBrand(int productId) {
+        ArrayList<ProductOption> productOptions = new ArrayList<ProductOption>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblProductOption where valueOption=" + brand + "", null);
+        Cursor rs = db.rawQuery("select * from tblProductOption where fkProductId="+productId, null);
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    productId.add(rs.getInt(rs.getColumnIndex("fkProductId")));
+                    ProductOption aOption=new ProductOption();
+                    aOption.setTitle(rs.getString(rs.getColumnIndex("titleOption")));
+                    aOption.setValue(rs.getString(rs.getColumnIndex("valueOption")));
+                    productOptions.add(aOption);
                 }
                 while (rs.moveToNext());
             }
             rs.close();
         }
-        return productId;
+        return productOptions;
     }
 
     public ArrayList<Article> selectAllArticle() {
