@@ -188,11 +188,16 @@ public class FullScreenImageAdapter extends PagerAdapter{
                         shareDialog.dismiss();
                     }
                 });
+
                 sendBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
                         textToSend = editTextToShare.getText().toString();
+                        String Share=textToSend+"\n\n"+
+                                products.get(position).getLinkInSite()+ "\n\n"+
+                                Configuration.ProductInfoActivity.getResources().getString(R.string.text_to_advertise)+"\n\n"
+                                +"لینک دانلود اپلیکیشن دوریس";
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
                         if(textToSend.matches("")){
@@ -202,7 +207,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
                             sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
                         }
 
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, products.get(position).getLinkInSite());
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
                         sendIntent.setType("text/plain");
                         activity.startActivity(sendIntent);
 
@@ -313,6 +318,11 @@ public class FullScreenImageAdapter extends PagerAdapter{
                 public void onClick(View v) {
                     sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
                     textToSend = editTextToShare.getText().toString();
+                    String Share=textToSend+"\n\n"+
+                            products.get(position).getLinkInSite()+ "\n\n"+
+                            Configuration.ProductInfoActivity.getResources().getString(R.string.text_to_advertise)+"\n\n"
+                            +"لینک دانلود اپلیکیشن دوریس";
+
                     sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
                     if(textToSend.matches("")){
@@ -322,7 +332,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
                         sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
                     }
 
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, msg);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
                     sendIntent.setType("text/plain");
                     sendIntent.setPackage(appName);
                     activity.startActivity(sendIntent);

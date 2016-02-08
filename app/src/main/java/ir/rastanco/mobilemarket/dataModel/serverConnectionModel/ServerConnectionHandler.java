@@ -54,7 +54,7 @@ public class ServerConnectionHandler {
     }
 
     public void addSettingApp(String firstTimeStamp,String articleNum,String version){
-        dbh.insertSettingApp(firstTimeStamp,articleNum,version);
+        dbh.insertSettingApp(firstTimeStamp, articleNum, version);
     }
 
     public void updateVersionApp(String newVersin){
@@ -267,6 +267,30 @@ public class ServerConnectionHandler {
         addProductOptionsToTable(productId,options);
     }
 
+    public ArrayList<String> getAllBrands(ArrayList<Product> products){
+        ArrayList<String> brandsTitle=new ArrayList<String>();
+        String brand = "";
+        for (int i=0;i<products.size();i++){
+            ArrayList<ProductOption> productOptions=new ArrayList<ProductOption>();
+            productOptions=dbh.selectProductBrand(products.get(i).getId());
+            for (int k=0;k<productOptions.size();k++){
+                if (productOptions.get(k).getTitle().equals("برند")){
+                    if (brandsTitle.size()==0)
+                        brandsTitle.add(productOptions.get(k).getValue());
+                    else{
+                        for (int j=0;j<brandsTitle.size();j++){
+                            if (productOptions.get(k).getValue() != brandsTitle.get(j))
+                                brandsTitle.add(productOptions.get(k).getValue());
+                        }
+
+                    }
+
+                }
+            }
+        }
+        return brandsTitle;
+    }
+
     public void changeProductLike(int productId,int like){
         dbh.updateAProductLike(productId,like);
     }
@@ -388,7 +412,7 @@ public class ServerConnectionHandler {
     }
 
     public void changeShoppingNunmber(int productId,int count){
-        dbh.updateAShoppingNumberPurchased(productId,count);
+        dbh.updateAShoppingNumberPurchased(productId, count);
     }
 
     public void emptyShoppingBag(){
@@ -447,4 +471,5 @@ public class ServerConnectionHandler {
         else
             return true;
     }
+
 }
