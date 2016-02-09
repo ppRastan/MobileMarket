@@ -2,6 +2,7 @@ package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,37 +27,51 @@ public class LastShoppingItemAdapter extends ArrayAdapter<ProductShop> {
 
     private Activity myContext;
     private ArrayList<ProductShop> allProductsShop;
+    private LayoutInflater inflater;
+    private View rowView;
+    private ImageLoader imgLoader;
+    private ImageView picInvoice;
+    private String image_url_1;
+    private TextView invoiceNum;
+    private TextView invoiceDate;
+    private TextView invoiceStatus;
+    private Typeface yekanFont;
 
     public LastShoppingItemAdapter(Context context, int resource, ArrayList<ProductShop> productsShop) {
         super(context, resource,productsShop);
         myContext=(Activity)context;
         allProductsShop=productsShop;
+        yekanFont = Typeface.createFromAsset(myContext.getAssets(),"fonts/yekan.ttf");
+
 
     }
 
     public View getView(final int position, View convertView, ViewGroup parent){
 
-       LayoutInflater inflater = myContext.getLayoutInflater();
-        final View rowView = inflater.inflate(R.layout.last_shopping_item, null);
+        inflater = myContext.getLayoutInflater();
+        rowView = inflater.inflate(R.layout.last_shopping_item, null);
 
 
-        ImageLoader imgLoader = new ImageLoader(Configuration.UserAccountFragment); // important
-        ImageView picInvoice = (ImageView) rowView.findViewById(R.id.img_invoice);
-        String image_url_1 = allProductsShop.get(position).getInvoiceImageLink();
+        imgLoader = new ImageLoader(Configuration.UserAccountFragment); // important
+        picInvoice = (ImageView) rowView.findViewById(R.id.img_invoice);
+        image_url_1 = allProductsShop.get(position).getInvoiceImageLink();
         imgLoader.DisplayImage(image_url_1, picInvoice);
 
-        TextView invoiceNum=(TextView) rowView.findViewById(R.id.txt_invoiceNum);
-        TextView invoiceDate=(TextView)rowView.findViewById(R.id.txt_invoceDate);
-        TextView invoiceStatus=(TextView)rowView.findViewById(R.id.txt_invoiceStatus);
+        invoiceNum=(TextView) rowView.findViewById(R.id.txt_invoiceNum);
+        invoiceDate=(TextView)rowView.findViewById(R.id.txt_invoceDate);
+        invoiceStatus=(TextView)rowView.findViewById(R.id.txt_invoiceStatus);
+        invoiceNum.setTypeface(yekanFont);
+        invoiceDate.setTypeface(yekanFont);
+        invoiceStatus.setTypeface(yekanFont);
 
-        invoiceNum.setText("شماره فاکتور :"+allProductsShop.get(position).getInvoiceNumber());
+        invoiceNum.setText(myContext.getResources().getString(R.string.invoice_number)+allProductsShop.get(position).getInvoiceNumber());
 
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(Integer.parseInt(allProductsShop.get(position).getTimeStamp()));
         String date = DateFormat.format("yyyy-MM-dd", cal).toString();
-        invoiceDate.setText("تاریخ خرید محصول:"+date);
+        invoiceDate.setText(myContext.getResources().getString(R.string.date_of_shopping)+date);
 
-        invoiceStatus.setText("وضعیت فاکتور :"+String.valueOf(allProductsShop.get(position).getInvoiceStatus()));
+        invoiceStatus.setText(myContext.getResources().getString(R.string.state_of_invoice)+String.valueOf(allProductsShop.get(position).getInvoiceStatus()));
         return rowView;
     }
 }

@@ -54,37 +54,35 @@
 
              </LinearLayout>
 <LinearLayout
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="0dp"
     android:layout_weight="1"
     android:gravity="center"
+    android:layout_gravity="center_vertical|center_horizontal"
     android:orientation="horizontal"
     android:weightSum="10"
     android:background="@color/white">
     <Spinner
         android:layout_gravity="right|center_vertical"
-        android:layout_width="0dp"
-        android:layout_weight="5"
+        android:layout_width="58dp"
         android:gravity="center"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
         android:padding="8dp"
         android:textColor="#666"
         android:textSize="12dp"
         style="@style/spinner"
         android:id="@+id/spinner" />
     <TextView
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:gravity="center|left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/white"
         android:layout_gravity="center_vertical|left"
         android:textColor="@color/black"
-        android:textSize="11dp"
-        android:layout_weight="5"
+        android:textSize="12sp"
         android:text="@string/number_of_shopping_items"
         />
-
-
-
 </LinearLayout>
 <LinearLayout
     android:layout_width="match_parent"

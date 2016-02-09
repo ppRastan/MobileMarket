@@ -50,7 +50,6 @@ public class UserInformation extends Fragment {
          btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               btnLogin.setTextColor(Color.RED);
                 UserInfo aUser=new UserInfo();
                 String key=sch.GetKey("http://decoriss.com/json/get,com=auth");
                 //String key="974401741";
@@ -81,7 +80,6 @@ public class UserInformation extends Fragment {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnSignUp.setTextColor(Color.RED);
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
@@ -93,7 +91,6 @@ public class UserInformation extends Fragment {
         btnForgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnForgotPass.setTextColor(Color.RED);
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);

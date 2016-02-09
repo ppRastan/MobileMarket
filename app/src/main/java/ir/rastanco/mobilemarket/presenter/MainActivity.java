@@ -131,15 +131,15 @@ public class MainActivity extends AppCompatActivity {
         mainCategory= new HashMap<Integer,String>();
         mainCategory=sch.getMainCategory();
         ArrayList<String> mainCategoryTitle=new ArrayList<String>();
-        for (Map.Entry<Integer, String> entry : mainCategory.entrySet()) {
-            mainCategoryTitle.add(entry.getValue());
-        }
-        second_page=mainCategoryTitle.get(0);
-        third_page=mainCategoryTitle.get(1);
-        fourth_page=mainCategoryTitle.get(2);
+//        for (Map.Entry<Integer, String> entry : mainCategory.entrySet()) {
+//            mainCategoryTitle.add(entry.getValue());
+//        }
+//        second_page=mainCategoryTitle.get(0);
+//        third_page=mainCategoryTitle.get(1);
+//        fourth_page=mainCategoryTitle.get(2);
 
 
-    }
+   }
 
     private void displayWindow() {
         display = getWindowManager().getDefaultDisplay();

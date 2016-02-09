@@ -15,4 +15,5 @@
     <color name="golden">#ffd700</color>
     <color name="red">#EB4D2A</color>
     <color name="transparent">#10f7f7f7</color>
+    <color name="dark_gray">#b6b6b6</color>
 </resources>
