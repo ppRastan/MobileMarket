@@ -114,6 +114,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
         holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
         holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
+        //TODO for shayeste visible the offer icon
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1){
 
             holder.offerLeft.setVisibility(View.INVISIBLE);
