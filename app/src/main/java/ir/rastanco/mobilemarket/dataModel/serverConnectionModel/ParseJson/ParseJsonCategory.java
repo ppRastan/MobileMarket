@@ -46,6 +46,7 @@ public class ParseJsonCategory {
                         sub1Category.setId(Integer.parseInt(sub1object.getString("id")));
                         sub1Category.setParentId(Integer.parseInt(sub1object.getString("pid")));
                         sub1Category.setHasChild(Integer.parseInt(sub1object.getString("c")));
+                        sub1Category.setSortOrder(Integer.parseInt(sub1object.getString("so")));
                         allCategory.add(sub1Category);
                         if (sub1object.has("sub2")){
                             JSONArray sub2Array=sub1object.getJSONArray("sub2");
@@ -56,6 +57,7 @@ public class ParseJsonCategory {
                                 sub2Category.setId(Integer.parseInt(sub2object.getString("id")));
                                 sub2Category.setParentId(Integer.parseInt(sub2object.getString("pid")));
                                 sub2Category.setHasChild(Integer.parseInt(sub2object.getString("c")));
+                                sub1Category.setSortOrder(Integer.parseInt(sub1object.getString("so")));
                                 allCategory.add(sub2Category);
                             }
                         }

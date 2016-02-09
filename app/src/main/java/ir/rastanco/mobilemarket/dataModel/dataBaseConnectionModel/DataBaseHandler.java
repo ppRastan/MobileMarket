@@ -66,6 +66,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 "title text," +
                 "catId Integer," +
                 "parentId Integer," +
+                "sortOrder Integer," +
                 "hasChild Integer)");
         Log.v("create", "Create Table Category");
 
@@ -305,6 +306,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         values.put("catId", aCategory.getId());
         values.put("parentId", aCategory.getParentId());
         values.put("hasChild", aCategory.getHasChild());
+        values.put("sortOrder", aCategory.getSortOrder());
         return values;
     }
     public void insertAProduct(Product aProduct) {
@@ -440,6 +442,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select User Information");
         return aUser;
     }
+
+
     public ArrayList<Integer> selectAllIdProductShopping(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblShopping", null);
@@ -495,7 +499,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
     public ArrayList<Category> selectAllCategory() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblCategory", null);
+        Cursor rs = db.rawQuery("select * from tblCategory order by catId and sortOrder ASC ", null);
         allCategories = new ArrayList<Category>();
         if (rs != null) {
             if (rs.moveToFirst()) {
@@ -505,6 +509,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                     aCategory.setId(Integer.parseInt(rs.getString((rs.getColumnIndex("catId")))));
                     aCategory.setParentId(Integer.parseInt(rs.getString((rs.getColumnIndex("parentId")))));
                     aCategory.setHasChild(Integer.parseInt(rs.getString((rs.getColumnIndex("hasChild")))));
+                    aCategory.setHasChild(Integer.parseInt(rs.getString((rs.getColumnIndex("sortOrder")))));
                     allCategories.add(aCategory);
                 }
                 while (rs.moveToNext());
@@ -516,7 +521,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
     public Map<Integer,String> selectMainCategories(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId=0 order by catId desc", null);
+        Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId=0 order by catId and sortOrder ASC", null);
         Map<Integer,String> categoryTitles = new HashMap<Integer,String>();
         if (rs != null) {
             if (rs.moveToFirst()) {
@@ -534,7 +539,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     public ArrayList<Integer> selectChildIdOfACategory(int parentID){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select catId from tblCategory where parentId= " + parentID+" order by catId ASC", null);
+        Cursor rs = db.rawQuery("select * from tblCategory where parentId= " + parentID+" order by catId and sortOrder ASC", null);
         ArrayList<Integer> categoryId = new ArrayList<Integer>();
         if (rs != null) {
             if (rs.moveToFirst()) {
@@ -551,7 +556,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     public Map<Integer,String> selectChildOfACategory(int parentID){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId="+parentID+" order by catId desc", null);
+        Cursor rs = db.rawQuery("select * from tblCategory where parentId="+parentID+" order by sortOrder ASC", null);
         Map<Integer,String> categoryTitles = new HashMap<Integer,String>();
         if (rs != null) {
             if (rs.moveToFirst()) {
@@ -569,7 +574,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     public Map<Integer,String> selectMainCategoryTitle(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId=0", null);
+        Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId=0 order by catId,sortOrder Desc", null);
         Map<Integer,String> categoryTitles = new HashMap<Integer,String>();
         if (rs != null) {
             if (rs.moveToFirst()) {
@@ -587,7 +592,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     public Map<Integer,String> selectAllCategoryTitle(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select catId,title from tblCategory", null);
+        Cursor rs = db.rawQuery("select catId,title from tblCategory order by catId,sortOrder ASC", null);
         Map<Integer,String> categoryTitles = new HashMap<Integer,String>();
         if (rs != null) {
             if (rs.moveToFirst()) {
@@ -619,6 +624,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Product Title and ID");
         return productTitle;
     }
+
     public ArrayList<Product> selectAllProduct() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblProduct order by id Desc", null);
