@@ -45,7 +45,7 @@ public class SuperAwesomeCardFragment extends Fragment{
     private ServerConnectionHandler sch;
     private ArrayList<Product> products;
     private ArrayList<Article> articles;
-    private Map<Integer,String> mainCategory;
+    private ArrayList<String> mainCategoryTitle;
     private String second_page;
     private String third_page;
     private String fourth_page;
@@ -89,25 +89,16 @@ public class SuperAwesomeCardFragment extends Fragment{
         Configuration.superACFragment=getContext();
 
         sch=new ServerConnectionHandler(Configuration.superACFragment);
-        mainCategory= new HashMap<Integer,String>();
-        mainCategory=sch.getMainCategory();
+        mainCategoryTitle= new ArrayList<String>();
+        mainCategoryTitle=sch.getMainCategoryTitle();
         products=new ArrayList<Product>();
         articles=new ArrayList<Article>();
         articles=sch.getAllArticlesFromTable();
 
-        ArrayList<String> mainCategoryTitle=new ArrayList<String>();
-        for (Map.Entry<Integer, String> entry : mainCategory.entrySet()) {
-            mainCategoryTitle.add(entry.getValue());
-        }
-        /*second_page=mainCategoryTitle.get(0);
+
+        second_page=mainCategoryTitle.get(0);
         third_page=mainCategoryTitle.get(1);
-        fourth_page=mainCategoryTitle.get(2);*/
-
-        second_page=getResources().getString(R.string.second_page);
-        third_page=getResources().getString(R.string.third_page);
-        fourth_page=getResources().getString(R.string.fourth_page);
-
-
+        fourth_page=mainCategoryTitle.get(2);
 
 
         switch (position) {
@@ -217,17 +208,17 @@ public class SuperAwesomeCardFragment extends Fragment{
                 //Filter
                 ///FilterSubCategory
                 final Map<Integer, String> filterSubCategory = sch.getFilterSubCategory(second_page);
-                final ArrayList<String> subCategoryTitle = new ArrayList<String>();
-                for (Map.Entry<Integer, String> entry : filterSubCategory.entrySet()) {
-                    subCategoryTitle.add(entry.getValue());
-                }
                 final String[] categorySelected = new String[1];
                 categorySelected[0]=getActivity().getString(R.string.all);
                 final int[] categoryIdSelected = new int[1];
                 categoryIdSelected[0]=sch.getMainCategoryId(second_page);
+                ArrayList<String> subCategoryTitle = new ArrayList<String>();
+                subCategoryTitle=sch.getTitleOfChildOfACategory(categoryIdSelected[0]);
+
 
                 groupTextView = (TextView)mainView.findViewById(R.id.group_dialog_text);
                 btnCategory=(Button)mainView.findViewById(R.id.group_dialog);
+                final ArrayList<String> finalSubCategoryTitle = subCategoryTitle;
                 btnCategory.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -255,7 +246,7 @@ public class SuperAwesomeCardFragment extends Fragment{
 
                         final ListView listCategory = (ListView) dialogGroup.findViewById(R.id.list);
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
+                                android.R.layout.simple_list_item_1, android.R.id.text1, finalSubCategoryTitle);
                         listCategory.setAdapter(adapter);
 
                         listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -498,17 +489,16 @@ public class SuperAwesomeCardFragment extends Fragment{
                 //Filter
                 ///FilterSubCategory
                 final Map<Integer, String> filterSubCategory = sch.getFilterSubCategory(third_page);
-                final ArrayList<String> subCategoryTitle = new ArrayList<String>();
-                for (Map.Entry<Integer, String> entry : filterSubCategory.entrySet()) {
-                    subCategoryTitle.add(entry.getValue());
-                }
                 final String[] categorySelected = new String[1];
                 categorySelected[0]=getActivity().getString(R.string.all);
                 final int[] categoryIdSelected = new int[1];
                 categoryIdSelected[0]=sch.getMainCategoryId(third_page);
+                ArrayList<String> subCategoryTitle = new ArrayList<String>();
+                subCategoryTitle=sch.getTitleOfChildOfACategory(categoryIdSelected[0]);
 
                 groupTextView = (TextView)mainView.findViewById(R.id.group_dialog_text);
                 btnCategory=(Button)mainView.findViewById(R.id.group_dialog);
+                final ArrayList<String> finalSubCategoryTitle = subCategoryTitle;
                 btnCategory.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -536,7 +526,7 @@ public class SuperAwesomeCardFragment extends Fragment{
 
                         final ListView listCategory = (ListView) dialogGroup.findViewById(R.id.list);
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
+                                android.R.layout.simple_list_item_1, android.R.id.text1, finalSubCategoryTitle);
                         listCategory.setAdapter(adapter);
 
                         listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -783,17 +773,16 @@ public class SuperAwesomeCardFragment extends Fragment{
                 //Filter
                 ///FilterSubCategory
                 final Map<Integer, String> filterSubCategory = sch.getFilterSubCategory(fourth_page);
-                final ArrayList<String> subCategoryTitle = new ArrayList<String>();
-                for (Map.Entry<Integer, String> entry : filterSubCategory.entrySet()) {
-                    subCategoryTitle.add(entry.getValue());
-                }
                 final String[] categorySelected = new String[1];
                 categorySelected[0]=getActivity().getString(R.string.all);
                 final int[] categoryIdSelected = new int[1];
                 categoryIdSelected[0]=sch.getMainCategoryId(fourth_page);
+                ArrayList<String> subCategoryTitle = new ArrayList<String>();
+                subCategoryTitle=sch.getTitleOfChildOfACategory(categoryIdSelected[0]);
 
                 groupTextView = (TextView)mainView.findViewById(R.id.group_dialog_text);
                 btnCategory=(Button)mainView.findViewById(R.id.group_dialog);
+                final ArrayList<String> finalSubCategoryTitle = subCategoryTitle;
                 btnCategory.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -821,7 +810,7 @@ public class SuperAwesomeCardFragment extends Fragment{
 
                         final ListView listCategory = (ListView) dialogGroup.findViewById(R.id.list);
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
+                                android.R.layout.simple_list_item_1, android.R.id.text1, finalSubCategoryTitle);
                         listCategory.setAdapter(adapter);
 
                         listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {

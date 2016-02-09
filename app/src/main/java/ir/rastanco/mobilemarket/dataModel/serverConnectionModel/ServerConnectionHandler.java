@@ -81,6 +81,11 @@ public class ServerConnectionHandler {
     public Map<Integer,String> getMainCategory(){
         return dbh.selectMainCategories();
     }
+
+    public ArrayList<String> getMainCategoryTitle(){
+        return dbh.selectMainCategoriesTitle();
+    }
+
     public ArrayList<Category> getAllCategoryInfoURL(String url){
 
         GetFile jParserCategory = new GetFile();
@@ -162,6 +167,10 @@ public class ServerConnectionHandler {
         int mainCatId=getMainCategoryId(title);
         return dbh.selectChildOfACategory(mainCatId);
 
+    }
+
+    public ArrayList<String> getTitleOfChildOfACategory(int catID){
+        return dbh.selectChildOfACategoryTitle(catID);
     }
 
 
