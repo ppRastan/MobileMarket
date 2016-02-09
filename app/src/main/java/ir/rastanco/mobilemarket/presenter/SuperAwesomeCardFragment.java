@@ -95,7 +95,6 @@ public class SuperAwesomeCardFragment extends Fragment{
         articles=new ArrayList<Article>();
         articles=sch.getAllArticlesFromTable();
 
-
         second_page=mainCategoryTitle.get(0);
         third_page=mainCategoryTitle.get(1);
         fourth_page=mainCategoryTitle.get(2);

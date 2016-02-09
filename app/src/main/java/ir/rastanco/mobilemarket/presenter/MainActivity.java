@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Product> products;
     private ArrayList<Article> articles;
     private ArrayList<Category> categories;
-    private Map<Integer,String> mainCategory;
+    private ArrayList<String> mainCategoryTitle;
     private String second_page;
     private String third_page;
     private String fourth_page;
@@ -109,12 +109,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.addServerConnection();
+
         shoppingBagActivity = new ShoppingBagActivity();
+        mainCategoryTitle= new ArrayList<String>();
+        mainCategoryTitle=sch.getMainCategoryTitle();
+        second_page=mainCategoryTitle.get(0);
+        third_page=mainCategoryTitle.get(1);
+        fourth_page=mainCategoryTitle.get(2);
+
         this.CreatePageRightToLeft();
-        //Toast.makeText(getApplicationContext(),"this toast is for test!",Toast.LENGTH_LONG).show();
         this.addActionBar();
         this.addFontAndColors();
-        this.addServerConnection();
         this.checkDbState();
         this.phoneManager();
         this.setFAb();
@@ -130,18 +136,6 @@ public class MainActivity extends AppCompatActivity {
                         icon, sch.getCountProductShop());
             }
         });
-
-        mainCategory= new HashMap<Integer,String>();
-        mainCategory=sch.getMainCategory();
-        ArrayList<String> mainCategoryTitle=new ArrayList<String>();
-        for (Map.Entry<Integer, String> entry : mainCategory.entrySet()) {
-            mainCategoryTitle.add(entry.getValue());
-        }
-        second_page=mainCategoryTitle.get(0);
-        third_page=mainCategoryTitle.get(1);
-        fourth_page=mainCategoryTitle.get(2);
-
-
     }
 
     private void displayWindow() {
@@ -480,14 +474,15 @@ public class MainActivity extends AppCompatActivity {
 
         private final String[] TITLES = {
                   getResources().getString(R.string.first_page)
-                , getResources().getString(R.string.second_page)
-                , getResources().getString(R.string.third_page)
-                , getResources().getString(R.string.fourth_page)
+                ,second_page
+                ,third_page
+                ,fourth_page
                 , getResources().getString(R.string.fifth_page)
         };
 
 
         public MyPagerAdapter(FragmentManager fm) {
+
             super(fm);
         }
 
