@@ -6,7 +6,7 @@
                 android:color="@color/background_window" />
             <stroke
                 android:width="2dp"
-                android:color="@color/dark_gray" />
+                android:color="#8f8e8e" />
             <corners
                 android:radius="6dp" />
             <padding
@@ -25,7 +25,7 @@
                 android:angle="270" />
             <stroke
                 android:width="2dp"
-                android:color="@color/dark_gray" />
+                android:color="#8f8e8e" />
             <corners
                 android:radius="7dp" />
             <padding

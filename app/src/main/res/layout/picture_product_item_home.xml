@@ -1,49 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@color/background_window"
+    android:layout_marginTop="5dp"
+    >
 
-    <RelativeLayout
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cv"
+        android:background="@color/decoriss"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:background="@color/decoriss"
+            >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:weightSum="10"
+>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:background="@color/white"
+    android:layout_weight="9">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:id="@+id/img_picProduct" />
+
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/decoriss">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/img_picProduct" />
+        android:src="@mipmap/ic_share_toolbar"
+        android:id="@+id/imbt_share"
+        android:padding="20dp"
+        android:background="@color/transparent"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_share_toolbar"
-            android:id="@+id/imbt_share"
-            android:layout_alignParentTop="false"
-            android:layout_alignParentLeft="false"
-            android:layout_alignParentStart="false" />
-
-    </RelativeLayout>
+</RelativeLayout>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:weightSum="2"
         android:background="@color/white">
 
+        <Button
+            android:layout_width="0dp"
+            android:background="@color/white"
+            android:layout_height="match_parent"
+            android:text="@string/same_goods"
+            android:id="@+id/btn_save"
+            style="?android:attr/borderlessButtonStyle"
+            android:textColor="#8f8e8e"
+            android:layout_weight="1" />
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:id="@+id/imbt_transaction"
             android:background="@color/white"
-            android:src="@android:drawable/ic_input_get"
+            android:src="@mipmap/save_btn"
             android:layout_weight="1" />
-        <Button
-            android:layout_width="0dp"
-            android:background="@color/white"
-            android:layout_height="match_parent"
-            android:text="ذخیره"
-            android:id="@+id/btn_save"
-            android:layout_weight="1" />
+
     </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
 </LinearLayout>
+
