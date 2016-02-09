@@ -114,22 +114,30 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
         holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
         holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
-        holder.offerLeft.setVisibility(View.INVISIBLE);
-        //if(holder.mProduct.getPriceOff() != 0)
-        //{
-            holder.offerRight.setVisibility(View.VISIBLE);
-        //}
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1){
+
+            holder.offerLeft.setVisibility(View.INVISIBLE);
+//            if(holder.mProduct.getPriceOff() != 0)
+//            {
+              holder.offerRight.setVisibility(View.VISIBLE);
+          //  }
+//            else {
+//                holder.offerRight.setVisibility(View.INVISIBLE);
+//            }
+        }
+
+
         if (!(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1))
         {
             holder.offerRight.setVisibility(View.INVISIBLE);
-         //  if(holder.mProduct.getPriceOff() != 0) {
+              if(holder.mProduct.getPriceOff() != 0) {
 
                 holder.offerLeft.setVisibility(View.VISIBLE);
-           // }
-           // else
-           // {
-             //   holder.offerLeft.setVisibility(View.INVISIBLE);
-            //}
+            }
+//            else
+//            {
+//                holder.offerLeft.setVisibility(View.INVISIBLE);
+//            }
         }
         holder.shareToolBar = (ImageButton)rowView.findViewById(R.id.share_toolbar_in_main_page);
         holder.basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);

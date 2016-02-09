@@ -11,7 +11,8 @@ public class ProductOption {
     private String title;
     private String value;
 
-    public String getTitle() {
+    public String getTitle()
+    {
         return title;
     }
 
@@ -19,7 +20,8 @@ public class ProductOption {
         this.title = title;
     }
 
-    public String getValue() {
+    public String getValue()
+    {
         return value;
     }
 

@@ -88,13 +88,13 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
                         sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
                         sendIntent.setType("text/plain");
                         myContext.startActivity(sendIntent);
-
+                        shareDialog.cancel();
                     }
                 });
 
                 shareDialog.setCancelable(true);
                 shareDialog.show();
-                shareDialog.cancel();
+//                shareDialog.cancel();
             }
         });
 
