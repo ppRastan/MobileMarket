@@ -1107,6 +1107,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                 });
                 break;
             }
+
         }
         return mainView;
     }

@@ -14,6 +14,7 @@ public class Category {
     private int id;
     private int parentId;
     private int hasChild;
+    private int sortOrder;
 
     public String getTitle() {
         return title;
@@ -47,4 +48,11 @@ public class Category {
         this.hasChild = hasChild;
     }
 
+    public int getSortOrder() {
+        return sortOrder;
+    }
+
+    public void setSortOrder(int sortOrder) {
+        this.sortOrder = sortOrder;
+    }
 }

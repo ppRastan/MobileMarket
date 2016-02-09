@@ -3,6 +3,7 @@ package ir.rastanco.mobilemarket.dataModel.serverConnectionModel;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -164,7 +165,6 @@ public class ServerConnectionHandler {
     }
 
 
-
     //Product
     public Boolean emptyDBProduct(){
         Boolean empty=dbh.emptyProductTable();
@@ -312,6 +312,28 @@ public class ServerConnectionHandler {
 
     public void changeProductLike(int productId,int like){
         dbh.updateAProductLike(productId,like);
+    }
+
+    public ArrayList<String> searchInProductTitle(){
+        Map<Integer,String> productTitle= new HashMap<Integer,String>();
+        productTitle=dbh.selectAllProductTitle();
+        ArrayList<String> titles=new ArrayList<String>();
+        for (Map.Entry<Integer, String> entry : productTitle.entrySet()) {
+            titles.add(entry.getValue());
+        }
+        return titles;
+    }
+
+    public int getProductIdWithTitle(String title){
+        Map<Integer,String> productTitle= new HashMap<Integer,String>();
+        productTitle=dbh.selectAllProductTitle();
+        int productId=0;
+        for (Map.Entry<Integer, String> entry : productTitle.entrySet()) {
+            if(entry.getValue().equals(title))
+                productId=entry.getKey();
+
+        }
+        return productId;
     }
 
     //article

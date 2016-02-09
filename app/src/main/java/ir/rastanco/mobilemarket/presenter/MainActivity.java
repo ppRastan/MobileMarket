@@ -33,6 +33,8 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -59,6 +61,7 @@ import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserProfileActivity;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -128,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mainCategory= new HashMap<Integer,String>();
+        /*mainCategory= new HashMap<Integer,String>();
         mainCategory=sch.getMainCategory();
         ArrayList<String> mainCategoryTitle=new ArrayList<String>();
         for (Map.Entry<Integer, String> entry : mainCategory.entrySet()) {
@@ -136,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         }
         second_page=mainCategoryTitle.get(0);
         third_page=mainCategoryTitle.get(1);
-        fourth_page=mainCategoryTitle.get(2);
+        fourth_page=mainCategoryTitle.get(2);*/
 
 
     }
@@ -284,18 +287,34 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_search:
             {
                 backButton = (ImageButton)findViewById(R.id.back_button);
+                textToSearch=(AutoCompleteTextView) findViewById(R.id.text_for_search);
                 toolbarSearch = (LinearLayout)findViewById(R.id.toolbar_search);
                 toolbar.setVisibility(View.GONE);
                 toolbarSearch.setVisibility(View.VISIBLE);
+                ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this,
+                        android.R.layout.simple_list_item_1, sch.searchInProductTitle());
+                textToSearch.setAdapter(listAdapter);
                 backButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         toolbarSearch.setVisibility(View.GONE);
                         toolbar.setVisibility(View.VISIBLE);
-
                     }
                 });
-
+                textToSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        int productId=sch.getProductIdWithTitle((String)parent.getItemAtPosition(position));
+                        Product aProduct=new Product();
+                        aProduct=sch.getAProduct(productId);
+                        ArrayList<Product> product=new ArrayList<Product>();
+                        product.add(aProduct);
+                        Intent intent = new Intent(Configuration.MainActivityFragment, ProductInfoActivity.class);
+                        intent.putParcelableArrayListExtra("allProduct",product);
+                        intent.putExtra("position", 0);
+                        startActivity(intent);
+                    }
+                });
                 break;
             }
 
