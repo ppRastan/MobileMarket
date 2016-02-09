@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:text="طبقه بندی گروه"
                 android:textSize="12dp"
-                android:id="@+id/btn_category"
+                android:id="@+id/btn_group_toolbar"
                 android:layout_weight="1" />
 
             <Button
@@ -31,7 +31,7 @@
                 android:background="@color/white"
                 android:layout_height="wrap_content"
                 android:text="طبقه بندی محصولات"
-                android:id="@+id/btn_product"
+                android:id="@+id/btn_subgroup_toolbar"
                 android:layout_weight="1" />
 
         </LinearLayout>

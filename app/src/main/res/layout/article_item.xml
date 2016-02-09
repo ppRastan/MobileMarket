@@ -14,7 +14,7 @@
         android:id="@+id/img_article"
         android:layout_gravity="center"
         android:padding="2dp"
-        android:background="#10f7f7f7"
+        android:background="@color/transparent"
         />
 
     <TextView
