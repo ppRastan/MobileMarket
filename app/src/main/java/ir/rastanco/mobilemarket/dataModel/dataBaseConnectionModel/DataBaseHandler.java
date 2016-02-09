@@ -519,6 +519,24 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Category");
         return allCategories;
     }
+
+    public ArrayList<String> selectMainCategoriesTitle(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select title from tblCategory where parentId=0 order by catId and sortOrder ASC", null);
+        ArrayList<String> categoryTitles = new ArrayList<String>();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    categoryTitles.add(rs.getString(rs.getColumnIndex("title")));
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select All Parent Categories Title");
+        return categoryTitles;
+    }
+
     public Map<Integer,String> selectMainCategories(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId=0 order by catId and sortOrder ASC", null);
@@ -537,6 +555,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return categoryTitles;
     }
 
+
     public ArrayList<Integer> selectChildIdOfACategory(int parentID){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblCategory where parentId= " + parentID+" order by catId and sortOrder ASC", null);
@@ -552,6 +571,23 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
         Log.v("select", "Select All Child of A Category ID");
         return categoryId;
+    }
+
+    public ArrayList<String> selectChildOfACategoryTitle(int parentID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from tblCategory where parentId=" + parentID + " order by sortOrder ASC", null);
+        ArrayList<String> categoryTitles = new ArrayList<String>();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    categoryTitles.add(rs.getString(rs.getColumnIndex("title")));
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select All Child of A Category Title ");
+        return categoryTitles;
     }
 
     public Map<Integer,String> selectChildOfACategory(int parentID){
@@ -589,6 +625,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select Main Category Title and ID");
         return categoryTitles;
     }
+
+
 
     public Map<Integer,String> selectAllCategoryTitle(){
         SQLiteDatabase db = this.getReadableDatabase();
