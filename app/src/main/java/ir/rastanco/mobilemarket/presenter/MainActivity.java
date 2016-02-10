@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.addServerConnection();
-
+        this.checkDbState();
         shoppingBagActivity = new ShoppingBagActivity();
         mainCategoryTitle= new ArrayList<String>();
         mainCategoryTitle=sch.getMainCategoryTitle();
@@ -121,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
         this.CreatePageRightToLeft();
         this.addActionBar();
         this.addFontAndColors();
-        this.checkDbState();
         this.phoneManager();
         this.setFAb();
         this.displayWindow();
