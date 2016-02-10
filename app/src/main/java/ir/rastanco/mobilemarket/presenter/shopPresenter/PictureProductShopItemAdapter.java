@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -195,7 +194,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                         String share=textToSend+"\n\n"+
                                 allProduct.get(position).getLinkInSite()+ "\n\n"+
                                 context.getResources().getString(R.string.text_to_advertise)+"\n\n"
-                                +"لینک دانلود اپلیکیشن دوریس";
+                                +context.getResources().getString(R.string.LinkDownloadApp) ;
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
                             sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);

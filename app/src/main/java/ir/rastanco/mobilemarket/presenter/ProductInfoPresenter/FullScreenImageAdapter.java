@@ -181,7 +181,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
                         String Share=textToSend+"\n\n"+
                                 products.get(position).getLinkInSite()+ "\n\n"+
                                 Configuration.ProductInfoActivity.getResources().getString(R.string.text_to_advertise)+"\n\n"
-                                +"لینک دانلود اپلیکیشن دوریس";
+                                +Configuration.ProductInfoActivity.getResources().getString(R.string.LinkDownloadApp);
 
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
@@ -300,7 +300,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
                     String Share=textToSend+"\n\n"+
                             products.get(position).getLinkInSite()+ "\n\n"+
                             Configuration.ProductInfoActivity.getResources().getString(R.string.text_to_advertise)+"\n\n"
-                            +"لینک دانلود اپلیکیشن دوریس";
+                            +Configuration.ProductInfoActivity.getResources().getString(R.string.LinkDownloadApp);
 
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);

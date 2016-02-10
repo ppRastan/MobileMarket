@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +79,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
                         String Share = textToSend + "\n\n" +
                                 allProduct.get(position).getLinkInSite() + "\n\n" +
                                 myContext.getResources().getString(R.string.text_to_advertise) + "\n\n"
-                                + "لینک دانلود اپلیکیشن دوریس";
+                                + myContext.getResources().getString(R.string.LinkDownloadApp) ;
 
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);

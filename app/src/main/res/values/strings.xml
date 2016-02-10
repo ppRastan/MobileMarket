@@ -56,6 +56,7 @@
     <string name="date_of_shopping">تاریخ خرید محصول:</string>
     <string name="state_of_invoice">وضعیت فاکتور</string>
     <string name="same_goods">کالاهای مشابه</string>
+    <string name="LinkDownloadApp">http://decoriss.com/app/Decoriss.apk</string>
     <string-array name="spinnerItems">
         <item>1</item>
         <item>2</item>
