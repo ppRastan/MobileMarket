@@ -31,11 +31,13 @@ public class UserAccount extends Fragment {
         Configuration.UserAccountFragment=getContext();
         sch=new ServerConnectionHandler(Configuration.UserAccountFragment);
         allProductsShop=new ArrayList<ProductShop>();
-        /*user=new UserInfo();
+        user=new UserInfo();
         user=sch.getUserInfo();
-        allProductsShop=sch.getLastProductShop("http://decoriss.com/json/get,com=orders&uid="+
-                        user.getUserId()+"&cache=false");*/
-        allProductsShop=sch.getLastProductShop("http://decoriss.com/json/get,com=orders&uid=4973&cache=false");
+        if (user != null){
+            allProductsShop=sch.getLastProductShop("http://decoriss.com/json/get,com=orders&uid="+
+                    user.getUserId()+"&cache=false");
+        }
+        //allProductsShop=sch.getLastProductShop("http://decoriss.com/json/get,com=orders&uid=4973&cache=false");
         ListView lvLastShopping=(ListView)userAccountView.findViewById(R.id.lv_lastShopping);
         LastShoppingItemAdapter adapter=new LastShoppingItemAdapter(getActivity(),R.layout.last_shopping_item,allProductsShop);
         lvLastShopping.setAdapter(adapter);
