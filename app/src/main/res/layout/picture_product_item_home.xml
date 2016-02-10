@@ -70,11 +70,13 @@
             android:layout_weight="1" />
         <ImageButton
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:id="@+id/imbt_transaction"
-            android:background="@color/white"
-            android:src="@mipmap/save_btn"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:src="@mipmap/bye_toolbar"
+            android:padding="3dp"
+            android:id="@+id/basket_toolbar"
+            android:background="@color/white"/>
 
     </LinearLayout>
             </LinearLayout>

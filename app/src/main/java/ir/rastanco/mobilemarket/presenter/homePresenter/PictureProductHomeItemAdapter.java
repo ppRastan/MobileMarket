@@ -23,7 +23,9 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Connect;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
+import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
@@ -39,9 +41,12 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
     private String textToSend = null;
     private Dialog shareDialog;
     private ImageButton cancelShareDialog;
+    private ImageButton basketToolbar;
     private Button sendBtn;
     private EditText editTextToShare;
     private Intent sendIntent;
+    private boolean isSelectedForShop=false;
+
     public PictureProductHomeItemAdapter(Context context, int resource, ArrayList<Product> products) {
         super(context, resource,products);
         myContext=(Activity)context;
@@ -55,6 +60,39 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
         Bitmap image=null;
         LayoutInflater inflater = myContext.getLayoutInflater();
         final View rowView = inflater.inflate(R.layout.picture_product_item_home, null);
+
+        basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
+        if (sch.checkSelectProductForShop(allProduct.get(position).getId()))
+            basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
+        else
+            basketToolbar.setImageResource(R.mipmap.bye_toolbar);
+
+        basketToolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            if (isSelectedForShop==false) {
+                basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
+                isSelectedForShop=true;
+                sch.addProductToShoppingBag(allProduct.get(position).getId(),1);
+                myContext.startActivity(new Intent(myContext,ShoppingBagActivity.class));
+                Connect.setMyBoolean(true);
+                isSelectedForShop = true;
+
+            }
+
+            else if (isSelectedForShop==true){
+                basketToolbar.setImageResource(R.mipmap.bye_toolbar);
+                isSelectedForShop=false;
+                sch.deleteAProductShopping(allProduct.get(position).getId());
+                Connect.setMyBoolean(false);
+                isSelectedForShop = false;
+
+            }
+            }
+        });
+
+
         shareBtn = (ImageButton) rowView.findViewById(R.id.imbt_share);
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
