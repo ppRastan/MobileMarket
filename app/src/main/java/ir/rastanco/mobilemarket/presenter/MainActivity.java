@@ -172,7 +172,10 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
 
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+            Configuration.RTL=true;
         }
+        else
+            Configuration.RTL=false;
     }
 
     private void setFAb()

@@ -34,5 +34,7 @@ public class Configuration {
 
     public static ViewPager UserProfileViewPager;
 
+    public static Boolean RTL;
+
 
 }
