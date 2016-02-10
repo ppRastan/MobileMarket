@@ -28,10 +28,14 @@ public class ParseJsonProductOption {
             for (int i = 0; i < dataJsonArr.length(); i++)
             {
                 JSONObject g = dataJsonArr.getJSONObject(i);
-                ProductOption aOption=new ProductOption();
-                aOption.setTitle(g.getString("g"));
-                aOption.setValue(g.getString("o"));
-                productProductOptions.add(aOption);
+                if(! g.getString("o").equals(""))
+                {
+                    ProductOption aOption=new ProductOption();
+                    aOption.setTitle(g.getString("g"));
+                    aOption.setValue(g.getString("o"));
+                    productProductOptions.add(aOption);
+                }
+
             }
 
         } catch (JSONException e) {

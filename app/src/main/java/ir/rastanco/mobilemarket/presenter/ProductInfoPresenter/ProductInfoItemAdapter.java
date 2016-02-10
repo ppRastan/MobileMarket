@@ -39,10 +39,10 @@ public class ProductInfoItemAdapter extends ArrayAdapter<ProductOption> {
         rowView = inflater.inflate(R.layout.product_info_item, null);
         txtTitle=(TextView)rowView.findViewById(R.id.txt_title);
         //txtValue=(TextView)rowView.findViewById(R.id.txt_value);
-        txtTitle.setText(options.get(position).getTitle()+" :");
+        txtTitle.setText(options.get(position).getTitle() + " : " + options.get(position).getValue());
         txtTitle.setTypeface(yekanFont);
-//        txtValue.setText(options.get(position).getValue());
-//        txtValue.setTypeface(yekanFont);
+        //txtValue.setText(options.get(position).getValue());
+        //txtValue.setTypeface(yekanFont);
         return rowView;
     }
 }
