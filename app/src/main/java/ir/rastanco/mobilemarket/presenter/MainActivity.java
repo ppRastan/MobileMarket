@@ -38,7 +38,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -50,8 +49,6 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -114,9 +111,17 @@ public class MainActivity extends AppCompatActivity {
         shoppingBagActivity = new ShoppingBagActivity();
         mainCategoryTitle= new ArrayList<String>();
         mainCategoryTitle=sch.getMainCategoryTitle();
-        second_page=mainCategoryTitle.get(0);
-        third_page=mainCategoryTitle.get(1);
-        fourth_page=mainCategoryTitle.get(2);
+        if(mainCategoryTitle.size()==0){
+            second_page=getString(R.string.second_page);
+            third_page=getString(R.string.third_page);
+            fourth_page=getString(R.string.fourth_page);
+        }
+        else {
+            second_page=mainCategoryTitle.get(0);
+            third_page=mainCategoryTitle.get(1);
+            fourth_page=mainCategoryTitle.get(2);
+        }
+
 
         this.CreatePageRightToLeft();
         this.addActionBar();

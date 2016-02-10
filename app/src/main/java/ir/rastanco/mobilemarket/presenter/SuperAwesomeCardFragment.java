@@ -23,10 +23,8 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import ir.rastanco.mobilemarket.R;
@@ -95,9 +93,16 @@ public class SuperAwesomeCardFragment extends Fragment{
         articles=new ArrayList<Article>();
         articles=sch.getAllArticlesFromTable();
 
-        second_page=mainCategoryTitle.get(0);
-        third_page=mainCategoryTitle.get(1);
-        fourth_page=mainCategoryTitle.get(2);
+        if(mainCategoryTitle.size()==0){
+            second_page=getString(R.string.second_page);
+            third_page=getString(R.string.third_page);
+            fourth_page=getString(R.string.fourth_page);
+        }
+        else {
+            second_page=mainCategoryTitle.get(0);
+            third_page=mainCategoryTitle.get(1);
+            fourth_page=mainCategoryTitle.get(2);
+        }
 
 
         switch (position) {
