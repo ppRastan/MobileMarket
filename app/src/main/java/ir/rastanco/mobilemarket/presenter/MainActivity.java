@@ -317,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
                 this.startActivity(shoppingBagIntent);
                 break;
             case R.id.update:
-                version=sch.getLastVersionInServer("http://decoriss.com/app/Version.apk");
+                version=sch.getLastVersionInServer("http://decoriss.com/app/Version.txt");
                 new DownloadFileFromURL(this).execute("http://decoriss.com/app/Decoriss.apk");
                 break;
         }
