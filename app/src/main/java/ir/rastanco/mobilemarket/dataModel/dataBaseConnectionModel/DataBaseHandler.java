@@ -20,7 +20,7 @@ import ir.rastanco.mobilemarket.dataModel.UserInfo;
 
 /**
  * Created by ShaisteS on 1394/10/14.
- * A Singleton Class for Manage CRUD(Create-Read-Update-delete) operation
+ * A Singleton Class for Manage CRUD(Create-Retrieve-Update-delete) operation
  */
 public class DataBaseHandler  extends SQLiteOpenHelper {
 
@@ -31,37 +31,50 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     private ArrayList<Product> allProducts;
     private ArrayList<Article> allArticles;
 
+    private static final int DATABASE_VERSION = 3;
+    private static final String DATABASE_NAME = "MobileMarket";
+    private static final String TABLE_USER_INFO = "tblUserInfo";
+    private static final String TABLE_SETTINGS = "tblSetting";
+    private static final String TABLE_SHOPPING = "tblShopping";
+    private static final String TABLE_CATEGORY = "tblCategory";
+    private static final String TABLE_PRODUCT = "tblProduct";
+    private static final String TABLE_IMAGES_PATH_PRODUCT = "tblImagesPathProduct";
+    private static final String TABLE_PRODUCT_OPTION = "tblProductOption";
+    private static final String TABLE_ARTICLE = "tblArticle";
+
+
+
 
     public DataBaseHandler(Context context) {
-        super(context, "MobileMarket.dbo", null, 1);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
         dbContext = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("create table tblUserInfo" +
+        db.execSQL("create table "+ TABLE_USER_INFO +
                 "(id Integer primary key AUTOINCREMENT," +
                 "userId Integer," +
                 "userEmail String," +
                 "userLoginStatus Integer)");
         Log.v("create", "Create User Information Table");
 
-        db.execSQL("create table tblSetting" +
+        db.execSQL("create table "+TABLE_SETTINGS +
                 "(id Integer primary key AUTOINCREMENT," +
                 "lastTimeStamp String," +
                 "lastArticlesNum String," +
                 "lastVersionOfApp String)");
         Log.v("create", "Create Setting Table");
 
-        db.execSQL("create table tblShopping" +
+        db.execSQL("create table "+TABLE_SHOPPING +
                 "(id Integer primary key AUTOINCREMENT," +
                 "fkProductId Integer unique," +
                 "numberPurchased Integer," +
                 "foreign key (fkProductId) references tblProduct(productId))");
         Log.v("create", "Create Shopping Table");
 
-        db.execSQL("create table tblCategory" +
+        db.execSQL("create table "+TABLE_CATEGORY +
                 "(id Integer primary key AUTOINCREMENT," +
                 "title text," +
                 "catId Integer," +
@@ -70,7 +83,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 "hasChild Integer)");
         Log.v("create", "Create Table Category");
 
-        db.execSQL("create table tblProduct" +
+        db.execSQL("create table "+ TABLE_PRODUCT +
                 "(id Integer primary key AUTOINCREMENT," +
                 "title text," +
                 "productId Integer," +
@@ -93,14 +106,14 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 "imagesMainPath text)");
         Log.v("create", "Create Table Product");
 
-        db.execSQL("create table tblImagesPathProduct" +
+        db.execSQL("create table "+TABLE_IMAGES_PATH_PRODUCT +
                 "(id Integer primary key AUTOINCREMENT," +
                 "fkProductId Integer not null," +
                 "imagePath text," +
                 "foreign key (fkProductId) references tblProduct(productId))");
         Log.v("create", "Create Table Images Path For Product");
 
-        db.execSQL("create table tblProductOption" +
+        db.execSQL("create table "+TABLE_PRODUCT_OPTION +
                 "(id Integer primary key AUTOINCREMENT," +
                 "fkProductId Integer not null," +
                 "titleOption text," +
@@ -108,7 +121,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 "foreign key (fkProductId) references tblProduct(productId))");
         Log.v("create", "Create Table Options For Product");
 
-        db.execSQL("create table tblArticle" +
+        db.execSQL("create table "+TABLE_ARTICLE +
                 "(id Integer primary key AUTOINCREMENT," +
                 "title text unique," +
                 "brief text," +
@@ -121,6 +134,17 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Drop older table if existed
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_INFO);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETTINGS);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHOPPING);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORY);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_IMAGES_PATH_PRODUCT);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT_OPTION);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARTICLE);
+        // Create tables again
+        onCreate(db);
     }
 
 
