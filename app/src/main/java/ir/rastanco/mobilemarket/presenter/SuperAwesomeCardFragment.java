@@ -69,6 +69,7 @@ public class SuperAwesomeCardFragment extends Fragment{
         return f;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -76,8 +77,6 @@ public class SuperAwesomeCardFragment extends Fragment{
         setHasOptionsMenu(true);
 
     }
-
-
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -123,6 +122,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                     public void onScrollStateChanged(AbsListView view, int scrollState) {
 
                     }
+
                     @Override
                     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
@@ -155,11 +155,20 @@ public class SuperAwesomeCardFragment extends Fragment{
                         }, 5000);
                     }
                 });
+
                 break;
             }
-            case 1:{
+            default:{
 
-                products=sch.ProductOfMainCategory(second_page);
+                final String pageName;
+                if(position==1)
+                    pageName=second_page;
+                else if (position==2)
+                    pageName=third_page;
+                else
+                    pageName=fourth_page;
+
+                products=sch.ProductOfMainCategory(pageName);
                 mainView=inflater.inflate(R.layout.fragment_shop, null);
                 final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
                 final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
@@ -173,6 +182,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                     public void onScrollStateChanged(AbsListView view, int scrollState) {
 
                     }
+
                     @Override
                     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
@@ -199,8 +209,8 @@ public class SuperAwesomeCardFragment extends Fragment{
                                /*for (int i=0;i<products.size();i++){
                                    sch.refreshProductOption(products.get(i).getGroupId(),products.get(i).getId());
                                }*/
-                               products=sch.ProductOfMainCategory(second_page);
-                               PictureProductShopItemAdapter newAdapter=new  PictureProductShopItemAdapter(getActivity(),products);
+                               products = sch.ProductOfMainCategory(pageName);
+                               PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), products);
                                gridview.setAdapter(newAdapter);
                                newAdapter.notifyDataSetChanged();
                                mSwipeRefreshLayout.setRefreshing(false);
@@ -209,18 +219,30 @@ public class SuperAwesomeCardFragment extends Fragment{
                    }
                });
 
+                groupTextView = (TextView)mainView.findViewById(R.id.group_dialog_text);
+                ObserverHome.SimilarProductListener(new SimilarProductListener() {
+                    @Override
+                    public void SimilarProductSet() {
+                        groupTextView.setText(sch.getACategoryTitle(ObserverHome.getSimilarProduct()));
+                        ArrayList<Product> newProducts = sch.ProductOFASubCategory(ObserverHome.getSimilarProduct());
+                        PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
+                        gridview.setAdapter(newAdapter);
+                        newAdapter.notifyDataSetChanged();
+
+                    }
+                });
+
                 //Filter
                 ///FilterSubCategory
-                final Map<Integer, String> filterSubCategory = sch.getFilterSubCategory(second_page);
+                final Map<Integer, String> filterSubCategory = sch.getFilterSubCategory(pageName);
                 final String[] categorySelected = new String[1];
                 categorySelected[0]=getActivity().getString(R.string.all);
                 final int[] categoryIdSelected = new int[1];
-                categoryIdSelected[0]=sch.getMainCategoryId(second_page);
+                categoryIdSelected[0]=sch.getMainCategoryId(pageName);
                 ArrayList<String> subCategoryTitle = new ArrayList<String>();
                 subCategoryTitle=sch.getTitleOfChildOfACategory(categoryIdSelected[0]);
 
 
-                groupTextView = (TextView)mainView.findViewById(R.id.group_dialog_text);
                 btnCategory=(Button)mainView.findViewById(R.id.group_dialog);
                 final ArrayList<String> finalSubCategoryTitle = subCategoryTitle;
                 btnCategory.setOnClickListener(new View.OnClickListener() {
@@ -443,572 +465,6 @@ public class SuperAwesomeCardFragment extends Fragment{
                 });
                 break;
             }
-            case 2:{
-                products=sch.ProductOfMainCategory(third_page);
-                mainView=inflater.inflate(R.layout.fragment_shop, null);
-                final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
-                final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
-                gridview.setAdapter(adapter);
-                final SwipeRefreshLayout mSwipeRefreshLayout= (SwipeRefreshLayout)
-                        mainView.findViewById(R.id.swipe_refresh_layout);
-                //refresh grid view
-                mSwipeRefreshLayout.setEnabled(false);
-                gridview.setOnScrollListener(new AbsListView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-                    }
-                    @Override
-                    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-                        boolean enable = false;
-                        if (gridview != null && gridview.getChildCount() > 0) {
-                            // check if the first item of the list is visible
-                            boolean firstItemVisible = gridview.getFirstVisiblePosition() == 0;
-                            // check if the top of the first item is visible
-                            boolean topOfFirstItemVisible = gridview.getChildAt(0).getTop() == 0;
-                            // enabling or disabling the refresh layout
-                            enable = firstItemVisible && topOfFirstItemVisible;
-                        }
-                        mSwipeRefreshLayout.setEnabled(enable);
-
-                    }
-                });
-                mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                sch.refreshProduct();
-                                products=sch.ProductOfMainCategory(third_page);
-                                PictureProductShopItemAdapter newAdapter=new  PictureProductShopItemAdapter(getActivity(),products);
-                                gridview.setAdapter(newAdapter);
-                                newAdapter.notifyDataSetChanged();
-                                mSwipeRefreshLayout.setRefreshing(false);
-                            }
-                        }, 5000);
-                    }
-                });
-                //Filter
-                ///FilterSubCategory
-                final Map<Integer, String> filterSubCategory = sch.getFilterSubCategory(third_page);
-                final String[] categorySelected = new String[1];
-                categorySelected[0]=getActivity().getString(R.string.all);
-                final int[] categoryIdSelected = new int[1];
-                categoryIdSelected[0]=sch.getMainCategoryId(third_page);
-                ArrayList<String> subCategoryTitle = new ArrayList<String>();
-                subCategoryTitle=sch.getTitleOfChildOfACategory(categoryIdSelected[0]);
-
-                groupTextView = (TextView)mainView.findViewById(R.id.group_dialog_text);
-                btnCategory=(Button)mainView.findViewById(R.id.group_dialog);
-                final ArrayList<String> finalSubCategoryTitle = subCategoryTitle;
-                btnCategory.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogGroup = new Dialog(getActivity());
-                        dialogGroup.setContentView(R.layout.title_alertdialog_for_group);
-                        btnCancelAlertDialog = (ImageButton) dialogGroup.findViewById(R.id.cancel);
-                        btnResetAlertDialog = (ImageButton)dialogGroup.findViewById(R.id.reset_action);
-                        groupTextView.setTextColor(Color.parseColor("#EB4D2A"));
-                        btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialogGroup.dismiss();
-                            }
-                        });
-                        btnResetAlertDialog.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                categorySelected[0]=getActivity().getString(R.string.all);
-                                groupTextView.setText(categorySelected[0]);
-                                dialogGroup.dismiss();
-
-                            }
-                        });
-                        TextView text = (TextView) dialogGroup.findViewById(R.id.title_alertdialog_group);
-
-                        final ListView listCategory = (ListView) dialogGroup.findViewById(R.id.list);
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                android.R.layout.simple_list_item_1, android.R.id.text1, finalSubCategoryTitle);
-                        listCategory.setAdapter(adapter);
-
-                        listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                categorySelected[0] = (String) parent.getItemAtPosition(position);
-                                dialogGroup.dismiss();
-                                groupTextView.setText(categorySelected[0]);
-                                int subCategoryId = 0;
-                                for (Map.Entry<Integer, String> entry : filterSubCategory.entrySet()) {
-                                    if (entry.getValue().equals(categorySelected[0]))
-                                        subCategoryId=entry.getKey();
-                                }
-                                ArrayList<Product> newProducts=sch.ProductOFASubCategory(subCategoryId);
-                                PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
-                                gridview.setAdapter(newAdapter);
-                                newAdapter.notifyDataSetChanged();
-                            }
-                        });
-                        dialogGroup.setCancelable(true);
-                        dialogGroup.show();
-                    }
-                });
-
-                ///Filter in Product Features
-                final String[] subCategorySelected = new String[1];
-                subCategorySelected[0]=getActivity().getString(R.string.all);
-                subGroupTextView = (TextView)mainView.findViewById(R.id.acordingto_dialog_text);
-                btnSubGroup=(Button)mainView.findViewById(R.id.acording_to_dialog);
-                btnSubGroup.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogSubGroup = new Dialog(getActivity());
-                        dialogSubGroup.setContentView(R.layout.title_alertdialog_for_sub_group);
-                        subGroupTextView.setTextColor(Color.parseColor("#EB4D2A"));
-                        btnResetSubGroup = (ImageButton)dialogSubGroup.findViewById(R.id.reset_action_subgroup);
-                        btnCancleSubGroup = (ImageButton)dialogSubGroup.findViewById(R.id.cancel_action_subgroup);
-                        subGroupTextView.setTextColor(Color.parseColor("#EB4D2A"));
-                        btnCancleSubGroup.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialogSubGroup.dismiss();
-                            }
-                        });
-                        btnResetSubGroup.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                subCategorySelected[0] = getActivity().getString(R.string.all);
-                                dialogSubGroup.dismiss();
-                                subGroupTextView.setText(categorySelected[0]);
-                            }
-                        });
-                        TextView text = (TextView) dialogSubGroup.findViewById(R.id.title_alertdialog_group);
-                        ArrayList<String> subCategoryTitle=new ArrayList<String>();
-                        subCategoryTitle.add("قیمت");
-                        subCategoryTitle.add("برند");
-
-                        final ListView listCategory = (ListView) dialogSubGroup.findViewById(R.id.list);
-                        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
-                        listCategory.setAdapter(adapter);
-
-                        listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                if(position==0)
-                                {
-                                    dialogSubGroup.dismiss();
-                                    final Dialog dialogPrice = new Dialog(getActivity());
-                                    dialogPrice.setContentView(R.layout.title_alertdialog_for_sub_group);
-                                    ImageButton btnResetPrice = (ImageButton)dialogPrice.findViewById(R.id.reset_action_subgroup);
-                                    ImageButton btnCanclePrice = (ImageButton)dialogPrice.findViewById(R.id.cancel_action_subgroup);
-                                    btnCanclePrice.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialogPrice.dismiss();
-                                        }
-                                    });
-                                    btnResetPrice.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            subCategorySelected[0] = getActivity().getString(R.string.all);
-                                            dialogPrice.dismiss();
-                                            subGroupTextView.setText(categorySelected[0]);
-                                        }
-                                    });
-                                    TextView text = (TextView) dialogPrice.findViewById(R.id.title_alertdialog_group);
-                                    ArrayList<String> subCategoryTitle=new ArrayList<String>();
-                                    subCategoryTitle.add(" تا سقف 1 میلیون تومان");
-                                    subCategoryTitle.add("تا سقف 5 میلیون تومان");
-                                    subCategoryTitle.add("تا سقف 10 میلیون تومان");
-                                    subCategoryTitle.add("بالاتر از 10 میلیون تومان");
-
-                                    final ListView listPrice = (ListView) dialogPrice.findViewById(R.id.list);
-                                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                            android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
-                                    listPrice.setAdapter(adapter);
-                                    listPrice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                            final ArrayList<Product> productPrice = new ArrayList<Product>();
-                                            if (position == 0) {
-                                                for (int i = 0; i < products.size(); i++) {
-                                                    if (products.get(i).getPrice() <= 1000000)
-                                                        productPrice.add(products.get(i));
-                                                }
-                                                subGroupTextView.setText(listPrice.getItemAtPosition(position).toString());
-
-                                            }
-                                            if (position == 1) {
-                                                for (int i = 0; i < products.size(); i++) {
-                                                    if (products.get(i).getPrice() <= 5000000 && products.get(i).getPrice()>1000000)
-                                                        productPrice.add(products.get(i));
-                                                }
-                                                subGroupTextView.setText(listPrice.getItemAtPosition(position).toString());
-
-                                            }
-
-                                            if (position == 2) {
-                                                for (int i = 0; i < products.size(); i++) {
-                                                    if (products.get(i).getPrice() <= 10000000 && products.get(i).getPrice()>5000000)
-                                                        productPrice.add(products.get(i));
-                                                }
-                                                subGroupTextView.setText(listPrice.getItemAtPosition(position).toString());
-
-                                            }
-                                            if (position == 3) {
-                                                for (int i = 0; i < products.size(); i++) {
-                                                    if (products.get(i).getPrice() > 10000000)
-                                                        productPrice.add(products.get(i));
-                                                }
-                                                subGroupTextView.setText(listPrice.getItemAtPosition(position).toString());
-
-                                            }
-                                            PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), productPrice);
-                                            gridview.setAdapter(newAdapter);
-                                            newAdapter.notifyDataSetChanged();
-                                            dialogPrice.dismiss();
-                                        }
-                                    });
-                                    dialogPrice.show();
-                                }
-                                //Filter Brand
-                                if (position==1){
-                                    dialogSubGroup.dismiss();
-                                    final Dialog dialogBrand = new Dialog(getActivity());
-                                    dialogBrand.setContentView(R.layout.title_alertdialog_for_sub_group);
-                                    ImageButton btnResetPrice = (ImageButton)dialogBrand.findViewById(R.id.reset_action_subgroup);
-                                    ImageButton btnCanclePrice = (ImageButton)dialogBrand.findViewById(R.id.cancel_action_subgroup);
-                                    btnCanclePrice.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialogBrand.dismiss();
-                                        }
-                                    });
-                                    btnResetPrice.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            subCategorySelected[0] = getActivity().getString(R.string.all);
-                                            dialogBrand.dismiss();
-                                            subGroupTextView.setText(categorySelected[0]);
-                                        }
-                                    });
-                                    TextView text = (TextView) dialogBrand.findViewById(R.id.title_alertdialog_group);
-                                    ArrayList<String> subCategoryTitle=new ArrayList<String>();
-                                    subCategoryTitle=sch.getAllBrands(products);
-                                    final ListView listBrand = (ListView) dialogBrand.findViewById(R.id.list);
-                                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                            android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
-                                    listBrand.setAdapter(adapter);
-                                    listBrand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                            String brandTile=(String)parent.getItemAtPosition(position);
-                                            subGroupTextView.setText(brandTile);
-                                            PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(),
-                                                    sch.getAllProductOfABrand(products,brandTile));
-                                            gridview.setAdapter(newAdapter);
-                                            newAdapter.notifyDataSetChanged();
-                                            dialogBrand.dismiss();
-                                        }
-                                    });
-                                    dialogBrand.show();
-                                }
-
-                            }
-                        });
-                        dialogSubGroup.setCancelable(true);
-                        dialogSubGroup.show();
-                    }
-                });
-                break;
-
-            }
-
-            case 3:{
-
-                products=sch.ProductOfMainCategory(fourth_page);
-                mainView=inflater.inflate(R.layout.fragment_shop, null);
-                final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
-                final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
-                gridview.setAdapter(adapter);
-                final SwipeRefreshLayout mSwipeRefreshLayout= (SwipeRefreshLayout)
-                        mainView.findViewById(R.id.swipe_refresh_layout);
-                //refresh grid view
-                mSwipeRefreshLayout.setEnabled(false);
-                gridview.setOnScrollListener(new AbsListView.OnScrollListener() {
-                    @Override
-                    public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-                    }
-                    @Override
-                    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-                        boolean enable = false;
-                        if (gridview != null && gridview.getChildCount() > 0) {
-                            // check if the first item of the list is visible
-                            boolean firstItemVisible = gridview.getFirstVisiblePosition() == 0;
-                            // check if the top of the first item is visible
-                            boolean topOfFirstItemVisible = gridview.getChildAt(0).getTop() == 0;
-                            // enabling or disabling the refresh layout
-                            enable = firstItemVisible && topOfFirstItemVisible;
-                        }
-                        mSwipeRefreshLayout.setEnabled(enable);
-
-                    }
-                });
-                mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                sch.refreshProduct();
-                                products=sch.ProductOfMainCategory(fourth_page);
-                                PictureProductShopItemAdapter newAdapter=new  PictureProductShopItemAdapter(getActivity(),products);
-                                gridview.setAdapter(newAdapter);
-                                newAdapter.notifyDataSetChanged();
-                                mSwipeRefreshLayout.setRefreshing(false);
-                            }
-                        }, 5000);
-                    }
-                });
-                //Filter
-                ///FilterSubCategory
-                final Map<Integer, String> filterSubCategory = sch.getFilterSubCategory(fourth_page);
-                final String[] categorySelected = new String[1];
-                categorySelected[0]=getActivity().getString(R.string.all);
-                final int[] categoryIdSelected = new int[1];
-                categoryIdSelected[0]=sch.getMainCategoryId(fourth_page);
-                ArrayList<String> subCategoryTitle = new ArrayList<String>();
-                subCategoryTitle=sch.getTitleOfChildOfACategory(categoryIdSelected[0]);
-
-                groupTextView = (TextView)mainView.findViewById(R.id.group_dialog_text);
-                btnCategory=(Button)mainView.findViewById(R.id.group_dialog);
-                final ArrayList<String> finalSubCategoryTitle = subCategoryTitle;
-                btnCategory.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogGroup = new Dialog(getActivity());
-                        dialogGroup.setContentView(R.layout.title_alertdialog_for_group);
-                        btnCancelAlertDialog = (ImageButton) dialogGroup.findViewById(R.id.cancel);
-                        btnResetAlertDialog = (ImageButton)dialogGroup.findViewById(R.id.reset_action);
-                        groupTextView.setTextColor(Color.parseColor("#EB4D2A"));
-                        btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialogGroup.dismiss();
-                            }
-                        });
-                        btnResetAlertDialog.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                categorySelected[0]=getActivity().getString(R.string.all);
-                                groupTextView.setText(categorySelected[0]);
-                                dialogGroup.dismiss();
-
-                            }
-                        });
-                        TextView text = (TextView) dialogGroup.findViewById(R.id.title_alertdialog_group);
-
-                        final ListView listCategory = (ListView) dialogGroup.findViewById(R.id.list);
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                android.R.layout.simple_list_item_1, android.R.id.text1, finalSubCategoryTitle);
-                        listCategory.setAdapter(adapter);
-
-                        listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                categorySelected[0] = (String) parent.getItemAtPosition(position);
-                                dialogGroup.dismiss();
-                                groupTextView.setText(categorySelected[0]);
-                                int subCategoryId = 0;
-                                for (Map.Entry<Integer, String> entry : filterSubCategory.entrySet()) {
-                                    if (entry.getValue().equals(categorySelected[0]))
-                                        subCategoryId=entry.getKey();
-                                }
-                                ArrayList<Product> newProducts=sch.ProductOFASubCategory(subCategoryId);
-                                PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
-                                gridview.setAdapter(newAdapter);
-                                newAdapter.notifyDataSetChanged();
-                            }
-                        });
-                        dialogGroup.setCancelable(true);
-                        dialogGroup.show();
-                    }
-                });
-
-                ///Filter in Product Features
-                final String[] subCategorySelected = new String[1];
-                subCategorySelected[0]=getActivity().getString(R.string.all);
-                subGroupTextView = (TextView)mainView.findViewById(R.id.acordingto_dialog_text);
-                btnSubGroup=(Button)mainView.findViewById(R.id.acording_to_dialog);
-                btnSubGroup.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialogSubGroup = new Dialog(getActivity());
-                        dialogSubGroup.setContentView(R.layout.title_alertdialog_for_sub_group);
-                        btnResetSubGroup = (ImageButton)dialogSubGroup.findViewById(R.id.reset_action_subgroup);
-                        btnCancleSubGroup = (ImageButton)dialogSubGroup.findViewById(R.id.cancel_action_subgroup);
-                        subGroupTextView.setTextColor(Color.parseColor("#EB4D2A"));
-                        btnCancleSubGroup.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                dialogSubGroup.dismiss();
-                            }
-                        });
-                        btnResetSubGroup.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                subCategorySelected[0] = getActivity().getString(R.string.all);
-                                dialogSubGroup.dismiss();
-                                subGroupTextView.setText(categorySelected[0]);
-                            }
-                        });
-                        TextView text = (TextView) dialogSubGroup.findViewById(R.id.title_alertdialog_group);
-                        ArrayList<String> subCategoryTitle=new ArrayList<String>();
-                        subCategoryTitle.add("قیمت");
-                        subCategoryTitle.add("برند");
-
-                        final ListView listCategory = (ListView) dialogSubGroup.findViewById(R.id.list);
-                        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
-                        listCategory.setAdapter(adapter);
-
-                        listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                if(position==0)
-                                {
-                                    dialogSubGroup.dismiss();
-                                    final Dialog dialogPrice = new Dialog(getActivity());
-                                    dialogPrice.setContentView(R.layout.title_alertdialog_for_sub_group);
-                                    ImageButton btnResetPrice = (ImageButton)dialogPrice.findViewById(R.id.reset_action_subgroup);
-                                    ImageButton btnCanclePrice = (ImageButton)dialogPrice.findViewById(R.id.cancel_action_subgroup);
-                                    btnCanclePrice.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialogPrice.dismiss();
-                                        }
-                                    });
-                                    btnResetPrice.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            subCategorySelected[0] = getActivity().getString(R.string.all);
-                                            dialogPrice.dismiss();
-                                            subGroupTextView.setText(categorySelected[0]);
-                                        }
-                                    });
-                                    TextView text = (TextView) dialogPrice.findViewById(R.id.title_alertdialog_group);
-                                    ArrayList<String> subCategoryTitle=new ArrayList<String>();
-                                    subCategoryTitle.add(" تا سقف 1 میلیون تومان");
-                                    subCategoryTitle.add("تا سقف 5 میلیون تومان");
-                                    subCategoryTitle.add("تا سقف 10 میلیون تومان");
-                                    subCategoryTitle.add("بالاتر از 10 میلیون تومان");
-
-                                    final ListView listPrice = (ListView) dialogPrice.findViewById(R.id.list);
-                                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                            android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
-                                    listPrice.setAdapter(adapter);
-                                    listPrice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                            final ArrayList<Product> productPrice = new ArrayList<Product>();
-                                            if (position == 0) {
-                                                for (int i = 0; i < products.size(); i++) {
-                                                    if (products.get(i).getPrice() <= 1000000)
-                                                        productPrice.add(products.get(i));
-                                                }
-                                                subGroupTextView.setText(listPrice.getItemAtPosition(position).toString());
-
-                                            }
-                                            if (position == 1) {
-                                                for (int i = 0; i < products.size(); i++) {
-                                                    if (products.get(i).getPrice() <= 5000000 && products.get(i).getPrice()>1000000)
-                                                        productPrice.add(products.get(i));
-                                                }
-                                                subGroupTextView.setText(listPrice.getItemAtPosition(position).toString());
-
-                                            }
-
-                                            if (position == 2) {
-                                                for (int i = 0; i < products.size(); i++) {
-                                                    if (products.get(i).getPrice() <= 10000000 && products.get(i).getPrice()>5000000)
-                                                        productPrice.add(products.get(i));
-                                                }
-                                                subGroupTextView.setText(listPrice.getItemAtPosition(position).toString());
-
-                                            }
-                                            if (position == 3) {
-                                                for (int i = 0; i < products.size(); i++) {
-                                                    if (products.get(i).getPrice() > 10000000)
-                                                        productPrice.add(products.get(i));
-                                                }
-                                                subGroupTextView.setText(listPrice.getItemAtPosition(position).toString());
-
-                                            }
-                                            PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), productPrice);
-                                            gridview.setAdapter(newAdapter);
-                                            newAdapter.notifyDataSetChanged();
-                                            dialogPrice.dismiss();
-                                        }
-                                    });
-                                    dialogPrice.show();
-                                }
-                                //Filter Brand
-                                if (position==1){
-                                    dialogSubGroup.dismiss();
-                                    final Dialog dialogBrand = new Dialog(getActivity());
-                                    dialogBrand.setContentView(R.layout.title_alertdialog_for_sub_group);
-                                    ImageButton btnResetPrice = (ImageButton)dialogBrand.findViewById(R.id.reset_action_subgroup);
-                                    ImageButton btnCanclePrice = (ImageButton)dialogBrand.findViewById(R.id.cancel_action_subgroup);
-                                    btnCanclePrice.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            dialogBrand.dismiss();
-                                        }
-                                    });
-                                    btnResetPrice.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            subCategorySelected[0] = getActivity().getString(R.string.all);
-                                            dialogBrand.dismiss();
-                                            subGroupTextView.setText(categorySelected[0]);
-                                        }
-                                    });
-                                    TextView text = (TextView) dialogBrand.findViewById(R.id.title_alertdialog_group);
-                                    ArrayList<String> subCategoryTitle=new ArrayList<String>();
-                                    subCategoryTitle=sch.getAllBrands(products);
-                                    final ListView listBrand = (ListView) dialogBrand.findViewById(R.id.list);
-                                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                            android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
-                                    listBrand.setAdapter(adapter);
-                                    listBrand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                            String brandTile=(String)parent.getItemAtPosition(position);
-                                            subGroupTextView.setText(brandTile);
-                                            PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(),
-                                                    sch.getAllProductOfABrand(products,brandTile));
-                                            gridview.setAdapter(newAdapter);
-                                            newAdapter.notifyDataSetChanged();
-                                            dialogBrand.dismiss();
-                                        }
-                                    });
-                                    dialogBrand.show();
-                                }
-
-                            }
-                        });
-                        dialogSubGroup.setCancelable(true);
-                        dialogSubGroup.show();
-                    }
-                });
-
-                break;
-
-            }
             case 4: {
 
                 mainView = inflater.inflate(R.layout.fragment_article, null);
@@ -1104,4 +560,5 @@ public class SuperAwesomeCardFragment extends Fragment{
         }
         return mainView;
     }
+
 }

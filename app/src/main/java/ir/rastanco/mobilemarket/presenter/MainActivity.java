@@ -33,6 +33,7 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -158,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
         mTintManager.setStatusBarTintEnabled(true);
         adapter = new MyPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(adapter);
+        Configuration.MainPager=pager;
         tabs.setViewPager(pager);
         final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 5, getResources()
                 .getDisplayMetrics());
@@ -491,6 +493,11 @@ public class MainActivity extends AppCompatActivity {
         public MyPagerAdapter(FragmentManager fm) {
 
             super(fm);
+        }
+
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, Object object) {
+            super.setPrimaryItem(container, position, object);
         }
 
         @Override

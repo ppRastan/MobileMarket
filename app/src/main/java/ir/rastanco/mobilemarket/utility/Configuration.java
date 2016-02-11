@@ -33,6 +33,7 @@ public class Configuration {
     public static Context ProductOptionFragment;
 
     public static ViewPager UserProfileViewPager;
+    public static ViewPager MainPager;
 
     public static Boolean RTL;
 

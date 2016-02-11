@@ -9,7 +9,6 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import ir.rastanco.mobilemarket.dataModel.Article;
@@ -579,6 +578,24 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return categoryTitles;
     }
 
+    public int selectACategoryParent(int catId){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from tblCategory where catID= " + catId, null);
+        int parentId = 0;
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    parentId=rs.getInt(rs.getColumnIndex("parentId"));
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select Parent of A Category ID");
+        return parentId;
+
+    }
+
 
     public ArrayList<Integer> selectChildIdOfACategory(int parentID){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -686,6 +703,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Product Title and ID");
         return productTitle;
     }
+
 
     public ArrayList<Product> selectAllProduct() {
         SQLiteDatabase db = this.getReadableDatabase();

@@ -78,6 +78,17 @@ public class ServerConnectionHandler {
         return dbh.selectAllCategory();
     }
 
+    public String getACategoryTitle(int catId){
+        ArrayList<Category> allCategories=new ArrayList<Category>();
+        allCategories=getAllCategoryInfoTable();
+        String catTitle="";
+        for (int i=0;i<allCategories.size();i++){
+            if (allCategories.get(i).getId()==catId)
+                catTitle=allCategories.get(i).getTitle();
+        }
+        return catTitle;
+    }
+
     public Map<Integer,String> getMainCategory(){
         return dbh.selectMainCategories();
     }
@@ -112,6 +123,30 @@ public class ServerConnectionHandler {
                 catId = entry.getKey();
         }
         return catId;
+    }
+
+    public ArrayList<Integer> getPageNumForSimilarProduct(int parentId){
+        ArrayList<Integer> setSimilarCategoryInfo=new ArrayList<Integer>();
+        int subCategory=dbh.selectACategoryParent(parentId);
+        int mainCategory=dbh.selectACategoryParent(subCategory);
+        Map<Integer,String> mainCategoryId=new HashMap<Integer,String>();
+        mainCategoryId=getMainCategory();
+        String mainCatTitle="";
+        for (Map.Entry<Integer, String> entry : mainCategoryId.entrySet()) {
+            if (entry.getKey()==mainCategory)
+                mainCatTitle=entry.getValue();
+        }
+
+        ArrayList<String> mainCategoryNum=new ArrayList<String>();
+        mainCategoryNum=getMainCategoryTitle();
+        int pageNumber=0;
+        for (int i=0;i<mainCategoryNum.size();i++){
+            if (mainCategoryNum.get(i).equals(mainCatTitle))
+                pageNumber=i+1;
+        }
+        setSimilarCategoryInfo.add(pageNumber);
+        setSimilarCategoryInfo.add(subCategory);
+        return setSimilarCategoryInfo;
     }
 
     public ArrayList<Integer> ChildOfACategory(String title){

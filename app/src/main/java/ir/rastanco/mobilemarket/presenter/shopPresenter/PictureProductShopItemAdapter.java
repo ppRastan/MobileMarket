@@ -113,7 +113,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
         holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
         holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
-        if(Configuration.RTL){
+       if(Configuration.RTL){
 
             holder.offerLeft.setVisibility(View.GONE);
             if(allProduct.get(position).getPriceOff() != 0)
@@ -255,22 +255,18 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         String priceOfCurrentGood = String.valueOf(allProduct.get(position).getPrice());
         double amountOfFinalPrice = Double.parseDouble(priceOfCurrentGood);
         DecimalFormat formatter = new DecimalFormat("#,###,000");
-        holder.priceP.setText(formatter.format(amountOfFinalPrice)+"  "+"تومان");
+        holder.priceP.setText(formatter.format(amountOfFinalPrice) + "  " + "تومان");
         holder.imgP.setImageBitmap(image);
 
         holder.imgP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(rowView.getContext(), ProductInfoActivity.class);
-                intent.putParcelableArrayListExtra("allProduct",allProduct);
+                intent.putParcelableArrayListExtra("allProduct", allProduct);
                 intent.putExtra("position", position);
                 rowView.getContext().startActivity(intent);
             }
         });
-
-        //Add Product Option
-        /*sch.getProductOption(allProduct.get(position).getId(),
-                allProduct.get(position).getGroupId());*/
 
         return rowView;
     }
