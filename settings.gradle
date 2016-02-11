@@ -1,1 +1,1 @@
-include ':pushe-lib-0.9.1', ':app'
+include ':app', ':pushe-lib-0.9.1'
