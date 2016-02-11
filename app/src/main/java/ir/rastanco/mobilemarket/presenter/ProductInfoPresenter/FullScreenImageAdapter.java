@@ -107,7 +107,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
         addToBasketBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sch.addProductToShoppingBag(products.get(position).getId(),1);
+                sch.addProductToShoppingBag(products.get(position).getId(), 1);
                 Configuration.ProductInfoActivity.startActivity(new Intent(Configuration.ProductInfoActivity, ShoppingBagActivity.class));
                 Connect.setMyBoolean(true);
             }
@@ -117,7 +117,8 @@ public class FullScreenImageAdapter extends PagerAdapter{
                 products.get(position).getGroupId());
 
 
-        if (products.get(position).getLike()==0){
+
+        if (sch.getAProduct(products.get(position).getId()).getLike()==0){
             //this Product No Favorite
             btnLike.setImageResource(R.mipmap.ic_like_toolbar);
         }
@@ -129,14 +130,14 @@ public class FullScreenImageAdapter extends PagerAdapter{
             @Override
             public void onClick(View v)
             {
-                if(products.get(position).getLike()==0){
+                if(sch.getAProduct(products.get(position).getId()).getLike()==0){
 
                     btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     products.get(position).setLike(1);
                     sch.changeProductLike(products.get(position).getId(), 1);
 
                 }
-                else if(products.get(position).getLike()==1){
+                else if(sch.getAProduct(products.get(position).getId()).getLike()==1){
                     btnLike.setImageResource(R.mipmap.ic_like_toolbar);
                     products.get(position).setLike(0);
                     sch.changeProductLike(products.get(position).getId(), 0);
