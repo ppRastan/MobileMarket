@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/update"
-        android:icon="@mipmap/ic_upload_new"
+        android:icon="@mipmap/upload_star_icon"
         app:showAsAction="always"
         android:title="به روز رسانی"/>
 
