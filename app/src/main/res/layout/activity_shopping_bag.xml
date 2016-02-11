@@ -32,7 +32,7 @@
                 android:layout_weight="2"
                 android:id="@+id/close_shopping_page"
                 android:background="@color/decoriss"
-                android:src="@mipmap/ic_cancel_dialog"
+                android:src="@mipmap/ic_back"
                 android:layout_height="match_parent" />
         </LinearLayout>
 
