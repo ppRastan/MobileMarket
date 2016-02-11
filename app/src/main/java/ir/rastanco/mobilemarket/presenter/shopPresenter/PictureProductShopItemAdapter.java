@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
@@ -238,7 +240,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             }
         });
 
-        ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
+//        ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
         String picCounter = allProduct.get(position).getImagesPath().get(0);
         try {
             picCounter= URLEncoder.encode(picCounter, "UTF-8");
@@ -250,7 +252,8 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 "&size="+
                 Configuration.shopDisplaySize+"x"+Configuration.shopDisplaySize+
                 "&q=30";
-        imgLoader.DisplayImage(image_url_1, holder.imgP);
+//        imgLoader.DisplayImage(image_url_1, holder.imgP);
+        Picasso.with(Configuration.superACFragment).load(image_url_1).into(holder.imgP);
         holder.infoP.setText(allProduct.get(position).getTitle());
         String priceOfCurrentGood = String.valueOf(allProduct.get(position).getPrice());
         double amountOfFinalPrice = Double.parseDouble(priceOfCurrentGood);

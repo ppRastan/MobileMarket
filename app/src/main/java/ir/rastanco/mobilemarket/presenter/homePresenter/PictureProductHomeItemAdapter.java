@@ -24,7 +24,6 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Connect;
-import ir.rastanco.mobilemarket.presenter.ObserverHome;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -61,6 +60,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
         Bitmap image=null;
         LayoutInflater inflater = myContext.getLayoutInflater();
         final View rowView = inflater.inflate(R.layout.picture_product_item_home, null);
+
         basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
         if (sch.checkSelectProductForShop(allProduct.get(position).getId()))
             basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
@@ -134,18 +134,6 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
 //                shareDialog.cancel();
             }
         });
-
-        Button btnSimilar=(Button) rowView.findViewById(R.id.btn_similar);
-        btnSimilar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ArrayList<Integer> catNumber=new ArrayList<Integer>();
-                catNumber= sch.getPageNumForSimilarProduct(allProduct.get(position).getGroupId());
-                Configuration.MainPager.setCurrentItem(catNumber.get(0));
-                ObserverHome.setSimilarProduct(catNumber.get(1));
-            }
-        });
-
 
         ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
         ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);

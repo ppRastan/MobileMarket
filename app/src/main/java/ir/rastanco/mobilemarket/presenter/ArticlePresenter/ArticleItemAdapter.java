@@ -24,6 +24,7 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
 
     private Activity myContext;
     private ArrayList<Article> articles ;
+    private ImageLoader imgLoader;
 
     public ArticleItemAdapter(Context context,int resource, ArrayList<Article> allArticles) {
         super(context, resource, allArticles);
@@ -38,7 +39,7 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
         final View rowView = inflater.inflate(R.layout.article_item, null);
 
 
-        ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
+        imgLoader = new ImageLoader(Configuration.superACFragment); // important
         ImageView articleImage = (ImageView) rowView.findViewById(R.id.img_article);
         String articleImageURL= articles.get(position).getImageLink()+
                 "&size="+
