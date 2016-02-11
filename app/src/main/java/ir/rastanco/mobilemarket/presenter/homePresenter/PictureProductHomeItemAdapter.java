@@ -15,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -147,8 +149,8 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
                 "&size="+
                 Configuration.homeDisplaySize+"x"+Configuration.homeDisplaySize+
                 "&q=30";
-        imgLoader.DisplayImage(image_url_1, PicProductImage);
-
+//        imgLoader.DisplayImage(image_url_1, PicProductImage);
+        Picasso.with(myContext).load(image_url_1).into(PicProductImage);
         ImageButton shareImgB=(ImageButton)rowView.findViewById(R.id.imbt_share);
         shareImgB.setBackgroundColor(Color.TRANSPARENT);
 
