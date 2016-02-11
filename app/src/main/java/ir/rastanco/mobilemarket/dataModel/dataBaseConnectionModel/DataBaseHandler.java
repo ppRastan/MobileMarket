@@ -287,7 +287,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     public void insertUserInfo(UserInfo aUser) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert("tblUserInfo", null, addFieldToUserInfoTable(aUser));
-        Log.v("insert", "insert A UserInformation into Table");
+        Log.v("insert", "insert A UserLogin into Table");
         db.close();
 
     }

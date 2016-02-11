@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".presenter.ProductInfoPresenter.ProductInfoActivity" />
-        <activity android:name=".presenter.UserProfilePresenter.UserProfileActivity"/>
+        <activity android:name=".presenter.UserProfilePresenter.UserActivity"/>
         <activity android:name=".presenter.shoppingBagPresenter.ShoppingBagActivity"/>
         <activity android:name=".presenter.ProductInfoPresenter.ProductOptionActivity"/>
         <receiver android:name="co.ronash.pushe.receiver.UpdateReceiver" >

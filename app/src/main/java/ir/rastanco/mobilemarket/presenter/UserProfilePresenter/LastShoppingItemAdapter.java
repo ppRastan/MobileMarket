@@ -69,9 +69,9 @@ public class LastShoppingItemAdapter extends ArrayAdapter<ProductShop> {
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(Integer.parseInt(allProductsShop.get(position).getTimeStamp()));
         String date = DateFormat.format("yyyy-MM-dd", cal).toString();
-        invoiceDate.setText(myContext.getResources().getString(R.string.date_of_shopping)+date);
+        //invoiceDate.setText(myContext.getResources().getString(R.string.date_of_shopping)+date);
 
-        invoiceStatus.setText(myContext.getResources().getString(R.string.state_of_invoice)+String.valueOf(allProductsShop.get(position).getInvoiceStatus()));
+        //invoiceStatus.setText(myContext.getResources().getString(R.string.state_of_invoice)+String.valueOf(allProductsShop.get(position).getInvoiceStatus()));
         return rowView;
     }
 }

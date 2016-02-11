@@ -10,9 +10,8 @@ import android.view.View;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.utility.Configuration;
-//import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +19,7 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Configuration.UserActivity=this;
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {

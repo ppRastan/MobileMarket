@@ -23,7 +23,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 /**
  * Created by Emertat on 01/15/2016.
  */
-public class UserInformation extends Fragment {
+public class UserLogin extends Fragment {
 
     private ServerConnectionHandler sch;
     private Security sec;
@@ -37,14 +37,14 @@ public class UserInformation extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-         final View userProfileView= inflater.inflate(R.layout.fragment_user_information, container, false);
-         Configuration.UserInformationFragment=getContext();
-         sch=new ServerConnectionHandler(Configuration.UserInformationFragment);
-         btnLogin=(Button) userProfileView.findViewById(R.id.btn_login);
-         btnSignUp=(Button) userProfileView.findViewById(R.id.btn_enter);
-         btnForgotPass=(Button) userProfileView.findViewById(R.id.btn_forgot);
-         username=(EditText) userProfileView.findViewById(R.id.et_username);
-         password=(EditText) userProfileView.findViewById(R.id.et_password);
+         final View userLogin= inflater.inflate(R.layout.fragment_user_login, container, false);
+         Configuration.UserLoginFragment =getContext();
+         sch=new ServerConnectionHandler(Configuration.UserLoginFragment);
+         btnLogin=(Button) userLogin.findViewById(R.id.btn_login);
+         btnSignUp=(Button) userLogin.findViewById(R.id.btn_enter);
+         btnForgotPass=(Button) userLogin.findViewById(R.id.btn_forgot);
+         username=(EditText) userLogin.findViewById(R.id.et_username);
+         password=(EditText) userLogin.findViewById(R.id.et_password);
          sec=new Security();
          btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +83,7 @@ public class UserInformation extends Fragment {
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
                 intent.setData(Uri.parse("http://decoriss.com/register,ثبت-نام_"));
-                userProfileView.getContext().startActivity(intent);
+                userLogin.getContext().startActivity(intent);
             }
         });
 
@@ -94,10 +94,10 @@ public class UserInformation extends Fragment {
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
                 intent.setData(Uri.parse("http://decoriss.com/forgetpassword,فراموشی-رمز-عبور_"));
-                userProfileView.getContext().startActivity(intent);
+                userLogin.getContext().startActivity(intent);
             }
         });
 
-        return userProfileView;
+        return userLogin;
     }
 }

@@ -228,6 +228,17 @@ public class ServerConnectionHandler {
     public ArrayList<Product> getAllProductFromTable(){
         return dbh.selectAllProduct();
     }
+
+    public ArrayList<Product> getAllProductFavourite(){
+        ArrayList<Product> allProduct=new ArrayList<Product>();
+        ArrayList<Product> allProductFavorite=new ArrayList<Product>();
+        allProduct=getAllProductFromTable();
+        for (int i=0;i<allProduct.size();i++){
+            if (allProduct.get(i).getLike()==1)
+                allProductFavorite.add(allProduct.get(i));
+        }
+        return allProductFavorite;
+    }
     public Product getAProduct(int productId){
         Product aProduct= dbh.selectAProduct(productId);
         aProduct.setImagesPath(dbh.selectAllImagePathAProduct(productId));
@@ -516,6 +527,13 @@ public class ServerConnectionHandler {
             dbh.deleteUserInfo();
             dbh.insertUserInfo(aUser);
         }
+    }
+
+    public boolean emptyUserInfo(){
+        if (dbh.emptyUserInfoTable())
+            return true;
+        else
+            return false;
     }
 
     public UserInfo getUserInfo(){
