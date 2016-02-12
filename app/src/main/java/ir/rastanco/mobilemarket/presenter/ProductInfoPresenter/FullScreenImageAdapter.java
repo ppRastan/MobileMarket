@@ -65,7 +65,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
     private double amountOfFinalPrice;
     private DecimalFormat formatter;
     private Typeface yekanFont;
-    // constructor
+    // test parisa's connection
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
         this.products=allProducts;
