@@ -13,6 +13,5 @@
         android:text="title"
         android:layout_marginRight="3dp"
         android:layout_gravity="right"
-        android:layoutDirection="rtl"
          />
 </LinearLayout>
