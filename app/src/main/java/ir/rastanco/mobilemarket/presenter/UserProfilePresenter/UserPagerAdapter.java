@@ -28,16 +28,8 @@ public class UserPagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                if(sch.emptyUserInfo())
-                {
-                    UserLogin login = new UserLogin();
-                    return login;
-                }
-                else {
-                    UserProfile profile=new UserProfile();
-                    return profile;
-                }
-
+                manageUserPage userManagePage=new manageUserPage();
+                return userManagePage;
             case 1:
                 UserAccount account = new UserAccount();
                 return account;

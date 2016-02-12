@@ -543,6 +543,10 @@ public class ServerConnectionHandler {
             return dbh.selectUserInformation();
     }
 
+    public void deleteUserInfo(){
+        dbh.deleteUserInfo();
+    }
+
     //Version Of App
     public String getLastVersionInServer(String url){
 

@@ -1,12 +1,14 @@
 package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
 
@@ -24,9 +26,9 @@ public class UserProfile extends Fragment {
     private ServerConnectionHandler sch;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
-        View userProfileView = inflater.inflate(R.layout.fragment_user_profile, container, false);
+        final View userProfileView = inflater.inflate(R.layout.fragment_user_profile, container, false);
         Configuration.UserProfileFragment=getContext();
         sch=new ServerConnectionHandler(Configuration.UserProfileFragment);
         UserInfo aUser=sch.getUserInfo();
@@ -39,6 +41,20 @@ public class UserProfile extends Fragment {
         ListView lsvFavourite=(ListView) userProfileView.findViewById(R.id.lsv_favouriteProduct);
         UserProfileAdapter adapter= new UserProfileAdapter(Configuration.UserProfileFragment,R.layout.user_profile_like_product_item,allProductLike);
         lsvFavourite.setAdapter(adapter);
+
+        ImageButton logOut=(ImageButton)userProfileView.findViewById(R.id.img_logout);
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                sch.deleteUserInfo();
+
+                UserLogin login=new UserLogin();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.replaceFragment,login );
+                transaction.commit();
+            }
+        });
 
         return userProfileView;
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,11 +53,11 @@ public class UserLogin extends Fragment {
                 UserInfo aUser=new UserInfo();
                 String key=sch.GetKey("http://decoriss.com/json/get,com=auth");
                 //String key="974401741";
-                user= String.valueOf(username.getText());
-                //user="mahdavikia.m@gmail.com";
+                //user= String.valueOf(username.getText());
+                user="mahdavikia.m@gmail.com";
                 aUser.setUserEmail(user);
-                pass= String.valueOf(password.getText());
-                //pass="1234";
+                //pass= String.valueOf(password.getText());
+                pass="1234";
                 String hashInfo=sec.encode(user,pass,key);
                 ArrayList<String> response=new ArrayList<String>();
                 response=sch.GetAuthorizeResponse(hashInfo,key);
@@ -65,7 +66,11 @@ public class UserLogin extends Fragment {
                     aUser.setUserId(Integer.parseInt(response.get(1)));
                     aUser.setUserLoginStatus(1);
                     sch.addUserInfoToTable(aUser);
-                    Configuration.UserProfileViewPager.setCurrentItem(1);
+                    UserProfile profile=new UserProfile();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.replaceFragment,profile );
+                    transaction.commit();
+                    //Configuration.UserProfileViewPager.setCurrentItem(1);
                 }
                 if (response.get(0).equals("key_expired"))
                     Toast.makeText(getActivity(), "دوباره تلاش کنید، سپاسگزار",

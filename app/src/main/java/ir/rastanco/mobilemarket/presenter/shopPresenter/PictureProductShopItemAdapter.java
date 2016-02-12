@@ -27,7 +27,6 @@ import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Connect;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
@@ -115,7 +114,8 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
         holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
         holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
-       if(Configuration.RTL){
+       if(Configuration.RTL)
+       {
 
             holder.offerLeft.setVisibility(View.GONE);
             if(allProduct.get(position).getPriceOff() != 0)
@@ -213,7 +213,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             }
         });
 
-        if (allProduct.get(position).getLike()==0){
+        if (sch.getAProduct(allProduct.get(position).getId()).getLike()==0){
             //this Product No Favorite
             holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);
             isLikeButtonClicked=false;
@@ -227,12 +227,12 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.likeToolBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isLikeButtonClicked == false){
+                if(sch.getAProduct(allProduct.get(position).getId()).getLike()==0){
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     isLikeButtonClicked = true;
                     sch.changeProductLike(allProduct.get(position).getId(), 1);
                 }
-                else if(isLikeButtonClicked){
+                else if(sch.getAProduct(allProduct.get(position).getId()).getLike()==1){
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);
                     isLikeButtonClicked = false;
                     sch.changeProductLike(allProduct.get(position).getId(), 0);
