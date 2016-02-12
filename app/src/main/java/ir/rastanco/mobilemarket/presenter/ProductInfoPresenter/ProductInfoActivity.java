@@ -38,7 +38,6 @@ public class ProductInfoActivity extends Activity {
         viewPager=(ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(new FullScreenImageAdapter(this, allProducts, allProducts.size()));
         viewPager.setCurrentItem(intent.getIntExtra("position", 0));
-
     }
 }
 

@@ -271,6 +271,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
 
                 }
             });
+
         }
         ((ViewPager) container).addView(viewLayout);
         return viewLayout;
