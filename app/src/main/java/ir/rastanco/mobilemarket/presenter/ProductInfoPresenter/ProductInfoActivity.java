@@ -16,7 +16,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by ShaisteS on 1394/10/16.
- */
+ **/
 public class ProductInfoActivity extends Activity {
 
     private ArrayList<Product> allProducts;
