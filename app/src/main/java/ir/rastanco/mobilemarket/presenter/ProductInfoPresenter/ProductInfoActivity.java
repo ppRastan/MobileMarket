@@ -16,7 +16,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by ShaisteS on 1394/10/16.
- */
+ **/
 public class ProductInfoActivity extends Activity {
 
     private ArrayList<Product> allProducts;
@@ -38,7 +38,6 @@ public class ProductInfoActivity extends Activity {
         viewPager=(ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(new FullScreenImageAdapter(this, allProducts, allProducts.size()));
         viewPager.setCurrentItem(intent.getIntExtra("position", 0));
-
     }
 }
 

@@ -26,6 +26,7 @@ import ir.rastanco.mobilemarket.R;
 /**
  * Created by ShaisteS on 1394/10/20.
  */
+//test connection
 public class ImageLoader {
 
     MemoryCache memoryCache=new MemoryCache();

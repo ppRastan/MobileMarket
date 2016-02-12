@@ -57,4 +57,16 @@
     <string name="state_of_invoice">وضعیت فاکتور</string>
     <string name="same_goods">محصولات مشابه</string>
     <string name="LinkDownloadApp">http://decoriss.com/app/Decoriss.apk</string>
+    <string name="information">توضیحات:</string>
+    <string name="visions">نظرات:</string>
+    <string name="features">ویژگی ها:</string>
+    <string-array name="list_view_item">
+        <item>item1</item>
+        <item>item1</item>
+        <item>item1</item>
+        <item>item1</item>
+        <item>item1</item>
+        <item>item1</item>
+
+    </string-array>
 </resources>

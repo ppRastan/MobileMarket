@@ -1,5 +1,4 @@
 package ir.rastanco.mobilemarket.utility;
-
 import android.content.Context;
 import android.graphics.Typeface;
 
