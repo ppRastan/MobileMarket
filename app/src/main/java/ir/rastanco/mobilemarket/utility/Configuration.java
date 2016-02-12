@@ -30,6 +30,7 @@ public class Configuration {
     public static Context UserLoginFragment;
     public static Context UserProfileFragment;
     public static Context UserActivity;
+    public static Context ManageUserPage;
     public static Context ShoppingBagActivity;
     public static Context UserAccountFragment;
     public static Context ProductOptionFragment;
