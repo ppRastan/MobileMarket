@@ -143,7 +143,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 //        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT_OPTION);
 //        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARTICLE);
         // Create tables again
-        onCreate(db);
+//        onCreate(db);
     }
 
 

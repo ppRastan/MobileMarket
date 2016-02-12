@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.io.UnsupportedEncodingException;
@@ -252,8 +253,19 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 "&size="+
                 Configuration.shopDisplaySize+"x"+Configuration.shopDisplaySize+
                 "&q=30";
-//        imgLoader.DisplayImage(image_url_1, holder.imgP);
         Picasso.with(Configuration.superACFragment).load(image_url_1).into(holder.imgP);
+//        imgLoader.DisplayImage(image_url_1, holder.imgP);
+//        Glide.with(Configuration.superACFragment)
+//                .load(image_url_1)
+//                        // The placeholder image is shown immediately and
+//                        // replaced by the remote image when Picasso has
+//                        // finished fetching it.
+//                .placeholder(R.drawable.loader)
+//                        //A request will be retried three times before the error placeholder is shown.
+//                .error(R.drawable.loader)
+//                        // Transform images to better fit into layouts and to
+//                        // reduce memory size.
+//                .into(holder.imgP);
         holder.infoP.setText(allProduct.get(position).getTitle());
         String priceOfCurrentGood = String.valueOf(allProduct.get(position).getPrice());
         double amountOfFinalPrice = Double.parseDouble(priceOfCurrentGood);

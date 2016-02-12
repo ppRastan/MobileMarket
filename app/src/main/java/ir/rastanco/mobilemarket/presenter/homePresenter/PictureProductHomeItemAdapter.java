@@ -15,6 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.bumptech.glide.DrawableRequestBuilder;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 import java.io.UnsupportedEncodingException;
@@ -138,7 +142,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
         });
 
         ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
-        ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
+      final  ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
         String picCounter = allProduct.get(position).getImagesPath().get(0);
         try {
             picCounter= URLEncoder.encode(picCounter, "UTF-8");
@@ -150,8 +154,26 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
                 Configuration.homeDisplaySize+"x"+Configuration.homeDisplaySize+
                 "&q=30";
 //        imgLoader.DisplayImage(image_url_1, PicProductImage);
+//        Glide.with(myContext)
+//                .load(image_url_1)
+//                        // The placeholder image is shown immediately and
+//                        // replaced by the remote image when Picasso has
+//                        // finished fetching it.
+//                .placeholder(R.drawable.loadingholder)
+//                        //A request will be retried three times before the error placeholder is shown.
+//                .error(R.drawable.loadingholder)
+//                        // Transform images to better fit into layouts and to
+//                        // reduce memory size.
+//                .into(PicProductImage);
+
         Picasso.with(myContext).load(image_url_1).into(PicProductImage);
+//        Glide.with(myContext).load(image_url_1).skipMemoryCache(true).into(PicProductImage);
+//        DrawableRequestBuilder requestBuilder = Glide.with(myContext).load(image_url_1);
+//
+//        requestBuilder.into(PicProductImage);
+
         ImageButton shareImgB=(ImageButton)rowView.findViewById(R.id.imbt_share);
+
         shareImgB.setBackgroundColor(Color.TRANSPARENT);
 
         PicProductImage.setOnClickListener(new View.OnClickListener() {
@@ -167,4 +189,5 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
         });
         return rowView;
     }
+
 }
