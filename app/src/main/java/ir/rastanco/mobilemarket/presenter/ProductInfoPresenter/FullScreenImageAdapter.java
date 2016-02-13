@@ -35,6 +35,7 @@ import ir.rastanco.mobilemarket.dataModel.ProductOption;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Connect;
+import ir.rastanco.mobilemarket.presenter.ObserverLike;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
@@ -95,13 +96,18 @@ public class FullScreenImageAdapter extends PagerAdapter{
         yekanFont = Typeface.createFromAsset(activity.getAssets(), "fonts/yekan.ttf");
         nameOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.name_of_photo);
         nameOfCurrentProduct.setTypeface(yekanFont);
-        addToBasketBtn = (Button)viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
         numberOfFinalPrice = String.valueOf(String.valueOf(products.get(position).getPrice()));
         amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
         formatter = new DecimalFormat("#,###,000");
         nameOfCurrentProduct.setText(products.get(position).getTitle());
 
         final ImageButton btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
+        addToBasketBtn = (Button)viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
+        if(products.get(position).getPrice()==0) {
+            addToBasketBtn.setVisibility(View.GONE);
+            addToBasketBtn.setText("به زودی");
+
+        }
         addToBasketBtn.setText(formatter.format(amountOfFinalPrice) + "  " + "تومان");
         addToBasketBtn.setTypeface(yekanFont);
         addToBasketBtn.setOnClickListener(new View.OnClickListener() {
@@ -135,12 +141,16 @@ public class FullScreenImageAdapter extends PagerAdapter{
                     btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     products.get(position).setLike(1);
                     sch.changeProductLike(products.get(position).getId(), 1);
+                    ObserverLike.setLikeStatus(position);
+
 
                 }
                 else if(sch.getAProduct(products.get(position).getId()).getLike()==1){
                     btnLike.setImageResource(R.mipmap.ic_like_toolbar);
                     products.get(position).setLike(0);
                     sch.changeProductLike(products.get(position).getId(), 0);
+                    ObserverLike.setLikeStatus(position);
+
                 }
             }
         });

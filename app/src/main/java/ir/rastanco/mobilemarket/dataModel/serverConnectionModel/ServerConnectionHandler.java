@@ -198,10 +198,33 @@ public class ServerConnectionHandler {
         }
         return products;
     }
+
+    public ArrayList<Product> getproductOfACategory(int catId){
+        ArrayList<Product> allProducts=new ArrayList<Product>();
+        ArrayList<Product> allProductsOfACategory=new ArrayList<Product>();
+        allProducts=getAllProductFromTable();
+        for (int i=0;i<allProducts.size();i++){
+            if(allProducts.get(i).getGroupId()==catId)
+                allProductsOfACategory.add(allProducts.get(i));
+        }
+        return allProductsOfACategory;
+    }
+
     public Map<Integer,String> getFilterSubCategory(String title){
         int mainCatId=getMainCategoryId(title);
         return dbh.selectChildOfACategory(mainCatId);
 
+    }
+
+    public int getCategoryIdWithTitle(String title){
+        ArrayList<Category> allCat=new ArrayList<Category>();
+        allCat=getAllCategoryInfoTable();
+        int catId=0;
+        for (int i=0;i<allCat.size();i++){
+            if (allCat.get(i).getTitle().equals(title))
+                catId=allCat.get(i).getId();
+        }
+        return catId;
     }
 
     public ArrayList<String> getTitleOfChildOfACategory(int catID){

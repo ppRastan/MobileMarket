@@ -218,7 +218,6 @@ public class SuperAwesomeCardFragment extends Fragment{
                        }, 5000);
                    }
                });
-
                 groupTextView = (TextView)mainView.findViewById(R.id.group_dialog_text);
                 ObserverHome.SimilarProductListener(new SimilarProductListener() {
                     @Override
@@ -232,6 +231,15 @@ public class SuperAwesomeCardFragment extends Fragment{
                     }
                 });
 
+                ObserverLike.changeLikeStatusListener(new ChangeLikeListener() {
+                    @Override
+                    public void changeLikeStatus() {
+                        gridview.setSelection(ObserverLike.getLikeStatus());
+                        gridview.setAdapter(adapter);
+
+                    }
+                });
+
                 //Filter
                 ///FilterSubCategory
                 final Map<Integer, String> filterSubCategory = sch.getFilterSubCategory(pageName);
@@ -241,8 +249,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                 categoryIdSelected[0]=sch.getMainCategoryId(pageName);
                 ArrayList<String> subCategoryTitle = new ArrayList<String>();
                 subCategoryTitle=sch.getTitleOfChildOfACategory(categoryIdSelected[0]);
-
-
+                //SubCategory
                 btnCategory=(Button)mainView.findViewById(R.id.group_dialog);
                 final ArrayList<String> finalSubCategoryTitle = subCategoryTitle;
                 btnCategory.setOnClickListener(new View.OnClickListener() {
@@ -265,36 +272,72 @@ public class SuperAwesomeCardFragment extends Fragment{
                                 categorySelected[0]=getActivity().getString(R.string.all);
                                 groupTextView.setText(categorySelected[0]);
                                 dialogGroup.dismiss();
-
                             }
                         });
                         TextView text = (TextView) dialogGroup.findViewById(R.id.title_alertdialog_group);
-
                         final ListView listCategory = (ListView) dialogGroup.findViewById(R.id.list);
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                                 android.R.layout.simple_list_item_1, android.R.id.text1, finalSubCategoryTitle);
                         listCategory.setAdapter(adapter);
-
+                        //childOfASubCategory
                         listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 categorySelected[0] = (String) parent.getItemAtPosition(position);
-                                dialogGroup.dismiss();
-                                groupTextView.setText(categorySelected[0]);
-                                int subCategoryId = 0;
+                                final int[] subCategoryId = {0};
                                 for (Map.Entry<Integer, String> entry : filterSubCategory.entrySet()) {
                                     if (entry.getValue().equals(categorySelected[0]))
-                                        subCategoryId=entry.getKey();
+                                        subCategoryId[0] = entry.getKey();
                                 }
-                                ArrayList<Product> newProducts=sch.ProductOFASubCategory(subCategoryId);
-                                PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
-                                gridview.setAdapter(newAdapter);
-                                newAdapter.notifyDataSetChanged();
 
+                                ArrayList<String> childOfASubcategory = new ArrayList<String>();
+                                childOfASubcategory = sch.getTitleOfChildOfACategory(subCategoryId[0]);
+                                //dialogBox for subCategory
+                                final Dialog dialogSGroup = new Dialog(getActivity());
+                                dialogSGroup.setContentView(R.layout.title_alertdialog_for_group);
+                                btnCancelAlertDialog = (ImageButton) dialogSGroup.findViewById(R.id.cancel);
+                                btnResetAlertDialog = (ImageButton) dialogSGroup.findViewById(R.id.reset_action);
+                                groupTextView.setTextColor(Color.parseColor("#EB4D2A"));
+                                btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        dialogSGroup.dismiss();
+                                    }
+                                });
+                                btnResetAlertDialog.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        categorySelected[0] = getActivity().getString(R.string.all);
+                                        groupTextView.setText(categorySelected[0]);
+                                        dialogSGroup.dismiss();
+
+                                    }
+                                });
+                                TextView text = (TextView) dialogSGroup.findViewById(R.id.title_alertdialog_group);
+                                final ListView listSubCategory = (ListView) dialogSGroup.findViewById(R.id.list);
+                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                                        android.R.layout.simple_list_item_1, android.R.id.text1, childOfASubcategory);
+                                listSubCategory.setAdapter(adapter);
+                                final int[] subCategoryIdSelected = new int[1];
+                                listSubCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                        String subCategorySelected = (String) parent.getItemAtPosition(position);
+                                        groupTextView.setText(subCategorySelected);
+                                        subCategoryIdSelected[0] = sch.getCategoryIdWithTitle(subCategorySelected);
+                                        dialogGroup.dismiss();
+                                        dialogSGroup.dismiss();
+                                        ArrayList<Product> newProducts = sch.getproductOfACategory(subCategoryIdSelected[0]);
+                                        PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
+                                        gridview.setAdapter(newAdapter);
+                                        newAdapter.notifyDataSetChanged();
+                                    }
+                                });
+                                dialogSGroup.show();
                             }
                         });
-                        dialogGroup.setCancelable(true);
                         dialogGroup.show();
+                        dialogGroup.setCancelable(true);
                     }
                 });
                 ///Filter in Product Features

@@ -68,6 +68,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private ImageLoader imgLoader;
     private String picCounter;
     private String image_url_1;
+
     public shoppingBagAdapter(Context context, int resource, ArrayList<Integer> productsId) {
         super(context, resource, productsId);
         selectedProducts = productsId;
@@ -75,6 +76,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         yekanFont= Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf");
         sch=new ServerConnectionHandler(context);
         spinnerList = new ArrayList<String>();
+
         this.fillSpinnerItems();
 
     }
@@ -94,16 +96,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         aProduct=sch.getAProduct(selectedProducts.get(position));
         this.createEachCartView();
         this.updateBySpinner();
-        this.setImage();
-        return rowView;
-    }
-
-    private void setImage() {
-
-    }
-
-    private void updateBySpinner() {
-
         spinnerCounter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -124,13 +116,18 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
                 txtProductPrice.setText(myContext.getResources().getString(R.string.peice) + "     " + formatter.format(amount) + " " + myContext.getResources().getString(R.string.toman));
                 totalPrice.setText(myContext.getResources().getString(R.string.price) + "     " + formatter.format(amountOfFinalPrice) + " " + myContext.getResources().getString(R.string.toman));
                 sch.changeShoppingNunmber(aProduct.getId(), counterSelected);
+                Observer.setShoppingCancel(true);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
+        return rowView;
+    }
 
+    private void updateBySpinner() {
     }
 
     private void createEachCartView() {

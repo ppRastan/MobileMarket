@@ -118,7 +118,8 @@ public class ShoppingBagActivity extends Activity {
                         Observer.setShoppingCancel(true);
                         Connect.setMyBoolean(false);
                         productsId = sch.getProductShoppingID();
-                        shoppingBagAdapter adapter = new shoppingBagAdapter(Configuration.ShoppingBagActivity, R.layout.activity_shopping_bag, productsId);
+                        shoppingBagAdapter adapter = new shoppingBagAdapter(Configuration.ShoppingBagActivity,
+                                R.layout.activity_shopping_bag, productsId);
                         lvShoppingBag.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
 
@@ -157,5 +158,4 @@ public class ShoppingBagActivity extends Activity {
             }
         });
     }
-
 }

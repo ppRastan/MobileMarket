@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.renderscript.Sampler;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Connect;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
+import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.Observer;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
@@ -142,8 +144,12 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             }
         }
         holder.shareToolBar = (ImageButton)rowView.findViewById(R.id.share_toolbar_in_main_page);
-        holder.basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
         holder.likeToolBar = (ImageButton)rowView.findViewById(R.id.empty_like_toolbar);
+        holder.basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
+
+        if (allProduct.get(position).getPrice()==0)
+            holder.basketToolbar.setVisibility(View.GONE);
+
         if (sch.checkSelectProductForShop(allProduct.get(position).getId()))
             holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
         else
@@ -228,12 +234,11 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.likeToolBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(sch.getAProduct(allProduct.get(position).getId()).getLike()==0){
+                if (sch.getAProduct(allProduct.get(position).getId()).getLike() == 0) {
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     isLikeButtonClicked = true;
                     sch.changeProductLike(allProduct.get(position).getId(), 1);
-                }
-                else if(sch.getAProduct(allProduct.get(position).getId()).getLike()==1){
+                } else if (sch.getAProduct(allProduct.get(position).getId()).getLike() == 1) {
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);
                     isLikeButtonClicked = false;
                     sch.changeProductLike(allProduct.get(position).getId(), 0);
@@ -253,26 +258,28 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 "&size="+
                 Configuration.shopDisplaySize+"x"+Configuration.shopDisplaySize+
                 "&q=30";
-        Picasso.with(Configuration.superACFragment).load(image_url_1).into(holder.imgP);
+       Picasso.with(Configuration.superACFragment).load(image_url_1).into(holder.imgP);
 //        imgLoader.DisplayImage(image_url_1, holder.imgP);
-//        Glide.with(Configuration.superACFragment)
-//                .load(image_url_1)
-//                        // The placeholder image is shown immediately and
-//                        // replaced by the remote image when Picasso has
-//                        // finished fetching it.
-//                .placeholder(R.drawable.loader)
-//                        //A request will be retried three times before the error placeholder is shown.
-//                .error(R.drawable.loader)
-//                        // Transform images to better fit into layouts and to
-//                        // reduce memory size.
-//                .into(holder.imgP);
+        /*Glide.with(Configuration.superACFragment)
+                .load(image_url_1).override(228,228)
+                        // The placeholder image is shown immediately and
+                      // replaced by the remote image when Picasso has
+                        // finished fetching it.
+                .placeholder(R.drawable.loader)
+                        //A request will be retried three times before the error placeholder is shown.
+                .error(R.drawable.loader).override(228,228)
+                        // Transform images to better fit into layouts and to
+                        // reduce memory size.
+                .into(holder.imgP);*/
         holder.infoP.setText(allProduct.get(position).getTitle());
         String priceOfCurrentGood = String.valueOf(allProduct.get(position).getPrice());
         double amountOfFinalPrice = Double.parseDouble(priceOfCurrentGood);
         DecimalFormat formatter = new DecimalFormat("#,###,000");
-        holder.priceP.setText(formatter.format(amountOfFinalPrice) + "  " + "تومان");
+        if (allProduct.get(position).getPrice()==0)
+            holder.priceP.setText("به زودی ");
+        else
+            holder.priceP.setText(formatter.format(amountOfFinalPrice) + "  " + "تومان");
         holder.imgP.setImageBitmap(image);
-
         holder.imgP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
