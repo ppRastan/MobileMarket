@@ -17,10 +17,13 @@ public class Configuration {
 
     }
 
-    public static String homeDisplaySize;
-    public static String shopDisplaySize;
+    public static String homeDisplaySizeForURL;
+    public static int homeDisplaySizeForShow;
+    public static String shopDisplaySizeForURL;
+    public static int shopDisplaySizeForShow;
     public static String productInfoHeightSize;
-    public static String articleDisplaySize;
+    public static String articleDisplaySizeForURL;
+    public static int articleDisplaySizeForShow;
 
     public static Context activityContext;
     public static Context superACFragment;

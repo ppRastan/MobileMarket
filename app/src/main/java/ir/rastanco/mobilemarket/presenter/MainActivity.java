@@ -148,10 +148,18 @@ public class MainActivity extends AppCompatActivity {
         size = new Point();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             display.getSize(size);
-            Configuration.homeDisplaySize = String.valueOf(size.x);
+            Configuration.homeDisplaySizeForShow=size.x;
+            Configuration.homeDisplaySizeForURL = String.valueOf(size.x);
+
             Configuration.productInfoHeightSize = String.valueOf(size.x - 100);
-            Configuration.shopDisplaySize = String.valueOf(((size.x) * 0.5)-12);
-            Configuration.articleDisplaySize=String.valueOf((size.x) * 0.3);
+
+            Double s= ((size.x) * 0.5)-12;
+            Configuration.shopDisplaySizeForShow=s.intValue();
+            Configuration.shopDisplaySizeForURL = String.valueOf(((size.x) * 0.5) - 12);
+
+            Double a= (size.x) * 0.3;
+            Configuration.articleDisplaySizeForShow=a.intValue();
+            Configuration.articleDisplaySizeForURL =String.valueOf((size.x) * 0.3);
         }
         ButterKnife.inject(this);
         setSupportActionBar(toolbar);
