@@ -18,8 +18,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -159,10 +163,25 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
 //        imgLoader.DisplayImage(image_url_1, PicProductImage);
 
         Drawable d=ResizeImage(R.drawable.loadingholder,rowView,Configuration.homeDisplaySizeForShow);
+        final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
+        progressBar.getLayoutParams().height=Configuration.articleDisplaySizeForShow;
+        progressBar.getLayoutParams().width=Configuration.articleDisplaySizeForShow;
+
         Glide.with(myContext)
-               .load(image_url_1).override(Configuration.homeDisplaySizeForShow,Configuration.homeDisplaySizeForShow)
-               .placeholder(d)
-               .error(d)
+               .load(image_url_1).override(Configuration.homeDisplaySizeForShow, Configuration.homeDisplaySizeForShow)
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        progressBar.setVisibility(View.GONE);
+                        return false;
+                    }
+                })
+                .error(d)
                .into(PicProductImage);
 
 //        Picasso.with(myContext).load(image_url_1).into(PicProductImage);
