@@ -54,6 +54,7 @@
         android:divider="@color/white"
         android:background="@color/white"
         android:layout_height="220dp"
+        android:scrollbars="none"
         />
 
 </LinearLayout>

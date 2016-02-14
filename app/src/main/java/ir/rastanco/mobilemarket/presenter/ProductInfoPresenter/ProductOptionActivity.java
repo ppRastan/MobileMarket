@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -61,6 +61,17 @@ public class ProductOptionActivity extends Activity {
         ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.ProductOptionFragment,
                 R.layout.product_info_item,options);
         lvProductOption.setAdapter(adapter);
+
+        ListView lvComment=(ListView)findViewById(R.id.lv_comments);
+        ArrayList<String> commentsAProduct=new ArrayList<String>();
+        commentsAProduct=sch.getContentCommentsAllProduct(productId);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                Configuration.ProductOptionFragment,
+                android.R.layout.simple_list_item_1,
+                commentsAProduct );
+
+        lvComment.setAdapter(arrayAdapter);
+
     }
 
     private void checkBackButtonState() {

@@ -112,8 +112,10 @@ public class ParseJsonProduct extends AsyncTask<String, String, String> {
                 aProduct.setGroupId(Integer.parseInt(c.getString("gid")));
                 aProduct.setPrice(Integer.parseInt(c.getString("p")));
                 aProduct.setPriceOff(Integer.parseInt(c.getString("po")));
+                //pp
                 aProduct.setVisits(Integer.parseInt(c.getString("v")));
                 aProduct.setMinCounts(Integer.parseInt(c.getString("mc")));
+                aProduct.setBrandName(c.getString("brndname"));
                 aProduct.setStock(Integer.parseInt(c.getString("stock")));
                 aProduct.setQualityRank(c.getString("qr"));
                 aProduct.setCommentsCount(Integer.parseInt(c.getString("cc")));

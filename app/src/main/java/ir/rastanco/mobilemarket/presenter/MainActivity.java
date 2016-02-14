@@ -224,8 +224,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkDbState() {
 
+        //for add brandName to DataBase then update brandName filed
+        //last version in server 1.3.9
+        //version app that install in mobile is 1.0.0
+        if(sch.getLastVersionInDB().equals("1.0.0")){
+            sch.reloadProduct("1352689345");
+            sch.updateVersionApp("1.0.0.1");
+        }
+        if(sch.getLastVersionInDB().equals("1.3.9")){
+            sch.reloadProduct("1352689345");
+            sch.updateVersionApp("1.3.9.1");
+        }
+
+
         if (sch.emptySetting())
-            sch.addSettingApp("1352689345","25","1.0.0");
+            sch.addSettingApp("1352689345","25",getResources().getString(R.string.version));
 
         if (sch.emptyDBCategory()){
             categories=sch.getAllCategoryInfoURL("http://decoriss.com/json/get,com=allcats&cache=false");

@@ -18,7 +18,8 @@
             android:id="@+id/lv_article"
             android:layout_gravity="center_horizontal|top"
             android:dividerHeight="1dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:scrollbars="none"/>
 
     </LinearLayout>
 </android.support.v4.widget.SwipeRefreshLayout>
