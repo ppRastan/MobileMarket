@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/imb_like"
             android:src="@mipmap/ic_like_filled_toolbar"
-            android:background="#ffffff"
+            android:background="@color/transparent"
             android:paddingLeft="5dp"
             android:paddingRight="5dp" />
 

@@ -44,7 +44,7 @@
                 android:id="@+id/img_logout"
                 android:layout_gravity="center"
                 android:src="@drawable/exit"
-                android:background="#ffffff"
+                android:background="@color/transparent"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp" />
 
