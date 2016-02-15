@@ -100,7 +100,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
                 counterSelected = Integer.parseInt(spinnerCounter.getSelectedItem().toString());
                 if (aProduct.getPriceOff() != 0)
                     off = ((aProduct.getPrice() * aProduct.getPriceOff()) / 100);
-                finalPrice = ((aProduct.getPrice() * counterSelected) - (off * counterSelected));
+                finalPrice = (aProduct.getPrice() - off );
                 ///Price
                 numberProductPrice = String.valueOf(aProduct.getPrice());
                 amount = Double.parseDouble(numberProductPrice);
