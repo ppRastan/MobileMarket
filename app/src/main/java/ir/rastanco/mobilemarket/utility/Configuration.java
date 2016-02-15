@@ -24,6 +24,7 @@ public class Configuration {
     public static String productInfoHeightSize;
     public static String articleDisplaySizeForURL;
     public static int articleDisplaySizeForShow;
+    public static int progressBarSize;
 
     public static Context activityContext;
     public static Context superACFragment;

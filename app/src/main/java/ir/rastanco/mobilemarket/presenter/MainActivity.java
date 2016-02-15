@@ -160,6 +160,10 @@ public class MainActivity extends AppCompatActivity {
             Double a= (size.x) * 0.3;
             Configuration.articleDisplaySizeForShow=a.intValue();
             Configuration.articleDisplaySizeForURL =String.valueOf((size.x) * 0.3);
+
+            Double p=(size.x)* 0.125;
+            Configuration.progressBarSize=p.intValue();
+
         }
         ButterKnife.inject(this);
         setSupportActionBar(toolbar);

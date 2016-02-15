@@ -164,8 +164,8 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
 
         Drawable d=ResizeImage(R.drawable.loadingholder,rowView,Configuration.homeDisplaySizeForShow);
         final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
-        progressBar.getLayoutParams().height=Configuration.articleDisplaySizeForShow;
-        progressBar.getLayoutParams().width=Configuration.articleDisplaySizeForShow;
+        progressBar.getLayoutParams().height=Configuration.progressBarSize;
+        progressBar.getLayoutParams().width=Configuration.progressBarSize;
 
         Glide.with(myContext)
                .load(image_url_1).override(Configuration.homeDisplaySizeForShow, Configuration.homeDisplaySizeForShow)

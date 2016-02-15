@@ -267,12 +267,12 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 Configuration.shopDisplaySizeForURL +"x"+Configuration.shopDisplaySizeForURL +
                 "&q=30";
 //       Picasso.with(Configuration.superACFragment).load(image_url_1).into(holder.imgP);
-//        imgLoader.DisplayImage(image_url_1, holder.imgP);
+//       imgLoader.DisplayImage(image_url_1, holder.imgP);
 
         Drawable d=ResizeImage(R.drawable.loadingholder,rowView,Configuration.shopDisplaySizeForShow);
         final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
-        progressBar.getLayoutParams().height=Configuration.articleDisplaySizeForShow;
-        progressBar.getLayoutParams().width=Configuration.articleDisplaySizeForShow;
+        progressBar.getLayoutParams().height=Configuration.progressBarSize;
+        progressBar.getLayoutParams().width=Configuration.progressBarSize;
         Glide.with(myContext)
                 .load(image_url_1).override(Configuration.shopDisplaySizeForShow, Configuration.shopDisplaySizeForShow)
                 .listener(new RequestListener<String, GlideDrawable>() {
