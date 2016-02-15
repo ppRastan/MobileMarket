@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.addServerConnection();
-        this.checkDbState();
         shoppingBagActivity = new ShoppingBagActivity();
         mainCategoryTitle= new ArrayList<String>();
         mainCategoryTitle=sch.getMainCategoryTitle();
@@ -122,16 +121,13 @@ public class MainActivity extends AppCompatActivity {
             third_page=mainCategoryTitle.get(1);
             fourth_page=mainCategoryTitle.get(2);
         }
-
-
+        this.checkDbState();
         this.CreatePageRightToLeft();
         this.addActionBar();
-        this.addFontAndColors();
-        this.phoneManager();
         this.setFAb();
+        this.phoneManager();
         this.displayWindow();
         shopCounter=sch.getCountProductShop();
-
         Connect.addMyBooleanListener(new ConnectionBooleanChangeListener() {
             @Override
             public void OnMyBooleanChanged() {
@@ -148,10 +144,22 @@ public class MainActivity extends AppCompatActivity {
         size = new Point();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             display.getSize(size);
-            Configuration.homeDisplaySize = String.valueOf(size.x);
+            Configuration.homeDisplaySizeForShow=size.x;
+            Configuration.homeDisplaySizeForURL = String.valueOf(size.x);
+
             Configuration.productInfoHeightSize = String.valueOf(size.x - 100);
-            Configuration.shopDisplaySize = String.valueOf(((size.x) * 0.5)-12);
-            Configuration.articleDisplaySize=String.valueOf((size.x) * 0.3);
+
+            Double s= ((size.x) * 0.5)-12;
+            Configuration.shopDisplaySizeForShow=s.intValue();
+            Configuration.shopDisplaySizeForURL = String.valueOf(((size.x) * 0.5) - 12);
+
+            Double a= (size.x) * 0.3;
+            Configuration.articleDisplaySizeForShow=a.intValue();
+            Configuration.articleDisplaySizeForURL =String.valueOf((size.x) * 0.3);
+
+            Double p=(size.x)* 0.125;
+            Configuration.progressBarSize=p.intValue();
+
         }
         ButterKnife.inject(this);
         setSupportActionBar(toolbar);
@@ -216,8 +224,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkDbState() {
 
+        //for add brandName to DataBase then update brandName filed
+        //last version in server 1.3.9
+        //version app that install in mobile is 1.0.0
+
+        if(sch.getLastVersionInDB().equals("1.0.0")){
+            sch.reloadProduct("1352689345");
+            sch.updateVersionApp("1.0.0.1");
+        }
+        if(sch.getLastVersionInDB().equals("1.3.9")){
+            sch.reloadProduct("1352689345");
+            sch.updateVersionApp("1.3.9.1");
+        }
+
+
         if (sch.emptySetting())
-            sch.addSettingApp("1352689345","25","1.0.0");
+            sch.addSettingApp("1352689345","25",getResources().getString(R.string.version));
 
         if (sch.emptyDBCategory()){
             categories=sch.getAllCategoryInfoURL("http://decoriss.com/json/get,com=allcats&cache=false");
@@ -366,6 +388,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    class StartApplication extends AsyncTask<String,String,String> {
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            checkDbState();
+            return null;
+
+        }
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            showDialog(progress_bar_type);
+        }
+
+
+        protected void onProgressUpdate(String... progress) {
+            // setting progress percentage
+            pDialog.setProgress(Integer.parseInt(progress[0]));
+        }
+
+        @Override
+        protected void onPostExecute(String file_url) {
+            // dismiss the dialog after the file was downloaded
+            dismissDialog(progress_bar_type);
+
+        }
+    }
+
+
     @Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
@@ -491,13 +546,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         public MyPagerAdapter(FragmentManager fm) {
-
             super(fm);
+
         }
 
         @Override
         public void setPrimaryItem(ViewGroup container, int position, Object object) {
-            super.setPrimaryItem(container, position, object);
+           super.setPrimaryItem(container, position, object);
         }
 
         @Override

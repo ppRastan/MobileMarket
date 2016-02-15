@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +17,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
@@ -103,9 +100,9 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
                 counterSelected = Integer.parseInt(spinnerCounter.getSelectedItem().toString());
                 if (aProduct.getPriceOff() != 0)
                     off = ((aProduct.getPrice() * aProduct.getPriceOff()) / 100);
-                finalPrice = ((aProduct.getPrice() * counterSelected) - (off * counterSelected));
+                finalPrice = (aProduct.getPrice() - off );
                 ///Price
-                numberProductPrice = String.valueOf(aProduct.getPrice() * counterSelected);
+                numberProductPrice = String.valueOf(aProduct.getPrice());
                 amount = Double.parseDouble(numberProductPrice);
                 ///off
                 numberProducePriceOff = String.valueOf(off * counterSelected);
@@ -148,7 +145,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         image_url_1 = aProduct.getImagesMainPath()+
                 picCounter+
                 "&size="+
-                Configuration.articleDisplaySize+"x"+Configuration.articleDisplaySize+
+                Configuration.articleDisplaySizeForURL +"x"+Configuration.articleDisplaySizeForURL +
                 "&q=30";
         imgLoader.DisplayImage(image_url_1, imgProduct);
     }

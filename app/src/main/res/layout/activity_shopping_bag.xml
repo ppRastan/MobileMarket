@@ -74,7 +74,8 @@
             android:id="@+id/lv_shoppingBag"
             android:layout_gravity="right"
             android:divider="@color/background_window"
-            android:background="@color/background_window"/>
+            android:background="@color/background_window"
+            android:scrollbars="none"/>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="0dp"

@@ -30,7 +30,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     private ArrayList<Product> allProducts;
     private ArrayList<Article> allArticles;
 
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "MobileMarket";
     private static final String TABLE_USER_INFO = "tblUserInfo";
     private static final String TABLE_SETTINGS = "tblSetting";
@@ -52,28 +52,28 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("create table "+ TABLE_USER_INFO +
+        db.execSQL("create table " + TABLE_USER_INFO +
                 "(id Integer primary key AUTOINCREMENT," +
                 "userId Integer," +
                 "userEmail String," +
                 "userLoginStatus Integer)");
         Log.v("create", "Create User Information Table");
 
-        db.execSQL("create table "+TABLE_SETTINGS +
+        db.execSQL("create table " + TABLE_SETTINGS +
                 "(id Integer primary key AUTOINCREMENT," +
                 "lastTimeStamp String," +
                 "lastArticlesNum String," +
                 "lastVersionOfApp String)");
         Log.v("create", "Create Setting Table");
 
-        db.execSQL("create table "+TABLE_SHOPPING +
+        db.execSQL("create table " + TABLE_SHOPPING +
                 "(id Integer primary key AUTOINCREMENT," +
                 "fkProductId Integer unique," +
                 "numberPurchased Integer," +
                 "foreign key (fkProductId) references tblProduct(productId))");
         Log.v("create", "Create Shopping Table");
 
-        db.execSQL("create table "+TABLE_CATEGORY +
+        db.execSQL("create table " + TABLE_CATEGORY +
                 "(id Integer primary key AUTOINCREMENT," +
                 "title text," +
                 "catId Integer," +
@@ -90,6 +90,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 "price Integer," +
                 "priceOff Integer," +
                 "visits Integer," +
+                "brandName text," +
                 "minCounts Integer," +
                 "stock Integer," +
                 "qualityRank text," +
@@ -133,6 +134,11 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+        if(oldVersion<4){
+            db.execSQL("ALTER TABLE "+ TABLE_PRODUCT + " ADD COLUMN brandName text;");
+        }
+
         // Drop older table if existed
 //        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_INFO);
 //        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETTINGS);
@@ -361,6 +367,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         values.put("imagesMainPath", aProduct.getImagesMainPath());
         values.put("like",aProduct.getLike());
         values.put("linkInSite",aProduct.getLinkInSite());
+        values.put("brandName",aProduct.getBrandName());
         Log.v("insert", "insert A Field into Product Table");
         return values;
     }
@@ -405,7 +412,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         values.put("linkInWebsite", aArticle.getLinkInWebsite());
         values.put("imageLink", aArticle.getImageLink());
         return values;
-
     }
 
 
@@ -712,29 +718,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    Product aProduct = new Product();
-                    aProduct.setTitle(rs.getString(rs.getColumnIndex("title")));
-                    aProduct.setId(rs.getInt(rs.getColumnIndex("productId")));
-                    aProduct.setGroupId(rs.getInt(rs.getColumnIndex("groupId")));
-                    aProduct.setPrice(rs.getInt(rs.getColumnIndex("price")));
-                    aProduct.setPriceOff(rs.getInt(rs.getColumnIndex("priceOff")));
-                    aProduct.setVisits(rs.getInt(rs.getColumnIndex("visits")));
-                    aProduct.setMinCounts(rs.getInt(rs.getColumnIndex("minCounts")));
-                    aProduct.setStock(rs.getInt(rs.getColumnIndex("stock")));
-                    aProduct.setQualityRank(rs.getString(rs.getColumnIndex("qualityRank")));
-                    aProduct.setCommentsCount(rs.getInt(rs.getColumnIndex("commentsCount")));
-                    aProduct.setCodeProduct(rs.getString(rs.getColumnIndex("codeProduct")));
-                    aProduct.setDescription(rs.getString(rs.getColumnIndex("description")));
-                    aProduct.setSellsCount(rs.getInt(rs.getColumnIndex("sellsCount")));
-                    aProduct.setTimeStamp(rs.getString(rs.getColumnIndex("timeStamp")));
-                    aProduct.setShowAtHomeScreen(rs.getInt(rs.getColumnIndex("showAtHomeScreen")));
-                    aProduct.setWatermarkPath(rs.getString(rs.getColumnIndex("watermarkPath")));
-                    aProduct.setImagesMainPath(rs.getString(rs.getColumnIndex("imagesMainPath")));
-                    aProduct.setLike(rs.getInt(rs.getColumnIndex("like")));
-                    aProduct.setLinkInSite(rs.getString(rs.getColumnIndex("linkInSite")));
-                    aProduct.setImagesPath(selectAllImagePathAProduct(aProduct.getId()));
-                    aProduct.setProductOptions(selectAllOptionProduct(aProduct.getId()));
-                    allProducts.add(aProduct);
+
+                    allProducts.add(getAProduct(rs));
                 }
                 while (rs.moveToNext());
             }
@@ -743,6 +728,33 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Product");
         return allProducts;
     }
+
+    public Product getAProduct(Cursor rs){
+        Product aProduct = new Product();
+        aProduct.setTitle(rs.getString(rs.getColumnIndex("title")));
+        aProduct.setId(rs.getInt(rs.getColumnIndex("productId")));
+        aProduct.setGroupId(rs.getInt(rs.getColumnIndex("groupId")));
+        aProduct.setPrice(rs.getInt(rs.getColumnIndex("price")));
+        aProduct.setPriceOff(rs.getInt(rs.getColumnIndex("priceOff")));
+        aProduct.setVisits(rs.getInt(rs.getColumnIndex("visits")));
+        aProduct.setMinCounts(rs.getInt(rs.getColumnIndex("minCounts")));
+        aProduct.setStock(rs.getInt(rs.getColumnIndex("stock")));
+        aProduct.setQualityRank(rs.getString(rs.getColumnIndex("qualityRank")));
+        aProduct.setCommentsCount(rs.getInt(rs.getColumnIndex("commentsCount")));
+        aProduct.setCodeProduct(rs.getString(rs.getColumnIndex("codeProduct")));
+        aProduct.setDescription(rs.getString(rs.getColumnIndex("description")));
+        aProduct.setSellsCount(rs.getInt(rs.getColumnIndex("sellsCount")));
+        aProduct.setTimeStamp(rs.getString(rs.getColumnIndex("timeStamp")));
+        aProduct.setShowAtHomeScreen(rs.getInt(rs.getColumnIndex("showAtHomeScreen")));
+        aProduct.setWatermarkPath(rs.getString(rs.getColumnIndex("watermarkPath")));
+        aProduct.setImagesMainPath(rs.getString(rs.getColumnIndex("imagesMainPath")));
+        aProduct.setLike(rs.getInt(rs.getColumnIndex("like")));
+        aProduct.setBrandName(rs.getString(rs.getColumnIndex("brandName")));
+        aProduct.setLinkInSite(rs.getString(rs.getColumnIndex("linkInSite")));
+        aProduct.setImagesPath(selectAllImagePathAProduct(aProduct.getId()));
+        aProduct.setProductOptions(selectAllOptionProduct(aProduct.getId()));
+        return aProduct;
+    }
     public ArrayList<Product> selectAllProductOfACategory(int categoryId){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblProduct where groupId="+categoryId+" "+ "order by id ASC ", null);
@@ -750,29 +762,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    Product aProduct = new Product();
-                    aProduct.setTitle(rs.getString(rs.getColumnIndex("title")));
-                    aProduct.setId(rs.getInt(rs.getColumnIndex("productId")));
-                    aProduct.setGroupId(rs.getInt(rs.getColumnIndex("groupId")));
-                    aProduct.setPrice(rs.getInt(rs.getColumnIndex("price")));
-                    aProduct.setPriceOff(rs.getInt(rs.getColumnIndex("priceOff")));
-                    aProduct.setVisits(rs.getInt(rs.getColumnIndex("visits")));
-                    aProduct.setMinCounts(rs.getInt(rs.getColumnIndex("minCounts")));
-                    aProduct.setStock(rs.getInt(rs.getColumnIndex("stock")));
-                    aProduct.setQualityRank(rs.getString(rs.getColumnIndex("qualityRank")));
-                    aProduct.setCommentsCount(rs.getInt(rs.getColumnIndex("commentsCount")));
-                    aProduct.setCodeProduct(rs.getString(rs.getColumnIndex("codeProduct")));
-                    aProduct.setDescription(rs.getString(rs.getColumnIndex("description")));
-                    aProduct.setSellsCount(rs.getInt(rs.getColumnIndex("sellsCount")));
-                    aProduct.setTimeStamp(rs.getString(rs.getColumnIndex("timeStamp")));
-                    aProduct.setShowAtHomeScreen(rs.getInt(rs.getColumnIndex("showAtHomeScreen")));
-                    aProduct.setWatermarkPath(rs.getString(rs.getColumnIndex("watermarkPath")));
-                    aProduct.setImagesMainPath(rs.getString(rs.getColumnIndex("imagesMainPath")));
-                    aProduct.setLike(rs.getInt(rs.getColumnIndex("like")));
-                    aProduct.setLinkInSite(rs.getString(rs.getColumnIndex("linkInSite")));
-                    aProduct.setImagesPath(selectAllImagePathAProduct(aProduct.getId()));
-                    aProduct.setProductOptions(selectAllOptionProduct(aProduct.getId()));
-                    allProducts.add(aProduct);
+                    allProducts.add(getAProduct(rs));
                 }
                 while (rs.moveToNext());
             }
@@ -789,29 +779,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    Product aProduct = new Product();
-                    aProduct.setTitle(rs.getString(rs.getColumnIndex("title")));
-                    aProduct.setId(rs.getInt(rs.getColumnIndex("productId")));
-                    aProduct.setGroupId(rs.getInt(rs.getColumnIndex("groupId")));
-                    aProduct.setPrice(rs.getInt(rs.getColumnIndex("price")));
-                    aProduct.setPriceOff(rs.getInt(rs.getColumnIndex("priceOff")));
-                    aProduct.setVisits(rs.getInt(rs.getColumnIndex("visits")));
-                    aProduct.setMinCounts(rs.getInt(rs.getColumnIndex("minCounts")));
-                    aProduct.setStock(rs.getInt(rs.getColumnIndex("stock")));
-                    aProduct.setQualityRank(rs.getString(rs.getColumnIndex("qualityRank")));
-                    aProduct.setCommentsCount(rs.getInt(rs.getColumnIndex("commentsCount")));
-                    aProduct.setCodeProduct(rs.getString(rs.getColumnIndex("codeProduct")));
-                    aProduct.setDescription(rs.getString(rs.getColumnIndex("description")));
-                    aProduct.setSellsCount(rs.getInt(rs.getColumnIndex("sellsCount")));
-                    aProduct.setTimeStamp(rs.getString(rs.getColumnIndex("timeStamp")));
-                    aProduct.setShowAtHomeScreen(rs.getInt(rs.getColumnIndex("showAtHomeScreen")));
-                    aProduct.setWatermarkPath(rs.getString(rs.getColumnIndex("watermarkPath")));
-                    aProduct.setImagesMainPath(rs.getString(rs.getColumnIndex("imagesMainPath")));
-                    aProduct.setLike(rs.getInt(rs.getColumnIndex("like")));
-                    aProduct.setLinkInSite(rs.getString(rs.getColumnIndex("linkInSite")));
-                    aProduct.setImagesPath(selectAllImagePathAProduct(aProduct.getId()));
-                    aProduct.setProductOptions(selectAllOptionProduct(aProduct.getId()));
-                    allProducts.add(aProduct);
+
+                    allProducts.add(getAProduct(rs));
                 }
                 while (rs.moveToNext());
             }
@@ -828,29 +797,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    Product aProduct = new Product();
-                    aProduct.setTitle(rs.getString(rs.getColumnIndex("title")));
-                    aProduct.setId(rs.getInt(rs.getColumnIndex("productId")));
-                    aProduct.setGroupId(rs.getInt(rs.getColumnIndex("groupId")));
-                    aProduct.setPrice(rs.getInt(rs.getColumnIndex("price")));
-                    aProduct.setPriceOff(rs.getInt(rs.getColumnIndex("priceOff")));
-                    aProduct.setVisits(rs.getInt(rs.getColumnIndex("visits")));
-                    aProduct.setMinCounts(rs.getInt(rs.getColumnIndex("minCounts")));
-                    aProduct.setStock(rs.getInt(rs.getColumnIndex("stock")));
-                    aProduct.setQualityRank(rs.getString(rs.getColumnIndex("qualityRank")));
-                    aProduct.setCommentsCount(rs.getInt(rs.getColumnIndex("commentsCount")));
-                    aProduct.setCodeProduct(rs.getString(rs.getColumnIndex("codeProduct")));
-                    aProduct.setDescription(rs.getString(rs.getColumnIndex("description")));
-                    aProduct.setSellsCount(rs.getInt(rs.getColumnIndex("sellsCount")));
-                    aProduct.setTimeStamp(rs.getString(rs.getColumnIndex("timeStamp")));
-                    aProduct.setShowAtHomeScreen(rs.getInt(rs.getColumnIndex("showAtHomeScreen")));
-                    aProduct.setWatermarkPath(rs.getString(rs.getColumnIndex("watermarkPath")));
-                    aProduct.setImagesMainPath(rs.getString(rs.getColumnIndex("imagesMainPath")));
-                    aProduct.setLike(rs.getInt(rs.getColumnIndex("like")));
-                    aProduct.setLinkInSite(rs.getString(rs.getColumnIndex("linkInSite")));
-                    aProduct.setImagesPath(selectAllImagePathAProduct(aProduct.getId()));
-                    aProduct.setProductOptions(selectAllOptionProduct(aProduct.getId()));
-                    allProducts.add(aProduct);
+
+                    allProducts.add(getAProduct(rs));
                 }
                 while (rs.moveToNext());
             }
@@ -1015,7 +963,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 "fkProductId=" +productId, null);
         Log.v("update", "Update a shopping Number Purchased");
     }
-
 
     public void deleteAProduct(int productId) {
         SQLiteDatabase db = this.getWritableDatabase();

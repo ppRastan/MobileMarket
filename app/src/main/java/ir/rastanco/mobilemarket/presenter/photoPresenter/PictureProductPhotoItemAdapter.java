@@ -76,7 +76,7 @@ public class PictureProductPhotoItemAdapter extends BaseAdapter{
         String image_url_1 = allProduct.get(position).getImagesMainPath()+
                 picCounter+
                 "&size="+
-                Configuration.shopDisplaySize+"x"+Configuration.shopDisplaySize+
+                Configuration.shopDisplaySizeForURL +"x"+Configuration.shopDisplaySizeForURL +
                 "&q=30";
         imgLoader.DisplayImage(image_url_1, holder.imgP);
 

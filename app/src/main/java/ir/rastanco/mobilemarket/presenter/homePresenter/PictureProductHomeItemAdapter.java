@@ -5,7 +5,11 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +18,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -138,6 +146,10 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
         });
         ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
         final  ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
+        PicProductImage.getLayoutParams().width= Configuration.homeDisplaySizeForShow;
+        PicProductImage.getLayoutParams().height=Configuration.homeDisplaySizeForShow;
+
+
         String picCounter = allProduct.get(position).getImagesPath().get(0);
         try {
             picCounter= URLEncoder.encode(picCounter, "UTF-8");
@@ -146,20 +158,31 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
         }
         String image_url_1 = allProduct.get(position).getImagesMainPath()+picCounter+
                 "&size="+
-                Configuration.homeDisplaySize+"x"+Configuration.homeDisplaySize+
+                Configuration.homeDisplaySizeForURL +"x"+Configuration.homeDisplaySizeForURL +
                 "&q=30";
 //        imgLoader.DisplayImage(image_url_1, PicProductImage);
-       Glide.with(myContext)
-                .load(image_url_1).override(560,560)
-                        // The placeholder image is shown immediately and
-                        // replaced by the remote image when Picasso has
-                        // finished fetching it.
-                .placeholder(R.drawable.loadingholder).fitCenter()
-                        //A request will be retried three times before the error placeholder is shown.
-                .error(R.drawable.loadingholder)
-                        // Transform images to better fit into layouts and to
-                        // reduce memory size.
-                .into(PicProductImage);
+
+        Drawable d=ResizeImage(R.drawable.loadingholder,rowView,Configuration.homeDisplaySizeForShow);
+        final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
+        progressBar.getLayoutParams().height=Configuration.progressBarSize;
+        progressBar.getLayoutParams().width=Configuration.progressBarSize;
+
+        Glide.with(myContext)
+               .load(image_url_1).override(Configuration.homeDisplaySizeForShow, Configuration.homeDisplaySizeForShow)
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        progressBar.setVisibility(View.GONE);
+                        return false;
+                    }
+                })
+                .error(d)
+               .into(PicProductImage);
 
 //        Picasso.with(myContext).load(image_url_1).into(PicProductImage);
 //        Glide.with(myContext).load(image_url_1).skipMemoryCache(true).into(PicProductImage);
@@ -183,6 +206,37 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
             }
         });
         return rowView;
+    }
+
+    public Drawable ResizeImage (int imageID,View rowView,int deviceWidth) {
+
+        BitmapDrawable bd=(BitmapDrawable) rowView.getResources().getDrawable(imageID);
+        double imageHeight = bd.getBitmap().getHeight();
+        double imageWidth = bd.getBitmap().getWidth();
+
+        double ratio = deviceWidth / imageWidth;
+        int newImageHeight = (int) (imageHeight * ratio);
+
+        Bitmap bMap = BitmapFactory.decodeResource(rowView.getResources(), imageID);
+        Drawable drawable = new BitmapDrawable(rowView.getResources(),getResizedBitmap(bMap,newImageHeight,(int) deviceWidth));
+
+        return drawable;
+    }
+
+    /************************ Resize Bitmap *********************************/
+    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+
+        return resizedBitmap;
     }
 
 }

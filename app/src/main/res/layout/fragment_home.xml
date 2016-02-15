@@ -18,7 +18,8 @@
         android:id="@+id/lstv_picProduct"
         android:dividerHeight="0dp"
         android:layout_gravity="center_horizontal|top"
-        android:divider="@color/background_window" />
+        android:divider="@color/background_window"
+        android:scrollbars="none"/>
 
 
     </android.support.v4.widget.SwipeRefreshLayout>

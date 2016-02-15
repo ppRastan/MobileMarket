@@ -231,7 +231,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
         String image_url_Main = products.get(position).getImagesMainPath() +
                 picNum +
                 "&size=" +
-                Configuration.homeDisplaySize + "x" + Configuration.productInfoHeightSize +
+                Configuration.homeDisplaySizeForURL + "x" + Configuration.productInfoHeightSize +
                 "&q=30";
         imgLoader.DisplayImage(image_url_Main, imgProduct);
         LinearLayout layout = (LinearLayout) viewLayout.findViewById(R.id.linear);
@@ -255,7 +255,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
             String image_url_otherPic = products.get(position).getImagesMainPath() +
                     picNum +
                     "&size=" +
-                    Configuration.articleDisplaySize + "x" + Configuration.articleDisplaySize +
+                    Configuration.articleDisplaySizeForURL + "x" + Configuration.articleDisplaySizeForURL +
                     "&q=30";
             imgLoader.DisplayImage(image_url_otherPic, imageView);
 
@@ -275,7 +275,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
                     String image_url_otherPic = products.get(parentClickImage).getImagesMainPath() +
                             picNum +
                             "&size=" +
-                            Configuration.homeDisplaySize + "x" + Configuration.productInfoHeightSize +
+                            Configuration.homeDisplaySizeForURL + "x" + Configuration.productInfoHeightSize +
                             "&q=30";
                     imgLoader.DisplayImage(image_url_otherPic, imgProduct);
 

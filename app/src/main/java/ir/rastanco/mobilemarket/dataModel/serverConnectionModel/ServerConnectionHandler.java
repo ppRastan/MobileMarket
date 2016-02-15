@@ -9,6 +9,7 @@ import java.util.concurrent.ExecutionException;
 
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
+import ir.rastanco.mobilemarket.dataModel.Comment;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.ProductOption;
 import ir.rastanco.mobilemarket.dataModel.ProductShop;
@@ -18,6 +19,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.GetFil
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonArticles;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonAuthorize;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonCategory;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonComments;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonKey;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonLastShop;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
@@ -295,6 +297,21 @@ public class ServerConnectionHandler {
         }
     }
 
+    public void reloadProduct(String time){
+
+        ParseJsonProduct pjp=new ParseJsonProduct(context);
+        String url="http://decoriss.com/json/get,com=product&newfromts="+
+                time+"&cache=false";
+        try {
+            pjp.execute(url).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public ArrayList<Product> getSpecialProduct(){
         return dbh.selectSpecialProduct();
     }
@@ -346,28 +363,22 @@ public class ServerConnectionHandler {
         ArrayList<String> brandsTitle=new ArrayList<String>();
         String brand = "";
         for (int i=0;i<products.size();i++){
-            ArrayList<ProductOption> productOptions=new ArrayList<ProductOption>();
-            productOptions=dbh.selectProductBrand(products.get(i).getId());
-            for (int k=0;k<productOptions.size();k++){
-                if (productOptions.get(k).getTitle().equals("برند")){
-                    if (brandsTitle.size()==0)
-                        brandsTitle.add(productOptions.get(k).getValue());
-                    else{
-                        boolean statusExist=false;
-                        boolean statusNotExist=true;
-                        for (int j=0;j<brandsTitle.size();j++){
-                            if (productOptions.get(k).getValue().equals(brandsTitle.get(j))){
-                                statusExist=true;
-                            }
-                            else{
-                                statusNotExist=true;
-                            }
-                        }
-                        if (statusExist==false && statusNotExist==true)
-                            brandsTitle.add(productOptions.get(k).getValue());
+            if(brandsTitle.size()==0 && !products.get(i).getBrandName().equals(""))
+                brandsTitle.add(products.get(i).getBrandName());
+            else{
+                boolean statusExist=false;
+                boolean statusNotExist=true;
+                for (int j=0;j<brandsTitle.size();j++){
+                    if (products.get(i).getBrandName().equals(brandsTitle.get(j))){
+                        statusExist=true;
                     }
-
+                    else{
+                        statusNotExist=true;
+                    }
                 }
+                if (statusExist==false && statusNotExist==true && !products.get(i).getBrandName().equals(""))
+                    brandsTitle.add(products.get(i).getBrandName());
+
             }
         }
         return brandsTitle;
@@ -376,15 +387,9 @@ public class ServerConnectionHandler {
     public ArrayList<Product> getAllProductOfABrand(ArrayList<Product> products,String brandTitle) {
         ArrayList<Product> productsOfABrand = new ArrayList<Product>();
         for (int i = 0; i < products.size(); i++) {
-            ArrayList<ProductOption> productOptions = new ArrayList<ProductOption>();
-            productOptions = dbh.selectProductBrand(products.get(i).getId());
-            for (int k = 0; k < productOptions.size(); k++) {
-                if (productOptions.get(k).getValue().equals(brandTitle)) {
+               if (products.get(i).getBrandName().equals(brandTitle))
                     productsOfABrand.add(products.get(i));
-
-                }
             }
-        }
         return productsOfABrand;
     }
 
@@ -571,6 +576,11 @@ public class ServerConnectionHandler {
     }
 
     //Version Of App
+
+    public String getLastVersionInDB(){
+        return dbh.selectLastVersionApp();
+    }
+
     public String getLastVersionInServer(String url){
 
         String lastVersionInServer=dbh.selectLastVersionApp();
@@ -600,6 +610,35 @@ public class ServerConnectionHandler {
             return false;
         else
             return true;
+    }
+
+    //Comments
+    public ArrayList<Comment> getAllCommentAProduct(int productId){
+
+        String url="http://decoriss.com/json/get,com=comments&pid="+productId+"&cache=false";
+        GetFile jParserComment = new GetFile();
+        String jsonComment= null;
+        try {
+            jsonComment = jParserComment.execute(url).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        ArrayList<Comment> allComments=new ArrayList<Comment>();
+        allComments=new ParseJsonComments().getAllCommentAProduct(jsonComment);
+
+        return allComments;
+
+    }
+
+    public ArrayList<String> getContentCommentsAllProduct(int productId){
+        ArrayList<Comment> allComment=new ArrayList<Comment>();
+        allComment=getAllCommentAProduct(productId);
+        ArrayList<String> commentsContent=new ArrayList<String>();
+        for (int i=0;i<allComment.size();i++ )
+            commentsContent.add(allComment.get(i).getCommentContent());
+        return commentsContent;
     }
 
 }

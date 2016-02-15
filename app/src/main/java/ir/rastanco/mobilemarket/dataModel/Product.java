@@ -30,6 +30,7 @@ public class Product implements Parcelable {
     private String imagesMainPath;
     private int like;   //0=dislike or 1=like
     private String linkInSite;
+    private String brandName;
     private ArrayList<String> imagesPath;
     private ArrayList<ProductOption> producOptions;
 
@@ -57,6 +58,7 @@ public class Product implements Parcelable {
         imagesMainPath = in.readString();
         like = in.readInt();
         linkInSite = in.readString();
+        brandName = in.readString();
         imagesPath = in.createStringArrayList();
     }
 
@@ -236,6 +238,14 @@ public class Product implements Parcelable {
         return imagesPath;
     }
 
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
     public void setImagesPath(ArrayList<String> imagesPath) {
         this.imagesPath = imagesPath;
     }
@@ -274,6 +284,7 @@ public class Product implements Parcelable {
         dest.writeString(imagesMainPath);
         dest.writeInt(like);
         dest.writeString(linkInSite);
+        dest.writeString(brandName);
         dest.writeStringList(imagesPath);
     }
 }

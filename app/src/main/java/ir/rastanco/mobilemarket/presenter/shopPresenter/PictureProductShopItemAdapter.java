@@ -4,9 +4,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Typeface;
-import android.renderscript.Sampler;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +23,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -32,7 +37,6 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Connect;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
-import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.Observer;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
@@ -50,7 +54,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private boolean isSelectedForShop=false;
     private ServerConnectionHandler sch;
     private CounterIconUtils ciu;
-    private  Context context;
+    private  Context myContext;
     private Typeface yekanFont;
     private String textToSend = null;
     private Dialog shareDialog;
@@ -60,16 +64,16 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private Intent sendIntent;
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
-        context=mainActivity;
-        inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        myContext =mainActivity;
+        inflater = ( LayoutInflater ) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         allProduct =products;
         sch=new ServerConnectionHandler(Configuration.superACFragment);
-        yekanFont = Typeface.createFromAsset(context.getAssets(), "fonts/yekan.ttf");
+        yekanFont = Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf");
 
     }
     public PictureProductShopItemAdapter(Context context)
     {
-        this.context = context;
+        this.myContext = context;
     }
 
     @Override
@@ -114,7 +118,11 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.infoP.setTypeface(yekanFont);
         holder.priceP=(TextView) rowView.findViewById(R.id.txt_priceProduct);
         holder.priceP.setTypeface(yekanFont);
+
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
+        holder.imgP.getLayoutParams().width=Configuration.shopDisplaySizeForShow;
+        holder.imgP.getLayoutParams().height=Configuration.shopDisplaySizeForShow;
+
         holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
         holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
        if(Configuration.RTL)
@@ -163,7 +171,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                     holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
                     isSelectedForShop=true;
                     sch.addProductToShoppingBag(allProduct.get(position).getId(),1);
-                    context.startActivity(new Intent(context,ShoppingBagActivity.class));
+                    myContext.startActivity(new Intent(myContext, ShoppingBagActivity.class));
                     Connect.setMyBoolean(true);
                     isSelectedForShop = true;
 
@@ -184,7 +192,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.shareToolBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shareDialog = new Dialog(context);
+                shareDialog = new Dialog(myContext);
                 shareDialog.setContentView(R.layout.share_alert_dialog);
                 cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
                 sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
@@ -202,15 +210,15 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                         textToSend = editTextToShare.getText().toString();
                         String share=textToSend+"\n\n"+
                                 allProduct.get(position).getLinkInSite()+ "\n\n"+
-                                context.getResources().getString(R.string.text_to_advertise)+"\n\n"
-                                +context.getResources().getString(R.string.LinkDownloadApp) ;
+                                myContext.getResources().getString(R.string.text_to_advertise)+"\n\n"
+                                + myContext.getResources().getString(R.string.LinkDownloadApp) ;
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
                             sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
                             sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
                         sendIntent.putExtra(Intent.EXTRA_TEXT,share);
                         sendIntent.setType("text/plain");
-                        context.startActivity(sendIntent);
+                        myContext.startActivity(sendIntent);
                         shareDialog.cancel();
                     }
                 });
@@ -256,21 +264,33 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         String image_url_1 = allProduct.get(position).getImagesMainPath()+
                 picCounter+
                 "&size="+
-                Configuration.shopDisplaySize+"x"+Configuration.shopDisplaySize+
+                Configuration.shopDisplaySizeForURL +"x"+Configuration.shopDisplaySizeForURL +
                 "&q=30";
-       Picasso.with(Configuration.superACFragment).load(image_url_1).into(holder.imgP);
-//        imgLoader.DisplayImage(image_url_1, holder.imgP);
-        /*Glide.with(Configuration.superACFragment)
-                .load(image_url_1).override(228,228)
-                        // The placeholder image is shown immediately and
-                      // replaced by the remote image when Picasso has
-                        // finished fetching it.
-                .placeholder(R.drawable.loader)
-                        //A request will be retried three times before the error placeholder is shown.
-                .error(R.drawable.loader).override(228,228)
-                        // Transform images to better fit into layouts and to
-                        // reduce memory size.
-                .into(holder.imgP);*/
+//       Picasso.with(Configuration.superACFragment).load(image_url_1).into(holder.imgP);
+//       imgLoader.DisplayImage(image_url_1, holder.imgP);
+
+        Drawable d=ResizeImage(R.drawable.loadingholder,rowView,Configuration.shopDisplaySizeForShow);
+        final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
+        progressBar.getLayoutParams().height=Configuration.progressBarSize;
+        progressBar.getLayoutParams().width=Configuration.progressBarSize;
+        Glide.with(myContext)
+                .load(image_url_1).override(Configuration.shopDisplaySizeForShow, Configuration.shopDisplaySizeForShow)
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        progressBar.setVisibility(View.GONE);
+                        return false;
+                    }
+                })
+                //.placeholder(d)
+                .error(d)
+                .into(holder.imgP);
+
         holder.infoP.setText(allProduct.get(position).getTitle());
         String priceOfCurrentGood = String.valueOf(allProduct.get(position).getPrice());
         double amountOfFinalPrice = Double.parseDouble(priceOfCurrentGood);
@@ -291,6 +311,37 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         });
 
         return rowView;
+    }
+
+    public Drawable ResizeImage (int imageID,View rowView,int deviceWidth) {
+
+        BitmapDrawable bd=(BitmapDrawable) rowView.getResources().getDrawable(imageID);
+        double imageHeight = bd.getBitmap().getHeight();
+        double imageWidth = bd.getBitmap().getWidth();
+
+        double ratio = deviceWidth / imageWidth;
+        int newImageHeight = (int) (imageHeight * ratio);
+
+        Bitmap bMap = BitmapFactory.decodeResource(rowView.getResources(), imageID);
+        Drawable drawable = new BitmapDrawable(rowView.getResources(),getResizedBitmap(bMap,newImageHeight,(int) deviceWidth));
+
+        return drawable;
+    }
+
+    /************************ Resize Bitmap *********************************/
+    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+
+        return resizedBitmap;
     }
 
 }

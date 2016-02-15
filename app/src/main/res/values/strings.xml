@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Decoriss</string>
+    <string name="version">1.4.0</string>
     <string name="first_page">ویژه ها</string>
     <string name="second_page">مبلمان منزل</string>
     <string name="third_page">کالای خواب</string>
@@ -67,6 +68,5 @@
         <item>item1</item>
         <item>item1</item>
         <item>item1</item>
-
     </string-array>
 </resources>

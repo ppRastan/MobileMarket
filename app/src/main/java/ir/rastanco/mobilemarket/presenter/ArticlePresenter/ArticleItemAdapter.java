@@ -45,7 +45,7 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
         ImageView articleImage = (ImageView) rowView.findViewById(R.id.img_article);
         String articleImageURL= articles.get(position).getImageLink()+
                 "&size="+
-                Configuration.articleDisplaySize+"x"+Configuration.articleDisplaySize+
+                Configuration.articleDisplaySizeForURL +"x"+Configuration.articleDisplaySizeForURL +
                 "&q=30";
 //        imgLoader.DisplayImage(articleImageURL, articleImage);
 
