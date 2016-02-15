@@ -10,8 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
@@ -47,9 +45,9 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
                 "&size="+
                 Configuration.articleDisplaySizeForURL +"x"+Configuration.articleDisplaySizeForURL +
                 "&q=30";
-//        imgLoader.DisplayImage(articleImageURL, articleImage);
+        imgLoader.DisplayImage(articleImageURL, articleImage);
 
-        Glide.with(Configuration.superACFragment)
+        /*Glide.with(Configuration.superACFragment)
                 .load(articleImageURL)
                         // The placeholder image is shown immediately and
                         // replaced by the remote image when Picasso has
@@ -59,7 +57,7 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
                 .error(R.drawable.loadingholder)
                         // Transform images to better fit into layouts and to
                         // reduce memory size.
-                .into(articleImage);
+                .into(articleImage);*/
 
         TextView articleTitle=(TextView)rowView.findViewById(R.id.txt_titleArticle);
         articleTitle.setText(articles.get(position).getTitle());

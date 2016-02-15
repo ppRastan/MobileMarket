@@ -22,11 +22,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
@@ -34,6 +29,7 @@ import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Connect;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
@@ -254,7 +250,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             }
         });
 
-//        ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
+        ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
         String picCounter = allProduct.get(position).getImagesPath().get(0);
         try {
             picCounter= URLEncoder.encode(picCounter, "UTF-8");
@@ -266,10 +262,14 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 "&size="+
                 Configuration.shopDisplaySizeForURL +"x"+Configuration.shopDisplaySizeForURL +
                 "&q=30";
-//       Picasso.with(Configuration.superACFragment).load(image_url_1).into(holder.imgP);
-//       imgLoader.DisplayImage(image_url_1, holder.imgP);
+        imgLoader.DisplayImage(image_url_1, holder.imgP);
+        final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
+        progressBar.setVisibility(View.GONE);
 
-        Drawable d=ResizeImage(R.drawable.loadingholder,rowView,Configuration.shopDisplaySizeForShow);
+//       Picasso.with(Configuration.superACFragment).load(image_url_1).into(holder.imgP);
+
+
+        /*Drawable d=ResizeImage(R.drawable.loadingholder,rowView,Configuration.shopDisplaySizeForShow);
         final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
         progressBar.getLayoutParams().height=Configuration.progressBarSize;
         progressBar.getLayoutParams().width=Configuration.progressBarSize;
@@ -289,7 +289,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 })
                 //.placeholder(d)
                 .error(d)
-                .into(holder.imgP);
+                .into(holder.imgP);*/
 
         holder.infoP.setText(allProduct.get(position).getTitle());
         String priceOfCurrentGood = String.valueOf(allProduct.get(position).getPrice());
