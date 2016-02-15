@@ -526,6 +526,19 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Cursor rs = db.rawQuery("select * from tblShopping", null);
         return  rs.getCount();
     }
+
+    public int numberPurchasedAProduct(int productId){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from tblShopping where fkProductId="+productId, null);
+        int numberPurchased=0;
+        if (rs!= null)
+            if(rs.moveToFirst())
+                numberPurchased=rs.getInt(rs.getColumnIndex("numberPurchased"));
+        return  rs.getCount();
+
+    }
+
     public ArrayList<Category> selectAllCategory() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblCategory order by catId and sortOrder ASC ", null);

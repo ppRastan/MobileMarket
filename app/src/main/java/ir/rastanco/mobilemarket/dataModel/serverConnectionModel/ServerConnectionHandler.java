@@ -543,6 +543,10 @@ public class ServerConnectionHandler {
         dbh.deleteAllShoppingTable();
     }
 
+    public int getNumberProductShop(int productId){
+        return dbh.numberPurchasedAProduct(productId);
+    }
+
 
 
 

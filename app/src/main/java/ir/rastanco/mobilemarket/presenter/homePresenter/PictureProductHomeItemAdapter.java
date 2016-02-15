@@ -20,11 +20,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -160,9 +155,13 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
                 "&size="+
                 Configuration.homeDisplaySizeForURL +"x"+Configuration.homeDisplaySizeForURL +
                 "&q=30";
-//        imgLoader.DisplayImage(image_url_1, PicProductImage);
+        imgLoader.DisplayImage(image_url_1, PicProductImage);
+        final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
+        progressBar.setVisibility(View.GONE);
 
-        Drawable d=ResizeImage(R.drawable.loadingholder,rowView,Configuration.homeDisplaySizeForShow);
+
+
+        /*Drawable d=ResizeImage(R.drawable.loadingholder,rowView,Configuration.homeDisplaySizeForShow);
         final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
         progressBar.getLayoutParams().height=Configuration.progressBarSize;
         progressBar.getLayoutParams().width=Configuration.progressBarSize;
@@ -182,13 +181,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
                     }
                 })
                 .error(d)
-               .into(PicProductImage);
-
-//        Picasso.with(myContext).load(image_url_1).into(PicProductImage);
-//        Glide.with(myContext).load(image_url_1).skipMemoryCache(true).into(PicProductImage);
-//        DrawableRequestBuilder requestBuilder = Glide.with(myContext).load(image_url_1);
-//
-//        requestBuilder.into(PicProductImage);
+               .into(PicProductImage);*/
 
         ImageButton shareImgB=(ImageButton)rowView.findViewById(R.id.imbt_share);
 
