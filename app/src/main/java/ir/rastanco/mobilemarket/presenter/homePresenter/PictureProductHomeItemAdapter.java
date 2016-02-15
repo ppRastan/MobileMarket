@@ -139,7 +139,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
 //                shareDialog.cancel();
             }
         });
-        ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
+        ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment,rowView,Configuration.homeDisplaySizeForShow); // important
         final  ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
         PicProductImage.getLayoutParams().width= Configuration.homeDisplaySizeForShow;
         PicProductImage.getLayoutParams().height=Configuration.homeDisplaySizeForShow;

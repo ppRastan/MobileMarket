@@ -220,7 +220,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
             }
         });
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
-        final ImageLoader imgLoader = new ImageLoader(Configuration.ProductInfoActivity); // important
+        final ImageLoader imgLoader = new ImageLoader(Configuration.ProductInfoActivity,viewLayout,Configuration.homeDisplaySizeForShow); // important
         String picNum = products.get(position).getImagesPath().get(0);
         try {
             picNum = URLEncoder.encode(picNum, "UTF-8");

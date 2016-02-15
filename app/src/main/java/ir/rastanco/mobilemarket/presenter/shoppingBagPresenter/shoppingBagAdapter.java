@@ -130,7 +130,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private void createEachCartView() {
         imgProduct=(ImageView)rowView.findViewById(R.id.shopping__bag_img);
         txtProductTitle=(TextView) rowView.findViewById(R.id.shopping_bag_txt_productTitle);
-        imgLoader = new ImageLoader(myContext); // important
+        imgLoader = new ImageLoader(myContext,rowView,Configuration.articleDisplaySizeForShow); // important
         txtProductPrice=(TextView) rowView.findViewById(R.id.shopping_bag_price_Of_product);
         totalPrice = (TextView)rowView.findViewById(R.id.shopping_bag_price_for_you);
         txtProductTitle.setText(aProduct.getTitle());

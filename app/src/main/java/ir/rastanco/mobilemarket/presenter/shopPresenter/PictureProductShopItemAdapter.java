@@ -250,7 +250,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             }
         });
 
-        ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
+        ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment,rowView,Configuration.shopDisplaySizeForShow); // important
         String picCounter = allProduct.get(position).getImagesPath().get(0);
         try {
             picCounter= URLEncoder.encode(picCounter, "UTF-8");

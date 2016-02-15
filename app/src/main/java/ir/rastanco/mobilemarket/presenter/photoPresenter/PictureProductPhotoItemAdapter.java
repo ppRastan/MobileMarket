@@ -65,7 +65,7 @@ public class PictureProductPhotoItemAdapter extends BaseAdapter{
 
         final View rowView;
         rowView = inflater.inflate(R.layout.picture_product_item_photo, null);
-        ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment); // important
+        ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment,rowView,Configuration.shopDisplaySizeForShow); // important
         holder.imgP=(ImageView) rowView.findViewById(R.id.imgb_picProduct);
         String picCounter = allProduct.get(position).getImagesPath().get(0);
         try {
