@@ -205,9 +205,6 @@ public class SuperAwesomeCardFragment extends Fragment{
                            @Override
                            public void run() {
                                sch.refreshProduct();
-                               /*for (int i=0;i<products.size();i++){
-                                   sch.refreshProductOption(products.get(i).getGroupId(),products.get(i).getId());
-                               }*/
                                products = sch.ProductOfMainCategory(pageName);
                                PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), products);
                                gridview.setAdapter(newAdapter);
@@ -241,14 +238,16 @@ public class SuperAwesomeCardFragment extends Fragment{
 
                 //Filter
                 ///FilterSubCategory
-                final Map<Integer, String> filterSubCategory = sch.getFilterSubCategory(pageName);
-                final String[] categorySelected = new String[1];
-                categorySelected[0]=getActivity().getString(R.string.all);
+                final String[]categorySelected = new String[1];
                 final int[] categoryIdSelected = new int[1];
+                ///default=all
+                categorySelected[0]=getActivity().getString(R.string.all);
+                //get category id
                 categoryIdSelected[0]=sch.getMainCategoryId(pageName);
                 ArrayList<String> subCategoryTitle = new ArrayList<String>();
+                //get subCategoryTitle
                 subCategoryTitle=sch.getTitleOfChildOfACategory(categoryIdSelected[0]);
-                //SubCategory
+                //SubCategory dialogBox
                 btnCategory=(Button)mainView.findViewById(R.id.group_dialog);
                 final ArrayList<String> finalSubCategoryTitle = subCategoryTitle;
                 btnCategory.setOnClickListener(new View.OnClickListener() {
@@ -284,6 +283,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                 categorySelected[0] = (String) parent.getItemAtPosition(position);
                                 final int[] subCategoryId = {0};
+                                Map<Integer, String> filterSubCategory = sch.getFilterSubCategory(pageName);
                                 for (Map.Entry<Integer, String> entry : filterSubCategory.entrySet()) {
                                     if (entry.getValue().equals(categorySelected[0]))
                                         subCategoryId[0] = entry.getKey();
@@ -601,6 +601,13 @@ public class SuperAwesomeCardFragment extends Fragment{
 
         }
         return mainView;
+    }
+
+    public ArrayList<Product> filterOnCategory(String pageName,String categoryName,String subCategoryName){
+        ArrayList<Product> resultFilterProduct=new ArrayList<Product>();
+        int categoryId=sch.getMainCategoryId(pageName);
+
+        return resultFilterProduct;
     }
 
 }

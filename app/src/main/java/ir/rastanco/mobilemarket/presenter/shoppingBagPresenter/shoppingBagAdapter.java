@@ -102,7 +102,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
                     off = ((aProduct.getPrice() * aProduct.getPriceOff()) / 100);
                 finalPrice = ((aProduct.getPrice() * counterSelected) - (off * counterSelected));
                 ///Price
-                numberProductPrice = String.valueOf(aProduct.getPrice() * counterSelected);
+                numberProductPrice = String.valueOf(aProduct.getPrice());
                 amount = Double.parseDouble(numberProductPrice);
                 ///off
                 numberProducePriceOff = String.valueOf(off * counterSelected);
