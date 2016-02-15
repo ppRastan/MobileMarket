@@ -278,7 +278,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 .listener(new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                       return false;
+                        return false;
                     }
 
                     @Override

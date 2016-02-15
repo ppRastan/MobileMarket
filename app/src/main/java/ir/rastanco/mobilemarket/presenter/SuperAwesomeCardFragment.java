@@ -75,13 +75,12 @@ public class SuperAwesomeCardFragment extends Fragment{
 
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View mainView=null;
 
+        View mainView=null;
         position = getArguments().getInt(ARG_POSITION);
         Configuration.superACFragment=getContext();
 

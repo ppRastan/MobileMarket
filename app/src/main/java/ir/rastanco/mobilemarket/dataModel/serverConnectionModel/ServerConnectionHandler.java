@@ -363,28 +363,22 @@ public class ServerConnectionHandler {
         ArrayList<String> brandsTitle=new ArrayList<String>();
         String brand = "";
         for (int i=0;i<products.size();i++){
-            ArrayList<ProductOption> productOptions=new ArrayList<ProductOption>();
-            productOptions=dbh.selectProductBrand(products.get(i).getId());
-            for (int k=0;k<productOptions.size();k++){
-                if (productOptions.get(k).getTitle().equals("برند")){
-                    if (brandsTitle.size()==0)
-                        brandsTitle.add(productOptions.get(k).getValue());
-                    else{
-                        boolean statusExist=false;
-                        boolean statusNotExist=true;
-                        for (int j=0;j<brandsTitle.size();j++){
-                            if (productOptions.get(k).getValue().equals(brandsTitle.get(j))){
-                                statusExist=true;
-                            }
-                            else{
-                                statusNotExist=true;
-                            }
-                        }
-                        if (statusExist==false && statusNotExist==true)
-                            brandsTitle.add(productOptions.get(k).getValue());
+            if(brandsTitle.size()==0 && !products.get(i).getBrandName().equals(""))
+                brandsTitle.add(products.get(i).getBrandName());
+            else{
+                boolean statusExist=false;
+                boolean statusNotExist=true;
+                for (int j=0;j<brandsTitle.size();j++){
+                    if (products.get(i).getBrandName().equals(brandsTitle.get(j))){
+                        statusExist=true;
                     }
-
+                    else{
+                        statusNotExist=true;
+                    }
                 }
+                if (statusExist==false && statusNotExist==true && !products.get(i).getBrandName().equals(""))
+                    brandsTitle.add(products.get(i).getBrandName());
+
             }
         }
         return brandsTitle;
@@ -393,15 +387,9 @@ public class ServerConnectionHandler {
     public ArrayList<Product> getAllProductOfABrand(ArrayList<Product> products,String brandTitle) {
         ArrayList<Product> productsOfABrand = new ArrayList<Product>();
         for (int i = 0; i < products.size(); i++) {
-            ArrayList<ProductOption> productOptions = new ArrayList<ProductOption>();
-            productOptions = dbh.selectProductBrand(products.get(i).getId());
-            for (int k = 0; k < productOptions.size(); k++) {
-                if (productOptions.get(k).getValue().equals(brandTitle)) {
+               if (products.get(i).getBrandName().equals(brandTitle))
                     productsOfABrand.add(products.get(i));
-
-                }
             }
-        }
         return productsOfABrand;
     }
 
