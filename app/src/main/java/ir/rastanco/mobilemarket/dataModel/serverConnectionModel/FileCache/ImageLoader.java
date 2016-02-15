@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.view.View;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -34,14 +37,17 @@ public class ImageLoader {
     private Map<ImageView, String> imageViews= Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
     ExecutorService executorService;
     private Context myContext;
+    private View rowView;
+    private int displayWidth;
 
-    public ImageLoader(Context context){
+    public ImageLoader(Context context,View view,int size){
         fileCache=new FileCache(context);
         executorService= Executors.newFixedThreadPool(5);
         myContext=context;
+        rowView=view;
+        displayWidth=size;
     }
 
-    final int stub_id= R.drawable.logo_light;
 
     public void DisplayImage(String url, ImageView imageView)
     {
@@ -165,8 +171,9 @@ public class ImageLoader {
             }
             else
             {
+                Drawable drawable=ResizeImage(R.drawable.loadingholder, rowView,displayWidth);
 
-                photoToLoad.imageView.setImageResource(stub_id);
+                photoToLoad.imageView.setImageDrawable(drawable);
 
         }
         }
@@ -175,6 +182,37 @@ public class ImageLoader {
     public void clearCache() {
         memoryCache.clear();
         fileCache.clear();
+    }
+
+    public Drawable ResizeImage (int imageID,View rowView,int deviceWidth) {
+
+        BitmapDrawable bd=(BitmapDrawable) rowView.getResources().getDrawable(imageID);
+        double imageHeight = bd.getBitmap().getHeight();
+        double imageWidth = bd.getBitmap().getWidth();
+
+        double ratio = deviceWidth / imageWidth;
+        int newImageHeight = (int) (imageHeight * ratio);
+
+        Bitmap bMap = BitmapFactory.decodeResource(rowView.getResources(), imageID);
+        Drawable drawable = new BitmapDrawable(rowView.getResources(),getResizedBitmap(bMap,newImageHeight,(int) deviceWidth));
+
+        return drawable;
+    }
+
+    /************************ Resize Bitmap *********************************/
+    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+
+        return resizedBitmap;
     }
 
 }

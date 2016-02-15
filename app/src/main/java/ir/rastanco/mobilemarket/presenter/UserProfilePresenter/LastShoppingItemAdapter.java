@@ -53,7 +53,7 @@ public class LastShoppingItemAdapter extends ArrayAdapter<ProductShop> {
         rowView = inflater.inflate(R.layout.last_shopping_item, null);
 
 
-        imgLoader = new ImageLoader(Configuration.UserAccountFragment); // important
+        imgLoader = new ImageLoader(Configuration.UserAccountFragment,rowView,Configuration.homeDisplaySizeForShow); // important
         picInvoice = (ImageView) rowView.findViewById(R.id.img_invoice);
         image_url_1 = allProductsShop.get(position).getInvoiceImageLink();
         imgLoader.DisplayImage(image_url_1, picInvoice);
@@ -70,9 +70,6 @@ public class LastShoppingItemAdapter extends ArrayAdapter<ProductShop> {
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(Integer.parseInt(allProductsShop.get(position).getTimeStamp()));
         String date = DateFormat.format("yyyy-MM-dd", cal).toString();
-        //invoiceDate.setText(myContext.getResources().getString(R.string.date_of_shopping)+date);
-
-        //invoiceStatus.setText(myContext.getResources().getString(R.string.state_of_invoice)+String.valueOf(allProductsShop.get(position).getInvoiceStatus()));
         return rowView;
     }
 }
