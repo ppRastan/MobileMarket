@@ -114,7 +114,32 @@
                         android:gravity="center_horizontal|center_vertical"/>
 
                 </LinearLayout>
+                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:weightSum="1"
+                android:gravity="center"
+                >
+                <Button
+                android:textSize="15dp"
+                    android:textColor="@color/orange"
+                android:background="@color/white"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/forget_password"
+                android:id="@+id/btn_forgot"
+                android:gravity="center_horizontal|center_vertical"
+                />
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                </LinearLayout>
                 <LinearLayout
                     android:padding="5dp"
                     android:orientation="horizontal"
@@ -154,29 +179,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"></LinearLayout>
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
 
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:weightSum="1"
-                    android:gravity="center"
-                    >
-                    <Button
-                        android:textSize="15dp"
-                        android:background="@drawable/user_profile_buttons"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="@string/forget_password"
-                        android:id="@+id/btn_forgot"
-                        android:gravity="center_horizontal|center_vertical"
-                        />
-                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
