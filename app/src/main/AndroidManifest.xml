@@ -63,6 +63,8 @@
         </receiver>
 
         <meta-data android:name="co.ronash.pushe.token" android:value="f7-157d-4f_39109906948"/>
+        <activity android:name=".presenter.UserProfilePresenter.LoginHandler" />
+        <activity android:name=".presenter.UserProfilePresenter.AccountManager"/>
     </application>
 
 </manifest>
