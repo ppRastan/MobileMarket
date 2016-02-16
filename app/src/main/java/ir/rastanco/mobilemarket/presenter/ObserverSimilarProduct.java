@@ -6,20 +6,20 @@ import java.util.List;
 /**
  * Created by Emertat on 02/11/2016.
  */
-public class ObserverHome {
+public class ObserverSimilarProduct {
 
     private static int similarProduct;
-    private static List<SimilarProductListener> similarProductListener = new ArrayList<SimilarProductListener>();
+    private static List<ObserverSimilarProductListener> similarProductListener = new ArrayList<ObserverSimilarProductListener>();
     public static int getSimilarProduct() {
         return similarProduct;
     }
     public static void setSimilarProduct(int shoppingCancel) {
-        ObserverHome.similarProduct = shoppingCancel;
-        for (SimilarProductListener ok : similarProductListener) {
+        ObserverSimilarProduct.similarProduct = shoppingCancel;
+        for (ObserverSimilarProductListener ok : similarProductListener) {
             ok.SimilarProductSet();
         }
     }
-    public static void SimilarProductListener(SimilarProductListener set){
+    public static void SimilarProductListener(ObserverSimilarProductListener set){
         similarProductListener.add(set);
 
     }

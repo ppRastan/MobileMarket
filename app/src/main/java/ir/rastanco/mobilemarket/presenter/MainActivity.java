@@ -567,7 +567,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return SuperAwesomeCardFragment.newInstance(position);
+           return SuperAwesomeCardFragment.newInstance(position);
         }
+
     }
 }

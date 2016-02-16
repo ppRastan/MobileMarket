@@ -5,14 +5,30 @@
     android:weightSum="7"
     android:background="@color/white">
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="2dp"
-        android:paddingTop="2dp"
-        android:id="@+id/img_article"
-        android:background="@color/transparent"
-        android:layout_gravity="center" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
+            android:id="@+id/img_article"
+            android:background="@color/transparent"
+            android:layout_gravity="center" />
+
+        <!--<ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/prograssBar"
+            android:background="@color/transparent"
+            android:layout_gravity="center" />-->
+
+
+    </RelativeLayout>
+
+
 
     <TextView
         android:padding="5dp"

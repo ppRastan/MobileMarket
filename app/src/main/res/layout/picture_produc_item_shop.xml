@@ -16,14 +16,14 @@
         android:padding="4dp"
         android:background="@color/white"/>
 
-    <ProgressBar
+    <!--<ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:foregroundGravity="center_horizontal|center_vertical"
         android:id="@+id/prograssBar"
         android:background="@color/white"
         android:layout_centerInParent="true"
-        />
+        />-->
 
 
     <ImageButton

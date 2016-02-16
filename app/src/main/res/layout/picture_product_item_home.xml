@@ -39,6 +39,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:id="@+id/img_picProduct" />
+
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -50,14 +51,26 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-    <ProgressBar
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/offer_icon_right_special_full_screen"
+        android:id="@+id/ic_offer_left"
+        android:background="#10f7f7f7"
+        android:padding="4dp"
+        android:visibility="visible"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <!--<ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:foregroundGravity="center_horizontal|center_vertical"
         android:id="@+id/prograssBar"
         android:background="@color/white"
-        android:layout_centerInParent="true"
-        />
+        android:layout_centerInParent="true"/>-->
 
     <ImageButton
         android:layout_width="wrap_content"

@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,18 +26,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleItemAdapter;
+import ir.rastanco.mobilemarket.presenter.Filter.FilterCategory;
 import ir.rastanco.mobilemarket.presenter.homePresenter.PictureProductHomeItemAdapter;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.PictureProductShopItemAdapter;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.DataFilter;
 
-public class SuperAwesomeCardFragment extends Fragment{
+public class SuperAwesomeCardFragment extends Fragment {
 
     private static final String ARG_POSITION = "position";
     private int position;
@@ -57,6 +59,9 @@ public class SuperAwesomeCardFragment extends Fragment{
     private ImageButton btnCancleSubGroup;
     private TextView subGroupTextView;
     private TextView groupTextView;
+    private TextView txtsubCategorySelected;
+
+    private FragmentActivity myContext;
 
     public SuperAwesomeCardFragment() {
     }
@@ -75,14 +80,18 @@ public class SuperAwesomeCardFragment extends Fragment{
 
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
         View mainView=null;
         position = getArguments().getInt(ARG_POSITION);
         Configuration.superACFragment=getContext();
+        myContext=(FragmentActivity)Configuration.superACFragment;
+        final String tag=this.getTag();
 
         sch=new ServerConnectionHandler(Configuration.superACFragment);
         mainCategoryTitle= new ArrayList<String>();
@@ -167,14 +176,15 @@ public class SuperAwesomeCardFragment extends Fragment{
                 else
                     pageName=fourth_page;
 
+                //Show All product for Tab Selected
                 products=sch.ProductOfMainCategory(pageName);
                 mainView=inflater.inflate(R.layout.fragment_shop, null);
                 final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
                 final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
                 gridview.setAdapter(adapter);
+                //refresh grid view
                 final SwipeRefreshLayout mSwipeRefreshLayout= (SwipeRefreshLayout)
                         mainView.findViewById(R.id.swipe_refresh_layout);
-                //refresh grid view
                 mSwipeRefreshLayout.setEnabled(false);
                 gridview.setOnScrollListener(new AbsListView.OnScrollListener() {
                     @Override
@@ -215,11 +225,11 @@ public class SuperAwesomeCardFragment extends Fragment{
                    }
                });
                 groupTextView = (TextView)mainView.findViewById(R.id.group_dialog_text);
-                ObserverHome.SimilarProductListener(new SimilarProductListener() {
+                ObserverSimilarProduct.SimilarProductListener(new ObserverSimilarProductListener() {
                     @Override
                     public void SimilarProductSet() {
-                        groupTextView.setText(sch.getACategoryTitle(ObserverHome.getSimilarProduct()));
-                        ArrayList<Product> newProducts = sch.ProductOFASubCategory(ObserverHome.getSimilarProduct());
+                        groupTextView.setText(sch.getACategoryTitle(ObserverSimilarProduct.getSimilarProduct()));
+                        ArrayList<Product> newProducts = sch.ProductOFASubCategory(ObserverSimilarProduct.getSimilarProduct());
                         PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                         gridview.setAdapter(newAdapter);
                         newAdapter.notifyDataSetChanged();
@@ -227,7 +237,7 @@ public class SuperAwesomeCardFragment extends Fragment{
                     }
                 });
 
-                ObserverLike.changeLikeStatusListener(new ChangeLikeListener() {
+                ObserverLike.changeLikeStatusListener(new ObserverLikeListener() {
                     @Override
                     public void changeLikeStatus() {
                         gridview.setSelection(ObserverLike.getLikeStatus());
@@ -238,108 +248,38 @@ public class SuperAwesomeCardFragment extends Fragment{
 
                 //Filter
                 ///FilterSubCategory
-                final String[]categorySelected = new String[1];
-                final int[] categoryIdSelected = new int[1];
-                ///default=all
-                categorySelected[0]=getActivity().getString(R.string.all);
-                //get category id
-                categoryIdSelected[0]=sch.getMainCategoryId(pageName);
-                ArrayList<String> subCategoryTitle = new ArrayList<String>();
-                //get subCategoryTitle
-                subCategoryTitle=sch.getTitleOfChildOfACategory(categoryIdSelected[0]);
-                //SubCategory dialogBox
                 btnCategory=(Button)mainView.findViewById(R.id.group_dialog);
-                final ArrayList<String> finalSubCategoryTitle = subCategoryTitle;
+                txtsubCategorySelected=(TextView) mainView.findViewById(R.id.group_dialog_text);
                 btnCategory.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialogGroup = new Dialog(getActivity());
-                        dialogGroup.setContentView(R.layout.title_alertdialog_for_group);
-                        btnCancelAlertDialog = (ImageButton) dialogGroup.findViewById(R.id.cancel);
-                        btnResetAlertDialog = (ImageButton)dialogGroup.findViewById(R.id.reset_action);
-                        groupTextView.setTextColor(Color.parseColor("#EB4D2A"));
-                        btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
+                        //show Dialog Fragment
+                        Bundle args = new Bundle();
+                        args.putString("name", pageName);
+                        FilterCategory filterCategory = new FilterCategory();
+                        filterCategory.setArguments(args);
+                        filterCategory.show(myContext.getFragmentManager(), "Category");
+                        //Change grid view data after set filter
+                        ObserverFilterCategory.changeFilterCategoryListener(new ObserverFilterCategoryListener() {
                             @Override
-                            public void onClick(View v) {
-                                dialogGroup.dismiss();
+                            public void changeFilterCategory() {
+                                txtsubCategorySelected.setText(DataFilter.FilterCategory);
+                                int subCategoryIdSelected = sch.getCategoryIdWithTitle(DataFilter.FilterCategory);
+                                ArrayList<Product> newProducts = sch.getproductOfACategory(subCategoryIdSelected);
+                                PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
+                                gridview.setAdapter(newAdapter);
+                                newAdapter.notifyDataSetChanged();
                             }
                         });
-                        btnResetAlertDialog.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                categorySelected[0]=getActivity().getString(R.string.all);
-                                groupTextView.setText(categorySelected[0]);
-                                dialogGroup.dismiss();
-                            }
-                        });
-                        TextView text = (TextView) dialogGroup.findViewById(R.id.title_alertdialog_group);
-                        final ListView listCategory = (ListView) dialogGroup.findViewById(R.id.list);
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                android.R.layout.simple_list_item_1, android.R.id.text1, finalSubCategoryTitle);
-                        listCategory.setAdapter(adapter);
-                        //childOfASubCategory
-                        listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                categorySelected[0] = (String) parent.getItemAtPosition(position);
-                                final int[] subCategoryId = {0};
-                                Map<Integer, String> filterSubCategory = sch.getFilterSubCategory(pageName);
-                                for (Map.Entry<Integer, String> entry : filterSubCategory.entrySet()) {
-                                    if (entry.getValue().equals(categorySelected[0]))
-                                        subCategoryId[0] = entry.getKey();
-                                }
-
-                                ArrayList<String> childOfASubcategory = new ArrayList<String>();
-                                childOfASubcategory = sch.getTitleOfChildOfACategory(subCategoryId[0]);
-                                //dialogBox for subCategory
-                                final Dialog dialogSGroup = new Dialog(getActivity());
-                                dialogSGroup.setContentView(R.layout.title_alertdialog_for_group);
-                                btnCancelAlertDialog = (ImageButton) dialogSGroup.findViewById(R.id.cancel);
-                                btnResetAlertDialog = (ImageButton) dialogSGroup.findViewById(R.id.reset_action);
-                                groupTextView.setTextColor(Color.parseColor("#EB4D2A"));
-                                btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        dialogSGroup.dismiss();
-                                    }
-                                });
-                                btnResetAlertDialog.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        categorySelected[0] = getActivity().getString(R.string.all);
-                                        groupTextView.setText(categorySelected[0]);
-                                        dialogSGroup.dismiss();
-
-                                    }
-                                });
-                                TextView text = (TextView) dialogSGroup.findViewById(R.id.title_alertdialog_group);
-                                final ListView listSubCategory = (ListView) dialogSGroup.findViewById(R.id.list);
-                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                                        android.R.layout.simple_list_item_1, android.R.id.text1, childOfASubcategory);
-                                listSubCategory.setAdapter(adapter);
-                                final int[] subCategoryIdSelected = new int[1];
-                                listSubCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                        String subCategorySelected = (String) parent.getItemAtPosition(position);
-                                        groupTextView.setText(subCategorySelected);
-                                        subCategoryIdSelected[0] = sch.getCategoryIdWithTitle(subCategorySelected);
-                                        dialogGroup.dismiss();
-                                        dialogSGroup.dismiss();
-                                        ArrayList<Product> newProducts = sch.getproductOfACategory(subCategoryIdSelected[0]);
-                                        PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
-                                        gridview.setAdapter(newAdapter);
-                                        newAdapter.notifyDataSetChanged();
-                                    }
-                                });
-                                dialogSGroup.show();
-                            }
-                        });
-                        dialogGroup.show();
-                        dialogGroup.setCancelable(true);
                     }
                 });
+
+
+
+
                 ///Filter in Product Features
+                final String[]categorySelected = new String[1];
+                categorySelected[0]=getActivity().getString(R.string.all);
                 final String[] subCategorySelected = new String[1];
                 subCategorySelected[0]=getActivity().getString(R.string.all);
                 subGroupTextView = (TextView)mainView.findViewById(R.id.acordingto_dialog_text);
@@ -602,12 +542,4 @@ public class SuperAwesomeCardFragment extends Fragment{
         }
         return mainView;
     }
-
-    public ArrayList<Product> filterOnCategory(String pageName,String categoryName,String subCategoryName){
-        ArrayList<Product> resultFilterProduct=new ArrayList<Product>();
-        int categoryId=sch.getMainCategoryId(pageName);
-
-        return resultFilterProduct;
-    }
-
 }

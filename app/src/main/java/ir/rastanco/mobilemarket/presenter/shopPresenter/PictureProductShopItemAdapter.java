@@ -184,7 +184,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             }
         });
 
-
         holder.shareToolBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -263,8 +262,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 Configuration.shopDisplaySizeForURL +"x"+Configuration.shopDisplaySizeForURL +
                 "&q=30";
         imgLoader.DisplayImage(image_url_1, holder.imgP);
-        final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
-        progressBar.setVisibility(View.GONE);
+
 
 //       Picasso.with(Configuration.superACFragment).load(image_url_1).into(holder.imgP);
 
