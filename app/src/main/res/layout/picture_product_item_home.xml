@@ -44,12 +44,15 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/offer_icon_right_special_full_screen"
         android:id="@+id/ic_offer_right"
-        android:background="#10f7f7f7"
+        android:background="white"
         android:padding="4dp"
         android:visibility="visible"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_above="@+id/prograssBar"
+        android:layout_toRightOf="@+id/prograssBar"
+        android:layout_toEndOf="@+id/prograssBar"
+        android:layout_marginLeft="49dp"
+        android:layout_marginStart="49dp"
+        android:layout_marginBottom="169dp" />
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
