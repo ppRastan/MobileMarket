@@ -9,7 +9,7 @@ import java.util.List;
 public class ObserverLike {
 
     private static int likeStatus;
-    private static List<ChangeLikeListener> ChangeLikeListener=new ArrayList<ChangeLikeListener>();
+    private static List<ObserverLikeListener> ChangeLikeListener=new ArrayList<ObserverLikeListener>();
 
 
     public static int getLikeStatus() {
@@ -17,12 +17,12 @@ public class ObserverLike {
     }
     public static void setLikeStatus(int likeStatus) {
         ObserverLike.likeStatus = likeStatus;
-        for (ChangeLikeListener change : ChangeLikeListener) {
+        for (ObserverLikeListener change : ChangeLikeListener) {
             change.changeLikeStatus();
         }
     }
 
-    public static void changeLikeStatusListener(ChangeLikeListener change){
+    public static void changeLikeStatusListener(ObserverLikeListener change){
         ChangeLikeListener.add(change);
     }
 }

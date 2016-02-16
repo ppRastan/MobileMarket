@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -65,6 +64,34 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
         Bitmap image=null;
         LayoutInflater inflater = myContext.getLayoutInflater();
         final View rowView = inflater.inflate(R.layout.picture_product_item_home, null);
+
+
+        //Special Icon
+        //ImageButton offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
+        ImageButton offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
+        if(Configuration.RTL)
+        {
+            //offerLeft.setVisibility(View.GONE);
+            if(allProduct.get(position).getPriceOff() != 0)
+            {
+                offerRight.setVisibility(View.VISIBLE);
+            }
+            else {
+                offerRight.setVisibility(View.GONE);
+            }
+        }
+        /*if (! Configuration.RTL)
+        {
+            offerRight.setVisibility(View.GONE);
+            if(allProduct.get(position).getPriceOff() != 0) {
+
+                offerLeft.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                offerLeft.setVisibility(View.GONE);
+            }
+        }*/
 
         basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
         if (sch.checkSelectProductForShop(allProduct.get(position).getId()))
@@ -156,16 +183,11 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
                 Configuration.homeDisplaySizeForURL +"x"+Configuration.homeDisplaySizeForURL +
                 "&q=30";
         imgLoader.DisplayImage(image_url_1, PicProductImage);
-        final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
-        progressBar.setVisibility(View.GONE);
-
-
 
         /*Drawable d=ResizeImage(R.drawable.loadingholder,rowView,Configuration.homeDisplaySizeForShow);
         final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
         progressBar.getLayoutParams().height=Configuration.progressBarSize;
         progressBar.getLayoutParams().width=Configuration.progressBarSize;
-
         Glide.with(myContext)
                .load(image_url_1).override(Configuration.homeDisplaySizeForShow, Configuration.homeDisplaySizeForShow)
                 .listener(new RequestListener<String, GlideDrawable>() {
@@ -184,9 +206,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
                .into(PicProductImage);*/
 
         ImageButton shareImgB=(ImageButton)rowView.findViewById(R.id.imbt_share);
-
         shareImgB.setBackgroundColor(Color.TRANSPARENT);
-
         PicProductImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -78,7 +78,7 @@ public class PictureProductPhotoItemAdapter extends BaseAdapter{
                 "&size="+
                 Configuration.shopDisplaySizeForURL +"x"+Configuration.shopDisplaySizeForURL +
                 "&q=30";
-        imgLoader.DisplayImage(image_url_1, holder.imgP);
+        //imgLoader.DisplayImage(image_url_1, holder.imgP);
 
         holder.imgP.setOnClickListener(new View.OnClickListener() {
             @Override
