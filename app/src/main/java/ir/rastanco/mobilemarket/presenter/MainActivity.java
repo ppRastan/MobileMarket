@@ -60,7 +60,8 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
-import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserActivity;
+import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManager;
+import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginHandler;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
@@ -306,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_contact:
-                Intent userProfileIntent=new Intent(this,UserActivity.class);
+                Intent userProfileIntent=new Intent(this,LoginHandler.class);
                 this.startActivity(userProfileIntent);
                break;
             case R.id.action_search:
