@@ -201,7 +201,7 @@ public class ServerConnectionHandler {
         return products;
     }
 
-    public ArrayList<Product> getproductOfACategory(int catId){
+    public ArrayList<Product> getProductOfACategory(int catId){
         ArrayList<Product> allProducts=new ArrayList<Product>();
         ArrayList<Product> allProductsOfACategory=new ArrayList<Product>();
         allProducts=getAllProductFromTable();
@@ -417,6 +417,31 @@ public class ServerConnectionHandler {
 
         }
         return productId;
+    }
+
+    public ArrayList<Product> getProductAsPriceFilter(ArrayList<Product> allProduct,int price){
+        if(price<=10000000)
+            return getProductSmallerThanAPrice(allProduct,price);
+        else
+            return getProductAboveAsAPrice(allProduct,price);
+    }
+
+    public ArrayList<Product> getProductSmallerThanAPrice(ArrayList<Product> allProduct,int price){
+        ArrayList<Product> productPrice = new ArrayList<Product>();
+        for (int i = 0; i < allProduct.size(); i++) {
+            if (allProduct.get(i).getPrice() <= price)
+                productPrice.add(allProduct.get(i));
+        }
+        return productPrice;
+    }
+
+    public ArrayList<Product> getProductAboveAsAPrice(ArrayList<Product> allProduct,int price){
+        ArrayList<Product> productPrice = new ArrayList<Product>();
+        for (int i = 0; i < allProduct.size(); i++) {
+            if (allProduct.get(i).getPrice() >= price)
+                productPrice.add(allProduct.get(i));
+        }
+        return productPrice;
     }
 
     //article

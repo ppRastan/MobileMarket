@@ -3,8 +3,6 @@ package ir.rastanco.mobilemarket.presenter.Filter;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,26 +10,26 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-import ir.rastanco.mobilemarket.presenter.ObserverFilterCategory;
+import ir.rastanco.mobilemarket.presenter.ObserverFilterBrand;
+import ir.rastanco.mobilemarket.presenter.ObserverFilterPrice;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.DataFilter;
 
 /**
- * Created by shaiste on 1394/11/27.
+ * Created by shaisteS on 02/17/2016.
  */
-public class FilterCategory extends DialogFragment {
+public class FilterOptionProduct extends DialogFragment {
 
     private ServerConnectionHandler sch;
     private String pageName;
 
-    public static FilterCategory newInstance() {
-        FilterCategory f = new FilterCategory();
+    public static FilterOptionProduct newInstance(String name) {
+        FilterOptionProduct f = new FilterOptionProduct();
         return f;
     }
 
@@ -57,25 +55,31 @@ public class FilterCategory extends DialogFragment {
                 dismiss();
             }
         });
-        TextView text = (TextView) dialogView.findViewById(R.id.title_alertdialog_group);
 
-        int categoryIdSelected = sch.getMainCategoryId(pageName);
-        ArrayList<String> subCategoryTitle = sch.getTitleOfChildOfACategory(categoryIdSelected);
+        ArrayList<String> optionProductFilter = new ArrayList<String>();
+        optionProductFilter.add("قیمت");
+        optionProductFilter.add("برند");
+
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
+                android.R.layout.simple_list_item_1, android.R.id.text1, optionProductFilter);
         listCategory.setAdapter(adapter);
 
         listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Bundle args = new Bundle();
-                args.putString("name", parent.getItemAtPosition(position).toString());
-                FilterSubCategory filterSubCategory = new FilterSubCategory();
-                filterSubCategory.setArguments(args);
-                filterSubCategory.setTargetFragment(getFragmentManager().findFragmentByTag("Category"), 0);
-                filterSubCategory.show(getFragmentManager(), "SubCategory");
+                if(position==0){
+                    FilterOptionPrice filterOptionPrice=new FilterOptionPrice();
+                    filterOptionPrice.setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"),0);
+                    filterOptionPrice.show(getFragmentManager(),"FilterOptionPrice");
+                } else if(position==1){
+                    Bundle args = new Bundle();
+                    args.putString("name",pageName);
+                    FilterOptionBrand filterOptionBrand=new FilterOptionBrand();
+                    filterOptionBrand.setArguments(args);
+                    filterOptionBrand.setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"),1);
+                    filterOptionBrand.show(getFragmentManager(),"FilterOptionBrand");
+                }
                 dismiss();
             }
         });
@@ -86,20 +90,18 @@ public class FilterCategory extends DialogFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 0:
-                //get subCategory Selected from FilterSubcategory Dialog
-                Bundle bundle = data.getExtras();
-                String subCategorySelected = bundle.getString("subCategorySelected");
-                Log.d("Tag 1", subCategorySelected);
-
-                //send subCategory selected to SuperAwesomeCardFragment for show
-                DataFilter.FilterCategory=subCategorySelected;
-                ObserverFilterCategory.setAddFilter(true);
+                //get price Selected from FilterOptionPrice Dialog
+                Bundle bundlePrice = data.getExtras();
+                DataFilter.FilterPrice=bundlePrice.getInt("price");
+                DataFilter.FilterPriceTitle=bundlePrice.getString("priceTitle");
+                ObserverFilterPrice.setAddFilterPrice(true);
+                break;
+            case 1:
+                //get brand Selected from FilterOptionBrand Dialog
+                Bundle bundleBrand=data.getExtras();
+                DataFilter.FilterBrand=bundleBrand.getString("brand");
+                ObserverFilterBrand.setAddFilterBrand(true);
                 break;
         }
     }
-
-
-    public void show(FragmentManager supportFragmentManager, String tag) {
-    }
-
 }

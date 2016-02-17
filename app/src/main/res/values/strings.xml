@@ -62,6 +62,7 @@
     <string name="visions">نظرات:</string>
     <string name="features">ویژگی ها:</string>
     <string name="rank_of_product">درجه کیفی محصول:</string>
+    <string name="your_account">حساب کاربری شما</string>
     <string-array name="list_view_item">
         <item>item1</item>
         <item>item2</item>

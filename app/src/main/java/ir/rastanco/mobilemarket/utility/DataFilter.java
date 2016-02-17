@@ -13,4 +13,8 @@ public class DataFilter {
         } else return new DataFilter();
     }
     public static String FilterCategory="";
+    public static int FilterOption;
+    public static String FilterPriceTitle="";
+    public static int FilterPrice=0;
+    public static String FilterBrand="";
 }

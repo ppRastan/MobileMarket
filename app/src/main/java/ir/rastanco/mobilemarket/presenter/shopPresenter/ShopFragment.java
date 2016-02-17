@@ -242,7 +242,7 @@ public class ShopFragment extends Fragment {
                                         subCategoryIdSelected[0] = sch.getCategoryIdWithTitle(subCategorySelected);
                                         dialogGroup.dismiss();
                                         dialogSGroup.dismiss();
-                                        ArrayList<Product> newProducts = sch.getproductOfACategory(subCategoryIdSelected[0]);
+                                        ArrayList<Product> newProducts = sch.getProductOfACategory(subCategoryIdSelected[0]);
                                         PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                                         gridview.setAdapter(newAdapter);
                                         newAdapter.notifyDataSetChanged();
