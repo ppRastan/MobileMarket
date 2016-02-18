@@ -49,6 +49,9 @@
 
 </RelativeLayout>
 
+    <!--
+    name of product
+    -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,7 +63,9 @@
         android:layout_gravity="center_vertical|center_horizontal"
         android:background="@color/white"
         android:gravity="center" />
-
+   <!--
+   price of product
+   -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,6 +73,20 @@
         android:gravity="center"
         android:layout_gravity="center_horizontal|center_vertical"
         android:textColor="@color/black"
+        android:textSize="13dp"
+        android:background="@color/white"
+        />
+
+    <!--
+    price of procuct for you
+    -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_price_for_you"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:textColor="@color/green"
         android:textSize="13dp"
         android:background="@color/white"
         />

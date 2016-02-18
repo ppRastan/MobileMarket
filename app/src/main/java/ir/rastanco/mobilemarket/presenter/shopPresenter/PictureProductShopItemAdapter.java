@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -91,6 +92,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     {
         TextView infoP;
         TextView priceP;
+        TextView priceForYou;
         ImageView imgP;
         ImageButton shareToolBar;
         ImageButton basketToolbar;
@@ -114,13 +116,24 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.infoP.setTypeface(yekanFont);
         holder.priceP=(TextView) rowView.findViewById(R.id.txt_priceProduct);
         holder.priceP.setTypeface(yekanFont);
-
+        holder.priceForYou = (TextView)rowView.findViewById(R.id.txt_price_for_you);
+        holder.priceForYou.setTypeface(yekanFont);
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
         holder.imgP.getLayoutParams().width=Configuration.shopDisplaySizeForShow;
         holder.imgP.getLayoutParams().height=Configuration.shopDisplaySizeForShow;
-
         holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
         holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
+        if (allProduct.get(position).getPriceOff()==0){
+            holder.priceForYou.setVisibility(View.INVISIBLE);
+        }
+        else {
+            holder.priceP.setTextColor(Color.RED);
+            holder.priceP.setPaintFlags(holder.priceP.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            String priceForYou = String.valueOf(allProduct.get(position).getPrice()-allProduct.get(position).getPriceOff());
+            double amountOfFinalPrice = Double.parseDouble(priceForYou);
+            DecimalFormat formatter = new DecimalFormat("#,###,000");
+            holder.priceForYou.setText(String.valueOf(formatter.format(amountOfFinalPrice)+" "+"تومان"));
+        }
        if(Configuration.RTL)
        {
 
