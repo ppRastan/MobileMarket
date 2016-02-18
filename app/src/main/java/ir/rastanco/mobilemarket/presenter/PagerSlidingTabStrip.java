@@ -37,6 +37,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,6 +126,13 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         setWillNotDraw(false);
         mTabsContainer = new LinearLayout(context);
         mTabsContainer.setOrientation(LinearLayout.HORIZONTAL);
+        //TODO for parisa : set gravity of tabs RTL
+        mTabsContainer.setGravity(Gravity.RIGHT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+        {
+            mTabsContainer.setLayoutDirection(LAYOUT_DIRECTION_RTL);
+            mTabsContainer.onRtlPropertiesChanged(LAYOUT_DIRECTION_RTL);
+        }
         addView(mTabsContainer);
 
         mRectPaint = new Paint();
@@ -235,6 +243,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         for (int i = 0; i < mTabCount; i++) {
             if (isCustomTabs) {
                 tabView = ((CustomTabProvider) mPager.getAdapter()).getCustomTabView(this, i);
+
             } else {
                 tabView = LayoutInflater.from(getContext()).inflate(R.layout.psts_tab, this, false);
             }
@@ -271,6 +280,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
     private void updateTabStyles() {
         for (int i = 0; i < mTabCount; i++) {
+
             View v = mTabsContainer.getChildAt(i);
             v.setBackgroundResource(mTabBackgroundResId);
             v.setPadding(mTabPadding, v.getPaddingTop(), mTabPadding, v.getPaddingBottom());
