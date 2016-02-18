@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -48,6 +49,9 @@ public class ShoppingBagActivity extends Activity {
         Configuration.ShoppingBagActivity=this;
         sec=new Security();
         setContentView(R.layout.activity_shopping_bag);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+
+            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         yekanFont= Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
         totalPrice = (TextView)findViewById(R.id.total_price);
         totalPrice.setTypeface(yekanFont);

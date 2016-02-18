@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@color/white"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 <LinearLayout
@@ -8,24 +9,26 @@
     android:layout_height="?actionBarSize"
     android:orientation="horizontal"
     android:weightSum="10"
-    android:background="@color/white">
-    <TextView
-        android:layout_width="0dp"
-        android:layout_weight="8"
-        android:layout_height="wrap_content"
-        android:text="@string/pm_to_friend"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        android:layout_gravity="right|center_vertical"/>
+    >
     <ImageButton
         android:layout_gravity="center_vertical|center_horizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:padding="5dp"
-        android:background="@color/white"
+        android:background="@null"
         android:id="@+id/close_pm_to_friend"
         android:src="@mipmap/ic_cancel_dialog"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="8"
+        android:padding="5dp"
+        android:layout_height="wrap_content"
+        android:text="@string/pm_to_friend"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:layout_gravity="right|center_vertical"/>
 
     </LinearLayout>
     <LinearLayout
@@ -46,13 +49,14 @@
         android:textColor="@color/black"
         android:id="@+id/text_to_send"
         android:hint="@string/text_to_send"
-        android:padding="8dp"/>
+        android:padding="5dp"/>
     <Button
-        android:background="@color/white"
+        android:background="@null"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
         android:id="@+id/send_my_pm"
         android:gravity="center"
         android:text="@string/share"
+        style="?borderlessButtonStyle"
         android:textColor="@color/black"/>
 </LinearLayout>

@@ -31,24 +31,20 @@
         android:layout_height="wrap_content"
         android:src="@mipmap/offer_icon_right_special"
         android:id="@+id/ic_offer_right"
-        android:background="#10f7f7f7"
-        android:padding="4dp"
-        android:visibility="visible"
-        android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/imbt_picProduct"
-        android:layout_alignEnd="@+id/imbt_picProduct" />
+        android:background="@null"
+        android:layout_alignBottom="@+id/ic_offer_left"
+        android:layout_alignLeft="@+id/ic_offer_left"
+        android:layout_alignStart="@+id/ic_offer_left" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/ic_offer_left_orange"
+        android:src="@mipmap/offer_icon_left_special"
         android:id="@+id/ic_offer_left"
-        android:background="#10f7f7f7"
-        android:padding="4dp"
-        android:visibility="visible"
-        android:layout_alignBottom="@+id/ic_offer_right"
-        android:layout_alignRight="@+id/imbt_picProduct"
-        android:layout_alignEnd="@+id/imbt_picProduct" />
+        android:background="@null"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>
