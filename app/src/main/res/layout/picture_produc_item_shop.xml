@@ -4,13 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:foregroundGravity="center_horizontal|center_vertical"
-        android:id="@+id/imbt_picProduct"
-        android:padding="4dp"
-        android:background="@color/white"/>
 
     <RelativeLayout
     android:layout_width="match_parent"
@@ -24,27 +17,34 @@
             android:background="@color/white"
             android:layout_centerInParent="true"
             />-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:foregroundGravity="center_horizontal|center_vertical"
+            android:id="@+id/imbt_picProduct"
+            android:padding="4dp"
+            android:background="@color/white"/>
 
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/offer_icon_right_special"
+            android:id="@+id/ic_offer_right"
+            android:background="@null"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/offer_icon_right_special"
-        android:id="@+id/ic_offer_right"
-        android:background="@null"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/offer_icon_left_special"
+            android:id="@+id/ic_offer_left"
+            android:background="@null"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/offer_icon_left_special"
-        android:id="@+id/ic_offer_left"
-        android:background="@null"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>
