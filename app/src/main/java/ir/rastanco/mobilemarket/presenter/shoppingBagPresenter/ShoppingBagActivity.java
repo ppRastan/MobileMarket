@@ -29,7 +29,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.Security;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Connect;
 import ir.rastanco.mobilemarket.presenter.MainActivity;
-import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.UserActivity;
+import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
@@ -111,7 +111,7 @@ public class ShoppingBagActivity extends Activity {
                 } else {
                     UserInfo user = sch.getUserInfo();
                     if (user == null) {
-                        Intent shoppingBagIntent = new Intent(Configuration.ShoppingBagContext, UserActivity.class);
+                        Intent shoppingBagIntent = new Intent(Configuration.ShoppingBagContext, LoginHandler.class);
                         startActivity(shoppingBagIntent);
                     } else {
                         String url = "http://decoriss.com/app,data=";
@@ -166,7 +166,6 @@ public class ShoppingBagActivity extends Activity {
                 double finalPriceToolbar = Double.parseDouble(numberProductPrice);
                 DecimalFormat formatter = new DecimalFormat("#,###,000");
                 totalPrice.setText(formatter.format(finalPriceToolbar) + "   " + getResources().getString(R.string.toman)+" ");
-
             }
         });
     }

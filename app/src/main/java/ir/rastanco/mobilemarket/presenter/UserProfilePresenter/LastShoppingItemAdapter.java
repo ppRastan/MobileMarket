@@ -53,7 +53,7 @@ public class LastShoppingItemAdapter extends ArrayAdapter<ProductShop> {
         rowView = inflater.inflate(R.layout.last_shopping_item, null);
 
 
-        imgLoader = new ImageLoader(Configuration.UserAccountContext,rowView,Configuration.homeDisplaySizeForShow); // important
+        imgLoader = new ImageLoader(Configuration.UserLastShoppingContext,rowView,Configuration.homeDisplaySizeForShow); // important
         picInvoice = (ImageView) rowView.findViewById(R.id.img_invoice);
         image_url_1 = allProductsShop.get(position).getInvoiceImageLink();
         imgLoader.DisplayImage(image_url_1, picInvoice);

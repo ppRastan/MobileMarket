@@ -38,8 +38,9 @@ public class Configuration {
     public static Context UserActivity;
     public static Context ManageUserPage;
     public static Context ShoppingBagContext;
-    public static Context UserAccountContext;
+    public static Context UserLastShoppingContext;
     public static Context ProductOptionContext;
+    public static Context AccountManagerContext;
 
     public static ViewPager UserProfileViewPager;
     public static ViewPager MainPager;

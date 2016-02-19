@@ -36,9 +36,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".presenter.ProductInfoPresenter.ProductInfoActivity" />
-        <activity android:name=".presenter.UserProfilePresenter.UserActivity"/>
         <activity android:name=".presenter.shoppingBagPresenter.ShoppingBagActivity"/>
         <activity android:name=".presenter.ProductInfoPresenter.ProductOptionActivity"/>
+        <activity android:name=".presenter.UserProfilePresenter.AccountManager"/>
+        <activity android:name=".presenter.UserProfilePresenter.UserFavouriteProduct"/>
+        <activity android:name=".presenter.UserProfilePresenter.UserLastShoppingProduct"/>
         <receiver android:name="co.ronash.pushe.receiver.UpdateReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />

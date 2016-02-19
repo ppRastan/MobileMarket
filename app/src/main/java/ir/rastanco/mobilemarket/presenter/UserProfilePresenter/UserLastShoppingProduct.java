@@ -1,10 +1,9 @@
 package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
 
+import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -16,20 +15,24 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
- * Created by Emertat on 01/15/2016.
+ * Created by ShaisteS on 1394/11/23.
  */
-public class UserAccount extends Fragment {
+public class UserLastShoppingProduct extends Activity {
 
     private ServerConnectionHandler sch;
     private ArrayList<ProductShop> allProductsShop;
     private UserInfo user;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View userAccountView=inflater.inflate(R.layout.fragment_user_account, container, false);
-        Configuration.UserAccountContext =getContext();
-        sch=new ServerConnectionHandler(Configuration.UserAccountContext);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_user_account);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+
+        Configuration.UserLastShoppingContext =this;
+        sch=new ServerConnectionHandler(Configuration.UserLastShoppingContext);
         allProductsShop=new ArrayList<ProductShop>();
         user=new UserInfo();
         user=sch.getUserInfo();
@@ -37,13 +40,8 @@ public class UserAccount extends Fragment {
             allProductsShop=sch.getLastProductShop("http://decoriss.com/json/get,com=orders&uid="+
                     user.getUserId()+"&cache=false");
         }
-        //allProductsShop=sch.getLastProductShop("http://decoriss.com/json/get,com=orders&uid=4973&cache=false");
-        ListView lvLastShopping=(ListView)userAccountView.findViewById(R.id.lv_lastShopping);
-        LastShoppingItemAdapter adapter=new LastShoppingItemAdapter(getActivity(),R.layout.last_shopping_item,allProductsShop);
+        ListView lvLastShopping=(ListView)findViewById(R.id.lv_lastShopping);
+        LastShoppingItemAdapter adapter=new LastShoppingItemAdapter(Configuration.UserLastShoppingContext,R.layout.last_shopping_item,allProductsShop);
         lvLastShopping.setAdapter(adapter);
-
-        return userAccountView;
-
-
     }
 }
