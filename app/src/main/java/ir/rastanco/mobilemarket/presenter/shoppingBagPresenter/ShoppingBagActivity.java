@@ -9,9 +9,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -39,10 +42,15 @@ public class ShoppingBagActivity extends Activity {
     private ServerConnectionHandler sch;
     private Button okShop;
     private TextView totalPrice;
+    private TextView totalTax;
+    private TextView totalPrePayment;
+    private TextView notPaiedYet;
     private Security sec;
     private ArrayList<Integer> productsId;
     private Typeface yekanFont;
     private ListView lvShoppingBag;
+    private ImageView stateOfYourRequestByBasketPreview;
+    private TextView stateOfYourRequestByText;
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);

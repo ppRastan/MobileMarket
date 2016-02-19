@@ -69,8 +69,8 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
         //Special Icon
         //ImageButton offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
         ImageButton offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
-        if(Configuration.RTL)
-        {
+      //  if(Configuration.RTL)
+       // {
             //offerLeft.setVisibility(View.GONE);
             if(allProduct.get(position).getPriceOff() != 0)
             {
@@ -79,7 +79,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
             else {
                 offerRight.setVisibility(View.GONE);
             }
-        }
+       // }
         /*if (! Configuration.RTL)
         {
             offerRight.setVisibility(View.GONE);
