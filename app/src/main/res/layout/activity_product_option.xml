@@ -10,6 +10,14 @@
     android:background="@color/decoriss"
     android:orientation="horizontal"
     android:weightSum="10">
+       <ImageButton
+        android:layout_width="0dp"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:id="@+id/back_full_screen"
+        android:src="@mipmap/ic_back"
+        android:background="@color/decoriss"/>
     <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
@@ -19,14 +27,6 @@
         android:gravity="center_vertical|right"
         android:textColor="@color/black"
         />
-    <ImageButton
-        android:layout_width="0dp"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:id="@+id/back_full_screen"
-        android:src="@mipmap/ic_back"
-        android:background="@color/decoriss"/>
 
 </LinearLayout>
    <ScrollView
