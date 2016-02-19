@@ -46,7 +46,7 @@ public class ShoppingBagActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        Configuration.ShoppingBagActivity=this;
+        Configuration.ShoppingBagContext =this;
         sec=new Security();
         setContentView(R.layout.activity_shopping_bag);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -62,8 +62,8 @@ public class ShoppingBagActivity extends Activity {
                 startActivity(new Intent(ShoppingBagActivity.this, MainActivity.class));
             }
         });
-        Configuration.ShoppingBagActivity=this;
-        sch=new ServerConnectionHandler(Configuration.ShoppingBagActivity);
+        Configuration.ShoppingBagContext =this;
+        sch=new ServerConnectionHandler(Configuration.ShoppingBagContext);
 
         productsId=new ArrayList<Integer>();
         productsId=sch.getProductShoppingID();
@@ -98,12 +98,12 @@ public class ShoppingBagActivity extends Activity {
                 Map<Integer, Integer> shopInfo = new HashMap<Integer, Integer>();
                 shopInfo = sch.getAllProductShopping();
                 if (shopInfo.size() == 0) {
-                    Toast.makeText(Configuration.ShoppingBagActivity,getResources().getString(R.string.empty_basket),
+                    Toast.makeText(Configuration.ShoppingBagContext,getResources().getString(R.string.empty_basket),
                             Toast.LENGTH_LONG).show();
                 } else {
                     UserInfo user = sch.getUserInfo();
                     if (user == null) {
-                        Intent shoppingBagIntent = new Intent(Configuration.ShoppingBagActivity, UserActivity.class);
+                        Intent shoppingBagIntent = new Intent(Configuration.ShoppingBagContext, UserActivity.class);
                         startActivity(shoppingBagIntent);
                     } else {
                         String url = "http://decoriss.com/app,data=";
@@ -122,7 +122,7 @@ public class ShoppingBagActivity extends Activity {
                         Observer.setShoppingCancel(true);
                         Connect.setMyBoolean(false);
                         productsId = sch.getProductShoppingID();
-                        shoppingBagAdapter adapter = new shoppingBagAdapter(Configuration.ShoppingBagActivity,
+                        shoppingBagAdapter adapter = new shoppingBagAdapter(Configuration.ShoppingBagContext,
                                 R.layout.activity_shopping_bag, productsId);
                         lvShoppingBag.setAdapter(adapter);
                         adapter.notifyDataSetChanged();

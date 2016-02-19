@@ -41,12 +41,12 @@ public class PhoneCallListener extends PhoneStateListener {
                 Log.i(LOG_TAG, "restart app");
 
                 // restart app
-                Intent i = Configuration.AplicationCOntext.getPackageManager()
+                Intent i = Configuration.AplicationContext.getPackageManager()
                         .getLaunchIntentForPackage(
-                                Configuration.AplicationCOntext.getPackageName());
+                                Configuration.AplicationContext.getPackageName());
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.setClass(Configuration.AplicationCOntext, MainActivity.class);
-                Configuration.AplicationCOntext.startActivity(i);
+                i.setClass(Configuration.AplicationContext, MainActivity.class);
+                Configuration.AplicationContext.startActivity(i);
                 isPhoneCalling = false;
             }
 

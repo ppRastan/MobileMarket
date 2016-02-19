@@ -72,7 +72,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
         this.products=allProducts;
         this.productsSize=allProductSize;
         activity =(Activity) context;
-        sch=new ServerConnectionHandler(Configuration.ProductInfoActivity);
+        sch=new ServerConnectionHandler(Configuration.ProductInfoContext);
         aProduct=new Product();
 
     }
@@ -114,7 +114,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
             @Override
             public void onClick(View v) {
                 sch.addProductToShoppingBag(products.get(position).getId(), 1);
-                Configuration.ProductInfoActivity.startActivity(new Intent(Configuration.ProductInfoActivity, ShoppingBagActivity.class));
+                Configuration.ProductInfoContext.startActivity(new Intent(Configuration.ProductInfoContext, ShoppingBagActivity.class));
                 Connect.setMyBoolean(true);
             }
         });
@@ -191,8 +191,8 @@ public class FullScreenImageAdapter extends PagerAdapter{
                         textToSend = editTextToShare.getText().toString();
                         String Share=textToSend+"\n\n"+
                                 products.get(position).getLinkInSite()+ "\n\n"+
-                                Configuration.ProductInfoActivity.getResources().getString(R.string.text_to_advertise)+"\n\n"
-                                +Configuration.ProductInfoActivity.getResources().getString(R.string.LinkDownloadApp);
+                                Configuration.ProductInfoContext.getResources().getString(R.string.text_to_advertise)+"\n\n"
+                                +Configuration.ProductInfoContext.getResources().getString(R.string.LinkDownloadApp);
 
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
@@ -220,7 +220,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
             }
         });
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
-        final ImageLoader imgLoader = new ImageLoader(Configuration.ProductInfoActivity,viewLayout,Configuration.homeDisplaySizeForShow); // important
+        final ImageLoader imgLoader = new ImageLoader(Configuration.ProductInfoContext,viewLayout,Configuration.homeDisplaySizeForShow); // important
         String picNum = products.get(position).getImagesPath().get(0);
         try {
             picNum = URLEncoder.encode(picNum, "UTF-8");
@@ -242,7 +242,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
             counter=1;
 
         for (int i = counter; i < products.get(position).getImagesPath().size(); i++) {
-            final ImageView imageView = new ImageView(Configuration.ProductInfoActivity);
+            final ImageView imageView = new ImageView(Configuration.ProductInfoContext);
             imageView.setId(i - 1);
             imageView.setPadding(0, 0, 0, 0);
             layout.addView(imageView);
@@ -311,8 +311,8 @@ public class FullScreenImageAdapter extends PagerAdapter{
                     textToSend = editTextToShare.getText().toString();
                     String Share=textToSend+"\n\n"+
                             products.get(position).getLinkInSite()+ "\n\n"+
-                            Configuration.ProductInfoActivity.getResources().getString(R.string.text_to_advertise)+"\n\n"
-                            +Configuration.ProductInfoActivity.getResources().getString(R.string.LinkDownloadApp);
+                            Configuration.ProductInfoContext.getResources().getString(R.string.text_to_advertise)+"\n\n"
+                            +Configuration.ProductInfoContext.getResources().getString(R.string.LinkDownloadApp);
 
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);

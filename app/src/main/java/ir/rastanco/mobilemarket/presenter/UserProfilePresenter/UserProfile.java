@@ -29,8 +29,8 @@ public class UserProfile extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
         final View userProfileView = inflater.inflate(R.layout.fragment_user_profile, container, false);
-        Configuration.UserProfileFragment=getContext();
-        sch=new ServerConnectionHandler(Configuration.UserProfileFragment);
+        Configuration.UserProfileContext =getContext();
+        sch=new ServerConnectionHandler(Configuration.UserProfileContext);
         UserInfo aUser=sch.getUserInfo();
         ArrayList<Product> allProductLike=new ArrayList<Product>();
         allProductLike=sch.getAllProductFavourite();
@@ -39,7 +39,7 @@ public class UserProfile extends Fragment {
         txtEmail.setText(aUser.getUserEmail());
 
         ListView lsvFavourite=(ListView) userProfileView.findViewById(R.id.lsv_favouriteProduct);
-        UserProfileAdapter adapter= new UserProfileAdapter(Configuration.UserProfileFragment,R.layout.user_profile_like_product_item,allProductLike);
+        UserProfileAdapter adapter= new UserProfileAdapter(Configuration.UserProfileContext,R.layout.user_profile_like_product_item,allProductLike);
         lsvFavourite.setAdapter(adapter);
 
         ImageButton logOut=(ImageButton)userProfileView.findViewById(R.id.img_logout);
