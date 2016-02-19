@@ -164,6 +164,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
                 intentProductInfo.putExtra("productId", products.get(position).getId());
                 intentProductInfo.putExtra("groupId", products.get(position).getGroupId());
                 viewLayout.getContext().startActivity(intentProductInfo);
+                activity.overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
 
             }
         });

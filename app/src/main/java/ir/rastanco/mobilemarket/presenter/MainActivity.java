@@ -309,6 +309,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_contact:
                 Intent userProfileIntent=new Intent(this,LoginHandler.class);
                 this.startActivity(userProfileIntent);
+                overridePendingTransition( R.anim.slide_out_up, R.anim.slide_in_up );
                break;
             case R.id.action_search:
             {
@@ -347,6 +348,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_notifications :
                 Intent shoppingBagIntent = new Intent(this, ShoppingBagActivity.class);
                 this.startActivity(shoppingBagIntent);
+                overridePendingTransition( R.anim.slide_out_up, R.anim.slide_in_up );
                 break;
             case R.id.update:
                 version=sch.getLastVersionInServer("http://decoriss.com/app/Version.txt");

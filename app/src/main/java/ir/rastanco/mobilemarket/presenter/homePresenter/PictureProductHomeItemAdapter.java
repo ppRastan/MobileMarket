@@ -108,6 +108,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
                 isSelectedForShop=true;
                 sch.addProductToShoppingBag(allProduct.get(position).getId(),1);
                 myContext.startActivity(new Intent(myContext,ShoppingBagActivity.class));
+                myContext.overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up);
                 Connect.setMyBoolean(true);
                 isSelectedForShop = true;
 
