@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
             third_page=mainCategoryTitle.get(1);
             fourth_page=mainCategoryTitle.get(2);
         }
-        this.checkDbState();
         this.CreatePageRightToLeft();
         this.addActionBar();
         this.setFAb();
@@ -134,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             public void OnMyBooleanChanged() {
                 MenuItem item = menu.findItem(R.id.action_notifications);
                 LayerDrawable icon = (LayerDrawable) item.getIcon();
-                CounterIconUtils.setBadgeCount(Configuration.MainActivityFragment,
+                CounterIconUtils.setBadgeCount(Configuration.MainActivityContext,
                         icon, sch.getCountProductShop());
             }
         });
@@ -193,8 +192,7 @@ public class MainActivity extends AppCompatActivity {
             Configuration.RTL=false;
     }
 
-    private void setFAb()
-    {
+    private void setFAb(){
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.fab_color)));
         fab.setOnClickListener(new View.OnClickListener() {
@@ -202,10 +200,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setData(Uri.parse("tel:02166558994"));
-                if (ActivityCompat.checkSelfPermission(Configuration.MainActivityFragment, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(Configuration.MainActivityContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                if (ActivityCompat.checkSelfPermission(Configuration.MainActivityFragment, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(Configuration.MainActivityContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
                 startActivity(callIntent);
@@ -238,6 +236,9 @@ public class MainActivity extends AppCompatActivity {
             sch.updateVersionApp("1.3.9.1");
         }
 
+        if (sch.emptyUserInfo())
+            Configuration.userLoginStatus=false;
+        else Configuration.userLoginStatus=true;
 
         if (sch.emptySetting())
             sch.addSettingApp("1352689345","25",getResources().getString(R.string.version));
@@ -249,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (sch.emptyDBProduct()){
 
-            ParseJsonProduct pjp=new ParseJsonProduct(Configuration.MainActivityFragment);
+            ParseJsonProduct pjp=new ParseJsonProduct(Configuration.MainActivityContext);
             pjp.execute("http://decoriss.com/json/get,com=product&newfromts=1352689345&cache=false");
         }
 
@@ -261,9 +262,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addServerConnection() {
-        Configuration.MainActivityFragment = this;
-        Configuration.AplicationCOntext=getBaseContext();
-        sch=new ServerConnectionHandler(Configuration.MainActivityFragment);
+        Configuration.MainActivityContext = this;
+        Configuration.AplicationContext =getBaseContext();
+        sch=new ServerConnectionHandler(Configuration.MainActivityContext);
         categories=new ArrayList<Category>();
         products=new ArrayList<Product>();
         articles=new ArrayList<Article>();
@@ -307,9 +308,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_contact:
-                Intent userProfileIntent=new Intent(this,LoginHandler.class);
-                this.startActivity(userProfileIntent);
-                overridePendingTransition( R.anim.slide_out_up, R.anim.slide_in_up );
+                if (Configuration.userLoginStatus){
+                    Intent userProfileIntent=new Intent(Configuration.MainActivityContext,LoginHandler.class);
+                    this.startActivity(userProfileIntent);
+                }
+                else {
+                    Intent userProfileIntent=new Intent(Configuration.MainActivityContext,AccountManager.class);
+                    this.startActivity(userProfileIntent);
+                }
                break;
             case R.id.action_search:
             {
@@ -336,7 +342,7 @@ public class MainActivity extends AppCompatActivity {
                         aProduct=sch.getAProduct(productId);
                         ArrayList<Product> product=new ArrayList<Product>();
                         product.add(aProduct);
-                        Intent intent = new Intent(Configuration.MainActivityFragment, ProductInfoActivity.class);
+                        Intent intent = new Intent(Configuration.MainActivityContext, ProductInfoActivity.class);
                         intent.putParcelableArrayListExtra("allProduct",product);
                         intent.putExtra("position", 0);
                         startActivity(intent);
@@ -348,7 +354,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_notifications :
                 Intent shoppingBagIntent = new Intent(this, ShoppingBagActivity.class);
                 this.startActivity(shoppingBagIntent);
-                overridePendingTransition( R.anim.slide_out_up, R.anim.slide_in_up );
                 break;
             case R.id.update:
                 version=sch.getLastVersionInServer("http://decoriss.com/app/Version.txt");

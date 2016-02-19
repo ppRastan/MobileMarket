@@ -39,8 +39,8 @@ public class UserLogin extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
          final View userLogin= inflater.inflate(R.layout.fragment_user_login, container, false);
-         Configuration.UserLoginFragment =getContext();
-         sch=new ServerConnectionHandler(Configuration.UserLoginFragment);
+         Configuration.UserLoginContext =getContext();
+         sch=new ServerConnectionHandler(Configuration.UserLoginContext);
          btnLogin=(Button) userLogin.findViewById(R.id.btn_login);
          btnSignUp=(Button) userLogin.findViewById(R.id.btn_enter);
          btnForgotPass=(Button) userLogin.findViewById(R.id.btn_forgot);

@@ -34,12 +34,12 @@ public class ProductInfoActivity extends Activity {
 
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         }
-        Configuration.ProductInfoActivity = this;
+        Configuration.ProductInfoContext = this;
         intent = this.getIntent();
         productBundle=new Bundle();
         productBundle=intent.getExtras();
         allProducts=productBundle.getParcelableArrayList("allProduct");
-        ServerConnectionHandler sch=new ServerConnectionHandler(Configuration.ProductInfoActivity);
+        ServerConnectionHandler sch=new ServerConnectionHandler(Configuration.ProductInfoContext);
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewPager=(ViewPager)findViewById(R.id.pager);
         viewPager.setAdapter(new FullScreenImageAdapter(this, allProducts, allProducts.size()));

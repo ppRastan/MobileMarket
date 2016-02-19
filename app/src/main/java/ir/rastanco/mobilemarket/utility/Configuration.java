@@ -17,6 +17,8 @@ public class Configuration {
 
     }
 
+    public static boolean userLoginStatus;
+
     public static String homeDisplaySizeForURL;
     public static int homeDisplaySizeForShow;
     public static String shopDisplaySizeForURL;
@@ -28,16 +30,16 @@ public class Configuration {
 
     public static Context activityContext;
     public static Context superACFragment;
-    public static Context MainActivityFragment;
-    public static Context ProductInfoActivity;
-    public static Context AplicationCOntext;
-    public static Context UserLoginFragment;
-    public static Context UserProfileFragment;
+    public static Context MainActivityContext;
+    public static Context ProductInfoContext;
+    public static Context AplicationContext;
+    public static Context UserLoginContext;
+    public static Context UserProfileContext;
     public static Context UserActivity;
     public static Context ManageUserPage;
-    public static Context ShoppingBagActivity;
-    public static Context UserAccountFragment;
-    public static Context ProductOptionFragment;
+    public static Context ShoppingBagContext;
+    public static Context UserAccountContext;
+    public static Context ProductOptionContext;
 
     public static ViewPager UserProfileViewPager;
     public static ViewPager MainPager;

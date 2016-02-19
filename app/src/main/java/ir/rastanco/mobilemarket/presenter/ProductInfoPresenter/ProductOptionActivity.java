@@ -38,8 +38,8 @@ public class ProductOptionActivity extends Activity {
         setContentView(R.layout.activity_product_option);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        Configuration.ProductOptionFragment=this;
-        sch=new ServerConnectionHandler(Configuration.ProductOptionFragment);
+        Configuration.ProductOptionContext=this;
+        sch=new ServerConnectionHandler(Configuration.ProductOptionContext);
 
         intent = this.getIntent();
         productId=intent.getIntExtra("productId", 0);
@@ -57,11 +57,11 @@ public class ProductOptionActivity extends Activity {
                 checkBackButtonState();
             }
         });
-        sch=new ServerConnectionHandler(Configuration.ProductOptionFragment);
+        sch=new ServerConnectionHandler(Configuration.ProductOptionContext);
         options=new ArrayList<ProductOption>();
         options=sch.getProductOption(productId,groupId);
         lvProductOption=(ListView)findViewById(R.id.lv_productOption);
-        ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.ProductOptionFragment,
+        ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.ProductOptionContext,
                 R.layout.product_info_item,options);
         lvProductOption.setAdapter(adapter);
 
@@ -69,7 +69,7 @@ public class ProductOptionActivity extends Activity {
         ArrayList<String> commentsAProduct=new ArrayList<String>();
         commentsAProduct=sch.getContentCommentsAllProduct(productId);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                Configuration.ProductOptionFragment,
+                Configuration.ProductOptionContext,
                 android.R.layout.simple_list_item_1,
                 commentsAProduct );
 

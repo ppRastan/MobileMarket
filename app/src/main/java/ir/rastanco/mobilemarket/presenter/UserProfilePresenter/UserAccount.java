@@ -28,8 +28,8 @@ public class UserAccount extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View userAccountView=inflater.inflate(R.layout.fragment_user_account, container, false);
-        Configuration.UserAccountFragment=getContext();
-        sch=new ServerConnectionHandler(Configuration.UserAccountFragment);
+        Configuration.UserAccountContext =getContext();
+        sch=new ServerConnectionHandler(Configuration.UserAccountContext);
         allProductsShop=new ArrayList<ProductShop>();
         user=new UserInfo();
         user=sch.getUserInfo();
