@@ -40,7 +40,6 @@ import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivi
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 public class FullScreenImageAdapter extends PagerAdapter{
-//push again
     private Activity activity;
     private ArrayList<Product> products;
     private ArrayList<ProductOption> options;
@@ -66,6 +65,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
     private double amountOfFinalPrice;
     private DecimalFormat formatter;
     private Typeface yekanFont;
+    private ImageView rankOfCurrentProduct;
     // test parisa's connection
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
