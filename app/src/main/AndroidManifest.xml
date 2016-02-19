@@ -11,23 +11,24 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <permission
         android:name="ir.rastanco.mobilemarket.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="ir.rastanco.mobilemarket.permission.C2D_MESSAGE" />
     <!-- Optional permissions -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:allowBackup="true"
         android:name=".utility.Application"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_icon"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".presenter.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,21 +37,21 @@
             </intent-filter>
         </activity>
         <activity android:name=".presenter.ProductInfoPresenter.ProductInfoActivity" />
-        <activity android:name=".presenter.shoppingBagPresenter.ShoppingBagActivity"/>
-        <activity android:name=".presenter.ProductInfoPresenter.ProductOptionActivity"/>
-        <activity android:name=".presenter.UserProfilePresenter.AccountManager"/>
-        <activity android:name=".presenter.UserProfilePresenter.UserFavouriteProduct"/>
-        <activity android:name=".presenter.UserProfilePresenter.UserLastShoppingProduct"/>
+        <activity android:name=".presenter.shoppingBagPresenter.ShoppingBagActivity" />
+        <activity android:name=".presenter.ProductInfoPresenter.ProductOptionActivity" />
+        <activity android:name=".presenter.UserProfilePresenter.AccountManager" />
+        <activity android:name=".presenter.UserProfilePresenter.UserFavouriteProduct" />
+        <activity android:name=".presenter.UserProfilePresenter.UserLastShoppingProduct" />
 
-        <service android:name=".presenter.Services.NotificationService"/>
-        <receiver android:name=".presenter.Services.UpdateEveryConnectionOk" >
-            <intent-filter >
+        <service android:name=".presenter.Services.NotificationService" />
+
+        <receiver android:name=".presenter.Services.UpdateEveryConnectionOk">
+            <intent-filter>
                 <action android:name="android.net.wifi.STATE_CHANGE" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-
-        <receiver android:name="co.ronash.pushe.receiver.UpdateReceiver" >
+        <receiver android:name="co.ronash.pushe.receiver.UpdateReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
 
@@ -59,23 +60,32 @@
                     android:scheme="package" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
                 <category android:name="ir.rastanco.mobilemarket" />
             </intent-filter>
         </receiver>
 
-        <meta-data android:name="co.ronash.pushe.token" android:value="f7-157d-4f_39109906948"/>
+        <meta-data
+            android:name="co.ronash.pushe.token"
+            android:value="f7-157d-4f_39109906948" />
+
         <activity android:name=".presenter.UserProfilePresenter.LoginHandler" />
-        <activity android:name=".presenter.UserProfilePresenter.AccountManager"/>
+        <activity android:name=".presenter.UserProfilePresenter.AccountManager" />
+        <activity android:name=".presenter.UserHelper"
+            android:theme="@style/Transparent">
+            <intent-filter>
+                <action android:name="ir.rastanco.mobilemarket.presenter.UserHelper" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

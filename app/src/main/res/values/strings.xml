@@ -75,4 +75,5 @@
         <item>item6</item>
     </string-array>
     <string name="title_activity_user_guider">UserGuider</string>
+    <string name="similar_photoes">مشاهده ی سایر محصولات</string>
 </resources>
