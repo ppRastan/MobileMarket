@@ -30,6 +30,16 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleItemAdapter;
 import ir.rastanco.mobilemarket.presenter.Filter.FilterCategory;
 import ir.rastanco.mobilemarket.presenter.Filter.FilterOptionProduct;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterBrand;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterBrandListener;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCategory;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCategoryListener;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterPrice;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterPriceListener;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverLike;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverLikeListener;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProductListener;
 import ir.rastanco.mobilemarket.presenter.homePresenter.PictureProductHomeItemAdapter;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.PictureProductShopItemAdapter;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -281,7 +291,7 @@ public class SuperAwesomeCardFragment extends Fragment {
                             public void changeFilterPrice() {
                                 txtFilterOptionProductSelected.setText(DataFilter.FilterPriceTitle);
                                 txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.red));
-                                ArrayList<Product> newProducts = sch.getProductAsPriceFilter(products,txtFilterOptionProductSelected.getText().toString());
+                                ArrayList<Product> newProducts = sch.getProductAsPriceFilter(products, txtFilterOptionProductSelected.getText().toString());
                                 PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                                 gridview.setAdapter(newAdapter);
                                 newAdapter.notifyDataSetChanged();

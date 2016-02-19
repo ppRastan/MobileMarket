@@ -1,4 +1,4 @@
-package ir.rastanco.mobilemarket.presenter;
+package ir.rastanco.mobilemarket.presenter.Observer;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -59,6 +59,8 @@ import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingBagClickListener;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManager;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginHandler;
@@ -129,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         this.phoneManager();
         this.displayWindow();
         shopCounter=sch.getCountProductShop();
-        Connect.addMyBooleanListener(new ConnectionBooleanChangeListener() {
+        ObserverShopping.addMyBooleanListener(new ObserverShoppingBagClickListener() {
             @Override
             public void OnMyBooleanChanged() {
                 MenuItem item = menu.findItem(R.id.action_notifications);
