@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
             fourth_page=mainCategoryTitle.get(2);
         }
         this.CreatePageRightToLeft();
+        this.checkDbState();
         this.addActionBar();
         this.setFAb();
         this.phoneManager();
@@ -237,8 +238,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (sch.emptyUserInfo())
-            Configuration.userLoginStatus=false;
-        else Configuration.userLoginStatus=true;
+            Configuration.userLoginStatus=false; //please login
+        else Configuration.userLoginStatus=true;//
 
         if (sch.emptySetting())
             sch.addSettingApp("1352689345","25",getResources().getString(R.string.version));
@@ -309,11 +310,12 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_contact:
                 if (Configuration.userLoginStatus){
-                    Intent userProfileIntent=new Intent(Configuration.MainActivityContext,LoginHandler.class);
+
+                    Intent userProfileIntent=new Intent(Configuration.MainActivityContext,AccountManager.class);
                     this.startActivity(userProfileIntent);
                 }
                 else {
-                    Intent userProfileIntent=new Intent(Configuration.MainActivityContext,AccountManager.class);
+                    Intent userProfileIntent=new Intent(Configuration.MainActivityContext,LoginHandler.class);
                     this.startActivity(userProfileIntent);
                 }
                break;

@@ -65,24 +65,7 @@ public class FilterOptionPrice extends DialogFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                int price=0;
-                switch (position) {
-                    case 0:
-                        price=1000000;
-                        break;
-                    case 1:
-                        price=5000000;
-                        break;
-                    case 2:
-                        price=10000000;
-                        break;
-                    case 3:
-                        price=10000001; //1 is sign for price is above
-                        break;
-                }
-
                 Intent args = new Intent();
-                args.putExtra("price",price);
                 args.putExtra("priceTitle",parent.getItemAtPosition(position).toString());
                 getTargetFragment().onActivityResult(getTargetRequestCode(), 0, args);
                 dismiss();

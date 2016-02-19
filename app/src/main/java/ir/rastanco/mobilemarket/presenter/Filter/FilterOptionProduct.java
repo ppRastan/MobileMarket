@@ -92,14 +92,15 @@ public class FilterOptionProduct extends DialogFragment {
             case 0:
                 //get price Selected from FilterOptionPrice Dialog
                 Bundle bundlePrice = data.getExtras();
-                DataFilter.FilterPrice=bundlePrice.getInt("price");
                 DataFilter.FilterPriceTitle=bundlePrice.getString("priceTitle");
+                DataFilter.FilterOption="price";
                 ObserverFilterPrice.setAddFilterPrice(true);
                 break;
             case 1:
                 //get brand Selected from FilterOptionBrand Dialog
                 Bundle bundleBrand=data.getExtras();
                 DataFilter.FilterBrand=bundleBrand.getString("brand");
+                DataFilter.FilterOption="brand";
                 ObserverFilterBrand.setAddFilterBrand(true);
                 break;
         }
