@@ -65,6 +65,7 @@
     <string name="your_account">حساب کاربری شما</string>
     <string name="thanks">سپاسگزار</string>
     <string name="pleaseLogin">لطفا با حساب کاربری خود وارد شوید</string>
+    <string name="pref_previously_started">pref_previously_started</string>
     <string-array name="list_view_item">
         <item>item1</item>
         <item>item2</item>
@@ -73,4 +74,5 @@
         <item>item5</item>
         <item>item6</item>
     </string-array>
+    <string name="title_activity_user_guider">UserGuider</string>
 </resources>

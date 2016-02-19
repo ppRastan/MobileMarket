@@ -10,7 +10,7 @@
     android:background="@color/decoriss"
     android:orientation="horizontal"
     android:weightSum="10">
-       <ImageButton
+    <ImageButton
         android:layout_width="0dp"
         android:layout_gravity="center_horizontal|center_vertical"
         android:layout_height="match_parent"

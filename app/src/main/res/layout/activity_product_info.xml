@@ -121,15 +121,15 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:weightSum="4">
-
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:id="@+id/img_share_full_screen"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:src="@mipmap/ic_share_toolbar"
-                android:background="@color/white" />
+                android:id="@+id/img_info"
+                android:src="@mipmap/information"
+                android:background="@color/white"
+                android:layout_gravity="center_horizontal|center_vertical" />
+
 
             <ImageButton
                 android:layout_width="0dp"
@@ -153,10 +153,10 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:id="@+id/img_info"
-                android:src="@mipmap/information"
-                android:background="@color/white"
-                android:layout_gravity="center_horizontal|center_vertical" />
+                android:id="@+id/img_share_full_screen"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:src="@mipmap/ic_share_toolbar"
+                android:background="@color/white" />
         </LinearLayout>
 
 <LinearLayout

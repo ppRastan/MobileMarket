@@ -5,6 +5,16 @@
     android:orientation="horizontal"
     android:weightSum="10"
     android:background="@color/white">
+
+    <ImageView
+
+        android:id="@+id/image_of_list_view"
+        android:layout_gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        />
+
     <TextView
         android:id="@+id/text_of_list_view"
         android:layout_gravity="center"
@@ -13,14 +23,6 @@
         android:layout_height="match_parent"
         android:textSize="13dp"
         android:textColor="@color/black"/>
-    <ImageView
-
-        android:id="@+id/image_of_list_view"
-        android:layout_gravity="center"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-         />
 
 
 
