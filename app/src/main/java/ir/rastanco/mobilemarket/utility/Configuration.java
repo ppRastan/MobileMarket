@@ -3,6 +3,7 @@ package ir.rastanco.mobilemarket.utility;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 
 /**
  * Created by ShaisteS on 1394/10/14.
@@ -41,6 +42,8 @@ public class Configuration {
     public static Context UserLastShoppingContext;
     public static Context ProductOptionContext;
     public static Context AccountManagerContext;
+
+    public static MenuItem UpgradeButtonMenu;
 
     public static ViewPager UserProfileViewPager;
     public static ViewPager MainPager;

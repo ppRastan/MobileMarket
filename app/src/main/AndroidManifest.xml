@@ -41,6 +41,15 @@
         <activity android:name=".presenter.UserProfilePresenter.AccountManager"/>
         <activity android:name=".presenter.UserProfilePresenter.UserFavouriteProduct"/>
         <activity android:name=".presenter.UserProfilePresenter.UserLastShoppingProduct"/>
+
+        <service android:name=".presenter.Services.NotificationService"/>
+        <receiver android:name=".presenter.Services.UpdateEveryConnectionOk" >
+            <intent-filter >
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
         <receiver android:name="co.ronash.pushe.receiver.UpdateReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />

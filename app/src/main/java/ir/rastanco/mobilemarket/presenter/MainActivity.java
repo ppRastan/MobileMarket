@@ -294,6 +294,7 @@ public class MainActivity extends AppCompatActivity {
         CounterIconUtils.setBadgeCount(this, icon, filBasketColor());
 
         MenuItem upgradeItem=menu.findItem(R.id.update);
+        Configuration.UpgradeButtonMenu=upgradeItem;
         if(sch.checkNewVersion("http://decoriss.com/app/Version.txt"))
             upgradeItem.setVisible(true);
         else
