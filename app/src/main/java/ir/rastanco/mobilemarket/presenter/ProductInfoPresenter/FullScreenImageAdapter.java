@@ -138,6 +138,11 @@ public class FullScreenImageAdapter extends PagerAdapter{
             {
                 if(sch.getAProduct(products.get(position).getId()).getLike()==0){
 
+                    if(Configuration.userLoginStatus)
+                        Toast.makeText(activity,activity.getResources().getString(R.string.thanks),Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(activity,activity.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
+
                     btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     products.get(position).setLike(1);
                     sch.changeProductLike(products.get(position).getId(), 1);
@@ -146,10 +151,17 @@ public class FullScreenImageAdapter extends PagerAdapter{
 
                 }
                 else if(sch.getAProduct(products.get(position).getId()).getLike()==1){
+
+                    if(Configuration.userLoginStatus)
+                        Toast.makeText(activity,activity.getResources().getString(R.string.thanks),Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(activity,activity.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
+
                     btnLike.setImageResource(R.mipmap.ic_like_toolbar);
                     products.get(position).setLike(0);
                     sch.changeProductLike(products.get(position).getId(), 0);
                     ObserverLike.setLikeStatus(position);
+
 
                 }
             }

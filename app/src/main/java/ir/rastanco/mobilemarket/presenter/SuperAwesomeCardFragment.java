@@ -200,9 +200,11 @@ public class SuperAwesomeCardFragment extends Fragment {
                        new Handler().postDelayed(new Runnable() {
                            @Override
                            public void run() {
-                               sch.refreshProduct();
-                               products = sch.ProductOfMainCategory(pageName);
-                               PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), products);
+                               ArrayList<Product> newProduct=sch.getProductAfterRefresh(pageName,
+                                       txtFilterCategorySelected.getText().toString(),
+                                       txtFilterOptionProductSelected.getText().toString(),
+                                       DataFilter.FilterOption);
+                               PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProduct);
                                gridview.setAdapter(newAdapter);
                                newAdapter.notifyDataSetChanged();
                                mSwipeRefreshLayout.setRefreshing(false);
@@ -253,8 +255,7 @@ public class SuperAwesomeCardFragment extends Fragment {
                             public void changeFilterCategory() {
                                 txtFilterCategorySelected.setText(DataFilter.FilterCategory);
                                 txtFilterCategorySelected.setTextColor(getResources().getColor(R.color.red));
-                                int subCategoryIdSelected = sch.getCategoryIdWithTitle(DataFilter.FilterCategory);
-                                ArrayList<Product> newProducts = sch.getProductOfACategory(subCategoryIdSelected);
+                                ArrayList<Product> newProducts = sch.getProductsAfterFilterCategory(txtFilterCategorySelected.getText().toString());
                                 PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                                 gridview.setAdapter(newAdapter);
                                 newAdapter.notifyDataSetChanged();
@@ -280,7 +281,7 @@ public class SuperAwesomeCardFragment extends Fragment {
                             public void changeFilterPrice() {
                                 txtFilterOptionProductSelected.setText(DataFilter.FilterPriceTitle);
                                 txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.red));
-                                ArrayList<Product> newProducts = sch.getProductAsPriceFilter(products, DataFilter.FilterPrice);
+                                ArrayList<Product> newProducts = sch.getProductAsPriceFilter(products,txtFilterOptionProductSelected.getText().toString());
                                 PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                                 gridview.setAdapter(newAdapter);
                                 newAdapter.notifyDataSetChanged();

@@ -419,11 +419,25 @@ public class ServerConnectionHandler {
         return productId;
     }
 
-    public ArrayList<Product> getProductAsPriceFilter(ArrayList<Product> allProduct,int price){
+    public ArrayList<Product> getProductAsPriceFilter(ArrayList<Product> allProduct,String priceTitle){
+        int price=convertPriceTitleToInt(priceTitle);
         if(price<=10000000)
             return getProductSmallerThanAPrice(allProduct,price);
         else
             return getProductAboveAsAPrice(allProduct,price);
+    }
+
+    public int convertPriceTitleToInt(String priceTitle){
+        int price=0;
+        if(priceTitle.equals("تا سقف 1 میلیون تومان"))
+            price=1000000;
+        else if (priceTitle.equals("تا سقف 5 میلیون تومان"))
+            price=5000000;
+        else if (priceTitle.equals("تا سقف 10 میلیون تومان"))
+            price=10000000;
+        else
+            price=10000001; //1 is sign for price is above
+        return price;
     }
 
     public ArrayList<Product> getProductSmallerThanAPrice(ArrayList<Product> allProduct,int price){
@@ -442,6 +456,33 @@ public class ServerConnectionHandler {
                 productPrice.add(allProduct.get(i));
         }
         return productPrice;
+    }
+
+    public ArrayList<Product> getProductsAfterFilterCategory(String categoryTitle){
+        int categoryId=getCategoryIdWithTitle(categoryTitle);
+        ArrayList<Product> products = getProductOfACategory(categoryId);
+        return products;
+    }
+
+    public ArrayList<Product> getProductAfterRefresh(String pageName,
+                                                     String filterCategoryContent,
+                                                     String filterOptionContent,
+                                                     String filterOptionStatus
+                                                     ){
+        ArrayList<Product> allProduct=new ArrayList<Product>();
+        allProduct=ProductOfMainCategory(pageName);
+        ArrayList<Product> newProducts=new ArrayList<Product>();
+        if(!filterCategoryContent.equals("همه"))
+             newProducts=getProductsAfterFilterCategory(filterCategoryContent);
+        else if (!filterOptionContent.equals("همه")){
+            if(filterOptionStatus.equals("price"))
+                newProducts=getProductAsPriceFilter(allProduct, filterOptionContent);
+            else if (filterOptionStatus.equals("brand"))
+                newProducts=getAllProductOfABrand(allProduct,filterOptionContent);
+        }
+        else if (filterCategoryContent.equals("همه") && filterOptionContent.equals("همه"))
+            newProducts=allProduct;
+        return newProducts;
     }
 
     //article
