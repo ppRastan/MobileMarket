@@ -186,13 +186,13 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
 
                 }
 
-                else if (isSelectedForShop==true){
+                else if (isSelectedForShop==true)
+                {
                     holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
                     isSelectedForShop=false;
                     sch.deleteAProductShopping(allProduct.get(position).getId());
                     Connect.setMyBoolean(false);
                     isSelectedForShop = false;
-
                 }
             }
         });
