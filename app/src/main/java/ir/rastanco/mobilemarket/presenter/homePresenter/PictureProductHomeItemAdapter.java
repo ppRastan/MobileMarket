@@ -27,8 +27,8 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-import ir.rastanco.mobilemarket.presenter.Connect;
-import ir.rastanco.mobilemarket.presenter.ObserverSimilarProduct;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -109,7 +109,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
                 sch.addProductToShoppingBag(allProduct.get(position).getId(),1);
                 myContext.startActivity(new Intent(myContext,ShoppingBagActivity.class));
                 myContext.overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up);
-                Connect.setMyBoolean(true);
+                ObserverShopping.setMyBoolean(true);
                 isSelectedForShop = true;
 
             }
@@ -118,7 +118,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
                 basketToolbar.setImageResource(R.mipmap.bye_toolbar);
                 isSelectedForShop=false;
                 sch.deleteAProductShopping(allProduct.get(position).getId());
-                Connect.setMyBoolean(false);
+                ObserverShopping.setMyBoolean(false);
                 isSelectedForShop = false;
 
             }

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-import ir.rastanco.mobilemarket.presenter.ObserverFilterCategory;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCategory;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.DataFilter;
 

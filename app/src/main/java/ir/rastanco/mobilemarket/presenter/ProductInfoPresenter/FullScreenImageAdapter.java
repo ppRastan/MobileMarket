@@ -34,8 +34,8 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.ProductOption;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-import ir.rastanco.mobilemarket.presenter.Connect;
-import ir.rastanco.mobilemarket.presenter.ObserverLike;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverLike;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
@@ -115,7 +115,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
             public void onClick(View v) {
                 sch.addProductToShoppingBag(products.get(position).getId(), 1);
                 Configuration.ProductInfoContext.startActivity(new Intent(Configuration.ProductInfoContext, ShoppingBagActivity.class));
-                Connect.setMyBoolean(true);
+                ObserverShopping.setMyBoolean(true);
             }
         });
 

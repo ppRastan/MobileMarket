@@ -14,8 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +25,7 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.UserInfo;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.Security;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-import ir.rastanco.mobilemarket.presenter.Connect;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.MainActivity;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -128,7 +126,7 @@ public class ShoppingBagActivity extends Activity {
                         startActivity(intent);
                         sch.emptyShoppingBag();
                         Observer.setShoppingCancel(true);
-                        Connect.setMyBoolean(false);
+                        ObserverShopping.setMyBoolean(false);
                         productsId = sch.getProductShoppingID();
                         shoppingBagAdapter adapter = new shoppingBagAdapter(Configuration.ShoppingBagContext,
                                 R.layout.activity_shopping_bag, productsId);
