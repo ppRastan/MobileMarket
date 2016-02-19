@@ -40,7 +40,7 @@ import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivi
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 public class FullScreenImageAdapter extends PagerAdapter{
-
+//push again
     private Activity activity;
     private ArrayList<Product> products;
     private ArrayList<ProductOption> options;
