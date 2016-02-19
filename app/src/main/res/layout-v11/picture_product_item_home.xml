@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:padding="16dp"
     android:background="@color/background_window"
-    android:layout_marginTop="5dp"
     >
 
     <android.support.v7.widget.CardView
@@ -60,16 +59,6 @@
         android:background="@color/white"
         android:layout_centerInParent="true"/>-->
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/ic_share_toolbar"
-        android:id="@+id/imbt_share"
-        android:padding="15dp"
-        android:background="@null"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
 
@@ -78,8 +67,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:weightSum="2"
+        android:paddingBottom="16dp"
+        android:weightSum="8"
         android:background="@color/white">
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_share_toolbar"
+            android:id="@+id/imbt_share"
+            android:background="@null"
+             />
 
         <Button
             android:layout_width="0dp"
@@ -89,14 +87,13 @@
             android:id="@+id/btn_similar"
             style="?android:attr/borderlessButtonStyle"
             android:textColor="@color/black"
-            android:layout_weight="1" />
+            android:layout_weight="4" />
         <ImageButton
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
             android:layout_gravity="center_horizontal|center_vertical"
             android:src="@mipmap/bye_toolbar"
-            android:padding="3dp"
             android:id="@+id/basket_toolbar"
             android:background="@color/white"/>
 
