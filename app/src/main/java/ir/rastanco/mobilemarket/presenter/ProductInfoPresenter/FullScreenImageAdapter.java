@@ -101,6 +101,10 @@ public class FullScreenImageAdapter extends PagerAdapter{
         formatter = new DecimalFormat("#,###,000");
         nameOfCurrentProduct.setText(products.get(position).getTitle());
 
+        ImageButton imgOff=(ImageButton)viewLayout.findViewById(R.id.ic_offer_full_screen_right);
+        if (products.get(position).getPriceOff()==0)
+            imgOff.setVisibility(View.GONE);
+
         final ImageButton btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
         addToBasketBtn = (Button)viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
         if(products.get(position).getPrice()==0) {

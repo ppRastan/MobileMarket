@@ -124,13 +124,16 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.imgP.getLayoutParams().height=Configuration.shopDisplaySizeForShow;
         holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
         holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
+
         if (allProduct.get(position).getPriceOff()==0){
             holder.priceForYou.setVisibility(View.INVISIBLE);
         }
         else {
             holder.priceP.setTextColor(Color.RED);
             holder.priceP.setPaintFlags(holder.priceP.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            String priceForYou = String.valueOf(allProduct.get(position).getPrice()-allProduct.get(position).getPriceOff());
+            int price= allProduct.get(position).getPrice();
+            int offPrice= (price*allProduct.get(position).getPriceOff())/100;
+            String priceForYou = String.valueOf(price-offPrice);
             double amountOfFinalPrice = Double.parseDouble(priceForYou);
             DecimalFormat formatter = new DecimalFormat("#,###,000");
             holder.priceForYou.setText(String.valueOf(formatter.format(amountOfFinalPrice)+" "+"تومان"));
