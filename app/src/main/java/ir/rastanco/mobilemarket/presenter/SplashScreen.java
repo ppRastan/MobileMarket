@@ -21,7 +21,7 @@ public class SplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_screen);
         final SplashScreen sPlashScreen = this;
-        mSplashThread =  new Thread(){
+        mSplashThread = new Thread(){
             @Override
             public void run(){
                 try {
