@@ -29,13 +29,15 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presenter.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+        <activity android:name=".presenter.SplashScreen"
+            android:theme="@style/Theme.Transparent" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"></action>
+                <category android:name="android.intent.category.LAUNCHER"></category>
             </intent-filter>
         </activity>
+        <activity android:name=".presenter.MainActivity"/>
         <activity android:name=".presenter.ProductInfoPresenter.ProductInfoActivity" />
         <activity android:name=".presenter.shoppingBagPresenter.ShoppingBagActivity" />
         <activity android:name=".presenter.ProductInfoPresenter.ProductOptionActivity" />
