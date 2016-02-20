@@ -535,7 +535,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         if (rs!= null)
             if(rs.moveToFirst())
                 numberPurchased=rs.getInt(rs.getColumnIndex("numberPurchased"));
-        return  rs.getCount();
+        return numberPurchased;
 
     }
 

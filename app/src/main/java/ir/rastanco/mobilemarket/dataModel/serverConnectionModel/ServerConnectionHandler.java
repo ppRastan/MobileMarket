@@ -229,9 +229,23 @@ public class ServerConnectionHandler {
         return catId;
     }
 
+    public Boolean getCategoryHasChildWithTitle(String title){
+        ArrayList<Category> allCat=new ArrayList<Category>();
+        allCat=getAllCategoryInfoTable();
+        Boolean catHasChild=false;
+        for (int i=0;i<allCat.size();i++){
+            if (allCat.get(i).getTitle().equals(title)&& allCat.get(i).getHasChild()>0)
+                catHasChild=true;
+        }
+        return catHasChild;
+    }
+
+
     public ArrayList<String> getTitleOfChildOfACategory(int catID){
         return dbh.selectChildOfACategoryTitle(catID);
     }
+
+
 
 
     //Product

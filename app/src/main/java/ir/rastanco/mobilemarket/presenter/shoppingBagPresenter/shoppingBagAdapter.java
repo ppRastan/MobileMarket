@@ -20,6 +20,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
@@ -65,6 +67,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private ImageLoader imgLoader;
     private String picCounter;
     private String image_url_1;
+    private Map<Integer,Integer> selectedItem;
 
     public shoppingBagAdapter(Context context, int resource, ArrayList<Integer> productsId) {
         super(context, resource, productsId);
@@ -73,8 +76,8 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         yekanFont= Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf");
         sch=new ServerConnectionHandler(context);
         spinnerList = new ArrayList<String>();
-
         this.fillSpinnerItems();
+        selectedItem=new HashMap<Integer,Integer>();
 
     }
 
@@ -87,47 +90,42 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     public View getView(final int position, View convertView, ViewGroup parent) {
         inflater = myContext.getLayoutInflater();
         rowView = inflater.inflate(R.layout.shopping_bag_item, null);
-        this.setSpinner();
-        this.deleteFromBasket();
         aProduct=new Product();
         aProduct=sch.getAProduct(selectedProducts.get(position));
+
+
+
         this.createEachCartView();
-        this.updateBySpinner();
+        this.setSpinner();
+        int selectedProductCounterInDB=sch.getNumberProductShop(aProduct.getId());
+        if (selectedItem.containsKey(position))
+            spinnerCounter.setSelection(selectedItem.get(position));
+        else{
+            spinnerCounter.setSelection(selectedProductCounterInDB-1);
+            selectedItem.put(position,selectedProductCounterInDB-1);
+        }
+
+        this.deleteFromBasket();
+
         spinnerCounter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                formatter = new DecimalFormat("#,###,000");
+            public void onItemSelected(AdapterView<?> parent, View view, int selectedIndex, long id) {
+
+                selectedItem.put(position,selectedIndex);
                 counterSelected = Integer.parseInt(spinnerCounter.getSelectedItem().toString());
-                if (aProduct.getPriceOff() != 0)
-                    off = ((aProduct.getPrice() * aProduct.getPriceOff()) / 100);
-                finalPrice = (aProduct.getPrice()  - off );
-                ///Price
-                numberProductPrice = String.valueOf(aProduct.getPrice());
-                amount = Double.parseDouble(numberProductPrice);
-                ///off
-                numberProducePriceOff = String.valueOf(off * counterSelected);
-                amountOfPriceOff = Double.parseDouble(numberProducePriceOff);
-                ///FinalPrice
-                numberOfFinalPrice = String.valueOf(finalPrice);
-                amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
-                txtProductPrice.setText(myContext.getResources().getString(R.string.peice) + "     " + formatter.format(amount) + " " + myContext.getResources().getString(R.string.toman));
-                totalPrice.setText(myContext.getResources().getString(R.string.price) + "     " + formatter.format(amountOfFinalPrice) + " " + myContext.getResources().getString(R.string.toman));
                 sch.changeShoppingNunmber(aProduct.getId(), counterSelected);
                 Observer.setShoppingCancel(true);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
         return rowView;
     }
 
-    private void updateBySpinner() {
-    }
-
     private void createEachCartView() {
+
         imgProduct=(ImageView)rowView.findViewById(R.id.shopping__bag_img);
         txtProductTitle=(TextView) rowView.findViewById(R.id.shopping_bag_txt_productTitle);
         imgLoader = new ImageLoader(myContext,rowView,Configuration.articleDisplaySizeForShow); // important
@@ -136,6 +134,22 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         txtProductTitle.setText(aProduct.getTitle());
         totalPrice.setTypeface(yekanFont);
         txtProductPrice.setTypeface(yekanFont);
+
+        formatter = new DecimalFormat("#,###,000");
+        if (aProduct.getPriceOff() != 0)
+            off = ((aProduct.getPrice() * aProduct.getPriceOff()) / 100);
+        finalPrice = (aProduct.getPrice()  - off );
+        ///Price
+        numberProductPrice = String.valueOf(aProduct.getPrice());
+        amount = Double.parseDouble(numberProductPrice);
+        ///off
+        numberProducePriceOff = String.valueOf(off * counterSelected);
+        amountOfPriceOff = Double.parseDouble(numberProducePriceOff);
+        ///FinalPrice
+        numberOfFinalPrice = String.valueOf(finalPrice);
+        amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
+        txtProductPrice.setText(myContext.getResources().getString(R.string.peice) + "     " + formatter.format(amount) + " " + myContext.getResources().getString(R.string.toman));
+        totalPrice.setText(myContext.getResources().getString(R.string.price) + "     " + formatter.format(amountOfFinalPrice) + " " + myContext.getResources().getString(R.string.toman));
         picCounter = aProduct.getImagesPath().get(0);
         try {
             picCounter= URLEncoder.encode(picCounter, "UTF-8");

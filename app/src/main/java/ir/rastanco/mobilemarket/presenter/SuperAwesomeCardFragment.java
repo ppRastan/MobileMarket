@@ -210,6 +210,7 @@ public class SuperAwesomeCardFragment extends Fragment {
                        new Handler().postDelayed(new Runnable() {
                            @Override
                            public void run() {
+                               sch.refreshProduct();
                                ArrayList<Product> newProduct=sch.getProductAfterRefresh(pageName,
                                        txtFilterCategorySelected.getText().toString(),
                                        txtFilterOptionProductSelected.getText().toString(),
