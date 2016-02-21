@@ -10,14 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/cv"
-        android:background="@color/decoriss"
+        android:background="@color/white"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="7dp"
-            android:background="@color/decoriss"
+            android:background="@color/white"
             >
 <LinearLayout
     android:layout_width="match_parent"
@@ -76,7 +76,7 @@
             android:layout_height="match_parent"
             android:src="@mipmap/ic_share_toolbar"
             android:id="@+id/imbt_share"
-            android:background="@null"
+            android:background="@color/white"
              />
 
         <Button
