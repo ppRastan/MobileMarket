@@ -530,7 +530,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     public int numberPurchasedAProduct(int productId){
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblShopping where fkProductId="+productId, null);
+        Cursor rs = db.rawQuery("select * from tblShopping where fkProductId=" + productId, null);
         int numberPurchased=0;
         if (rs!= null)
             if(rs.moveToFirst())
@@ -561,6 +561,30 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Category");
         return allCategories;
     }
+
+    public Category selectACategory(int catId){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from tblCategory where catId=" + catId, null);
+        Category aCategory = new Category();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    aCategory.setTitle(rs.getString(rs.getColumnIndex("title")));
+                    aCategory.setId(Integer.parseInt(rs.getString((rs.getColumnIndex("catId")))));
+                    aCategory.setParentId(Integer.parseInt(rs.getString((rs.getColumnIndex("parentId")))));
+                    aCategory.setHasChild(Integer.parseInt(rs.getString((rs.getColumnIndex("hasChild")))));
+                    aCategory.setHasChild(Integer.parseInt(rs.getString((rs.getColumnIndex("sortOrder")))));
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select A Category With Id");
+        return aCategory;
+
+    }
+
 
     public ArrayList<String> selectMainCategoriesTitle(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -827,13 +851,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         aProduct= new Product();
         if (rs != null) {
             if (rs.moveToFirst()) {
-                    aProduct.setId(rs.getInt(rs.getColumnIndex("productId")));
-                    aProduct.setTitle(rs.getString(rs.getColumnIndex("title")));
-                    aProduct.setPrice(rs.getInt(rs.getColumnIndex("price")));
-                    aProduct.setPriceOff(rs.getInt(rs.getColumnIndex("priceOff")));
-                    aProduct.setLike(rs.getInt(rs.getColumnIndex("like")));
-                    aProduct.setLinkInSite(rs.getString(rs.getColumnIndex("linkInSite")));
-                    aProduct.setImagesMainPath(rs.getString(rs.getColumnIndex("imagesMainPath")));
+                    aProduct=getAProduct(rs);
             }
             rs.close();
         }

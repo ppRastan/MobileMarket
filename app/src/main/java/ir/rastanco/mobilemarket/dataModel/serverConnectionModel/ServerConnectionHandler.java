@@ -92,6 +92,11 @@ public class ServerConnectionHandler {
         return catTitle;
     }
 
+    public int getHasChildACategoryWithTitle(String categoryTitle){
+        int catId=getCategoryIdWithTitle(categoryTitle);
+        return dbh.selectACategory(catId).getHasChild();
+    }
+
     public Map<Integer,String> getMainCategory(){
         return dbh.selectMainCategories();
     }
