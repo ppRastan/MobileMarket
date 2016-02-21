@@ -65,11 +65,13 @@ public class LoginHandlerAdapter extends BaseAdapter{
                     case 0:
                         Intent lastShoppingProduct=new Intent(context,UserLastShoppingProduct.class);
                         context.startActivity(lastShoppingProduct);
+                        ((Activity)context).overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                         ((Activity)context).finish();
                         break;
                     case 1:
                         Intent favoritesProduct=new Intent(context,UserFavouriteProduct.class);
                         context.startActivity(favoritesProduct);
+                        ((Activity)context).overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                         ((Activity)context).finish();
                         break;
                     case 2:
