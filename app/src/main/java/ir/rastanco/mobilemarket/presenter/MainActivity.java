@@ -182,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
         pager.setPageMargin(pageMargin);
         pager.setCurrentItem(0);
         this.setDecorissThemColour();
+        this.addFontAndColors();
 
 
     }
