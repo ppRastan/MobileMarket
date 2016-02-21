@@ -37,7 +37,6 @@ public class UserFavouriteProduct extends Activity {
         UserInfo aUser=sch.getUserInfo();
         ArrayList<Product> allProductLike=new ArrayList<Product>();
         allProductLike=sch.getAllProductFavourite();
-
         ListView lsvFavourite=(ListView) findViewById(R.id.lsv_favouriteProduct);
         UserProfileAdapter adapter= new UserProfileAdapter(Configuration.UserProfileContext,R.layout.user_profile_like_product_item,allProductLike);
         lsvFavourite.setAdapter(adapter);

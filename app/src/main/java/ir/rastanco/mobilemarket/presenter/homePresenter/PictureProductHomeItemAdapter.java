@@ -218,7 +218,6 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
                .into(PicProductImage);*/
 
         ImageButton shareImgB=(ImageButton)rowView.findViewById(R.id.imbt_share);
-        shareImgB.setBackgroundColor(Color.TRANSPARENT);
         PicProductImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
