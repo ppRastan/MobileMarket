@@ -1,10 +1,12 @@
 package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -32,7 +34,12 @@ public class AccountManager extends AppCompatActivity {
 
         accountListView = (ListView)findViewById(R.id.account_lv);
         accountListView.setAdapter(new LoginHandlerAdapter(this, listViewTexts,listViewImages));
-
-
     }
+
+    @Override
+    public void onBackPressed() {
+
+    this.finish();
+    }
+
 }
