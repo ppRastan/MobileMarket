@@ -30,6 +30,8 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleItemAdapter;
 import ir.rastanco.mobilemarket.presenter.Filter.FilterCategory;
 import ir.rastanco.mobilemarket.presenter.Filter.FilterOptionProduct;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterAll;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterAllListener;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterBrand;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterBrandListener;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCategory;
@@ -177,7 +179,7 @@ public class SuperAwesomeCardFragment extends Fragment {
                     pageName=fourth_page;
 
                 //Show All product for Tab Selected
-                products=sch.ProductOfMainCategory(pageName);
+                products=sch.getProductOfMainCategory(pageName);
                 mainView=inflater.inflate(R.layout.fragment_shop, null);
                 final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
                 final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
@@ -266,7 +268,7 @@ public class SuperAwesomeCardFragment extends Fragment {
                             public void changeFilterCategory() {
                                 txtFilterCategorySelected.setText(DataFilter.FilterCategory);
                                 txtFilterCategorySelected.setTextColor(getResources().getColor(R.color.red));
-                                ArrayList<Product> newProducts = sch.getProductsAfterFilterCategory(txtFilterCategorySelected.getText().toString());
+                                ArrayList<Product> newProducts = sch.getProductsAfterFilterCategory(pageName,txtFilterCategorySelected.getText().toString());
                                 PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                                 gridview.setAdapter(newAdapter);
                                 newAdapter.notifyDataSetChanged();
@@ -307,6 +309,19 @@ public class SuperAwesomeCardFragment extends Fragment {
                                 PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                                 gridview.setAdapter(newAdapter);
                                 newAdapter.notifyDataSetChanged();
+                            }
+                        });
+
+                        ObserverFilterAll.changeFilterAllListener(new ObserverFilterAllListener() {
+                            @Override
+                            public void changeFilterAll() {
+                                txtFilterOptionProductSelected.setText(DataFilter.FilterAll);
+                                txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.red));
+                                PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), products);
+                                gridview.setAdapter(newAdapter);
+                                newAdapter.notifyDataSetChanged();
+
+
                             }
                         });
 

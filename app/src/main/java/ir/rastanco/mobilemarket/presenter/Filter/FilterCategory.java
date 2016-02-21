@@ -61,6 +61,8 @@ public class FilterCategory extends DialogFragment {
 
         int categoryIdSelected = sch.getMainCategoryId(pageName);
         ArrayList<String> subCategoryTitle = sch.getTitleOfChildOfACategory(categoryIdSelected);
+        //add filter=All
+        subCategoryTitle.add(dialogView.getResources().getString(R.string.all));
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
@@ -70,13 +72,27 @@ public class FilterCategory extends DialogFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Bundle args = new Bundle();
-                args.putString("name", parent.getItemAtPosition(position).toString());
-                FilterSubCategory filterSubCategory = new FilterSubCategory();
-                filterSubCategory.setArguments(args);
-                filterSubCategory.setTargetFragment(getFragmentManager().findFragmentByTag("Category"), 0);
-                filterSubCategory.show(getFragmentManager(), "SubCategory");
-                dismiss();
+                String itemSelectedContent= parent.getItemAtPosition(position).toString();
+
+                if (itemSelectedContent.equals(dialogView.getResources().getString(R.string.all))){
+                    Intent args = new Intent();
+                    args.putExtra("all", dialogView.getResources().getString(R.string.all));
+                    setTargetFragment(getFragmentManager().findFragmentByTag("category"),1);
+                    onActivityResult(getTargetRequestCode(),1,args);
+                    dismiss();
+                }
+
+                else {
+                    Bundle args = new Bundle();
+                    args.putString("name",itemSelectedContent);
+                    FilterSubCategory filterSubCategory = new FilterSubCategory();
+                    filterSubCategory.setArguments(args);
+                    filterSubCategory.setTargetFragment(getFragmentManager().findFragmentByTag("Category"), 0);
+                    filterSubCategory.show(getFragmentManager(), "SubCategory");
+                    dismiss();
+                }
+
+
             }
         });
         return dialogView;
@@ -95,6 +111,12 @@ public class FilterCategory extends DialogFragment {
                 DataFilter.FilterCategory=subCategorySelected;
                 ObserverFilterCategory.setAddFilter(true);
                 break;
+            case 1:
+                Bundle bundleAll = data.getExtras();
+                String selectedAll = bundleAll.getString("all");
+                DataFilter.FilterCategory=selectedAll;
+                ObserverFilterCategory.setAddFilter(true);
+
         }
     }
 

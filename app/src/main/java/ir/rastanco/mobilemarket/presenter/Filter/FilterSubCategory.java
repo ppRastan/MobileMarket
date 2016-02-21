@@ -68,10 +68,22 @@ public class FilterSubCategory extends DialogFragment{
         listSubCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent args = new Intent();
-                args.putExtra("subCategorySelected", parent.getItemAtPosition(position).toString());
-                getTargetFragment().onActivityResult(getTargetRequestCode(),0,args);
-                dismiss();
+                /*if (sch.getCategoryHasChildWithTitle(parent.getItemAtPosition(position).toString())){
+                    Bundle args = new Bundle();
+                    args.putString("name", parent.getItemAtPosition(position).toString());
+                    FilterSubCategory filterSubCategory = new FilterSubCategory();
+                    filterSubCategory.setArguments(args);
+                    filterSubCategory.setTargetFragment(getFragmentManager().findFragmentByTag("Category"), 0);
+                    filterSubCategory.show(getFragmentManager(), "SubCategory");
+                    dismiss();
+                }
+                else {*/
+                    Intent args = new Intent();
+                    args.putExtra("subCategorySelected", parent.getItemAtPosition(position).toString());
+                    getTargetFragment().onActivityResult(getTargetRequestCode(),0,args);
+                    dismiss();
+                //}
+
             }
         });
         return dialogView;

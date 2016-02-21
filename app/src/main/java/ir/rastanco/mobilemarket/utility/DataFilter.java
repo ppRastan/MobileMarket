@@ -16,4 +16,5 @@ public class DataFilter {
     public static String FilterOption;
     public static String FilterPriceTitle;
     public static String FilterBrand;
+    public static String FilterAll;
 }
