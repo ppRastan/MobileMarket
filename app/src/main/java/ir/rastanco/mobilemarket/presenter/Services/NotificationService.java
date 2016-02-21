@@ -28,7 +28,7 @@ public class NotificationService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), notificationIntent, 0);
         Notification notification = new Notification.Builder(this)
                 .setContentTitle("دکوریس")
-                .setSmallIcon(R.mipmap.ic_launcher_icon)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(pendingIntent)
                 .setContentText("آپدیت دکوریس")
                 .setAutoCancel(true).build();
