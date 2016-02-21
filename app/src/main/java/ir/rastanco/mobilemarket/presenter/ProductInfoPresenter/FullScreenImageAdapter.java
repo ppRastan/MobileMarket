@@ -100,6 +100,8 @@ public class FullScreenImageAdapter extends PagerAdapter{
         formatter = new DecimalFormat("#,###,000");
         nameOfCurrentProduct.setText(products.get(position).getTitle());
 
+        setProductQuality(products.get(position).getQualityRank());
+
         ImageButton imgOff=(ImageButton)viewLayout.findViewById(R.id.ic_offer_full_screen_right);
         //این محصول تخفیف ندارد
         if (products.get(position).getPriceOff()==0){
@@ -380,6 +382,32 @@ public class FullScreenImageAdapter extends PagerAdapter{
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         ((ViewPager) container).removeView((LinearLayout) object);
+
+    }
+
+    private void setProductQuality(String quality){
+        ImageView imgProductQuality=(ImageView)viewLayout.findViewById(R.id.img_ProductQuality);
+        switch (quality){
+            case "a":
+                imgProductQuality.setImageResource(R.drawable.darajeha);
+                break;
+            case "b":
+                imgProductQuality.setImageResource(R.drawable.darajehb);
+                break;
+            case "c":
+                imgProductQuality.setImageResource(R.drawable.darajehc);
+                break;
+            case "d":
+                imgProductQuality.setImageResource(R.drawable.darajehd);
+                break;
+            case "e":
+                imgProductQuality.setImageResource(R.drawable.darajehe);
+                break;
+            case "f":
+                imgProductQuality.setImageResource(R.drawable.darajehf);
+                break;
+        }
+
 
     }
 }
