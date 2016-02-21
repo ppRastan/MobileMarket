@@ -47,7 +47,7 @@ public class UserProfileAdapter extends ArrayAdapter<Product> {
         TextView txtProductName=(TextView)rowView.findViewById(R.id.txt_likeProductTitle);
         ImageButton imbLike=(ImageButton)rowView.findViewById(R.id.imb_like);
         txtProductName.setText(products.get(position).getTitle());
-        txtProductName.setOnClickListener(new View.OnClickListener() {
+        rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ServerConnectionHandler sch = new ServerConnectionHandler(myContext);
