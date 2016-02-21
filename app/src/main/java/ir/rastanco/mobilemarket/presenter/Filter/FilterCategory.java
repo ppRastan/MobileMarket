@@ -4,7 +4,6 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,13 +81,20 @@ public class FilterCategory extends DialogFragment {
                     dismiss();
                 }
 
-                else {
+                else if (sch.getHasChildACategoryWithTitle(itemSelectedContent)>0) {
                     Bundle args = new Bundle();
                     args.putString("name",itemSelectedContent);
                     FilterSubCategory filterSubCategory = new FilterSubCategory();
                     filterSubCategory.setArguments(args);
                     filterSubCategory.setTargetFragment(getFragmentManager().findFragmentByTag("Category"), 0);
                     filterSubCategory.show(getFragmentManager(), "SubCategory");
+                    dismiss();
+                }
+                else if(sch.getHasChildACategoryWithTitle(itemSelectedContent)==0){
+                    Intent args = new Intent();
+                    args.putExtra("noChild",itemSelectedContent);
+                    setTargetFragment(getFragmentManager().findFragmentByTag("category"),2);
+                    onActivityResult(getTargetRequestCode(),2,args);
                     dismiss();
                 }
 
@@ -105,8 +111,6 @@ public class FilterCategory extends DialogFragment {
                 //get subCategory Selected from FilterSubcategory Dialog
                 Bundle bundle = data.getExtras();
                 String subCategorySelected = bundle.getString("subCategorySelected");
-                Log.d("Tag 1", subCategorySelected);
-
                 //send subCategory selected to SuperAwesomeCardFragment for show
                 DataFilter.FilterCategory=subCategorySelected;
                 ObserverFilterCategory.setAddFilter(true);
@@ -116,6 +120,16 @@ public class FilterCategory extends DialogFragment {
                 String selectedAll = bundleAll.getString("all");
                 DataFilter.FilterCategory=selectedAll;
                 ObserverFilterCategory.setAddFilter(true);
+                break;
+            case 2:
+                Bundle bundleNoChild = data.getExtras();
+                String selectACategoryNoChild = bundleNoChild.getString("noChild");
+                DataFilter.FilterCategory=selectACategoryNoChild;
+                ObserverFilterCategory.setAddFilter(true);
+                break;
+
+
+
 
         }
     }

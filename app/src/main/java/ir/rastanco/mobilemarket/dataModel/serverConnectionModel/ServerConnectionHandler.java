@@ -94,7 +94,8 @@ public class ServerConnectionHandler {
 
     public int getHasChildACategoryWithTitle(String categoryTitle){
         int catId=getCategoryIdWithTitle(categoryTitle);
-        return dbh.selectACategory(catId).getHasChild();
+        Category aCategory=dbh.selectACategory(catId);
+        return aCategory.getHasChild();
     }
 
     public Map<Integer,String> getMainCategory(){
