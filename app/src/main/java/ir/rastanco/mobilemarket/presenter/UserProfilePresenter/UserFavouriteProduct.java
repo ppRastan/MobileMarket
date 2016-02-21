@@ -40,20 +40,15 @@ public class UserFavouriteProduct extends Activity {
         ListView lsvFavourite=(ListView) findViewById(R.id.lsv_favouriteProduct);
         UserProfileAdapter adapter= new UserProfileAdapter(Configuration.UserProfileContext,R.layout.user_profile_like_product_item,allProductLike);
         lsvFavourite.setAdapter(adapter);
-//        lsvFavourite.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                int productId=sch.getProductIdWithTitle((String)parent.getItemAtPosition(position));
-//                Product aProduct=new Product();
-//                aProduct=sch.getAProduct(productId);
-//                ArrayList<Product> product=new ArrayList<Product>();
-//                product.add(aProduct);
-//                Intent intent = new Intent(Configuration.MainActivityContext, ProductInfoActivity.class);
-//                intent.putParcelableArrayListExtra("allProduct",product);
-//                intent.putExtra("position", 0);
-//                startActivity(intent);
-//            }
-//        });
+        lsvFavourite.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(getApplicationContext(),
+                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                        .show();
+            }
+        });
 
     }
     @Override

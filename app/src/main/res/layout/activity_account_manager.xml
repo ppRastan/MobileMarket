@@ -8,26 +8,35 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="100dp"
+        android:weightSum="3"
         android:background="@color/decoriss"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         >
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:textSize="18dp"
             android:text="@string/your_account"
             android:background="@color/decoriss"
-            android:id="@+id/name_of_currrent_product"
-            android:gravity="center_vertical|center_horizontal"
+            android:gravity="center_vertical|center_horizontal|bottom"
             android:textColor="@color/black"
             />
-
+<TextView
+    android:layout_width="match_parent"
+    android:gravity="center_vertical|center_horizontal"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:text="@string/welcome_to_decoriss"
+    android:textSize="12dp"
+    android:textColor="@color/orange"/>
 
     </LinearLayout>
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_marginTop="105dp"
+        android:layout_marginTop="125dp"
         android:layout_height="wrap_content"
         android:id="@+id/account_lv"
         android:dividerHeight="20dp"
