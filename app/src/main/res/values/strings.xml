@@ -67,6 +67,7 @@
     <string name="pleaseLogin">لطفا با حساب کاربری خود وارد شوید</string>
     <string name="sure_to_exit">برای خروج کلید بازگشت را مجددا فشار دهید</string>
     <string name="pref_previously_started">pref_previously_started</string>
+    <string name="welcome_to_decoriss">کاربر گرامی خوش آمدید</string>
     <string-array name="list_view_item">
         <item>item1</item>
         <item>item2</item>
