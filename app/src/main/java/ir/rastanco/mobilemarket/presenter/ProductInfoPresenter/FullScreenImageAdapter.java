@@ -114,6 +114,10 @@ public class FullScreenImageAdapter extends PagerAdapter{
         //این محصول تخفیف دارد
         else
         {
+            int price=products.get(position).getPrice();
+            int off=(price*products.get(position).getPriceOff())/100;
+            int priceForYou=price-off;
+            numberOfFinalPrice = String.valueOf(priceForYou);
             amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
             addToBasketBtn.setText("قیمت برای شما:"+" "+formatter.format(amountOfFinalPrice) + "  " + "تومان");
             //addToBasketBtn.invalidateDrawable(null);
