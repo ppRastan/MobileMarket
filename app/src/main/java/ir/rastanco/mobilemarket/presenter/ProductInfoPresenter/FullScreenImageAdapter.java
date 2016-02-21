@@ -93,26 +93,39 @@ public class FullScreenImageAdapter extends PagerAdapter{
         inflater = (LayoutInflater) activity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewLayout = inflater.inflate(R.layout.activity_product_info, container, false);
+        addToBasketBtn = (Button)viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
         yekanFont = Typeface.createFromAsset(activity.getAssets(), "fonts/yekan.ttf");
         nameOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.name_of_photo);
         nameOfCurrentProduct.setTypeface(yekanFont);
-        numberOfFinalPrice = String.valueOf(String.valueOf(products.get(position).getPrice()));
-        amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
         formatter = new DecimalFormat("#,###,000");
         nameOfCurrentProduct.setText(products.get(position).getTitle());
 
         ImageButton imgOff=(ImageButton)viewLayout.findViewById(R.id.ic_offer_full_screen_right);
-        if (products.get(position).getPriceOff()==0)
+        //این محصول تخفیف ندارد
+        if (products.get(position).getPriceOff()==0){
             imgOff.setVisibility(View.GONE);
+            numberOfFinalPrice = String.valueOf(String.valueOf(products.get(position).getPrice()));
+            amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
+            addToBasketBtn.setText(formatter.format(amountOfFinalPrice) + "  " + "تومان");
 
+        }
+        //این محصول تخفیف دارد
+        else
+        {
+            numberOfFinalPrice = String.valueOf(products.get(position).getPrice()-products.get(position).getPriceOff());
+            amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
+            addToBasketBtn.setText("قیمت برای شما:"+" "+formatter.format(amountOfFinalPrice) + "  " + "تومان");
+            //addToBasketBtn.invalidateDrawable(null);
+
+        }
         final ImageButton btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
-        addToBasketBtn = (Button)viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
+
         if(products.get(position).getPrice()==0) {
             addToBasketBtn.setVisibility(View.GONE);
             addToBasketBtn.setText("به زودی");
 
         }
-        addToBasketBtn.setText(formatter.format(amountOfFinalPrice) + "  " + "تومان");
+
         addToBasketBtn.setTypeface(yekanFont);
         addToBasketBtn.setOnClickListener(new View.OnClickListener() {
             @Override
