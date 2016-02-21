@@ -268,7 +268,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 } else if (sch.getAProduct(allProduct.get(position).getId()).getLike() == 1) {
 
                     if(Configuration.userLoginStatus)
-                        Toast.makeText(myContext,myContext.getResources().getString(R.string.thanks), Toast.LENGTH_LONG).show();
+                        Toast.makeText(myContext,myContext.getResources().getString(R.string.thanks), Toast.LENGTH_SHORT).show();
                     else
                         Toast.makeText(myContext,myContext.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
 

@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Configuration.IstheFirtTimeGoingToThisPage = true;
         this.addServerConnection();
         shoppingBagActivity = new ShoppingBagActivity();
         mainCategoryTitle= new ArrayList<String>();
@@ -145,19 +146,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    @Override
-    public void onResume(){
-        super.onResume();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
-        if(!previouslyStarted) {
-            SharedPreferences.Editor edit = prefs.edit();
-            edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
-            edit.commit();
 
-        }
-    Configuration.staticPreviouslyStarted = previouslyStarted;
-    }
     private void displayWindow() {
         display = getWindowManager().getDefaultDisplay();
         size = new Point();

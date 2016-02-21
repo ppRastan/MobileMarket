@@ -10,7 +10,7 @@ import android.view.MenuItem;
  */
 public class Configuration {
     private static Configuration config = new Configuration();
-    public static boolean staticPreviouslyStarted;
+    public static boolean IstheFirtTimeGoingToThisPage;
 
     public static Configuration getConfig() {
         if (config != null) {

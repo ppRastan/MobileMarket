@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -39,16 +37,22 @@ public class ProductInfoActivity extends Activity {
         }
         Configuration.ProductInfoContext = this;
         intent = this.getIntent();
-        productBundle=new Bundle();
-        productBundle=intent.getExtras();
-        allProducts=productBundle.getParcelableArrayList("allProduct");
-        ServerConnectionHandler sch=new ServerConnectionHandler(Configuration.ProductInfoContext);
+        productBundle = new Bundle();
+        productBundle = intent.getExtras();
+        allProducts = productBundle.getParcelableArrayList("allProduct");
+        ServerConnectionHandler sch = new ServerConnectionHandler(Configuration.ProductInfoContext);
         inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        viewPager=(ViewPager)findViewById(R.id.pager);
+        viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new FullScreenImageAdapter(this, allProducts, allProducts.size()));
         viewPager.setCurrentItem(intent.getIntExtra("position", 0));
-        //if(!Configuration.staticPreviouslyStarted)
-        startActivity(new Intent(ProductInfoActivity.this, UserHelper.class));
+        if (Configuration.IstheFirtTimeGoingToThisPage)
+            startActivity(new Intent(ProductInfoActivity.this, UserHelper.class));
+    }
+
+    @Override
+    public void onBackPressed() {
+        Configuration.IstheFirtTimeGoingToThisPage = false;
+        finish();
     }
 }
 
