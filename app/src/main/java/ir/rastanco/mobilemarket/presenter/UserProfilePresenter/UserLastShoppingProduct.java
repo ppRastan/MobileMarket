@@ -1,10 +1,12 @@
 package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -43,5 +45,11 @@ public class UserLastShoppingProduct extends Activity {
         ListView lvLastShopping=(ListView)findViewById(R.id.lv_lastShopping);
         LastShoppingItemAdapter adapter=new LastShoppingItemAdapter(Configuration.UserLastShoppingContext,R.layout.last_shopping_item,allProductsShop);
         lvLastShopping.setAdapter(adapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+     Intent accuntManagerIntent = new Intent(UserLastShoppingProduct.this,AccountManager.class);
+        startActivity(accuntManagerIntent);
     }
 }

@@ -1,6 +1,7 @@
 package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,10 @@ public class UserFavouriteProduct extends Activity {
         lsvFavourite.setAdapter(adapter);
 
     }
-
+    @Override
+    public void onBackPressed() {
+        Intent UserFavoridProduct = new Intent(UserFavouriteProduct.this,AccountManager.class);
+        startActivity(UserFavoridProduct);
+    }
 }
 

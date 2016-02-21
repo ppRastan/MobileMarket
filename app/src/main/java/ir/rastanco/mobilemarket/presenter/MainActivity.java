@@ -41,6 +41,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     @InjectView(R.id.pager)
     ViewPager pager;
     private MyPagerAdapter adapter;
+    private int exitSafeCounter = 0;
     private Drawable oldBackground = null;
     private int currentColor;
     private SystemBarTintManager mTintManager;
@@ -597,5 +599,23 @@ public class MainActivity extends AppCompatActivity {
            return SuperAwesomeCardFragment.newInstance(position);
         }
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
+        exitSafeCounter++;
+        if (exitSafeCounter == 1) {
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.sure_to_exit),
+                    Toast.LENGTH_SHORT).show();
+        } else if(exitSafeCounter >1) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+            System.exit(0);
+        }
     }
 }
