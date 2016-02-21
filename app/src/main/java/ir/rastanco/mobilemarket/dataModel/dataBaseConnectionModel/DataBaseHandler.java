@@ -551,7 +551,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                     aCategory.setId(Integer.parseInt(rs.getString((rs.getColumnIndex("catId")))));
                     aCategory.setParentId(Integer.parseInt(rs.getString((rs.getColumnIndex("parentId")))));
                     aCategory.setHasChild(Integer.parseInt(rs.getString((rs.getColumnIndex("hasChild")))));
-                    aCategory.setHasChild(Integer.parseInt(rs.getString((rs.getColumnIndex("sortOrder")))));
+                    aCategory.setSortOrder(Integer.parseInt(rs.getString((rs.getColumnIndex("sortOrder")))));
                     allCategories.add(aCategory);
                 }
                 while (rs.moveToNext());
@@ -574,7 +574,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                     aCategory.setId(Integer.parseInt(rs.getString((rs.getColumnIndex("catId")))));
                     aCategory.setParentId(Integer.parseInt(rs.getString((rs.getColumnIndex("parentId")))));
                     aCategory.setHasChild(Integer.parseInt(rs.getString((rs.getColumnIndex("hasChild")))));
-                    aCategory.setHasChild(Integer.parseInt(rs.getString((rs.getColumnIndex("sortOrder")))));
+                    aCategory.setSortOrder(Integer.parseInt(rs.getString((rs.getColumnIndex("sortOrder")))));
                 }
                 while (rs.moveToNext());
             }
