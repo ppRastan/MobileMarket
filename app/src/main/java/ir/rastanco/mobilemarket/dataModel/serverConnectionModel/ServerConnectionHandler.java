@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.Comment;
@@ -165,7 +166,7 @@ public class ServerConnectionHandler {
     public ArrayList<Product> ProductOfASubCategory(int subcategoryId){
         return dbh.selectAllProductOfACategory(subcategoryId);
     }
-    public ArrayList<Product> ProductOfMainCategory(String title){
+    public ArrayList<Product> getProductOfMainCategory(String title){
         ArrayList<Product> products=new ArrayList<Product>();
         ArrayList<Integer> childOfMainCategory=new ArrayList<Integer>();
         childOfMainCategory=ChildOfACategory(title);
@@ -472,9 +473,15 @@ public class ServerConnectionHandler {
         return productPrice;
     }
 
-    public ArrayList<Product> getProductsAfterFilterCategory(String categoryTitle){
-        int categoryId=getCategoryIdWithTitle(categoryTitle);
-        ArrayList<Product> products = getProductOfACategory(categoryId);
+    public ArrayList<Product> getProductsAfterFilterCategory(String pageName,String categoryTitle){
+        ArrayList<Product> products=new ArrayList<Product>();
+        if (categoryTitle.equals(context.getResources().getString(R.string.all)))
+            products=getProductOfMainCategory(pageName);
+        else {
+            int categoryId=getCategoryIdWithTitle(categoryTitle);
+            products = getProductOfACategory(categoryId);
+        }
+
         return products;
     }
 
@@ -484,17 +491,18 @@ public class ServerConnectionHandler {
                                                      String filterOptionStatus
                                                      ){
         ArrayList<Product> allProduct=new ArrayList<Product>();
-        allProduct=ProductOfMainCategory(pageName);
+        allProduct= getProductOfMainCategory(pageName);
         ArrayList<Product> newProducts=new ArrayList<Product>();
-        if(!filterCategoryContent.equals("همه"))
-             newProducts=getProductsAfterFilterCategory(filterCategoryContent);
-        else if (!filterOptionContent.equals("همه")){
+        if(!filterCategoryContent.equals(context.getResources().getString(R.string.all)))
+             newProducts=getProductsAfterFilterCategory(pageName,filterCategoryContent);
+        else if (!filterOptionContent.equals(context.getResources().getString(R.string.all))){
             if(filterOptionStatus.equals("price"))
                 newProducts=getProductAsPriceFilter(allProduct, filterOptionContent);
             else if (filterOptionStatus.equals("brand"))
                 newProducts=getAllProductOfABrand(allProduct,filterOptionContent);
         }
-        else if (filterCategoryContent.equals("همه") && filterOptionContent.equals("همه"))
+        else if (filterCategoryContent.equals(context.getResources().getString(R.string.all)) &&
+                filterOptionContent.equals(context.getResources().getString(R.string.all)))
             newProducts=allProduct;
         return newProducts;
     }

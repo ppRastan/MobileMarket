@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterAll;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterBrand;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterPrice;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -57,8 +58,9 @@ public class FilterOptionProduct extends DialogFragment {
         });
 
         ArrayList<String> optionProductFilter = new ArrayList<String>();
-        optionProductFilter.add("قیمت");
-        optionProductFilter.add("برند");
+        optionProductFilter.add(dialogView.getResources().getString(R.string.filterPriceTitle));
+        optionProductFilter.add(dialogView.getResources().getString(R.string.filterBrandTitle));
+        optionProductFilter.add(dialogView.getResources().getString(R.string.all));
 
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
@@ -79,6 +81,13 @@ public class FilterOptionProduct extends DialogFragment {
                     filterOptionBrand.setArguments(args);
                     filterOptionBrand.setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"),1);
                     filterOptionBrand.show(getFragmentManager(),"FilterOptionBrand");
+                }
+                else if (position==2){
+                    Intent args = new Intent();
+                    args.putExtra("all", dialogView.getResources().getString(R.string.all));
+                    setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"),2);
+                    onActivityResult(getTargetRequestCode(),2,args);
+
                 }
                 dismiss();
             }
@@ -102,6 +111,12 @@ public class FilterOptionProduct extends DialogFragment {
                 DataFilter.FilterBrand=bundleBrand.getString("brand");
                 DataFilter.FilterOption="brand";
                 ObserverFilterBrand.setAddFilterBrand(true);
+                break;
+            case 2:
+                Bundle bundleAll=data.getExtras();
+                DataFilter.FilterAll=bundleAll.getString("all");
+                DataFilter.FilterOption="all";
+                ObserverFilterAll.setAddFilterAll(true);
                 break;
         }
     }
