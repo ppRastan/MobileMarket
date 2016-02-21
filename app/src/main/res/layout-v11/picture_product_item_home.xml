@@ -69,19 +69,19 @@
         android:layout_weight="3"
         android:paddingBottom="16dp"
         android:weightSum="8"
-        android:background="@color/white">
+        android:background="@color/decoriss">
         <ImageButton
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="match_parent"
             android:src="@mipmap/ic_share_toolbar"
             android:id="@+id/imbt_share"
-            android:background="@color/white"
+            android:background="@color/decoriss"
              />
 
         <Button
             android:layout_width="0dp"
-            android:background="@drawable/button_background"
+            android:background="@drawable/button_background_similar"
             android:layout_height="match_parent"
             android:text="@string/same_goods"
             android:id="@+id/btn_similar"
@@ -95,7 +95,7 @@
             android:layout_gravity="center_horizontal|center_vertical"
             android:src="@mipmap/bye_toolbar"
             android:id="@+id/basket_toolbar"
-            android:background="@color/white"/>
+            android:background="@color/decoriss"/>
 
     </LinearLayout>
             </LinearLayout>

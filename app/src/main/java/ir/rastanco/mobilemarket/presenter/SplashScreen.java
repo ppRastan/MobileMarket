@@ -3,6 +3,7 @@ package ir.rastanco.mobilemarket.presenter;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 
 import ir.rastanco.mobilemarket.R;
@@ -11,7 +12,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 /**
  * Created by shaisteS on 1394/12/1.
  */
-public class SplashScreen extends Activity {
+public class SplashScreen extends AppCompatActivity{
 
     private Thread mSplashThread;
     private ServerConnectionHandler sch;
@@ -19,7 +20,6 @@ public class SplashScreen extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash_screen);
         final SplashScreen sPlashScreen = this;
         mSplashThread = new Thread(){
             @Override
@@ -27,7 +27,7 @@ public class SplashScreen extends Activity {
                 try {
                     synchronized(this){
                         // Wait given period of time or exit on touch
-                        wait(3000);
+                        wait(4000);//wait 5 minutes
                     }
                 }
                 catch(InterruptedException ex){

@@ -71,6 +71,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@mipmap/ic_phone" />
+        android:src="@mipmap/customer_support" />
 
 </android.support.design.widget.CoordinatorLayout>
