@@ -97,10 +97,17 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:layout_weight="1"
+        android:weightSum="10"
         android:background="@color/white">
-       
+       <LinearLayout
+           android:layout_width="0dp"
+           android:layout_weight="1"
+           android:layout_height="match_parent">
+
+       </LinearLayout>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="4"
             android:textColor="@color/black"
             android:textSize="15dp"
             android:padding="7dp"
@@ -108,9 +115,17 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical|center_horizontal"/>
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:src="@drawable/darajeha"
             android:layout_height="match_parent"
             android:id="@+id/img_ProductQuality" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
     </LinearLayout>
 
         <LinearLayout
