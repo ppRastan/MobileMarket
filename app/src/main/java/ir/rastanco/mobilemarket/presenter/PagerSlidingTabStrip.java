@@ -68,15 +68,12 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
     private LinearLayout mTabsContainer;
     private LinearLayout.LayoutParams mTabLayoutParams;
-
     private final PagerAdapterObserver mAdapterObserver = new PagerAdapterObserver();
     private final PageListener mPageListener = new PageListener();
     private OnTabReselectedListener mTabReselectedListener = null;
     public OnPageChangeListener mDelegatePageListener;
     private ViewPager mPager;
-
     private int mTabCount;
-
     private int mCurrentPosition = 0;
     private float mCurrentPositionOffset = 0f;
 
@@ -126,19 +123,11 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         setWillNotDraw(false);
         mTabsContainer = new LinearLayout(context);
         mTabsContainer.setOrientation(LinearLayout.HORIZONTAL);
-        //TODO for parisa : set gravity of tabs RTL
         mTabsContainer.setGravity(Gravity.RIGHT);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-        {
-            mTabsContainer.setLayoutDirection(LAYOUT_DIRECTION_RTL);
-            mTabsContainer.onRtlPropertiesChanged(LAYOUT_DIRECTION_RTL);
-        }
         addView(mTabsContainer);
-
         mRectPaint = new Paint();
         mRectPaint.setAntiAlias(true);
         mRectPaint.setStyle(Style.FILL);
-
         DisplayMetrics dm = getResources().getDisplayMetrics();
         mScrollOffset = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mScrollOffset, dm);
         mIndicatorHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mIndicatorHeight, dm);
@@ -147,12 +136,9 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         mTabPadding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mTabPadding, dm);
         mDividerWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, mDividerWidth, dm);
         mTabTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, mTabTextSize, dm);
-
         mDividerPaint = new Paint();
         mDividerPaint.setAntiAlias(true);
         mDividerPaint.setStrokeWidth(mDividerWidth);
-
-        // get system attrs for container
         TypedArray a = context.obtainStyledAttributes(attrs, ANDROID_ATTRS);
         int textPrimaryColor = a.getColor(TEXT_COLOR_PRIMARY, getResources().getColor(android.R.color.black));
         mUnderlineColor = textPrimaryColor;
@@ -162,15 +148,6 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         mPaddingLeft = padding > 0 ? padding : a.getDimensionPixelSize(PADDING_LEFT_INDEX, 0);
         mPaddingRight = padding > 0 ? padding : a.getDimensionPixelSize(PADDING_RIGHT_INDEX, 0);
         a.recycle();
-
-        String tabTextTypefaceName = "fonts/bnazanin.ttf";
-        // Use Roboto Medium as the default typeface from API 21 onwards
-       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            tabTextTypefaceName = "fonts/bnazanin.ttf";
-            mTabTextTypefaceStyle = Typeface.NORMAL;
-       }
-
-        // get custom attrs for tabs and container
         a = context.obtainStyledAttributes(attrs, R.styleable.PagerSlidingTabStrip);
         mIndicatorColor = a.getColor(R.styleable.PagerSlidingTabStrip_pstsIndicatorColor, mIndicatorColor);
         mIndicatorHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pstsIndicatorHeight, mIndicatorHeight);
@@ -191,8 +168,6 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         int tabTextAlpha = a.getInt(R.styleable.PagerSlidingTabStrip_pstsTabTextAlpha, DEF_VALUE_TAB_TEXT_ALPHA);
         String fontFamily = a.getString(R.styleable.PagerSlidingTabStrip_pstsTabTextFontFamily);
         a.recycle();
-
-        //Tab text color selector
         if (mTabTextColor == null) {
             mTabTextColor = createColorStateList(
                     textPrimaryColor,
@@ -203,16 +178,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
                             Color.blue(textPrimaryColor)));
         }
 
-        //Tab text typeface and style
-        if (fontFamily != null) {
-            tabTextTypefaceName = fontFamily;
-        }
-        //mTabTextTypeface = Typeface.create(tabTextTypefaceName, mTabTextTypefaceStyle);
          mTabTextTypeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/yekan.ttf");
-        //Bottom padding for the tabs container parent view to show indicator and underline
         setTabsContainerParentViewPaddings();
-
-        //Configure tab's container LayoutParams for either equal divided space or just wrap tabs
         mTabLayoutParams = isExpandTabs ?
                 new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1.0f) :
                 new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
@@ -222,17 +189,22 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         int bottomMargin = mIndicatorHeight >= mUnderlineHeight ? mIndicatorHeight : mUnderlineHeight;
         setPadding(getPaddingLeft(), getPaddingTop(), getPaddingRight(), bottomMargin);
     }
-
+//TODO for parisa
+    //change tab direction
     public void setViewPager(ViewPager pager) {
         this.mPager = pager;
         if (pager.getAdapter() == null) {
             throw new IllegalStateException("ViewPager does not have adapter instance.");
         }
 
-        isCustomTabs = pager.getAdapter() instanceof CustomTabProvider;
+//        isCustomTabs = pager.getAdapter() instanceof CustomTabProvider;
+//       pager.setOnPageChangeListener(mPageListener);
+//        pager.setCurrentItem(pager.getAdapter().getCount()-1);
+//        pager.getAdapter().registerDataSetObserver(mAdapterObserver);
+//        mAdapterObserver.setAttached(true);
+//        notifyDataSetChanged();
         pager.setOnPageChangeListener(mPageListener);
-        pager.getAdapter().registerDataSetObserver(mAdapterObserver);
-        mAdapterObserver.setAttached(true);
+        pager.setCurrentItem(pager.getAdapter().getCount()-1);
         notifyDataSetChanged();
     }
 
@@ -443,10 +415,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         this.mDelegatePageListener = listener;
     }
 
-    public void addFont() {
-        Typeface font = Typeface.createFromAsset(Configuration.activityContext.getAssets(), "fonts/yekan_font.ttf");
 
-    }
 
     private class PageListener implements OnPageChangeListener {
 

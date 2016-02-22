@@ -180,7 +180,8 @@ public class MainActivity extends AppCompatActivity {
         final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 5, getResources()
                 .getDisplayMetrics());
         pager.setPageMargin(pageMargin);
-        pager.setCurrentItem(0);
+        //do this for RTL tabs
+        pager.setCurrentItem(pager.getAdapter().getCount()-1);
         this.setDecorissThemColour();
         this.addFontAndColors();
 
@@ -586,7 +587,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-           return SuperAwesomeCardFragment.newInstance(position);
+            //do this for RTL tabs
+            return SuperAwesomeCardFragment.newInstance(TITLES.length-1-position);
         }
 
     }
