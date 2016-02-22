@@ -180,8 +180,7 @@ public class MainActivity extends AppCompatActivity {
         final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 5, getResources()
                 .getDisplayMetrics());
         pager.setPageMargin(pageMargin);
-        //do this for RTL tabs
-        pager.setCurrentItem(pager.getAdapter().getCount()-1);
+        pager.setCurrentItem(0);
         this.setDecorissThemColour();
         this.addFontAndColors();
 
@@ -328,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent userProfileIntent=new Intent(Configuration.MainActivityContext,LoginHandler.class);
                     this.startActivity(userProfileIntent);
                 }
-               break;
+                break;
             case R.id.action_search:
             {
                 backButton = (ImageButton)findViewById(R.id.back_button);
@@ -557,7 +556,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         private final String[] TITLES = {
-                  getResources().getString(R.string.first_page)
+                getResources().getString(R.string.first_page)
                 ,second_page
                 ,third_page
                 ,fourth_page
@@ -572,7 +571,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void setPrimaryItem(ViewGroup container, int position, Object object) {
-           super.setPrimaryItem(container, position, object);
+            super.setPrimaryItem(container, position, object);
         }
 
         @Override
@@ -587,8 +586,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            //do this for RTL tabs
-            return SuperAwesomeCardFragment.newInstance(TITLES.length-1-position);
+            return SuperAwesomeCardFragment.newInstance(position);
         }
 
     }
