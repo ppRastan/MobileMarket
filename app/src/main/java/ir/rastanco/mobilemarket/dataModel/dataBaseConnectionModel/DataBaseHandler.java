@@ -246,6 +246,21 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
     }
 
+    public Boolean ExistACategory(int catId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select catId from tblCategory where catId=" + catId, null);
+        if (rs.moveToFirst()) {
+            //Exist Product
+            rs.close();
+            return true;
+        } else {
+            //Not Exist
+            rs.close();
+            return false;
+        }
+    }
+
+
     public Boolean ExistAProductIdInOptionTable(int productId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblProductOption where " +
@@ -968,6 +983,14 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 "productId=" + aProduct.getId(), null);
         Log.v("update", "Update a Product");
     }
+
+    public void updateACategory(Category aCategory) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update("tblCategory", addFieldToCategoryTable(aCategory),
+                "catId=" + aCategory.getId(), null);
+        Log.v("update", "Update a Category");
+    }
+
 
     public void updateAProductOption(int productId,ProductOption aOption) {
         SQLiteDatabase db = this.getWritableDatabase();
