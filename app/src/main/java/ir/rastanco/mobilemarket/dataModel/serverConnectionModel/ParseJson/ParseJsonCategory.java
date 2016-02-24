@@ -33,9 +33,10 @@ public class ParseJsonCategory {
                 JSONObject c = dataJsonArr.getJSONObject(i);
                 Category aCategory=new Category();
                 aCategory.setTitle(c.getString("t"));
-                aCategory.setId(Integer.parseInt(c.getString("id")));
-                aCategory.setParentId(Integer.parseInt(c.getString("pid")));
-                aCategory.setHasChild(Integer.parseInt(c.getString("c")));
+                aCategory.setId(c.getInt("id"));
+                aCategory.setParentId(c.getInt("pid"));
+                aCategory.setHasChild(c.getInt("c"));
+                aCategory.setHasChild(c.getInt("so"));
                 allCategory.add(aCategory);
                 if (c.has("sub1")){
                     JSONArray sub1Array=c.getJSONArray("sub1");
@@ -43,10 +44,10 @@ public class ParseJsonCategory {
                         Category sub1Category=new Category();
                         JSONObject sub1object=sub1Array.getJSONObject(j);
                         sub1Category.setTitle(sub1object.getString("t"));
-                        sub1Category.setId(Integer.parseInt(sub1object.getString("id")));
-                        sub1Category.setParentId(Integer.parseInt(sub1object.getString("pid")));
-                        sub1Category.setHasChild(Integer.parseInt(sub1object.getString("c")));
-                        sub1Category.setSortOrder(Integer.parseInt(sub1object.getString("so")));
+                        sub1Category.setId(sub1object.getInt("id"));
+                        sub1Category.setParentId(sub1object.getInt("pid"));
+                        sub1Category.setHasChild(sub1object.getInt("c"));
+                        sub1Category.setSortOrder(sub1object.getInt("so"));
                         allCategory.add(sub1Category);
                         if (sub1object.has("sub2")){
                             JSONArray sub2Array=sub1object.getJSONArray("sub2");
@@ -54,10 +55,10 @@ public class ParseJsonCategory {
                                 Category sub2Category=new Category();
                                 JSONObject sub2object=sub2Array.getJSONObject(k);
                                 sub2Category.setTitle(sub2object.getString("t"));
-                                sub2Category.setId(Integer.parseInt(sub2object.getString("id")));
-                                sub2Category.setParentId(Integer.parseInt(sub2object.getString("pid")));
-                                sub2Category.setHasChild(Integer.parseInt(sub2object.getString("c")));
-                                sub1Category.setSortOrder(Integer.parseInt(sub1object.getString("so")));
+                                sub2Category.setId(sub2object.getInt("id"));
+                                sub2Category.setParentId(sub2object.getInt("pid"));
+                                sub2Category.setHasChild(sub2object.getInt("c"));
+                                sub2Category.setSortOrder(sub2object.getInt("so"));
                                 allCategory.add(sub2Category);
                                 if (sub2object.has("sub3")){
                                     JSONArray sub3Array=sub2object.getJSONArray("sub3");
@@ -65,10 +66,10 @@ public class ParseJsonCategory {
                                         Category sub3Category=new Category();
                                         JSONObject sub3object=sub3Array.getJSONObject(y);
                                         sub3Category.setTitle(sub3object.getString("t"));
-                                        sub3Category.setId(Integer.parseInt(sub3object.getString("id")));
-                                        sub3Category.setParentId(Integer.parseInt(sub3object.getString("pid")));
-                                        sub3Category.setHasChild(Integer.parseInt(sub3object.getString("c")));
-                                        sub3Category.setSortOrder(Integer.parseInt(sub3object.getString("so")));
+                                        sub3Category.setId(sub3object.getInt("id"));
+                                        sub3Category.setParentId(sub3object.getInt("pid"));
+                                        sub3Category.setHasChild(sub3object.getInt("c"));
+                                        sub3Category.setSortOrder(sub3object.getInt("so"));
                                         allCategory.add(sub3Category);
                                     }
                                 }
