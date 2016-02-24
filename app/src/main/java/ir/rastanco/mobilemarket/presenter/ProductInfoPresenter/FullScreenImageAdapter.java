@@ -102,13 +102,11 @@ public class FullScreenImageAdapter extends PagerAdapter{
 
         setProductQuality(products.get(position).getQualityRank());
 
-        ImageButton imgOff=(ImageButton)viewLayout.findViewById(R.id.ic_offer_full_screen_right);
         //این محصول تخفیف ندارد
         if (products.get(position).getPriceOff()==0){
-            imgOff.setVisibility(View.GONE);
-            numberOfFinalPrice = String.valueOf(String.valueOf(products.get(position).getPrice()));
-            amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
-            addToBasketBtn.setText(formatter.format(amountOfFinalPrice) + "  " + "تومان");
+            addToBasketBtn.setText("به زودی");
+            addToBasketBtn.setCompoundDrawables(null,null,null,null);
+            addToBasketBtn.setEnabled(false);
 
         }
         //این محصول تخفیف دارد
@@ -121,13 +119,6 @@ public class FullScreenImageAdapter extends PagerAdapter{
             amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
             addToBasketBtn.setText("قیمت برای شما:"+" "+formatter.format(amountOfFinalPrice) + "  " + "تومان");
             //addToBasketBtn.invalidateDrawable(null);
-
-        }
-        final ImageButton btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
-
-        if(products.get(position).getPrice()==0) {
-            addToBasketBtn.setVisibility(View.GONE);
-            addToBasketBtn.setText("به زودی");
 
         }
 
@@ -144,7 +135,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
         sch.getProductOption(products.get(position).getId(),
                 products.get(position).getGroupId());
 
-
+        final ImageButton btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
 
         if (sch.getAProduct(products.get(position).getId()).getLike()==0){
             //this Product No Favorite

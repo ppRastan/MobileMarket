@@ -26,8 +26,8 @@ public class FilterSubCategory extends DialogFragment{
     private ServerConnectionHandler sch;
     private String categoryName;
 
-    public static FilterCategory newInstance(String name) {
-        FilterCategory f = new FilterCategory();
+    public static FilterSubCategory newInstance(String name) {
+        FilterSubCategory f = new FilterSubCategory();
         // Supply num input as an argument.
         Bundle args = new Bundle();
         args.putString("name", name);
@@ -58,9 +58,9 @@ public class FilterSubCategory extends DialogFragment{
             }
         });
 
-        int subCategoryIdSelected=sch.getCategoryIdWithTitle(categoryName);
-        final ArrayList<String> subCategoryChildTitle=sch.getTitleOfChildOfACategory(subCategoryIdSelected);
-        ListView listSubCategory = (ListView) dialogView.findViewById(R.id.list);
+        final int[] subCategoryIdSelected = {sch.getCategoryIdWithTitle(categoryName)};
+        final ArrayList<String> subCategoryChildTitle=sch.getTitleOfChildOfACategory(subCategoryIdSelected[0]);
+        final ListView listSubCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
         listSubCategory.setAdapter(adapter);
@@ -68,21 +68,30 @@ public class FilterSubCategory extends DialogFragment{
         listSubCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*if (sch.getCategoryHasChildWithTitle(parent.getItemAtPosition(position).toString())){
-                    Bundle args = new Bundle();
+                if (sch.getCategoryHasChildWithTitle(parent.getItemAtPosition(position).toString())){
+
+                    /*Bundle args = new Bundle();
                     args.putString("name", parent.getItemAtPosition(position).toString());
                     FilterSubCategory filterSubCategory = new FilterSubCategory();
                     filterSubCategory.setArguments(args);
                     filterSubCategory.setTargetFragment(getFragmentManager().findFragmentByTag("Category"), 0);
                     filterSubCategory.show(getFragmentManager(), "SubCategory");
-                    dismiss();
+                    dismiss();*/
+                    String s=parent.getItemAtPosition(position).toString();
+                    subCategoryIdSelected[0] =sch.getCategoryIdWithTitle(s);
+                    ArrayList<String> subCategoryChildTitle=sch.getTitleOfChildOfACategory(subCategoryIdSelected[0]);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                            android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
+                   listSubCategory.setAdapter(adapter);
+
+
                 }
-                else {*/
+                else {
                     Intent args = new Intent();
                     args.putExtra("subCategorySelected", parent.getItemAtPosition(position).toString());
                     getTargetFragment().onActivityResult(getTargetRequestCode(),0,args);
                     dismiss();
-                //}
+                }
 
             }
         });

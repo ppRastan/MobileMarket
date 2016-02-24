@@ -80,7 +80,6 @@ public class ServerConnectionHandler {
 
         return dbh.selectAllCategory();
     }
-
     public String getACategoryTitle(int catId){
         ArrayList<Category> allCategories=new ArrayList<Category>();
         allCategories=getAllCategoryInfoTable();
@@ -91,21 +90,17 @@ public class ServerConnectionHandler {
         }
         return catTitle;
     }
-
     public int getHasChildACategoryWithTitle(String categoryTitle){
         int catId=getCategoryIdWithTitle(categoryTitle);
         Category aCategory=dbh.selectACategory(catId);
         return aCategory.getHasChild();
     }
-
     public Map<Integer,String> getMainCategory(){
         return dbh.selectMainCategories();
     }
-
     public ArrayList<String> getMainCategoryTitle(){
         return dbh.selectMainCategoriesTitle();
     }
-
     public ArrayList<Category> getAllCategoryInfoURL(String url){
 
         GetFile jParserCategory = new GetFile();
@@ -123,7 +118,6 @@ public class ServerConnectionHandler {
         return allCategoryInfo;
 
     }
-
     public int getMainCategoryId(String catTitle) {
         Map<Integer, String> catTitleMap = dbh.selectMainCategoryTitle();
         int catId = 0;
@@ -133,7 +127,6 @@ public class ServerConnectionHandler {
         }
         return catId;
     }
-
     public ArrayList<Integer> getPageNumForSimilarProduct(int parentId){
         ArrayList<Integer> setSimilarCategoryInfo=new ArrayList<Integer>();
         int subCategory=dbh.selectACategoryParent(parentId);
@@ -157,7 +150,6 @@ public class ServerConnectionHandler {
         setSimilarCategoryInfo.add(subCategory);
         return setSimilarCategoryInfo;
     }
-
     public ArrayList<Integer> ChildOfACategory(String title){
         int catId=getMainCategoryId(title);
         ArrayList<Integer> subCategoriesId=new ArrayList<Integer>();
@@ -184,7 +176,6 @@ public class ServerConnectionHandler {
         }
         return products;
     }
-
     public ArrayList<Product> ProductOFASubCategory(int subCatId){
         ArrayList<Product> products=new ArrayList<Product>();
         ArrayList<Integer> childofSubCategory=new ArrayList<Integer>();
@@ -207,7 +198,6 @@ public class ServerConnectionHandler {
         }
         return products;
     }
-
     public ArrayList<Product> getProductOfACategory(int catId){
         ArrayList<Product> allProducts=new ArrayList<Product>();
         ArrayList<Product> allProductsOfACategory=new ArrayList<Product>();
@@ -218,13 +208,11 @@ public class ServerConnectionHandler {
         }
         return allProductsOfACategory;
     }
-
     public Map<Integer,String> getFilterSubCategory(String title){
         int mainCatId=getMainCategoryId(title);
         return dbh.selectChildOfACategory(mainCatId);
 
     }
-
     public int getCategoryIdWithTitle(String title){
         ArrayList<Category> allCat=new ArrayList<Category>();
         allCat=getAllCategoryInfoTable();
@@ -235,7 +223,6 @@ public class ServerConnectionHandler {
         }
         return catId;
     }
-
     public Boolean getCategoryHasChildWithTitle(String title){
         ArrayList<Category> allCat=new ArrayList<Category>();
         allCat=getAllCategoryInfoTable();
@@ -246,10 +233,21 @@ public class ServerConnectionHandler {
         }
         return catHasChild;
     }
-
-
     public ArrayList<String> getTitleOfChildOfACategory(int catID){
         return dbh.selectChildOfACategoryTitle(catID);
+    }
+    public void refreshCategories(String url){
+        ArrayList<Category> allCategories=new ArrayList<Category>();
+        allCategories=getAllCategoryInfoURL(url);
+        for (int i=0;i<allCategories.size();i++){
+            if (dbh.ExistACategory(allCategories.get(i).getId()))
+                dbh.updateACategory(allCategories.get(i));
+            else
+                dbh.insertACategory(allCategories.get(i));
+        }
+
+
+
     }
 
 

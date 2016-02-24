@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Point;
@@ -18,7 +17,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -60,7 +58,6 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingBagClickListener;
@@ -130,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             fourth_page=mainCategoryTitle.get(2);
         }
         this.CreatePageRightToLeft();
-        this.checkDbState();
+        //this.checkDbState();
         this.addActionBar();
         this.setFAb();
         this.phoneManager();
@@ -230,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void checkDbState() {
+    /*private void checkDbState() {
 
         //for add brandName to DataBase then update brandName filed
         //last version in server 1.3.9
@@ -268,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
             sch.addAllArticlesToTable(articles);
         }
 
-    }
+    }*/
 
     private void addServerConnection() {
         Configuration.MainActivityContext = this;
@@ -413,7 +410,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
 
-            checkDbState();
+           // checkDbState();
             return null;
 
         }
