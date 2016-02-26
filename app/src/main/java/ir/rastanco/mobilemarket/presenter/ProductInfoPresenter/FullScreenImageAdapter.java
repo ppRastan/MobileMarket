@@ -101,35 +101,7 @@ public class FullScreenImageAdapter extends PagerAdapter{
         nameOfCurrentProduct.setText(products.get(position).getTitle());
 
         setProductQuality(products.get(position).getQualityRank());
-        //امحصولات با عنوان به زودی
-        if(products.get(position).getPrice()==0){
-            addToBasketBtn.setText("به زودی");
-            addToBasketBtn.setCompoundDrawables(null,null,null,null);
-            addToBasketBtn.setEnabled(false);
 
-        }
-
-        //این محصول تخفیف ندارد
-        if (products.get(position).getPriceOff()==0 && products.get(position).getPrice()!=0){
-            int price=products.get(position).getPrice();
-            numberOfFinalPrice = String.valueOf(price);
-            amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
-            addToBasketBtn.setText("قیمت : "+" "+formatter.format(amountOfFinalPrice) + "  " + "تومان");
-
-
-        }
-        //این محصول تخفیف دارد
-        if (products.get(position).getPriceOff()!=0 && products.get(position).getPrice()!=0)
-        {
-            int price=products.get(position).getPrice();
-            int off=(price*products.get(position).getPriceOff())/100;
-            int priceForYou=price-off;
-            numberOfFinalPrice = String.valueOf(priceForYou);
-            amountOfFinalPrice = Double.parseDouble(numberOfFinalPrice);
-            addToBasketBtn.setText("قیمت برای شما:"+" "+formatter.format(amountOfFinalPrice) + "  " + "تومان");
-            //addToBasketBtn.invalidateDrawable(null);
-
-        }
 
         addToBasketBtn.setTypeface(yekanFont);
         addToBasketBtn.setOnClickListener(new View.OnClickListener() {
