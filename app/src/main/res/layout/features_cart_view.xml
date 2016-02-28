@@ -36,7 +36,6 @@
                     android:layout_height="9dp"
                     android:layout_weight="9"
                     android:scrollbars="none"
-                    android:entries="@array/list_view_item"
                     android:divider="@color/white"
                     android:id="@+id/lv_productOption"
                     android:background="@color/white"/>

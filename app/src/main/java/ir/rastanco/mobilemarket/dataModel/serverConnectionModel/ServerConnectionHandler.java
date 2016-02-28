@@ -245,14 +245,7 @@ public class ServerConnectionHandler {
             else
                 dbh.insertACategory(allCategories.get(i));
         }
-
-
-
     }
-
-
-
-
     //Product
     public Boolean emptyDBProduct(){
         Boolean empty=dbh.emptyProductTable();

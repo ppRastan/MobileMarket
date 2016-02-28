@@ -47,9 +47,10 @@ public class UserLastShoppingProduct extends Activity {
         lvLastShopping.setAdapter(adapter);
     }
 
-    @Override
-    public void onBackPressed() {
-     Intent accuntManagerIntent = new Intent(UserLastShoppingProduct.this,AccountManager.class);
-        startActivity(accuntManagerIntent);
-    }
+        @Override
+        public void onBackPressed() {
+            Intent userPreviousShopping = new Intent(UserLastShoppingProduct.this,AccountManager.class);
+            startActivity(userPreviousShopping);
+            this.finish();
+        }
 }
