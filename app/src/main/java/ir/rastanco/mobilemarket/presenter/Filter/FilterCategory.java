@@ -34,11 +34,16 @@ public class FilterCategory extends DialogFragment {
         return f;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch = new ServerConnectionHandler(Configuration.superACFragment);
+        sch = new ServerConnectionHandler(Configuration.ShopFragmentContext);
         pageName = getArguments().getString("name");
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
@@ -71,30 +76,27 @@ public class FilterCategory extends DialogFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String itemSelectedContent= parent.getItemAtPosition(position).toString();
+                String itemSelectedContent = parent.getItemAtPosition(position).toString();
 
-                if (itemSelectedContent.equals(dialogView.getResources().getString(R.string.all))){
+                if (itemSelectedContent.equals(dialogView.getResources().getString(R.string.all))) {
                     Intent args = new Intent();
                     args.putExtra("all", dialogView.getResources().getString(R.string.all));
-                    setTargetFragment(getFragmentManager().findFragmentByTag("category"),1);
-                    onActivityResult(getTargetRequestCode(),1,args);
+                    setTargetFragment(getFragmentManager().findFragmentByTag("category"), 1);
+                    onActivityResult(getTargetRequestCode(), 1, args);
                     dismiss();
-                }
-
-                else if (sch.getHasChildACategoryWithTitle(itemSelectedContent)>0) {
+                } else if (sch.getHasChildACategoryWithTitle(itemSelectedContent) > 0) {
                     Bundle args = new Bundle();
-                    args.putString("name",itemSelectedContent);
+                    args.putString("name", itemSelectedContent);
                     FilterSubCategory filterSubCategory = new FilterSubCategory();
                     filterSubCategory.setArguments(args);
                     filterSubCategory.setTargetFragment(getFragmentManager().findFragmentByTag("Category"), 0);
                     filterSubCategory.show(getFragmentManager(), "SubCategory");
                     dismiss();
-                }
-                else if(sch.getHasChildACategoryWithTitle(itemSelectedContent)==0){
+                } else if (sch.getHasChildACategoryWithTitle(itemSelectedContent) == 0) {
                     Intent args = new Intent();
-                    args.putExtra("noChild",itemSelectedContent);
-                    setTargetFragment(getFragmentManager().findFragmentByTag("category"),2);
-                    onActivityResult(getTargetRequestCode(),2,args);
+                    args.putExtra("noChild", itemSelectedContent);
+                    setTargetFragment(getFragmentManager().findFragmentByTag("category"), 2);
+                    onActivityResult(getTargetRequestCode(), 2, args);
                     dismiss();
                 }
 
@@ -112,30 +114,27 @@ public class FilterCategory extends DialogFragment {
                 Bundle bundle = data.getExtras();
                 String subCategorySelected = bundle.getString("subCategorySelected");
                 //send subCategory selected to SuperAwesomeCardFragment for show
-                DataFilter.FilterCategory=subCategorySelected;
+                DataFilter.FilterCategory = subCategorySelected;
                 ObserverFilterCategory.setAddFilter(true);
                 break;
             case 1:
                 Bundle bundleAll = data.getExtras();
                 String selectedAll = bundleAll.getString("all");
-                DataFilter.FilterCategory=selectedAll;
+                DataFilter.FilterCategory = selectedAll;
                 ObserverFilterCategory.setAddFilter(true);
                 break;
             case 2:
                 Bundle bundleNoChild = data.getExtras();
                 String selectACategoryNoChild = bundleNoChild.getString("noChild");
-                DataFilter.FilterCategory=selectACategoryNoChild;
+                DataFilter.FilterCategory = selectACategoryNoChild;
                 ObserverFilterCategory.setAddFilter(true);
                 break;
-
-
 
 
         }
     }
 
+    public void show(FragmentManager fragmentManager, String tag) {
 
-    public void show(FragmentManager supportFragmentManager, String tag) {
     }
-
 }

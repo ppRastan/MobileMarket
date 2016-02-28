@@ -3,6 +3,7 @@ package ir.rastanco.mobilemarket.presenter.Filter;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ public class FilterOptionProduct extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch = new ServerConnectionHandler(Configuration.superACFragment);
+        sch = new ServerConnectionHandler(Configuration.ShopFragmentContext);
         pageName = getArguments().getString("name");
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
@@ -119,5 +120,9 @@ public class FilterOptionProduct extends DialogFragment {
                 ObserverFilterAll.setAddFilterAll(true);
                 break;
         }
+    }
+
+    public void show(FragmentManager fragmentManager, String filterProductOption) {
+
     }
 }

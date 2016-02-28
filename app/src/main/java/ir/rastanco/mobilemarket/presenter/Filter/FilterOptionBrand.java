@@ -35,7 +35,7 @@ public class FilterOptionBrand extends DialogFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch = new ServerConnectionHandler(Configuration.superACFragment);
+        sch = new ServerConnectionHandler(Configuration.ShopFragmentContext);
         categoryName=getArguments().getString("name");
         ArrayList<Product> products=new ArrayList<Product>();
         products=sch.getProductOfMainCategory(categoryName);

@@ -1,4 +1,4 @@
-package ir.rastanco.mobilemarket.presenter.homePresenter;
+package ir.rastanco.mobilemarket.presenter.specialProductPresenter;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -37,7 +37,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  * Created by ShaisteS on 12/27/2015.
  * A Customize Adapter For Home List view
  */
-public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
+public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
 
     private Activity myContext;
     private ArrayList<Product> allProduct;
@@ -52,7 +52,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
     private Intent sendIntent;
     private boolean isSelectedForShop=false;
 
-    public PictureProductHomeItemAdapter(Context context, int resource, ArrayList<Product> products) {
+    public PictureSpecialProductItemAdapter(Context context, int resource, ArrayList<Product> products) {
         super(context, resource,products);
         myContext=(Activity)context;
         allProduct=products;
@@ -178,7 +178,7 @@ public class PictureProductHomeItemAdapter extends ArrayAdapter<Product>  {
 //                shareDialog.cancel();
             }
         });
-        ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment,rowView,Configuration.homeDisplaySizeForShow); // important
+        ImageLoader imgLoader = new ImageLoader(myContext,rowView,Configuration.homeDisplaySizeForShow); // important
         final  ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
         PicProductImage.getLayoutParams().width= Configuration.homeDisplaySizeForShow;
         PicProductImage.getLayoutParams().height=Configuration.homeDisplaySizeForShow;

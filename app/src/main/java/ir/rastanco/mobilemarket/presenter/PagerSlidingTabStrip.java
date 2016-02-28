@@ -47,7 +47,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.utility.Configuration;
 
 
 public class PagerSlidingTabStrip extends HorizontalScrollView {

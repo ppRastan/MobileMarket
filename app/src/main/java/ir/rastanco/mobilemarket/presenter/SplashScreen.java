@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
@@ -94,17 +93,6 @@ public class SplashScreen extends AppCompatActivity{
         }
         else
             sch.refreshCategories("http://decoriss.com/json/get,com=allcats&cache=false");
-
-        if (sch.emptyDBProduct()){
-
-            ParseJsonProduct pjp=new ParseJsonProduct(this);
-            pjp.execute("http://decoriss.com/json/get,com=product&newfromts=1352689345&cache=false");
-        }
-
-        if (sch.emptyDBArticle()){
-            articles=sch.getAllArticlesAndNewsURL("http://decoriss.com/json/get,com=news&name=blog&order=desc&limit=0-25&cache=false");
-            sch.addAllArticlesToTable(articles);
-        }
 
     }
 

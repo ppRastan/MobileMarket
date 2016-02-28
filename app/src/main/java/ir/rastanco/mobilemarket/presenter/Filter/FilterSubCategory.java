@@ -39,7 +39,7 @@ public class FilterSubCategory extends DialogFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch=new ServerConnectionHandler(Configuration.superACFragment);
+        sch=new ServerConnectionHandler(Configuration.ShopFragmentContext);
         categoryName=getArguments().getString("name");
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);

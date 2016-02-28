@@ -31,12 +31,12 @@ public class Configuration {
     public static int progressBarSize;
 
     public static Context activityContext;
-    public static Context superACFragment;
     public static Context MainActivityContext;
     public static Context ProductInfoContext;
     public static Context AplicationContext;
     public static Context UserLoginContext;
     public static Context UserProfileContext;
+    public static Context ShopFragmentContext;
     public static Context UserActivity;
     public static Context ManageUserPage;
     public static Context ShoppingBagContext;

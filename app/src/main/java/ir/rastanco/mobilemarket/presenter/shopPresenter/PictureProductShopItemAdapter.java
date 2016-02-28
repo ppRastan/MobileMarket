@@ -65,7 +65,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         myContext =mainActivity;
         inflater = ( LayoutInflater ) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         allProduct =products;
-        sch=new ServerConnectionHandler(Configuration.superACFragment);
+        sch=new ServerConnectionHandler(myContext);
         yekanFont = Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf");
 
     }
@@ -279,7 +279,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             }
         });
 
-        ImageLoader imgLoader = new ImageLoader(Configuration.superACFragment,rowView,Configuration.shopDisplaySizeForShow); // important
+        ImageLoader imgLoader = new ImageLoader(myContext,rowView,Configuration.shopDisplaySizeForShow); // important
         String picCounter = allProduct.get(position).getImagesPath().get(0);
         try {
             picCounter= URLEncoder.encode(picCounter, "UTF-8");

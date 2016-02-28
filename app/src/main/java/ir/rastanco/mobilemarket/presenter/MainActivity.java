@@ -59,12 +59,16 @@ import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingBagClickListener;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManager;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginHandler;
+import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
+import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragment;
+import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragmentManagement;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
 
@@ -111,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        this.addActionBar();
+        this.setFAb();
+        this.phoneManager();
         Configuration.IstheFirtTimeGoingToThisPage = true;
         this.addServerConnection();
         shoppingBagActivity = new ShoppingBagActivity();
@@ -127,11 +134,9 @@ public class MainActivity extends AppCompatActivity {
             fourth_page=mainCategoryTitle.get(2);
         }
         this.CreatePageRightToLeft();
-        //this.checkDbState();
-        this.addActionBar();
-        this.setFAb();
-        this.phoneManager();
         this.displayWindow();
+
+        //this.checkDbState();
         shopCounter=sch.getCountProductShop();
         ObserverShopping.addMyBooleanListener(new ObserverShoppingBagClickListener() {
             @Override
@@ -216,7 +221,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void phoneManager() {
@@ -583,7 +587,36 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return SuperAwesomeCardFragment.newInstance(position);
+
+            SpecialProductFragment fragment=new SpecialProductFragment();
+
+            switch (position){
+                case 0:
+                    SpecialProductFragmentManagement specialProductFragmentManagement=new SpecialProductFragmentManagement();
+                    return specialProductFragmentManagement;
+                case 1:
+                    Bundle firstArgs = new Bundle();
+                    firstArgs.putString("name", TITLES[position]);
+                    ShopFragment shop=new ShopFragment();
+                    shop.setArguments(firstArgs);
+                    return shop;
+                case 2:
+                    Bundle secondArgs = new Bundle();
+                    secondArgs.putString("name", TITLES[position]);
+                    ShopFragment secondFragment=new ShopFragment();
+                    secondFragment.setArguments(secondArgs);
+                    return secondFragment;
+                case 3:
+                    Bundle thirdArgs = new Bundle();
+                    thirdArgs.putString("name", TITLES[position]);
+                    ShopFragment thirdShop=new ShopFragment();
+                    thirdShop.setArguments(thirdArgs);
+                    return thirdShop;
+                case 4:
+                    ArticleFragment article=new ArticleFragment();
+                    return article;
+            }
+            return fragment;
         }
 
     }
