@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
-import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopLoadingFragment;
+import ir.rastanco.mobilemarket.presenter.LoadingFragment;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
@@ -26,7 +26,7 @@ public class SecondTabFragmentManager extends Fragment {
         pageName=getArguments().getString("name");
 
         if (Configuration.productTableEmptyStatus==true) {
-            ShopLoadingFragment loading = new ShopLoadingFragment();
+            LoadingFragment loading = new LoadingFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.secondTabManager, loading);
             transaction.commit();
