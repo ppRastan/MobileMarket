@@ -123,6 +123,7 @@ public class ParseJsonProduct extends AsyncTask<String, String, String> {
                 aProduct.setDescription(c.getString("d"));
                 aProduct.setSellsCount(Integer.parseInt(c.getString("s")));
                 aProduct.setTimeStamp(c.getString("ts"));
+                aProduct.setUpdateTimeStamp(c.getString("update_ts"));
                 aProduct.setShowAtHomeScreen(Integer.parseInt(c.getString("h")));
                 aProduct.setWatermarkPath(c.getString("wm"));
                 aProduct.setImagesMainPath(c.getString("ipath"));

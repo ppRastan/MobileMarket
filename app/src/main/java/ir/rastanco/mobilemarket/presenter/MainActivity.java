@@ -54,20 +54,22 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import co.ronash.pushe.Pushe;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleFragment;
+import ir.rastanco.mobilemarket.presenter.FirstTabPresenter.FirstTabFragmentManager;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingBagClickListener;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
+import ir.rastanco.mobilemarket.presenter.SecoundTabPresenter.SecondTabFragmentManager;
+import ir.rastanco.mobilemarket.presenter.ThirdtabPresenter.ThirdTabFragmentManager;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManager;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginHandler;
-import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
-import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragment;
 import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragmentManagement;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
@@ -115,6 +117,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Pushe Alert For Install Google Play
+        Pushe.initialize(this, true);
+
         this.addActionBar();
         this.setFAb();
         this.phoneManager();
@@ -586,9 +592,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public Fragment getItem(int position) {
-
-            SpecialProductFragment fragment=new SpecialProductFragment();
+       public Fragment getItem(int position) {
 
             switch (position){
                 case 0:
@@ -597,26 +601,27 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     Bundle firstArgs = new Bundle();
                     firstArgs.putString("name", TITLES[position]);
-                    ShopFragment shop=new ShopFragment();
-                    shop.setArguments(firstArgs);
-                    return shop;
+                    FirstTabFragmentManager firstTab=new FirstTabFragmentManager();
+                    firstTab.setArguments(firstArgs);
+                    return firstTab;
                 case 2:
                     Bundle secondArgs = new Bundle();
                     secondArgs.putString("name", TITLES[position]);
-                    ShopFragment secondFragment=new ShopFragment();
-                    secondFragment.setArguments(secondArgs);
-                    return secondFragment;
+                    SecondTabFragmentManager secondTab=new SecondTabFragmentManager();
+                    secondTab.setArguments(secondArgs);
+                    return secondTab;
                 case 3:
                     Bundle thirdArgs = new Bundle();
                     thirdArgs.putString("name", TITLES[position]);
-                    ShopFragment thirdShop=new ShopFragment();
-                    thirdShop.setArguments(thirdArgs);
-                    return thirdShop;
+                    ThirdTabFragmentManager thirdTab=new ThirdTabFragmentManager();
+                    thirdTab.setArguments(thirdArgs);
+                    return thirdTab;
                 case 4:
                     ArticleFragment article=new ArticleFragment();
                     return article;
+                default:
+                    return null;
             }
-            return fragment;
         }
 
     }

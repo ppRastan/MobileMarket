@@ -25,6 +25,7 @@ public class Product implements Parcelable {
     private String description;
     private int sellsCount;
     private String timeStamp;
+    private String updateTimeStamp;
     private int showAtHomeScreen;   //0=no show or 1=show
     private String watermarkPath;
     private String imagesMainPath;
@@ -32,7 +33,7 @@ public class Product implements Parcelable {
     private String linkInSite;
     private String brandName;
     private ArrayList<String> imagesPath;
-    private ArrayList<ProductOption> producOptions;
+    private ArrayList<ProductOption> productOptions;
 
     public Product() {
 
@@ -53,6 +54,7 @@ public class Product implements Parcelable {
         description = in.readString();
         sellsCount = in.readInt();
         timeStamp = in.readString();
+        updateTimeStamp = in.readString();
         showAtHomeScreen = in.readInt();
         watermarkPath = in.readString();
         imagesMainPath = in.readString();
@@ -186,12 +188,16 @@ public class Product implements Parcelable {
         this.timeStamp = timeStamp;
     }
 
-    public ArrayList<ProductOption> getProducOptions() {
-        return producOptions;
+    public String getUpdateTimeStamp() {
+        return updateTimeStamp;
     }
 
-    public void setProducOptions(ArrayList<ProductOption> producOptions) {
-        this.producOptions = producOptions;
+    public void setUpdateTimeStamp(String updateTimeStamp) {
+        this.updateTimeStamp = updateTimeStamp;
+    }
+
+    public static Creator<Product> getCREATOR() {
+        return CREATOR;
     }
 
     public int getShowAtHomeScreen() {
@@ -251,11 +257,11 @@ public class Product implements Parcelable {
     }
 
     public ArrayList<ProductOption> getProductOptions() {
-        return producOptions;
+        return productOptions;
     }
 
     public void setProductOptions(ArrayList<ProductOption> productProductOptions) {
-        this.producOptions = productProductOptions;
+        this.productOptions = productProductOptions;
     }
 
     @Override
@@ -279,6 +285,7 @@ public class Product implements Parcelable {
         dest.writeString(description);
         dest.writeInt(sellsCount);
         dest.writeString(timeStamp);
+        dest.writeString(updateTimeStamp);
         dest.writeInt(showAtHomeScreen);
         dest.writeString(watermarkPath);
         dest.writeString(imagesMainPath);

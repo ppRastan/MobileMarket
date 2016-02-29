@@ -30,7 +30,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     private ArrayList<Product> allProducts;
     private ArrayList<Article> allArticles;
 
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     private static final String DATABASE_NAME = "MobileMarket";
     private static final String TABLE_USER_INFO = "tblUserInfo";
     private static final String TABLE_SETTINGS = "tblSetting";
@@ -85,7 +85,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         db.execSQL("create table "+ TABLE_PRODUCT +
                 "(id Integer primary key AUTOINCREMENT," +
                 "title text," +
-                "productId Integer," +
+                "productId Integer UNIQUE," +
                 "groupId Integer," +
                 "price Integer," +
                 "priceOff Integer," +
@@ -99,6 +99,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 "description text," +
                 "sellsCount Integer," +
                 "timeStamp text," +
+                "updateTimeStamp text,"+
                 "showAtHomeScreen Integer," +
                 "like Integer," +
                 "linkInSite text," +
@@ -137,6 +138,11 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
         if(oldVersion<4){
             db.execSQL("ALTER TABLE "+ TABLE_PRODUCT + " ADD COLUMN brandName text;");
+        }
+        if(oldVersion<=4){
+            db.execSQL("ALTER TABLE "+ TABLE_PRODUCT + " ADD COLUMN updateTimeStamp text;");
+            db.execSQL("ALTER TABLE"+TABLE_PRODUCT +"MODIFY productId UNIQUE;");
+
         }
 
         // Drop older table if existed
@@ -377,6 +383,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         values.put("description", aProduct.getDescription());
         values.put("sellsCount", aProduct.getSellsCount());
         values.put("timeStamp", aProduct.getTimeStamp());
+        values.put("updateTimeStamp",aProduct.getUpdateTimeStamp());
         values.put("showAtHomeScreen", aProduct.getShowAtHomeScreen());
         values.put("watermarkPath", aProduct.getWatermarkPath());
         values.put("imagesMainPath", aProduct.getImagesMainPath());
@@ -797,6 +804,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         aProduct.setDescription(rs.getString(rs.getColumnIndex("description")));
         aProduct.setSellsCount(rs.getInt(rs.getColumnIndex("sellsCount")));
         aProduct.setTimeStamp(rs.getString(rs.getColumnIndex("timeStamp")));
+        aProduct.setUpdateTimeStamp((rs.getString(rs.getColumnIndex("updateTimeStamp"))));
         aProduct.setShowAtHomeScreen(rs.getInt(rs.getColumnIndex("showAtHomeScreen")));
         aProduct.setWatermarkPath(rs.getString(rs.getColumnIndex("watermarkPath")));
         aProduct.setImagesMainPath(rs.getString(rs.getColumnIndex("imagesMainPath")));

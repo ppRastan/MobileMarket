@@ -2,7 +2,6 @@ package ir.rastanco.mobilemarket.presenter.specialProductPresenter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +23,8 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
+import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by shaisteS on 1394/11/09.
@@ -35,49 +36,39 @@ public class SpecialLoadingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         sch=new ServerConnectionHandler(getContext());
+        final String[] jsonString = {""};
+        if (sch.emptyDBProduct()) {
 
-
-        if (sch.emptyDBProduct()){
-
-            Thread getProductInfoFromServerThread = new Thread(){
+            Thread getProductInfoFromServerThread = new Thread() {
                 @Override
-                public void run(){
+                public void run() {
                     try {
-                        synchronized(this){
+                        synchronized (this) {
                             // Wait given period of time or exit on touch
-                            getProductInfoFromServer("http://decoriss.com/json/get,com=product&newfromts=1352689345&cache=false");
+                            jsonString[0] =getProductInfoFromServer("http://decoriss.com/json/get,com=product&newfromts=1352689345&cache=false");
                             wait(10);
                         }
+                    } catch (InterruptedException ex) {
                     }
-                    catch(InterruptedException ex){
-                    }
-                    SpecialProductFragment specialProductFragment=new SpecialProductFragment();
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.status,specialProductFragment );
-                    transaction.commit();
+                    addProductToTable(jsonString[0]);
+                    Configuration.productTableEmptyStatus=false;
+                    ObserverChangeFragment.setChangeFragmentParameter(true);
                 }
             };
             getProductInfoFromServerThread.start();
-
-
-                    }
+        }
         return inflater.inflate(R.layout.fragment_loading,null);
 
     }
 
 
-    public void getProductInfoFromServer(String urlProduct){
+    public String getProductInfoFromServer(String urlProduct) {
 
         HttpURLConnection connection = null;
         InputStream is = null;
         String jsonString = "";
-
-        ArrayList<Product> allProduct;
-        JSONArray dataJsonArr;
-        ArrayList<String> imagePath;
-
         try {
-            URL url= new URL(urlProduct);
+            URL url = new URL(urlProduct);
             connection = (HttpURLConnection) url.openConnection();
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,7 +77,7 @@ public class SpecialLoadingFragment extends Fragment {
         connection.setDoOutput(true);
         connection.setUseCaches(false);
         Log.v("connect", "Connecte to Internet");
-        int response=0;
+        int response = 0;
         try {
             connection.setRequestMethod("GET");
         } catch (ProtocolException e) {
@@ -97,7 +88,7 @@ public class SpecialLoadingFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.v("RequestGet","Request Method Get");
+        Log.v("RequestGet", "Request Method Get");
         Log.v("Response", Integer.toString(response));
         try {
             is = connection.getInputStream();
@@ -117,6 +108,14 @@ public class SpecialLoadingFragment extends Fragment {
         } catch (Exception e) {
             Log.e("TAG", "Error converting result " + e.toString());
         }
+        return jsonString;
+    }
+
+    public void addProductToTable(String jsonString){
+
+        ArrayList<Product> allProduct;
+        JSONArray dataJsonArr;
+        ArrayList<String> imagePath;
 
         dataJsonArr = null;
         allProduct=new ArrayList<Product>();
@@ -146,6 +145,8 @@ public class SpecialLoadingFragment extends Fragment {
                 aProduct.setDescription(c.getString("d"));
                 aProduct.setSellsCount(Integer.parseInt(c.getString("s")));
                 aProduct.setTimeStamp(c.getString("ts"));
+                aProduct.setUpdateTimeStamp(c.getString("update_ts"));
+
                 aProduct.setShowAtHomeScreen(Integer.parseInt(c.getString("h")));
                 aProduct.setWatermarkPath(c.getString("wm"));
                 aProduct.setImagesMainPath(c.getString("ipath"));

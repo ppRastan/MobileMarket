@@ -50,6 +50,7 @@ public class Configuration {
     public static ViewPager MainPager;
 
     public static Boolean RTL;
+    public static Boolean productTableEmptyStatus; //true is empty and false is full
 
 
 }

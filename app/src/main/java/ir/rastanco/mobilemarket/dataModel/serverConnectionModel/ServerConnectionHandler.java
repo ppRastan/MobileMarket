@@ -52,19 +52,15 @@ public class ServerConnectionHandler {
     public String getLastTimeStamp(){
         return dbh.selectLastTimeStamp();
     }
-
     public Boolean emptySetting(){
         return dbh.emptySettingTable();
     }
-
     public void addSettingApp(String firstTimeStamp,String articleNum,String version){
         dbh.insertSettingApp(firstTimeStamp, articleNum, version);
     }
-
     public void updateVersionApp(String newVersin){
         dbh.updateLastVersion(newVersin);
     }
-
 
     //Category
     public Boolean emptyDBCategory(){
@@ -246,11 +242,14 @@ public class ServerConnectionHandler {
                 dbh.insertACategory(allCategories.get(i));
         }
     }
+
     //Product
     public Boolean emptyDBProduct(){
         Boolean empty=dbh.emptyProductTable();
         return empty;
     }
+
+    //TODO Change for update product
     public void addAllProductToTable(ArrayList<Product> allProducts){
         for (int i=0;i<allProducts.size();i++){
             if(dbh.ExistAProduct(allProducts.get(i).getId()))
@@ -262,10 +261,36 @@ public class ServerConnectionHandler {
             setLastTimeStamp(allProducts.get(0).getTimeStamp(),"25");
 
     }
+    public void refreshProduct(){
+        String lastTimeStamp=getLastTimeStamp();
+        ParseJsonProduct pjp=new ParseJsonProduct(context);
+        String url="http://decoriss.com/json/get,com=product&newfromts="+
+                lastTimeStamp+"&cache=false";
+        try {
+            pjp.execute(url).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+    public void reloadProduct(String time){
+        ParseJsonProduct pjp=new ParseJsonProduct(context);
+        String url="http://decoriss.com/json/get,com=product&newfromts="+
+                time+"&cache=false";
+        try {
+            pjp.execute(url).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public ArrayList<Product> getAllProductFromTable(){
         return dbh.selectAllProduct();
     }
-
     public ArrayList<Product> getAllProductFavourite(){
         ArrayList<Product> allProduct=new ArrayList<Product>();
         ArrayList<Product> allProductFavorite=new ArrayList<Product>();
@@ -282,7 +307,6 @@ public class ServerConnectionHandler {
         return aProduct;
     }
     public ArrayList<ProductOption> getOptionsOfAProductFromURL(String url){
-
         GetFile optionJson= new GetFile();
         String productInfoJson=null;
         try {
@@ -295,39 +319,9 @@ public class ServerConnectionHandler {
         ParseJsonProductOption p=new  ParseJsonProductOption();
         return p.getAllProductOptions(productInfoJson);
     }
-    public void refreshProduct(){
-        String lastTimeStamp=getLastTimeStamp();
-        ParseJsonProduct pjp=new ParseJsonProduct(context);
-        String url="http://decoriss.com/json/get,com=product&newfromts="+
-                lastTimeStamp+"&cache=false";
-        try {
-            pjp.execute(url).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void reloadProduct(String time){
-
-        ParseJsonProduct pjp=new ParseJsonProduct(context);
-        String url="http://decoriss.com/json/get,com=product&newfromts="+
-                time+"&cache=false";
-        try {
-            pjp.execute(url).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-    }
-
     public ArrayList<Product> getSpecialProduct(){
         return dbh.selectSpecialProduct();
     }
-
     public Map<Integer,String> getProductTitle(){
         return dbh.selectAllProductTitle();
     }
@@ -337,7 +331,6 @@ public class ServerConnectionHandler {
     public ArrayList<Product> getAllProductOfACategory(int groupId){
         return dbh.selectAllProductOfACategory(groupId);
     }
-
     public void addAProductOptionsToTable(int productId,ProductOption aOptions){
         dbh.insertOptionProduct(productId, aOptions.getTitle(), aOptions.getValue());
     }
@@ -355,7 +348,6 @@ public class ServerConnectionHandler {
         }
         return options;
     }
-
     public void refreshProductOption(int groupId,int productId){
         ArrayList<ProductOption> options=new ArrayList<ProductOption>();
         options = getOptionsOfAProductFromURL("http://decoriss.com/json/get,com=options&pid=" +
@@ -370,7 +362,6 @@ public class ServerConnectionHandler {
         }
         addProductOptionsToTable(productId,options);
     }
-
     public ArrayList<String> getAllBrands(ArrayList<Product> products){
         ArrayList<String> brandsTitle=new ArrayList<String>();
         String brand = "";
@@ -395,7 +386,6 @@ public class ServerConnectionHandler {
         }
         return brandsTitle;
     }
-
     public ArrayList<Product> getAllProductOfABrand(ArrayList<Product> products,String brandTitle) {
         ArrayList<Product> productsOfABrand = new ArrayList<Product>();
         for (int i = 0; i < products.size(); i++) {
@@ -404,11 +394,9 @@ public class ServerConnectionHandler {
             }
         return productsOfABrand;
     }
-
     public void changeProductLike(int productId,int like){
         dbh.updateAProductLike(productId,like);
     }
-
     public ArrayList<String> searchInProductTitle(){
         Map<Integer,String> productTitle= new HashMap<Integer,String>();
         productTitle=dbh.selectAllProductTitle();
@@ -418,7 +406,6 @@ public class ServerConnectionHandler {
         }
         return titles;
     }
-
     public int getProductIdWithTitle(String title){
         Map<Integer,String> productTitle= new HashMap<Integer,String>();
         productTitle=dbh.selectAllProductTitle();
@@ -430,7 +417,6 @@ public class ServerConnectionHandler {
         }
         return productId;
     }
-
     public ArrayList<Product> getProductAsPriceFilter(ArrayList<Product> allProduct,String priceTitle){
         int price=convertPriceTitleToInt(priceTitle);
         if(price<=10000000)
@@ -438,7 +424,6 @@ public class ServerConnectionHandler {
         else
             return getProductAboveAsAPrice(allProduct,price);
     }
-
     public int convertPriceTitleToInt(String priceTitle){
         int price=0;
         if(priceTitle.equals("تا سقف 1 میلیون تومان"))
@@ -451,7 +436,6 @@ public class ServerConnectionHandler {
             price=10000001; //1 is sign for price is above
         return price;
     }
-
     public ArrayList<Product> getProductSmallerThanAPrice(ArrayList<Product> allProduct,int price){
         ArrayList<Product> productPrice = new ArrayList<Product>();
         for (int i = 0; i < allProduct.size(); i++) {
@@ -460,7 +444,6 @@ public class ServerConnectionHandler {
         }
         return productPrice;
     }
-
     public ArrayList<Product> getProductAboveAsAPrice(ArrayList<Product> allProduct,int price){
         ArrayList<Product> productPrice = new ArrayList<Product>();
         for (int i = 0; i < allProduct.size(); i++) {
@@ -469,7 +452,6 @@ public class ServerConnectionHandler {
         }
         return productPrice;
     }
-
     public ArrayList<Product> getProductsAfterFilterCategory(String pageName,String categoryTitle){
         ArrayList<Product> products=new ArrayList<Product>();
         if (categoryTitle.equals(context.getResources().getString(R.string.all)))
@@ -481,7 +463,6 @@ public class ServerConnectionHandler {
 
         return products;
     }
-
     public ArrayList<Product> getProductAfterRefresh(String pageName,
                                                      String filterCategoryContent,
                                                      String filterOptionContent,
@@ -540,7 +521,6 @@ public class ServerConnectionHandler {
         addAllArticlesToTable(getAllArticlesAndNewsURL(url));
 
     }
-
     public void setLastArticlesNum(String lastNum){
         dbh.updateLastArticlesNum(lastNum);
     }
@@ -561,7 +541,6 @@ public class ServerConnectionHandler {
         ParseJsonKey pjk= new ParseJsonKey();
         return  pjk.getKey(jsonKeyString);
     }
-
     public ArrayList<String> GetAuthorizeResponse(String hashInfo,String key){
 
         String url="http://decoriss.com/json/get,com=login&u="+hashInfo+
@@ -582,7 +561,6 @@ public class ServerConnectionHandler {
     }
 
     //Product Shopping
-
     public boolean checkSelectProductForShop(int productId){
         return dbh.ExistAProductShopping(productId);
     }
@@ -605,35 +583,27 @@ public class ServerConnectionHandler {
     public void addProductToShoppingBag(int productId,int number){
         dbh.insertShoppingBag(productId,number);
     }
-
     public Map<Integer,Integer> getAllProductShopping(){
         return dbh.selectAllProductShopping();
     }
     public ArrayList<Integer> getProductShoppingID(){
         return dbh.selectAllIdProductShopping();
     }
-
     public void deleteAProductShopping(int productId){
         dbh.deleteAProductShopping(productId);
     }
     public int getCountProductShop(){
         return dbh.CounterProductShopping();
     }
-
     public void changeShoppingNunmber(int productId,int count){
         dbh.updateAShoppingNumberPurchased(productId, count);
     }
-
     public void emptyShoppingBag(){
         dbh.deleteAllShoppingTable();
     }
-
     public int getNumberProductShop(int productId){
         return dbh.numberPurchasedAProduct(productId);
     }
-
-
-
 
     //User Profile
     public void addUserInfoToTable(UserInfo aUser){
@@ -645,21 +615,18 @@ public class ServerConnectionHandler {
             dbh.insertUserInfo(aUser);
         }
     }
-
     public boolean emptyUserInfo(){
         if (dbh.emptyUserInfoTable())
             return true;
         else
             return false;
     }
-
     public UserInfo getUserInfo(){
         if (dbh.emptyUserInfoTable())
             return null;
         else
             return dbh.selectUserInformation();
     }
-
     public void deleteUserInfo(){
         dbh.deleteUserInfo();
     }
@@ -669,7 +636,6 @@ public class ServerConnectionHandler {
     public String getLastVersionInDB(){
         return dbh.selectLastVersionApp();
     }
-
     public String getLastVersionInServer(String url){
 
         String lastVersionInServer=dbh.selectLastVersionApp();
@@ -720,7 +686,6 @@ public class ServerConnectionHandler {
         return allComments;
 
     }
-
     public ArrayList<String> getContentCommentsAllProduct(int productId){
         ArrayList<Comment> allComment=new ArrayList<Comment>();
         allComment=getAllCommentAProduct(productId);

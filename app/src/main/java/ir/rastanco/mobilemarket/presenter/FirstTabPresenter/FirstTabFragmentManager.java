@@ -1,4 +1,4 @@
-package ir.rastanco.mobilemarket.presenter.specialProductPresenter;
+package ir.rastanco.mobilemarket.presenter.FirstTabPresenter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,43 +10,55 @@ import android.view.ViewGroup;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragmentListener;
+import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
+import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopLoadingFragment;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
- * Created by shaisteS on 1394/12/09.
+ * Created by shaisteS on 1394/12/10.
  */
-public class SpecialProductFragmentManagement extends Fragment {
+public class FirstTabFragmentManager extends Fragment {
+
+    private String pageName;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
-        View specialProductView = inflater.inflate(R.layout.fragment_special_product_manager, container, false);
+        View firstProductView = inflater.inflate(R.layout.fragment_first_tab_manager, container, false);
+        pageName=getArguments().getString("name");
+
         if (Configuration.productTableEmptyStatus==true) {
-            SpecialLoadingFragment loading = new SpecialLoadingFragment();
+            ShopLoadingFragment loading = new ShopLoadingFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.specialProductManagement, loading);
+            transaction.replace(R.id.firstTabManager, loading);
             transaction.commit();
         }
         else if (Configuration.productTableEmptyStatus==false)
         {
-            SpecialProductFragment specialProductFragment = new SpecialProductFragment();
+            Bundle args = new Bundle();
+            args.putString("name",pageName);
+            ShopFragment shop=new ShopFragment();
+            shop.setArguments(args);
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.replace(R.id.specialProductManagement, specialProductFragment);
+            transaction.replace(R.id.firstTabManager, shop);
             transaction.commit();
         }
 
         ObserverChangeFragment.ObserverChangeFragmentListener(new ObserverChangeFragmentListener() {
             @Override
             public void changeFragment() {
-                SpecialProductFragment specialProductFragment = new SpecialProductFragment();
+
+                Bundle args = new Bundle();
+                args.putString("name",pageName);
+                ShopFragment shop=new ShopFragment();
+                shop.setArguments(args);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.specialProductManagement, specialProductFragment);
+                transaction.replace(R.id.firstTabManager, shop);
                 transaction.commit();
+
             }
         });
-        return specialProductView;
+
+        return firstProductView;
     }
-
-
-
 }

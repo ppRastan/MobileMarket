@@ -94,6 +94,11 @@ public class SplashScreen extends AppCompatActivity{
         else
             sch.refreshCategories("http://decoriss.com/json/get,com=allcats&cache=false");
 
+        if (sch.emptyDBProduct())
+            Configuration.productTableEmptyStatus=true;
+        else
+            Configuration.productTableEmptyStatus=false;
+
     }
 
 
