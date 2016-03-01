@@ -140,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
         this.CreatePageRightToLeft();
         this.displayWindow();
 
-        //this.checkDbState();
         shopCounter=sch.getCountProductShop();
         ObserverShopping.addMyBooleanListener(new ObserverShoppingBagClickListener() {
             @Override
@@ -190,7 +189,6 @@ public class MainActivity extends AppCompatActivity {
         this.setDecorissThemColour();
         this.addFontAndColors();
 
-
     }
 
     private void setDecorissThemColour() {
@@ -234,46 +232,6 @@ public class MainActivity extends AppCompatActivity {
         telephonyManager.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
 
     }
-
-    /*private void checkDbState() {
-
-        //for add brandName to DataBase then update brandName filed
-        //last version in server 1.3.9
-        //version app that install in mobile is 1.0.0
-
-        if(sch.getLastVersionInDB().equals("1.0.0")){
-            sch.reloadProduct("1352689345");
-            sch.updateVersionApp("1.0.0.1");
-        }
-        if(sch.getLastVersionInDB().equals("1.3.9")){
-            sch.reloadProduct("1352689345");
-            sch.updateVersionApp("1.3.9.1");
-        }
-
-        if (sch.emptyUserInfo())
-            Configuration.userLoginStatus=false; //please login
-        else Configuration.userLoginStatus=true;//
-
-        if (sch.emptySetting())
-            sch.addSettingApp("1352689345","25",getResources().getString(R.string.version));
-
-        if (sch.emptyDBCategory()){
-            categories=sch.getAllCategoryInfoURL("http://decoriss.com/json/get,com=allcats&cache=false");
-            sch.addAllCategoryToTable(categories);
-        }
-
-        if (sch.emptyDBProduct()){
-
-            ParseJsonProduct pjp=new ParseJsonProduct(Configuration.MainActivityContext);
-            pjp.execute("http://decoriss.com/json/get,com=product&newfromts=1352689345&cache=false");
-        }
-
-        if (sch.emptyDBArticle()){
-            articles=sch.getAllArticlesAndNewsURL("http://decoriss.com/json/get,com=news&name=blog&order=desc&limit=0-25&cache=false");
-            sch.addAllArticlesToTable(articles);
-        }
-
-    }*/
 
     private void addServerConnection() {
         Configuration.MainActivityContext = this;
@@ -411,40 +369,6 @@ public class MainActivity extends AppCompatActivity {
         changeColor(currentColor);
     }
 
-
-    class StartApplication extends AsyncTask<String,String,String> {
-
-
-        @Override
-        protected String doInBackground(String... params) {
-
-           // checkDbState();
-            return null;
-
-        }
-
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            showDialog(progress_bar_type);
-        }
-
-
-        protected void onProgressUpdate(String... progress) {
-            // setting progress percentage
-            pDialog.setProgress(Integer.parseInt(progress[0]));
-        }
-
-        @Override
-        protected void onPostExecute(String file_url) {
-            // dismiss the dialog after the file was downloaded
-            dismissDialog(progress_bar_type);
-
-        }
-    }
-
-
     @Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
@@ -465,10 +389,6 @@ public class MainActivity extends AppCompatActivity {
 
     class DownloadFileFromURL extends AsyncTask<String, String, String> {
 
-        /**
-         * Before starting background thread Show Progress Bar Dialog
-         * */
-
         private Context context;
         public DownloadFileFromURL(Context mayContext){
             context=mayContext;
@@ -478,10 +398,6 @@ public class MainActivity extends AppCompatActivity {
             super.onPreExecute();
             showDialog(progress_bar_type);
         }
-
-        /**
-         * Downloading file in background thread
-         * */
         @Override
         protected String doInBackground(String... f_url) {
             int count;
@@ -489,38 +405,20 @@ public class MainActivity extends AppCompatActivity {
                 URL url = new URL(f_url[0]);
                 URLConnection conection = url.openConnection();
                 conection.connect();
-
-                // this will be useful so that you can show a tipical 0-100%
-                // progress bar
                 int lenghtOfFile = conection.getContentLength();
-
-                // download the file
-                InputStream input = new BufferedInputStream(url.openStream(),
-                        8192);
-
-                // Output stream
+                InputStream input = new BufferedInputStream(url.openStream(),8192);
                 OutputStream output = new FileOutputStream(Environment
                         .getExternalStorageDirectory().toString()
                         + "/Download/Decoriss.apk");
 
                 byte data[] = new byte[2048];
-
                 long total = 0;
-
                 while ((count = input.read(data)) != -1) {
                     total += count;
-                    // publishing the progress....
-                    // After this onProgressUpdate will be called
                     publishProgress("" + (int) ((total * 100) / lenghtOfFile));
-
-                    // writing data to file
                     output.write(data, 0, count);
                 }
-
-                // flushing output
                 output.flush();
-
-                // closing streams
                 output.close();
                 input.close();
 
@@ -537,17 +435,11 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
 
-        /**
-         * Updating progress bar
-         * */
         protected void onProgressUpdate(String... progress) {
             // setting progress percentage
             pDialog.setProgress(Integer.parseInt(progress[0]));
         }
 
-        /**
-         * After completing background task Dismiss the progress dialog
-         * **/
         @Override
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after the file was downloaded
@@ -557,8 +449,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
-
-
 
         private final String[] TITLES = {
                 getResources().getString(R.string.first_page)

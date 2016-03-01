@@ -7,7 +7,6 @@ import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
-import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
@@ -78,14 +77,12 @@ public class SplashScreen extends AppCompatActivity{
         if(sch.getLastVersionInDB().equals("1.3.9")){
             sch.reloadProduct("1352689345");
             sch.updateVersionApp("1.3.9.1");
+            sch.setLastUpdateTimeStamp();
         }
 
         if (sch.emptyUserInfo())
             Configuration.userLoginStatus=false; //please login
         else Configuration.userLoginStatus=true;//
-
-        if (sch.emptySetting())
-            sch.addSettingApp("1352689345","25",getResources().getString(R.string.version));
 
         if (sch.emptyDBCategory()){
             categories=sch.getAllCategoryInfoURL("http://decoriss.com/json/get,com=allcats&cache=false");

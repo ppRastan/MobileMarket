@@ -30,7 +30,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     private ArrayList<Product> allProducts;
     private ArrayList<Article> allArticles;
 
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
     private static final String DATABASE_NAME = "MobileMarket";
     private static final String TABLE_USER_INFO = "tblUserInfo";
     private static final String TABLE_SETTINGS = "tblSetting";
@@ -62,6 +62,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_SETTINGS +
                 "(id Integer primary key AUTOINCREMENT," +
                 "lastTimeStamp String," +
+                "lastUpdateTimeStamp String," +
                 "lastArticlesNum String," +
                 "lastVersionOfApp String)");
         Log.v("create", "Create Setting Table");
@@ -141,9 +142,11 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
         if(oldVersion<=4){
             db.execSQL("ALTER TABLE "+ TABLE_PRODUCT + " ADD COLUMN updateTimeStamp text;");
-            db.execSQL("ALTER TABLE"+TABLE_PRODUCT +"MODIFY productId UNIQUE;");
+            db.execSQL("ALTER TABLE "+TABLE_PRODUCT +" MODIFY productId UNIQUE;");
 
         }
+        if (oldVersion<=5)
+            db.execSQL("ALTER TABLE "+TABLE_SETTINGS+" ADD COLUMN lastUpdateTimeStamp String");
 
         // Drop older table if existed
 //        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_INFO);
@@ -252,6 +255,20 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
     }
 
+    public Boolean ExistAProductImagePath(int productId,String imagePath) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from "+TABLE_IMAGES_PATH_PRODUCT+" where fkProductId= " + productId +" and imagePath='"+imagePath+"'", null);
+        if (rs.moveToFirst()) {
+            //Exist Product
+            rs.close();
+            return true;
+        } else {
+            //Not Exist
+            rs.close();
+            return false;
+        }
+    }
+
     public Boolean ExistACategory(int catId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select catId from tblCategory where catId=" + catId, null);
@@ -299,12 +316,13 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
 
-    public void insertSettingApp(String lastTimeStamp,String articlesNum,String version) {
+    public void insertSettingApp(String lastTimeStamp,String articlesNum,String version,String lastUpdateTimeStamp) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values=new ContentValues();
         values.put("lastTimeStamp",lastTimeStamp);
         values.put("lastArticlesNum",articlesNum);
         values.put("lastVersionOfApp",version);
+        values.put("lastUpdateTimeStamp",lastUpdateTimeStamp);
         db.insert("tblSetting", null,values);
         Log.v("insert", "insert Setting for App");
         db.close();
@@ -465,6 +483,21 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select TimeStamp");
         return timeStamp;
     }
+
+    public String selectLastUpdateTimeStamp() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select lastUpdateTimeStamp from tblSetting", null);
+        String timeStamp = "";
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                timeStamp = rs.getString(rs.getColumnIndex("lastUpdateTimeStamp"));
+            }
+            rs.close();
+        }
+        Log.v("select", "Select Last Update TimeStamp");
+        return timeStamp;
+    }
+
     public String selectLastArticlesNum() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select lastArticlesNum from tblSetting", null);
@@ -977,6 +1010,17 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("update", "Update Last time stamp");
 
     }
+
+
+    public void updateLastUpdateTimeStamp(String updateTimeStamp) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("lastUpdateTimeStamp", updateTimeStamp);
+        db.update("tblSetting", values, null, null);
+        Log.v("update", "Update Last Update Time stamp");
+
+    }
+
     public void updateLastArticlesNum(String lastNum) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -985,6 +1029,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("update", "Update Last Articles Num");
 
     }
+
+
     public void updateAProduct(Product aProduct) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.update("tblProduct", addFieldToProductTable(aProduct),

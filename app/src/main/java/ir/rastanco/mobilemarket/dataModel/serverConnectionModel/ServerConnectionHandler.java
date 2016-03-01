@@ -55,9 +55,7 @@ public class ServerConnectionHandler {
     public Boolean emptySetting(){
         return dbh.emptySettingTable();
     }
-    public void addSettingApp(String firstTimeStamp,String articleNum,String version){
-        dbh.insertSettingApp(firstTimeStamp, articleNum, version);
-    }
+
     public void updateVersionApp(String newVersin){
         dbh.updateLastVersion(newVersin);
     }
@@ -242,26 +240,35 @@ public class ServerConnectionHandler {
                 dbh.insertACategory(allCategories.get(i));
         }
     }
-
     //Product
     public Boolean emptyDBProduct(){
         Boolean empty=dbh.emptyProductTable();
         return empty;
     }
 
-    //TODO Change for update product
+    //
     public void addAllProductToTable(ArrayList<Product> allProducts){
+        Boolean isUpdate=false;
         for (int i=0;i<allProducts.size();i++){
-            if(dbh.ExistAProduct(allProducts.get(i).getId()))
-                dbh.updateAProduct(allProducts.get(i));
+            if(dbh.ExistAProduct(allProducts.get(i).getId())) {
+                updateAProductInfo(allProducts.get(i));
+                isUpdate=true;
+            }
             else
                 dbh.insertAProduct(allProducts.get(i));
         }
-        if (allProducts.size()>0)
-            setLastTimeStamp(allProducts.get(0).getTimeStamp(),"25");
-
+        if (isUpdate && allProducts.size()>0)
+            dbh.updateLastUpdateTimeStamp(allProducts.get(0).getUpdateTimeStamp());
+        else if( !isUpdate && allProducts.size()>0)
+            dbh.updateTimeStamp(allProducts.get(0).getTimeStamp());
     }
-    public void refreshProduct(){
+    public void setSetting(String firstTimeStamp,String firstArticleNumber,String version,String firstUpdateTimeStamp){
+        dbh.insertSettingApp(firstTimeStamp,
+                             firstArticleNumber,
+                             version,
+                             firstUpdateTimeStamp);
+    }
+    public void getNewProducts(){
         String lastTimeStamp=getLastTimeStamp();
         ParseJsonProduct pjp=new ParseJsonProduct(context);
         String url="http://decoriss.com/json/get,com=product&newfromts="+
@@ -273,6 +280,21 @@ public class ServerConnectionHandler {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+    }
+
+    public void getEditProducts(){
+        String lastUpdateTimeStamp=dbh.selectLastUpdateTimeStamp();
+        ParseJsonProduct pjp=new ParseJsonProduct(context);
+        String url="http://decoriss.com/json/get,com=product&updatefromts=" +
+                lastUpdateTimeStamp+"&cache=false";
+        try {
+            pjp.execute(url).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
     }
     public void reloadProduct(String time){
         ParseJsonProduct pjp=new ParseJsonProduct(context);
@@ -286,6 +308,15 @@ public class ServerConnectionHandler {
             e.printStackTrace();
         }
 
+    }
+
+    public void updateAProductInfo(Product aProduct){
+        dbh.updateAProduct(aProduct);
+        for (int i=0;i<aProduct.getImagesPath().size();i++){
+            if ( ! dbh.ExistAProductImagePath(aProduct.getId(),aProduct.getImagesPath().get(i)))
+                dbh.insertImagePathProduct(aProduct.getId(),aProduct.getImagesPath().get(i));
+
+        }
     }
 
     public ArrayList<Product> getAllProductFromTable(){
@@ -472,7 +503,7 @@ public class ServerConnectionHandler {
         allProduct= getProductOfMainCategory(pageName);
         ArrayList<Product> newProducts=new ArrayList<Product>();
         if(!filterCategoryContent.equals(context.getResources().getString(R.string.all)))
-             newProducts=getProductsAfterFilterCategory(pageName,filterCategoryContent);
+             newProducts=getProductsAfterFilterCategory(pageName, filterCategoryContent);
         else if (!filterOptionContent.equals(context.getResources().getString(R.string.all))){
             if(filterOptionStatus.equals("price"))
                 newProducts=getProductAsPriceFilter(allProduct, filterOptionContent);
@@ -485,6 +516,11 @@ public class ServerConnectionHandler {
         return newProducts;
     }
 
+    //
+    public void setLastUpdateTimeStamp(){
+        String timeStamp=getLastTimeStamp();
+        dbh.updateLastUpdateTimeStamp(timeStamp);
+    }
     //article
     public Boolean emptyDBArticle(){
         Boolean empty=dbh.emptyArticleTable();

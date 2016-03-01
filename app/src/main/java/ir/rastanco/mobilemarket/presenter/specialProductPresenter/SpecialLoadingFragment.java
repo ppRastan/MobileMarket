@@ -50,7 +50,11 @@ public class SpecialLoadingFragment extends Fragment {
                         }
                     } catch (InterruptedException ex) {
                     }
-                    addProductToTable(jsonString[0]);
+                    String timeStamp=addProductToTable(jsonString[0]);
+                    sch.setSetting(timeStamp,
+                            getContext().getResources().getString(R.string.firstArticleNumber),
+                            getContext().getResources().getString(R.string.version),
+                            timeStamp);
                     Configuration.productTableEmptyStatus=false;
                     ObserverChangeFragment.setChangeFragmentParameter(true);
                 }
@@ -110,8 +114,7 @@ public class SpecialLoadingFragment extends Fragment {
         }
         return jsonString;
     }
-
-    public void addProductToTable(String jsonString){
+    public String addProductToTable(String jsonString){
 
         ArrayList<Product> allProduct;
         JSONArray dataJsonArr;
@@ -163,5 +166,6 @@ public class SpecialLoadingFragment extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return allProduct.get(0).getTimeStamp();
     }
 }

@@ -67,7 +67,8 @@ public class SpecialProductFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        sch.refreshProduct();
+                        sch.getNewProducts();
+                        sch.getEditProducts();
                         products = sch.getSpecialProduct();
                         PictureSpecialProductItemAdapter newAdapter = new PictureSpecialProductItemAdapter(getActivity(), R.layout.picture_product_item_home,products);
                         productListView.setAdapter(newAdapter);

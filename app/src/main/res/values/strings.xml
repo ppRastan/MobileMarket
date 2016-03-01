@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Decoriss</string>
-    <string name="version">1.4.0</string>
     <string name="first_page">ویژه ها</string>
     <string name="second_page">مبلمان منزل</string>
     <string name="third_page">کالای خواب</string>
@@ -80,4 +79,11 @@
     <string name="similar_photoes">مشاهده ی سایر محصولات</string>
     <string name="filterBrandTitle">برند</string>
     <string name="filterPriceTitle">قیمت</string>
+
+    <!-- first Information For App Setting When App install  -->
+    <string name="version">1.4.0</string>
+    <string name="firstTimeStamp">1352689345</string>
+    <string name="firstArticleNumber">25</string>
+
+
 </resources>

@@ -90,7 +90,8 @@ public class ShopFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        sch.refreshProduct();
+                        sch.getNewProducts();
+                        sch.getEditProducts();
                         ArrayList<Product> newProduct=sch.getProductAfterRefresh(pageName,
                                 txtFilterCategorySelected.getText().toString(),
                                 txtFilterOptionProductSelected.getText().toString(),
