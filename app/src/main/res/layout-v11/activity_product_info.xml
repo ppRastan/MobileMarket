@@ -63,8 +63,10 @@
             android:visibility="visible"
             android:background="@null"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="false" />
 
     </RelativeLayout>
 

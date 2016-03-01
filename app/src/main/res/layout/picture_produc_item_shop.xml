@@ -32,8 +32,9 @@
             android:id="@+id/ic_offer_right"
             android:background="@null"
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentLeft="true" />
 
         <ImageButton
             android:layout_width="wrap_content"
