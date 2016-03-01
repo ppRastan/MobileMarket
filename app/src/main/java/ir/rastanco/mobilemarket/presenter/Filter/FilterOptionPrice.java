@@ -19,6 +19,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by ShaisteS on 1394/11/28.
+ * DialogFragment For Displaying Products Price
  */
 public class FilterOptionPrice extends DialogFragment {
 

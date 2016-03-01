@@ -12,6 +12,7 @@ import ir.rastanco.mobilemarket.presenter.SplashScreen;
 
 /**
  * Created by ShaisteS on 1394/11/30.
+ * A Notification Service
  */
 public class NotificationService extends Service {
 

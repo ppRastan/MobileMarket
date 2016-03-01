@@ -8,14 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.presenter.LoadingFragment;
+import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by shaisteS on 1394/11/10.
+ * This class managed Third Tab from Main Menu for displaying fragments(Loading Fragment or Information Product Fragment)
+ * Third tab from Main Menu =  نوزاد و نوجوان
  */
-public class ThirdTabFragmentManager extends Fragment{
+public class ThirdTabFragmentManager extends Fragment {
 
     private String pageName;
 

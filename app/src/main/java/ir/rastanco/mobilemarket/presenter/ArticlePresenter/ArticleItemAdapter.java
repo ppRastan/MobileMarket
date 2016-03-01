@@ -19,6 +19,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by ShaisteS on 21/10/94
+ * This class is for filling data in listView for displaying Articles information
  */
 public class ArticleItemAdapter extends ArrayAdapter<Article>{
 

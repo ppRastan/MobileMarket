@@ -27,6 +27,8 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.Security;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.MainActivity;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancel;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancelListener;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
@@ -125,7 +127,7 @@ public class ShoppingBagActivity extends Activity {
                         intent.setData(Uri.parse(url));
                         startActivity(intent);
                         sch.emptyShoppingBag();
-                        Observer.setShoppingCancel(true);
+                        ObserverShoppingCancel.setShoppingCancel(true);
                         ObserverShopping.setMyBoolean(false);
                         productsId = sch.getProductShoppingID();
                         shoppingBagAdapter adapter = new shoppingBagAdapter(Configuration.ShoppingBagContext,
@@ -139,7 +141,7 @@ public class ShoppingBagActivity extends Activity {
         });
 
 
-        Observer.addShoppingCancelListener(new ShoppingCancelListener() {
+        ObserverShoppingCancel.addShoppingCancelListener(new ObserverShoppingCancelListener() {
             @Override
             public void ShoppingChanged() {
                 Map<Integer, Integer> refreshProductsId = new Hashtable<Integer, Integer>();
@@ -163,7 +165,7 @@ public class ShoppingBagActivity extends Activity {
                 String numberProductPrice = String.valueOf(totalPrice.getText());
                 double finalPriceToolbar = Double.parseDouble(numberProductPrice);
                 DecimalFormat formatter = new DecimalFormat("#,###,000");
-                totalPrice.setText(formatter.format(finalPriceToolbar) + "   " + getResources().getString(R.string.toman)+" ");
+                totalPrice.setText(formatter.format(finalPriceToolbar) + "   " + getResources().getString(R.string.toman) + " ");
             }
         });
     }

@@ -23,6 +23,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 
 /**
  * Created by ShaisteS on 1/16/2016.
+ * This Class is for Displaying Articles Information
  */
 public class ArticleFragment extends Fragment {
 

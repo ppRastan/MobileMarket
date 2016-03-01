@@ -28,6 +28,7 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancel;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
@@ -114,7 +115,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
                 selectedItem.put(position,selectedIndex);
                 counterSelected = Integer.parseInt(spinnerCounter.getSelectedItem().toString());
                 sch.changeShoppingNunmber(aProduct.getId(), counterSelected);
-                Observer.setShoppingCancel(true);
+                ObserverShoppingCancel.setShoppingCancel(true);
             }
 
             @Override
@@ -183,7 +184,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
                         }
                         updateList(selectedProducts);
                         ObserverShopping.setMyBoolean(false);
-                        Observer.setShoppingCancel(true);
+                        ObserverShoppingCancel.setShoppingCancel(true);
                     }
                 });
 

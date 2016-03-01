@@ -14,6 +14,8 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by shaisteS on 1394/12/10.
+ * This class managed Second Tab from Main Menu for displaying fragments(Loading Fragment or Information Product Fragment)
+ * Second tab from Main Menu = کالای خواب
  */
 public class SecondTabFragmentManager extends Fragment {
 

@@ -23,7 +23,8 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.DataFilter;
 
 /**
- * Created by shaisteS on 02/17/2016.
+ * Created by shaisteS on 1394/11/27.
+ * DialogFragment For Displaying Products Property (Brand-Price)
  */
 public class FilterOptionProduct extends DialogFragment {
 

@@ -20,6 +20,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by ShaisteS on 1394/11/27.
+ * DialogFragment For Displaying SubCategories Title and Child Of A SubCategory Title
  */
 public class FilterSubCategory extends DialogFragment{
 

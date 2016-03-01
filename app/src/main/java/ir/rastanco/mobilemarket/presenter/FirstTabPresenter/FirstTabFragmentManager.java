@@ -16,6 +16,8 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by shaisteS on 1394/12/10.
+ * This class managed first Tab from Main Menu for displaying fragments(Loading Fragment or Information Product Fragment)
+ * First tab from Main Menu = مبلمان منزل
  */
 public class FirstTabFragmentManager extends Fragment {
 
