@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:weightSum="12"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.5"
+        android:background="@color/decoriss"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="name"
+            android:id="@+id/name_of_photo"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            />
+
+    </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="5.5">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/img_productInfo"
+            android:scaleType="centerCrop"
+            android:background="@color/white"
+             />
+
+        <!--<ImageButton-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:src="@mipmap/offer_icon_left_special"-->
+            <!--android:id="@+id/ic_offer_full_screen_left"-->
+            <!--android:padding="4dp"-->
+            <!--android:background="@null"-->
+            <!--android:visibility="visible"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_alignParentEnd="true" />-->
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/offer_icon_right_special_full_screen_page"
+            android:id="@+id/ic_offer_full_screen_right"
+            android:visibility="visible"
+            android:background="@null"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="false" />
+
+    </RelativeLayout>
+
+</LinearLayout>
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="2"
+    android:background="@color/white">
+    <HorizontalScrollView
+        android:id="@+id/horizontal_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:padding="6dp"
+        android:layout_above="@+id/footer">
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+        </LinearLayout>
+    </HorizontalScrollView>
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_weight="1"
+        android:weightSum="10"
+        android:background="@color/white">
+       <LinearLayout
+           android:layout_width="0dp"
+           android:layout_weight="1"
+           android:layout_height="match_parent">
+
+       </LinearLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            android:padding="7dp"
+            android:text="@string/rank_of_product"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"/>
+        <ImageView
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:src="@drawable/darajeha"
+            android:layout_height="match_parent"
+            android:id="@+id/img_ProductQuality" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
+    </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:weightSum="4">
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:id="@+id/img_info"
+                android:src="@mipmap/information"
+                android:background="@color/white"
+                android:layout_gravity="center_horizontal|center_vertical" />
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/add_to_favorite"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:background="@color/white"
+                android:src="@mipmap/ic_like_toolbar"/>
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:id="@+id/img_share_full_screen"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:src="@mipmap/ic_share_toolbar"
+                android:background="@color/white" />
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@mipmap/telegram"
+                android:id="@+id/telegram_share"
+                android:background="@color/white"
+                android:layout_gravity="center_vertical|center_horizontal"/>
+
+
+
+        </LinearLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="@color/green"
+    android:gravity="center">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_height="match_parent"
+        android:background="@color/green"
+        style="?android:attr/borderlessButtonStyle"
+        android:text="@string/bye"
+        android:id="@+id/full_screen_add_to_basket_btn"
+        android:textColor="@color/white"
+        android:drawablePadding="8dp"
+        android:drawableRight="@mipmap/basket_white"
+        />
+
+</LinearLayout>
+        </LinearLayout>

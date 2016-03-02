@@ -27,6 +27,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
@@ -110,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Decoriss");
+        toolbar.setTitleTextColor(Color.BLACK);
         setSupportActionBar(toolbar);
         this.addActionBar();
         //Pushe Alert For Install Google Play
@@ -133,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
         }
         this.CreatePageRightToLeft();
         this.displayWindow();
-
         shopCounter=sch.getCountProductShop();
         ObserverShopping.addMyBooleanListener(new ObserverShoppingBagClickListener() {
             @Override
