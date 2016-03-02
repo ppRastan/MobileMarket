@@ -1,12 +1,12 @@
 package ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson;
 
+import ir.rastanco.mobilemarket.dataModel.Article;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-
-import ir.rastanco.mobilemarket.dataModel.Article;
 
 /**
  * Created by ShaisteS on 1394/10/26.

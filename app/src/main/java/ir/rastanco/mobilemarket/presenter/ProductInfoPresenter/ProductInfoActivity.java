@@ -9,13 +9,13 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import java.util.ArrayList;
-
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.UserHelper;
 import ir.rastanco.mobilemarket.utility.Configuration;
+
+import java.util.ArrayList;
 
 /**
  * Created by ShaisteS on 1394/10/16.

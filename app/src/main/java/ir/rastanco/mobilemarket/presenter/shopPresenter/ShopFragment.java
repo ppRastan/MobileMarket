@@ -13,8 +13,6 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
@@ -34,6 +32,8 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProductListener;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.DataFilter;
+
+import java.util.ArrayList;
 
 /**
  * Created by ShaisteS on 1394/12/09.

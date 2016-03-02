@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+
+import java.util.ArrayList;
 
 /**
  * Created by ShaisteS on 1394/12/09.

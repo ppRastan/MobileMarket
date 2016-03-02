@@ -10,12 +10,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.utility.Configuration;
+
+import java.util.ArrayList;
+
 
 /**
  * Created by ShaisteS on 21/10/94
@@ -40,7 +41,7 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
         final View rowView = inflater.inflate(R.layout.article_item, null);
 
 
-        imgLoader = new ImageLoader(getContext(),rowView,Configuration.articleDisplaySizeForShow); // important
+        imgLoader = new ImageLoader(getContext(),rowView, Configuration.articleDisplaySizeForShow); // important
         ImageView articleImage = (ImageView) rowView.findViewById(R.id.img_article);
         articleImage.getLayoutParams().width=Configuration.articleDisplaySizeForShow;
         articleImage.getLayoutParams().height=Configuration.articleDisplaySizeForShow;

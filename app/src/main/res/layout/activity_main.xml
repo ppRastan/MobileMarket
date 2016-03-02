@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".presenter.MainActivity">
+    android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:fitsSystemWindows="true">
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <include layout="@layout/toolbar"/>
+        <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|enterAlways"
+        android:layoutDirection="rtl"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
         <LinearLayout
             android:visibility="gone"
             android:layout_width="match_parent"
@@ -25,7 +29,7 @@
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:background="@color/background_window"
                 android:id="@+id/back_button"
@@ -34,7 +38,7 @@
             <AutoCompleteTextView
                 android:layout_width="0dp"
                 android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="8"
                 android:hint="@string/search_in_decoriss"
                 android:layoutDirection="rtl"
@@ -46,30 +50,25 @@
                 android:id="@+id/text_for_search"/>
         </LinearLayout>
 
-        <ir.rastanco.mobilemarket.presenter.PagerSlidingTabStrip
+        <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:pstsIndicatorColor="@color/orange"
-            app:pstsIndicatorHeight="6dp"
-            android:clickable="true"
-            app:pstsShouldExpand="true"
-
-            />
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:context=".presenter.MainActivity"/>
+            app:tabMode="scrollable"
+            app:tabGravity="fill"/>
+    </android.support.design.widget.AppBarLayout>
 
-    </LinearLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="bottom|left"
         android:layout_margin="@dimen/fab_margin"
         android:src="@mipmap/customer_support" />
 

@@ -5,17 +5,17 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 
-import java.util.ArrayList;
-
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
+import java.util.ArrayList;
+
 /**
  * Created by shaisteS on 1394/12/1.
  */
-public class SplashScreen extends AppCompatActivity{
+public class SplashScreen extends AppCompatActivity {
 
     private Thread mSplashThread;
     private ServerConnectionHandler sch;

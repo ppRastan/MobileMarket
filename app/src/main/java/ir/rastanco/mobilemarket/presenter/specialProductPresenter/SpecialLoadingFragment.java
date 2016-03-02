@@ -7,6 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
+import ir.rastanco.mobilemarket.utility.Configuration;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,11 +26,6 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
-import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by shaisteS on 1394/11/09.
@@ -35,7 +36,8 @@ public class SpecialLoadingFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch=new ServerConnectionHandler(getContext());
+        Configuration.SpecialLoadingContext=getContext();
+        sch=new ServerConnectionHandler(Configuration.SpecialLoadingContext);
         final String[] jsonString = {""};
         if (sch.emptyDBProduct()) {
 
@@ -52,8 +54,8 @@ public class SpecialLoadingFragment extends Fragment {
                     }
                     String timeStamp=addProductToTable(jsonString[0]);
                     sch.setSetting(timeStamp,
-                            getContext().getResources().getString(R.string.firstArticleNumber),
-                            getContext().getResources().getString(R.string.version),
+                            Configuration.SpecialLoadingContext.getResources().getString(R.string.firstArticleNumber),
+                            Configuration.SpecialLoadingContext.getResources().getString(R.string.version),
                             timeStamp);
                     Configuration.productTableEmptyStatus=false;
                     ObserverChangeFragment.setChangeFragmentParameter(true);

@@ -10,6 +10,8 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 
+import ir.rastanco.mobilemarket.R;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,7 +26,6 @@ import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import ir.rastanco.mobilemarket.R;
 
 /**
  * Created by ShaisteS on 1394/10/20.

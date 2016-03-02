@@ -16,13 +16,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
@@ -30,6 +23,13 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancel;
 import ir.rastanco.mobilemarket.utility.Configuration;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by ShaisteS on 1394/10/30.
@@ -129,7 +129,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
         imgProduct=(ImageView)rowView.findViewById(R.id.shopping__bag_img);
         txtProductTitle=(TextView) rowView.findViewById(R.id.shopping_bag_txt_productTitle);
-        imgLoader = new ImageLoader(myContext,rowView,Configuration.articleDisplaySizeForShow); // important
+        imgLoader = new ImageLoader(myContext,rowView, Configuration.articleDisplaySizeForShow); // important
         txtProductPrice=(TextView) rowView.findViewById(R.id.shopping_bag_price_Of_product);
         totalPrice = (TextView)rowView.findViewById(R.id.shopping_bag_price_for_you);
         txtProductTitle.setText(aProduct.getTitle());

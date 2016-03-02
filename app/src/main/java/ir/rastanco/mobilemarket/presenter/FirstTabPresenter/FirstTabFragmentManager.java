@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.presenter.LoadingFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragmentListener;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
-import ir.rastanco.mobilemarket.presenter.LoadingFragment;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
@@ -51,8 +51,8 @@ public class FirstTabFragmentManager extends Fragment {
             public void changeFragment() {
 
                 Bundle args = new Bundle();
-                args.putString("name",pageName);
-                ShopFragment shop=new ShopFragment();
+                args.putString("name", pageName);
+                ShopFragment shop = new ShopFragment();
                 shop.setArguments(args);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.firstTabManager, shop);

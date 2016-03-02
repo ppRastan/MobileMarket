@@ -1,17 +1,16 @@
 package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.utility.Configuration;
+
+import java.util.ArrayList;
+
 
 public class AccountManager extends AppCompatActivity {
 

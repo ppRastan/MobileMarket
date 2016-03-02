@@ -6,6 +6,7 @@ import android.graphics.drawable.LayerDrawable;
 
 import ir.rastanco.mobilemarket.R;
 
+
 public class CounterIconUtils {
   public static void setBadgeCount(Context context, LayerDrawable icon, int count) {
 

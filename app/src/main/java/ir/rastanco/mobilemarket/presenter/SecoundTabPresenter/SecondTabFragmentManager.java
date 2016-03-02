@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.presenter.LoadingFragment;
+import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**

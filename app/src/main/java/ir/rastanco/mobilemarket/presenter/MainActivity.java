@@ -7,17 +7,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,12 +28,10 @@ import android.support.v7.widget.Toolbar;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -41,20 +39,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.readystatesoftware.systembartint.SystemBarTintManager;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import co.ronash.pushe.Pushe;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
@@ -73,18 +57,24 @@ import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivi
 import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragmentManagement;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-//parisa rashidi nezhad connection
-//parisa recommit
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+
+import co.ronash.pushe.Pushe;
+
 public class MainActivity extends AppCompatActivity {
 
-    @InjectView(R.id.toolbar)
-    Toolbar toolbar;
-    @InjectView(R.id.tabs)
-    PagerSlidingTabStrip tabs;
-    @InjectView(R.id.pager)
-    ViewPager pager;
-    private MyPagerAdapter adapter;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
     private int exitSafeCounter = 0;
     private Drawable oldBackground = null;
     private int currentColor;
@@ -113,10 +103,14 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     public static final int progress_bar_type = 0;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         this.addActionBar();
         //Pushe Alert For Install Google Play
         Pushe.initialize(this, true);
@@ -150,59 +144,36 @@ public class MainActivity extends AppCompatActivity {
                         icon, sch.getCountProductShop());
             }
         });
+
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });*/
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabTextColors(Color.BLACK,Color.RED);
+
+    }
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new ArticleFragment(),getResources().getString(R.string.fifth_page));
+        adapter.addFrag(new ThirdTabFragmentManager(),fourth_page);
+        adapter.addFrag(new SecondTabFragmentManager(),third_page);
+        adapter.addFrag(new FirstTabFragmentManager(),second_page);
+        adapter.addFrag(new SpecialProductFragmentManagement(),getResources().getString(R.string.first_page));
+        viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(adapter.getCount() - 1);
     }
 
-    private void displayWindow() {
-        display = getWindowManager().getDefaultDisplay();
-        size = new Point();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
-            display.getSize(size);
-            Configuration.homeDisplaySizeForShow=size.x;
-            Configuration.homeDisplaySizeForURL = String.valueOf(size.x);
-
-            Configuration.productInfoHeightSize = String.valueOf(size.x - 100);
-
-            Double s= ((size.x) * 0.5)-12;
-            Configuration.shopDisplaySizeForShow=s.intValue();
-            Configuration.shopDisplaySizeForURL = String.valueOf(((size.x) * 0.5) - 12);
-
-            Double a= (size.x) * 0.3;
-            Configuration.articleDisplaySizeForShow=a.intValue();
-            Configuration.articleDisplaySizeForURL =String.valueOf((size.x) * 0.3);
-
-            Double p=(size.x)* 0.125;
-            Configuration.progressBarSize=p.intValue();
-
-        }
-        ButterKnife.inject(this);
+    private void addActionBar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mTintManager = new SystemBarTintManager(this);
-        mTintManager.setStatusBarTintEnabled(true);
-        adapter = new MyPagerAdapter(getSupportFragmentManager());
-        pager.setAdapter(adapter);
-        Configuration.MainPager=pager;
-        tabs.setViewPager(pager);
-        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 5, getResources()
-                .getDisplayMetrics());
-        pager.setPageMargin(pageMargin);
-        pager.setCurrentItem(0);
-        this.setDecorissThemColour();
-        this.addFontAndColors();
-
-    }
-
-    private void setDecorissThemColour() {
-        changeColor(getResources().getColor(R.color.decoriss));
-    }
-
-    private void CreatePageRightToLeft() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-
-            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-            Configuration.RTL=true;
-        }
-        else
-            Configuration.RTL=false;
     }
 
     private void setFAb(){
@@ -242,22 +213,60 @@ public class MainActivity extends AppCompatActivity {
         articles=new ArrayList<Article>();
     }
 
-    private void addFontAndColors() {
+    private void displayWindow() {
+        display = getWindowManager().getDefaultDisplay();
+        size = new Point();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            display.getSize(size);
+            Configuration.homeDisplaySizeForShow=size.x;
+            Configuration.homeDisplaySizeForURL = String.valueOf(size.x);
 
-        tabs = (PagerSlidingTabStrip)findViewById(R.id.tabs);
-        tabs.setTextColor(getResources().getColorStateList(R.color.tab_text_color));
+            Configuration.productInfoHeightSize = String.valueOf(size.x - 100);
+
+            Double s= ((size.x) * 0.5)-12;
+            Configuration.shopDisplaySizeForShow=s.intValue();
+            Configuration.shopDisplaySizeForURL = String.valueOf(((size.x) * 0.5) - 12);
+
+            Double a= (size.x) * 0.3;
+            Configuration.articleDisplaySizeForShow=a.intValue();
+            Configuration.articleDisplaySizeForURL =String.valueOf((size.x) * 0.3);
+
+            Double p=(size.x)* 0.125;
+            Configuration.progressBarSize=p.intValue();
+
+        }
+        /*ButterKnife.inject(this);
+        setSupportActionBar(toolbar);
+        mTintManager = new SystemBarTintManager(this);
+        mTintManager.setStatusBarTintEnabled(true);
+        adapter = new MyPagerAdapter(getSupportFragmentManager());
+        pager.setAdapter(adapter);
+        Configuration.MainPager=pager;
+        tabs.setViewPager(pager);
+        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_PX, 5, getResources()
+                .getDisplayMetrics());
+        pager.setPageMargin(pageMargin);
+        pager.setCurrentItem(0);
+        this.setDecorissThemColour();
+        this.addFontAndColors();*/
     }
 
-    private void addActionBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    private void CreatePageRightToLeft() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+
+            //getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+            Configuration.RTL=true;
+        }
+        else
+            Configuration.RTL=false;
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         this.menu=menu;
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem item = menu.findItem(R.id.action_notifications);
         LayerDrawable icon = (LayerDrawable) item.getIcon();
         CounterIconUtils.setBadgeCount(this, icon, filBasketColor());
@@ -270,8 +279,11 @@ public class MainActivity extends AppCompatActivity {
             upgradeItem.setVisible(false);
 
         return true;
-    }
 
+        // Inflate the menu; this adds items to the action bar if it is present.
+        /*getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;*/
+    }
     private int filBasketColor()
     {
         return  shopCounter;
@@ -279,6 +291,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        /*int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);*/
+
         switch (item.getItemId()) {
             case R.id.action_contact:
                 if (Configuration.userLoginStatus){
@@ -291,8 +315,11 @@ public class MainActivity extends AppCompatActivity {
                     this.startActivity(userProfileIntent);
                 }
                 break;
+
+            //TODO set Search Bar
             case R.id.action_search:
             {
+                final Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
                 backButton = (ImageButton)findViewById(R.id.back_button);
                 textToSearch=(AutoCompleteTextView) findViewById(R.id.text_for_search);
                 toolbarSearch = (LinearLayout)findViewById(R.id.toolbar_search);
@@ -338,36 +365,81 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void changeColor(int newColor) {
-        tabs.setBackgroundColor(newColor);
-        mTintManager.setTintColor(newColor);
-        // change ActionBar color just if an ActionBar is available
-        Drawable colorDrawable = new ColorDrawable(newColor);
-        Drawable bottomDrawable = new ColorDrawable(getResources().getColor(android.R.color.transparent));
-        LayerDrawable ld = new LayerDrawable(new Drawable[]{colorDrawable, bottomDrawable});
-        if (oldBackground == null) {
-            getSupportActionBar().setBackgroundDrawable(ld);
-        } else {
-            TransitionDrawable td = new TransitionDrawable(new Drawable[]{oldBackground, ld});
-            getSupportActionBar().setBackgroundDrawable(td);
-            td.startTransition(200);
+    @Override
+    public void onBackPressed() {
+
+        exitSafeCounter++;
+        if (exitSafeCounter == 1) {
+            Toast.makeText(MainActivity.this, getResources().getString(R.string.sure_to_exit),
+                    Toast.LENGTH_SHORT).show();
+        } else if(exitSafeCounter >1) {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+            System.exit(0);
         }
-        oldBackground = ld;
-        currentColor = newColor;
     }
 
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("currentColor", currentColor);
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int tabNumber) {
+            //return mFragmentList.get(tabNumber);
+            switch (tabNumber){
+                case 4:
+                    SpecialProductFragmentManagement specialProductFragmentManagement=new SpecialProductFragmentManagement();
+                    return specialProductFragmentManagement;
+                case 3:
+                    Bundle firstArgs = new Bundle();
+                    firstArgs.putString("name",getPageTitle(tabNumber).toString());
+                    FirstTabFragmentManager firstTab=new FirstTabFragmentManager();
+                    firstTab.setArguments(firstArgs);
+                    return firstTab;
+                case 2:
+                    Bundle secondArgs = new Bundle();
+                    secondArgs.putString("name",getPageTitle(tabNumber).toString());
+                    SecondTabFragmentManager secondTab=new SecondTabFragmentManager();
+                    secondTab.setArguments(secondArgs);
+                    return secondTab;
+                case 1:
+                    Bundle thirdArgs = new Bundle();
+                    thirdArgs.putString("name",getPageTitle(tabNumber).toString());
+                    ThirdTabFragmentManager thirdTab=new ThirdTabFragmentManager();
+                    thirdTab.setArguments(thirdArgs);
+                    return thirdTab;
+                case 0:
+                    ArticleFragment article=new ArticleFragment();
+                    return article;
+                default:
+                    return null;
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFrag(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
     }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        currentColor = savedInstanceState.getInt("currentColor");
-        changeColor(currentColor);
-    }
 
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -448,87 +520,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public class MyPagerAdapter extends FragmentPagerAdapter {
-
-        private final String[] TITLES = {
-                getResources().getString(R.string.first_page)
-                ,second_page
-                ,third_page
-                ,fourth_page
-                , getResources().getString(R.string.fifth_page)
-        };
-
-
-        public MyPagerAdapter(FragmentManager fm) {
-            super(fm);
-
-        }
-
-        @Override
-        public void setPrimaryItem(ViewGroup container, int position, Object object) {
-            super.setPrimaryItem(container, position, object);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return TITLES[position];
-        }
-
-        @Override
-        public int getCount() {
-            return TITLES.length;
-        }
-
-        @Override
-       public Fragment getItem(int position) {
-
-            switch (position){
-                case 0:
-                    SpecialProductFragmentManagement specialProductFragmentManagement=new SpecialProductFragmentManagement();
-                    return specialProductFragmentManagement;
-                case 1:
-                    Bundle firstArgs = new Bundle();
-                    firstArgs.putString("name", TITLES[position]);
-                    FirstTabFragmentManager firstTab=new FirstTabFragmentManager();
-                    firstTab.setArguments(firstArgs);
-                    return firstTab;
-                case 2:
-                    Bundle secondArgs = new Bundle();
-                    secondArgs.putString("name", TITLES[position]);
-                    SecondTabFragmentManager secondTab=new SecondTabFragmentManager();
-                    secondTab.setArguments(secondArgs);
-                    return secondTab;
-                case 3:
-                    Bundle thirdArgs = new Bundle();
-                    thirdArgs.putString("name", TITLES[position]);
-                    ThirdTabFragmentManager thirdTab=new ThirdTabFragmentManager();
-                    thirdTab.setArguments(thirdArgs);
-                    return thirdTab;
-                case 4:
-                    ArticleFragment article=new ArticleFragment();
-                    return article;
-                default:
-                    return null;
-            }
-        }
-
-    }
-
-
-    @Override
-    public void onBackPressed() {
-
-        exitSafeCounter++;
-        if (exitSafeCounter == 1) {
-            Toast.makeText(MainActivity.this, getResources().getString(R.string.sure_to_exit),
-                    Toast.LENGTH_SHORT).show();
-        } else if(exitSafeCounter >1) {
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-            System.exit(0);
-        }
-    }
 }

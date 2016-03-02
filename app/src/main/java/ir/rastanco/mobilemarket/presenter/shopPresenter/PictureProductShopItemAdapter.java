@@ -24,11 +24,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
@@ -38,6 +33,11 @@ import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivi
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 /**
  * Created by ShaisteS on 12/28/2015.
@@ -120,7 +120,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.priceForYou = (TextView)rowView.findViewById(R.id.txt_price_for_you);
         holder.priceForYou.setTypeface(yekanFont);
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
-        holder.imgP.getLayoutParams().width=Configuration.shopDisplaySizeForShow;
+        holder.imgP.getLayoutParams().width= Configuration.shopDisplaySizeForShow;
         holder.imgP.getLayoutParams().height=Configuration.shopDisplaySizeForShow;
         holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
         holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);

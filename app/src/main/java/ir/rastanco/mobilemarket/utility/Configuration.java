@@ -43,6 +43,7 @@ public class Configuration {
     public static Context UserLastShoppingContext;
     public static Context ProductOptionContext;
     public static Context AccountManagerContext;
+    public static Context SpecialLoadingContext;
 
     public static MenuItem UpgradeButtonMenu;
 

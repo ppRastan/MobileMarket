@@ -12,6 +12,7 @@ import ir.rastanco.mobilemarket.presenter.LoadingFragment;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
+
 /**
  * Created by shaisteS on 1394/11/10.
  * This class managed Third Tab from Main Menu for displaying fragments(Loading Fragment or Information Product Fragment)

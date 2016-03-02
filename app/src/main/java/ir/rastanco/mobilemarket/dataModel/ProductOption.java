@@ -1,8 +1,5 @@
 package ir.rastanco.mobilemarket.dataModel;
 
-import java.util.ArrayList;
-import java.util.Map;
-
 /**
  * Created by shaisteS on 1394/10/24.
  */

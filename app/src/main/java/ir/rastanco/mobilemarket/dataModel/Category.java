@@ -1,9 +1,5 @@
 package ir.rastanco.mobilemarket.dataModel;
 
-import android.graphics.Bitmap;
-
-import java.io.Serializable;
-
 /**
  * Created by ShaisteS on 12/28/2015.
  * This Class is Packaging Category Information

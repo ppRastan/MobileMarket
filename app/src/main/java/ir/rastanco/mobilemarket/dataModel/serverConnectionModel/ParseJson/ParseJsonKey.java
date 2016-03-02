@@ -4,10 +4,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
-import ir.rastanco.mobilemarket.dataModel.Category;
-
 /**
  * Created by ShaisteS on 1394/10/30.
  */
