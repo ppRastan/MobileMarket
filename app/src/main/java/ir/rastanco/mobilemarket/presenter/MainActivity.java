@@ -328,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
                 toolbar.setVisibility(View.GONE);
                 toolbarSearch.setVisibility(View.VISIBLE);
                 ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this,
-                        android.R.layout.simple_list_item_1, sch.searchInProductTitle());
+                        R.layout.customized_list_for_search, sch.searchInProductTitle());
                 textToSearch.setAdapter(listAdapter);
                 backButton.setOnClickListener(new View.OnClickListener() {
                     @Override
