@@ -28,7 +28,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-import android.text.Html;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
@@ -43,6 +42,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+
+import co.ronash.pushe.Pushe;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
@@ -61,19 +73,6 @@ import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivi
 import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragmentManagement;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.List;
-
-import co.ronash.pushe.Pushe;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -160,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
         viewPager = (ViewPager) findViewById(R.id.viewpager);
+        Configuration.MainPager=viewPager;
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
@@ -340,7 +340,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
 
-            //TODO set Search Bar
             case R.id.action_search:
             {
                 final Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);

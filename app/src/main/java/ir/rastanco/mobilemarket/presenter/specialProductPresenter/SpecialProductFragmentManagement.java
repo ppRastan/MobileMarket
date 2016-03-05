@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.presenter.CheckConnectionFragment;
+import ir.rastanco.mobilemarket.presenter.LoadingFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragmentListener;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -21,12 +23,23 @@ public class SpecialProductFragmentManagement extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
         View specialProductView = inflater.inflate(R.layout.fragment_special_product_manager, container, false);
-        if (Configuration.productTableEmptyStatus==true) {
-            SpecialLoadingFragment loading = new SpecialLoadingFragment();
+        if (Configuration.productTableEmptyStatus==true && !Configuration.connectionStatus) {
+
+            CheckConnectionFragment check=new CheckConnectionFragment();
+            FragmentTransaction setCheck=getFragmentManager().beginTransaction();
+            setCheck.replace(R.id.specialProductManagement,check);
+            setCheck.commit();
+
+        }
+        if (Configuration.productTableEmptyStatus==true && Configuration.connectionStatus){
+
+            LoadingFragment loading = new LoadingFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.specialProductManagement, loading);
             transaction.commit();
+
         }
+
         else if (Configuration.productTableEmptyStatus==false)
         {
             SpecialProductFragment specialProductFragment = new SpecialProductFragment();
@@ -38,12 +51,15 @@ public class SpecialProductFragmentManagement extends Fragment {
         ObserverChangeFragment.ObserverChangeFragmentListener(new ObserverChangeFragmentListener() {
             @Override
             public void changeFragment() {
-                SpecialProductFragment specialProductFragment = new SpecialProductFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.specialProductManagement, specialProductFragment);
-                transaction.commit();
+                if (Configuration.MainPager.getCurrentItem()==4){
+                    SpecialProductFragment specialProductFragment = new SpecialProductFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.specialProductManagement, specialProductFragment);
+                    transaction.commit();
+                }
             }
         });
+
         return specialProductView;
     }
 

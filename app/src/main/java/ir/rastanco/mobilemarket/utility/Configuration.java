@@ -43,7 +43,7 @@ public class Configuration {
     public static Context UserLastShoppingContext;
     public static Context ProductOptionContext;
     public static Context AccountManagerContext;
-    public static Context SpecialLoadingContext;
+    public static Context LoadingContext;
 
     public static MenuItem UpgradeButtonMenu;
 
@@ -52,6 +52,7 @@ public class Configuration {
 
     public static Boolean RTL;
     public static Boolean productTableEmptyStatus; //true is empty and false is full
+    public static Boolean connectionStatus=false;
 
 
 }

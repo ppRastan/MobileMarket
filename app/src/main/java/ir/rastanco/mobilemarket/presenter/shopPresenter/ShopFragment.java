@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
@@ -32,8 +34,6 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProductListener;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.DataFilter;
-
-import java.util.ArrayList;
 
 /**
  * Created by ShaisteS on 1394/12/09.
@@ -59,6 +59,11 @@ public class ShopFragment extends Fragment {
         final String pageName=getArguments().getString("name");
         sch=new ServerConnectionHandler(getContext());
         products=sch.getProductOfMainCategory(pageName);
+
+        if(products.size()==0){
+
+            //TODO Parisa for NO Product For Show 1
+        }
         final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
         final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
         gridview.setAdapter(adapter);
@@ -90,6 +95,7 @@ public class ShopFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        sch.refreshCategories("http://decoriss.com/json/get,com=allcats&cache=false");
                         sch.getNewProducts();
                         sch.getEditProducts();
                         ArrayList<Product> newProduct=sch.getProductAfterRefresh(pageName,
@@ -133,8 +139,8 @@ public class ShopFragment extends Fragment {
         btnFilterCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                txtFilterOptionProductSelected.setText(getResources().getText(R.string.all));
-                txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.black));
+                /*txtFilterOptionProductSelected.setText(getResources().getText(R.string.all));
+                txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.black));*/
                 //show Dialog Fragment
                 Bundle args = new Bundle();
                 args.putString("name", pageName);
@@ -147,7 +153,14 @@ public class ShopFragment extends Fragment {
                     public void changeFilterCategory() {
                         txtFilterCategorySelected.setText(DataFilter.FilterCategory);
                         txtFilterCategorySelected.setTextColor(getResources().getColor(R.color.red));
-                        ArrayList<Product> newProducts = sch.getProductsAfterFilterCategory(pageName, txtFilterCategorySelected.getText().toString());
+                        //ArrayList<Product> newProducts = sch.getProductsAfterFilterCategory(products, txtFilterCategorySelected.getText().toString());
+                        ArrayList<Product> newProducts = sch.getProductAfterFilter(pageName,
+                                txtFilterCategorySelected.getText().toString(),
+                                txtFilterOptionProductSelected.getText().toString(),
+                                DataFilter.FilterOption);
+                        if (newProducts.size() == 0) {
+                            //TODO Parisa for NO Product For Show 2
+                        }
                         PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                         gridview.setAdapter(newAdapter);
                         newAdapter.notifyDataSetChanged();
@@ -161,8 +174,8 @@ public class ShopFragment extends Fragment {
         btnFilterOptionProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                txtFilterCategorySelected.setText(getResources().getText(R.string.all));
-                txtFilterCategorySelected.setTextColor(getResources().getColor(R.color.black));
+                //txtFilterCategorySelected.setText(getResources().getText(R.string.all));
+                //txtFilterCategorySelected.setTextColor(getResources().getColor(R.color.black));
                 Bundle args = new Bundle();
                 args.putString("name", pageName);
                 FilterOptionProduct filterOptionProduct = new FilterOptionProduct();
@@ -173,7 +186,14 @@ public class ShopFragment extends Fragment {
                     public void changeFilterPrice() {
                         txtFilterOptionProductSelected.setText(DataFilter.FilterPriceTitle);
                         txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.red));
-                        ArrayList<Product> newProducts = sch.getProductAsPriceFilter(products, txtFilterOptionProductSelected.getText().toString());
+                        //ArrayList<Product> newProducts = sch.getProductAsPriceFilter(products, txtFilterOptionProductSelected.getText().toString());
+                        ArrayList<Product> newProducts=sch.getProductAfterFilter(pageName,
+                                txtFilterCategorySelected.getText().toString(),
+                                txtFilterOptionProductSelected.getText().toString(),
+                                DataFilter.FilterOption);
+                        if (newProducts.size() == 0) {
+                            //TODO Parisa for NO Product For Show 3
+                        }
                         PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                         gridview.setAdapter(newAdapter);
                         newAdapter.notifyDataSetChanged();
@@ -184,7 +204,14 @@ public class ShopFragment extends Fragment {
                     public void changeFilterBrand() {
                         txtFilterOptionProductSelected.setText(DataFilter.FilterBrand);
                         txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.red));
-                        ArrayList<Product> newProducts = sch.getAllProductOfABrand(products, DataFilter.FilterBrand);
+                        //ArrayList<Product> newProducts = sch.getAllProductOfABrand(products, DataFilter.FilterBrand);
+                        ArrayList<Product> newProducts=sch.getProductAfterFilter(pageName,
+                                txtFilterCategorySelected.getText().toString(),
+                                txtFilterOptionProductSelected.getText().toString(),
+                                DataFilter.FilterOption);
+                        if (newProducts.size() == 0) {
+                            //TODO Parisa for NO Product For Show 4
+                        }
                         PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                         gridview.setAdapter(newAdapter);
                         newAdapter.notifyDataSetChanged();

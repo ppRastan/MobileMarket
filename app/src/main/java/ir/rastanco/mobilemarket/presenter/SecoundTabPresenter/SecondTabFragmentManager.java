@@ -8,7 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.presenter.CheckConnectionFragment;
 import ir.rastanco.mobilemarket.presenter.LoadingFragment;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragmentListener;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
@@ -27,11 +30,21 @@ public class SecondTabFragmentManager extends Fragment {
         View secondProductView = inflater.inflate(R.layout.fragment_second_tab_manager, container, false);
         pageName=getArguments().getString("name");
 
-        if (Configuration.productTableEmptyStatus==true) {
+        if (Configuration.productTableEmptyStatus==true && !Configuration.connectionStatus) {
+
+            CheckConnectionFragment check=new CheckConnectionFragment();
+            FragmentTransaction setCheck=getFragmentManager().beginTransaction();
+            setCheck.replace(R.id.secondTabManager,check);
+            setCheck.commit();
+
+        }
+        if (Configuration.productTableEmptyStatus==true && Configuration.connectionStatus){
+
             LoadingFragment loading = new LoadingFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.secondTabManager, loading);
             transaction.commit();
+
         }
         else if (Configuration.productTableEmptyStatus==false)
         {
@@ -44,20 +57,21 @@ public class SecondTabFragmentManager extends Fragment {
             transaction.commit();
         }
 
-        /*ObserverChangeFragment.ObserverChangeFragmentListener(new ObserverChangeFragmentListener() {
+        ObserverChangeFragment.ObserverChangeFragmentListener(new ObserverChangeFragmentListener() {
             @Override
             public void changeFragment() {
-
-                Bundle args = new Bundle();
-                args.putString("name",pageName);
-                ShopFragment shop=new ShopFragment();
-                shop.setArguments(args);
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.secondTabManager, shop);
-                transaction.commit();
+                if (Configuration.MainPager.getCurrentItem()==2){
+                    Bundle args = new Bundle();
+                    args.putString("name", pageName);
+                    ShopFragment shop = new ShopFragment();
+                    shop.setArguments(args);
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.secondTabManager, shop);
+                    transaction.commit();
+                }
 
             }
-        });*/
+        });
         return secondProductView;
     }
 }

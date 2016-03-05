@@ -79,6 +79,7 @@
     <string name="similar_photoes">مشاهده ی سایر محصولات</string>
     <string name="filterBrandTitle">برند</string>
     <string name="filterPriceTitle">قیمت</string>
+    <string name="checkConnection">لطفا اتصال اینترنت خود را بررسی کنید</string>
 
     <!-- first Information For App Setting When App install  -->
     <string name="version">1.4.0</string>

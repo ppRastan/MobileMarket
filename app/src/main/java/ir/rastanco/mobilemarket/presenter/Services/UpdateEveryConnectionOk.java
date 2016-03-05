@@ -26,16 +26,18 @@ public class UpdateEveryConnectionOk extends BroadcastReceiver {
         if (intent.getExtras() != null) {
             NetworkInfo ni = (NetworkInfo) intent.getExtras().get(ConnectivityManager.EXTRA_NETWORK_INFO);
             if (ni != null && ni.getState() == NetworkInfo.State.CONNECTED) {
+                Configuration.connectionStatus=true;
                 if (sch.checkNewVersion("http://decoriss.com/app/Version.txt")) {
-                    if (Configuration.UpgradeButtonMenu != null)
+                    if (Configuration.UpgradeButtonMenu != null) {
                         Configuration.UpgradeButtonMenu.setVisible(true);
+                    }
                     Intent notificationService = new Intent(context, NotificationService.class);
                     context.startService(notificationService);
                 }
 
             }
-        }
-        if (intent.getExtras().getBoolean(ConnectivityManager.EXTRA_NO_CONNECTIVITY, Boolean.FALSE)) {
+            if (intent.getExtras().getBoolean(ConnectivityManager.EXTRA_NO_CONNECTIVITY, Boolean.FALSE)) {
+            }
         }
     }
 }

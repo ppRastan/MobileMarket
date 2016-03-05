@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-
-import java.util.ArrayList;
 
 /**
  * Created by ShaisteS on 1394/12/09.
@@ -67,6 +67,7 @@ public class SpecialProductFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        sch.refreshCategories("http://decoriss.com/json/get,com=allcats&cache=false");
                         sch.getNewProducts();
                         sch.getEditProducts();
                         products = sch.getSpecialProduct();

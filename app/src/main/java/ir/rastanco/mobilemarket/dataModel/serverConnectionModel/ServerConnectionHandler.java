@@ -2,6 +2,11 @@ package ir.rastanco.mobilemarket.dataModel.serverConnectionModel;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
@@ -20,11 +25,6 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJ
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonLastShop;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductOption;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by ShaisteS on 1394/10/14.
@@ -514,6 +514,24 @@ public class ServerConnectionHandler {
                 filterOptionContent.equals(context.getResources().getString(R.string.all)))
             newProducts=allProduct;
         return newProducts;
+    }
+
+    public ArrayList<Product> getProductAfterFilter(String pageName,
+                                                     String filterCategoryContent,
+                                                     String filterOptionContent,
+                                                     String filterOptionStatus
+    ){
+        ArrayList<Product> allProduct=new ArrayList<Product>();
+        allProduct= getProductOfMainCategory(pageName);
+        if(!filterCategoryContent.equals(context.getResources().getString(R.string.all)))
+            allProduct=getProductsAfterFilterCategory(pageName, filterCategoryContent);
+        if (!filterOptionContent.equals(context.getResources().getString(R.string.all))){
+            if(filterOptionStatus.equals("price"))
+                allProduct=getProductAsPriceFilter(allProduct, filterOptionContent);
+            else if (filterOptionStatus.equals("brand"))
+                allProduct=getAllProductOfABrand(allProduct,filterOptionContent);
+        }
+        return allProduct;
     }
 
     //
