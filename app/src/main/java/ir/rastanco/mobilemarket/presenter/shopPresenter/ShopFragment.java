@@ -227,6 +227,9 @@ public class ShopFragment extends Fragment {
                                 txtFilterCategorySelected.getText().toString(),
                                 txtFilterOptionProductSelected.getText().toString(),
                                 DataFilter.FilterOption);
+                        if (newProducts.size()==0){
+                            //TODO Parisa for NO Product For Show 5
+                        }
                         PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                         gridview.setAdapter(newAdapter);
                         newAdapter.notifyDataSetChanged();
