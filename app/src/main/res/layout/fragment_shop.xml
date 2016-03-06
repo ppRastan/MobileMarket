@@ -16,16 +16,25 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/black"></LinearLayout>
-
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:singleLine="true"
+    android:visibility="invisible"
+    android:id="@+id/no_thing_to_show1"
+    android:textSize="13dp"
+    android:gravity="center"
+    android:textColor="@color/orange"
+    android:text="@string/no_product_to_show"/>
         <GridView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/gv_infoProduct"
             android:numColumns="2"
             android:verticalSpacing="4dp"
             android:horizontalSpacing="2dp"
             android:layout_gravity="center"
             android:paddingRight="4dp"
-            android:scrollbars="none"/>
+            android:scrollbars="vertical"/>
     </LinearLayout>
 </android.support.v4.widget.SwipeRefreshLayout>
