@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialLoadingFragment;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
@@ -25,14 +26,13 @@ public class CheckConnectionFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (Configuration.connectionStatus){
+
+                    SpecialLoadingFragment loading0 = new SpecialLoadingFragment();
+                    FragmentTransaction transaction0 = getFragmentManager().beginTransaction();
+                    transaction0.replace(R.id.specialProductManagement, loading0);
+                    transaction0.commit();
                     
                     switch (Configuration.MainPager.getCurrentItem()){
-                        case 4:
-                            LoadingFragment loading0 = new LoadingFragment();
-                            FragmentTransaction transaction0 = getFragmentManager().beginTransaction();
-                            transaction0.replace(R.id.specialProductManagement, loading0);
-                            transaction0.commit();
-                            break;
                         case 3:
                             LoadingFragment loading1 = new LoadingFragment();
                             FragmentTransaction transaction1 = getFragmentManager().beginTransaction();

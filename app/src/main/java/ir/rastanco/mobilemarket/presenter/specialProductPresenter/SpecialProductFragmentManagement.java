@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.presenter.CheckConnectionFragment;
-import ir.rastanco.mobilemarket.presenter.LoadingFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragmentListener;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -33,7 +32,7 @@ public class SpecialProductFragmentManagement extends Fragment {
         }
         if (Configuration.productTableEmptyStatus==true && Configuration.connectionStatus){
 
-            LoadingFragment loading = new LoadingFragment();
+            SpecialLoadingFragment loading = new SpecialLoadingFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.specialProductManagement, loading);
             transaction.commit();
