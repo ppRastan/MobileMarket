@@ -11,13 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.UserInfo;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.Security;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
-
-import java.util.ArrayList;
 
 public class LoginHandler extends AppCompatActivity {
 
@@ -49,33 +49,43 @@ public class LoginHandler extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserInfo aUser=new UserInfo();
-                String key=sch.GetKey("http://decoriss.com/json/get,com=auth");
-                //String key="974401741";
-                user= String.valueOf(username.getText());
-                //user="mahdavikia.m@gmail.com";
-                aUser.setUserEmail(user);
-                pass= String.valueOf(password.getText());
-                //pass="1234";
-                String hashInfo=sec.encode(user,pass,key);
-                ArrayList<String> response=new ArrayList<String>();
-                response=sch.GetAuthorizeResponse(hashInfo,key);
-                Log.d("Response:", response.get(0));
-                if(response.get(0).equals("")){
-                    aUser.setUserId(Integer.parseInt(response.get(1)));
-                    aUser.setUserLoginStatus(1);
-                    sch.addUserInfoToTable(aUser);
-                    Configuration.userLoginStatus=true;
-                    Intent userAccount=new Intent(Configuration.UserLoginContext,AccountManager.class);
-                    startActivity(userAccount);
-                    finish();
+                if(Configuration.connectionStatus){
+
+                    UserInfo aUser=new UserInfo();
+                    String key=sch.GetKey("http://decoriss.com/json/get,com=auth");
+                    //String key="974401741";
+                    user= String.valueOf(username.getText());
+                    //user="mahdavikia.m@gmail.com";
+                    aUser.setUserEmail(user);
+                    pass= String.valueOf(password.getText());
+                    //pass="1234";
+                    String hashInfo=sec.encode(user,pass,key);
+                    ArrayList<String> response=new ArrayList<String>();
+                    response=sch.GetAuthorizeResponse(hashInfo,key);
+                    Log.d("Response:", response.get(0));
+                    if(response.get(0).equals("")){
+                        aUser.setUserId(Integer.parseInt(response.get(1)));
+                        aUser.setUserLoginStatus(1);
+                        sch.addUserInfoToTable(aUser);
+                        Configuration.userLoginStatus=true;
+                        Intent userAccount=new Intent(Configuration.UserLoginContext,AccountManager.class);
+                        startActivity(userAccount);
+                        finish();
+                    }
+                    if (response.get(0).equals("key_expired"))
+                        Toast.makeText(Configuration.UserLoginContext, "دوباره تلاش کنید، سپاسگزار",
+                                Toast.LENGTH_LONG).show();
+                    if (response.get(0).equals("user_pass_invalid"))
+                        Toast.makeText(Configuration.UserLoginContext, "نام کاربری یا رمز ورود صحیح نمی باشد",
+                                Toast.LENGTH_LONG).show();
+
                 }
-                if (response.get(0).equals("key_expired"))
-                    Toast.makeText(Configuration.UserLoginContext, "دوباره تلاش کنید، سپاسگزار",
+
+                else
+                    Toast.makeText(Configuration.UserLoginContext,Configuration.UserLoginContext.getResources().getString(R.string.checkConnection),
                             Toast.LENGTH_LONG).show();
-                if (response.get(0).equals("user_pass_invalid"))
-                    Toast.makeText(Configuration.UserLoginContext, "نام کاربری یا رمز ورود صحیح نمی باشد",
-                            Toast.LENGTH_LONG).show();
+
+
             }
         });
 
