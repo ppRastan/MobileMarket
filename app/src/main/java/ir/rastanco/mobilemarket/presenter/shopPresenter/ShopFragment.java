@@ -223,7 +223,11 @@ public class ShopFragment extends Fragment {
                     public void changeFilterAll() {
                         txtFilterOptionProductSelected.setText(DataFilter.FilterAll);
                         txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.red));
-                        PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), products);
+                        ArrayList<Product> newProducts=sch.getProductAfterFilter(pageName,
+                                txtFilterCategorySelected.getText().toString(),
+                                txtFilterOptionProductSelected.getText().toString(),
+                                DataFilter.FilterOption);
+                        PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                         gridview.setAdapter(newAdapter);
                         newAdapter.notifyDataSetChanged();
 
