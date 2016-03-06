@@ -12,6 +12,8 @@ import ir.rastanco.mobilemarket.presenter.CheckConnectionFragment;
 import ir.rastanco.mobilemarket.presenter.LoadingFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragmentListener;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
@@ -75,6 +77,18 @@ public class ThirdTabFragmentManager extends Fragment {
 
             }
         });
+
+        ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
+            @Override
+            public void connectionOK() {
+
+                LoadingFragment loading3 = new LoadingFragment();
+                FragmentTransaction transaction3 = getFragmentManager().beginTransaction();
+                transaction3.replace(R.id.thirdTabManager, loading3);
+                transaction3.commit();
+            }
+        });
+
         return thirdTabView;
     }
 }

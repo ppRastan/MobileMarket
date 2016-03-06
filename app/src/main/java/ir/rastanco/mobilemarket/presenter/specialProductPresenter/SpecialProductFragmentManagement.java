@@ -9,8 +9,11 @@ import android.view.ViewGroup;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.presenter.CheckConnectionFragment;
+import ir.rastanco.mobilemarket.presenter.LoadingFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragmentListener;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
@@ -32,7 +35,7 @@ public class SpecialProductFragmentManagement extends Fragment {
         }
         if (Configuration.productTableEmptyStatus==true && Configuration.connectionStatus){
 
-            SpecialLoadingFragment loading = new SpecialLoadingFragment();
+            LoadingFragment loading = new LoadingFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.specialProductManagement, loading);
             transaction.commit();
@@ -58,6 +61,21 @@ public class SpecialProductFragmentManagement extends Fragment {
                 }
             }
         });
+
+        ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
+            @Override
+            public void connectionOK() {
+                if (Configuration.MainPager.getCurrentItem() == 4) {
+                    LoadingFragment loading0 = new LoadingFragment();
+                    FragmentTransaction transaction0 = getFragmentManager().beginTransaction();
+                    transaction0.replace(R.id.specialProductManagement, loading0);
+                    transaction0.commit();
+                }
+
+            }
+        });
+
+
 
         return specialProductView;
     }

@@ -12,6 +12,8 @@ import ir.rastanco.mobilemarket.presenter.CheckConnectionFragment;
 import ir.rastanco.mobilemarket.presenter.LoadingFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragmentListener;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
@@ -71,6 +73,19 @@ public class FirstTabFragmentManager extends Fragment {
                     transaction.replace(R.id.firstTabManager, shop);
                     transaction.commit();
                 }
+            }
+        });
+
+        ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
+            @Override
+            public void connectionOK() {
+                if (Configuration.MainPager.getCurrentItem() == 3) {
+                    LoadingFragment loading1 = new LoadingFragment();
+                    FragmentTransaction transaction1 = getFragmentManager().beginTransaction();
+                    transaction1.replace(R.id.firstTabManager, loading1);
+                    transaction1.commit();
+                }
+
             }
         });
 

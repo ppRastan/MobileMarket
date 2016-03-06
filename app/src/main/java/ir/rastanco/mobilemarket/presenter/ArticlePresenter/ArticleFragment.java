@@ -15,11 +15,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-
-import java.util.ArrayList;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
 
 /**
  * Created by ShaisteS on 1/16/2016.
@@ -43,6 +45,18 @@ public class ArticleFragment extends Fragment {
             articles=sch.getAllArticlesAndNewsURL("http://decoriss.com/json/get,com=news&name=blog&order=desc&limit=0-25&cache=false");
             sch.addAllArticlesToTable(articles);
         }
+
+        ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
+            @Override
+            public void connectionOK() {
+
+                if (sch.emptyDBArticle()){
+                    articles=sch.getAllArticlesAndNewsURL("http://decoriss.com/json/get,com=news&name=blog&order=desc&limit=0-25&cache=false");
+                    sch.addAllArticlesToTable(articles);
+                }
+
+            }
+        });
 
         mainView = inflater.inflate(R.layout.fragment_article, null);
         articles=sch.getAllArticlesFromTable();

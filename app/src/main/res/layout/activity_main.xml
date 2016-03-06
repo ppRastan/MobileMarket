@@ -16,6 +16,7 @@
             android:subtitleTextAppearance="@color/black"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="16dp"
         android:background="?attr/colorPrimary"
         app:layout_scrollFlags="scroll|enterAlways"
         android:layoutDirection="rtl"
@@ -28,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:weightSum="10"
+            android:layout_marginTop="10dp"
             android:id="@+id/toolbar_search"
             android:orientation="horizontal">
 
