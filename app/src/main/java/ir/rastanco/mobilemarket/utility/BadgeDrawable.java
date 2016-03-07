@@ -23,7 +23,7 @@ public class BadgeDrawable extends Drawable{
     private boolean mWillDraw = false;
 
     public BadgeDrawable(Context context) {
-        mTextSize = 18F;
+        mTextSize = 24F;
         mBadgePaint = new Paint();
         mBadgePaint.setColor(Color.parseColor("#31a140"));
         mBadgePaint.setAntiAlias(true);
