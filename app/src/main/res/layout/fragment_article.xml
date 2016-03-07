@@ -19,6 +19,7 @@
             android:layout_gravity="center_horizontal|top"
             android:dividerHeight="1dp"
             android:layout_weight="1"
+            android:layoutDirection="rtl"
             android:scrollbars="none"/>
 
     </LinearLayout>

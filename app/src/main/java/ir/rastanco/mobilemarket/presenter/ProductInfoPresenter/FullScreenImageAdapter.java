@@ -16,6 +16,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -207,6 +208,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
                 shareDialog = new Dialog(activity);
+                shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 shareDialog.setContentView(R.layout.share_alert_dialog);
                 cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
                 sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
@@ -329,6 +331,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         final boolean isAppInstalled = isAppAvailable(activity.getApplicationContext(), appName);
         if (isAppInstalled) {
             shareDialog = new Dialog(activity);
+            shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             shareDialog.setContentView(R.layout.share_alert_dialog);
             cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
             sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);

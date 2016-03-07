@@ -13,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -143,6 +144,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
             public void onClick(View v) {
 
                 shareDialog = new Dialog(myContext);
+                shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 shareDialog.setContentView(R.layout.share_alert_dialog);
                 cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
                 sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
@@ -161,7 +163,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
                         String Share = textToSend + "\n\n" +
                                 allProduct.get(position).getLinkInSite() + "\n\n" +
                                 myContext.getResources().getString(R.string.text_to_advertise) + "\n\n"
-                                + myContext.getResources().getString(R.string.LinkDownloadApp) ;
+                                + myContext.getResources().getString(R.string.LinkDownloadApp);
 
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);

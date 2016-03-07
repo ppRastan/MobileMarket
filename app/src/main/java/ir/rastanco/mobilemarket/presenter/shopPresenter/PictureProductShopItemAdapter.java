@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -205,6 +206,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
                 shareDialog = new Dialog(myContext);
+                shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 shareDialog.setContentView(R.layout.share_alert_dialog);
                 cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
                 sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
