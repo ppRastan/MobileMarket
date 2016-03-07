@@ -67,7 +67,6 @@ public class ShopFragment extends Fragment {
         noThingToShow.setTypeface(Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf"));
         if(products.size()==0){
 
-            //TODO Parisa for NO Product For Show 1
             noThingToShow.setVisibility(View.VISIBLE);
         }
         else
@@ -169,7 +168,6 @@ public class ShopFragment extends Fragment {
                                 txtFilterOptionProductSelected.getText().toString(),
                                 DataFilter.FilterOption);
                         if (newProducts.size() == 0) {
-                            //TODO Parisa for NO Product For Show 2
                             noThingToShow.setVisibility(View.VISIBLE);
                         }
                         else
@@ -208,7 +206,6 @@ public class ShopFragment extends Fragment {
                                 txtFilterOptionProductSelected.getText().toString(),
                                 DataFilter.FilterOption);
                         if (newProducts.size() == 0) {
-                            //TODO Parisa for NO Product For Show 3
                             noThingToShow.setVisibility(View.VISIBLE);
                         }
                         else
@@ -232,7 +229,6 @@ public class ShopFragment extends Fragment {
                                 txtFilterOptionProductSelected.getText().toString(),
                                 DataFilter.FilterOption);
                         if (newProducts.size() == 0) {
-                            //TODO Parisa for NO Product For Show 4
                             noThingToShow.setVisibility(View.VISIBLE);
 
                         }
@@ -256,7 +252,6 @@ public class ShopFragment extends Fragment {
                                 txtFilterOptionProductSelected.getText().toString(),
                                 DataFilter.FilterOption);
                         if (newProducts.size()==0){
-                            //TODO Parisa for NO Product For Show 5
                             noThingToShow.setVisibility(View.VISIBLE);
                         }
                         else
