@@ -45,7 +45,7 @@ public class SplashScreen extends AppCompatActivity {
                         else
                             Configuration.productTableEmptyStatus=false;
 
-                        wait(10);
+                        wait(3000);
                     }
                 }
                 catch(InterruptedException ex){
