@@ -1,6 +1,5 @@
 package ir.rastanco.mobilemarket.presenter.shopPresenter;
 
-import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,8 +13,6 @@ import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 

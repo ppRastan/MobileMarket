@@ -7,10 +7,13 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+
+import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
@@ -19,8 +22,6 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterBrand;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterPrice;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.DataFilter;
-
-import java.util.ArrayList;
 
 /**
  * Created by shaisteS on 1394/11/27.
@@ -43,6 +44,7 @@ public class FilterOptionProduct extends DialogFragment {
         sch = new ServerConnectionHandler(Configuration.ShopFragmentContext);
         pageName = getArguments().getString("name");
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
         ImageButton btnResetAlertDialog = (ImageButton) dialogView.findViewById(R.id.reset_action);
         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
