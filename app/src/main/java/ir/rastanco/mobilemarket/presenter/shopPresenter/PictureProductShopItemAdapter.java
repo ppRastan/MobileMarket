@@ -139,6 +139,8 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
 
         if (aProduct.getPrice()==0)
             holder.basketToolbar.setVisibility(View.GONE);
+        else
+            holder.basketToolbar.setVisibility(View.VISIBLE);
 
         if (sch.checkSelectProductForShop(aProduct.getId()))
             holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
@@ -264,8 +266,6 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
 
 
 //       Picasso.with(Configuration.superACFragment).load(image_url_1).into(holder.imgP);
-
-
         /*Drawable d=ResizeImage(R.drawable.loadingholder,rowView,Configuration.shopDisplaySizeForShow);
         final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
         progressBar.getLayoutParams().height=Configuration.progressBarSize;
@@ -292,8 +292,9 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
         String priceOfCurrentGood = String.valueOf(aProduct.getPrice());
         double amountOfFinalPrice = Double.parseDouble(priceOfCurrentGood);
         DecimalFormat formatter = new DecimalFormat("#,###,000");
-        if (aProduct.getPrice()==0)
+        if (aProduct.getPrice()==0) {
             holder.priceP.setText("به زودی ");
+        }
         else
             holder.priceP.setText(formatter.format(amountOfFinalPrice) + "  " + "تومان");
         holder.imgP.setImageBitmap(holder.image);
