@@ -35,6 +35,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProductListener;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.DataFilter;
+import ir.rastanco.mobilemarket.utility.RecyclerViewItemDecoration;
 
 /**
  * Created by ShaisteS on 1394/12/09.
@@ -72,6 +73,7 @@ public class ShopFragment extends Fragment {
         }
         final RecyclerView gridview = (RecyclerView) mainView.findViewById(R.id.gv_infoProduct);
         gridview.setLayoutManager(new GridLayoutManager(Configuration.ShopFragmentContext,2));
+        gridview.addItemDecoration(new RecyclerViewItemDecoration(4,2));
         final GridLayoutManager layoutManager = ((GridLayoutManager)gridview.getLayoutManager());
         final boolean firstVisiblePosition = layoutManager.findFirstVisibleItemPosition()==0;
         final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
