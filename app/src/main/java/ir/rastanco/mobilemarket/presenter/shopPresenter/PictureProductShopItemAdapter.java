@@ -57,9 +57,6 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
     private Typeface yekanFont;
     private String textToSend = null;
     private Dialog shareDialog;
-    //private ImageButton cancelShareDialog;
-    //private Button sendBtn;
-    //private EditText editTextToShare;
     private Intent sendIntent;
 
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
@@ -71,20 +68,6 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
         yekanFont = Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf");
 
     }
-    public PictureProductShopItemAdapter(Context context)
-    {
-        this.myContext = context;
-    }
-
-    /*@Override
-    public int getCount() {
-        return allProduct.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return position;
-    }*/
 
     @Override
     public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -95,10 +78,13 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
 
     @Override
     public void onBindViewHolder(final Holder holder, final int position) {
-        final Product aProduct=allProduct.get(position);
 
+        final Product aProduct=allProduct.get(position);
         if (aProduct.getPriceOff()==0){
             holder.priceForYou.setVisibility(View.INVISIBLE);
+            holder.priceP.setTextColor(Color.BLACK);
+            holder.priceP.setPaintFlags(holder.priceP.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+
         }
         else {
             holder.priceP.setTextColor(Color.RED);
@@ -109,6 +95,7 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
             double amountOfFinalPrice = Double.parseDouble(priceForYou);
             DecimalFormat formatter = new DecimalFormat("#,###,000");
             holder.priceForYou.setText(String.valueOf(formatter.format(amountOfFinalPrice)+" "+"تومان"));
+            holder.priceForYou.setVisibility(View.VISIBLE);
         }
         if(Configuration.RTL)
         {
