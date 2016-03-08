@@ -7,15 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.ProductOption;
 import ir.rastanco.mobilemarket.dataModel.UserInfo;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by ShaisteS on 1394/10/14.
@@ -30,7 +30,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     private ArrayList<Product> allProducts;
     private ArrayList<Article> allArticles;
 
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
     private static final String DATABASE_NAME = "MobileMarket";
     private static final String TABLE_USER_INFO = "tblUserInfo";
     private static final String TABLE_SETTINGS = "tblSetting";
@@ -77,7 +77,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_CATEGORY +
                 "(id Integer primary key AUTOINCREMENT," +
                 "title text," +
-                "catId Integer," +
+                "catId Integer UNIQUE ," +
                 "parentId Integer," +
                 "sortOrder Integer," +
                 "hasChild Integer)");
@@ -147,6 +147,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
         if (oldVersion<=5)
             db.execSQL("ALTER TABLE "+TABLE_SETTINGS+" ADD COLUMN lastUpdateTimeStamp String");
+        if(oldVersion<=6)
+            db.execSQL("ALTER TABLE "+TABLE_CATEGORY +" MODIFY catId UNIQUE;");
 
         // Drop older table if existed
 //        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_INFO);

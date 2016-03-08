@@ -1,12 +1,12 @@
 package ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson;
 
-import ir.rastanco.mobilemarket.dataModel.Category;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import ir.rastanco.mobilemarket.dataModel.Category;
 
 /**
  * Created by ShaisteS on 12/31/2015.
@@ -36,7 +36,7 @@ public class ParseJsonCategory {
                 aCategory.setId(c.getInt("id"));
                 aCategory.setParentId(c.getInt("pid"));
                 aCategory.setHasChild(c.getInt("c"));
-                aCategory.setHasChild(c.getInt("so"));
+                aCategory.setSortOrder(c.getInt("so"));
                 allCategory.add(aCategory);
                 if (c.has("sub1")){
                     JSONArray sub1Array=c.getJSONArray("sub1");
