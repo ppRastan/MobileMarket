@@ -645,7 +645,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     public ArrayList<String> selectMainCategoriesTitle(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select title from tblCategory where parentId=0 order by catId and sortOrder ASC", null);
+        Cursor rs = db.rawQuery("select title from tblCategory where parentId=0 order by sortOrder ASC", null);
         ArrayList<String> categoryTitles = new ArrayList<String>();
         if (rs != null) {
             if (rs.moveToFirst()) {
