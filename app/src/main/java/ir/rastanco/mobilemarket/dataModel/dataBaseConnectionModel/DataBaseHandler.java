@@ -147,8 +147,19 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
         if (oldVersion<=5)
             db.execSQL("ALTER TABLE "+TABLE_SETTINGS+" ADD COLUMN lastUpdateTimeStamp String");
-        if(oldVersion<=6)
-            db.execSQL("ALTER TABLE "+TABLE_CATEGORY +" MODIFY catId UNIQUE;");
+        if(oldVersion<=6) {
+            //db.execSQL("ALTER TABLE " + TABLE_CATEGORY + " MODIFY catId UNIQUE;");
+            db.execSQL("create table " + TABLE_CATEGORY +"1"+
+                    "(id Integer primary key AUTOINCREMENT," +
+                    "title text," +
+                    "catId Integer UNIQUE ," +
+                    "parentId Integer," +
+                    "sortOrder Integer," +
+                    "hasChild Integer)");
+            db.execSQL("INSERT INTO "+ TABLE_CATEGORY+ "1 SELECT * FROM "+TABLE_CATEGORY);
+            db.execSQL("DROP TABLE "+TABLE_CATEGORY);
+            db.execSQL("ALTER TABLE "+TABLE_CATEGORY+"1 RENAME TO "+TABLE_CATEGORY);
+        }
 
         // Drop older table if existed
 //        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_INFO);
