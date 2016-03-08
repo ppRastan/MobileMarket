@@ -12,11 +12,11 @@ import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -24,6 +24,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
@@ -35,16 +40,11 @@ import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivi
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-
 /**
  * Created by ShaisteS on 12/28/2015.
  * A Customize Adapter For Shop Grid view
  */
-public class PictureProductShopItemAdapter extends BaseAdapter{
+public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureProductShopItemAdapter.Holder>{
 
     private static LayoutInflater inflater=null;
     private ArrayList<Product> allProduct;
@@ -57,10 +57,11 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private Typeface yekanFont;
     private String textToSend = null;
     private Dialog shareDialog;
-    private ImageButton cancelShareDialog;
-    private Button sendBtn;
-    private EditText editTextToShare;
+    //private ImageButton cancelShareDialog;
+    //private Button sendBtn;
+    //private EditText editTextToShare;
     private Intent sendIntent;
+
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
         myContext =mainActivity;
@@ -75,7 +76,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         this.myContext = context;
     }
 
-    @Override
+    /*@Override
     public int getCount() {
         return allProduct.size();
     }
@@ -83,69 +84,39 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     @Override
     public Object getItem(int position) {
         return position;
-    }
+    }*/
 
     @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    public class Holder
-    {
-        TextView infoP;
-        TextView priceP;
-        TextView priceForYou;
-        ImageView imgP;
-        ImageButton shareToolBar;
-        ImageButton basketToolbar;
-        ImageButton likeToolBar;
-        ImageButton offerLeft;
-        ImageButton offerRight;
-        Product mProduct;
-
-    }
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-
-        final Holder holder=new Holder();
-        final Bitmap image=null;
-        holder.mProduct = new Product();
-
-        final View rowView;
+    public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View rowView;
         rowView = inflater.inflate(R.layout.picture_produc_item_shop, null);
+        return new Holder(rowView);
+    }
 
-        holder.infoP=(TextView) rowView.findViewById(R.id.txt_infoProduct);
-        holder.infoP.setTypeface(yekanFont);
-        holder.priceP=(TextView) rowView.findViewById(R.id.txt_priceProduct);
-        holder.priceP.setTypeface(yekanFont);
-        holder.priceForYou = (TextView)rowView.findViewById(R.id.txt_price_for_you);
-        holder.priceForYou.setTypeface(yekanFont);
-        holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
-        holder.imgP.getLayoutParams().width= Configuration.shopDisplaySizeForShow;
-        holder.imgP.getLayoutParams().height=Configuration.shopDisplaySizeForShow;
-        holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
-        holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
+    @Override
+    public void onBindViewHolder(final Holder holder, final int position) {
+        final Product aProduct=allProduct.get(position);
 
-        if (allProduct.get(position).getPriceOff()==0){
+        if (aProduct.getPriceOff()==0){
             holder.priceForYou.setVisibility(View.INVISIBLE);
         }
         else {
             holder.priceP.setTextColor(Color.RED);
             holder.priceP.setPaintFlags(holder.priceP.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            int price= allProduct.get(position).getPrice();
-            int offPrice= (price*allProduct.get(position).getPriceOff())/100;
+            int price= aProduct.getPrice();
+            int offPrice= (price*aProduct.getPriceOff())/100;
             String priceForYou = String.valueOf(price-offPrice);
             double amountOfFinalPrice = Double.parseDouble(priceForYou);
             DecimalFormat formatter = new DecimalFormat("#,###,000");
             holder.priceForYou.setText(String.valueOf(formatter.format(amountOfFinalPrice)+" "+"تومان"));
         }
-       if(Configuration.RTL)
-       {
+        if(Configuration.RTL)
+        {
 
             holder.offerLeft.setVisibility(View.GONE);
-            if(allProduct.get(position).getPriceOff() != 0)
+            if(aProduct.getPriceOff() != 0)
             {
-              holder.offerRight.setVisibility(View.VISIBLE);
+                holder.offerRight.setVisibility(View.VISIBLE);
             }
             else {
                 holder.offerRight.setVisibility(View.GONE);
@@ -156,7 +127,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         if (! Configuration.RTL)
         {
             holder.offerRight.setVisibility(View.GONE);
-              if(allProduct.get(position).getPriceOff() != 0) {
+            if(aProduct.getPriceOff() != 0) {
 
                 holder.offerLeft.setVisibility(View.VISIBLE);
             }
@@ -165,14 +136,11 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 holder.offerLeft.setVisibility(View.GONE);
             }
         }
-        holder.shareToolBar = (ImageButton)rowView.findViewById(R.id.share_toolbar_in_main_page);
-        holder.likeToolBar = (ImageButton)rowView.findViewById(R.id.empty_like_toolbar);
-        holder.basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
 
-        if (allProduct.get(position).getPrice()==0)
+        if (aProduct.getPrice()==0)
             holder.basketToolbar.setVisibility(View.GONE);
 
-        if (sch.checkSelectProductForShop(allProduct.get(position).getId()))
+        if (sch.checkSelectProductForShop(aProduct.getId()))
             holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
         else
             holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
@@ -184,7 +152,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 if (isSelectedForShop==false) {
                     holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
                     isSelectedForShop=true;
-                    sch.addProductToShoppingBag(allProduct.get(position).getId(),1);
+                    sch.addProductToShoppingBag(aProduct.getId(),1);
                     myContext.startActivity(new Intent(myContext, ShoppingBagActivity.class));
                     ObserverShopping.setMyBoolean(true);
                     isSelectedForShop = true;
@@ -195,7 +163,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 {
                     holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
                     isSelectedForShop=false;
-                    sch.deleteAProductShopping(allProduct.get(position).getId());
+                    sch.deleteAProductShopping(aProduct.getId());
                     ObserverShopping.setMyBoolean(false);
                     isSelectedForShop = false;
                 }
@@ -208,9 +176,9 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 shareDialog = new Dialog(myContext);
                 shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 shareDialog.setContentView(R.layout.share_alert_dialog);
-                cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
-                sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
-                editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
+                ImageButton cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
+                final Button sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
+                final EditText editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
                 cancelShareDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -223,13 +191,13 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                         sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
                         textToSend = editTextToShare.getText().toString();
                         String share=textToSend+"\n\n"+
-                                allProduct.get(position).getLinkInSite()+ "\n\n"+
+                                aProduct.getLinkInSite()+ "\n\n"+
                                 myContext.getResources().getString(R.string.text_to_advertise)+"\n\n"
                                 + myContext.getResources().getString(R.string.LinkDownloadApp) ;
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
-                            sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
-                            sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
+                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
+                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
                         sendIntent.putExtra(Intent.EXTRA_TEXT,share);
                         sendIntent.setType("text/plain");
                         myContext.startActivity(sendIntent);
@@ -242,7 +210,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             }
         });
 
-        if (sch.getAProduct(allProduct.get(position).getId()).getLike()==0){
+        if (sch.getAProduct(aProduct.getId()).getLike()==0){
             //this Product No Favorite
             holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);
             isLikeButtonClicked=false;
@@ -257,7 +225,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
 
-                if (sch.getAProduct(allProduct.get(position).getId()).getLike() == 0) {
+                if (sch.getAProduct(aProduct.getId()).getLike() == 0) {
 
                     if(Configuration.userLoginStatus)
                         Toast.makeText(myContext, myContext.getResources().getString(R.string.thanks), Toast.LENGTH_SHORT).show();
@@ -266,8 +234,8 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
 
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     isLikeButtonClicked = true;
-                    sch.changeProductLike(allProduct.get(position).getId(), 1);
-                } else if (sch.getAProduct(allProduct.get(position).getId()).getLike() == 1) {
+                    sch.changeProductLike(aProduct.getId(), 1);
+                } else if (sch.getAProduct(aProduct.getId()).getLike() == 1) {
 
                     if(Configuration.userLoginStatus)
                         Toast.makeText(myContext,myContext.getResources().getString(R.string.thanks), Toast.LENGTH_SHORT).show();
@@ -276,24 +244,23 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
 
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);
                     isLikeButtonClicked = false;
-                    sch.changeProductLike(allProduct.get(position).getId(), 0);
+                    sch.changeProductLike(aProduct.getId(), 0);
                 }
             }
         });
 
-        ImageLoader imgLoader = new ImageLoader(myContext,rowView,Configuration.shopDisplaySizeForShow); // important
-        String picCounter = allProduct.get(position).getImagesPath().get(0);
+        String picCounter = aProduct.getImagesPath().get(0);
         try {
             picCounter= URLEncoder.encode(picCounter, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String image_url_1 = allProduct.get(position).getImagesMainPath()+
+        String image_url_1 =aProduct.getImagesMainPath()+
                 picCounter+
                 "&size="+
                 Configuration.shopDisplaySizeForURL +"x"+Configuration.shopDisplaySizeForURL +
                 "&q=30";
-        imgLoader.DisplayImage(image_url_1, holder.imgP);
+        holder.imgLoader.DisplayImage(image_url_1, holder.imgP);
 
 
 //       Picasso.with(Configuration.superACFragment).load(image_url_1).into(holder.imgP);
@@ -321,26 +288,72 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 .error(d)
                 .into(holder.imgP);*/
 
-        holder.infoP.setText(allProduct.get(position).getTitle());
-        String priceOfCurrentGood = String.valueOf(allProduct.get(position).getPrice());
+        holder.infoP.setText(aProduct.getTitle());
+        String priceOfCurrentGood = String.valueOf(aProduct.getPrice());
         double amountOfFinalPrice = Double.parseDouble(priceOfCurrentGood);
         DecimalFormat formatter = new DecimalFormat("#,###,000");
-        if (allProduct.get(position).getPrice()==0)
+        if (aProduct.getPrice()==0)
             holder.priceP.setText("به زودی ");
         else
             holder.priceP.setText(formatter.format(amountOfFinalPrice) + "  " + "تومان");
-        holder.imgP.setImageBitmap(image);
+        holder.imgP.setImageBitmap(holder.image);
         holder.imgP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(rowView.getContext(), ProductInfoActivity.class);
+                Intent intent = new Intent(holder.rowView.getContext(), ProductInfoActivity.class);
                 intent.putParcelableArrayListExtra("allProduct", allProduct);
                 intent.putExtra("position", position);
-                rowView.getContext().startActivity(intent);
+                holder.rowView.getContext().startActivity(intent);
             }
         });
+    }
 
-        return rowView;
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemCount() {
+        return allProduct.size();
+    }
+
+    public class Holder extends RecyclerView.ViewHolder {
+        TextView infoP;
+        TextView priceP;
+        TextView priceForYou;
+        ImageView imgP;
+        ImageButton shareToolBar;
+        ImageButton basketToolbar;
+        ImageButton likeToolBar;
+        ImageButton offerLeft;
+        ImageButton offerRight;
+        ImageLoader imgLoader;
+        Bitmap image;
+        View rowView;
+
+        public Holder(View itemView) {
+            super(itemView);
+            infoP=(TextView) itemView.findViewById(R.id.txt_infoProduct);
+            infoP.setTypeface(yekanFont);
+            priceP=(TextView) itemView.findViewById(R.id.txt_priceProduct);
+            priceP.setTypeface(yekanFont);
+            priceForYou = (TextView)itemView.findViewById(R.id.txt_price_for_you);
+            priceForYou.setTypeface(yekanFont);
+            imgP=(ImageView) itemView.findViewById(R.id.imbt_picProduct);
+            imgP.getLayoutParams().width= Configuration.shopDisplaySizeForShow;
+            imgP.getLayoutParams().height=Configuration.shopDisplaySizeForShow;
+            offerLeft = (ImageButton)itemView.findViewById(R.id.ic_offer_left);
+            offerRight = (ImageButton)itemView.findViewById(R.id.ic_offer_right);
+            shareToolBar = (ImageButton)itemView.findViewById(R.id.share_toolbar_in_main_page);
+            likeToolBar = (ImageButton)itemView.findViewById(R.id.empty_like_toolbar);
+            basketToolbar = (ImageButton)itemView.findViewById(R.id.basket_toolbar);
+            imgLoader= new ImageLoader(myContext,itemView,Configuration.shopDisplaySizeForShow); // important
+            image=null;
+            rowView=itemView;
+
+
+        }
     }
 
     public Drawable ResizeImage (int imageID,View rowView,int deviceWidth) {

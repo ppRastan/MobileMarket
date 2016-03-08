@@ -6,12 +6,12 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -70,31 +70,17 @@ public class ShopFragment extends Fragment {
         {
             noThingToShow.setVisibility(View.GONE);
         }
-        final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
+        final RecyclerView gridview = (RecyclerView) mainView.findViewById(R.id.gv_infoProduct);
+        gridview.setLayoutManager(new GridLayoutManager(Configuration.ShopFragmentContext,2));
+        final GridLayoutManager layoutManager = ((GridLayoutManager)gridview.getLayoutManager());
+        final boolean firstVisiblePosition = layoutManager.findFirstVisibleItemPosition()==0;
         final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
         gridview.setAdapter(adapter);
         //refresh grid view
         final SwipeRefreshLayout mSwipeRefreshLayout= (SwipeRefreshLayout)
                 mainView.findViewById(R.id.swipe_refresh_layout);
-        mSwipeRefreshLayout.setEnabled(false);
-        gridview.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
+        mSwipeRefreshLayout.setEnabled(true);
 
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-                boolean enable = false;
-                if (gridview != null && gridview.getChildCount() > 0) {
-                    boolean firstItemVisible = gridview.getFirstVisiblePosition() == 0;
-                    boolean topOfFirstItemVisible = gridview.getChildAt(0).getTop() == 0;
-                    enable = firstItemVisible && topOfFirstItemVisible;
-                }
-                mSwipeRefreshLayout.setEnabled(enable);
-            }
-        });
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -133,7 +119,7 @@ public class ShopFragment extends Fragment {
         ObserverLike.changeLikeStatusListener(new ObserverLikeListener() {
             @Override
             public void changeLikeStatus() {
-                gridview.setSelection(ObserverLike.getLikeStatus());
+                gridview.scrollToPosition(ObserverLike.getLikeStatus());
                 gridview.setAdapter(adapter);
 
             }
