@@ -73,7 +73,7 @@ public class ShopFragment extends Fragment {
         }
         final RecyclerView gridview = (RecyclerView) mainView.findViewById(R.id.gv_infoProduct);
         gridview.setLayoutManager(new GridLayoutManager(Configuration.ShopFragmentContext,2));
-        gridview.addItemDecoration(new RecyclerViewItemDecoration(4,2));
+        gridview.addItemDecoration(new RecyclerViewItemDecoration(6,6));
         final GridLayoutManager layoutManager = ((GridLayoutManager)gridview.getLayoutManager());
         final boolean firstVisiblePosition = layoutManager.findFirstVisibleItemPosition()==0;
         final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
