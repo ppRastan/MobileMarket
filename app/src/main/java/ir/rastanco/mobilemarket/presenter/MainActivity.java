@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("دکوریس");
+        toolbar.setTitle(getString(R.string.action_bar_title));
         toolbar.setTitleTextColor(Color.BLACK);
         setSupportActionBar(toolbar);
         this.addActionBar();
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         mainCategoryTitle= new ArrayList<String>();
         mainCategoryTitle=sch.getMainCategoryTitle();
         Configuration.MainTabCount=mainCategoryTitle.size();
-        //TODO mainCategory.sze==0 fill
+        //TODO mainCategory.size==0 fill
         if(Configuration.MainTabCount==0){
             second_page=getString(R.string.second_page);
             third_page=getString(R.string.third_page);
