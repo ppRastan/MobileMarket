@@ -30,29 +30,27 @@ public class Configuration {
     public static int articleDisplaySizeForShow;
     public static int progressBarSize;
 
-    public static Context activityContext;
-    public static Context MainActivityContext;
+   public static Context MainActivityContext;
     public static Context ProductInfoContext;
     public static Context AplicationContext;
     public static Context UserLoginContext;
     public static Context UserProfileContext;
     public static Context ShopFragmentContext;
-    public static Context UserActivity;
-    public static Context ManageUserPage;
     public static Context ShoppingBagContext;
     public static Context UserLastShoppingContext;
     public static Context ProductOptionContext;
     public static Context AccountManagerContext;
-    public static Context LoadingContext;
+    public static Context SpecialProductManagementContext;
 
     public static MenuItem UpgradeButtonMenu;
 
-    public static ViewPager UserProfileViewPager;
     public static ViewPager MainPager;
 
     public static Boolean RTL;
     public static Boolean productTableEmptyStatus; //true is empty and false is full
     public static Boolean connectionStatus=false;
+
+    public static int MainTabCount;
 
 
 }

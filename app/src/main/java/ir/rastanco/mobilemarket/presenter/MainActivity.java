@@ -70,17 +70,15 @@ import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleFragment;
-import ir.rastanco.mobilemarket.presenter.FirstTabPresenter.FirstTabFragmentManager;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingBagClickListener;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
-import ir.rastanco.mobilemarket.presenter.SecoundTabPresenter.SecondTabFragmentManager;
-import ir.rastanco.mobilemarket.presenter.ThirdtabPresenter.ThirdTabFragmentManager;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManager;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginHandler;
+import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragmentManagement;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -139,7 +137,9 @@ public class MainActivity extends AppCompatActivity {
         shoppingBagActivity = new ShoppingBagActivity();
         mainCategoryTitle= new ArrayList<String>();
         mainCategoryTitle=sch.getMainCategoryTitle();
-        if(mainCategoryTitle.size()==0){
+        Configuration.MainTabCount=mainCategoryTitle.size();
+        //TODO mainCategory.sze==0 fill
+        if(Configuration.MainTabCount==0){
             second_page=getString(R.string.second_page);
             third_page=getString(R.string.third_page);
             fourth_page=getString(R.string.fourth_page);
@@ -203,9 +203,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
             getProductInfoFromServerThread.start();
-
         }
-
 
         ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
             @Override
@@ -259,9 +257,13 @@ public class MainActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new ArticleFragment(),getResources().getString(R.string.fifth_page));
-        adapter.addFrag(new ThirdTabFragmentManager(),fourth_page);
-        adapter.addFrag(new SecondTabFragmentManager(),third_page);
-        adapter.addFrag(new FirstTabFragmentManager(),second_page);
+        for (int i=mainCategoryTitle.size()-1;i>=0;i--) {
+            Bundle args=new Bundle();
+            args.putString("pageName", mainCategoryTitle.get(i));
+            ShopFragment shop=new ShopFragment();
+            shop.setArguments(args);
+            adapter.addFrag(shop, mainCategoryTitle.get(i));
+        }
         adapter.addFrag(new SpecialProductFragmentManagement(),getResources().getString(R.string.first_page));
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(adapter.getCount() - 1);
@@ -349,7 +351,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void CreatePageRightToLeft() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-
             //getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
             Configuration.RTL=true;
         }
@@ -488,35 +489,23 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int tabNumber) {
-            //return mFragmentList.get(tabNumber);
-            switch (tabNumber){
-                case 4:
-                    SpecialProductFragmentManagement specialProductFragmentManagement=new SpecialProductFragmentManagement();
-                    return specialProductFragmentManagement;
-                case 3:
-                    Bundle firstArgs = new Bundle();
-                    firstArgs.putString("name",getPageTitle(tabNumber).toString());
-                    FirstTabFragmentManager firstTab=new FirstTabFragmentManager();
-                    firstTab.setArguments(firstArgs);
-                    return firstTab;
-                case 2:
-                    Bundle secondArgs = new Bundle();
-                    secondArgs.putString("name",getPageTitle(tabNumber).toString());
-                    SecondTabFragmentManager secondTab=new SecondTabFragmentManager();
-                    secondTab.setArguments(secondArgs);
-                    return secondTab;
-                case 1:
-                    Bundle thirdArgs = new Bundle();
-                    thirdArgs.putString("name",getPageTitle(tabNumber).toString());
-                    ThirdTabFragmentManager thirdTab=new ThirdTabFragmentManager();
-                    thirdTab.setArguments(thirdArgs);
-                    return thirdTab;
-                case 0:
-                    ArticleFragment article=new ArticleFragment();
-                    return article;
-                default:
-                    return null;
+            return mFragmentList.get(tabNumber);
+            /*if (tabNumber==0){
+                ArticleFragment article=new ArticleFragment();
+                return article;
             }
+            else if(tabNumber==Configuration.MainTabCount+1){
+                SpecialProductFragmentManagement specialProductFragmentManagement=new SpecialProductFragmentManagement();
+                return specialProductFragmentManagement;
+            }
+            else {
+                return  ShopFragmentManager.newInstance(tabNumber,getPageTitle(tabNumber).toString());
+                /*Bundle shopArgs = new Bundle();
+                shopArgs.putString("name", getPageTitle(tabNumber).toString());
+                ShopFragmentManager shopTab=new ShopFragmentManager();
+                shopTab.setArguments(shopArgs);
+                return shopTab;
+            }*/
         }
 
         @Override

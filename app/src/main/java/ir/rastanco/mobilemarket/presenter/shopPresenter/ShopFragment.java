@@ -58,7 +58,8 @@ public class ShopFragment extends Fragment {
         View mainView=inflater.inflate(R.layout.fragment_shop, null);
         Configuration.ShopFragmentContext=getContext();
         myContext=(FragmentActivity)Configuration.ShopFragmentContext;
-        final String pageName=getArguments().getString("name");
+        final String pageName;
+        pageName=getArguments().getString("pageName");
         sch=new ServerConnectionHandler(getContext());
         products=sch.getProductOfMainCategory(pageName);
         noThingToShow = (TextView)mainView.findViewById(R.id.no_thing_to_show1);

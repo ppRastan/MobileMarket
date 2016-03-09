@@ -1,5 +1,6 @@
 package ir.rastanco.mobilemarket.presenter.specialProductPresenter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -25,6 +26,7 @@ public class SpecialProductFragmentManagement extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
         View specialProductView = inflater.inflate(R.layout.fragment_special_product_manager, container, false);
+        Configuration.SpecialProductManagementContext=getContext();
         if (Configuration.productTableEmptyStatus==true && !Configuration.connectionStatus) {
 
             CheckConnectionFragment check=new CheckConnectionFragment();
@@ -53,24 +55,26 @@ public class SpecialProductFragmentManagement extends Fragment {
         ObserverChangeFragment.ObserverChangeFragmentListener(new ObserverChangeFragmentListener() {
             @Override
             public void changeFragment() {
-                if (Configuration.MainPager.getCurrentItem()==4){
-                    SpecialProductFragment specialProductFragment = new SpecialProductFragment();
-                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                    transaction.replace(R.id.specialProductManagement, specialProductFragment);
-                    transaction.commit();
-                }
+
+                /*SpecialProductFragment specialProductFragment = new SpecialProductFragment();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.specialProductManagement, specialProductFragment);
+                transaction.commit();*/
+                Intent i = getActivity().getBaseContext().getPackageManager()
+                        .getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
             }
         });
 
         ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
             @Override
             public void connectionOK() {
-                if (Configuration.MainPager.getCurrentItem() == 4) {
-                    LoadingFragment loading0 = new LoadingFragment();
-                    FragmentTransaction transaction0 = getFragmentManager().beginTransaction();
-                    transaction0.replace(R.id.specialProductManagement, loading0);
-                    transaction0.commit();
-                }
+
+                LoadingFragment loading0 = new LoadingFragment();
+                FragmentTransaction transaction0 = getFragmentManager().beginTransaction();
+                transaction0.replace(R.id.specialProductManagement, loading0);
+                transaction0.commit();
 
             }
         });
