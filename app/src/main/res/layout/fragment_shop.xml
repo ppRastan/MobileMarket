@@ -16,21 +16,28 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/black"></LinearLayout>
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:singleLine="true"
-    android:visibility="invisible"
-    android:id="@+id/no_thing_to_show1"
-    android:textSize="13dp"
-    android:gravity="center"
-    android:textColor="@color/orange"
-    android:text="@string/no_product_to_show"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:visibility="invisible"
+            android:id="@+id/no_thing_to_show1"
+            android:textSize="13dp"
+            android:gravity="center"
+            android:textColor="@color/orange"
+            android:text="@string/no_product_to_show"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true" />
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/gv_infoProduct"
             android:layout_gravity="center"
             android:scrollbars="vertical"/>
+        </RelativeLayout>
     </LinearLayout>
+
 </android.support.v4.widget.SwipeRefreshLayout>
