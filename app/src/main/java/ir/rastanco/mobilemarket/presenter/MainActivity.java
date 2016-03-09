@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Decoriss");
+        toolbar.setTitle("دکوریس");
         toolbar.setTitleTextColor(Color.BLACK);
         setSupportActionBar(toolbar);
         this.addActionBar();
