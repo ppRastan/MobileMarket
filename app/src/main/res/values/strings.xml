@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Decoriss</string>
     <string name="first_page">ویژه ها</string>
+    <string name="action_bar_title">دکوریس</string>
     <string name="second_page">مبلمان منزل</string>
     <string name="third_page">کالای خواب</string>
     <string name="fourth_page">نوزاد و نوجوان</string>
