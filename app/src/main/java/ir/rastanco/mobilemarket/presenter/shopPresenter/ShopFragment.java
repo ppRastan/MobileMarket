@@ -73,7 +73,7 @@ public class ShopFragment extends Fragment {
         }
         final RecyclerView gridview = (RecyclerView) mainView.findViewById(R.id.gv_infoProduct);
         gridview.setLayoutManager(new GridLayoutManager(Configuration.ShopFragmentContext,2));
-        gridview.addItemDecoration(new RecyclerViewItemDecoration(6,6));
+        gridview.addItemDecoration(new RecyclerViewItemDecoration(6, 6));
         final GridLayoutManager layoutManager = ((GridLayoutManager)gridview.getLayoutManager());
         final boolean firstVisiblePosition = layoutManager.findFirstVisibleItemPosition()==0;
         final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
@@ -92,14 +92,19 @@ public class ShopFragment extends Fragment {
                         sch.refreshCategories("http://decoriss.com/json/get,com=allcats&cache=false");
                         sch.getNewProducts();
                         sch.getEditProducts();
-                        ArrayList<Product> newProduct=sch.getProductAfterRefresh(pageName,
+                        ArrayList<Product> newProducts=sch.getProductAfterRefresh(pageName,
                                 txtFilterCategorySelected.getText().toString(),
                                 txtFilterOptionProductSelected.getText().toString(),
                                 DataFilter.FilterOption);
-                        PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProduct);
-                        gridview.setAdapter(newAdapter);
-                        newAdapter.notifyDataSetChanged();
-                        mSwipeRefreshLayout.setRefreshing(false);
+                        if (newProducts.size() == 0) {
+                            noThingToShow.setVisibility(View.VISIBLE);
+                        }
+                        else {
+                            PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
+                            gridview.setAdapter(newAdapter);
+                            newAdapter.notifyDataSetChanged();
+                            mSwipeRefreshLayout.setRefreshing(false);
+                        }
                     }
                 }, 5000);
             }
@@ -159,10 +164,11 @@ public class ShopFragment extends Fragment {
                         {
 
                             noThingToShow.setVisibility(View.GONE);
+                            PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
+                            gridview.setAdapter(newAdapter);
+                            newAdapter.notifyDataSetChanged();
                         }
-                        PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
-                        gridview.setAdapter(newAdapter);
-                        newAdapter.notifyDataSetChanged();
+
                     }
                 });
             }
@@ -197,10 +203,11 @@ public class ShopFragment extends Fragment {
                         {
 
                             noThingToShow.setVisibility(View.GONE);
+                            PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
+                            gridview.setAdapter(newAdapter);
+                            newAdapter.notifyDataSetChanged();
                         }
-                        PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
-                        gridview.setAdapter(newAdapter);
-                        newAdapter.notifyDataSetChanged();
+
                     }
                 });
                 ObserverFilterBrand.changeFilterBrandListener(new ObserverFilterBrandListener() {
@@ -219,11 +226,13 @@ public class ShopFragment extends Fragment {
                         }
                         else
                         {
-                        noThingToShow.setVisibility(View.GONE);
+                            noThingToShow.setVisibility(View.GONE);
+                            PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
+                            gridview.setAdapter(newAdapter);
+                            newAdapter.notifyDataSetChanged();
+
                         }
-                        PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
-                        gridview.setAdapter(newAdapter);
-                        newAdapter.notifyDataSetChanged();
+
                     }
                 });
 
@@ -242,12 +251,10 @@ public class ShopFragment extends Fragment {
                         else
                         {
                             noThingToShow.setVisibility(View.GONE);
+                            PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
+                            gridview.setAdapter(newAdapter);
+                            newAdapter.notifyDataSetChanged();
                         }
-                        PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
-                        gridview.setAdapter(newAdapter);
-                        newAdapter.notifyDataSetChanged();
-
-
                     }
                 });
 
