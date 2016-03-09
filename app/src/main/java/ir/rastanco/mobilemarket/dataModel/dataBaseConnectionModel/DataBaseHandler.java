@@ -23,7 +23,6 @@ import ir.rastanco.mobilemarket.dataModel.UserInfo;
  */
 public class DataBaseHandler  extends SQLiteOpenHelper {
 
-    private static Context dbContext;
     private Product aProduct;
     private Article aArticle;
     private ArrayList<Category> allCategories;
@@ -46,7 +45,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     public DataBaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        dbContext = context;
     }
 
     @Override
@@ -379,7 +377,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert("tblCategory", null, addFieldToCategoryTable(aCategory));
         Log.v("insert", "insert A Category into Table");
-        db.close();
     }
     private ContentValues addFieldToCategoryTable(Category aCategory) {
         ContentValues values = new ContentValues();
