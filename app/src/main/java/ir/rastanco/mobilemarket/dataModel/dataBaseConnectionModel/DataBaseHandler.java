@@ -24,12 +24,11 @@ import ir.rastanco.mobilemarket.dataModel.UserInfo;
 public class DataBaseHandler  extends SQLiteOpenHelper {
 
     private Product aProduct;
-    private Article aArticle;
     private ArrayList<Category> allCategories;
     private ArrayList<Product> allProducts;
     private ArrayList<Article> allArticles;
 
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "MobileMarket";
     private static final String TABLE_USER_INFO = "tblUserInfo";
     private static final String TABLE_SETTINGS = "tblSetting";
@@ -135,7 +134,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        if(oldVersion<4){
+        /*if(oldVersion<4){
             db.execSQL("ALTER TABLE "+ TABLE_PRODUCT + " ADD COLUMN brandName text;");
         }
         if(oldVersion<=4){
@@ -169,7 +168,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 //        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT_OPTION);
 //        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARTICLE);
         // Create tables again
-//        onCreate(db);
+//        onCreate(db);*/
     }
 
 
