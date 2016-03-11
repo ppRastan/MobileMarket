@@ -64,19 +64,25 @@ public class ShopFragment extends Fragment {
         products=sch.getProductOfMainCategory(pageName);
         noThingToShow = (TextView)mainView.findViewById(R.id.no_thing_to_show1);
         noThingToShow.setTypeface(Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf"));
-        if(products.size()==0){
-
-            noThingToShow.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            noThingToShow.setVisibility(View.GONE);
-        }
         final RecyclerView gridview = (RecyclerView) mainView.findViewById(R.id.gv_infoProduct);
         gridview.setLayoutManager(new GridLayoutManager(Configuration.ShopFragmentContext,2));
         gridview.addItemDecoration(new RecyclerViewItemDecoration(6, 6));
         final GridLayoutManager layoutManager = ((GridLayoutManager)gridview.getLayoutManager());
         final boolean firstVisiblePosition = layoutManager.findFirstVisibleItemPosition()==0;
+
+        if(products.size()==0){
+
+            noThingToShow.setVisibility(View.VISIBLE);
+            gridview.setVisibility(View.GONE);
+
+        }
+        else
+        {
+            noThingToShow.setVisibility(View.GONE);
+            gridview.setVisibility(View.VISIBLE);
+        }
+
+
         final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
         gridview.setAdapter(adapter);
         //refresh grid view
@@ -99,8 +105,11 @@ public class ShopFragment extends Fragment {
                                 DataFilter.FilterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
+                            gridview.setVisibility(View.GONE);
                         }
                         else {
+                            noThingToShow.setVisibility(View.GONE);
+                            gridview.setVisibility(View.VISIBLE);
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -160,11 +169,13 @@ public class ShopFragment extends Fragment {
                                 DataFilter.FilterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
+                            gridview.setVisibility(View.GONE);
                         }
                         else
                         {
 
                             noThingToShow.setVisibility(View.GONE);
+                            gridview.setVisibility(View.VISIBLE);
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -199,11 +210,13 @@ public class ShopFragment extends Fragment {
                                 DataFilter.FilterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
+                            gridview.setVisibility(View.GONE);
                         }
                         else
                         {
 
                             noThingToShow.setVisibility(View.GONE);
+                            gridview.setVisibility(View.VISIBLE);
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -223,11 +236,13 @@ public class ShopFragment extends Fragment {
                                 DataFilter.FilterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
+                            gridview.setVisibility(View.GONE);
 
                         }
                         else
                         {
                             noThingToShow.setVisibility(View.GONE);
+                            gridview.setVisibility(View.VISIBLE);
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -248,10 +263,12 @@ public class ShopFragment extends Fragment {
                                 DataFilter.FilterOption);
                         if (newProducts.size()==0){
                             noThingToShow.setVisibility(View.VISIBLE);
+                            gridview.setVisibility(View.GONE);
                         }
                         else
                         {
                             noThingToShow.setVisibility(View.GONE);
+                            gridview.setVisibility(View.VISIBLE);
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
