@@ -335,7 +335,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         values.put("lastUpdateTimeStamp",lastUpdateTimeStamp);
         db.insert("tblSetting", null,values);
         Log.v("insert", "insert Setting for App");
-        db.close();
 
     }
 
@@ -343,7 +342,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert("tblUserInfo", null, addFieldToUserInfoTable(aUser));
         Log.v("insert", "insert A UserLogin into Table");
-        db.close();
 
     }
     private ContentValues addFieldToUserInfoTable(UserInfo aUser) {
@@ -360,7 +358,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         values.put("lastArticlesNum",lastArticlesNum);
         db.insert("tblSetting", null, values);
         Log.v("insert", "insert A TimeStamp into Table");
-        db.close();
 
     }
     public void insertShoppingBag(int productID, int numberPurchased) {
@@ -370,7 +367,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         values.put("numberPurchased",numberPurchased);
         db.insert("tblShopping", null, values);
         Log.v("insert", "insert A ProductId into Shopping Table");
-        db.close();
     }
     public void insertACategory(Category aCategory) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -392,7 +388,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         for (int i = 0; i < aProduct.getImagesPath().size(); i++)
             insertImagePathProduct(aProduct.getId(), aProduct.getImagesPath().get(i));
         Log.v("insert", "insert A Product into Table");
-        db.close();
     }
     private ContentValues addFieldToProductTable(Product aProduct) {
         ContentValues values = new ContentValues();
@@ -424,7 +419,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert("tblImagesPathProduct", null, addFieldImagePath(productId, path));
         Log.v("insert", "insert A Image Path Product into Table");
-        db.close();
 
     }
     private ContentValues addFieldImagePath(int productId, String path) {
@@ -437,7 +431,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert("tblProductOption", null, addFieldOptionProduct(productId, title, value));
         Log.v("insert", "insert A Option of Product into Table");
-        db.close();
 
     }
     private ContentValues addFieldOptionProduct(int productId, String title, String value) {
@@ -451,7 +444,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert("tblArticle", null, addFieldToArticleTable(aArticle));
         Log.v("insert", "insert A Product into Table");
-        db.close();
     }
     private ContentValues addFieldToArticleTable(Article aArticle) {
         ContentValues values = new ContentValues();
@@ -1085,26 +1077,22 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("tblImagesPathProduct", "fkProductId=" + productId + "", null);
         db.delete("tblProduct", "productId=" + productId + "", null);
-        db.close();
         Log.v("delete", "Delete A Product");
     }
     public void deleteAProductShopping(int productId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("tblShopping", "fkProductId=" + productId + "", null);
-        db.close();
         Log.v("delete", "Delete A Product from Shopping Table");
     }
     public void deleteUserInfo() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("tblUserInfo",null, null);
-        db.close();
         Log.v("delete", "Delete A User Information from Table");
     }
 
     public void deleteAllShoppingTable() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("tblShopping",null, null);
-        db.close();
         Log.v("delete", "Delete All Record From Shopping Table");
     }
 }

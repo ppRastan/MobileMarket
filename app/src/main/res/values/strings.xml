@@ -83,7 +83,6 @@
     <string name="checkConnection">لطفا اتصال اینترنت خود را بررسی کنید</string>
 
     <!-- first Information For App Setting When App install  -->
-    <string name="version">1.4.0</string>
     <string name="firstTimeStamp">1352689345</string>
     <string name="firstArticleNumber">25</string>
     <string name="no_product_to_show">این مجموعه فعلا فاقد محصول است</string>

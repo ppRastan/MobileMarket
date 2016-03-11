@@ -196,9 +196,10 @@ public class MainActivity extends AppCompatActivity {
                     } catch (InterruptedException ex) {
                     }
                     String timeStamp = addProductToTable(jsonString[0]);
+                    String lastVersionInServer=sch.getLastVersionInServer("http://decoriss.com/app/Version.txt");
                     sch.setSetting(timeStamp,
                             Configuration.MainActivityContext.getResources().getString(R.string.firstArticleNumber),
-                            Configuration.MainActivityContext.getResources().getString(R.string.version),
+                            lastVersionInServer,
                             timeStamp);
                     Configuration.productTableEmptyStatus = false;
                     ObserverChangeFragment.setChangeFragmentParameter(true);
@@ -225,9 +226,10 @@ public class MainActivity extends AppCompatActivity {
                             } catch (InterruptedException ex) {
                             }
                             String timeStamp = addProductToTable(jsonString[0]);
+                            String lastVersionInServer=sch.getLastVersionInServer("http://decoriss.com/app/Version.txt");
                             sch.setSetting(timeStamp,
                                     Configuration.MainActivityContext.getResources().getString(R.string.firstArticleNumber),
-                                    Configuration.MainActivityContext.getResources().getString(R.string.version),
+                                    lastVersionInServer,
                                     timeStamp);
                             Configuration.productTableEmptyStatus = false;
                             ObserverChangeFragment.setChangeFragmentParameter(true);
@@ -372,10 +374,10 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem upgradeItem=menu.findItem(R.id.update);
         Configuration.UpgradeButtonMenu=upgradeItem;
-        if(sch.checkNewVersion("http://decoriss.com/app/Version.txt"))
-            upgradeItem.setVisible(true);
-        else
+        if(!sch.checkNewVersion("http://decoriss.com/app/Version.txt")|| Configuration.productTableEmptyStatus)
             upgradeItem.setVisible(false);
+        else
+            upgradeItem.setVisible(true);
 
         return true;
 
@@ -712,22 +714,6 @@ public class MainActivity extends AppCompatActivity {
     private void checkDbState() {
 
         ArrayList<Category> categories = new ArrayList<Category>();
-        ArrayList<Article> articles = new ArrayList<Article>();
-
-        //for add brandName to DataBase then update brandName filed
-        //last version in server 1.3.9
-        //version app that install in mobile is 1.0.0
-
-        if (sch.getLastVersionInDB().equals("1.0.0")) {
-            sch.reloadProduct("1352689345");
-            sch.updateVersionApp("1.0.0.1");
-        }
-        if (sch.getLastVersionInDB().equals("1.3.9")) {
-            sch.reloadProduct("1352689345");
-            sch.updateVersionApp("1.3.9.1");
-            sch.setLastUpdateTimeStamp();
-        }
-
         if (sch.emptyDBCategory()) {
             categories = sch.getAllCategoryInfoURL("http://decoriss.com/json/get,com=allcats&cache=false");
             sch.addAllCategoryToTable(categories);
