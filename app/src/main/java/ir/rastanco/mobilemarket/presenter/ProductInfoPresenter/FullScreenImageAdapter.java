@@ -278,8 +278,10 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
         for (int i = counter; i < products.get(position).getImagesPath().size(); i++) {
             final ImageView imageView = new ImageView(Configuration.ProductInfoContext);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Configuration.articleDisplaySizeForShow,Configuration.articleDisplaySizeForShow);
+            imageView.setLayoutParams(layoutParams);
             imageView.setId(i - 1);
-            imageView.setPadding(0, 0, 0, 0);
+            imageView.setPadding(1, 1, 1, 0);
             layout.addView(imageView);
             picNum = products.get(position).getImagesPath().get(i);
             try {
