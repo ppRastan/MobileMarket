@@ -25,6 +25,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.ProductOption;
@@ -34,11 +39,6 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverLike;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 public class FullScreenImageAdapter extends PagerAdapter {
     private Activity activity;
@@ -175,9 +175,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
                 }
                 else if(sch.getAProduct(products.get(position).getId()).getLike()==1){
 
-                    if(Configuration.userLoginStatus)
-                        Toast.makeText(activity,activity.getResources().getString(R.string.thanks),Toast.LENGTH_LONG).show();
-                    else
+                    if(!Configuration.userLoginStatus)
                         Toast.makeText(activity,activity.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
 
                     btnLike.setImageResource(R.mipmap.ic_like_toolbar);

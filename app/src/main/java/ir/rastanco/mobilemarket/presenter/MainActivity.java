@@ -138,8 +138,7 @@ public class MainActivity extends AppCompatActivity {
         mainCategoryTitle= new ArrayList<String>();
         mainCategoryTitle=sch.getMainCategoryTitle();
         Configuration.MainTabCount=mainCategoryTitle.size();
-        //TODO mainCategory.size==0 fill
-        if(Configuration.MainTabCount==0){
+        /*if(Configuration.MainTabCount==0){
             second_page=getString(R.string.second_page);
             third_page=getString(R.string.third_page);
             fourth_page=getString(R.string.fourth_page);
@@ -148,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
             second_page=mainCategoryTitle.get(0);
             third_page=mainCategoryTitle.get(1);
             fourth_page=mainCategoryTitle.get(2);
-        }
+        }*/
         this.CreatePageRightToLeft();
         this.displayWindow();
         shopCounter=sch.getCountProductShop();
@@ -179,6 +178,9 @@ public class MainActivity extends AppCompatActivity {
         yekanFont= Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
         this.changeTabsFont();
 
+        //DataBase empty
+        if (Configuration.productTableEmptyStatus)
+            tabLayout.setTabMode(TabLayout.MODE_FIXED);
         if (Configuration.productTableEmptyStatus && Configuration.connectionStatus) {
             final String[] jsonString = {""};
             Thread getProductInfoFromServerThread = new Thread() {

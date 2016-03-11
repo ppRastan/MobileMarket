@@ -226,9 +226,7 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
                     sch.changeProductLike(aProduct.getId(), 1);
                 } else if (sch.getAProduct(aProduct.getId()).getLike() == 1) {
 
-                    if(Configuration.userLoginStatus)
-                        Toast.makeText(myContext,myContext.getResources().getString(R.string.thanks), Toast.LENGTH_SHORT).show();
-                    else
+                    if(!Configuration.userLoginStatus)
                         Toast.makeText(myContext,myContext.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
 
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);
