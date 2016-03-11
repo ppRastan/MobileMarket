@@ -104,6 +104,13 @@
            android:layout_height="match_parent">
 
        </LinearLayout>
+
+        <ImageView
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/img_ProductQuality" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_weight="4"
@@ -113,12 +120,7 @@
             android:text="@string/rank_of_product"
             android:layout_height="match_parent"
             android:gravity="center_vertical|center_horizontal"/>
-        <ImageView
-            android:layout_weight="4"
-            android:layout_width="0dp"
-            android:src="@drawable/darajeha"
-            android:layout_height="match_parent"
-            android:id="@+id/img_ProductQuality" />
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -137,21 +139,21 @@
 
             <ImageButton
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:src="@mipmap/telegram"
-                android:id="@+id/telegram_share"
-                android:background="@color/white"
-                android:layout_gravity="center_vertical|center_horizontal"/>
-
-            <ImageButton
-                android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:id="@+id/img_share_full_screen"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:src="@mipmap/ic_share_toolbar"
                 android:background="@color/white" />
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@mipmap/telegram"
+                android:id="@+id/telegram_share"
+                android:background="@color/white"
+                android:layout_gravity="center_vertical|center_horizontal"/>
 
             <ImageButton
                 android:layout_width="0dp"
