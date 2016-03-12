@@ -380,7 +380,9 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem upgradeItem=menu.findItem(R.id.update);
         Configuration.UpgradeButtonMenu=upgradeItem;
-        if(!sch.checkNewVersion("http://decoriss.com/app/Version.txt")|| Configuration.productTableEmptyStatus)
+        if(!sch.checkNewVersion("http://decoriss.com/app/Version.txt")||
+                Configuration.productTableEmptyStatus ||
+                !Configuration.connectionStatus)
             upgradeItem.setVisible(false);
         else
             upgradeItem.setVisible(true);
