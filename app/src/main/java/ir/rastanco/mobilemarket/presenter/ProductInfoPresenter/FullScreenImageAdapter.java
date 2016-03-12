@@ -255,6 +255,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
             }
         });
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
+        imgProduct.getLayoutParams().width=Configuration.homeDisplaySizeForShow;
+        imgProduct.getLayoutParams().height=Configuration.productInfoHeightForShow;
         final ImageLoader imgLoader = new ImageLoader(Configuration.ProductInfoContext,viewLayout,Configuration.homeDisplaySizeForShow); // important
         String picNum = products.get(position).getImagesPath().get(0);
         try {
@@ -266,7 +268,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         String image_url_Main = products.get(position).getImagesMainPath() +
                 picNum +
                 "&size=" +
-                Configuration.homeDisplaySizeForURL + "x" + Configuration.productInfoHeightSize +
+                Configuration.homeDisplaySizeForURL + "x" + Configuration.productInfoHeightForURL +
                 "&q=30";
         imgLoader.DisplayImage(image_url_Main, imgProduct);
         LinearLayout layout = (LinearLayout) viewLayout.findViewById(R.id.linear);
@@ -312,7 +314,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
                     String image_url_otherPic = products.get(parentClickImage).getImagesMainPath() +
                             picNum +
                             "&size=" +
-                            Configuration.homeDisplaySizeForURL + "x" + Configuration.productInfoHeightSize +
+                            Configuration.homeDisplaySizeForURL + "x" + Configuration.productInfoHeightForURL +
                             "&q=30";
                     imgLoader.DisplayImage(image_url_otherPic, imgProduct);
 

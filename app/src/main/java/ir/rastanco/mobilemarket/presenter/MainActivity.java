@@ -61,7 +61,9 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import co.ronash.pushe.Pushe;
 import ir.rastanco.mobilemarket.R;
@@ -99,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Article> articles;
     private ArrayList<Category> categories;
     private ArrayList<String> mainCategoryTitle;
+    private Map<String,Integer> mapTitleToIdMainCategory;
     private String second_page;
     private String third_page;
     private String fourth_page;
@@ -136,7 +139,9 @@ public class MainActivity extends AppCompatActivity {
         this.addServerConnection();
         shoppingBagActivity = new ShoppingBagActivity();
         mainCategoryTitle= new ArrayList<String>();
+        mapTitleToIdMainCategory=new HashMap<String,Integer>();
         mainCategoryTitle=sch.getMainCategoryTitle();
+        mapTitleToIdMainCategory=sch.MapTitleToIDForMainCategory();
         Configuration.MainTabCount=mainCategoryTitle.size();
         /*if(Configuration.MainTabCount==0){
             second_page=getString(R.string.second_page);
@@ -263,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFrag(new ArticleFragment(),getResources().getString(R.string.fifth_page));
         for (int i=mainCategoryTitle.size()-1;i>=0;i--) {
             Bundle args=new Bundle();
-            args.putString("pageName", mainCategoryTitle.get(i));
+            args.putInt("pageId", mapTitleToIdMainCategory.get(mainCategoryTitle.get(i)));
             ShopFragment shop=new ShopFragment();
             shop.setArguments(args);
             adapter.addFrag(shop, mainCategoryTitle.get(i));
@@ -323,7 +328,8 @@ public class MainActivity extends AppCompatActivity {
             Configuration.homeDisplaySizeForShow=size.x;
             Configuration.homeDisplaySizeForURL = String.valueOf(size.x);
 
-            Configuration.productInfoHeightSize = String.valueOf(size.x - 100);
+            Configuration.productInfoHeightForShow=size.x - 100;
+            Configuration.productInfoHeightForURL = String.valueOf(size.x - 100);
 
             Double s= ((size.x) * 0.5)-12;
             Configuration.shopDisplaySizeForShow=s.intValue();

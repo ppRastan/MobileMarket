@@ -15,6 +15,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
@@ -30,7 +32,8 @@ import ir.rastanco.mobilemarket.utility.DataFilter;
 public class FilterCategory extends DialogFragment {
 
     private ServerConnectionHandler sch;
-    private String pageName;
+    private int pageId;
+    private Map<String,Integer> mapCategoryTitleToId;
 
     public static FilterCategory newInstance() {
         FilterCategory f = new FilterCategory();
@@ -47,7 +50,9 @@ public class FilterCategory extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         sch = new ServerConnectionHandler(Configuration.ShopFragmentContext);
-        pageName = getArguments().getString("name");
+        pageId = getArguments().getInt("pageId");
+        mapCategoryTitleToId=new HashMap<String,Integer>();
+        mapCategoryTitleToId=sch.MapTitleToIDForAllCategory();
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
@@ -67,8 +72,7 @@ public class FilterCategory extends DialogFragment {
         });
         TextView text = (TextView) dialogView.findViewById(R.id.title_alertdialog_group);
 
-        int categoryIdSelected = sch.getMainCategoryId(pageName);
-        ArrayList<String> subCategoryTitle = sch.getTitleOfChildOfACategory(categoryIdSelected);
+        ArrayList<String> subCategoryTitle = sch.getTitleOfChildOfACategory(pageId);
         //add filter=All
         subCategoryTitle.add(dialogView.getResources().getString(R.string.all));
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
@@ -84,21 +88,21 @@ public class FilterCategory extends DialogFragment {
 
                 if (itemSelectedContent.equals(dialogView.getResources().getString(R.string.all))) {
                     Intent args = new Intent();
-                    args.putExtra("all", dialogView.getResources().getString(R.string.all));
+                    args.putExtra("all",0);
                     setTargetFragment(getFragmentManager().findFragmentByTag("category"), 1);
                     onActivityResult(getTargetRequestCode(), 1, args);
                     dismiss();
-                } else if (sch.getHasChildACategoryWithTitle(itemSelectedContent) > 0) {
+                } else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent)) > 0) {
                     Bundle args = new Bundle();
-                    args.putString("name", itemSelectedContent);
+                    args.putInt("categorySelectedId", mapCategoryTitleToId.get(itemSelectedContent));
                     FilterSubCategory filterSubCategory = new FilterSubCategory();
                     filterSubCategory.setArguments(args);
                     filterSubCategory.setTargetFragment(getFragmentManager().findFragmentByTag("Category"), 0);
                     filterSubCategory.show(getFragmentManager(), "SubCategory");
                     dismiss();
-                } else if (sch.getHasChildACategoryWithTitle(itemSelectedContent) == 0) {
+                } else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent))==0) {
                     Intent args = new Intent();
-                    args.putExtra("noChild", itemSelectedContent);
+                    args.putExtra("noChild", mapCategoryTitleToId.get(itemSelectedContent));
                     setTargetFragment(getFragmentManager().findFragmentByTag("category"), 2);
                     onActivityResult(getTargetRequestCode(), 2, args);
                     dismiss();
@@ -116,25 +120,26 @@ public class FilterCategory extends DialogFragment {
             case 0:
                 //get subCategory Selected from FilterSubcategory Dialog
                 Bundle bundle = data.getExtras();
-                String subCategorySelected = bundle.getString("subCategorySelected");
+                int subCategorySelected = bundle.getInt("subCategorySelected");
                 //send subCategory selected to SuperAwesomeCardFragment for show
-                DataFilter.FilterCategory = subCategorySelected;
+                DataFilter.FilterCategoryId = subCategorySelected;
+                DataFilter.FilterCategoryTitle=sch.getACategoryTitle(subCategorySelected);
                 ObserverFilterCategory.setAddFilter(true);
                 break;
             case 1:
                 Bundle bundleAll = data.getExtras();
-                String selectedAll = bundleAll.getString("all");
-                DataFilter.FilterCategory = selectedAll;
+                int selectedAll = bundleAll.getInt("all");
+                DataFilter.FilterCategoryTitle =Configuration.ShopFragmentContext.getResources().getString(R.string.all) ;
+                DataFilter.FilterCategoryId=selectedAll;
                 ObserverFilterCategory.setAddFilter(true);
                 break;
             case 2:
                 Bundle bundleNoChild = data.getExtras();
-                String selectACategoryNoChild = bundleNoChild.getString("noChild");
-                DataFilter.FilterCategory = selectACategoryNoChild;
+                int selectACategoryNoChild = bundleNoChild.getInt("noChild");
+                DataFilter.FilterCategoryTitle=sch.getACategoryTitle(selectACategoryNoChild);
+                DataFilter.FilterCategoryId = selectACategoryNoChild;
                 ObserverFilterCategory.setAddFilter(true);
                 break;
-
-
         }
     }
 

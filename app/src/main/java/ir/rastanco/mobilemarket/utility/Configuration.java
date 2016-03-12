@@ -25,7 +25,8 @@ public class Configuration {
     public static int homeDisplaySizeForShow;
     public static String shopDisplaySizeForURL;
     public static int shopDisplaySizeForShow;
-    public static String productInfoHeightSize;
+    public static String productInfoHeightForURL;
+    public static int productInfoHeightForShow;
     public static String articleDisplaySizeForURL;
     public static int articleDisplaySizeForShow;
     public static int progressBarSize;

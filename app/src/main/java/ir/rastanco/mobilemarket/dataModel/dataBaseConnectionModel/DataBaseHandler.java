@@ -618,6 +618,44 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return allCategories;
     }
 
+
+    public Map<String,Integer> selectAllCategoryTitleAndId() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from tblCategory order by catId and sortOrder ASC ", null);
+        Map<String,Integer> allCategory = new HashMap<String,Integer>();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                   allCategory.put(rs.getString(rs.getColumnIndex("title")),
+                           rs.getInt(rs.getColumnIndex("catId")));
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select All Category Id and title");
+        return allCategory;
+    }
+
+    public Map<String,Integer> selectChildOfACategoryTitleAndId(int categoryId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from tblCategory where parentId== "+categoryId+" order by catId and sortOrder ASC ", null);
+        Map<String,Integer> allCategory = new HashMap<String,Integer>();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    allCategory.put(rs.getString(rs.getColumnIndex("title")),
+                            rs.getInt(rs.getColumnIndex("catId")));
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select All Category Id and title");
+        return allCategory;
+    }
+
+
     public Category selectACategory(int catId){
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -659,15 +697,15 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return categoryTitles;
     }
 
-    public Map<Integer,String> selectMainCategories(){
+    public Map<String,Integer> selectMainCategories(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId=0 order by catId and sortOrder ASC", null);
-        Map<Integer,String> categoryTitles = new HashMap<Integer,String>();
+        Map<String,Integer> categoryTitles = new HashMap<String,Integer>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    categoryTitles.put(rs.getInt(rs.getColumnIndex("catId")),
-                            rs.getString(rs.getColumnIndex("title")));
+                    categoryTitles.put(rs.getString(rs.getColumnIndex("title")),
+                            rs.getInt(rs.getColumnIndex("catId")));
                 }
                 while (rs.moveToNext());
             }

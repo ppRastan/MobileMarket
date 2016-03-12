@@ -26,7 +26,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 public class FilterOptionBrand extends DialogFragment{
 
     private ServerConnectionHandler sch;
-    private String categoryName;
+    private int pageId;
 
     public static FilterOptionBrand newInstance(String name) {
         FilterOptionBrand f = new FilterOptionBrand();
@@ -38,9 +38,9 @@ public class FilterOptionBrand extends DialogFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         sch = new ServerConnectionHandler(Configuration.ShopFragmentContext);
-        categoryName=getArguments().getString("name");
+        pageId=getArguments().getInt("pageId");
         ArrayList<Product> products=new ArrayList<Product>();
-        products=sch.getProductOfMainCategory(categoryName);
+        products=sch.getProductOfMainCategoryWithId(pageId);
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
