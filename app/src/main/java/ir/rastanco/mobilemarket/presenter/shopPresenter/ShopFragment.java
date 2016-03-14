@@ -58,25 +58,31 @@ public class ShopFragment extends Fragment {
         View mainView=inflater.inflate(R.layout.fragment_shop, null);
         Configuration.ShopFragmentContext=getContext();
         myContext=(FragmentActivity)Configuration.ShopFragmentContext;
-        final String pageName;
-        pageName=getArguments().getString("pageName");
+        final int pageId;
+        pageId=getArguments().getInt("pageId");
         sch=new ServerConnectionHandler(getContext());
-        products=sch.getProductOfMainCategory(pageName);
+        products=sch.getProductOfMainCategoryWithId(pageId);
         noThingToShow = (TextView)mainView.findViewById(R.id.no_thing_to_show1);
         noThingToShow.setTypeface(Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf"));
-        if(products.size()==0){
-
-            noThingToShow.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            noThingToShow.setVisibility(View.GONE);
-        }
         final RecyclerView gridview = (RecyclerView) mainView.findViewById(R.id.gv_infoProduct);
         gridview.setLayoutManager(new GridLayoutManager(Configuration.ShopFragmentContext,2));
         gridview.addItemDecoration(new RecyclerViewItemDecoration(6, 6));
         final GridLayoutManager layoutManager = ((GridLayoutManager)gridview.getLayoutManager());
         final boolean firstVisiblePosition = layoutManager.findFirstVisibleItemPosition()==0;
+
+        if(products.size()==0){
+
+            noThingToShow.setVisibility(View.VISIBLE);
+            gridview.setVisibility(View.GONE);
+
+        }
+        else
+        {
+            noThingToShow.setVisibility(View.GONE);
+            gridview.setVisibility(View.VISIBLE);
+        }
+
+
         final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
         gridview.setAdapter(adapter);
         //refresh grid view
@@ -93,14 +99,17 @@ public class ShopFragment extends Fragment {
                         sch.refreshCategories("http://decoriss.com/json/get,com=allcats&cache=false");
                         sch.getNewProducts();
                         sch.getEditProducts();
-                        ArrayList<Product> newProducts=sch.getProductAfterRefresh(pageName,
-                                txtFilterCategorySelected.getText().toString(),
+                        ArrayList<Product> newProducts=sch.getProductAfterRefresh(pageId,
+                                DataFilter.FilterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 DataFilter.FilterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
+                            gridview.setVisibility(View.GONE);
                         }
                         else {
+                            noThingToShow.setVisibility(View.GONE);
+                            gridview.setVisibility(View.VISIBLE);
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -114,8 +123,13 @@ public class ShopFragment extends Fragment {
         ObserverSimilarProduct.SimilarProductListener(new ObserverSimilarProductListener() {
             @Override
             public void SimilarProductSet() {
-                txtFilterCategorySelected.setText(sch.getACategoryTitle(ObserverSimilarProduct.getSimilarProduct()));
+                DataFilter.FilterCategoryId=ObserverSimilarProduct.getSimilarProduct();
+                DataFilter.FilterPriceTitle=sch.getACategoryTitle(DataFilter.FilterCategoryId);
+                DataFilter.FilterBrand=Configuration.ShopFragmentContext.getResources().getString(R.string.all);
+                txtFilterCategorySelected.setText(DataFilter.FilterPriceTitle);
                 txtFilterCategorySelected.setTextColor(getResources().getColor(R.color.red));
+                txtFilterOptionProductSelected.setText(Configuration.ShopFragmentContext.getResources().getString(R.string.all));
+                txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.black));
                 ArrayList<Product> newProducts = sch.ProductOFASubCategory(ObserverSimilarProduct.getSimilarProduct());
                 PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                 gridview.setAdapter(newAdapter);
@@ -143,7 +157,7 @@ public class ShopFragment extends Fragment {
                 txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.black));*/
                 //show Dialog Fragment
                 Bundle args = new Bundle();
-                args.putString("name", pageName);
+                args.putInt("pageId", pageId);
                 FilterCategory filterCategory = new FilterCategory();
                 filterCategory.setArguments(args);
                 filterCategory.show(myContext.getFragmentManager(), "Category");
@@ -151,20 +165,22 @@ public class ShopFragment extends Fragment {
                 ObserverFilterCategory.changeFilterCategoryListener(new ObserverFilterCategoryListener() {
                     @Override
                     public void changeFilterCategory() {
-                        txtFilterCategorySelected.setText(DataFilter.FilterCategory);
+                        txtFilterCategorySelected.setText(DataFilter.FilterCategoryTitle);
                         txtFilterCategorySelected.setTextColor(getResources().getColor(R.color.red));
                         //ArrayList<Product> newProducts = sch.getProductsAfterFilterCategory(products, txtFilterCategorySelected.getText().toString());
-                        ArrayList<Product> newProducts = sch.getProductAfterFilter(pageName,
-                                txtFilterCategorySelected.getText().toString(),
+                        ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
+                                DataFilter.FilterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 DataFilter.FilterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
+                            gridview.setVisibility(View.GONE);
                         }
                         else
                         {
 
                             noThingToShow.setVisibility(View.GONE);
+                            gridview.setVisibility(View.VISIBLE);
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -183,7 +199,7 @@ public class ShopFragment extends Fragment {
                 //txtFilterCategorySelected.setText(getResources().getText(R.string.all));
                 //txtFilterCategorySelected.setTextColor(getResources().getColor(R.color.black));
                 Bundle args = new Bundle();
-                args.putString("name", pageName);
+                args.putInt("pageId", pageId);
                 FilterOptionProduct filterOptionProduct = new FilterOptionProduct();
                 filterOptionProduct.setArguments(args);
                 filterOptionProduct.show(myContext.getFragmentManager(), "FilterProductOption");
@@ -193,17 +209,19 @@ public class ShopFragment extends Fragment {
                         txtFilterOptionProductSelected.setText(DataFilter.FilterPriceTitle);
                         txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.red));
                         //ArrayList<Product> newProducts = sch.getProductAsPriceFilter(products, txtFilterOptionProductSelected.getText().toString());
-                        ArrayList<Product> newProducts=sch.getProductAfterFilter(pageName,
-                                txtFilterCategorySelected.getText().toString(),
+                        ArrayList<Product> newProducts=sch.getProductAfterFilter(pageId,
+                                DataFilter.FilterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 DataFilter.FilterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
+                            gridview.setVisibility(View.GONE);
                         }
                         else
                         {
 
                             noThingToShow.setVisibility(View.GONE);
+                            gridview.setVisibility(View.VISIBLE);
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -217,17 +235,19 @@ public class ShopFragment extends Fragment {
                         txtFilterOptionProductSelected.setText(DataFilter.FilterBrand);
                         txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.red));
                         //ArrayList<Product> newProducts = sch.getAllProductOfABrand(products, DataFilter.FilterBrand);
-                        ArrayList<Product> newProducts=sch.getProductAfterFilter(pageName,
-                                txtFilterCategorySelected.getText().toString(),
+                        ArrayList<Product> newProducts=sch.getProductAfterFilter(pageId,
+                                DataFilter.FilterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 DataFilter.FilterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
+                            gridview.setVisibility(View.GONE);
 
                         }
                         else
                         {
                             noThingToShow.setVisibility(View.GONE);
+                            gridview.setVisibility(View.VISIBLE);
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -242,16 +262,18 @@ public class ShopFragment extends Fragment {
                     public void changeFilterAll() {
                         txtFilterOptionProductSelected.setText(DataFilter.FilterAll);
                         txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.red));
-                        ArrayList<Product> newProducts=sch.getProductAfterFilter(pageName,
-                                txtFilterCategorySelected.getText().toString(),
+                        ArrayList<Product> newProducts=sch.getProductAfterFilter(pageId,
+                                DataFilter.FilterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 DataFilter.FilterOption);
                         if (newProducts.size()==0){
                             noThingToShow.setVisibility(View.VISIBLE);
+                            gridview.setVisibility(View.GONE);
                         }
                         else
                         {
                             noThingToShow.setVisibility(View.GONE);
+                            gridview.setVisibility(View.VISIBLE);
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();

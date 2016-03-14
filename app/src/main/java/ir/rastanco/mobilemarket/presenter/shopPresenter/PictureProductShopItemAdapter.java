@@ -226,9 +226,7 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
                     sch.changeProductLike(aProduct.getId(), 1);
                 } else if (sch.getAProduct(aProduct.getId()).getLike() == 1) {
 
-                    if(Configuration.userLoginStatus)
-                        Toast.makeText(myContext,myContext.getResources().getString(R.string.thanks), Toast.LENGTH_SHORT).show();
-                    else
+                    if(!Configuration.userLoginStatus)
                         Toast.makeText(myContext,myContext.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
 
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);
@@ -238,6 +236,7 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
             }
         });
 
+        //get main picture from server or cache
         String picCounter = aProduct.getImagesPath().get(0);
         try {
             picCounter= URLEncoder.encode(picCounter, "UTF-8");
@@ -311,6 +310,7 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
         TextView priceP;
         TextView priceForYou;
         ImageView imgP;
+        ProgressBar progressBar;
         ImageButton shareToolBar;
         ImageButton basketToolbar;
         ImageButton likeToolBar;
@@ -331,16 +331,15 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
             imgP=(ImageView) itemView.findViewById(R.id.imbt_picProduct);
             imgP.getLayoutParams().width= Configuration.shopDisplaySizeForShow;
             imgP.getLayoutParams().height=Configuration.shopDisplaySizeForShow;
+            progressBar=(ProgressBar)itemView.findViewById(R.id.prograssBar);
             offerLeft = (ImageButton)itemView.findViewById(R.id.ic_offer_left);
             offerRight = (ImageButton)itemView.findViewById(R.id.ic_offer_right);
             shareToolBar = (ImageButton)itemView.findViewById(R.id.share_toolbar_in_main_page);
             likeToolBar = (ImageButton)itemView.findViewById(R.id.empty_like_toolbar);
             basketToolbar = (ImageButton)itemView.findViewById(R.id.basket_toolbar);
-            imgLoader= new ImageLoader(myContext,itemView,Configuration.shopDisplaySizeForShow); // important
-            image=null;
             rowView=itemView;
-
-
+            image=null;
+            imgLoader= new ImageLoader(myContext,itemView,Configuration.shopDisplaySizeForShow); // important
         }
     }
 

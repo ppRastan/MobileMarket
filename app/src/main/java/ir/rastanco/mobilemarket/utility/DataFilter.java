@@ -12,7 +12,8 @@ public class DataFilter {
             return data;
         } else return new DataFilter();
     }
-    public static String FilterCategory;
+    public static String FilterCategoryTitle;
+    public static int FilterCategoryId;
     public static String FilterOption;
     public static String FilterPriceTitle;
     public static String FilterBrand;

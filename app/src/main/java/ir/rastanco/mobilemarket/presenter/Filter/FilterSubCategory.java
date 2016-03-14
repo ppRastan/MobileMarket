@@ -14,6 +14,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
@@ -26,14 +28,11 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 public class FilterSubCategory extends DialogFragment{
 
     private ServerConnectionHandler sch;
-    private String categoryName;
-
+    private int categoryId;
+    private Map<String,Integer> mapCategoryTitleToIdACategory;
     public static FilterSubCategory newInstance(String name) {
         FilterSubCategory f = new FilterSubCategory();
         // Supply num input as an argument.
-        Bundle args = new Bundle();
-        args.putString("name", name);
-        f.setArguments(args);
         return f;
     }
 
@@ -42,7 +41,9 @@ public class FilterSubCategory extends DialogFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         sch=new ServerConnectionHandler(Configuration.ShopFragmentContext);
-        categoryName=getArguments().getString("name");
+        categoryId=getArguments().getInt("categorySelectedId");
+        mapCategoryTitleToIdACategory =new HashMap<String,Integer>();
+        mapCategoryTitleToIdACategory =sch.MapTitleToIDForChildOfACategory(categoryId);
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
@@ -61,8 +62,7 @@ public class FilterSubCategory extends DialogFragment{
             }
         });
 
-        final int[] subCategoryIdSelected = {sch.getCategoryIdWithTitle(categoryName)};
-        final ArrayList<String> subCategoryChildTitle=sch.getTitleOfChildOfACategory(subCategoryIdSelected[0]);
+        final ArrayList<String> subCategoryChildTitle=sch.getTitleOfChildOfACategory(categoryId);
         final ListView listSubCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
@@ -71,7 +71,11 @@ public class FilterSubCategory extends DialogFragment{
         listSubCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (sch.getCategoryHasChildWithTitle(parent.getItemAtPosition(position).toString())){
+
+                String s=parent.getItemAtPosition(position).toString();
+                int catId=mapCategoryTitleToIdACategory.get(s);
+
+                if (sch.getCategoryHasChildWithId(catId)){
 
                     /*Bundle args = new Bundle();
                     args.putString("name", parent.getItemAtPosition(position).toString());
@@ -80,18 +84,17 @@ public class FilterSubCategory extends DialogFragment{
                     filterSubCategory.setTargetFragment(getFragmentManager().findFragmentByTag("Category"), 0);
                     filterSubCategory.show(getFragmentManager(), "SubCategory");
                     dismiss();*/
-                    String s=parent.getItemAtPosition(position).toString();
-                    subCategoryIdSelected[0] =sch.getCategoryIdWithTitle(s);
-                    ArrayList<String> subCategoryChildTitle=sch.getTitleOfChildOfACategory(subCategoryIdSelected[0]);
+                   //subCategoryIdSelected[0] =sch.getCategoryIdWithTitle(s);
+                    ArrayList<String> subCategoryChildTitle=sch.getTitleOfChildOfACategory(mapCategoryTitleToIdACategory.get(s));
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                             android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
-                   listSubCategory.setAdapter(adapter);
-
+                    listSubCategory.setAdapter(adapter);
+                    mapCategoryTitleToIdACategory =sch.MapTitleToIDForChildOfACategory(catId);
 
                 }
                 else {
                     Intent args = new Intent();
-                    args.putExtra("subCategorySelected", parent.getItemAtPosition(position).toString());
+                    args.putExtra("subCategorySelected", mapCategoryTitleToIdACategory.get(s));
                     getTargetFragment().onActivityResult(getTargetRequestCode(),0,args);
                     dismiss();
                 }

@@ -61,7 +61,9 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import co.ronash.pushe.Pushe;
 import ir.rastanco.mobilemarket.R;
@@ -99,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Article> articles;
     private ArrayList<Category> categories;
     private ArrayList<String> mainCategoryTitle;
+    private Map<String,Integer> mapTitleToIdMainCategory;
     private String second_page;
     private String third_page;
     private String fourth_page;
@@ -136,10 +139,11 @@ public class MainActivity extends AppCompatActivity {
         this.addServerConnection();
         shoppingBagActivity = new ShoppingBagActivity();
         mainCategoryTitle= new ArrayList<String>();
+        mapTitleToIdMainCategory=new HashMap<String,Integer>();
         mainCategoryTitle=sch.getMainCategoryTitle();
+        mapTitleToIdMainCategory=sch.MapTitleToIDForMainCategory();
         Configuration.MainTabCount=mainCategoryTitle.size();
-        //TODO mainCategory.size==0 fill
-        if(Configuration.MainTabCount==0){
+        /*if(Configuration.MainTabCount==0){
             second_page=getString(R.string.second_page);
             third_page=getString(R.string.third_page);
             fourth_page=getString(R.string.fourth_page);
@@ -148,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             second_page=mainCategoryTitle.get(0);
             third_page=mainCategoryTitle.get(1);
             fourth_page=mainCategoryTitle.get(2);
-        }
+        }*/
         this.CreatePageRightToLeft();
         this.displayWindow();
         shopCounter=sch.getCountProductShop();
@@ -179,6 +183,9 @@ public class MainActivity extends AppCompatActivity {
         yekanFont= Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
         this.changeTabsFont();
 
+        //DataBase empty
+        if (Configuration.productTableEmptyStatus)
+            tabLayout.setTabMode(TabLayout.MODE_FIXED);
         if (Configuration.productTableEmptyStatus && Configuration.connectionStatus) {
             final String[] jsonString = {""};
             Thread getProductInfoFromServerThread = new Thread() {
@@ -194,9 +201,10 @@ public class MainActivity extends AppCompatActivity {
                     } catch (InterruptedException ex) {
                     }
                     String timeStamp = addProductToTable(jsonString[0]);
+                    String lastVersionInServer=sch.getLastVersionInServer("http://decoriss.com/app/Version.txt");
                     sch.setSetting(timeStamp,
                             Configuration.MainActivityContext.getResources().getString(R.string.firstArticleNumber),
-                            Configuration.MainActivityContext.getResources().getString(R.string.version),
+                            lastVersionInServer,
                             timeStamp);
                     Configuration.productTableEmptyStatus = false;
                     ObserverChangeFragment.setChangeFragmentParameter(true);
@@ -223,9 +231,10 @@ public class MainActivity extends AppCompatActivity {
                             } catch (InterruptedException ex) {
                             }
                             String timeStamp = addProductToTable(jsonString[0]);
+                            String lastVersionInServer=sch.getLastVersionInServer("http://decoriss.com/app/Version.txt");
                             sch.setSetting(timeStamp,
                                     Configuration.MainActivityContext.getResources().getString(R.string.firstArticleNumber),
-                                    Configuration.MainActivityContext.getResources().getString(R.string.version),
+                                    lastVersionInServer,
                                     timeStamp);
                             Configuration.productTableEmptyStatus = false;
                             ObserverChangeFragment.setChangeFragmentParameter(true);
@@ -259,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFrag(new ArticleFragment(),getResources().getString(R.string.fifth_page));
         for (int i=mainCategoryTitle.size()-1;i>=0;i--) {
             Bundle args=new Bundle();
-            args.putString("pageName", mainCategoryTitle.get(i));
+            args.putInt("pageId", mapTitleToIdMainCategory.get(mainCategoryTitle.get(i)));
             ShopFragment shop=new ShopFragment();
             shop.setArguments(args);
             adapter.addFrag(shop, mainCategoryTitle.get(i));
@@ -319,7 +328,8 @@ public class MainActivity extends AppCompatActivity {
             Configuration.homeDisplaySizeForShow=size.x;
             Configuration.homeDisplaySizeForURL = String.valueOf(size.x);
 
-            Configuration.productInfoHeightSize = String.valueOf(size.x - 100);
+            Configuration.productInfoHeightForShow=size.x - 100;
+            Configuration.productInfoHeightForURL = String.valueOf(size.x - 100);
 
             Double s= ((size.x) * 0.5)-12;
             Configuration.shopDisplaySizeForShow=s.intValue();
@@ -370,10 +380,12 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem upgradeItem=menu.findItem(R.id.update);
         Configuration.UpgradeButtonMenu=upgradeItem;
-        if(sch.checkNewVersion("http://decoriss.com/app/Version.txt"))
-            upgradeItem.setVisible(true);
-        else
+        if(!sch.checkNewVersion("http://decoriss.com/app/Version.txt")||
+                Configuration.productTableEmptyStatus ||
+                !Configuration.connectionStatus)
             upgradeItem.setVisible(false);
+        else
+            upgradeItem.setVisible(true);
 
         return true;
 
@@ -710,22 +722,6 @@ public class MainActivity extends AppCompatActivity {
     private void checkDbState() {
 
         ArrayList<Category> categories = new ArrayList<Category>();
-        ArrayList<Article> articles = new ArrayList<Article>();
-
-        //for add brandName to DataBase then update brandName filed
-        //last version in server 1.3.9
-        //version app that install in mobile is 1.0.0
-
-        if (sch.getLastVersionInDB().equals("1.0.0")) {
-            sch.reloadProduct("1352689345");
-            sch.updateVersionApp("1.0.0.1");
-        }
-        if (sch.getLastVersionInDB().equals("1.3.9")) {
-            sch.reloadProduct("1352689345");
-            sch.updateVersionApp("1.3.9.1");
-            sch.setLastUpdateTimeStamp();
-        }
-
         if (sch.emptyDBCategory()) {
             categories = sch.getAllCategoryInfoURL("http://decoriss.com/json/get,com=allcats&cache=false");
             sch.addAllCategoryToTable(categories);

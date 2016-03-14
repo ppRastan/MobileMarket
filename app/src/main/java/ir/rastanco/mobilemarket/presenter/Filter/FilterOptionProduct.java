@@ -30,7 +30,7 @@ import ir.rastanco.mobilemarket.utility.DataFilter;
 public class FilterOptionProduct extends DialogFragment {
 
     private ServerConnectionHandler sch;
-    private String pageName;
+    private int pageId;
 
     public static FilterOptionProduct newInstance(String name) {
         FilterOptionProduct f = new FilterOptionProduct();
@@ -42,7 +42,7 @@ public class FilterOptionProduct extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         sch = new ServerConnectionHandler(Configuration.ShopFragmentContext);
-        pageName = getArguments().getString("name");
+        pageId = getArguments().getInt("pageId");
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
@@ -80,7 +80,7 @@ public class FilterOptionProduct extends DialogFragment {
                     filterOptionPrice.show(getFragmentManager(),"FilterOptionPrice");
                 } else if(position==1){
                     Bundle args = new Bundle();
-                    args.putString("name",pageName);
+                    args.putInt("pageId",pageId);
                     FilterOptionBrand filterOptionBrand=new FilterOptionBrand();
                     filterOptionBrand.setArguments(args);
                     filterOptionBrand.setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"),1);

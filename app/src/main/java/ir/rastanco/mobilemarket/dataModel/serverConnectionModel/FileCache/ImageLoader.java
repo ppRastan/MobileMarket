@@ -10,8 +10,6 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 
-import ir.rastanco.mobilemarket.R;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,6 +23,9 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.utility.Configuration;
 
 
 /**
@@ -52,12 +53,14 @@ public class ImageLoader {
 
     public void DisplayImage(String url, ImageView imageView)
     {
+        Drawable d=ResizeImage(R.drawable.loadingholder,rowView, Configuration.shopDisplaySizeForShow);
         imageViews.put(imageView, url);
         Bitmap bitmap=memoryCache.get(url);
         if(bitmap!=null)
             imageView.setImageBitmap(bitmap);
         else
         {
+            imageView.setImageDrawable(d);
             queuePhoto(url, imageView);
             //imageView.setImageResource(stub_id);
         }
@@ -107,7 +110,6 @@ public class ImageLoader {
             BitmapFactory.Options o = new BitmapFactory.Options();
             o.inJustDecodeBounds = true;
             BitmapFactory.decodeStream(new FileInputStream(f),null,o);
-
             //Find the correct scale value. It should be the power of 2.
             int scale=1;
             //decode with inSampleSize
@@ -117,7 +119,6 @@ public class ImageLoader {
         } catch (FileNotFoundException e) {}
         return null;
     }
-
     //Task for the queue
     private class PhotoToLoad
     {
@@ -162,21 +163,17 @@ public class ImageLoader {
         Bitmap bitmap;
         PhotoToLoad photoToLoad;
         public BitmapDisplayer(Bitmap b, PhotoToLoad p){bitmap=b;photoToLoad=p;}
-        public void run()
-        {
-            if(imageViewReused(photoToLoad))
+        public void run() {
+            if (imageViewReused(photoToLoad))
                 return;
-            if(bitmap!=null) {
+            if (bitmap != null) {
 
                 photoToLoad.imageView.setImageBitmap(bitmap);
-            }
-            else
-            {
-                Drawable drawable=ResizeImage(R.drawable.loadingholder, rowView,displayWidth);
-
+            } else {
+                Drawable drawable = ResizeImage(R.drawable.loadingholder, rowView, displayWidth);
                 photoToLoad.imageView.setImageDrawable(drawable);
 
-        }
+            }
         }
     }
 

@@ -89,9 +89,25 @@ public class ServerConnectionHandler {
         Category aCategory=dbh.selectACategory(catId);
         return aCategory.getHasChild();
     }
-    public Map<Integer,String> getMainCategory(){
+
+    public int getHasChildACategoryWithId(int categoryId){
+        Category aCategory=dbh.selectACategory(categoryId);
+        return aCategory.getHasChild();
+    }
+
+    public Map<String,Integer> MapTitleToIDForMainCategory(){
         return dbh.selectMainCategories();
     }
+
+    public Map<String,Integer> MapTitleToIDForAllCategory(){
+        return dbh.selectAllCategoryTitleAndId();
+
+    }
+
+    public Map<String,Integer> MapTitleToIDForChildOfACategory(int catId){
+        return dbh.selectChildOfACategoryTitleAndId(catId);
+    }
+
     public ArrayList<String> getMainCategoryTitle(){
         return dbh.selectMainCategoriesTitle();
     }
@@ -112,6 +128,11 @@ public class ServerConnectionHandler {
         return allCategoryInfo;
 
     }
+
+    public Category getACategoryInformation(int categoryId){
+        return dbh.selectACategory(categoryId);
+    }
+
     public int getMainCategoryId(String catTitle) {
         Map<Integer, String> catTitleMap = dbh.selectMainCategoryTitle();
         int catId = 0;
@@ -121,28 +142,17 @@ public class ServerConnectionHandler {
         }
         return catId;
     }
-    public ArrayList<Integer> getPageNumForSimilarProduct(int parentId){
-        ArrayList<Integer> setSimilarCategoryInfo=new ArrayList<Integer>();
-        int subCategory=dbh.selectACategoryParent(parentId);
-        int mainCategory=dbh.selectACategoryParent(subCategory);
-        Map<Integer,String> mainCategoryId=new HashMap<Integer,String>();
-        mainCategoryId=getMainCategory();
-        String mainCatTitle="";
-        for (Map.Entry<Integer, String> entry : mainCategoryId.entrySet()) {
-            if (entry.getKey()==mainCategory)
-                mainCatTitle=entry.getValue();
-        }
+    public String getPageTitleForSimilarProduct(int categoryId){
 
-        ArrayList<String> mainCategoryNum=new ArrayList<String>();
-        mainCategoryNum=getMainCategoryTitle();
-        int pageNumber=0;
-        for (int i=0;i<mainCategoryNum.size();i++){
-            if (mainCategoryNum.get(i).equals(mainCatTitle))
-                pageNumber=i+1;
+        int catId=categoryId;
+        int parentId=dbh.selectACategoryParent(catId);
+        while (parentId !=0){
+
+            catId=parentId;
+            parentId=dbh.selectACategoryParent(catId);
         }
-        setSimilarCategoryInfo.add(pageNumber);
-        setSimilarCategoryInfo.add(subCategory);
-        return setSimilarCategoryInfo;
+        return dbh.selectACategory(catId).getTitle();
+
     }
     public ArrayList<Integer> ChildOfACategory(String title){
         int catId=getMainCategoryId(title);
@@ -150,6 +160,13 @@ public class ServerConnectionHandler {
         subCategoriesId=dbh.selectChildIdOfACategory(catId);
       return subCategoriesId;
     }
+
+    public ArrayList<Integer> ChildOfACategoryWithId(int categoryId){
+        ArrayList<Integer> subCategoriesId=new ArrayList<Integer>();
+        subCategoriesId=dbh.selectChildIdOfACategory(categoryId);
+        return subCategoriesId;
+    }
+
     public ArrayList<Integer> childOfASubCategory(int subCategoryId){
         ArrayList<Integer> childSubCategoriesId=new ArrayList<Integer>();
         childSubCategoriesId=dbh.selectChildIdOfACategory(subCategoryId);
@@ -162,6 +179,19 @@ public class ServerConnectionHandler {
         ArrayList<Product> products=new ArrayList<Product>();
         ArrayList<Integer> childOfMainCategory=new ArrayList<Integer>();
         childOfMainCategory=ChildOfACategory(title);
+        for (int i=0;i<childOfMainCategory.size();i++){
+            ArrayList<Product> helpProduct=new ArrayList<Product>();
+            helpProduct=ProductOFASubCategory(childOfMainCategory.get(i));
+            for (int j=0;j<helpProduct.size();j++)
+                products.add(helpProduct.get(j));
+        }
+        return products;
+    }
+
+    public ArrayList<Product> getProductOfMainCategoryWithId(int categoryId){
+        ArrayList<Product> products=new ArrayList<Product>();
+        ArrayList<Integer> childOfMainCategory=new ArrayList<Integer>();
+        childOfMainCategory=ChildOfACategoryWithId(categoryId);
         for (int i=0;i<childOfMainCategory.size();i++){
             ArrayList<Product> helpProduct=new ArrayList<Product>();
             helpProduct=ProductOFASubCategory(childOfMainCategory.get(i));
@@ -207,6 +237,17 @@ public class ServerConnectionHandler {
         return dbh.selectChildOfACategory(mainCatId);
 
     }
+
+    public Map<Integer,String> getChildOfACategory(int categoryId){
+        ArrayList<Category> allCategory=new ArrayList<Category>();
+        Map<Integer,String> allChildOfACategory=new HashMap<Integer,String>();
+        allCategory=dbh.selectAllCategory();
+        for (int i=0;i<allCategory.size();i++){
+            if (allCategory.get(i).getParentId()==categoryId)
+                allChildOfACategory.put(allCategory.get(i).getId(),allCategory.get(i).getTitle());
+        }
+        return allChildOfACategory;
+    }
     public int getCategoryIdWithTitle(String title){
         ArrayList<Category> allCat=new ArrayList<Category>();
         allCat=getAllCategoryInfoTable();
@@ -223,6 +264,17 @@ public class ServerConnectionHandler {
         Boolean catHasChild=false;
         for (int i=0;i<allCat.size();i++){
             if (allCat.get(i).getTitle().equals(title)&& allCat.get(i).getHasChild()>0)
+                catHasChild=true;
+        }
+        return catHasChild;
+    }
+
+    public Boolean getCategoryHasChildWithId(int categoryId){
+        ArrayList<Category> allCat=new ArrayList<Category>();
+        allCat=getAllCategoryInfoTable();
+        Boolean catHasChild=false;
+        for (int i=0;i<allCat.size();i++){
+            if (allCat.get(i).getId()==categoryId && allCat.get(i).getHasChild()>0)
                 catHasChild=true;
         }
         return catHasChild;
@@ -483,48 +535,44 @@ public class ServerConnectionHandler {
         }
         return productPrice;
     }
-    public ArrayList<Product> getProductsAfterFilterCategory(String pageName,String categoryTitle){
+    public ArrayList<Product> getProductsAfterFilterCategory(int pageID,int categoryId){
         ArrayList<Product> products=new ArrayList<Product>();
-        if (categoryTitle.equals(context.getResources().getString(R.string.all)))
-            products=getProductOfMainCategory(pageName);
+        if (categoryId==0)
+            products=getProductOfMainCategoryWithId(pageID);
         else {
-            int categoryId=getCategoryIdWithTitle(categoryTitle);
             products = getProductOfACategory(categoryId);
         }
 
         return products;
     }
-    public ArrayList<Product> getProductAfterRefresh(String pageName,
-                                                     String filterCategoryContent,
+    public ArrayList<Product> getProductAfterRefresh(int pageId,
+                                                     int filterCategoryId,
                                                      String filterOptionContent,
                                                      String filterOptionStatus
                                                      ){
         ArrayList<Product> allProduct=new ArrayList<Product>();
-        allProduct= getProductOfMainCategory(pageName);
+        allProduct= getProductOfMainCategoryWithId(pageId);
         ArrayList<Product> newProducts=new ArrayList<Product>();
-        if(!filterCategoryContent.equals(context.getResources().getString(R.string.all)))
-             newProducts=getProductsAfterFilterCategory(pageName, filterCategoryContent);
+        if(filterCategoryId!=0)
+             allProduct=getProductsAfterFilterCategory(pageId, filterCategoryId);
         else if (!filterOptionContent.equals(context.getResources().getString(R.string.all))){
             if(filterOptionStatus.equals("price"))
-                newProducts=getProductAsPriceFilter(allProduct, filterOptionContent);
+                allProduct=getProductAsPriceFilter(allProduct, filterOptionContent);
             else if (filterOptionStatus.equals("brand"))
-                newProducts=getAllProductOfABrand(allProduct,filterOptionContent);
+                allProduct=getAllProductOfABrand(allProduct,filterOptionContent);
         }
-        else if (filterCategoryContent.equals(context.getResources().getString(R.string.all)) &&
-                filterOptionContent.equals(context.getResources().getString(R.string.all)))
-            newProducts=allProduct;
-        return newProducts;
+        return allProduct;
     }
 
-    public ArrayList<Product> getProductAfterFilter(String pageName,
-                                                     String filterCategoryContent,
+    public ArrayList<Product> getProductAfterFilter(int pageID,
+                                                     int filterCategoryId,
                                                      String filterOptionContent,
                                                      String filterOptionStatus
     ){
         ArrayList<Product> allProduct=new ArrayList<Product>();
-        allProduct= getProductOfMainCategory(pageName);
-        if(!filterCategoryContent.equals(context.getResources().getString(R.string.all)))
-            allProduct=getProductsAfterFilterCategory(pageName, filterCategoryContent);
+        allProduct= getProductOfMainCategoryWithId(pageID);
+        if(filterCategoryId != 0)
+            allProduct=getProductsAfterFilterCategory(pageID, filterCategoryId);
         if (!filterOptionContent.equals(context.getResources().getString(R.string.all))){
             if(filterOptionStatus.equals("price"))
                 allProduct=getProductAsPriceFilter(allProduct, filterOptionContent);

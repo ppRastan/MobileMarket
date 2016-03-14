@@ -25,6 +25,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.ProductOption;
@@ -34,11 +39,6 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverLike;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 public class FullScreenImageAdapter extends PagerAdapter {
     private Activity activity;
@@ -175,9 +175,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
                 }
                 else if(sch.getAProduct(products.get(position).getId()).getLike()==1){
 
-                    if(Configuration.userLoginStatus)
-                        Toast.makeText(activity,activity.getResources().getString(R.string.thanks),Toast.LENGTH_LONG).show();
-                    else
+                    if(!Configuration.userLoginStatus)
                         Toast.makeText(activity,activity.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
 
                     btnLike.setImageResource(R.mipmap.ic_like_toolbar);
@@ -257,6 +255,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
             }
         });
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
+        imgProduct.getLayoutParams().width=Configuration.homeDisplaySizeForShow;
+        imgProduct.getLayoutParams().height=Configuration.productInfoHeightForShow;
         final ImageLoader imgLoader = new ImageLoader(Configuration.ProductInfoContext,viewLayout,Configuration.homeDisplaySizeForShow); // important
         String picNum = products.get(position).getImagesPath().get(0);
         try {
@@ -268,7 +268,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         String image_url_Main = products.get(position).getImagesMainPath() +
                 picNum +
                 "&size=" +
-                Configuration.homeDisplaySizeForURL + "x" + Configuration.productInfoHeightSize +
+                Configuration.homeDisplaySizeForURL + "x" + Configuration.productInfoHeightForURL +
                 "&q=30";
         imgLoader.DisplayImage(image_url_Main, imgProduct);
         LinearLayout layout = (LinearLayout) viewLayout.findViewById(R.id.linear);
@@ -280,8 +280,10 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
         for (int i = counter; i < products.get(position).getImagesPath().size(); i++) {
             final ImageView imageView = new ImageView(Configuration.ProductInfoContext);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Configuration.articleDisplaySizeForShow,Configuration.articleDisplaySizeForShow);
+            imageView.setLayoutParams(layoutParams);
             imageView.setId(i - 1);
-            imageView.setPadding(0, 0, 0, 0);
+            imageView.setPadding(1, 1, 1, 0);
             layout.addView(imageView);
             picNum = products.get(position).getImagesPath().get(i);
             try {
@@ -312,7 +314,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
                     String image_url_otherPic = products.get(parentClickImage).getImagesMainPath() +
                             picNum +
                             "&size=" +
-                            Configuration.homeDisplaySizeForURL + "x" + Configuration.productInfoHeightSize +
+                            Configuration.homeDisplaySizeForURL + "x" + Configuration.productInfoHeightForURL +
                             "&q=30";
                     imgLoader.DisplayImage(image_url_otherPic, imgProduct);
 
