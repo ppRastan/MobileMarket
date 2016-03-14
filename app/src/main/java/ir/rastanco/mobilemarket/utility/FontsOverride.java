@@ -1,4 +1,9 @@
 package ir.rastanco.mobilemarket.utility;
+
+/*
+created by parisan
+this class created to set whole application font
+ */
 import android.content.Context;
 import android.graphics.Typeface;
 

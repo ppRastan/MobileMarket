@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <item name="android:typeface">monospace</item>
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:dialogTheme">@style/DialogStyle</item>
+
     </style>
 
 </resources>

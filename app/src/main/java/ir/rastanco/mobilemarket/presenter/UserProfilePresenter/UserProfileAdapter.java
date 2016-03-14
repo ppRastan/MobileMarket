@@ -30,8 +30,6 @@ public class UserProfileAdapter extends ArrayAdapter<Product> {
     private LayoutInflater inflater;
     private View rowView;
     private Typeface yekanFont;
-    private TextView txtProductName;
-    private ImageButton imbLike;
 
 
     public UserProfileAdapter(Context context, int resource, ArrayList<Product> allProduct) {

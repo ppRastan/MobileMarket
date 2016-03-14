@@ -10,6 +10,7 @@ import ir.rastanco.mobilemarket.R;
 
 /**
  * Created by shaisteS on 1394/11/10.
+ * contains loadingbar in mainactivity
  */
 public class LoadingFragment extends Fragment {
 

@@ -13,6 +13,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by shaisetS on 1394/12/15.
+ * internet connection handler
  */
 public class CheckConnectionFragment extends Fragment {
 
@@ -28,13 +29,8 @@ public class CheckConnectionFragment extends Fragment {
                     if (Configuration.productTableEmptyStatus)
                         ObserverConnectionInternetOK.setChangeFragmentParameter(true);
                 }
-
             }
         });
-
-
         return checkConnection ;
-
-
     }
 }

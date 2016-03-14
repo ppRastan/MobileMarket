@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 
 /**
  * Created by ParisaRashidhi on 22/01/2016.
+ * مشخصات فونت و رنگ آیکن شمارنده ی تعداد خرید را تعیین میکند
  */
 public class BadgeDrawable extends Drawable{
     private float mTextSize;
@@ -23,13 +24,17 @@ public class BadgeDrawable extends Drawable{
     private boolean mWillDraw = false;
 
     public BadgeDrawable(Context context) {
+        //سایز عدد روی سبد خرید را مشخص میکند
         mTextSize = 24F;
         mBadgePaint = new Paint();
+        //رنگ دایره ی سبد خرید را مشخص میکند که فعلا سبز است
         mBadgePaint.setColor(Color.parseColor("#31a140"));
         mBadgePaint.setAntiAlias(true);
         mBadgePaint.setStyle(Paint.Style.FILL);
         mTextPaint = new Paint();
+        //رنگ عدد داخل دایره ی روی سبد خرید را مشخص میکند که فعلا سفید است
         mTextPaint.setColor(Color.WHITE);
+        //ضخامت عدد نوشته شده توی دایره ی سبد خرید را مشخص میکند
         mTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
         mTextPaint.setTextSize(mTextSize);
         mTextPaint.setAntiAlias(true);

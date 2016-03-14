@@ -87,7 +87,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconUtils;
 
 public class MainActivity extends AppCompatActivity {
-
+//parisa
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private int exitSafeCounter = 0;

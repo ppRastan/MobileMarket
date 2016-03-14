@@ -9,7 +9,12 @@ import android.widget.ImageButton;
 
 import ir.rastanco.mobilemarket.R;
 
-
+/*
+created by parisan
+this class created to guide user in fullScreen page
+this is visible on first time you enter in activity
+means that it appears once when you run application
+ */
 public class UserHelper extends Activity {
 
     private ImageButton goToRight;

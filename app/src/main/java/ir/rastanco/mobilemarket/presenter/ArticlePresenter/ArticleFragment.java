@@ -29,8 +29,6 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKL
  */
 public class ArticleFragment extends Fragment {
 
-    private TextView articleText;
-    private Button seeMoreBtn;
 
     private ServerConnectionHandler sch;
     private ArrayList<Article> articles;

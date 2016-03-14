@@ -1,5 +1,7 @@
 package ir.rastanco.mobilemarket.utility;
-
+/*
+created by parisan this class created for displaing counter icon on shopping bag
+ */
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;

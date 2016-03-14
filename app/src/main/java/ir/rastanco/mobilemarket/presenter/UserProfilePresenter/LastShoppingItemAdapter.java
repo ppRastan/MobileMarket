@@ -24,7 +24,6 @@ import java.util.Locale;
 /**
  * Created by shaisteS on 1/23/2016.
  */
-//testing
 public class LastShoppingItemAdapter extends ArrayAdapter<ProductShop> {
 
     private Activity myContext;
