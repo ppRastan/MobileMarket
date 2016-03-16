@@ -26,7 +26,6 @@ public class MyCustomLayoutManager extends LinearLayoutManager {
 
         LinearSmoothScroller smoothScroller =
                 new LinearSmoothScroller(mContext) {
-
                     //This controls the direction in which smoothScroll looks
                     //for your view
                     @Override
