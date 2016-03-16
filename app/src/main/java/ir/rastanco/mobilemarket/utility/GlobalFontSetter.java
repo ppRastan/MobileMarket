@@ -9,7 +9,7 @@ import android.graphics.Typeface;
 
 import java.lang.reflect.Field;
 
-public final class FontsOverride {
+public final class GlobalFontSetter {
 
     public static void setDefaultFont(Context context,
                                       String staticTypefaceFieldName, String fontAssetName) {

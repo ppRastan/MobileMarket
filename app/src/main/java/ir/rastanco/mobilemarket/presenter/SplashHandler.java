@@ -15,7 +15,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  *  Created by shaisteS on 1394/12/1.
  *  loading starts from here
  */
-public class SplashScreen extends AppCompatActivity {
+public class SplashHandler extends AppCompatActivity {
 
     private Thread mSplashThread;
     private ServerConnectionHandler sch;
@@ -23,7 +23,7 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final SplashScreen sPlashScreen = this;
+        final SplashHandler sPlashHandler = this;
         sch=new ServerConnectionHandler(this);
         mSplashThread = new Thread(){
             @Override
@@ -53,7 +53,7 @@ public class SplashScreen extends AppCompatActivity {
                 }
                 finish();
                 Intent intent = new Intent();
-                intent.setClass(sPlashScreen, MainActivity.class);
+                intent.setClass(sPlashHandler, MainActivity.class);
                 startActivity(intent);
             }
         };

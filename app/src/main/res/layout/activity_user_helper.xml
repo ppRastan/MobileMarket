@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#aa000000"
     android:gravity="center"
-    tools:context="ir.rastanco.mobilemarket.presenter.UserHelper">
+    tools:context=".presenter.FullScreenPageUserGuider">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

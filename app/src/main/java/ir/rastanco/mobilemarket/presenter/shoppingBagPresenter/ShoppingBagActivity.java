@@ -34,6 +34,9 @@ import java.util.Map;
 
 /**
  ** Created by ShaisteS on 1394/10/30.
+ * this class will display whole price and whole offer price in shopping bag
+ * set numbers to farsi language
+ * set format of numbers
  */
 public class ShoppingBagActivity extends Activity {
 
@@ -42,15 +45,11 @@ public class ShoppingBagActivity extends Activity {
     private ServerConnectionHandler sch;
     private Button okShop;
     private TextView totalPrice;
-    private TextView totalTax;
-    private TextView totalPrePayment;
-    private TextView notPaiedYet;
     private Security sec;
     private ArrayList<Integer> productsId;
     private Typeface yekanFont;
     private ListView lvShoppingBag;
-    private ImageView stateOfYourRequestByBasketPreview;
-    private TextView stateOfYourRequestByText;
+    private TextView priceOff;
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -60,9 +59,7 @@ public class ShoppingBagActivity extends Activity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
 
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        yekanFont= Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
-        totalPrice = (TextView)findViewById(R.id.total_price);
-        totalPrice.setTypeface(yekanFont);
+        this.setYekanFont();
         closeShoppingPage = (ImageButton)findViewById(R.id.close_shopping_page);
         closeShoppingPage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,17 +69,16 @@ public class ShoppingBagActivity extends Activity {
         });
         Configuration.ShoppingBagContext =this;
         sch=new ServerConnectionHandler(Configuration.ShoppingBagContext);
-
-        productsId=new ArrayList<Integer>();
-        productsId=sch.getProductShoppingID();
-        lvShoppingBag=(ListView)findViewById(R.id.lv_shoppingBag);
+        productsId = new ArrayList<Integer>();
+        productsId = sch.getProductShoppingID();
+        lvShoppingBag =(ListView)findViewById(R.id.lv_shoppingBag);
         shoppingBagAdapter adapter= new shoppingBagAdapter(this, R.layout.activity_shopping_bag,productsId);
         lvShoppingBag.setAdapter(adapter);
 
         //Total Price
         int finalPrice= 0;
         int price;
-        int off;
+        int off = 0;
         for(int i=0;i<productsId.size();i++){
             price=0;
             off=0;
@@ -93,12 +89,16 @@ public class ShoppingBagActivity extends Activity {
             price=product.getPrice()-off;
             finalPrice=finalPrice+price;
         }
+
         totalPrice.setText(String.valueOf(finalPrice));
+        priceOff.setText(String.valueOf(off));
         String numberProductPrice = String.valueOf(totalPrice.getText());
+        String numberProductPriceOff = String.valueOf(priceOff.getText());
         double finalPriceToolbar = Double.parseDouble(numberProductPrice);
+        double finalPriceOff = Double.parseDouble(numberProductPriceOff);
         DecimalFormat formatter = new DecimalFormat("#,###,000");
         totalPrice.setText(formatter.format(finalPriceToolbar)+"   "+ getResources().getString(R.string.toman)+" ");
-
+        priceOff.setText(formatter.format(finalPriceOff)+"  "+getResources().getString(R.string.toman)+ " ");
         okShop = (Button)findViewById(R.id.ok_shop);
         okShop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,4 +169,14 @@ public class ShoppingBagActivity extends Activity {
             }
         });
     }
+
+    private void setYekanFont() {
+
+        yekanFont= Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
+        totalPrice = (TextView)findViewById(R.id.total_price);
+        priceOff = (TextView)findViewById(R.id.total_price_off);
+        totalPrice.setTypeface(yekanFont);
+        priceOff.setTypeface(yekanFont);
+    }
+
 }

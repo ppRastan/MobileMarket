@@ -84,7 +84,7 @@ import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragmentManagement;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.CounterIconUtils;
+import ir.rastanco.mobilemarket.utility.CounterIconDisplayer;
 
 public class MainActivity extends AppCompatActivity {
 //parisa
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             public void OnMyBooleanChanged() {
                 MenuItem item = menu.findItem(R.id.action_notifications);
                 LayerDrawable icon = (LayerDrawable) item.getIcon();
-                CounterIconUtils.setBadgeCount(Configuration.MainActivityContext,
+                CounterIconDisplayer.setBadgeCount(Configuration.MainActivityContext,
                         icon, sch.getCountProductShop());
             }
         });
@@ -376,7 +376,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem item = menu.findItem(R.id.action_notifications);
         LayerDrawable icon = (LayerDrawable) item.getIcon();
-        CounterIconUtils.setBadgeCount(this, icon, filBasketColor());
+        CounterIconDisplayer.setBadgeCount(this, icon, filBasketColor());
 
         MenuItem upgradeItem=menu.findItem(R.id.update);
         Configuration.UpgradeButtonMenu=upgradeItem;

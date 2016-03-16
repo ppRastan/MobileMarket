@@ -14,7 +14,7 @@ import android.graphics.drawable.Drawable;
  * Created by ParisaRashidhi on 22/01/2016.
  * مشخصات فونت و رنگ آیکن شمارنده ی تعداد خرید را تعیین میکند
  */
-public class BadgeDrawable extends Drawable{
+public class ShoppingCounterIconCreator extends Drawable{
     private float mTextSize;
     private Paint mBadgePaint;
     private Paint mTextPaint;
@@ -23,7 +23,7 @@ public class BadgeDrawable extends Drawable{
     private String mCount = "";
     private boolean mWillDraw = false;
 
-    public BadgeDrawable(Context context) {
+    public ShoppingCounterIconCreator(Context context) {
         //سایز عدد روی سبد خرید را مشخص میکند
         mTextSize = 24F;
         mBadgePaint = new Paint();

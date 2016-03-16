@@ -38,7 +38,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.CounterIconUtils;
+import ir.rastanco.mobilemarket.utility.CounterIconDisplayer;
 
 /**
  * Created by ShaisteS on 12/28/2015.
@@ -52,7 +52,7 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
     private boolean isLikeButtonClicked = true;
     private boolean isSelectedForShop=false;
     private ServerConnectionHandler sch;
-    private CounterIconUtils ciu;
+    private CounterIconDisplayer ciu;
     private  Context myContext;
     private Typeface yekanFont;
     private String textToSend = null;

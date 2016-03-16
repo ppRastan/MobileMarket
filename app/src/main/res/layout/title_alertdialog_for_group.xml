@@ -20,10 +20,9 @@
             android:src="@mipmap/ic_reset"
             android:id="@+id/reset_action"
             android:padding="4dp"
-            android:background="@color/white"
+            android:background="@null"
             />
     <TextView
-        android:background="@color/white"
         android:layout_width="0dp"
         android:textSize="20dp"
         android:layout_height="wrap_content"
@@ -40,8 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
             android:src="@mipmap/ic_cancel_dialog"
-            android:background="@color/white"
             android:id="@+id/cancel"
+            android:background="@null"
             android:padding="4dp"/>
     </LinearLayout>
     <LinearLayout
@@ -54,9 +53,9 @@
             android:id="@+id/list"
             android:layout_width="fill_parent"
             android:divider="@color/white"
-            android:background="@color/white"
             android:layout_height="220dp"
             android:scrollbars="none"
+            android:background="@color/white"
             />
 
     </LinearLayout>

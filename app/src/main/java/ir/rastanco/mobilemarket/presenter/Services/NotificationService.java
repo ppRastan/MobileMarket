@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.os.IBinder;
 
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.presenter.SplashScreen;
+import ir.rastanco.mobilemarket.presenter.SplashHandler;
 
 /**
  * Created by ShaisteS on 1394/11/30.
@@ -25,7 +25,7 @@ public class NotificationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Intent notificationIntent = new Intent(this, SplashScreen.class);
+        Intent notificationIntent = new Intent(this, SplashHandler.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), notificationIntent, 0);
         Notification notification = new Notification.Builder(this)
                 .setContentTitle("دکوریس")
