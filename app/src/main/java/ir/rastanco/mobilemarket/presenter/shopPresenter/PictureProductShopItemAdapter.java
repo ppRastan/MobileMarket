@@ -238,6 +238,8 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
 
         //get main picture from server or cache
         String picCounter = aProduct.getImagesPath().get(0);
+        holder.imgP.getLayoutParams().width=Configuration.shopDisplaySizeForShow;
+        holder.imgP.getLayoutParams().height=Configuration.shopDisplaySizeForShow;
         try {
             picCounter= URLEncoder.encode(picCounter, "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -329,8 +331,6 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
             priceForYou = (TextView)itemView.findViewById(R.id.txt_price_for_you);
             priceForYou.setTypeface(yekanFont);
             imgP=(ImageView) itemView.findViewById(R.id.imbt_picProduct);
-            imgP.getLayoutParams().width= Configuration.shopDisplaySizeForShow;
-            imgP.getLayoutParams().height=Configuration.shopDisplaySizeForShow;
             progressBar=(ProgressBar)itemView.findViewById(R.id.prograssBar);
             offerLeft = (ImageButton)itemView.findViewById(R.id.ic_offer_left);
             offerRight = (ImageButton)itemView.findViewById(R.id.ic_offer_right);

@@ -35,6 +35,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProductListener;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.DataFilter;
+import ir.rastanco.mobilemarket.utility.MyCustomLayoutManager;
 import ir.rastanco.mobilemarket.utility.RecyclerViewItemDecoration;
 
 /**
@@ -65,6 +66,9 @@ public class ShopFragment extends Fragment {
         noThingToShow = (TextView)mainView.findViewById(R.id.no_thing_to_show1);
         noThingToShow.setTypeface(Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf"));
         final RecyclerView gridview = (RecyclerView) mainView.findViewById(R.id.gv_infoProduct);
+        MyCustomLayoutManager mLayoutManager = new MyCustomLayoutManager(Configuration.ShopFragmentContext);
+        gridview.setLayoutManager(mLayoutManager);
+        gridview.smoothScrollToPosition(0);
         gridview.setLayoutManager(new GridLayoutManager(Configuration.ShopFragmentContext,2));
         gridview.addItemDecoration(new RecyclerViewItemDecoration(6, 6));
         final GridLayoutManager layoutManager = ((GridLayoutManager)gridview.getLayoutManager());
@@ -99,15 +103,14 @@ public class ShopFragment extends Fragment {
                         sch.refreshCategories("http://decoriss.com/json/get,com=allcats&cache=false");
                         sch.getNewProducts();
                         sch.getEditProducts();
-                        ArrayList<Product> newProducts=sch.getProductAfterRefresh(pageId,
+                        ArrayList<Product> newProducts = sch.getProductAfterRefresh(pageId,
                                 DataFilter.FilterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 DataFilter.FilterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
                             gridview.setVisibility(View.GONE);
-                        }
-                        else {
+                        } else {
                             noThingToShow.setVisibility(View.GONE);
                             gridview.setVisibility(View.VISIBLE);
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
@@ -283,7 +286,6 @@ public class ShopFragment extends Fragment {
 
             }
         });
-
         return mainView;
     }
 }
