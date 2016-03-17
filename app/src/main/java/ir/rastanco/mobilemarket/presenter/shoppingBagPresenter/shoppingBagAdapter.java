@@ -54,7 +54,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private View spinnerView;
     private ImageView imgProduct;
     private TextView txtProductTitle;
-    private Button btnDelete;
+    private ImageButton btnDelete;
     private String numberProductPrice;
     private double amount;
     private String numberProducePriceOff;
@@ -167,7 +167,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     }
 
     private void deleteFromBasket() {
-        btnDelete=(Button)rowView.findViewById(R.id._shopping_bag_delete_btn);
+        btnDelete=(ImageButton)rowView.findViewById(R.id._shopping_bag_delete_btn);
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

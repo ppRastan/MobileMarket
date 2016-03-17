@@ -131,16 +131,15 @@
     android:background="@color/background_window"></LinearLayout>
 
 
-    <Button
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="match_parent"
+    <ImageButton
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="@string/delete"
-        android:textColor="@color/orange"
         android:padding="4dp"
+        android:src="@mipmap/close"
+        android:background="@null"
         android:id="@+id/_shopping_bag_delete_btn"
-        android:gravity="left|center_vertical"
+        android:layout_gravity="left"
         />
         </LinearLayout>
     </RelativeLayout>
