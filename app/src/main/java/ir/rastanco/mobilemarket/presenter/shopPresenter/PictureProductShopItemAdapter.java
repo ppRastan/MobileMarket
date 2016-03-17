@@ -1,5 +1,6 @@
 package ir.rastanco.mobilemarket.presenter.shopPresenter;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
@@ -39,6 +39,7 @@ import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivi
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconDisplayer;
+import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 /**
  * Created by ShaisteS on 12/28/2015.
@@ -54,7 +55,6 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
     private ServerConnectionHandler sch;
     private CounterIconDisplayer ciu;
     private  Context myContext;
-    private Typeface yekanFont;
     private String textToSend = null;
     private Dialog shareDialog;
     private Intent sendIntent;
@@ -65,7 +65,6 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
         inflater = ( LayoutInflater ) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         allProduct =products;
         sch=new ServerConnectionHandler(myContext);
-        yekanFont = Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf");
 
     }
 
@@ -82,13 +81,13 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
         final Product aProduct=allProduct.get(position);
         if (aProduct.getPriceOff()==0){
             holder.priceForYou.setVisibility(View.INVISIBLE);
-            holder.priceP.setTextColor(Color.BLACK);
-            holder.priceP.setPaintFlags(holder.priceP.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+            holder.originalPrice.setTextColor(Color.BLACK);
+            holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
 
         }
         else {
-            holder.priceP.setTextColor(Color.RED);
-            holder.priceP.setPaintFlags(holder.priceP.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.originalPrice.setTextColor(Color.RED);
+            holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             int price= aProduct.getPrice();
             int offPrice= (price*aProduct.getPriceOff())/100;
             String priceForYou = String.valueOf(price-offPrice);
@@ -281,10 +280,10 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
         double amountOfFinalPrice = Double.parseDouble(priceOfCurrentGood);
         DecimalFormat formatter = new DecimalFormat("#,###,000");
         if (aProduct.getPrice()==0) {
-            holder.priceP.setText("به زودی ");
+            holder.originalPrice.setText("به زودی ");
         }
         else
-            holder.priceP.setText(formatter.format(amountOfFinalPrice) + "  " + "تومان");
+            holder.originalPrice.setText(formatter.format(amountOfFinalPrice) + "  " + "تومان");
         holder.imgP.setImageBitmap(holder.image);
         holder.imgP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -309,7 +308,7 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
 
     public class Holder extends RecyclerView.ViewHolder {
         TextView infoP;
-        TextView priceP;
+        TextView originalPrice;
         TextView priceForYou;
         ImageView imgP;
         ProgressBar progressBar;
@@ -324,12 +323,15 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
 
         public Holder(View itemView) {
             super(itemView);
+            PriceUtility priceUtility = new PriceUtility();
+            Activity activity;
+            activity =(Activity) myContext;
             infoP=(TextView) itemView.findViewById(R.id.txt_infoProduct);
-            infoP.setTypeface(yekanFont);
-            priceP=(TextView) itemView.findViewById(R.id.txt_priceProduct);
-            priceP.setTypeface(yekanFont);
+            infoP = priceUtility.changeFontToYekan(infoP,activity);
+            originalPrice =(TextView) itemView.findViewById(R.id.txt_priceProduct);
+            originalPrice = priceUtility.changeFontToYekan(originalPrice,activity);
             priceForYou = (TextView)itemView.findViewById(R.id.txt_price_for_you);
-            priceForYou.setTypeface(yekanFont);
+            priceForYou = priceUtility.changeFontToYekan(priceForYou,activity);
             imgP=(ImageView) itemView.findViewById(R.id.imbt_picProduct);
             progressBar=(ProgressBar)itemView.findViewById(R.id.prograssBar);
             offerLeft = (ImageButton)itemView.findViewById(R.id.ic_offer_left);
