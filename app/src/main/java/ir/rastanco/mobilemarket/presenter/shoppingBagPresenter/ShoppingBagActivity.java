@@ -35,8 +35,6 @@ import java.util.Map;
 /**
  ** Created by ShaisteS on 1394/10/30.
  * this class will display whole price and whole offer price in shopping bag
- * set numbers to farsi language
- * set format of numbers
  */
 public class ShoppingBagActivity extends Activity {
 
@@ -52,46 +50,34 @@ public class ShoppingBagActivity extends Activity {
     private TextView priceOff;
     protected void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
         Configuration.ShoppingBagContext =this;
         sec=new Security();
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_bag);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-
-            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        this.shoppingBagRTLizer();
         this.setYekanFont();
-        closeShoppingPage = (ImageButton)findViewById(R.id.close_shopping_page);
-        closeShoppingPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShoppingBagActivity.this, MainActivity.class));
-            }
-        });
+        this.closeShoppingBag();
         Configuration.ShoppingBagContext =this;
         sch=new ServerConnectionHandler(Configuration.ShoppingBagContext);
         productsId = new ArrayList<Integer>();
         productsId = sch.getProductShoppingID();
-        lvShoppingBag =(ListView)findViewById(R.id.lv_shoppingBag);
-        shoppingBagAdapter adapter= new shoppingBagAdapter(this, R.layout.activity_shopping_bag,productsId);
-        lvShoppingBag.setAdapter(adapter);
-
-        //Total Price
+        this.shoppingListViewCreator();
         int finalPrice= 0;
         int price;
-        int off = 0;
+        int finalOff = 0;
         for(int i=0;i<productsId.size();i++){
             price=0;
-            off=0;
+            finalOff=0;
             Product product=new Product();
             product=sch.getAProduct(productsId.get(i));
             if(product.getPriceOff()!=0)
-                off=(product.getPrice()*product.getPriceOff())/100;
-            price=product.getPrice()-off;
+                finalOff=(product.getPrice()*product.getPriceOff())/100;
+            price=product.getPrice()-finalOff;
             finalPrice=finalPrice+price;
         }
 
         totalPrice.setText(String.valueOf(finalPrice));
-        priceOff.setText(String.valueOf(off));
+        priceOff.setText(String.valueOf(finalOff));
         String numberProductPrice = String.valueOf(totalPrice.getText());
         String numberProductPriceOff = String.valueOf(priceOff.getText());
         double finalPriceToolbar = Double.parseDouble(numberProductPrice);
@@ -168,6 +154,30 @@ public class ShoppingBagActivity extends Activity {
                 totalPrice.setText(formatter.format(finalPriceToolbar) + "   " + getResources().getString(R.string.toman) + " ");
             }
         });
+    }
+
+    private void shoppingListViewCreator() {
+        lvShoppingBag =(ListView)findViewById(R.id.lv_shoppingBag);
+        shoppingBagAdapter adapter= new shoppingBagAdapter(this, R.layout.activity_shopping_bag,productsId);
+        lvShoppingBag.setAdapter(adapter);
+
+    }
+
+    private void closeShoppingBag() {
+
+        closeShoppingPage = (ImageButton)findViewById(R.id.close_shopping_page);
+        closeShoppingPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShoppingBagActivity.this, MainActivity.class));
+            }
+        });
+    }
+
+    private void shoppingBagRTLizer() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+
+            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
     }
 
     private void setYekanFont() {

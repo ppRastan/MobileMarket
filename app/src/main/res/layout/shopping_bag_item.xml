@@ -10,15 +10,15 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    card_view:cardElevation="@dimen/cardview_compat_inset_shadow"
     card_view:cardCornerRadius="5dp"
     card_view:contentPadding="4dp">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="13dp"
         android:background="@color/decoriss">
      <LinearLayout
-         android:weightSum="12"
+         android:weightSum="14"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:orientation="vertical"
@@ -33,7 +33,7 @@
                  <ImageView
                      android:id="@+id/shopping__bag_img"
                      android:layout_width="0dp"
-                     android:layout_weight="5"
+                     android:layout_weight="4"
                      android:background="@color/white"
                      android:layout_height="match_parent"
                      android:scaleType="fitXY"
@@ -42,57 +42,64 @@
                      android:background="@color/white"
                      android:id="@+id/shopping_bag_txt_productTitle"
                      android:layout_width="0dp"
-                     android:layout_weight="5"
+                     android:layout_weight="6"
                      android:layout_height="match_parent"
-                     android:singleLine="true"
+                     android:singleLine="false"
                      android:padding="20dp"
                      android:text="title"
-                     android:layout_gravity="center_vertical|center_horizontal"
+                     android:layout_gravity="center_vertical"
                      android:textColor="@color/black"
                      android:textSize="17dp"
                      />
 
              </LinearLayout>
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:gravity="center"
-    android:layout_gravity="center_vertical|center_horizontal"
-    android:orientation="horizontal"
-    android:weightSum="10"
-    android:background="@color/white">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:background="@color/white"
-        android:layout_gravity="center_vertical|left"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        android:text="@string/number_of_shopping_items"
-        />
-    <Spinner
-        android:layout_gravity="right|center_vertical"
-        android:layout_width="40dp"
-        android:gravity="center"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:padding="8dp"
-        android:textColor="#666"
-        android:textSize="12dp"
-        style="@style/spinner"
-        android:id="@+id/spinner" />
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="2"></LinearLayout>
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="0dp"
+             android:layout_weight="1"
+             android:gravity="right"
+             android:layout_gravity="center_vertical|center_horizontal"
+             android:orientation="horizontal"
+             android:weightSum="10"
+             >
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:gravity="center"
+                 android:paddingRight="20dp"
+                 android:layout_gravity="center_vertical|left"
+                 android:textColor="@color/black"
+                 android:textSize="12sp"
+                 android:text="@string/number_of_shopping_items"
+                 />
+             <Spinner
+                 android:layout_gravity="right|center_vertical"
+                 android:layout_width="wrap_content"
+                 android:gravity="center"
+                 android:layout_height="wrap_content"
+                 android:padding="8dp"
+                 android:layout_marginBottom="2dp"
+                 android:textColor="@color/black"
+                 android:id="@+id/spinner" />
 
-</LinearLayout>
+         </LinearLayout>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="4"
     android:weightSum="2"
+    android:background="@color/decoriss"
     android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/background_window"></LinearLayout>
+
     <TextView
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="1"
@@ -102,25 +109,28 @@
     android:layout_marginRight="13dp"
     android:textSize="14dp"
     android:gravity="center_horizontal|right"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/background_window"></LinearLayout>
 
     <TextView
         android:layout_weight="1"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:padding="8dp"
-    android:background="@color/white"
     android:id="@+id/shopping_bag_price_for_you"
     android:textColor="@color/green"
     android:textSize="14dp"
     android:layout_marginRight="13dp"
     android:gravity="center_horizontal|right"/>
 </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/background_window"></LinearLayout>
 
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="2dp"
-       android:background="@color/background_window"></LinearLayout>
     <Button
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="match_parent"
@@ -131,7 +141,6 @@
         android:padding="4dp"
         android:id="@+id/_shopping_bag_delete_btn"
         android:gravity="left|center_vertical"
-        android:background="@color/white"
         />
         </LinearLayout>
     </RelativeLayout>
