@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:background="@color/decoriss">
      <LinearLayout
-         android:weightSum="14"
+         android:weightSum="15"
          android:layout_width="match_parent"
          android:layout_height="wrap_content"
          android:orientation="vertical"
@@ -90,10 +90,11 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="0dp"
-    android:layout_weight="4"
+    android:layout_weight="5"
     android:weightSum="2"
     android:background="@color/decoriss"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -113,23 +114,37 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/background_window"></LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:id="@+id/shoppingbag_offer"
+        android:textColor="@color/red"
+        android:layout_marginRight="13dp"
+        android:textSize="14dp"
+        android:gravity="center_horizontal|right"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/background_window"></LinearLayout>
 
     <TextView
         android:layout_weight="1"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:padding="8dp"
-    android:id="@+id/shopping_bag_price_for_you"
-    android:textColor="@color/green"
-    android:textSize="14dp"
-    android:layout_marginRight="13dp"
-    android:gravity="center_horizontal|right"/>
-</LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="@color/background_window"></LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="8dp"
+        android:id="@+id/shopping_bag_price_for_you"
+        android:textColor="@color/green"
+        android:textSize="14dp"
+        android:layout_marginRight="13dp"
+        android:gravity="center_horizontal|right"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/background_window"></LinearLayout>
+</LinearLayout>
 
     <ImageButton
         android:layout_width="wrap_content"

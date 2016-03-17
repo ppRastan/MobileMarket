@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +24,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancel;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancelListener;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -41,17 +41,16 @@ public class ShoppingBagActivity extends Activity {
 
     private ImageButton closeShoppingPage;
     private ServerConnectionHandler sch;
-    private Button okShop;
-    private TextView totalPrice;
-    private Security sec;
+    private Button confirmShopping;
+    private TextView totalPriceTextView;
+    private Security security;
     private ArrayList<Integer> productsId;
-    private Typeface yekanFont;
     private ListView lvShoppingBag;
-    private TextView priceOff;
+    private TextView priceOffTextView;
     protected void onCreate(Bundle savedInstanceState) {
 
         Configuration.ShoppingBagContext =this;
-        sec=new Security();
+        security =new Security();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_bag);
         this.shoppingBagRTLizer();
@@ -76,23 +75,23 @@ public class ShoppingBagActivity extends Activity {
             finalPrice=finalPrice+price;
         }
 
-        totalPrice.setText(String.valueOf(finalPrice));
-        priceOff.setText(String.valueOf(finalOff));
-        String numberProductPrice = String.valueOf(totalPrice.getText());
-        String numberProductPriceOff = String.valueOf(priceOff.getText());
+        totalPriceTextView.setText(String.valueOf(finalPrice));
+        priceOffTextView.setText(String.valueOf(finalOff));
+        String numberProductPrice = String.valueOf(totalPriceTextView.getText());
+        String numberProductPriceOff = String.valueOf(priceOffTextView.getText());
         double finalPriceToolbar = Double.parseDouble(numberProductPrice);
         double finalPriceOff = Double.parseDouble(numberProductPriceOff);
         DecimalFormat formatter = new DecimalFormat("#,###,000");
-        totalPrice.setText(formatter.format(finalPriceToolbar)+"   "+ getResources().getString(R.string.toman)+" ");
-        priceOff.setText(formatter.format(finalPriceOff)+"  "+getResources().getString(R.string.toman)+ " ");
-        okShop = (Button)findViewById(R.id.ok_shop);
-        okShop.setOnClickListener(new View.OnClickListener() {
+        totalPriceTextView.setText(formatter.format(finalPriceToolbar) + "   " + getResources().getString(R.string.toman) + " ");
+        priceOffTextView.setText(formatter.format(finalPriceOff) + "  " + getResources().getString(R.string.toman) + " ");
+        confirmShopping = (Button)findViewById(R.id.ok_shop);
+        confirmShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Map<Integer, Integer> shopInfo = new HashMap<Integer, Integer>();
                 shopInfo = sch.getAllProductShopping();
                 if (shopInfo.size() == 0) {
-                    Toast.makeText(Configuration.ShoppingBagContext,getResources().getString(R.string.empty_basket),
+                    Toast.makeText(Configuration.ShoppingBagContext, getResources().getString(R.string.empty_basket),
                             Toast.LENGTH_LONG).show();
                 } else {
                     UserInfo user = sch.getUserInfo();
@@ -105,7 +104,7 @@ public class ShoppingBagActivity extends Activity {
                         for (Map.Entry<Integer, Integer> entry : shopInfo.entrySet())
                             urlInfo = urlInfo + entry.getKey() + "_" + entry.getValue() + "#";
 
-                        urlInfo = sec.Base64(urlInfo);
+                        urlInfo = security.Base64(urlInfo);
                         url = url + urlInfo;
                         Intent intent = new Intent();
                         intent.setAction(Intent.ACTION_VIEW);
@@ -147,11 +146,11 @@ public class ShoppingBagActivity extends Activity {
                     finalPrice = finalPrice + price;
 
                 }
-                totalPrice.setText(String.valueOf(finalPrice));
-                String numberProductPrice = String.valueOf(totalPrice.getText());
+                totalPriceTextView.setText(String.valueOf(finalPrice));
+                String numberProductPrice = String.valueOf(totalPriceTextView.getText());
                 double finalPriceToolbar = Double.parseDouble(numberProductPrice);
                 DecimalFormat formatter = new DecimalFormat("#,###,000");
-                totalPrice.setText(formatter.format(finalPriceToolbar) + "   " + getResources().getString(R.string.toman) + " ");
+                totalPriceTextView.setText(formatter.format(finalPriceToolbar) + "   " + getResources().getString(R.string.toman) + " ");
             }
         });
     }
@@ -176,17 +175,16 @@ public class ShoppingBagActivity extends Activity {
 
     private void shoppingBagRTLizer() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
     }
 
     private void setYekanFont() {
+        PriceUtility priceUtility = new PriceUtility();
+        totalPriceTextView = (TextView)findViewById(R.id.total_price);
+        priceOffTextView = (TextView)findViewById(R.id.total_price_off);
+        totalPriceTextView = priceUtility.changeFontToYekan(totalPriceTextView,this);
+        priceOffTextView = priceUtility.changeFontToYekan(priceOffTextView,this);
 
-        yekanFont= Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
-        totalPrice = (TextView)findViewById(R.id.total_price);
-        priceOff = (TextView)findViewById(R.id.total_price_off);
-        totalPrice.setTypeface(yekanFont);
-        priceOff.setTypeface(yekanFont);
     }
 
 }

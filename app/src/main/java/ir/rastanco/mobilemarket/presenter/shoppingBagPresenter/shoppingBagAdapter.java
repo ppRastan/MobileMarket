@@ -207,7 +207,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         spinnerValueInInteger = Integer.parseInt(spinnerValueInString);
         spinnerTextView = (TextView)spinnerView.findViewById(R.id.spinner_text);
         spinnerTextView = priceUtility.changeFontToYekan(spinnerTextView,shoppingBagActivityContext);
-//
+
     }
 
     public void updateList(ArrayList<Integer> results)
