@@ -206,6 +206,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         spinnerValueInString = spinnerCounter.getSelectedItem().toString();
         spinnerValueInInteger = Integer.parseInt(spinnerValueInString);
         spinnerTextView = (TextView)spinnerView.findViewById(R.id.spinner_text);
+        spinnerTextView = priceUtility.changeFontToYekan(spinnerTextView,shoppingBagActivityContext);
 
     }
 
