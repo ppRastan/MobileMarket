@@ -47,9 +47,11 @@ public class ShoppingBagActivity extends Activity {
     private ArrayList<Integer> productsId;
     private ListView lvShoppingBag;
     private TextView priceOffTextView;
+    private PriceUtility priceUtility;
     protected void onCreate(Bundle savedInstanceState) {
 
         Configuration.ShoppingBagContext =this;
+        priceUtility = new PriceUtility();
         security =new Security();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_bag);
@@ -75,15 +77,8 @@ public class ShoppingBagActivity extends Activity {
             finalPrice=finalPrice+price;
         }
 
-        totalPriceTextView.setText(String.valueOf(finalPrice));
-        priceOffTextView.setText(String.valueOf(finalOff));
-        String numberProductPrice = String.valueOf(totalPriceTextView.getText());
-        String numberProductPriceOff = String.valueOf(priceOffTextView.getText());
-        double finalPriceToolbar = Double.parseDouble(numberProductPrice);
-        double finalPriceOff = Double.parseDouble(numberProductPriceOff);
-        DecimalFormat formatter = new DecimalFormat("#,###,000");
-        totalPriceTextView.setText(formatter.format(finalPriceToolbar) + "   " + getResources().getString(R.string.toman) + " ");
-        priceOffTextView.setText(formatter.format(finalPriceOff) + "  " + getResources().getString(R.string.toman) + " ");
+        totalPriceTextView.setText(String.valueOf(priceUtility.formatPriceCommaSeprated(finalPrice)+"  "+"تومان"));
+        priceOffTextView.setText(String.valueOf(priceUtility.formatPriceCommaSeprated(finalOff))+"  "+"تومان");
         confirmShopping = (Button)findViewById(R.id.ok_shop);
         confirmShopping.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,15 +137,11 @@ public class ShoppingBagActivity extends Activity {
                     product = sch.getAProduct(entry.getKey());
                     if (product.getPriceOff() != 0)
                         off = (product.getPrice() * product.getPriceOff()) / 100;
-                    price = (product.getPrice() * entry.getValue()) - (off * entry.getValue());
+               price = (product.getPrice() * entry.getValue()) - (off * entry.getValue());
                     finalPrice = finalPrice + price;
 
                 }
-                totalPriceTextView.setText(String.valueOf(finalPrice));
-                String numberProductPrice = String.valueOf(totalPriceTextView.getText());
-                double finalPriceToolbar = Double.parseDouble(numberProductPrice);
-                DecimalFormat formatter = new DecimalFormat("#,###,000");
-                totalPriceTextView.setText(formatter.format(finalPriceToolbar) + "   " + getResources().getString(R.string.toman) + " ");
+                totalPriceTextView.setText(priceUtility.formatPriceCommaSeprated(finalPrice));
             }
         });
     }

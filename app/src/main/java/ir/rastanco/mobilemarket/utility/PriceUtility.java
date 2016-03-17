@@ -16,8 +16,9 @@ public class PriceUtility {
 
    private Typeface font;
 
-    public String formatPriceCommaSeprated(String persionPriceWithoutFormatt){
-        double amountOfFinalPrice = Double.parseDouble(persionPriceWithoutFormatt);
+    public String formatPriceCommaSeprated(int price){
+        String priceInStringFormat = String.valueOf(price);
+        double amountOfFinalPrice = Double.parseDouble(priceInStringFormat);
         DecimalFormat formatter = new DecimalFormat("#,###,000");
         String  finalPriceWithComma = String.valueOf(formatter.format(amountOfFinalPrice));
         return finalPriceWithComma;
