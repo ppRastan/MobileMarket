@@ -19,6 +19,7 @@ public class SplashHandler extends AppCompatActivity {
 
     private Thread mSplashThread;
     private ServerConnectionHandler sch;
+    private Integer delay = 3000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class SplashHandler extends AppCompatActivity {
                         else
                             Configuration.productTableEmptyStatus=false;
 
-                        wait(10);
+                        wait(delay);
                     }
                 }
                 catch(InterruptedException ex){
