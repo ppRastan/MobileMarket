@@ -28,7 +28,7 @@ public class FilterOptionPrice extends DialogFragment {
     private String pageName;
     private static FilterOptionPrice filterOptionPrice;
 
-    public static FilterOptionPrice getInstance(String name) {
+    public static FilterOptionPrice getInstance() {
         if(filterOptionPrice == null){
            filterOptionPrice = new FilterOptionPrice();
         }

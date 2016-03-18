@@ -32,7 +32,7 @@ public class FilterSubCategory extends DialogFragment{
     private int categoryId;
     private Map<String,Integer> mapCategoryTitleToIdACategory;
     private static FilterSubCategory filterSubCategory;
-    public static FilterSubCategory getInstance(String name) {
+    public static FilterSubCategory getInstance() {
         if(filterSubCategory == null){
             filterSubCategory = new FilterSubCategory();
         }

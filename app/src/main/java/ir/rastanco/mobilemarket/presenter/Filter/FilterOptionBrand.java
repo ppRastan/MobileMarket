@@ -29,7 +29,7 @@ public class FilterOptionBrand extends DialogFragment{
     private ServerConnectionHandler sch;
     private int pageId;
     private static FilterOptionBrand filterOptionBrand;
-    public static FilterOptionBrand getInstance(String name) {
+    public static FilterOptionBrand getInstance() {
         if(filterOptionBrand == null){
             filterOptionBrand = new FilterOptionBrand();
         }

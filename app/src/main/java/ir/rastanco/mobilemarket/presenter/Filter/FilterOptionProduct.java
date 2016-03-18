@@ -78,16 +78,14 @@ public class FilterOptionProduct extends DialogFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(position==0){
-                    FilterOptionPrice filterOptionPrice=new FilterOptionPrice();
-                    filterOptionPrice.setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"),0);
-                    filterOptionPrice.show(getFragmentManager(),"FilterOptionPrice");
+                    FilterOptionPrice.getInstance().setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"), 0);
+                    FilterOptionPrice.getInstance().show(getFragmentManager(), "FilterOptionPrice");
                 } else if(position==1){
                     Bundle args = new Bundle();
                     args.putInt("pageId",pageId);
-                    FilterOptionBrand filterOptionBrand=new FilterOptionBrand();
-                    filterOptionBrand.setArguments(args);
-                    filterOptionBrand.setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"),1);
-                    filterOptionBrand.show(getFragmentManager(),"FilterOptionBrand");
+                    FilterOptionBrand.getInstance().setArguments(args);
+                    FilterOptionBrand.getInstance().setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"), 1);
+                    FilterOptionBrand.getInstance().show(getFragmentManager(),"FilterOptionBrand");
                 }
                 else if (position==2){
                     Intent args = new Intent();

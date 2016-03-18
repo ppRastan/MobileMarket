@@ -35,7 +35,7 @@ public class FilterCategory extends DialogFragment {
     private int pageId;
     private Map<String,Integer> mapCategoryTitleToId;
     private static FilterCategory filterCategory;
-    public static FilterCategory getInstance(String name) {
+    public static FilterCategory getInstance() {
         if(filterCategory == null){
             filterCategory = new FilterCategory();
         }
