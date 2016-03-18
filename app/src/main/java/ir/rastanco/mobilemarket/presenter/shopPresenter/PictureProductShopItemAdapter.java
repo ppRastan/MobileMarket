@@ -258,8 +258,8 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
                 "&q=30";
         //holder.imgLoader.DisplayImage(image_url_1, holder.imgP);
 
-        Drawable d=ResizeImage(R.drawable.loadingholder,holder.rowView,Configuration.shopDisplaySizeForShow);
-        Picasso.with(Configuration.ShopFragmentContext).load(image_url_1).placeholder(d).error(d).into(holder.imgP);
+//        Drawable d=ResizeImage(R.drawable.loadingholder,holder.rowView,Configuration.shopDisplaySizeForShow);
+        Picasso.with(Configuration.ShopFragmentContext).load(image_url_1).into(holder.imgP);
         /*Drawable d=ResizeImage(R.drawable.loadingholder,rowView,Configuration.shopDisplaySizeForShow);
         final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
         progressBar.getLayoutParams().height=Configuration.progressBarSize;
