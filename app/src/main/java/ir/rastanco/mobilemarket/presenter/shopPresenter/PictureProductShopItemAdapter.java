@@ -236,7 +236,11 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
         });
 
         //get main picture from server or cache
-        String picCounter = aProduct.getImagesPath().get(0);
+        String picCounter;
+        if(aProduct.getImagesPath().size()==0)
+            picCounter="no_image_path";
+        else
+            picCounter = aProduct.getImagesPath().get(0);
         holder.imgP.getLayoutParams().width=Configuration.shopDisplaySizeForShow;
         holder.imgP.getLayoutParams().height=Configuration.shopDisplaySizeForShow;
         try {
