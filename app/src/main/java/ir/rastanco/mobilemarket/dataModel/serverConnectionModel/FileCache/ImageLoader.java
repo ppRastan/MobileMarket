@@ -25,7 +25,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.utility.Configuration;
 
 
 /**
@@ -53,14 +52,14 @@ public class ImageLoader {
 
     public void DisplayImage(String url, ImageView imageView)
     {
-        Drawable d=ResizeImage(R.drawable.loadingholder,rowView, Configuration.shopDisplaySizeForShow);
+        //Drawable d=ResizeImage(R.drawable.loadingholder,rowView, Configuration.shopDisplaySizeForShow);
         imageViews.put(imageView, url);
         Bitmap bitmap=memoryCache.get(url);
         if(bitmap!=null)
             imageView.setImageBitmap(bitmap);
         else
         {
-            imageView.setImageDrawable(d);
+            //imageView.setImageDrawable(d);
             queuePhoto(url, imageView);
             //imageView.setImageResource(stub_id);
         }

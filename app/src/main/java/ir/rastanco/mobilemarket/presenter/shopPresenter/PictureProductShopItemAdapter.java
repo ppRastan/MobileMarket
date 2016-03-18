@@ -25,8 +25,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
@@ -256,10 +254,10 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
                 "&size="+
                 Configuration.shopDisplaySizeForURL +"x"+Configuration.shopDisplaySizeForURL +
                 "&q=30";
-        //holder.imgLoader.DisplayImage(image_url_1, holder.imgP);
+        holder.imgLoader.DisplayImage(image_url_1, holder.imgP);
 
-//        Drawable d=ResizeImage(R.drawable.loadingholder,holder.rowView,Configuration.shopDisplaySizeForShow);
-        Picasso.with(Configuration.ShopFragmentContext).load(image_url_1).into(holder.imgP);
+        //Drawable d=ResizeImage(R.drawable.loadingholder,holder.rowView,Configuration.shopDisplaySizeForShow);
+        //Picasso.with(Configuration.ShopFragmentContext).load(image_url_1).into(holder.imgP);
         /*Drawable d=ResizeImage(R.drawable.loadingholder,rowView,Configuration.shopDisplaySizeForShow);
         final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
         progressBar.getLayoutParams().height=Configuration.progressBarSize;
