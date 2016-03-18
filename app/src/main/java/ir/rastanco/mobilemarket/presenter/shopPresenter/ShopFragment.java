@@ -86,12 +86,12 @@ public class ShopFragment extends Fragment {
             gridview.setVisibility(View.VISIBLE);
         }
 
-        if (products.size()>0){
+        /*if (products.size()>0){
             ArrayList<Product> test=new ArrayList<Product>();
             for (int i=0;i<6;i++)
                 test.add(products.get(i));
             products=test;
-        }
+        }*/
 
         final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
         gridview.setAdapter(adapter);
