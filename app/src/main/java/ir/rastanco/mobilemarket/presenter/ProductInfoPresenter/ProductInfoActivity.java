@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.FullScreenPAgeUserGuider;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
@@ -43,7 +44,7 @@ public class ProductInfoActivity extends Activity {
         viewPager.setAdapter(new FullScreenImageAdapter(this, allProducts, allProducts.size()));
         viewPager.setCurrentItem(intent.getIntExtra("position", 0));
         if (Configuration.IstheFirtTimeGoingToThisPage)
-            startActivity(new Intent(ProductInfoActivity.this, FullScreenImageAdapter.class));
+            startActivity(new Intent(ProductInfoActivity.this, FullScreenPAgeUserGuider.class));
     }
 
     @Override

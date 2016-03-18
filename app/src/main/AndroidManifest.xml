@@ -60,7 +60,7 @@
 
         <activity android:name=".presenter.UserProfilePresenter.LoginHandler" />
 
-        <activity android:name=".presenter.FullScreenPageUserGuider"
+        <activity android:name=".presenter.FullScreenPAgeUserGuider"
             android:theme="@style/Transparent">
             <intent-filter>
                 <action android:name="ir.rastanco.mobilemarket.presenter.UserHelper" />
