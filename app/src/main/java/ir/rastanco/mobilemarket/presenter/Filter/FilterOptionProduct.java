@@ -32,7 +32,7 @@ public class FilterOptionProduct extends DialogFragment {
     private ServerConnectionHandler sch;
     private int pageId;
     private static FilterOptionProduct filterOptionProduct;
-    public static FilterOptionProduct getInstance(String name) {
+    public static FilterOptionProduct getInstance() {
         if(filterOptionProduct == null){
             filterOptionProduct = new FilterOptionProduct();
         }
