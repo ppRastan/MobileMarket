@@ -31,10 +31,13 @@ public class FilterOptionProduct extends DialogFragment {
 
     private ServerConnectionHandler sch;
     private int pageId;
-
-    public static FilterOptionProduct newInstance(String name) {
-        FilterOptionProduct f = new FilterOptionProduct();
-        return f;
+    private static FilterOptionProduct filterOptionProduct;
+    public static FilterOptionProduct getInstance(String name) {
+        if(filterOptionProduct == null){
+            filterOptionProduct = new FilterOptionProduct();
+        }
+        return filterOptionProduct;
+        // Supply num input as an argument.
     }
 
 

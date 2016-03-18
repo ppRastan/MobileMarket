@@ -34,12 +34,14 @@ public class FilterCategory extends DialogFragment {
     private ServerConnectionHandler sch;
     private int pageId;
     private Map<String,Integer> mapCategoryTitleToId;
-
-    public static FilterCategory newInstance() {
-        FilterCategory f = new FilterCategory();
-        return f;
+    private static FilterCategory filterCategory;
+    public static FilterCategory getInstance(String name) {
+        if(filterCategory == null){
+            filterCategory = new FilterCategory();
+        }
+        return filterCategory;
+        // Supply num input as an argument.
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

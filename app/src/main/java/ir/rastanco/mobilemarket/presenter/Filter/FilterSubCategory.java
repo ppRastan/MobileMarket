@@ -25,21 +25,23 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  * Created by ShaisteS on 1394/11/27.
  * DialogFragment For Displaying SubCategories Title and Child Of A SubCategory Title
  */
+
 public class FilterSubCategory extends DialogFragment{
 
     private ServerConnectionHandler sch;
     private int categoryId;
     private Map<String,Integer> mapCategoryTitleToIdACategory;
-    public static FilterSubCategory newInstance(String name) {
-        FilterSubCategory f = new FilterSubCategory();
+    private static FilterSubCategory filterSubCategory;
+    public static FilterSubCategory getInstance(String name) {
+        if(filterSubCategory == null){
+            filterSubCategory = new FilterSubCategory();
+        }
+        return filterSubCategory;
         // Supply num input as an argument.
-        return f;
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         sch=new ServerConnectionHandler(Configuration.ShopFragmentContext);
         categoryId=getArguments().getInt("categorySelectedId");
         mapCategoryTitleToIdACategory =new HashMap<String,Integer>();

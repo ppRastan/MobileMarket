@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.logging.Filter;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
@@ -27,12 +28,14 @@ public class FilterOptionBrand extends DialogFragment{
 
     private ServerConnectionHandler sch;
     private int pageId;
-
-    public static FilterOptionBrand newInstance(String name) {
-        FilterOptionBrand f = new FilterOptionBrand();
-        return f;
+    private static FilterOptionBrand filterOptionBrand;
+    public static FilterOptionBrand getInstance(String name) {
+        if(filterOptionBrand == null){
+            filterOptionBrand = new FilterOptionBrand();
+        }
+        return filterOptionBrand;
+        // Supply num input as an argument.
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

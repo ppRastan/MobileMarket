@@ -26,10 +26,14 @@ public class FilterOptionPrice extends DialogFragment {
 
     private ServerConnectionHandler sch;
     private String pageName;
+    private static FilterOptionPrice filterOptionPrice;
 
-    public static FilterOptionPrice newInstance(String name) {
-        FilterOptionPrice f = new FilterOptionPrice();
-        return f;
+    public static FilterOptionPrice getInstance(String name) {
+        if(filterOptionPrice == null){
+           filterOptionPrice = new FilterOptionPrice();
+        }
+        return filterOptionPrice;
+        // Supply num input as an argument.
     }
 
 
