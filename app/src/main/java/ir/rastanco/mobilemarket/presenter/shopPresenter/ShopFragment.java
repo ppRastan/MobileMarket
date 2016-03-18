@@ -69,7 +69,7 @@ public class ShopFragment extends Fragment {
         MyCustomLayoutManager mLayoutManager = new MyCustomLayoutManager(Configuration.ShopFragmentContext);
         gridview.setLayoutManager(mLayoutManager);
         gridview.smoothScrollToPosition(0);
-        gridview.setLayoutManager(new GridLayoutManager(Configuration.ShopFragmentContext,2));
+        gridview.setLayoutManager(new GridLayoutManager(Configuration.ShopFragmentContext, 2));
         gridview.addItemDecoration(new RecyclerViewItemDecoration(6, 6));
         final GridLayoutManager layoutManager = ((GridLayoutManager)gridview.getLayoutManager());
         final boolean firstVisiblePosition = layoutManager.findFirstVisibleItemPosition()==0;
@@ -86,9 +86,16 @@ public class ShopFragment extends Fragment {
             gridview.setVisibility(View.VISIBLE);
         }
 
+        if (products.size()>0){
+            ArrayList<Product> test=new ArrayList<Product>();
+            for (int i=0;i<6;i++)
+                test.add(products.get(i));
+            products=test;
+        }
 
         final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
         gridview.setAdapter(adapter);
+
         //refresh grid view
         final SwipeRefreshLayout mSwipeRefreshLayout= (SwipeRefreshLayout)
                 mainView.findViewById(R.id.swipe_refresh_layout);
