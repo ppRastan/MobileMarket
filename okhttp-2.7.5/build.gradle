@@ -1,2 +1,0 @@
-configurations.create("default")
-artifacts.add("default", file('okhttp-2.7.5.jar'))
