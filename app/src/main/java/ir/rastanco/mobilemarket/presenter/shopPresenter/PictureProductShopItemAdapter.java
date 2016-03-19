@@ -58,6 +58,8 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
     private String textToSend = null;
     private Dialog shareDialog;
     private Intent sendIntent;
+    private PriceUtility priceUtility;
+    private Activity shopPresenterActivity;
 
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
@@ -65,6 +67,8 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
         inflater = ( LayoutInflater ) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         allProduct =products;
         sch=new ServerConnectionHandler(myContext);
+        shopPresenterActivity =(Activity) myContext;
+
 
     }
 
@@ -77,23 +81,19 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
 
     @Override
     public void onBindViewHolder(final Holder holder, final int position) {
-
+        priceUtility= new PriceUtility();
         final Product aProduct=allProduct.get(position);
         if (aProduct.getPriceOff()==0){
             holder.priceForYou.setVisibility(View.INVISIBLE);
             holder.originalPrice.setTextColor(Color.BLACK);
-            holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-
         }
         else {
-            holder.originalPrice.setTextColor(Color.RED);
-            holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             int price= aProduct.getPrice();
             int offPrice= (price*aProduct.getPriceOff())/100;
-            String priceForYou = String.valueOf(price-offPrice);
-            double amountOfFinalPrice = Double.parseDouble(priceForYou);
-            DecimalFormat formatter = new DecimalFormat("#,###,000");
-            holder.priceForYou.setText(String.valueOf(formatter.format(amountOfFinalPrice)+" "+"تومان"));
+            holder.originalPrice.setTextColor(Color.RED);
+            holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.priceForYou = priceUtility.changeFontToYekan(holder.priceForYou,shopPresenterActivity);
+            holder.priceForYou.setText(priceUtility.formatPriceCommaSeprated(price-offPrice));
             holder.priceForYou.setVisibility(View.VISIBLE);
         }
         if(Configuration.RTL)
@@ -281,14 +281,11 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
                 .into(holder.imgP);*/
 
         holder.infoP.setText(aProduct.getTitle());
-        String priceOfCurrentGood = String.valueOf(aProduct.getPrice());
-        double amountOfFinalPrice = Double.parseDouble(priceOfCurrentGood);
-        DecimalFormat formatter = new DecimalFormat("#,###,000");
         if (aProduct.getPrice()==0) {
             holder.originalPrice.setText("به زودی ");
         }
         else
-            holder.originalPrice.setText(formatter.format(amountOfFinalPrice) + "  " + "تومان");
+        holder.originalPrice.setText(priceUtility.formatPriceCommaSeprated(aProduct.getPrice()));
         holder.imgP.setImageBitmap(holder.image);
         holder.imgP.setOnClickListener(new View.OnClickListener() {
             @Override
