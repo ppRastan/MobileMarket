@@ -15,8 +15,6 @@ import java.text.DecimalFormat;
  */
 public class PriceUtility {
 
-   private Typeface font;
-
 
     public String formatPriceCommaSeprated(int price){
         String priceInStringFormat = String.valueOf(price);
