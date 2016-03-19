@@ -60,7 +60,6 @@ public class FilterCategory extends DialogFragment {
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
-
         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,10 +90,9 @@ public class FilterCategory extends DialogFragment {
                     dismiss();
                 } else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent)) > 0) {
                     Bundle args = new Bundle();
-
                     args.putInt("categorySelectedId", mapCategoryTitleToId.get(itemSelectedContent));
                     FilterSubCategory.getInstance().setArguments(args);
-                    //FilterSubCategory.getInstance().setDialogTitle(itemSelectedContent);
+                    FilterSubCategory.getInstance().setDialogTitle(itemSelectedContent);
                     FilterSubCategory.getInstance().setTargetFragment(getFragmentManager().findFragmentByTag("Category"), 0);
                     FilterSubCategory.getInstance().show(getFragmentManager(), "SubCategory");
                     dismiss();

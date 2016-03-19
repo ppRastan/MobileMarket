@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -34,11 +36,10 @@ public class FilterSubCategory extends DialogFragment{
 
     private ServerConnectionHandler sch;
     private int categoryId;
-    private String title;
     private Map<String,Integer> mapCategoryTitleToIdACategory;
     private static FilterSubCategory filterSubCategory;
     private View dialogView;
-    private TextView text;
+    private TextView titleOfAlertDialog;
     public static FilterSubCategory getInstance() {
         if(filterSubCategory == null){
             filterSubCategory = new FilterSubCategory();
@@ -54,12 +55,12 @@ public class FilterSubCategory extends DialogFragment{
         mapCategoryTitleToIdACategory =new HashMap<String,Integer>();
         mapCategoryTitleToIdACategory =sch.MapTitleToIDForChildOfACategory(categoryId);
         dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
+        //titleOfAlertDialog = (TextView)dialogView.findViewById(R.id.title_alertdialog_group);
                getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
-        btnCancelAlertDialog.setImageResource(R.mipmap.small_back_arrow);
-        text = (TextView) dialogView.findViewById(R.id.title_alertdialog_group);
-      //  text = FilterCategory.getInstance().setAlertDialogTitle();
-        btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
+        ImageButton btnBack = (ImageButton) dialogView.findViewById(R.id.cancel);
+        btnBack.setImageResource(R.mipmap.small_back_arrow);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -76,7 +77,6 @@ public class FilterSubCategory extends DialogFragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String s=parent.getItemAtPosition(position).toString();
-                text.setText(s);
                 int catId=mapCategoryTitleToIdACategory.get(s);
 
                 if (sch.getCategoryHasChildWithId(catId)){
@@ -108,12 +108,15 @@ public class FilterSubCategory extends DialogFragment{
         return dialogView;
     }
 
-    public void show(FragmentManager supportFragmentManager, String tag) {
+    public DialogFragment show() {
+
+
+        return  FilterSubCategory.getInstance();
     }
 
-    public void setDialogTitle(String itemSelectedContent) {
-
-        text.setText(itemSelectedContent);
-    }
+    public void setDialogTitle(String title) {
+       //titleOfAlertDialog = (TextView)dialogView.findViewById(R.id.title_alertdialog_group);
+       //titleOfAlertDialog.setText(title);
+            }
 
 }
