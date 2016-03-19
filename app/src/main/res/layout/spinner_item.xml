@@ -4,10 +4,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textSize="20sp"
-    android:gravity="left"
+    android:textSize="12dp"
+    android:gravity="center"
     android:textColor="@color/black"
     android:id="@+id/spinner_text"
-    android:padding="5dip"
+    android:padding="10dp"
 
     />

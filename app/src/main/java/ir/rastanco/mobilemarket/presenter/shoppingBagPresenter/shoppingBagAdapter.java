@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -53,15 +54,9 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private ImageView imgProduct;
     private TextView nameOfEachProductTextView;
     private ImageButton btnDelete;
-    private String numberProductPrice;
-    private double amount;
     private String numberProducePriceOff;
-    private double amountOfPriceOff;
-    private DecimalFormat formatter;
     private AlertDialog.Builder alertDialog;
     private int counterSelected;
-    private double amountOfFinalPrice;
-    private String numberOfFinalPrice;
     private int finalPrice = 0;
     private int off = 0;
     private ImageLoader imgLoader;
@@ -69,6 +64,8 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private String image_url_1;
     private Map<Integer,Integer> selectedItem;
     private  PriceUtility priceUtility;
+    private TextView shoppingOffer;
+    private Integer eachproductoff;
 
     public shoppingBagAdapter(Context context, int resource, ArrayList<Integer> productsId) {
         super(context, resource, productsId);
@@ -109,7 +106,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int selectedIndex, long id) {
 
-                selectedItem.put(position,selectedIndex);
+                selectedItem.put(position, selectedIndex);
                 counterSelected = Integer.parseInt(spinnerCounter.getSelectedItem().toString());
                 serverConnectionHandler.changeShoppingNunmber(aProduct.getId(), counterSelected);
                 ObserverShoppingCancel.setShoppingCancel(true);
@@ -129,15 +126,23 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         imgLoader = new ImageLoader(shoppingBagActivityContext,rowView, Configuration.articleDisplaySizeForShow);
         eachProductPriceTextView =(TextView) rowView.findViewById(R.id.shopping_bag_price_Off_product);
         shoppingBagTotalPriceTextView = (TextView)rowView.findViewById(R.id.shopping_bag_price_for_you);
+        shoppingOffer = (TextView)rowView.findViewById(R.id.shoppingbag_offer);
         nameOfEachProductTextView.setText(aProduct.getTitle());
         shoppingBagTotalPriceTextView = priceUtility.changeFontToYekan(shoppingBagTotalPriceTextView, shoppingBagActivityContext);
         eachProductPriceTextView = priceUtility.changeFontToYekan(eachProductPriceTextView, shoppingBagActivityContext);
+        LinearLayout priceOffLinear = (LinearLayout)rowView.findViewById(R.id.priceOffLinear);
         if (aProduct.getPriceOff() != 0)
             off = ((aProduct.getPrice() * aProduct.getPriceOff()) / 100);
         finalPrice = (aProduct.getPrice()  - off );
         numberProducePriceOff = String.valueOf(off * counterSelected);
+        eachproductoff = aProduct.getPrice()-finalPrice;
+        if(eachproductoff != 0)
+        {
+        priceOffLinear.setVisibility(View.VISIBLE);
+        shoppingOffer.setVisibility(View.VISIBLE);
+        shoppingOffer.setText(shoppingBagActivityContext.getResources().getString(R.string.price_off) + "   " + priceUtility.formatPriceCommaSeprated(eachproductoff) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));}
         eachProductPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.peice) + "     " + priceUtility.formatPriceCommaSeprated(aProduct.getPrice()) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
-        shoppingBagTotalPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.price) + "     " + priceUtility.formatPriceCommaSeprated(finalPrice) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
+        shoppingBagTotalPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.price_for_you) + "     " + priceUtility.formatPriceCommaSeprated(finalPrice) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
         picCounter = aProduct.getImagesPath().get(0);
         try {
             picCounter= URLEncoder.encode(picCounter, "UTF-8");

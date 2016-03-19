@@ -168,9 +168,8 @@ public class ShopFragment extends Fragment {
                 //show Dialog Fragment
                 Bundle args = new Bundle();
                 args.putInt("pageId", pageId);
-                FilterCategory filterCategory = new FilterCategory();
-                filterCategory.setArguments(args);
-                filterCategory.show(myContext.getFragmentManager(), "Category");
+                FilterCategory.getInstance().setArguments(args);
+                FilterCategory.getInstance().show(myContext.getFragmentManager(), "Category");
                 //Change grid view data after set filter
                 ObserverFilterCategory.changeFilterCategoryListener(new ObserverFilterCategoryListener() {
                     @Override

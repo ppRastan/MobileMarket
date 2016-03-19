@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,6 +36,7 @@ public class FilterCategory extends DialogFragment {
     private int pageId;
     private Map<String,Integer> mapCategoryTitleToId;
     private static FilterCategory filterCategory;
+    private TextView titleOfAlertDialog;
     public static FilterCategory getInstance() {
         if(filterCategory == null){
             filterCategory = new FilterCategory();
@@ -58,22 +60,16 @@ public class FilterCategory extends DialogFragment {
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
-        ImageButton btnResetAlertDialog = (ImageButton) dialogView.findViewById(R.id.reset_action);
+
         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
             }
         });
-        btnResetAlertDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dismiss();
-            }
-        });
-        TextView text = (TextView) dialogView.findViewById(R.id.title_alertdialog_group);
-
+        titleOfAlertDialog = (TextView) dialogView.findViewById(R.id.title_alertdialog_group);
+        titleOfAlertDialog.setText(Configuration.ShopFragmentContext.getResources().getString(R.string.choose_group));
+        btnCancelAlertDialog.setImageResource(R.mipmap.ic_cancel_dialog);
         ArrayList<String> subCategoryTitle = sch.getTitleOfChildOfACategory(pageId);
         //add filter=All
         subCategoryTitle.add(dialogView.getResources().getString(R.string.all));
@@ -86,8 +82,7 @@ public class FilterCategory extends DialogFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String itemSelectedContent = parent.getItemAtPosition(position).toString();
-
+                 String itemSelectedContent = parent.getItemAtPosition(position).toString();
                 if (itemSelectedContent.equals(dialogView.getResources().getString(R.string.all))) {
                     Intent args = new Intent();
                     args.putExtra("all",0);
@@ -96,11 +91,12 @@ public class FilterCategory extends DialogFragment {
                     dismiss();
                 } else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent)) > 0) {
                     Bundle args = new Bundle();
+
                     args.putInt("categorySelectedId", mapCategoryTitleToId.get(itemSelectedContent));
-                    FilterSubCategory filterSubCategory = new FilterSubCategory();
-                    filterSubCategory.setArguments(args);
-                    filterSubCategory.setTargetFragment(getFragmentManager().findFragmentByTag("Category"), 0);
-                    filterSubCategory.show(getFragmentManager(), "SubCategory");
+                    FilterSubCategory.getInstance().setArguments(args);
+                    //FilterSubCategory.getInstance().setDialogTitle(itemSelectedContent);
+                    FilterSubCategory.getInstance().setTargetFragment(getFragmentManager().findFragmentByTag("Category"), 0);
+                    FilterSubCategory.getInstance().show(getFragmentManager(), "SubCategory");
                     dismiss();
                 } else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent))==0) {
                     Intent args = new Intent();
@@ -148,4 +144,6 @@ public class FilterCategory extends DialogFragment {
     public void show(FragmentManager fragmentManager, String tag) {
 
     }
+
+
 }

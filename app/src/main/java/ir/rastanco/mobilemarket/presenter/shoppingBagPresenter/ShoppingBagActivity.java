@@ -46,7 +46,6 @@ public class ShoppingBagActivity extends Activity {
     private Security security;
     private ArrayList<Integer> productsId;
     private ListView lvShoppingBag;
-    private TextView priceOffTextView;
     private PriceUtility priceUtility;
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -78,7 +77,6 @@ public class ShoppingBagActivity extends Activity {
         }
 
         totalPriceTextView.setText(String.valueOf(priceUtility.formatPriceCommaSeprated(finalPrice)+"  "+"تومان"));
-        priceOffTextView.setText(String.valueOf(priceUtility.formatPriceCommaSeprated(finalOff))+"  "+"تومان");
         confirmShopping = (Button)findViewById(R.id.ok_shop);
         confirmShopping.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,9 +170,7 @@ public class ShoppingBagActivity extends Activity {
     private void setYekanFont() {
         PriceUtility priceUtility = new PriceUtility();
         totalPriceTextView = (TextView)findViewById(R.id.total_price);
-        priceOffTextView = (TextView)findViewById(R.id.total_price_off);
         totalPriceTextView = priceUtility.changeFontToYekan(totalPriceTextView,this);
-        priceOffTextView = priceUtility.changeFontToYekan(priceOffTextView,this);
 
     }
 

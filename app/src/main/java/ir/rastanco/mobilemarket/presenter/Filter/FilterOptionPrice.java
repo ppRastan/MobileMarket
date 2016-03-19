@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -44,18 +45,19 @@ public class FilterOptionPrice extends DialogFragment {
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
-        ImageButton btnResetAlertDialog = (ImageButton) dialogView.findViewById(R.id.reset_action);
         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
             }
         });
-        btnResetAlertDialog.setOnClickListener(new View.OnClickListener() {
+        btnCancelAlertDialog.setImageResource(R.mipmap.small_back_arrow);
+        TextView titleBrand = (TextView)dialogView.findViewById(R.id.title_alertdialog_group);
+        titleBrand.setText(Configuration.ShopFragmentContext.getResources().getString(R.string.choose_price));
+        btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                dismiss();
             }
         });
         ArrayList<String> priceFilter = new ArrayList<String>();

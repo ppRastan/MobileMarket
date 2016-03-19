@@ -40,7 +40,6 @@
     <string name="number_of_shopping_items">تعداد :</string>
     <string name="added_to_basket">کالا به سبد خرید شما افزوده شد</string>
     <string name="delete">حذف</string>
-    <string name="price">قیمت برای شما:</string>
     <string name="peice">قیمت :</string>
     <string name="price_off">تخفیف :</string>
     <string name="telegram_not_installed">تلگرام روی گوشی شما نصب نیست</string>
@@ -88,6 +87,11 @@
     <string name="firstTimeStamp">1352689345</string>
     <string name="firstArticleNumber">25</string>
     <string name="no_product_to_show">این مجموعه فعلا فاقد محصول است</string>
+    <string name="choose_group">انتخاب دسته</string>
+    <string name="filter">فیلتر کردن براساس :</string>
+    <string name="choose_brand">انتخاب برند</string>
+    <string name="choose_price">انتخاب محدوده قیمت</string>
+    <string name="price_for_you">قیمت برای شما</string>
 
 
 </resources>

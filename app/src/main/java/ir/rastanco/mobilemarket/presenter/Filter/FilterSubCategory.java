@@ -12,6 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,14 +27,18 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 /**
  * Created by ShaisteS on 1394/11/27.
  * DialogFragment For Displaying SubCategories Title and Child Of A SubCategory Title
+ * this dialog will displays when we choose group for example "مبل راحتی "
  */
 
 public class FilterSubCategory extends DialogFragment{
 
     private ServerConnectionHandler sch;
     private int categoryId;
+    private String title;
     private Map<String,Integer> mapCategoryTitleToIdACategory;
     private static FilterSubCategory filterSubCategory;
+    private View dialogView;
+    private TextView text;
     public static FilterSubCategory getInstance() {
         if(filterSubCategory == null){
             filterSubCategory = new FilterSubCategory();
@@ -46,24 +53,18 @@ public class FilterSubCategory extends DialogFragment{
         categoryId=getArguments().getInt("categorySelectedId");
         mapCategoryTitleToIdACategory =new HashMap<String,Integer>();
         mapCategoryTitleToIdACategory =sch.MapTitleToIDForChildOfACategory(categoryId);
-        final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
+               getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
-        ImageButton btnResetAlertDialog = (ImageButton)dialogView.findViewById(R.id.reset_action);
+        btnCancelAlertDialog.setImageResource(R.mipmap.small_back_arrow);
+        text = (TextView) dialogView.findViewById(R.id.title_alertdialog_group);
+      //  text = FilterCategory.getInstance().setAlertDialogTitle();
         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();
+
             }
         });
-        btnResetAlertDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dismiss();
-            }
-        });
-
         final ArrayList<String> subCategoryChildTitle=sch.getTitleOfChildOfACategory(categoryId);
         final ListView listSubCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
@@ -75,6 +76,7 @@ public class FilterSubCategory extends DialogFragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String s=parent.getItemAtPosition(position).toString();
+                text.setText(s);
                 int catId=mapCategoryTitleToIdACategory.get(s);
 
                 if (sch.getCategoryHasChildWithId(catId)){
@@ -108,4 +110,10 @@ public class FilterSubCategory extends DialogFragment{
 
     public void show(FragmentManager supportFragmentManager, String tag) {
     }
+
+    public void setDialogTitle(String itemSelectedContent) {
+
+        text.setText(itemSelectedContent);
+    }
+
 }

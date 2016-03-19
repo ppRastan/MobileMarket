@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -49,25 +50,18 @@ public class FilterOptionProduct extends DialogFragment {
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
-        ImageButton btnResetAlertDialog = (ImageButton) dialogView.findViewById(R.id.reset_action);
+        TextView titleBrand = (TextView)dialogView.findViewById(R.id.title_alertdialog_group);
+        titleBrand.setText(Configuration.ShopFragmentContext.getResources().getString(R.string.filter));
         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
             }
         });
-        btnResetAlertDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dismiss();
-            }
-        });
-
         ArrayList<String> optionProductFilter = new ArrayList<String>();
         optionProductFilter.add(dialogView.getResources().getString(R.string.filterPriceTitle));
         optionProductFilter.add(dialogView.getResources().getString(R.string.filterBrandTitle));
-        optionProductFilter.add(dialogView.getResources().getString(R.string.all));
+        btnCancelAlertDialog.setImageResource(R.mipmap.ic_cancel_dialog);
 
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
@@ -87,13 +81,7 @@ public class FilterOptionProduct extends DialogFragment {
                     FilterOptionBrand.getInstance().setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"), 1);
                     FilterOptionBrand.getInstance().show(getFragmentManager(),"FilterOptionBrand");
                 }
-                else if (position==2){
-                    Intent args = new Intent();
-                    args.putExtra("all", dialogView.getResources().getString(R.string.all));
-                    setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"),2);
-                    onActivityResult(getTargetRequestCode(),2,args);
 
-                }
                 dismiss();
             }
         });
@@ -117,16 +105,7 @@ public class FilterOptionProduct extends DialogFragment {
                 DataFilter.FilterOption="brand";
                 ObserverFilterBrand.setAddFilterBrand(true);
                 break;
-            case 2:
-                Bundle bundleAll=data.getExtras();
-                DataFilter.FilterAll=bundleAll.getString("all");
-                DataFilter.FilterOption="all";
-                ObserverFilterAll.setAddFilterAll(true);
-                break;
         }
     }
 
-    public void show(FragmentManager fragmentManager, String filterProductOption) {
-
-    }
 }

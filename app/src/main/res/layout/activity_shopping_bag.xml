@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:weightSum="11.5"
+    android:weightSum="10.5"
     android:layout_height="match_parent"
     android:background="@color/decoriss">
     <LinearLayout
@@ -72,39 +72,6 @@
 
         </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="8"
-        android:background="@color/decoriss"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_marginRight="2dp"
-            android:layout_weight="3"
-            android:layout_height="match_parent"
-            android:text="@string/price_off"
-            android:singleLine="true"
-            android:layout_gravity="right"
-            android:gravity="right|center_vertical"
-            android:textColor="@color/red"
-            android:paddingRight="9dp"
-            android:textSize="16dp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_weight="5"
-            android:layout_height="match_parent"
-            android:padding="3dp"
-            android:gravity="center_vertical|left"
-            android:id="@+id/total_price_off"
-            android:textColor="@color/red"
-            android:textSize="18dp"/>
-
-    </LinearLayout>
 
     <ListView
             android:layout_width="match_parent"
