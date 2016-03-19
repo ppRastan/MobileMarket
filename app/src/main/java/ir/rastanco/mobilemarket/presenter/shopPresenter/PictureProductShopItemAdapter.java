@@ -329,7 +329,7 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
             Activity activity;
             activity =(Activity) myContext;
             infoP=(TextView) itemView.findViewById(R.id.txt_infoProduct);
-            infoP = priceUtility.changeFontToYekan(infoP,activity);
+            infoP = priceUtility.changeFontToYekan(infoP,myContext);
             originalPrice =(TextView) itemView.findViewById(R.id.txt_priceProduct);
             originalPrice = priceUtility.changeFontToYekan(originalPrice,activity);
             priceForYou = (TextView)itemView.findViewById(R.id.txt_price_for_you);

@@ -26,16 +26,14 @@ public class PriceUtility {
         return finalPriceWithComma;
             }
 
-         public TextView changeFontToYekan(TextView textView , Activity activity){
-         font= Typeface.createFromAsset(activity.getAssets(), "fonts/yekan.ttf");
-         textView.setTypeface(font);
+         public TextView changeFontToYekan(TextView textView , Context context){
+         textView.setTypeface(FontHelper.get(context,"fonts/yekan.ttf"));
          return textView;
     }
 
 
-    public Button ChangeButtonFont(Button addToBasketBtn, Activity activity) {
-        font= Typeface.createFromAsset(activity.getAssets(), "fonts/yekan.ttf");
-        addToBasketBtn.setTypeface(font);
+    public Button ChangeButtonFont(Button addToBasketBtn, Context context) {
+        addToBasketBtn.setTypeface(FontHelper.get(context,"fonts/yekan.ttf"));
         return addToBasketBtn;
     }
 }

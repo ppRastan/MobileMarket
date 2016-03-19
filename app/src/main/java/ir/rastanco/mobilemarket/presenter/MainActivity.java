@@ -102,9 +102,6 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Category> categories;
     private ArrayList<String> mainCategoryTitle;
     private Map<String,Integer> mapTitleToIdMainCategory;
-    private String second_page;
-    private String third_page;
-    private String fourth_page;
     private LinearLayout toolbarSearch;
     private PhoneCallListener phoneListener;
     private TelephonyManager telephonyManager;
