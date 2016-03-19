@@ -11,16 +11,18 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 
 public class LoginHandlerAdapter extends BaseAdapter{
-    String [] result;
+    ArrayList <String> result;
     Context context;
     int [] imageId;
     private static LayoutInflater inflater=null;
     private ServerConnectionHandler sch;
-    public LoginHandlerAdapter(AccountManager mainActivity, String[] prgmNameList, int[] prgmImages) {
+    public LoginHandlerAdapter(AccountManager mainActivity, ArrayList<String> prgmNameList, int[] prgmImages) {
 
         result=prgmNameList;
         context=mainActivity;
@@ -30,7 +32,7 @@ public class LoginHandlerAdapter extends BaseAdapter{
     }
     @Override
     public int getCount() {
-        return result.length;
+        return result.size();
     }
 
     @Override
@@ -55,7 +57,7 @@ public class LoginHandlerAdapter extends BaseAdapter{
         rowView = inflater.inflate(R.layout.list_view_account_activity_items, null);
         holder.tv=(TextView) rowView.findViewById(R.id.text_of_list_view);
         holder.img=(ImageView) rowView.findViewById(R.id.image_of_list_view);
-        holder.tv.setText(result[position]);
+        holder.tv.setText(result.get(position));
         holder.img.setImageResource(imageId[position]);
         rowView.setOnClickListener(new OnClickListener() {
             @Override

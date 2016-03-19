@@ -112,8 +112,6 @@ public class MainActivity extends AppCompatActivity {
     private ShoppingBagActivity shoppingBagActivity;
     private Menu menu;
     private String version;
-    private Typeface yekanFont;
-
     private ProgressDialog pDialog;
     public static final int progress_bar_type = 0;
 
@@ -162,22 +160,12 @@ public class MainActivity extends AppCompatActivity {
                         icon, sch.getCountProductShop());
             }
         });
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         Configuration.MainPager=viewPager;
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabTextColors(Color.BLACK, Color.RED);
-        yekanFont= Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf");
         this.changeTabsFont();
 
         //DataBase empty

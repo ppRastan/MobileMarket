@@ -17,8 +17,6 @@ means that it appears once when you run application
  */
 public class FullScreenPAgeUserGuider extends Activity {
 
-    private ImageButton goToRight;
-    private ImageButton goToLeft;
     float x1,x2,y1,y2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,24 +26,6 @@ public class FullScreenPAgeUserGuider extends Activity {
 
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
-        goToLeft = (ImageButton)findViewById(R.id.go_to_left);
-        goToRight = (ImageButton)findViewById(R.id.go_to_right);
-        goToLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // overridePendingTransition(R.anim.animation_enter,
-                 //       R.anim.animation_leave);
-                onBackPressed();
-            }
-        });
-        goToRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // overridePendingTransition(R.anim.animation_leave,
-                //        R.anim.animation_enter);
-                onBackPressed();
-            }
-        });
     }
     public boolean onTouchEvent(MotionEvent touchevent)
     {
