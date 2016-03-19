@@ -21,16 +21,13 @@ public class ProductInfoItemAdapter extends ArrayAdapter<ProductOption> {
 
     private ArrayList<ProductOption> options;
     private Activity myContext;
-    private Typeface yekanFont;
     private TextView txtTitle;
-    //private TextView txtValue;
     private LayoutInflater inflater;
     private View rowView;
     public ProductInfoItemAdapter(Context context, int resource, ArrayList<ProductOption> allProductOptions) {
         super(context, resource,allProductOptions);
         options = allProductOptions;
         myContext = (Activity) context;
-        yekanFont = Typeface.createFromAsset(myContext.getAssets(),"fonts/yekan.ttf");
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -39,8 +36,6 @@ public class ProductInfoItemAdapter extends ArrayAdapter<ProductOption> {
         rowView = inflater.inflate(R.layout.product_info_item, null);
         txtTitle=(TextView)rowView.findViewById(R.id.txt_title);
         txtTitle.setText(options.get(position).getTitle()+" : "+options.get(position).getValue() );
-        txtTitle.setTypeface(yekanFont);
-
         return rowView;
     }
 }

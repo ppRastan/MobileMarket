@@ -29,10 +29,6 @@ public class ProductInfoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.swip_product_gallery);
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-
-            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        }*/
         Configuration.ProductInfoContext = this;
         intent = this.getIntent();
         productBundle = new Bundle();

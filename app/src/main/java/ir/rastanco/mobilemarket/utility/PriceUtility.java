@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -15,6 +16,7 @@ import java.text.DecimalFormat;
 public class PriceUtility {
 
    private Typeface font;
+
 
     public String formatPriceCommaSeprated(int price){
         String priceInStringFormat = String.valueOf(price);
@@ -30,9 +32,11 @@ public class PriceUtility {
          return textView;
     }
 
-    public TextView lineDisplayerthroughNumber(TextView textViewWithLine , String price){
-        textViewWithLine.setPaintFlags(textViewWithLine.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        return textViewWithLine;
+
+    public Button ChangeButtonFont(Button addToBasketBtn, Activity activity) {
+        font= Typeface.createFromAsset(activity.getAssets(), "fonts/yekan.ttf");
+        addToBasketBtn.setTypeface(font);
+        return addToBasketBtn;
     }
 }
 
