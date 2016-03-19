@@ -108,11 +108,9 @@ public class FilterSubCategory extends DialogFragment{
         return dialogView;
     }
 
-    public DialogFragment show() {
+    public void show(FragmentManager supportFragmentManager, String tag) {
 
-
-        return  FilterSubCategory.getInstance();
-    }
+        }
 
     public void setDialogTitle(String title) {
        //titleOfAlertDialog = (TextView)dialogView.findViewById(R.id.title_alertdialog_group);

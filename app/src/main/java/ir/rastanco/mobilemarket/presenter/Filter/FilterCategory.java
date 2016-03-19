@@ -70,8 +70,9 @@ public class FilterCategory extends DialogFragment {
         titleOfAlertDialog.setText(Configuration.ShopFragmentContext.getResources().getString(R.string.choose_group));
         btnCancelAlertDialog.setImageResource(R.mipmap.ic_cancel_dialog);
         ArrayList<String> subCategoryTitle = sch.getTitleOfChildOfACategory(pageId);
+
         //add filter=All
-        subCategoryTitle.add(dialogView.getResources().getString(R.string.all));
+        subCategoryTitle.add(0,dialogView.getResources().getString(R.string.all));
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
@@ -140,6 +141,7 @@ public class FilterCategory extends DialogFragment {
     }
 
     public void show(FragmentManager fragmentManager, String tag) {
+
 
     }
 
