@@ -73,10 +73,10 @@ public class LoginHandler extends AppCompatActivity {
                         finish();
                     }
                     if (response.get(0).equals("key_expired"))
-                        Toast.makeText(Configuration.UserLoginContext, "دوباره تلاش کنید، سپاسگزار",
+                        Toast.makeText(Configuration.UserLoginContext,Configuration.UserLoginContext.getResources().getString(R.string.try_more),
                                 Toast.LENGTH_LONG).show();
                     if (response.get(0).equals("user_pass_invalid"))
-                        Toast.makeText(Configuration.UserLoginContext, "نام کاربری یا رمز ورود صحیح نمی باشد",
+                        Toast.makeText(Configuration.UserLoginContext,Configuration.UserLoginContext.getResources().getString(R.string.not_correct),
                                 Toast.LENGTH_LONG).show();
 
                 }

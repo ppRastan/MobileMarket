@@ -95,6 +95,8 @@
     <string name="previous_shoped_items">خریدهای گذشته ی من</string>
     <string name="liked">علاقه مندی ها</string>
     <string name="exit">خروج از حساب کاربری</string>
+    <string name="try_more">دوباره تلاش کنید</string>
+    <string name="not_correct">نام کاربری یا رمزعبور صحیح نمی باشد</string>
 
 
 </resources>

@@ -1,5 +1,10 @@
 package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
-
+/*
+ created by parisa rashidinezhad
+ this adapter handled favourite items that user added during application
+ log off configuration handled
+ previous shopped items handled
+ */
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -67,6 +72,7 @@ public class LoginHandlerAdapter extends BaseAdapter{
                     case 0:
                         Intent lastShoppingProduct=new Intent(context,UserLastShoppingProduct.class);
                         context.startActivity(lastShoppingProduct);
+                        //open activity from down to top
                         ((Activity)context).overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                         ((Activity)context).finish();
                         break;

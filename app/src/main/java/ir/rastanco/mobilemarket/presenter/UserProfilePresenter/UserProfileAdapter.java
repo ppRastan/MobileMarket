@@ -29,14 +29,12 @@ public class UserProfileAdapter extends ArrayAdapter<Product> {
     private ArrayList<Product> products;
     private LayoutInflater inflater;
     private View rowView;
-    private Typeface yekanFont;
 
 
     public UserProfileAdapter(Context context, int resource, ArrayList<Product> allProduct) {
         super(context, resource, allProduct);
         myContext = (Activity) context;
         products = allProduct;
-        yekanFont = Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf");
     }
 
     public View getView(final int position, View convertView, final ViewGroup parent) {
@@ -44,7 +42,6 @@ public class UserProfileAdapter extends ArrayAdapter<Product> {
         inflater = myContext.getLayoutInflater();
         rowView = inflater.inflate(R.layout.user_profile_like_product_item, null);
         TextView txtProductName=(TextView)rowView.findViewById(R.id.txt_likeProductTitle);
-        ImageButton imbLike=(ImageButton)rowView.findViewById(R.id.imb_like);
         txtProductName.setText(products.get(position).getTitle());
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override

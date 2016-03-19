@@ -15,6 +15,7 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.ProductShop;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,13 +37,13 @@ public class LastShoppingItemAdapter extends ArrayAdapter<ProductShop> {
     private TextView invoiceNum;
     private TextView invoiceDate;
     private TextView invoiceStatus;
-    private Typeface yekanFont;
+    private PriceUtility priceUtility;
 
     public LastShoppingItemAdapter(Context context, int resource, ArrayList<ProductShop> productsShop) {
         super(context, resource,productsShop);
         myContext=(Activity)context;
         allProductsShop=productsShop;
-        yekanFont = Typeface.createFromAsset(myContext.getAssets(),"fonts/yekan.ttf");
+        priceUtility = new PriceUtility();
 
 
     }
@@ -61,15 +62,15 @@ public class LastShoppingItemAdapter extends ArrayAdapter<ProductShop> {
         invoiceNum=(TextView) rowView.findViewById(R.id.txt_invoiceNum);
         invoiceDate=(TextView)rowView.findViewById(R.id.txt_invoceDate);
         invoiceStatus=(TextView)rowView.findViewById(R.id.txt_invoiceStatus);
-        invoiceNum.setTypeface(yekanFont);
-        invoiceDate.setTypeface(yekanFont);
-        invoiceStatus.setTypeface(yekanFont);
+        invoiceNum = priceUtility.changeFontToYekan(invoiceNum , myContext);
+        invoiceDate = priceUtility.changeFontToYekan(invoiceDate , myContext);
+        invoiceStatus = priceUtility.changeFontToYekan(invoiceStatus,myContext);
 
         invoiceNum.setText(myContext.getResources().getString(R.string.invoice_number)+allProductsShop.get(position).getInvoiceNumber());
 
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(Integer.parseInt(allProductsShop.get(position).getTimeStamp()));
-        String date = DateFormat.format("yyyy-MM-dd", cal).toString();
+        //String date = DateFormat.format("yyyy-MM-dd", cal).toString();
         return rowView;
     }
 }
