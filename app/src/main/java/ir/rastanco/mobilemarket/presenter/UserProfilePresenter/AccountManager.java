@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.utility.Configuration;
-
-import java.util.ArrayList;
 
 
 public class AccountManager extends AppCompatActivity {
@@ -30,6 +30,8 @@ public class AccountManager extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         Configuration.AccountManagerContext=this;
+        String s=Configuration.AccountManagerContext.getResources().getString(R.string.pref_previously_started);
+        String d=getApplicationContext().getResources().getString(R.string.pref_previously_started);
 
         accountListView = (ListView)findViewById(R.id.account_lv);
         accountListView.setAdapter(new LoginHandlerAdapter(this, listViewTexts,listViewImages));
