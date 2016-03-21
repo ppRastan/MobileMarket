@@ -30,7 +30,8 @@ import java.text.DecimalFormat;
 
 
     public String formatPriceCommaSeprated(int price)
-    {
+    {   //TODO for samane compare this method with changeFontToYekan (exist in this class) .
+        //I want just one Object of DecimalFormat class as same as i did FontHelper in chageFontToYekan method
         priceInStringFormat = String.valueOf(price);
         amountOfFinalPrice = Double.parseDouble(priceInStringFormat);
         formatter = new DecimalFormat("#,###,000");
