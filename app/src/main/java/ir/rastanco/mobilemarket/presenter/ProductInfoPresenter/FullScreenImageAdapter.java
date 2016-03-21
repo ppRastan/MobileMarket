@@ -64,7 +64,6 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private Intent sendIntent;
     private Button addToBasketBtn;
     private String numberOfFinalPrice;
-    private PriceUtility priceUtility;
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
         this.products=allProducts;
@@ -72,7 +71,6 @@ public class FullScreenImageAdapter extends PagerAdapter {
         activity =(Activity) context;
         sch=new ServerConnectionHandler(Configuration.ProductInfoContext);
         aProduct=new Product();
-        priceUtility = new PriceUtility();
 
     }
 
@@ -109,7 +107,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         if (products.get(position).getPriceOff()==0 && products.get(position).getPrice()!=0){
             int price=products.get(position).getPrice();
             numberOfFinalPrice = String.valueOf(price);
-            addToBasketBtn.setText("قیمت : "+" "+priceUtility.formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice)) + "  " + "تومان");
+            addToBasketBtn.setText("قیمت : "+" "+PriceUtility.getInstance().formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice)) + "  " + "تومان");
         }
         //این محصول تخفیف دارد
         if (products.get(position).getPriceOff()!=0 && products.get(position).getPrice()!=0)
@@ -118,12 +116,12 @@ public class FullScreenImageAdapter extends PagerAdapter {
             int off=(price*products.get(position).getPriceOff())/100;
             int priceForYou=price-off;
             numberOfFinalPrice = String.valueOf(priceForYou);
-            addToBasketBtn.setText("قیمت برای شما:"+" "+priceUtility.formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice)) + "  " + "تومان");
+            addToBasketBtn.setText("قیمت برای شما:"+" "+PriceUtility.getInstance().formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice)) + "  " + "تومان");
             //addToBasketBtn.invalidateDrawable(null);
 
         }
 
-       addToBasketBtn = priceUtility.ChangeButtonFont(addToBasketBtn,activity);
+       addToBasketBtn = PriceUtility.getInstance().ChangeButtonFont(addToBasketBtn,activity);
         addToBasketBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -58,7 +58,6 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
     private String textToSend = null;
     private Dialog shareDialog;
     private Intent sendIntent;
-    private PriceUtility priceUtility;
     private Activity shopPresenterActivity;
 
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
@@ -81,7 +80,6 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
 
     @Override
     public void onBindViewHolder(final Holder holder, final int position) {
-        priceUtility= new PriceUtility();
         final Product aProduct=allProduct.get(position);
         if (aProduct.getPriceOff()==0){
             holder.priceForYou.setVisibility(View.INVISIBLE);
@@ -92,8 +90,8 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
             int offPrice= (price*aProduct.getPriceOff())/100;
             holder.originalPrice.setTextColor(Color.RED);
             holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            holder.priceForYou = priceUtility.changeFontToYekan(holder.priceForYou,shopPresenterActivity);
-            holder.priceForYou.setText(priceUtility.formatPriceCommaSeprated(price-offPrice));
+            holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou, shopPresenterActivity);
+            holder.priceForYou.setText(PriceUtility.getInstance().formatPriceCommaSeprated(price - offPrice));
             holder.priceForYou.setVisibility(View.VISIBLE);
         }
         if(Configuration.RTL)
@@ -285,7 +283,7 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
             holder.originalPrice.setText("به زودی ");
         }
         else
-        holder.originalPrice.setText(priceUtility.formatPriceCommaSeprated(aProduct.getPrice()));
+        holder.originalPrice.setText(PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice()));
         holder.imgP.setImageBitmap(holder.image);
         holder.imgP.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -46,11 +46,9 @@ public class ShoppingBagActivity extends Activity {
     private Security security;
     private ArrayList<Integer> productsId;
     private ListView lvShoppingBag;
-    private PriceUtility priceUtility;
     protected void onCreate(Bundle savedInstanceState) {
 
         Configuration.ShoppingBagContext =this;
-        priceUtility = new PriceUtility();
         security =new Security();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_bag);
@@ -76,7 +74,7 @@ public class ShoppingBagActivity extends Activity {
             finalPrice=finalPrice+price;
         }
 
-        totalPriceTextView.setText(String.valueOf(priceUtility.formatPriceCommaSeprated(finalPrice)+"  "+"تومان"));
+        totalPriceTextView.setText(String.valueOf(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice)+"  "+"تومان"));
         confirmShopping = (Button)findViewById(R.id.ok_shop);
         confirmShopping.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +137,7 @@ public class ShoppingBagActivity extends Activity {
                     finalPrice = finalPrice + price;
 
                 }
-                totalPriceTextView.setText(priceUtility.formatPriceCommaSeprated(finalPrice));
+                totalPriceTextView.setText(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice));
             }
         });
     }
@@ -168,9 +166,8 @@ public class ShoppingBagActivity extends Activity {
     }
 
     private void setYekanFont() {
-        PriceUtility priceUtility = new PriceUtility();
         totalPriceTextView = (TextView)findViewById(R.id.total_price);
-        totalPriceTextView = priceUtility.changeFontToYekan(totalPriceTextView,this);
+        totalPriceTextView = PriceUtility.getInstance().changeFontToYekan(totalPriceTextView, this);
 
     }
 

@@ -63,7 +63,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private String picCounter;
     private String image_url_1;
     private Map<Integer,Integer> selectedItem;
-    private  PriceUtility priceUtility;
     private TextView shoppingOffer;
     private Integer eachproductoff;
 
@@ -71,7 +70,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         super(context, resource, productsId);
         selectedProducts = productsId;
         shoppingBagActivityContext =(Activity) context;
-        priceUtility = new PriceUtility();
         serverConnectionHandler =new ServerConnectionHandler(context);
         spinnerList = new ArrayList<String>();
         this.fillSpinnerItems();
@@ -128,8 +126,8 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         shoppingBagTotalPriceTextView = (TextView)rowView.findViewById(R.id.shopping_bag_price_for_you);
         shoppingOffer = (TextView)rowView.findViewById(R.id.shoppingbag_offer);
         nameOfEachProductTextView.setText(aProduct.getTitle());
-        shoppingBagTotalPriceTextView = priceUtility.changeFontToYekan(shoppingBagTotalPriceTextView, shoppingBagActivityContext);
-        eachProductPriceTextView = priceUtility.changeFontToYekan(eachProductPriceTextView, shoppingBagActivityContext);
+        shoppingBagTotalPriceTextView = PriceUtility.getInstance().changeFontToYekan(shoppingBagTotalPriceTextView, shoppingBagActivityContext);
+        eachProductPriceTextView = PriceUtility.getInstance().changeFontToYekan(eachProductPriceTextView, shoppingBagActivityContext);
         LinearLayout priceOffLinear = (LinearLayout)rowView.findViewById(R.id.priceOffLinear);
         if (aProduct.getPriceOff() != 0)
             off = ((aProduct.getPrice() * aProduct.getPriceOff()) / 100);
@@ -140,9 +138,9 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         {
         priceOffLinear.setVisibility(View.VISIBLE);
         shoppingOffer.setVisibility(View.VISIBLE);
-        shoppingOffer.setText(shoppingBagActivityContext.getResources().getString(R.string.price_off) + "   " + priceUtility.formatPriceCommaSeprated(eachproductoff) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));}
-        eachProductPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.peice) + "     " + priceUtility.formatPriceCommaSeprated(aProduct.getPrice()) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
-        shoppingBagTotalPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.price_for_you) + "     " + priceUtility.formatPriceCommaSeprated(finalPrice) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
+        shoppingOffer.setText(shoppingBagActivityContext.getResources().getString(R.string.price_off) + "   " + PriceUtility.getInstance().formatPriceCommaSeprated(eachproductoff) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));}
+        eachProductPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.peice) + "     " + PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice()) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
+        shoppingBagTotalPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.price_for_you) + "     " + PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
         picCounter = aProduct.getImagesPath().get(0);
         try {
             picCounter= URLEncoder.encode(picCounter, "UTF-8");
@@ -201,7 +199,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         spinnerValueInString = spinnerCounter.getSelectedItem().toString();
         spinnerValueInInteger = Integer.parseInt(spinnerValueInString);
         spinnerTextView = (TextView)spinnerView.findViewById(R.id.spinner_text);
-        spinnerTextView = priceUtility.changeFontToYekan(spinnerTextView,shoppingBagActivityContext);
+        spinnerTextView = PriceUtility.getInstance().changeFontToYekan(spinnerTextView, shoppingBagActivityContext);
 
     }
 

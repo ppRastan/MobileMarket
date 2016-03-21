@@ -21,7 +21,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 public class ProductInfoActivity extends Activity {
 
     private ArrayList<Product> allProducts;
-    private LayoutInflater inflater;
+    //private LayoutInflater inflater;
     private ViewPager viewPager;
     private Intent intent;
     private Bundle productBundle;
@@ -34,8 +34,8 @@ public class ProductInfoActivity extends Activity {
         productBundle = new Bundle();
         productBundle = intent.getExtras();
         allProducts = productBundle.getParcelableArrayList("allProduct");
-        ServerConnectionHandler sch = new ServerConnectionHandler(Configuration.ProductInfoContext);
-        inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //ServerConnectionHandler sch = new ServerConnectionHandler(Configuration.ProductInfoContext);
+        //inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new FullScreenImageAdapter(this, allProducts, allProducts.size()));
         viewPager.setCurrentItem(intent.getIntExtra("position", 0));

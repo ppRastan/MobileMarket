@@ -37,15 +37,10 @@ public class LastShoppingItemAdapter extends ArrayAdapter<ProductShop> {
     private TextView invoiceNum;
     private TextView invoiceDate;
     private TextView invoiceStatus;
-    private PriceUtility priceUtility;
-
     public LastShoppingItemAdapter(Context context, int resource, ArrayList<ProductShop> productsShop) {
         super(context, resource,productsShop);
         myContext=(Activity)context;
         allProductsShop=productsShop;
-        priceUtility = new PriceUtility();
-
-
     }
 
     public View getView(final int position, View convertView, ViewGroup parent){
@@ -62,9 +57,9 @@ public class LastShoppingItemAdapter extends ArrayAdapter<ProductShop> {
         invoiceNum=(TextView) rowView.findViewById(R.id.txt_invoiceNum);
         invoiceDate=(TextView)rowView.findViewById(R.id.txt_invoceDate);
         invoiceStatus=(TextView)rowView.findViewById(R.id.txt_invoiceStatus);
-        invoiceNum = priceUtility.changeFontToYekan(invoiceNum , myContext);
-        invoiceDate = priceUtility.changeFontToYekan(invoiceDate , myContext);
-        invoiceStatus = priceUtility.changeFontToYekan(invoiceStatus,myContext);
+        invoiceNum = PriceUtility.getInstance().changeFontToYekan(invoiceNum, myContext);
+        invoiceDate = PriceUtility.getInstance().changeFontToYekan(invoiceDate, myContext);
+        invoiceStatus = PriceUtility.getInstance().changeFontToYekan(invoiceStatus, myContext);
 
         invoiceNum.setText(myContext.getResources().getString(R.string.invoice_number)+allProductsShop.get(position).getInvoiceNumber());
 
