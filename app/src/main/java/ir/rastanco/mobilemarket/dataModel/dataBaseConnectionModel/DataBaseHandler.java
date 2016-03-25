@@ -19,7 +19,7 @@ import ir.rastanco.mobilemarket.dataModel.UserInfo;
 
 /**
  * Created by ShaisteS on 1394/10/14.
- * A Singleton Class for Manage CRUD(Create-Retrieve-Update-delete) operation
+ * A Singleton Class for Manage CRUD(Create-Retrieve-Update-Delete) operation
  */
 public class DataBaseHandler  extends SQLiteOpenHelper {
 
