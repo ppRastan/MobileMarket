@@ -21,11 +21,10 @@ public class UpdateEveryConnectionOk extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
         sch = new ServerConnectionHandler(context);
         if (intent.getExtras() != null) {
             NetworkInfo ni = (NetworkInfo) intent.getExtras().get(ConnectivityManager.EXTRA_NETWORK_INFO);
-            if (ni != null && ni.getState() == NetworkInfo.State.CONNECTED) {
+            if (ni != null && ni.getState() == NetworkInfo.State.CONNECTING) {
                 Configuration.connectionStatus=true;
                 if (sch.checkNewVersion("http://decoriss.com/app/Version.txt")) {
                     if (Configuration.UpgradeButtonMenu != null && !Configuration.productTableEmptyStatus) {
