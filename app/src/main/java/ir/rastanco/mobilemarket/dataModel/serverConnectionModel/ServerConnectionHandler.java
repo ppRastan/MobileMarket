@@ -1,6 +1,7 @@
 package ir.rastanco.mobilemarket.dataModel.serverConnectionModel;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -755,18 +756,20 @@ public class ServerConnectionHandler {
 
     }
     public boolean checkNewVersion(String url){
-
         String lastVersionInDB=dbh.selectLastVersionApp();
         String lastVersionInServer=getLastVersionInServer(url);
         String finalVersion="";
-
         for(int i=0;i<lastVersionInServer.length()-1;i++)
             finalVersion= finalVersion+String.valueOf(lastVersionInServer.charAt(i+1));
+        Boolean newVersionExist=false;
+
 
         if(finalVersion.equals(lastVersionInDB))
-            return false;
-        else
-            return true;
+            newVersionExist=false;
+        else if (!finalVersion.equals(lastVersionInDB) && finalVersion.equals("") && lastVersionInDB.equals(""))
+            newVersionExist=true;
+        Log.d("version: status",newVersionExist.toString());
+        return newVersionExist;
     }
 
     //Comments
