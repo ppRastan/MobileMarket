@@ -41,21 +41,9 @@ public class ServerConnectionHandler {
     }
 
     //Setting
-    public void setLastTimeStamp(String timeStamp,String lastArticlesNum){
-        if(dbh.emptySettingTable()){
-            dbh.insertSetting(timeStamp,lastArticlesNum);
-        }
-        else
-            dbh.updateTimeStamp(timeStamp);
-
-    }
     public String getLastTimeStamp(){
         return dbh.selectLastTimeStamp();
     }
-    public Boolean emptySetting(){
-        return dbh.emptySettingTable();
-    }
-
     public void updateVersionApp(String newVersin){
         dbh.updateLastVersion(newVersin);
     }
@@ -83,11 +71,6 @@ public class ServerConnectionHandler {
                 catTitle=allCategories.get(i).getTitle();
         }
         return catTitle;
-    }
-    public int getHasChildACategoryWithTitle(String categoryTitle){
-        int catId=getCategoryIdWithTitle(categoryTitle);
-        Category aCategory=dbh.selectACategory(catId);
-        return aCategory.getHasChild();
     }
 
     public int getHasChildACategoryWithId(int categoryId){
@@ -175,18 +158,6 @@ public class ServerConnectionHandler {
     public ArrayList<Product> ProductOfASubCategory(int subcategoryId){
         return dbh.selectAllProductOfACategory(subcategoryId);
     }
-    public ArrayList<Product> getProductOfMainCategory(String title){
-        ArrayList<Product> products=new ArrayList<Product>();
-        ArrayList<Integer> childOfMainCategory=new ArrayList<Integer>();
-        childOfMainCategory=ChildOfACategory(title);
-        for (int i=0;i<childOfMainCategory.size();i++){
-            ArrayList<Product> helpProduct=new ArrayList<Product>();
-            helpProduct=ProductOFASubCategory(childOfMainCategory.get(i));
-            for (int j=0;j<helpProduct.size();j++)
-                products.add(helpProduct.get(j));
-        }
-        return products;
-    }
 
     public ArrayList<Product> getProductOfMainCategoryWithId(int categoryId){
         ArrayList<Product> products=new ArrayList<Product>();
@@ -231,53 +202,6 @@ public class ServerConnectionHandler {
                 allProductsOfACategory.add(allProducts.get(i));
         }
         return allProductsOfACategory;
-    }
-    public Map<Integer,String> getFilterSubCategory(String title){
-        int mainCatId=getMainCategoryId(title);
-        return dbh.selectChildOfACategory(mainCatId);
-
-    }
-
-    public Map<Integer,String> getChildOfACategory(int categoryId){
-        ArrayList<Category> allCategory=new ArrayList<Category>();
-        Map<Integer,String> allChildOfACategory=new HashMap<Integer,String>();
-        allCategory=dbh.selectAllCategory();
-        for (int i=0;i<allCategory.size();i++){
-            if (allCategory.get(i).getParentId()==categoryId)
-                allChildOfACategory.put(allCategory.get(i).getId(),allCategory.get(i).getTitle());
-        }
-        return allChildOfACategory;
-    }
-    public int getCategoryIdWithTitle(String title){
-        ArrayList<Category> allCat=new ArrayList<Category>();
-        allCat=getAllCategoryInfoTable();
-        int catId=0;
-        for (int i=0;i<allCat.size();i++){
-            if (allCat.get(i).getTitle().equals(title))
-                catId=allCat.get(i).getId();
-        }
-        return catId;
-    }
-    public Boolean getCategoryHasChildWithTitle(String title){
-        ArrayList<Category> allCat=new ArrayList<Category>();
-        allCat=getAllCategoryInfoTable();
-        Boolean catHasChild=false;
-        for (int i=0;i<allCat.size();i++){
-            if (allCat.get(i).getTitle().equals(title)&& allCat.get(i).getHasChild()>0)
-                catHasChild=true;
-        }
-        return catHasChild;
-    }
-
-    public Boolean getCategoryHasChildWithId(int categoryId){
-        ArrayList<Category> allCat=new ArrayList<Category>();
-        allCat=getAllCategoryInfoTable();
-        Boolean catHasChild=false;
-        for (int i=0;i<allCat.size();i++){
-            if (allCat.get(i).getId()==categoryId && allCat.get(i).getHasChild()>0)
-                catHasChild=true;
-        }
-        return catHasChild;
     }
     public ArrayList<String> getTitleOfChildOfACategory(int catID){
         return dbh.selectChildOfACategoryTitle(catID);
@@ -348,19 +272,6 @@ public class ServerConnectionHandler {
         }
 
     }
-    public void reloadProduct(String time){
-        ParseJsonProduct pjp=new ParseJsonProduct(context);
-        String url="http://decoriss.com/json/get,com=product&newfromts="+
-                time+"&cache=false";
-        try {
-            pjp.execute(url).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public void updateAProductInfo(Product aProduct){
         dbh.updateAProduct(aProduct);
@@ -405,15 +316,6 @@ public class ServerConnectionHandler {
     public ArrayList<Product> getSpecialProduct(){
         return dbh.selectSpecialProduct();
     }
-    public Map<Integer,String> getProductTitle(){
-        return dbh.selectAllProductTitle();
-    }
-    public void deleteAProduct(int productId){
-        dbh.deleteAProduct(productId);
-    }
-    public ArrayList<Product> getAllProductOfACategory(int groupId){
-        return dbh.selectAllProductOfACategory(groupId);
-    }
     public void addAProductOptionsToTable(int productId,ProductOption aOptions){
         dbh.insertOptionProduct(productId, aOptions.getTitle(), aOptions.getValue());
     }
@@ -431,23 +333,9 @@ public class ServerConnectionHandler {
         }
         return options;
     }
-    public void refreshProductOption(int groupId,int productId){
-        ArrayList<ProductOption> options=new ArrayList<ProductOption>();
-        options = getOptionsOfAProductFromURL("http://decoriss.com/json/get,com=options&pid=" +
-                String.valueOf(productId) + "&pgid=" + String.valueOf(groupId) + "&cache=false");
-        for (int i=0;i<options.size();i++){
-            if (dbh.ExistAProductIdInOptionTable(productId)){
-                if (dbh.ExistAProductOption(productId,options.get(i).getTitle()))
-                    dbh.updateAProductOption(productId,options.get(i));
-            }
-            else
-                addAProductOptionsToTable(productId,options.get(i));
-        }
-        addProductOptionsToTable(productId,options);
-    }
+
     public ArrayList<String> getAllBrands(ArrayList<Product> products){
         ArrayList<String> brandsTitle=new ArrayList<String>();
-        String brand = "";
         for (int i=0;i<products.size();i++){
             if(brandsTitle.size()==0 && !products.get(i).getBrandName().equals(""))
                 brandsTitle.add(products.get(i).getBrandName());
@@ -552,7 +440,6 @@ public class ServerConnectionHandler {
                                                      ){
         ArrayList<Product> allProduct=new ArrayList<Product>();
         allProduct= getProductOfMainCategoryWithId(pageId);
-        ArrayList<Product> newProducts=new ArrayList<Product>();
         if(filterCategoryId!=0)
              allProduct=getProductsAfterFilterCategory(pageId, filterCategoryId);
         else if (!filterOptionContent.equals(context.getResources().getString(R.string.all))){
@@ -582,11 +469,6 @@ public class ServerConnectionHandler {
         return allProduct;
     }
 
-    //
-    public void setLastUpdateTimeStamp(){
-        String timeStamp=getLastTimeStamp();
-        dbh.updateLastUpdateTimeStamp(timeStamp);
-    }
     //article
     public Boolean emptyDBArticle(){
         Boolean empty=dbh.emptyArticleTable();
@@ -617,14 +499,10 @@ public class ServerConnectionHandler {
     public void refreshArticles(){
         String lastArticlesNum=dbh.selectLastArticlesNum();
         int endArticle=Integer.parseInt(lastArticlesNum)+100;
-        ParseJsonArticles pja=new ParseJsonArticles();
         String url="http://decoriss.com/json/get,com=news&name=blog&order=desc&limit="
                 +lastArticlesNum+"-"+String.valueOf(endArticle)+"&cache=false";
         addAllArticlesToTable(getAllArticlesAndNewsURL(url));
 
-    }
-    public void setLastArticlesNum(String lastNum){
-        dbh.updateLastArticlesNum(lastNum);
     }
 
     //Security
@@ -735,9 +613,6 @@ public class ServerConnectionHandler {
 
     //Version Of App
 
-    public String getLastVersionInDB(){
-        return dbh.selectLastVersionApp();
-    }
     public String getLastVersionInServer(String url){
 
         String lastVersionInServer=dbh.selectLastVersionApp();

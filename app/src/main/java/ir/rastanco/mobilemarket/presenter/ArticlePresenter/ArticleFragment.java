@@ -11,9 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -24,7 +22,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
 
 /**
- * Created by ShaisteS on 1/16/2016.
+ * Created by ShaisteS on 1394/10/26.
  * This Class is for Displaying Articles Information
  */
 public class ArticleFragment extends Fragment {

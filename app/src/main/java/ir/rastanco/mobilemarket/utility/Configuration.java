@@ -7,6 +7,7 @@ import android.view.MenuItem;
 
 /**
  * Created by ShaisteS on 1394/10/14.
+ * A Singleton Class For Access Static Parameter
  */
 public class Configuration {
     private static Configuration config = new Configuration();

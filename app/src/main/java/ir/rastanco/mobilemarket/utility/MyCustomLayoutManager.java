@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 
 /**
- * Created by shaisteS on 1394/12/26.
+ * Created by ShaisteS on 1394/12/26.
  * this class is A Custom Layout manager for create smooth scroll in recycler view
  */
 public class MyCustomLayoutManager extends LinearLayoutManager {

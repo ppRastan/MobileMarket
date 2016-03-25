@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -27,12 +26,10 @@ import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.ProductOption;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverLike;
@@ -42,20 +39,17 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 public class FullScreenImageAdapter extends PagerAdapter {
+
     private Activity activity;
     private ArrayList<Product> products;
-    private ArrayList<ProductOption> options;
     private LayoutInflater inflater;
     private ServerConnectionHandler sch;
     private int productsSize;
     private ImageButton btnInfo;
     private ImageButton btnShareByTelegram;
     private ImageButton btnShare;
-    private ArrayList<Product> allProduct;
-    private Context context;
     private View viewLayout;
     private TextView nameOfCurrentProduct;
-    private Product aProduct;
     private String textToSend = null;
     private Dialog shareDialog;
     private ImageButton cancelShareDialog;
@@ -64,14 +58,12 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private Intent sendIntent;
     private Button addToBasketBtn;
     private String numberOfFinalPrice;
+
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
         this.products=allProducts;
         this.productsSize=allProductSize;
-        activity =(Activity) context;
         sch=new ServerConnectionHandler(Configuration.ProductInfoContext);
-        aProduct=new Product();
-
     }
 
     @Override

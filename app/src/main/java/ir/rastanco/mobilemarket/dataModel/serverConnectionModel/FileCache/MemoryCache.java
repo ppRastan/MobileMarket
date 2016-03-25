@@ -10,6 +10,7 @@ import java.util.Map;
 
 /**
  * Created by ShaisteS on 1394/10/19.
+ * his class manage memory cache
  */
 public class MemoryCache {
     private static final String TAG = "MemoryCache";

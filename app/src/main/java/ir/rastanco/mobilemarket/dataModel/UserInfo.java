@@ -1,7 +1,8 @@
 package ir.rastanco.mobilemarket.dataModel;
 
 /**
- * Created by ShaisteS on 1394/11/0.
+ * Created by ShaisteS on 1394/11/10.
+ * This Class is Packaging User Information
  */
 public class UserInfo {
 

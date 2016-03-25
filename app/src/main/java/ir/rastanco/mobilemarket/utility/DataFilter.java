@@ -1,7 +1,8 @@
 package ir.rastanco.mobilemarket.utility;
 
 /**
- * Created by ShaisteS on 02/16/2016.
+ * Created by ShaisteS on 1394/12/27.
+ * A Singleton Class for Access Static parameter when filtering Product Information
  */
 public class DataFilter {
 

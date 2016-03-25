@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 /**
  * Created by ShaisteS on 1394/10/30.
+ * This Class Parse Key Json that send server for application when login
  */
 public class ParseJsonKey {
 

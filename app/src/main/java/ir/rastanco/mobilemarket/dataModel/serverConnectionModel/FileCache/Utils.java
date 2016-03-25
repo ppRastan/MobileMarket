@@ -5,6 +5,7 @@ import java.io.OutputStream;
 
 /**
  * Created by ShaisteS on 1394/10/20.
+ * A Singleton Class for copy data stream
  */
 public class Utils {
 

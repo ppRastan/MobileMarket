@@ -1,15 +1,16 @@
 package ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson;
 
-import ir.rastanco.mobilemarket.dataModel.ProductShop;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import ir.rastanco.mobilemarket.dataModel.ProductShop;
+
 /**
  * Created by ShaisteS on 1394/11/3.
+ * This Class Parse Last Shop information Json String
  */
 public class ParseJsonLastShop {
 

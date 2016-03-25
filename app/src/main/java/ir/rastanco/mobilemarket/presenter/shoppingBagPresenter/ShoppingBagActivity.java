@@ -2,7 +2,6 @@ package ir.rastanco.mobilemarket.presenter.shoppingBagPresenter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +11,11 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
@@ -25,12 +29,6 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancelListene
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
-
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
 
 /**
  ** Created by ShaisteS on 1394/10/30.
@@ -64,7 +62,6 @@ public class ShoppingBagActivity extends Activity {
         int price;
         int finalOff = 0;
         for(int i=0;i<productsId.size();i++){
-            price=0;
             finalOff=0;
             Product product=new Product();
             product=sch.getAProduct(productsId.get(i));

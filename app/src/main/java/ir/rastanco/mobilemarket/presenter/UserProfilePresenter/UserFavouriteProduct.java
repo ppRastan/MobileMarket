@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.UserInfo;
@@ -15,10 +17,9 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
-import java.util.ArrayList;
-
 /**
- * Created by shaisteS on 1394/11/23.
+ * Created by ShaisteS on 1394/11/23.
+ * This class Show favorite Product of user
  */
 public class UserFavouriteProduct extends Activity {
 

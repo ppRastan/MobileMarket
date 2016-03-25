@@ -29,6 +29,8 @@ import ir.rastanco.mobilemarket.R;
 
 /**
  * Created by ShaisteS on 1394/10/20.
+ * This class Load image of product from server or memory and
+ * when no find image in server or memory, show a default image
  */
 //test connection
 public class ImageLoader {
@@ -37,14 +39,12 @@ public class ImageLoader {
     FileCache fileCache;
     private Map<ImageView, String> imageViews= Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
     ExecutorService executorService;
-    private Context myContext;
     private View rowView;
     private int displayWidth;
 
     public ImageLoader(Context context,View view,int size){
         fileCache=new FileCache(context);
         executorService= Executors.newFixedThreadPool(5);
-        myContext=context;
         rowView=view;
         displayWidth=size;
     }
@@ -195,8 +195,7 @@ public class ImageLoader {
 
         return drawable;
     }
-
-    /************************ Resize Bitmap *********************************/
+    //Resize Bitmap
     public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
 
         int width = bm.getWidth();

@@ -5,9 +5,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,9 +18,12 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+
 /**
  * Created by ShaisteS on 1/2/2016.
- * This Class Parse Product Json String
+ * This Class Parse Product Information Json String
  */
 public class ParseJsonProduct extends AsyncTask<String, String, String> {
 

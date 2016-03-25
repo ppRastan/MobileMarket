@@ -3,7 +3,6 @@ package ir.rastanco.mobilemarket.presenter.Filter;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,20 +16,17 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterAll;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterBrand;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterPrice;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.DataFilter;
 
 /**
- * Created by shaisteS on 1394/11/27.
+ * Created by ShaisteS on 1394/11/27.
  * DialogFragment For Displaying Products Property (Brand-Price)
  */
 public class FilterOptionProduct extends DialogFragment {
 
-    private ServerConnectionHandler sch;
     private int pageId;
     private static FilterOptionProduct filterOptionProduct;
     public static FilterOptionProduct getInstance() {
@@ -45,7 +41,6 @@ public class FilterOptionProduct extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch = new ServerConnectionHandler(Configuration.ShopFragmentContext);
         pageId = getArguments().getInt("pageId");
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);

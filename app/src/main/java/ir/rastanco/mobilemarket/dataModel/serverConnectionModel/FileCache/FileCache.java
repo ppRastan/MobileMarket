@@ -6,6 +6,7 @@ import java.io.File;
 
 /**
  * Created by ShaisteS on 1394/10/20.
+ * This class cache image of product in Storage
  */
 public class FileCache {
 

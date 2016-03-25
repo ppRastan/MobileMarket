@@ -5,11 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +31,7 @@ import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivi
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
- * Created by ShaisteS on 12/27/2015.
+ * Created by ShaisteS on 1394/10/6.
  * A Customize Adapter For Home List view
  */
 public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
@@ -238,36 +234,4 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         });
         return rowView;
     }
-
-    public Drawable ResizeImage (int imageID,View rowView,int deviceWidth) {
-
-        BitmapDrawable bd=(BitmapDrawable) rowView.getResources().getDrawable(imageID);
-        double imageHeight = bd.getBitmap().getHeight();
-        double imageWidth = bd.getBitmap().getWidth();
-
-        double ratio = deviceWidth / imageWidth;
-        int newImageHeight = (int) (imageHeight * ratio);
-
-        Bitmap bMap = BitmapFactory.decodeResource(rowView.getResources(), imageID);
-        Drawable drawable = new BitmapDrawable(rowView.getResources(),getResizedBitmap(bMap,newImageHeight,(int) deviceWidth));
-
-        return drawable;
-    }
-
-    /************************ Resize Bitmap *********************************/
-    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
-
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
-
-        return resizedBitmap;
-    }
-
 }

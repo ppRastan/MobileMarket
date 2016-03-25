@@ -7,17 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.ProductShop;
 import ir.rastanco.mobilemarket.dataModel.UserInfo;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
-import java.util.ArrayList;
-
 
 /**
  * Created by ShaisteS on 1394/11/23.
+ * This class Show user past purchases from site
  */
 public class UserLastShoppingProduct extends Activity {
 

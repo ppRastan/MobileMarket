@@ -12,7 +12,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
- * Created by shaisetS on 1394/12/15.
+ * Created by ShaisetS on 1394/12/15.
  * internet connection handler
  */
 public class CheckConnectionFragment extends Fragment {

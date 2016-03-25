@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by shaisteS on 1394/12/10.
+ * Created by ShaisteS on 1394/12/10.
  * This class for listen "changeFragmentParameter".
  * after change this parameter than changed fragments in Tabs
  * This  class is utilized here : Special Loading Fragment,First Tab Fragment Manager

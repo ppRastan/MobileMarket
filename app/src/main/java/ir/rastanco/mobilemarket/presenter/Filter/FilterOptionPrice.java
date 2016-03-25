@@ -1,7 +1,6 @@
 package ir.rastanco.mobilemarket.presenter.Filter;
 
 import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
@@ -26,10 +24,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  */
 public class FilterOptionPrice extends DialogFragment {
 
-    private ServerConnectionHandler sch;
-    private String pageName;
     private static FilterOptionPrice filterOptionPrice;
-
     public static FilterOptionPrice getInstance() {
         if(filterOptionPrice == null){
            filterOptionPrice = new FilterOptionPrice();
@@ -42,7 +37,6 @@ public class FilterOptionPrice extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch = new ServerConnectionHandler(Configuration.ShopFragmentContext);
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);

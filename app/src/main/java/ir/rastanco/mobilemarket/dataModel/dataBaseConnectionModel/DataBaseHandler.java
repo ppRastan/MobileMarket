@@ -199,19 +199,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
             return true;
         }
     }
-    public Boolean emptyShoppingTable() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblShopping", null);
-        if (rs.moveToFirst()) {
-            //Not empty
-            rs.close();
-            return false;
-        } else {
-            //Is Empty
-            rs.close();
-            return true;
-        }
-    }
+
     public Boolean emptyCategoryTable() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from tblCategory", null);
@@ -805,24 +793,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
 
-
-    public Map<Integer,String> selectAllCategoryTitle(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select catId,title from tblCategory order by catId,sortOrder ASC", null);
-        Map<Integer,String> categoryTitles = new HashMap<Integer,String>();
-        if (rs != null) {
-            if (rs.moveToFirst()) {
-                do {
-                    categoryTitles.put(rs.getInt(rs.getColumnIndex("catId")),
-                            rs.getString(rs.getColumnIndex("title")));
-                }
-                while (rs.moveToNext());
-            }
-            rs.close();
-        }
-        Log.v("select", "Select All Category Title and ID");
-        return categoryTitles;
-    }
     public Map<Integer,String> selectAllProductTitle(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select productId,title from tblProduct", null);
@@ -904,23 +874,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return allProducts;
     }
 
-    public ArrayList<Product> selectProductSmallerPrice(String price){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblProduct where price <="+price+" "+ "order by id desc ", null);
-        allProducts = new ArrayList<Product>();
-        if (rs != null) {
-            if (rs.moveToFirst()) {
-                do {
-
-                    allProducts.add(getAProduct(rs));
-                }
-                while (rs.moveToNext());
-            }
-            rs.close();
-        }
-        Log.v("select", "Select All Product that Price Smaller from A Range");
-        return allProducts;
-    }
 
     public ArrayList<Product> selectSpecialProduct(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -985,25 +938,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
             rs.close();
         }
         return options;
-    }
-
-    public ArrayList<ProductOption> selectProductBrand(int productId) {
-        ArrayList<ProductOption> productOptions = new ArrayList<ProductOption>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblProductOption where fkProductId="+productId, null);
-        if (rs != null) {
-            if (rs.moveToFirst()) {
-                do {
-                    ProductOption aOption=new ProductOption();
-                    aOption.setTitle(rs.getString(rs.getColumnIndex("titleOption")));
-                    aOption.setValue(rs.getString(rs.getColumnIndex("valueOption")));
-                    productOptions.add(aOption);
-                }
-                while (rs.moveToNext());
-            }
-            rs.close();
-        }
-        return productOptions;
     }
 
     public ArrayList<Article> selectAllArticle() {

@@ -1,15 +1,16 @@
 package ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson;
 
-import ir.rastanco.mobilemarket.dataModel.Comment;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import ir.rastanco.mobilemarket.dataModel.Comment;
+
 /**
  * Created by ShaisteS on 1394/11/25
+ * This Class Parse Comment Json String
  */
 public class ParseJsonComments {
 

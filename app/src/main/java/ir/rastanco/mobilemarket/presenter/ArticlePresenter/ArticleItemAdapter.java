@@ -2,7 +2,6 @@ package ir.rastanco.mobilemarket.presenter.ArticlePresenter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +9,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
-import java.util.ArrayList;
-
 
 /**
- * Created by ShaisteS on 21/10/94
+ * Created by ShaisteS on 1394/10/21
  * This class is for filling data in listView for displaying Articles information
  */
 public class ArticleItemAdapter extends ArrayAdapter<Article>{
@@ -36,7 +35,6 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
 
     public View getView(final int position, View convertView, ViewGroup parent){
 
-        Bitmap image=null;
         LayoutInflater inflater = myContext.getLayoutInflater();
         final View rowView = inflater.inflate(R.layout.article_item, null);
 

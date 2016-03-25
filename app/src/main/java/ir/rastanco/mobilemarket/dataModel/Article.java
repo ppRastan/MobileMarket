@@ -1,7 +1,8 @@
 package ir.rastanco.mobilemarket.dataModel;
 
 /**
- * Created by ShaisteS on 21/10/94.
+ * Created by ShaisteS on 1394/10/21.
+ * This Class is Packaging Article Information
  */
 public class Article {
     private String title;

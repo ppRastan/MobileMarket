@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 
 /**
- * Created by ShaisteS on 12/27/2015.
+ * Created by ShaisteS on 1394/10/6.
  * This Class is Packaging Product Information
  */
 public class Product implements Parcelable {

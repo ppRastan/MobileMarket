@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Created by ShaisteS on 1394/10/30.
+ * This Class Parse Authorize Information Json String
  */
 public class ParseJsonAuthorize {
 

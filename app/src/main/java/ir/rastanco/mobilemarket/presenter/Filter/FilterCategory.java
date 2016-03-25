@@ -26,7 +26,7 @@ import ir.rastanco.mobilemarket.utility.DataFilter;
 
 
 /**
- * Created by shaiste on 1394/11/27.
+ * Created by ShaisteS on 1394/11/27.
  * DialogFragment For Displaying Categories Title
  */
 public class FilterCategory extends DialogFragment {

@@ -2,6 +2,7 @@ package ir.rastanco.mobilemarket.dataModel;
 
 /**
  * Created by ShaisteS on 1394/11/3.
+ * This Class is Packaging Product that user shop from site
  */
 public class ProductShop {
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by shaisteS on 1394/12/15.
+ * Created by ShaisteS on 1394/12/15.
  */
 public class ObserverConnectionInternetOK {
 

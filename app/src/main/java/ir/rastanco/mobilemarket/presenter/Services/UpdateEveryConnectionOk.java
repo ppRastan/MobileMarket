@@ -10,7 +10,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
- * Created by shaisteS on 1394/11/30.
+ * Created by ShaisteS on 1394/11/30.
  * This BradCastReceivers for Network Status
  * IF Network is on and new version of software is available THEN
  *              show Notification and software is on then Enable Upgrade Button

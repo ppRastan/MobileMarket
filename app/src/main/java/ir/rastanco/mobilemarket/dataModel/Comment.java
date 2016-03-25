@@ -2,6 +2,7 @@ package ir.rastanco.mobilemarket.dataModel;
 
 /**
  * Created by ShaisteS on 1394/11/24.
+ * This Class is Packaging Comment on Every Product
  */
 public class Comment {
 

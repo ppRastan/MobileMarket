@@ -12,7 +12,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
- *  Created by shaisteS on 1394/12/1.
+ *  Created by ShaisteS on 1394/12/1.
  *  loading starts from here
  */
 public class SplashHandler extends AppCompatActivity {

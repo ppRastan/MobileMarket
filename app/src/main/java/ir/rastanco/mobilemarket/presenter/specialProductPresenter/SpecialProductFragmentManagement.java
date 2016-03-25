@@ -18,7 +18,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKL
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
- * Created by shaisteS on 1394/12/09.
+ * Created by ShaisteS on 1394/12/09.
  */
 public class SpecialProductFragmentManagement extends Fragment {
 
@@ -78,9 +78,6 @@ public class SpecialProductFragmentManagement extends Fragment {
 
             }
         });
-
-
-
         return specialProductView;
     }
 

@@ -5,12 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,7 +23,6 @@ import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
@@ -38,22 +33,19 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.CounterIconDisplayer;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 /**
- * Created by ShaisteS on 12/28/2015.
+ * Created by ShaisteS on 1394/10/7.
  * A Customize Adapter For Shop Grid view
  */
 public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureProductShopItemAdapter.Holder>{
 
     private static LayoutInflater inflater=null;
     private ArrayList<Product> allProduct;
-    private ProgressBar imageLoading;
     private boolean isLikeButtonClicked = true;
     private boolean isSelectedForShop=false;
     private ServerConnectionHandler sch;
-    private CounterIconDisplayer ciu;
     private  Context myContext;
     private String textToSend = null;
     private Dialog shareDialog;
@@ -343,37 +335,6 @@ public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureP
             image=null;
             imgLoader= new ImageLoader(myContext,itemView,Configuration.shopDisplaySizeForShow); // important
         }
-    }
-
-    public Drawable ResizeImage (int imageID,View rowView,int deviceWidth) {
-
-        BitmapDrawable bd=(BitmapDrawable) rowView.getResources().getDrawable(imageID);
-        double imageHeight = bd.getBitmap().getHeight();
-        double imageWidth = bd.getBitmap().getWidth();
-
-        double ratio = deviceWidth / imageWidth;
-        int newImageHeight = (int) (imageHeight * ratio);
-
-        Bitmap bMap = BitmapFactory.decodeResource(rowView.getResources(), imageID);
-        Drawable drawable = new BitmapDrawable(rowView.getResources(),getResizedBitmap(bMap,newImageHeight,(int) deviceWidth));
-
-        return drawable;
-    }
-
-    /************************ Resize Bitmap *********************************/
-    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
-
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
-
-        return resizedBitmap;
     }
 
 }
