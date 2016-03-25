@@ -36,6 +36,7 @@ public class UpdateEveryConnectionOk extends BroadcastReceiver {
 
             }
             if (intent.getExtras().getBoolean(ConnectivityManager.EXTRA_NO_CONNECTIVITY, Boolean.FALSE)) {
+                Configuration.connectionStatus=false;
             }
         }
     }
