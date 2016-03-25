@@ -72,7 +72,7 @@ public class FilterCategory extends DialogFragment {
 
         //add filter=All
         subCategoryTitle.add(0,dialogView.getResources().getString(R.string.all));
-        ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
+        final ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
         listCategory.setAdapter(adapter);
@@ -82,6 +82,7 @@ public class FilterCategory extends DialogFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                  String itemSelectedContent = parent.getItemAtPosition(position).toString();
+
                 if (itemSelectedContent.equals(dialogView.getResources().getString(R.string.all))) {
                     Intent args = new Intent();
                     args.putExtra("all",0);
@@ -89,13 +90,14 @@ public class FilterCategory extends DialogFragment {
                     onActivityResult(getTargetRequestCode(), 1, args);
                     dismiss();
                 } else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent)) > 0) {
-                    Bundle args = new Bundle();
-                    args.putInt("categorySelectedId", mapCategoryTitleToId.get(itemSelectedContent));
-                    FilterSubCategory.getInstance().setArguments(args);
-                    FilterSubCategory.getInstance().setDialogTitle(itemSelectedContent);
-                    FilterSubCategory.getInstance().setTargetFragment(getFragmentManager().findFragmentByTag("Category"), 0);
-                    FilterSubCategory.getInstance().show(getFragmentManager(), "SubCategory");
-                    dismiss();
+
+                    int catId=mapCategoryTitleToId.get(itemSelectedContent);
+                    ArrayList<String> subCategoryChildTitle=sch.getTitleOfChildOfACategory(catId);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                            android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
+                    listCategory.setAdapter(adapter);
+                    mapCategoryTitleToId =sch.MapTitleToIDForChildOfACategory(catId);
+
                 } else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent))==0) {
                     Intent args = new Intent();
                     args.putExtra("noChild", mapCategoryTitleToId.get(itemSelectedContent));
