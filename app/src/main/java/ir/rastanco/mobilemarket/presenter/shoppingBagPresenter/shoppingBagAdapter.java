@@ -16,6 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
@@ -24,13 +30,6 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancel;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by ShaisteS on 1394/10/30.
@@ -141,7 +140,12 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         shoppingOffer.setText(shoppingBagActivityContext.getResources().getString(R.string.price_off) + "   " + PriceUtility.getInstance().formatPriceCommaSeprated(eachproductoff) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));}
         eachProductPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.peice) + "     " + PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice()) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
         shoppingBagTotalPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.price_for_you) + "     " + PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
-        picCounter = aProduct.getImagesPath().get(0);
+
+        if(aProduct.getImagesPath().size()==0)
+            picCounter="no_image_path";
+        else
+            picCounter = aProduct.getImagesPath().get(0);
+
         try {
             picCounter= URLEncoder.encode(picCounter, "UTF-8");
         } catch (UnsupportedEncodingException e) {

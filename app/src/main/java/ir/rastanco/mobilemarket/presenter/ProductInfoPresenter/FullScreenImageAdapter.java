@@ -239,7 +239,13 @@ public class FullScreenImageAdapter extends PagerAdapter {
         imgProduct.getLayoutParams().width=Configuration.homeDisplaySizeForShow;
         imgProduct.getLayoutParams().height=Configuration.productInfoHeightForShow;
         final ImageLoader imgLoader = new ImageLoader(Configuration.ProductInfoContext,viewLayout,Configuration.homeDisplaySizeForShow); // important
-        String picNum = products.get(position).getImagesPath().get(0);
+
+        String picNum;
+        if(products.get(position).getImagesPath().size()==0)
+            picNum="no_image_path";
+        else
+            picNum = products.get(position).getImagesPath().get(0);
+
         try {
             picNum = URLEncoder.encode(picNum, "UTF-8");
         } catch (UnsupportedEncodingException e) {
