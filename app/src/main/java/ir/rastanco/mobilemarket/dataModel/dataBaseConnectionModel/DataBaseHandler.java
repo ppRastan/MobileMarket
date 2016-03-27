@@ -28,8 +28,11 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     private ArrayList<Product> allProducts;
     private ArrayList<Article> allArticles;
 
+    private static DataBaseHandler sInstance;
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "MobileMarket";
+    private Context myContext;
+
     private final String TABLE_USER_INFO = "tblUserInfo";
     private final String TABLE_SETTINGS = "tblSetting";
     private final String TABLE_SHOPPING = "tblShopping";
@@ -102,10 +105,21 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
 
 
+    public static synchronized DataBaseHandler getInstance(Context context) {
+
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (sInstance == null) {
+            sInstance = new DataBaseHandler(context.getApplicationContext());
+        }
+        return sInstance;
+    }
 
 
     public DataBaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        this.myContext=context;
     }
 
     @Override
@@ -1082,6 +1096,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         db.delete(TABLE_SHOPPING,ShoppingTable_Column_ForeignKey_ProductId + "=" + productId, null);
         Log.v("delete", "Delete A Product from Shopping Table");
     }
+
     public void deleteUserInfo() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_USER_INFO,null, null);

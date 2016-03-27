@@ -33,34 +33,32 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJ
 public class ServerConnectionHandler {
 
     private Context context;
-    private DataBaseHandler dbh;
 
     public ServerConnectionHandler(Context myContext){
         context=myContext;
-        dbh=new DataBaseHandler(myContext);
     }
 
     //Setting
     public String getLastTimeStamp(){
-        return dbh.selectLastTimeStamp();
+        return DataBaseHandler.getInstance(context).selectLastTimeStamp();
     }
     public void updateVersionApp(String newVersin){
-        dbh.updateLastVersion(newVersin);
+        DataBaseHandler.getInstance(context).updateLastVersion(newVersin);
     }
 
     //Category
     public Boolean emptyDBCategory(){
-        Boolean empty=dbh.emptyCategoryTable();
+        Boolean empty=DataBaseHandler.getInstance(context).emptyCategoryTable();
         return empty;
     }
     public void addAllCategoryToTable(ArrayList<Category> allCategories){
         for (int i=0;i<allCategories.size();i++){
-            dbh.insertACategory(allCategories.get(i));
+            DataBaseHandler.getInstance(context).insertACategory(allCategories.get(i));
         }
     }
     public ArrayList<Category> getAllCategoryInfoTable(){
 
-        return dbh.selectAllCategory();
+        return DataBaseHandler.getInstance(context).selectAllCategory();
     }
     public String getACategoryTitle(int catId){
         ArrayList<Category> allCategories=new ArrayList<Category>();
@@ -74,25 +72,25 @@ public class ServerConnectionHandler {
     }
 
     public int getHasChildACategoryWithId(int categoryId){
-        Category aCategory=dbh.selectACategory(categoryId);
+        Category aCategory=DataBaseHandler.getInstance(context).selectACategory(categoryId);
         return aCategory.getHasChild();
     }
 
     public Map<String,Integer> MapTitleToIDForMainCategory(){
-        return dbh.selectMainCategories();
+        return DataBaseHandler.getInstance(context).selectMainCategories();
     }
 
     public Map<String,Integer> MapTitleToIDForAllCategory(){
-        return dbh.selectAllCategoryTitleAndId();
+        return DataBaseHandler.getInstance(context).selectAllCategoryTitleAndId();
 
     }
 
     public Map<String,Integer> MapTitleToIDForChildOfACategory(int catId){
-        return dbh.selectChildOfACategoryTitleAndId(catId);
+        return DataBaseHandler.getInstance(context).selectChildOfACategoryTitleAndId(catId);
     }
 
     public ArrayList<String> getMainCategoryTitle(){
-        return dbh.selectMainCategoriesTitle();
+        return DataBaseHandler.getInstance(context).selectMainCategoriesTitle();
     }
     public ArrayList<Category> getAllCategoryInfoURL(String url){
 
@@ -113,11 +111,11 @@ public class ServerConnectionHandler {
     }
 
     public Category getACategoryInformation(int categoryId){
-        return dbh.selectACategory(categoryId);
+        return DataBaseHandler.getInstance(context).selectACategory(categoryId);
     }
 
     public int getMainCategoryId(String catTitle) {
-        Map<Integer, String> catTitleMap = dbh.selectMainCategoryTitle();
+        Map<Integer, String> catTitleMap = DataBaseHandler.getInstance(context).selectMainCategoryTitle();
         int catId = 0;
         for (Map.Entry<Integer, String> entry : catTitleMap.entrySet()) {
             if (entry.getValue().equals(catTitle))
@@ -128,35 +126,35 @@ public class ServerConnectionHandler {
     public String getPageTitleForSimilarProduct(int categoryId){
 
         int catId=categoryId;
-        int parentId=dbh.selectACategoryParent(catId);
+        int parentId=DataBaseHandler.getInstance(context).selectACategoryParent(catId);
         while (parentId !=0){
 
             catId=parentId;
-            parentId=dbh.selectACategoryParent(catId);
+            parentId=DataBaseHandler.getInstance(context).selectACategoryParent(catId);
         }
-        return dbh.selectACategory(catId).getTitle();
+        return DataBaseHandler.getInstance(context).selectACategory(catId).getTitle();
 
     }
     public ArrayList<Integer> ChildOfACategory(String title){
         int catId=getMainCategoryId(title);
         ArrayList<Integer> subCategoriesId=new ArrayList<Integer>();
-        subCategoriesId=dbh.selectChildIdOfACategory(catId);
+        subCategoriesId=DataBaseHandler.getInstance(context).selectChildIdOfACategory(catId);
       return subCategoriesId;
     }
 
     public ArrayList<Integer> ChildOfACategoryWithId(int categoryId){
         ArrayList<Integer> subCategoriesId=new ArrayList<Integer>();
-        subCategoriesId=dbh.selectChildIdOfACategory(categoryId);
+        subCategoriesId=DataBaseHandler.getInstance(context).selectChildIdOfACategory(categoryId);
         return subCategoriesId;
     }
 
     public ArrayList<Integer> childOfASubCategory(int subCategoryId){
         ArrayList<Integer> childSubCategoriesId=new ArrayList<Integer>();
-        childSubCategoriesId=dbh.selectChildIdOfACategory(subCategoryId);
+        childSubCategoriesId=DataBaseHandler.getInstance(context).selectChildIdOfACategory(subCategoryId);
         return childSubCategoriesId;
     }
     public ArrayList<Product> ProductOfASubCategory(int subcategoryId){
-        return dbh.selectAllProductOfACategory(subcategoryId);
+        return DataBaseHandler.getInstance(context).selectAllProductOfACategory(subcategoryId);
     }
 
     public ArrayList<Product> getProductOfMainCategoryWithId(int categoryId){
@@ -204,21 +202,21 @@ public class ServerConnectionHandler {
         return allProductsOfACategory;
     }
     public ArrayList<String> getTitleOfChildOfACategory(int catID){
-        return dbh.selectChildOfACategoryTitle(catID);
+        return DataBaseHandler.getInstance(context).selectChildOfACategoryTitle(catID);
     }
     public void refreshCategories(String url){
         ArrayList<Category> allCategories=new ArrayList<Category>();
         allCategories=getAllCategoryInfoURL(url);
         for (int i=0;i<allCategories.size();i++){
-            if (dbh.ExistACategory(allCategories.get(i).getId()))
-                dbh.updateACategory(allCategories.get(i));
+            if (DataBaseHandler.getInstance(context).ExistACategory(allCategories.get(i).getId()))
+                DataBaseHandler.getInstance(context).updateACategory(allCategories.get(i));
             else
-                dbh.insertACategory(allCategories.get(i));
+                DataBaseHandler.getInstance(context).insertACategory(allCategories.get(i));
         }
     }
     //Product
     public Boolean emptyDBProduct(){
-        Boolean empty=dbh.emptyProductTable();
+        Boolean empty=DataBaseHandler.getInstance(context).emptyProductTable();
         return empty;
     }
 
@@ -226,23 +224,23 @@ public class ServerConnectionHandler {
     public void addAllProductToTable(ArrayList<Product> allProducts){
         Boolean isUpdate=false;
         for (int i=0;i<allProducts.size();i++){
-            if(dbh.ExistAProduct(allProducts.get(i).getId())) {
+            if(DataBaseHandler.getInstance(context).ExistAProduct(allProducts.get(i).getId())) {
                 updateAProductInfo(allProducts.get(i));
                 isUpdate=true;
             }
             else
-                dbh.insertAProduct(allProducts.get(i));
+                DataBaseHandler.getInstance(context).insertAProduct(allProducts.get(i));
         }
         if (isUpdate && allProducts.size()>0)
-            dbh.updateLastUpdateTimeStamp(allProducts.get(0).getUpdateTimeStamp());
+            DataBaseHandler.getInstance(context).updateLastUpdateTimeStamp(allProducts.get(0).getUpdateTimeStamp());
         else if( !isUpdate && allProducts.size()>0)
-            dbh.updateTimeStamp(allProducts.get(0).getTimeStamp());
+            DataBaseHandler.getInstance(context).updateTimeStamp(allProducts.get(0).getTimeStamp());
     }
     public void setSetting(String firstTimeStamp,String firstArticleNumber,String version,String firstUpdateTimeStamp){
-        dbh.insertSettingApp(firstTimeStamp,
-                             firstArticleNumber,
-                             version,
-                             firstUpdateTimeStamp);
+        DataBaseHandler.getInstance(context).insertSettingApp(firstTimeStamp,
+                firstArticleNumber,
+                version,
+                firstUpdateTimeStamp);
     }
     public void getNewProducts(){
         String lastTimeStamp=getLastTimeStamp();
@@ -259,7 +257,7 @@ public class ServerConnectionHandler {
     }
 
     public void getEditProducts(){
-        String lastUpdateTimeStamp=dbh.selectLastUpdateTimeStamp();
+        String lastUpdateTimeStamp=DataBaseHandler.getInstance(context).selectLastUpdateTimeStamp();
         ParseJsonProduct pjp=new ParseJsonProduct(context);
         String url="http://decoriss.com/json/get,com=product&updatefromts=" +
                 lastUpdateTimeStamp+"&cache=false";
@@ -274,16 +272,16 @@ public class ServerConnectionHandler {
     }
 
     public void updateAProductInfo(Product aProduct){
-        dbh.updateAProduct(aProduct);
+        DataBaseHandler.getInstance(context).updateAProduct(aProduct);
         for (int i=0;i<aProduct.getImagesPath().size();i++){
-            if ( ! dbh.ExistAProductImagePath(aProduct.getId(),aProduct.getImagesPath().get(i)))
-                dbh.insertImagePathProduct(aProduct.getId(),aProduct.getImagesPath().get(i));
+            if ( ! DataBaseHandler.getInstance(context).ExistAProductImagePath(aProduct.getId(), aProduct.getImagesPath().get(i)))
+                DataBaseHandler.getInstance(context).insertImagePathProduct(aProduct.getId(), aProduct.getImagesPath().get(i));
 
         }
     }
 
     public ArrayList<Product> getAllProductFromTable(){
-        return dbh.selectAllProduct();
+        return DataBaseHandler.getInstance(context).selectAllProduct();
     }
     public ArrayList<Product> getAllProductFavourite(){
         ArrayList<Product> allProduct=new ArrayList<Product>();
@@ -296,8 +294,8 @@ public class ServerConnectionHandler {
         return allProductFavorite;
     }
     public Product getAProduct(int productId){
-        Product aProduct= dbh.selectAProduct(productId);
-        aProduct.setImagesPath(dbh.selectAllImagePathAProduct(productId));
+        Product aProduct= DataBaseHandler.getInstance(context).selectAProduct(productId);
+        aProduct.setImagesPath(DataBaseHandler.getInstance(context).selectAllImagePathAProduct(productId));
         return aProduct;
     }
     public ArrayList<ProductOption> getOptionsOfAProductFromURL(String url){
@@ -314,18 +312,18 @@ public class ServerConnectionHandler {
         return p.getAllProductOptions(productInfoJson);
     }
     public ArrayList<Product> getSpecialProduct(){
-        return dbh.selectSpecialProduct();
+        return DataBaseHandler.getInstance(context).selectSpecialProduct();
     }
     public void addAProductOptionsToTable(int productId,ProductOption aOptions){
-        dbh.insertOptionProduct(productId, aOptions.getTitle(), aOptions.getValue());
+        DataBaseHandler.getInstance(context).insertOptionProduct(productId, aOptions.getTitle(), aOptions.getValue());
     }
     public void addProductOptionsToTable(int productId,ArrayList<ProductOption> options){
         for (int i=0;i<options.size();i++)
-            dbh.insertOptionProduct(productId,options.get(i).getTitle(),options.get(i).getValue());
+            DataBaseHandler.getInstance(context).insertOptionProduct(productId, options.get(i).getTitle(), options.get(i).getValue());
     }
     public ArrayList<ProductOption> getProductOption(int productId,int groupId){
         ArrayList<ProductOption> options=new ArrayList<ProductOption>();
-        options=dbh.selectAllOptionProduct(productId);
+        options=DataBaseHandler.getInstance(context).selectAllOptionProduct(productId);
         if(options.size()==0) {
             options = getOptionsOfAProductFromURL("http://decoriss.com/json/get,com=options&pid=" +
                     String.valueOf(productId) + "&pgid=" + String.valueOf(groupId) + "&cache=false");
@@ -366,11 +364,11 @@ public class ServerConnectionHandler {
         return productsOfABrand;
     }
     public void changeProductLike(int productId,int like){
-        dbh.updateAProductLike(productId,like);
+        DataBaseHandler.getInstance(context).updateAProductLike(productId, like);
     }
     public ArrayList<String> searchInProductTitle(){
         Map<Integer,String> productTitle= new HashMap<Integer,String>();
-        productTitle=dbh.selectAllProductTitle();
+        productTitle=DataBaseHandler.getInstance(context).selectAllProductTitle();
         ArrayList<String> titles=new ArrayList<String>();
         for (Map.Entry<Integer, String> entry : productTitle.entrySet()) {
             titles.add(entry.getValue());
@@ -379,7 +377,7 @@ public class ServerConnectionHandler {
     }
     public int getProductIdWithTitle(String title){
         Map<Integer,String> productTitle= new HashMap<Integer,String>();
-        productTitle=dbh.selectAllProductTitle();
+        productTitle=DataBaseHandler.getInstance(context).selectAllProductTitle();
         int productId=0;
         for (Map.Entry<Integer, String> entry : productTitle.entrySet()) {
             if(entry.getValue().equals(title))
@@ -471,16 +469,16 @@ public class ServerConnectionHandler {
 
     //article
     public Boolean emptyDBArticle(){
-        Boolean empty=dbh.emptyArticleTable();
+        Boolean empty=DataBaseHandler.getInstance(context).emptyArticleTable();
         return empty;
     }
     public void addAllArticlesToTable(ArrayList<Article> allArticles){
         for (int i=0;i<allArticles.size();i++)
-            dbh.insertArticle(allArticles.get(i));
+            DataBaseHandler.getInstance(context).insertArticle(allArticles.get(i));
     }
     public ArrayList<Article> getAllArticlesFromTable(){
 
-        return dbh.selectAllArticle();
+        return DataBaseHandler.getInstance(context).selectAllArticle();
     }
     public ArrayList<Article> getAllArticlesAndNewsURL(String url){
 
@@ -497,7 +495,7 @@ public class ServerConnectionHandler {
         return a.getAllProductOptions(articlesInfo);
     }
     public void refreshArticles(){
-        String lastArticlesNum=dbh.selectLastArticlesNum();
+        String lastArticlesNum=DataBaseHandler.getInstance(context).selectLastArticlesNum();
         int endArticle=Integer.parseInt(lastArticlesNum)+100;
         String url="http://decoriss.com/json/get,com=news&name=blog&order=desc&limit="
                 +lastArticlesNum+"-"+String.valueOf(endArticle)+"&cache=false";
@@ -542,7 +540,7 @@ public class ServerConnectionHandler {
 
     //Product Shopping
     public boolean checkSelectProductForShop(int productId){
-        return dbh.ExistAProductShopping(productId);
+        return DataBaseHandler.getInstance(context).ExistAProductShopping(productId);
     }
     public ArrayList<ProductShop> getLastProductShop(String url){
 
@@ -561,61 +559,61 @@ public class ServerConnectionHandler {
 
     }
     public void addProductToShoppingBag(int productId,int number){
-        dbh.insertShoppingBag(productId,number);
+        DataBaseHandler.getInstance(context).insertShoppingBag(productId, number);
     }
     public Map<Integer,Integer> getAllProductShopping(){
-        return dbh.selectAllProductShopping();
+        return DataBaseHandler.getInstance(context).selectAllProductShopping();
     }
     public ArrayList<Integer> getProductShoppingID(){
-        return dbh.selectAllIdProductShopping();
+        return DataBaseHandler.getInstance(context).selectAllIdProductShopping();
     }
     public void deleteAProductShopping(int productId){
-        dbh.deleteAProductShopping(productId);
+        DataBaseHandler.getInstance(context).deleteAProductShopping(productId);
     }
     public int getCountProductShop(){
-        return dbh.CounterProductShopping();
+        return DataBaseHandler.getInstance(context).CounterProductShopping();
     }
     public void changeShoppingNunmber(int productId,int count){
-        dbh.updateAShoppingNumberPurchased(productId, count);
+        DataBaseHandler.getInstance(context).updateAShoppingNumberPurchased(productId, count);
     }
     public void emptyShoppingBag(){
-        dbh.deleteAllShoppingTable();
+        DataBaseHandler.getInstance(context).deleteAllShoppingTable();
     }
     public int getNumberProductShop(int productId){
-        return dbh.numberPurchasedAProduct(productId);
+        return DataBaseHandler.getInstance(context).numberPurchasedAProduct(productId);
     }
 
     //User Profile
     public void addUserInfoToTable(UserInfo aUser){
-        if(dbh.emptyUserInfoTable()){
-            dbh.insertUserInfo(aUser);
+        if(DataBaseHandler.getInstance(context).emptyUserInfoTable()){
+            DataBaseHandler.getInstance(context).insertUserInfo(aUser);
         }
         else{
-            dbh.deleteUserInfo();
-            dbh.insertUserInfo(aUser);
+            DataBaseHandler.getInstance(context).deleteUserInfo();
+            DataBaseHandler.getInstance(context).insertUserInfo(aUser);
         }
     }
     public boolean emptyUserInfo(){
-        if (dbh.emptyUserInfoTable())
+        if (DataBaseHandler.getInstance(context).emptyUserInfoTable())
             return true;
         else
             return false;
     }
     public UserInfo getUserInfo(){
-        if (dbh.emptyUserInfoTable())
+        if (DataBaseHandler.getInstance(context).emptyUserInfoTable())
             return null;
         else
-            return dbh.selectUserInformation();
+            return DataBaseHandler.getInstance(context).selectUserInformation();
     }
     public void deleteUserInfo(){
-        dbh.deleteUserInfo();
+        DataBaseHandler.getInstance(context).deleteUserInfo();
     }
 
     //Version Of App
 
     public String getLastVersionInServer(String url){
 
-        String lastVersionInServer=dbh.selectLastVersionApp();
+        String lastVersionInServer=DataBaseHandler.getInstance(context).selectLastVersionApp();
 
         GetFile getFileVersionFrmURL=new GetFile();
         try {
@@ -630,7 +628,7 @@ public class ServerConnectionHandler {
 
     }
     public boolean checkNewVersion(String url){
-        String lastVersionInDB=dbh.selectLastVersionApp();
+        String lastVersionInDB=DataBaseHandler.getInstance(context).selectLastVersionApp();
         String lastVersionInServer=getLastVersionInServer(url);
         String finalVersion="";
         for(int i=0;i<lastVersionInServer.length()-1;i++)
