@@ -1,6 +1,5 @@
 package ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -30,8 +29,8 @@ public class ParseJsonProduct extends AsyncTask<String, String, String> {
 
     private Context myContext;
 
-    private static InputStream is = null;
-    private static String jsonString = "";
+    private InputStream is = null;
+    private String jsonString = "";
     private HttpURLConnection connection;
 
     private ArrayList<Product> allProduct;
@@ -39,7 +38,6 @@ public class ParseJsonProduct extends AsyncTask<String, String, String> {
     private ArrayList<String> imagePath;
 
     private ServerConnectionHandler sch;
-    public ProgressDialog pDialog;
 
 
     public ParseJsonProduct(Context context){
@@ -58,7 +56,7 @@ public class ParseJsonProduct extends AsyncTask<String, String, String> {
         connection.setDoInput(true);
         connection.setDoOutput(true);
         connection.setUseCaches(false);
-        Log.v("connect", "Connecte to Internet");
+        Log.v("connect", "Connect to Internet");
         int response=0;
         try {
             connection.setRequestMethod("GET");
