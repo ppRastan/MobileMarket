@@ -34,22 +34,38 @@ public class Links {
     }
 
     public String generateURLForRefreshArticles(String lastArticlesNum){
-        int endArticle=Integer.parseInt(lastArticlesNum)+100;
+        int endArticle=Integer.parseInt(lastArticlesNum)+Utilities.getInstance().getArticleNumberWhenRefresh();
         String url="http://decoriss.com/json/get,com=news&name=blog&order=desc&limit="
                 +lastArticlesNum+"-"+String.valueOf(endArticle)+"&cache=false";
         return url;
     }
 
-    public String generateGetAuthorizeResponse(String hashInfo,String key) {
+    public String generateURLGetAuthorizeResponse(String hashInfo, String key) {
         String url = "http://decoriss.com/json/get,com=login&u=" + hashInfo +
                 "&k=" + key;
         return url;
     }
 
-    public String generateGetAllCommentAProduct(int productId) {
+    public String generateURLGetAllCommentAProduct(int productId) {
         String url = "http://decoriss.com/json/get,com=comments&pid=" + productId + "&cache=false";
         return url;
     }
 
-
+    public String generateURLForGetArticle(int leastArticleNumber,int highestArticleNumber){
+        String url="http://decoriss.com/json/get,com=news&name=blog&order=desc&limit="+
+                String.valueOf(leastArticleNumber)+"-"+String.valueOf(highestArticleNumber)+"&cache=false";
+        return url;
     }
+
+    public String generateURLForGetArticleImage(String articleImageLink){
+        String url= articleImageLink+
+                "&size="+
+                Configuration.getConfig().articleDisplaySizeForURL +"x"+Configuration.getConfig().articleDisplaySizeForURL +
+                Utilities.getInstance().getImageQuality();
+        return url;
+    }
+
+
+
+
+}

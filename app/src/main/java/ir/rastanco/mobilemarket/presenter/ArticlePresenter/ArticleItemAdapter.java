@@ -15,6 +15,7 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.Links;
 
 
 /**
@@ -34,33 +35,14 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
     }
 
     public View getView(final int position, View convertView, ViewGroup parent){
-
         LayoutInflater inflater = myContext.getLayoutInflater();
         final View rowView = inflater.inflate(R.layout.article_item, null);
-
-
-        imgLoader = new ImageLoader(getContext(),rowView, Configuration.articleDisplaySizeForShow); // important
+        imgLoader = new ImageLoader(getContext(),rowView, Configuration.getConfig().articleDisplaySizeForShow); // important
         ImageView articleImage = (ImageView) rowView.findViewById(R.id.img_article);
-        articleImage.getLayoutParams().width=Configuration.articleDisplaySizeForShow;
-        articleImage.getLayoutParams().height=Configuration.articleDisplaySizeForShow;
-        String articleImageURL= articles.get(position).getImageLink()+
-                "&size="+
-                Configuration.articleDisplaySizeForURL +"x"+Configuration.articleDisplaySizeForURL +
-                "&q=30";
+        articleImage.getLayoutParams().width=Configuration.getConfig().articleDisplaySizeForShow;
+        articleImage.getLayoutParams().height=Configuration.getConfig().articleDisplaySizeForShow;
+        String articleImageURL= Links.getInstance().generateURLForGetArticleImage(articles.get(position).getImageLink());
         imgLoader.DisplayImage(articleImageURL, articleImage);
-
-        /*Glide.with(Configuration.superACFragment)
-                .load(articleImageURL)
-                        // The placeholder image is shown immediately and
-                        // replaced by the remote image when Picasso has
-                        // finished fetching it.
-                .placeholder(R.drawable.loadingholder)
-                        //A request will be retried three times before the error placeholder is shown.
-                .error(R.drawable.loadingholder)
-                        // Transform images to better fit into layouts and to
-                        // reduce memory size.
-                .into(articleImage);*/
-
         TextView articleTitle=(TextView)rowView.findViewById(R.id.txt_titleArticle);
         articleTitle.setText(articles.get(position).getTitle());
         return rowView;

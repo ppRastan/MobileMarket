@@ -27,9 +27,14 @@ public class Utilities {
             price=10000001; //1 is sign for price is above
         return price;
     }
-
     public int getAtLeastHighestPrice(){
         return 10000000;
     }
+    public int getStartArticleNumber(){return 0;}
+    public int getAtLeastArticleInFirstTime(){return 25;}
+    public int getArticleNumberWhenRefresh(){return 100;}
+    public String getImageQuality(){
+        String quality="30";
+        return quality;}
 
 }

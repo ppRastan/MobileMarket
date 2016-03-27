@@ -20,6 +20,8 @@ import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
+import ir.rastanco.mobilemarket.utility.Links;
+import ir.rastanco.mobilemarket.utility.Utilities;
 
 /**
  * Created by ShaisteS on 1394/10/26.
@@ -30,15 +32,21 @@ public class ArticleFragment extends Fragment {
 
     private ServerConnectionHandler sch;
     private ArrayList<Article> articles;
+    private int leastArticleNumberInFirstTime;
+    private int startArticleNumber;
     private View mainView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         sch=new ServerConnectionHandler(getContext());
+        leastArticleNumberInFirstTime= Utilities.getInstance().getAtLeastArticleInFirstTime();
+        startArticleNumber=Utilities.getInstance().getStartArticleNumber();
+
         articles=new ArrayList<Article>();
 
         if (sch.emptyDBArticle()){
-            articles=sch.getAllArticlesAndNewsURL("http://decoriss.com/json/get,com=news&name=blog&order=desc&limit=0-25&cache=false");
+            String url= Links.getInstance().generateURLForGetArticle(startArticleNumber,leastArticleNumberInFirstTime);
+            articles=sch.getAllArticlesAndNewsURL(url);
             sch.addAllArticlesToTable(articles);
         }
 
@@ -47,7 +55,8 @@ public class ArticleFragment extends Fragment {
             public void connectionOK() {
 
                 if (sch.emptyDBArticle()){
-                    articles=sch.getAllArticlesAndNewsURL("http://decoriss.com/json/get,com=news&name=blog&order=desc&limit=0-25&cache=false");
+                    String url= Links.getInstance().generateURLForGetArticle(startArticleNumber,leastArticleNumberInFirstTime);
+                    articles=sch.getAllArticlesAndNewsURL(url);
                     sch.addAllArticlesToTable(articles);
                 }
 
@@ -57,11 +66,10 @@ public class ArticleFragment extends Fragment {
         mainView = inflater.inflate(R.layout.fragment_article, null);
         articles=sch.getAllArticlesFromTable();
         final ListView articleList = (ListView) mainView.findViewById(R.id.lv_article);
-
         final int[] startItem = {0};
         final int[] endItem = new int[1];
-        if (articles.size()>25)
-            endItem[0] =25;
+        if (articles.size()>leastArticleNumberInFirstTime)
+            endItem[0] =leastArticleNumberInFirstTime;
         else
             endItem[0] =articles.size();
         ArrayList<Article> customArticles=new ArrayList<Article>();
@@ -96,7 +104,7 @@ public class ArticleFragment extends Fragment {
                         sch.refreshArticles();
                         articles = sch.getAllArticlesFromTable();
                         ArrayList<Article> helpArticlesShow=new ArrayList<Article>();
-                        for (int i = 0; i < 25; i++) {
+                        for (int i = 0; i < leastArticleNumberInFirstTime; i++) {
                             helpArticlesShow.add(articles.get(i));
 
                         }
@@ -130,8 +138,8 @@ public class ArticleFragment extends Fragment {
                 if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0 && endItem[0] < articles.size()) {
                     ArrayList<Article> customArticles = new ArrayList<Article>();
                     startItem[0] = endItem[0];
-                    if (endItem[0] + 25 < articles.size())
-                        endItem[0] = endItem[0] + 25;
+                    if (endItem[0] + leastArticleNumberInFirstTime < articles.size())
+                        endItem[0] = endItem[0] + leastArticleNumberInFirstTime;
                     else
                         endItem[0] = articles.size();
                     for (int i = startItem[0]; i < endItem[0] - 1; i++) {
@@ -142,10 +150,7 @@ public class ArticleFragment extends Fragment {
                 }
             }
         });
-
         return mainView;
-
-
     }
 
 }

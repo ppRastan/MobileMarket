@@ -490,7 +490,7 @@ public class ServerConnectionHandler {
         return  pjk.getKey(jsonKeyString);
     }
     public ArrayList<String> GetAuthorizeResponse(String hashInfo,String key){
-        String url=Links.getInstance().generateGetAuthorizeResponse(hashInfo, key);
+        String url=Links.getInstance().generateURLGetAuthorizeResponse(hashInfo, key);
         GetFile jsonAuth = new GetFile();
         String jsonKeyString= null;
         try {
@@ -605,7 +605,7 @@ public class ServerConnectionHandler {
 
     //Comments
     public ArrayList<Comment> getAllCommentAProduct(int productId){
-        String url=Links.getInstance().generateGetAllCommentAProduct(productId);
+        String url=Links.getInstance().generateURLGetAllCommentAProduct(productId);
         GetFile jParserComment = new GetFile();
         String jsonComment= null;
         try {
