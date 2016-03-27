@@ -13,7 +13,7 @@ import java.net.URL;
 
 /**
  * Created by ShaisteS 12/30/2015.
- * This Class ObserverShopping to JSON File Url and return String
+ * This Class Get JSON File from server and return String
  */
 public class GetFile extends AsyncTask<String,String,String> {
 
