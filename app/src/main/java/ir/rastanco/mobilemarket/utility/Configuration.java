@@ -10,8 +10,8 @@ import android.view.MenuItem;
  * A Singleton Class For Access Static Parameter
  */
 public class Configuration {
+
     private static Configuration config = new Configuration();
-    public static boolean IstheFirtTimeGoingToThisPage;
 
     public static Configuration getConfig() {
         if (config != null) {
@@ -21,6 +21,8 @@ public class Configuration {
     }
 
     public static boolean userLoginStatus;
+    public static boolean IsTheFirstTimeGoingToThisPage;
+
 
     public static String homeDisplaySizeForURL;
     public static int homeDisplaySizeForShow;

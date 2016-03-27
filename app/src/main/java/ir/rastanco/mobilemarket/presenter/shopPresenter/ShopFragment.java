@@ -62,7 +62,7 @@ public class ShopFragment extends Fragment {
         final int pageId;
         pageId=getArguments().getInt("pageId");
         sch=new ServerConnectionHandler(getContext());
-        products=sch.getProductOfMainCategoryWithId(pageId);
+        products=sch.getProductsOfAParentCategory(pageId);
         noThingToShow = (TextView)mainView.findViewById(R.id.no_thing_to_show1);
         noThingToShow.setTypeface(Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf"));
         final RecyclerView gridview = (RecyclerView) mainView.findViewById(R.id.gv_infoProduct);
@@ -134,13 +134,13 @@ public class ShopFragment extends Fragment {
             @Override
             public void SimilarProductSet() {
                 DataFilter.FilterCategoryId=ObserverSimilarProduct.getSimilarProduct();
-                DataFilter.FilterPriceTitle=sch.getACategoryTitle(DataFilter.FilterCategoryId);
+                DataFilter.FilterPriceTitle=sch.getACategoryTitleWithCategoryId(DataFilter.FilterCategoryId);
                 DataFilter.FilterBrand=Configuration.ShopFragmentContext.getResources().getString(R.string.all);
                 txtFilterCategorySelected.setText(DataFilter.FilterPriceTitle);
                 txtFilterCategorySelected.setTextColor(getResources().getColor(R.color.red));
                 txtFilterOptionProductSelected.setText(Configuration.ShopFragmentContext.getResources().getString(R.string.all));
                 txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.black));
-                ArrayList<Product> newProducts = sch.ProductOFASubCategory(ObserverSimilarProduct.getSimilarProduct());
+                ArrayList<Product> newProducts = sch.getProductsOfAParentCategory(ObserverSimilarProduct.getSimilarProduct());
                 PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                 gridview.setAdapter(newAdapter);
                 newAdapter.notifyDataSetChanged();

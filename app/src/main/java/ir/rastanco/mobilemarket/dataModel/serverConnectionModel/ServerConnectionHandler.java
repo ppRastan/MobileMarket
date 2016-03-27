@@ -25,6 +25,8 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJ
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonLastShop;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductOption;
+import ir.rastanco.mobilemarket.utility.Links;
+import ir.rastanco.mobilemarket.utility.Utilities;
 
 /**
  * Created by ShaisteS on 1394/10/14.
@@ -38,15 +40,50 @@ public class ServerConnectionHandler {
         context=myContext;
     }
 
+
     //Setting
+    public void setSetting(String firstTimeStamp,String firstArticleNumber,String version,String firstUpdateTimeStamp){
+        DataBaseHandler.getInstance(context).insertSettingApp(firstTimeStamp,
+                firstArticleNumber,
+                version,
+                firstUpdateTimeStamp);
+    }
     public String getLastTimeStamp(){
         return DataBaseHandler.getInstance(context).selectLastTimeStamp();
     }
-    public void updateVersionApp(String newVersin){
-        DataBaseHandler.getInstance(context).updateLastVersion(newVersin);
+
+    public String getLastUpdateTimeStamp(){
+        return DataBaseHandler.getInstance(context).selectLastUpdateTimeStamp();
+    }
+
+    public void updateVersionApp(String newVersion){
+        DataBaseHandler.getInstance(context).updateLastVersion(newVersion);
+    }
+
+    public void updateLastUpdateTimeStamp(String updateTimeStamp){
+        DataBaseHandler.getInstance(context).updateLastUpdateTimeStamp(updateTimeStamp);
+    }
+
+    public void updateTimeStamp(String TimeStamp){
+        DataBaseHandler.getInstance(context).updateTimeStamp(TimeStamp);
     }
 
     //Category
+
+    public ArrayList<Category> getAllCategoryInfoURL(String url){
+        GetFile jParserCategory = new GetFile();
+        String jsonCategory= null;
+        try {
+            jsonCategory = jParserCategory.execute(url).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        ArrayList<Category> allCategoryInfo=new ParseJsonCategory().getAllCategory(jsonCategory);
+        return allCategoryInfo;
+    }
+
     public Boolean emptyDBCategory(){
         Boolean empty=DataBaseHandler.getInstance(context).emptyCategoryTable();
         return empty;
@@ -56,24 +93,44 @@ public class ServerConnectionHandler {
             DataBaseHandler.getInstance(context).insertACategory(allCategories.get(i));
         }
     }
-    public ArrayList<Category> getAllCategoryInfoTable(){
 
-        return DataBaseHandler.getInstance(context).selectAllCategory();
+    public boolean existACategoryInDataBase(int categoryId){
+        return DataBaseHandler.getInstance(context).ExistACategory(categoryId);
     }
-    public String getACategoryTitle(int catId){
-        ArrayList<Category> allCategories=new ArrayList<Category>();
-        allCategories=getAllCategoryInfoTable();
-        String catTitle="";
-        for (int i=0;i<allCategories.size();i++){
-            if (allCategories.get(i).getId()==catId)
-                catTitle=allCategories.get(i).getTitle();
-        }
-        return catTitle;
+
+    public void updateACategory(Category aCategory){
+        DataBaseHandler.getInstance(context).updateACategory(aCategory);
+    }
+
+    public void addACategoryToDataBase(Category aCategory){
+        DataBaseHandler.getInstance(context).insertACategory(aCategory);
+    }
+
+    public Category getACategoryWithId(int categoryId){
+        return DataBaseHandler.getInstance(context).selectACategoryWithId(categoryId);
+    }
+
+    public String getACategoryTitleWithCategoryId(int categoryId){
+        Category aCategory=getACategoryWithId(categoryId);
+        return aCategory.getTitle();
+    }
+
+    public ArrayList<String> getTitleOfChildOfACategory(int catID){
+        return DataBaseHandler.getInstance(context).selectChildOfACategoryTitle(catID);
     }
 
     public int getHasChildACategoryWithId(int categoryId){
-        Category aCategory=DataBaseHandler.getInstance(context).selectACategory(categoryId);
+        Category aCategory=getACategoryWithId(categoryId);
         return aCategory.getHasChild();
+    }
+
+    public ArrayList<Integer> getAllChildOfACategoryWithParentCategoryId(int categoryId){
+        ArrayList<Integer> subCategoriesId=DataBaseHandler.getInstance(context).selectChildIdOfACategory(categoryId);
+        return subCategoriesId;
+    }
+
+    public int getParentIdACategoryWithCategoryId(int categoryId){
+        return DataBaseHandler.getInstance(context).selectACategoryParent(categoryId);
     }
 
     public Map<String,Integer> MapTitleToIDForMainCategory(){
@@ -84,7 +141,6 @@ public class ServerConnectionHandler {
         return DataBaseHandler.getInstance(context).selectAllCategoryTitleAndId();
 
     }
-
     public Map<String,Integer> MapTitleToIDForChildOfACategory(int catId){
         return DataBaseHandler.getInstance(context).selectChildOfACategoryTitleAndId(catId);
     }
@@ -92,161 +148,86 @@ public class ServerConnectionHandler {
     public ArrayList<String> getMainCategoryTitle(){
         return DataBaseHandler.getInstance(context).selectMainCategoriesTitle();
     }
-    public ArrayList<Category> getAllCategoryInfoURL(String url){
 
-        GetFile jParserCategory = new GetFile();
-        String jsonCategory= null;
-        try {
-            jsonCategory = jParserCategory.execute(url).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        ArrayList<Category> allCategoryInfo=new ArrayList<Category>();
-        allCategoryInfo=new ParseJsonCategory().getAllCategory(jsonCategory);
-
-        return allCategoryInfo;
-
-    }
-
-    public Category getACategoryInformation(int categoryId){
-        return DataBaseHandler.getInstance(context).selectACategory(categoryId);
-    }
-
-    public int getMainCategoryId(String catTitle) {
-        Map<Integer, String> catTitleMap = DataBaseHandler.getInstance(context).selectMainCategoryTitle();
-        int catId = 0;
-        for (Map.Entry<Integer, String> entry : catTitleMap.entrySet()) {
-            if (entry.getValue().equals(catTitle))
-                catId = entry.getKey();
-        }
-        return catId;
-    }
-    public String getPageTitleForSimilarProduct(int categoryId){
-
+    public String getTabTitleForSimilarProduct(int categoryId){
         int catId=categoryId;
-        int parentId=DataBaseHandler.getInstance(context).selectACategoryParent(catId);
+        int parentId=getParentIdACategoryWithCategoryId(catId);
         while (parentId !=0){
-
             catId=parentId;
-            parentId=DataBaseHandler.getInstance(context).selectACategoryParent(catId);
+            parentId=getParentIdACategoryWithCategoryId(catId);
         }
-        return DataBaseHandler.getInstance(context).selectACategory(catId).getTitle();
-
-    }
-    public ArrayList<Integer> ChildOfACategory(String title){
-        int catId=getMainCategoryId(title);
-        ArrayList<Integer> subCategoriesId=new ArrayList<Integer>();
-        subCategoriesId=DataBaseHandler.getInstance(context).selectChildIdOfACategory(catId);
-      return subCategoriesId;
+        return getACategoryTitleWithCategoryId(catId);
     }
 
-    public ArrayList<Integer> ChildOfACategoryWithId(int categoryId){
-        ArrayList<Integer> subCategoriesId=new ArrayList<Integer>();
-        subCategoriesId=DataBaseHandler.getInstance(context).selectChildIdOfACategory(categoryId);
-        return subCategoriesId;
-    }
-
-    public ArrayList<Integer> childOfASubCategory(int subCategoryId){
-        ArrayList<Integer> childSubCategoriesId=new ArrayList<Integer>();
-        childSubCategoriesId=DataBaseHandler.getInstance(context).selectChildIdOfACategory(subCategoryId);
-        return childSubCategoriesId;
-    }
-    public ArrayList<Product> ProductOfASubCategory(int subcategoryId){
-        return DataBaseHandler.getInstance(context).selectAllProductOfACategory(subcategoryId);
-    }
-
-    public ArrayList<Product> getProductOfMainCategoryWithId(int categoryId){
-        ArrayList<Product> products=new ArrayList<Product>();
-        ArrayList<Integer> childOfMainCategory=new ArrayList<Integer>();
-        childOfMainCategory=ChildOfACategoryWithId(categoryId);
-        for (int i=0;i<childOfMainCategory.size();i++){
-            ArrayList<Product> helpProduct=new ArrayList<Product>();
-            helpProduct=ProductOFASubCategory(childOfMainCategory.get(i));
-            for (int j=0;j<helpProduct.size();j++)
-                products.add(helpProduct.get(j));
-        }
-        return products;
-    }
-    public ArrayList<Product> ProductOFASubCategory(int subCatId){
-        ArrayList<Product> products=new ArrayList<Product>();
-        ArrayList<Integer> childofSubCategory=new ArrayList<Integer>();
-        childofSubCategory=childOfASubCategory(subCatId);
-        if (childofSubCategory.size()==0){
-
-            ArrayList<Product> helpProducts=new ArrayList<Product>();
-            helpProducts=ProductOfASubCategory(subCatId);
-            for (int k=0;k<helpProducts.size();k++)
-                products.add(helpProducts.get(k));
-
-        }
-        else{
-            for (int j=0;j<childofSubCategory.size();j++){
-                ArrayList<Product> helpProducts=new ArrayList<Product>();
-                helpProducts=ProductOfASubCategory(childofSubCategory.get(j));
-                for (int k=0;k<helpProducts.size();k++)
-                    products.add(helpProducts.get(k));
-            }
-        }
-        return products;
-    }
-    public ArrayList<Product> getProductOfACategory(int catId){
-        ArrayList<Product> allProducts=new ArrayList<Product>();
-        ArrayList<Product> allProductsOfACategory=new ArrayList<Product>();
-        allProducts=getAllProductFromTable();
-        for (int i=0;i<allProducts.size();i++){
-            if(allProducts.get(i).getGroupId()==catId)
-                allProductsOfACategory.add(allProducts.get(i));
-        }
-        return allProductsOfACategory;
-    }
-    public ArrayList<String> getTitleOfChildOfACategory(int catID){
-        return DataBaseHandler.getInstance(context).selectChildOfACategoryTitle(catID);
-    }
     public void refreshCategories(String url){
-        ArrayList<Category> allCategories=new ArrayList<Category>();
-        allCategories=getAllCategoryInfoURL(url);
+        ArrayList<Category> allCategories=getAllCategoryInfoURL(url);
         for (int i=0;i<allCategories.size();i++){
-            if (DataBaseHandler.getInstance(context).ExistACategory(allCategories.get(i).getId()))
-                DataBaseHandler.getInstance(context).updateACategory(allCategories.get(i));
+            if (existACategoryInDataBase(allCategories.get(i).getId()))
+                updateACategory(allCategories.get(i));
             else
-                DataBaseHandler.getInstance(context).insertACategory(allCategories.get(i));
+                addACategoryToDataBase(allCategories.get(i));
         }
     }
-    //Product
+
+    //product
+
     public Boolean emptyDBProduct(){
         Boolean empty=DataBaseHandler.getInstance(context).emptyProductTable();
         return empty;
     }
 
-    //
+    public ArrayList<Product> getAllProductFromTable(){
+        return DataBaseHandler.getInstance(context).selectAllProduct();
+    }
+
+    public ArrayList<Product> getProductsOfACategoryNoChild(int categoryId){
+        return DataBaseHandler.getInstance(context).selectAllProductOfACategory(categoryId);
+    }
+
+    public Boolean existAProductInDataBase(int productId){
+        return DataBaseHandler.getInstance(context).ExistAProduct(productId);
+    }
+
+    public void addAProductInDataBase(Product aProduct){
+        DataBaseHandler.getInstance(context).insertAProduct(aProduct);
+    }
+
+    public Boolean existAProductImagePath(int productId,String imagePath){
+        return DataBaseHandler.getInstance(context).ExistAProductImagePath(productId,imagePath);
+    }
+
+    public void addAImagePathForAProduct(int productId,String imagePath){
+        DataBaseHandler.getInstance(context).insertImagePathProduct(productId, imagePath);
+    }
+
+    public void updateAProductInfo(Product aProduct){
+        DataBaseHandler.getInstance(context).updateAProduct(aProduct);
+        for (int i=0;i<aProduct.getImagesPath().size();i++){
+            if ( ! existAProductImagePath(aProduct.getId(), aProduct.getImagesPath().get(i)))
+                addAImagePathForAProduct(aProduct.getId(), aProduct.getImagesPath().get(i));
+        }
+    }
+
     public void addAllProductToTable(ArrayList<Product> allProducts){
         Boolean isUpdate=false;
         for (int i=0;i<allProducts.size();i++){
-            if(DataBaseHandler.getInstance(context).ExistAProduct(allProducts.get(i).getId())) {
+            if(existAProductInDataBase(allProducts.get(i).getId())) {
                 updateAProductInfo(allProducts.get(i));
                 isUpdate=true;
             }
             else
-                DataBaseHandler.getInstance(context).insertAProduct(allProducts.get(i));
+                addAProductInDataBase(allProducts.get(i));
         }
         if (isUpdate && allProducts.size()>0)
-            DataBaseHandler.getInstance(context).updateLastUpdateTimeStamp(allProducts.get(0).getUpdateTimeStamp());
+            updateLastUpdateTimeStamp(allProducts.get(0).getUpdateTimeStamp());
         else if( !isUpdate && allProducts.size()>0)
-            DataBaseHandler.getInstance(context).updateTimeStamp(allProducts.get(0).getTimeStamp());
+            updateTimeStamp(allProducts.get(0).getTimeStamp());
     }
-    public void setSetting(String firstTimeStamp,String firstArticleNumber,String version,String firstUpdateTimeStamp){
-        DataBaseHandler.getInstance(context).insertSettingApp(firstTimeStamp,
-                firstArticleNumber,
-                version,
-                firstUpdateTimeStamp);
-    }
+
     public void getNewProducts(){
         String lastTimeStamp=getLastTimeStamp();
         ParseJsonProduct pjp=new ParseJsonProduct(context);
-        String url="http://decoriss.com/json/get,com=product&newfromts="+
-                lastTimeStamp+"&cache=false";
+        String url= Links.getInstance().generateUrlForGetNewProduct(lastTimeStamp);
         try {
             pjp.execute(url).get();
         } catch (InterruptedException e) {
@@ -257,10 +238,9 @@ public class ServerConnectionHandler {
     }
 
     public void getEditProducts(){
-        String lastUpdateTimeStamp=DataBaseHandler.getInstance(context).selectLastUpdateTimeStamp();
+        String lastUpdateTimeStamp=getLastUpdateTimeStamp();
         ParseJsonProduct pjp=new ParseJsonProduct(context);
-        String url="http://decoriss.com/json/get,com=product&updatefromts=" +
-                lastUpdateTimeStamp+"&cache=false";
+        String url=Links.getInstance().generateURLForGetEditProduct(lastUpdateTimeStamp);
         try {
             pjp.execute(url).get();
         } catch (InterruptedException e) {
@@ -271,18 +251,21 @@ public class ServerConnectionHandler {
 
     }
 
-    public void updateAProductInfo(Product aProduct){
-        DataBaseHandler.getInstance(context).updateAProduct(aProduct);
-        for (int i=0;i<aProduct.getImagesPath().size();i++){
-            if ( ! DataBaseHandler.getInstance(context).ExistAProductImagePath(aProduct.getId(), aProduct.getImagesPath().get(i)))
-                DataBaseHandler.getInstance(context).insertImagePathProduct(aProduct.getId(), aProduct.getImagesPath().get(i));
-
+    public ArrayList<Product> getProductsOfAParentCategory(int categoryId){
+        ArrayList<Product> products=new ArrayList<Product>();
+        ArrayList<Integer> childOfParentCategoryId=getAllChildOfACategoryWithParentCategoryId(categoryId);
+        if(childOfParentCategoryId.size()==0)
+            products=getProductsOfACategoryNoChild(categoryId);
+        else{
+            for (int i=0;i<childOfParentCategoryId.size();i++){
+                ArrayList<Product> helpProduct=getProductsOfAParentCategory(childOfParentCategoryId.get(i));
+                for (int j=0;j<helpProduct.size();j++)
+                    products.add(helpProduct.get(j));
+            }
         }
+        return products;
     }
 
-    public ArrayList<Product> getAllProductFromTable(){
-        return DataBaseHandler.getInstance(context).selectAllProduct();
-    }
     public ArrayList<Product> getAllProductFavourite(){
         ArrayList<Product> allProduct=new ArrayList<Product>();
         ArrayList<Product> allProductFavorite=new ArrayList<Product>();
@@ -311,22 +294,26 @@ public class ServerConnectionHandler {
         ParseJsonProductOption p=new  ParseJsonProductOption();
         return p.getAllProductOptions(productInfoJson);
     }
+
     public ArrayList<Product> getSpecialProduct(){
         return DataBaseHandler.getInstance(context).selectSpecialProduct();
     }
-    public void addAProductOptionsToTable(int productId,ProductOption aOptions){
-        DataBaseHandler.getInstance(context).insertOptionProduct(productId, aOptions.getTitle(), aOptions.getValue());
+
+    public void addAProductOptionToTable(int productId, ProductOption aOption){
+        DataBaseHandler.getInstance(context).insertOptionProduct(productId,aOption);
     }
+
     public void addProductOptionsToTable(int productId,ArrayList<ProductOption> options){
         for (int i=0;i<options.size();i++)
-            DataBaseHandler.getInstance(context).insertOptionProduct(productId, options.get(i).getTitle(), options.get(i).getValue());
+            addAProductOptionToTable(productId, options.get(i));
     }
-    public ArrayList<ProductOption> getProductOption(int productId,int groupId){
+
+    public ArrayList<ProductOption> getAllProductOptionOfAProduct(int productId, int groupId){
         ArrayList<ProductOption> options=new ArrayList<ProductOption>();
         options=DataBaseHandler.getInstance(context).selectAllOptionProduct(productId);
         if(options.size()==0) {
-            options = getOptionsOfAProductFromURL("http://decoriss.com/json/get,com=options&pid=" +
-                    String.valueOf(productId) + "&pgid=" + String.valueOf(groupId) + "&cache=false");
+            String url= Links.getInstance().generateURLForGetProductOptionsOfAProduct(productId,groupId);
+            options = getOptionsOfAProductFromURL(url);
             addProductOptionsToTable(productId,options);
         }
         return options;
@@ -387,24 +374,13 @@ public class ServerConnectionHandler {
         return productId;
     }
     public ArrayList<Product> getProductAsPriceFilter(ArrayList<Product> allProduct,String priceTitle){
-        int price=convertPriceTitleToInt(priceTitle);
-        if(price<=10000000)
+        int price= Utilities.getInstance().convertPriceTitleToInt(priceTitle);
+        if(price<=Utilities.getInstance().getAtLeastHighestPrice())
             return getProductSmallerThanAPrice(allProduct,price);
         else
             return getProductAboveAsAPrice(allProduct,price);
     }
-    public int convertPriceTitleToInt(String priceTitle){
-        int price=0;
-        if(priceTitle.equals("تا سقف 1 میلیون تومان"))
-            price=1000000;
-        else if (priceTitle.equals("تا سقف 5 میلیون تومان"))
-            price=5000000;
-        else if (priceTitle.equals("تا سقف 10 میلیون تومان"))
-            price=10000000;
-        else
-            price=10000001; //1 is sign for price is above
-        return price;
-    }
+
     public ArrayList<Product> getProductSmallerThanAPrice(ArrayList<Product> allProduct,int price){
         ArrayList<Product> productPrice = new ArrayList<Product>();
         for (int i = 0; i < allProduct.size(); i++) {
@@ -424,9 +400,9 @@ public class ServerConnectionHandler {
     public ArrayList<Product> getProductsAfterFilterCategory(int pageID,int categoryId){
         ArrayList<Product> products=new ArrayList<Product>();
         if (categoryId==0)
-            products=getProductOfMainCategoryWithId(pageID);
+            products= getProductsOfAParentCategory(pageID);
         else {
-            products = getProductOfACategory(categoryId);
+            products = getProductsOfACategoryNoChild(categoryId);
         }
 
         return products;
@@ -437,13 +413,13 @@ public class ServerConnectionHandler {
                                                      String filterOptionStatus
                                                      ){
         ArrayList<Product> allProduct=new ArrayList<Product>();
-        allProduct= getProductOfMainCategoryWithId(pageId);
+        allProduct= getProductsOfAParentCategory(pageId);
         if(filterCategoryId!=0)
              allProduct=getProductsAfterFilterCategory(pageId, filterCategoryId);
         else if (!filterOptionContent.equals(context.getResources().getString(R.string.all))){
-            if(filterOptionStatus.equals("price"))
+            if(filterOptionStatus.equals(context.getResources().getString(R.string.price)))
                 allProduct=getProductAsPriceFilter(allProduct, filterOptionContent);
-            else if (filterOptionStatus.equals("brand"))
+            else if (filterOptionStatus.equals(context.getResources().getString(R.string.brand)))
                 allProduct=getAllProductOfABrand(allProduct,filterOptionContent);
         }
         return allProduct;
@@ -455,13 +431,13 @@ public class ServerConnectionHandler {
                                                      String filterOptionStatus
     ){
         ArrayList<Product> allProduct=new ArrayList<Product>();
-        allProduct= getProductOfMainCategoryWithId(pageID);
+        allProduct= getProductsOfAParentCategory(pageID);
         if(filterCategoryId != 0)
             allProduct=getProductsAfterFilterCategory(pageID, filterCategoryId);
         if (!filterOptionContent.equals(context.getResources().getString(R.string.all))){
-            if(filterOptionStatus.equals("price"))
+            if(filterOptionStatus.equals(context.getResources().getString(R.string.price)))
                 allProduct=getProductAsPriceFilter(allProduct, filterOptionContent);
-            else if (filterOptionStatus.equals("brand"))
+            else if (filterOptionStatus.equals(context.getResources().getString(R.string.brand)))
                 allProduct=getAllProductOfABrand(allProduct,filterOptionContent);
         }
         return allProduct;
@@ -477,11 +453,9 @@ public class ServerConnectionHandler {
             DataBaseHandler.getInstance(context).insertArticle(allArticles.get(i));
     }
     public ArrayList<Article> getAllArticlesFromTable(){
-
         return DataBaseHandler.getInstance(context).selectAllArticle();
     }
     public ArrayList<Article> getAllArticlesAndNewsURL(String url){
-
         GetFile g=new GetFile();
         String articlesInfo=null;
         try {
@@ -496,16 +470,12 @@ public class ServerConnectionHandler {
     }
     public void refreshArticles(){
         String lastArticlesNum=DataBaseHandler.getInstance(context).selectLastArticlesNum();
-        int endArticle=Integer.parseInt(lastArticlesNum)+100;
-        String url="http://decoriss.com/json/get,com=news&name=blog&order=desc&limit="
-                +lastArticlesNum+"-"+String.valueOf(endArticle)+"&cache=false";
+        String url=Links.getInstance().generateURLForRefreshArticles(lastArticlesNum);
         addAllArticlesToTable(getAllArticlesAndNewsURL(url));
-
     }
 
     //Security
     public String GetKey(String url){
-
         GetFile jSONKey = new GetFile();
         String jsonKeyString= null;
         try {
@@ -520,9 +490,7 @@ public class ServerConnectionHandler {
         return  pjk.getKey(jsonKeyString);
     }
     public ArrayList<String> GetAuthorizeResponse(String hashInfo,String key){
-
-        String url="http://decoriss.com/json/get,com=login&u="+hashInfo+
-                "&k="+key;
+        String url=Links.getInstance().generateGetAuthorizeResponse(hashInfo, key);
         GetFile jsonAuth = new GetFile();
         String jsonKeyString= null;
         try {
@@ -532,7 +500,6 @@ public class ServerConnectionHandler {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
         ParseJsonAuthorize pja= new ParseJsonAuthorize();
         return  pja.getResponse(jsonKeyString);
 
@@ -543,7 +510,6 @@ public class ServerConnectionHandler {
         return DataBaseHandler.getInstance(context).ExistAProductShopping(productId);
     }
     public ArrayList<ProductShop> getLastProductShop(String url){
-
         GetFile jsonLastShop = new GetFile();
         String jsonLastShopString= null;
         try {
@@ -553,10 +519,8 @@ public class ServerConnectionHandler {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
         ParseJsonLastShop pjl= new ParseJsonLastShop();
         return  pjl.getLastShop(jsonLastShopString);
-
     }
     public void addProductToShoppingBag(int productId,int number){
         DataBaseHandler.getInstance(context).insertShoppingBag(productId, number);
@@ -573,7 +537,7 @@ public class ServerConnectionHandler {
     public int getCountProductShop(){
         return DataBaseHandler.getInstance(context).CounterProductShopping();
     }
-    public void changeShoppingNunmber(int productId,int count){
+    public void changeShoppingNumber(int productId, int count){
         DataBaseHandler.getInstance(context).updateAShoppingNumberPurchased(productId, count);
     }
     public void emptyShoppingBag(){
@@ -612,9 +576,7 @@ public class ServerConnectionHandler {
     //Version Of App
 
     public String getLastVersionInServer(String url){
-
         String lastVersionInServer=DataBaseHandler.getInstance(context).selectLastVersionApp();
-
         GetFile getFileVersionFrmURL=new GetFile();
         try {
             lastVersionInServer = getFileVersionFrmURL.execute(url).get();
@@ -634,8 +596,6 @@ public class ServerConnectionHandler {
         for(int i=0;i<lastVersionInServer.length()-1;i++)
             finalVersion= finalVersion+String.valueOf(lastVersionInServer.charAt(i+1));
         Boolean newVersionExist=false;
-
-
         if(finalVersion.equals(lastVersionInDB))
             newVersionExist=false;
         else if (!finalVersion.equals(lastVersionInDB) && finalVersion.equals("") && lastVersionInDB.equals(""))
@@ -645,8 +605,7 @@ public class ServerConnectionHandler {
 
     //Comments
     public ArrayList<Comment> getAllCommentAProduct(int productId){
-
-        String url="http://decoriss.com/json/get,com=comments&pid="+productId+"&cache=false";
+        String url=Links.getInstance().generateGetAllCommentAProduct(productId);
         GetFile jParserComment = new GetFile();
         String jsonComment= null;
         try {
@@ -670,5 +629,4 @@ public class ServerConnectionHandler {
             commentsContent.add(allComment.get(i).getCommentContent());
         return commentsContent;
     }
-
 }

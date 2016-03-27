@@ -421,17 +421,17 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         values.put(ImagePathProductTable_Image_Path, path);
         return values;
     }
-    public void insertOptionProduct(int productId, String title, String value) {
+    public void insertOptionProduct(int productId, ProductOption aOption) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(TABLE_PRODUCT_OPTION, null, addFieldOptionProduct(productId, title, value));
+        db.insert(TABLE_PRODUCT_OPTION, null, addFieldOptionProduct(productId,aOption));
         Log.v("insert", "insert A Option of Product into Table");
 
     }
-    private ContentValues addFieldOptionProduct(int productId, String title, String value) {
+    private ContentValues addFieldOptionProduct(int productId,ProductOption aOption) {
         ContentValues values = new ContentValues();
         values.put(ProductOptionTable_ForeignKey_ProductId, productId);
-        values.put(ProductOptionTable_Title_Option, title);
-        values.put(ProductOptionTable_Value_Option, value);
+        values.put(ProductOptionTable_Title_Option, aOption.getTitle());
+        values.put(ProductOptionTable_Value_Option, aOption.getValue());
         return values;
     }
     public void insertArticle(Article aArticle) {
@@ -635,6 +635,24 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return allCategories;
     }
 
+    public Category selectACategoryWithId(int catId){
+        String query="select * from "+TABLE_CATEGORY+
+                " where "+CategoryTable_Column_Category_Id+"=" + catId;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery(query, null);
+        Category aCategory = new Category();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    aCategory=createACategoryFromCursor(rs);
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select A Category With Id");
+        return aCategory;
+    }
 
     public Map<String,Integer> selectAllCategoryTitleAndId() {
         String query="select * from "+TABLE_CATEGORY+
@@ -679,25 +697,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return allCategory;
     }
 
-
-    public Category selectACategory(int catId){
-        String query="select * from "+TABLE_CATEGORY+
-                " where "+CategoryTable_Column_Category_Id+"=" + catId;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery(query, null);
-        Category aCategory = new Category();
-        if (rs != null) {
-            if (rs.moveToFirst()) {
-                do {
-                    aCategory=createACategoryFromCursor(rs);
-                }
-                while (rs.moveToNext());
-            }
-            rs.close();
-        }
-        Log.v("select", "Select A Category With Id");
-        return aCategory;
-    }
 
 
     public ArrayList<String> selectMainCategoriesTitle(){

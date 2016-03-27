@@ -126,14 +126,14 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         btnSimilar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String pageTitle= sch.getPageTitleForSimilarProduct(allProduct.get(position).getGroupId());
+                        String pageTitle= sch.getTabTitleForSimilarProduct(allProduct.get(position).getGroupId());
                         int switchToPage=Configuration.MainPager.getCurrentItem();
                         for (int i=0;i<Configuration.MainPager.getAdapter().getCount();i++){
                             if (Configuration.MainPager.getAdapter().getPageTitle(i).toString().equals(pageTitle))
                                 switchToPage=i;
                         }
                         Configuration.MainPager.setCurrentItem(switchToPage);
-                        int parentId=sch.getACategoryInformation(allProduct.get(position).getGroupId()).getParentId();
+                        int parentId=sch.getACategoryWithId(allProduct.get(position).getGroupId()).getParentId();
                         ObserverSimilarProduct.setSimilarProduct(parentId);
                    }
                });

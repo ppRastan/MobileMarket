@@ -123,7 +123,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
             }
         });
 
-        sch.getProductOption(products.get(position).getId(),
+        sch.getAllProductOptionOfAProduct(products.get(position).getId(),
                 products.get(position).getGroupId());
 
         final ImageButton btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);

@@ -121,7 +121,7 @@ public class FilterCategory extends DialogFragment {
                 int subCategorySelected = bundle.getInt("subCategorySelected");
                 //send subCategory selected to SuperAwesomeCardFragment for show
                 DataFilter.FilterCategoryId = subCategorySelected;
-                DataFilter.FilterCategoryTitle=sch.getACategoryTitle(subCategorySelected);
+                DataFilter.FilterCategoryTitle=sch.getACategoryTitleWithCategoryId(subCategorySelected);
                 ObserverFilterCategory.setAddFilter(true);
                 break;
             case 1:
@@ -134,7 +134,7 @@ public class FilterCategory extends DialogFragment {
             case 2:
                 Bundle bundleNoChild = data.getExtras();
                 int selectACategoryNoChild = bundleNoChild.getInt("noChild");
-                DataFilter.FilterCategoryTitle=sch.getACategoryTitle(selectACategoryNoChild);
+                DataFilter.FilterCategoryTitle=sch.getACategoryTitleWithCategoryId(selectACategoryNoChild);
                 DataFilter.FilterCategoryId = selectACategoryNoChild;
                 ObserverFilterCategory.setAddFilter(true);
                 break;

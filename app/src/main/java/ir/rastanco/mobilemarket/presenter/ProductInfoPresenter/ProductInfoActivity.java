@@ -1,17 +1,14 @@
 package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.FullScreenPAgeUserGuider;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
@@ -39,13 +36,13 @@ public class ProductInfoActivity extends Activity {
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new FullScreenImageAdapter(this, allProducts, allProducts.size()));
         viewPager.setCurrentItem(intent.getIntExtra("position", 0));
-        if (Configuration.IstheFirtTimeGoingToThisPage)
+        if (Configuration.IsTheFirstTimeGoingToThisPage)
             startActivity(new Intent(ProductInfoActivity.this, FullScreenPAgeUserGuider.class));
     }
 
     @Override
     public void onBackPressed() {
-        Configuration.IstheFirtTimeGoingToThisPage = false;
+        Configuration.IsTheFirstTimeGoingToThisPage = false;
         finish();
     }
 }

@@ -98,5 +98,8 @@
     <string name="try_more">دوباره تلاش کنید</string>
     <string name="not_correct">نام کاربری یا رمزعبور صحیح نمی باشد</string>
 
+    <string name="price">price</string>
+    <string name="brand">brand</string>
+
 
 </resources>

@@ -59,7 +59,7 @@ public class ProductOptionActivity extends Activity {
         });
         sch=new ServerConnectionHandler(Configuration.ProductOptionContext);
         options=new ArrayList<ProductOption>();
-        options=sch.getProductOption(productId,groupId);
+        options=sch.getAllProductOptionOfAProduct(productId, groupId);
         lvProductOption=(ListView)findViewById(R.id.lv_productOption);
         ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.ProductOptionContext,
                 R.layout.product_info_item,options);

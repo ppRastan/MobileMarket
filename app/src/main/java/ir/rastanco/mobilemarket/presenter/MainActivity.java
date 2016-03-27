@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         Pushe.initialize(this, true);
         this.setFAb();
         this.phoneManager();
-        Configuration.IstheFirtTimeGoingToThisPage = true;
+        Configuration.IsTheFirstTimeGoingToThisPage = true;
         this.addServerConnection();
         shoppingBagActivity = new ShoppingBagActivity();
         mainCategoryTitle= new ArrayList<String>();
