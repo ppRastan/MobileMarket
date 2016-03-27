@@ -22,7 +22,7 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 
 /**
- * Created by ShaisteS on 1/2/2016.
+ * Created by ShaisteS on 1394/11/12.
  * This Class Parse Product Information Json String
  */
 public class ParseJsonProduct extends AsyncTask<String, String, String> {
