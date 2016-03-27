@@ -169,7 +169,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
                 alertDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int which) {
 
-                        serverConnectionHandler.addProductToShoppingBag(aProduct.getId(), 1);
                         for (int i=0;i<selectedProducts.size();i++){
                             if (aProduct.getId()==selectedProducts.get(i)){
                                 selectedProducts.remove(i);

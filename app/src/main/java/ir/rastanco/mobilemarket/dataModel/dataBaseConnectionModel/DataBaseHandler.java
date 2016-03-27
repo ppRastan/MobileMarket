@@ -30,14 +30,76 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "MobileMarket";
-    private static final String TABLE_USER_INFO = "tblUserInfo";
-    private static final String TABLE_SETTINGS = "tblSetting";
-    private static final String TABLE_SHOPPING = "tblShopping";
-    private static final String TABLE_CATEGORY = "tblCategory";
-    private static final String TABLE_PRODUCT = "tblProduct";
-    private static final String TABLE_IMAGES_PATH_PRODUCT = "tblImagesPathProduct";
-    private static final String TABLE_PRODUCT_OPTION = "tblProductOption";
-    private static final String TABLE_ARTICLE = "tblArticle";
+    private final String TABLE_USER_INFO = "tblUserInfo";
+    private final String TABLE_SETTINGS = "tblSetting";
+    private final String TABLE_SHOPPING = "tblShopping";
+    private final String TABLE_CATEGORY = "tblCategory";
+    private final String TABLE_PRODUCT = "tblProduct";
+    private final String TABLE_IMAGES_PATH_PRODUCT = "tblImagesPathProduct";
+    private final String TABLE_PRODUCT_OPTION = "tblProductOption";
+    private final String TABLE_ARTICLE = "tblArticle";
+
+    private final String UserInfoTable_Column_Primary_Id ="id";
+    private final String UserInfoTable_Column_User_Id = "userId";
+    private final String UserInfoTable_Column_User_email="userEmail";
+    private final String UserInfoTable_Column_User_Login_Status="userLoginStatus";
+
+    private final String SettingsTable_Column_Primary_Id="id";
+    private final String SettingsTable_Column_Last_TimeStamp="lastTimeStamp";
+    private final String SettingsTable_Column_Last_Update_TimeStamp ="lastUpdateTimeStamp";
+    private final String SettingsTable_Column_Last_Articles_Number="lastArticlesNum";
+    private final String SettingsTable_Column_Last_Version_Application="lastVersionOfApp";
+
+    private final String ShoppingTable_Column_Primary_Id="id";
+    private final String ShoppingTable_Column_ForeignKey_ProductId="fkProductId";
+    private final String ShoppingTable_Column_Number_Purchased="numberPurchased";
+
+    private final String CategoryTable_Column_Primary_Id="id";
+    private final String CategoryTable_Column_Title="title";
+    private final String CategoryTable_Column_Category_Id="catId";
+    private final String CategoryTable_Column_Parent_Id="parentId";
+    private final String CategoryTable_Column_SortOrder="sortOrder";
+    private final String CategoryTable_Column_Has_Child="hasChild";
+
+    private final String ProductTable_Column_Primary_Key="id";
+    private final String ProductTable_Column_Title="title";
+    private final String ProductTable_Column_Product_Id="productId";
+    private final String ProductTable_Column_Group_Id="groupId";
+    private final String ProductTable_Column_Price="price";
+    private final String ProductTable_Column_Price_Off="priceOff";
+    private final String ProductTable_Column_Visits="visits";
+    private final String ProductTable_Column_Brand_Name="brandName";
+    private final String ProductTable_Column_Min_Counts="minCounts";
+    private final String ProductTable_Column_Stock="stock";
+    private final String ProductTable_Column_Quality_Rank="qualityRank";
+    private final String ProductTable_Column_Comments_Count="commentsCount";
+    private final String ProductTable_Column_Code_Product="codeProduct";
+    private final String ProductTable_Column_Description="description";
+    private final String ProductTable_Column_Sells_Count="sellsCount";
+    private final String ProductTable_Column_TimeStamp="timeStamp";
+    private final String ProductTable_Column_Update_TimeStamp="updateTimeStamp";
+    private final String ProductTable_Column_Show_AtHome_Screen="showAtHomeScreen";
+    private final String ProductTable_Column_Like="like";
+    private final String ProductTable_Column_Link_In_Site="linkInSite";
+    private final String ProductTable_Column_WaterMark_Path="watermarkPath";
+    private final String ProductTable_Column_Images_Main_Path="imagesMainPath";
+
+    private final String ImagePathProductTable_Primary_Key="id";
+    private final String ImagePathProductTable_ForeignKey_ProductId="fkProductId";
+    private final String ImagePathProductTable_Image_Path="imagePath";
+
+    private final String ProductOptionTable_Primary_Key="id";
+    private final String ProductOptionTable_ForeignKey_ProductId="fkProductId";
+    private final String ProductOptionTable_Title_Option="titleOption";
+    private final String ProductOptionTable_Value_Option="valueOption";
+
+    private final String ArticleTable_Primary_Key="id";
+    private final String ArticleTable_Title="title";
+    private final String ArticleTable_Brief="brief";
+    private final String ArticleTable_Date="date";
+    private final String ArticleTable_Link_In_Website="linkInWebsite";
+    private final String ArticleTable_Image_Link="imageLink";
+
 
 
 
@@ -50,83 +112,94 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         db.execSQL("create table " + TABLE_USER_INFO +
-                "(id Integer primary key AUTOINCREMENT," +
-                "userId Integer," +
-                "userEmail String," +
-                "userLoginStatus Integer)");
+                "(" +
+                UserInfoTable_Column_Primary_Id + " Integer primary key AUTOINCREMENT," +
+                UserInfoTable_Column_User_Id + " Integer," +
+                UserInfoTable_Column_User_email + " String," +
+                UserInfoTable_Column_User_Login_Status + " Integer)");
         Log.v("create", "Create User Information Table");
 
         db.execSQL("create table " + TABLE_SETTINGS +
-                "(id Integer primary key AUTOINCREMENT," +
-                "lastTimeStamp String," +
-                "lastUpdateTimeStamp String," +
-                "lastArticlesNum String," +
-                "lastVersionOfApp String)");
+                "(" +
+                SettingsTable_Column_Primary_Id + " Integer primary key AUTOINCREMENT," +
+                SettingsTable_Column_Last_TimeStamp + " String," +
+                SettingsTable_Column_Last_Update_TimeStamp + " String," +
+                SettingsTable_Column_Last_Articles_Number + " String," +
+                SettingsTable_Column_Last_Version_Application + " String)");
         Log.v("create", "Create Setting Table");
 
         db.execSQL("create table " + TABLE_SHOPPING +
-                "(id Integer primary key AUTOINCREMENT," +
-                "fkProductId Integer unique," +
-                "numberPurchased Integer," +
-                "foreign key (fkProductId) references tblProduct(productId))");
+                "(" +
+                ShoppingTable_Column_Primary_Id + " Integer primary key AUTOINCREMENT," +
+                ShoppingTable_Column_ForeignKey_ProductId + " Integer unique," +
+                ShoppingTable_Column_Number_Purchased + " Integer," +
+                "foreign key (" + ShoppingTable_Column_ForeignKey_ProductId + ") references " +
+                TABLE_PRODUCT + "(" + ProductTable_Column_Product_Id + "))");
         Log.v("create", "Create Shopping Table");
 
         db.execSQL("create table " + TABLE_CATEGORY +
-                "(id Integer primary key AUTOINCREMENT," +
-                "title text," +
-                "catId Integer UNIQUE ," +
-                "parentId Integer," +
-                "sortOrder Integer," +
-                "hasChild Integer)");
+                "(" +
+                CategoryTable_Column_Primary_Id + " Integer primary key AUTOINCREMENT," +
+                CategoryTable_Column_Title + " text," +
+                CategoryTable_Column_Category_Id + " Integer UNIQUE ," +
+                CategoryTable_Column_Parent_Id + " Integer," +
+                CategoryTable_Column_SortOrder + " Integer," +
+                CategoryTable_Column_Has_Child + " Integer)");
         Log.v("create", "Create Table Category");
 
-        db.execSQL("create table "+ TABLE_PRODUCT +
-                "(id Integer primary key AUTOINCREMENT," +
-                "title text," +
-                "productId Integer UNIQUE," +
-                "groupId Integer," +
-                "price Integer," +
-                "priceOff Integer," +
-                "visits Integer," +
-                "brandName text," +
-                "minCounts Integer," +
-                "stock Integer," +
-                "qualityRank text," +
-                "commentsCount Integer," +
-                "codeProduct text," +
-                "description text," +
-                "sellsCount Integer," +
-                "timeStamp text," +
-                "updateTimeStamp text,"+
-                "showAtHomeScreen Integer," +
-                "like Integer," +
-                "linkInSite text," +
-                "watermarkPath text," +
-                "imagesMainPath text)");
+        db.execSQL("create table " + TABLE_PRODUCT +
+                "(" +
+                ProductTable_Column_Primary_Key + " Integer primary key AUTOINCREMENT," +
+                ProductTable_Column_Title + " text," +
+                ProductTable_Column_Product_Id + " Integer UNIQUE," +
+                ProductTable_Column_Group_Id + " Integer," +
+                ProductTable_Column_Price + " Integer," +
+                ProductTable_Column_Price_Off + " Integer," +
+                ProductTable_Column_Visits + " Integer," +
+                ProductTable_Column_Brand_Name + " text," +
+                ProductTable_Column_Min_Counts + " Integer," +
+                ProductTable_Column_Stock + " Integer," +
+                ProductTable_Column_Quality_Rank + " text," +
+                ProductTable_Column_Comments_Count + " Integer," +
+                ProductTable_Column_Code_Product + " text," +
+                ProductTable_Column_Description + " text," +
+                ProductTable_Column_Sells_Count + " Integer," +
+                ProductTable_Column_TimeStamp + " text," +
+                ProductTable_Column_Update_TimeStamp + " text," +
+                ProductTable_Column_Show_AtHome_Screen + " Integer," +
+                ProductTable_Column_Like + " Integer," +
+                ProductTable_Column_Link_In_Site + " text," +
+                ProductTable_Column_WaterMark_Path + " text," +
+                ProductTable_Column_Images_Main_Path + " text)");
         Log.v("create", "Create Table Product");
 
-        db.execSQL("create table "+TABLE_IMAGES_PATH_PRODUCT +
-                "(id Integer primary key AUTOINCREMENT," +
-                "fkProductId Integer not null," +
-                "imagePath text," +
-                "foreign key (fkProductId) references tblProduct(productId))");
+        db.execSQL("create table " + TABLE_IMAGES_PATH_PRODUCT +
+                "(" +
+                ImagePathProductTable_Primary_Key + " Integer primary key AUTOINCREMENT," +
+                ImagePathProductTable_ForeignKey_ProductId + " Integer not null," +
+                ImagePathProductTable_Image_Path + " text," +
+                "foreign key (" + ImagePathProductTable_ForeignKey_ProductId + ") references " +
+                TABLE_PRODUCT + "(" + ProductTable_Column_Product_Id + "))");
         Log.v("create", "Create Table Images Path For Product");
 
-        db.execSQL("create table "+TABLE_PRODUCT_OPTION +
-                "(id Integer primary key AUTOINCREMENT," +
-                "fkProductId Integer not null," +
-                "titleOption text," +
-                "valueOption text," +
-                "foreign key (fkProductId) references tblProduct(productId))");
+        db.execSQL("create table " + TABLE_PRODUCT_OPTION +
+                "(" +
+                ProductOptionTable_Primary_Key + " Integer primary key AUTOINCREMENT," +
+                ProductOptionTable_ForeignKey_ProductId + " Integer not null," +
+                ProductOptionTable_Title_Option + " text," +
+                ProductOptionTable_Value_Option + " text," +
+                "foreign key (" + ProductOptionTable_ForeignKey_ProductId + ") references " +
+                TABLE_PRODUCT + "(" + ProductTable_Column_Product_Id + "))");
         Log.v("create", "Create Table Options For Product");
 
         db.execSQL("create table "+TABLE_ARTICLE +
-                "(id Integer primary key AUTOINCREMENT," +
-                "title text unique," +
-                "brief text," +
-                "date text," +
-                "linkInWebsite text," +
-                "imageLink text)");
+                "("+
+                ArticleTable_Primary_Key +" Integer primary key AUTOINCREMENT," +
+                ArticleTable_Title +" text unique," +
+                ArticleTable_Brief +" text," +
+                ArticleTable_Date +" text," +
+                ArticleTable_Link_In_Website +" text," +
+                ArticleTable_Image_Link +" text)");
         Log.v("create", "Create Table Article");
 
     }
@@ -134,61 +207,11 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        /*if(oldVersion<4){
-            db.execSQL("ALTER TABLE "+ TABLE_PRODUCT + " ADD COLUMN brandName text;");
-        }
-        if(oldVersion<=4){
-            db.execSQL("ALTER TABLE "+ TABLE_PRODUCT + " ADD COLUMN updateTimeStamp text;");
-            db.execSQL("ALTER TABLE "+TABLE_PRODUCT +" MODIFY productId UNIQUE;");
-
-        }
-        if (oldVersion<=5)
-            db.execSQL("ALTER TABLE "+TABLE_SETTINGS+" ADD COLUMN lastUpdateTimeStamp String");
-        if(oldVersion<=6) {
-            //db.execSQL("ALTER TABLE " + TABLE_CATEGORY + " MODIFY catId UNIQUE;");
-            db.execSQL("create table " + TABLE_CATEGORY +"1"+
-                    "(id Integer primary key AUTOINCREMENT," +
-                    "title text," +
-                    "catId Integer UNIQUE ," +
-                    "parentId Integer," +
-                    "sortOrder Integer," +
-                    "hasChild Integer)");
-            db.execSQL("INSERT INTO "+ TABLE_CATEGORY+ "1 SELECT * FROM "+TABLE_CATEGORY);
-            db.execSQL("DROP TABLE "+TABLE_CATEGORY);
-            db.execSQL("ALTER TABLE "+TABLE_CATEGORY+"1 RENAME TO "+TABLE_CATEGORY);
-        }
-
-        // Drop older table if existed
-//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_INFO);
-//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SETTINGS);
-//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHOPPING);
-//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORY);
-//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT);
-//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_IMAGES_PATH_PRODUCT);
-//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCT_OPTION);
-//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARTICLE);
-        // Create tables again
-//        onCreate(db);*/
     }
-
-
 
     public Boolean emptyUserInfoTable() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblUserInfo", null);
-        if (rs.moveToFirst()) {
-            //Not empty
-            rs.close();
-            return false;
-        } else {
-            //Is Empty
-            rs.close();
-            return true;
-        }
-    }
-    public Boolean emptySettingTable() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblSetting", null);
+        Cursor rs = db.rawQuery("select * from "+TABLE_USER_INFO, null);
         if (rs.moveToFirst()) {
             //Not empty
             rs.close();
@@ -202,7 +225,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     public Boolean emptyCategoryTable() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblCategory", null);
+        Cursor rs = db.rawQuery("select * from "+TABLE_CATEGORY, null);
         if (rs.moveToFirst()) {
             //Not empty
             rs.close();
@@ -215,7 +238,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
     public Boolean emptyProductTable() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblProduct", null);
+        Cursor rs = db.rawQuery("select * from "+TABLE_PRODUCT, null);
         if (rs.moveToFirst()) {
             //Not empty
             rs.close();
@@ -228,7 +251,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
     public Boolean emptyArticleTable() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblArticle", null);
+        Cursor rs = db.rawQuery("select * from "+TABLE_ARTICLE, null);
         if (rs.moveToFirst()) {
             //Not empty
             rs.close();
@@ -240,8 +263,11 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
     }
     public Boolean ExistAProduct(int productId) {
+        String query="select "+ProductTable_Column_Product_Id+
+                " from " +TABLE_PRODUCT +
+                " where " +ProductTable_Column_Product_Id +"="+ productId;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select productId from tblProduct where productId=" + productId, null);
+        Cursor rs = db.rawQuery(query, null);
         if (rs.moveToFirst()) {
             //Exist Product
             rs.close();
@@ -254,8 +280,11 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
     public Boolean ExistAProductImagePath(int productId,String imagePath) {
+        String query="select * from "+TABLE_IMAGES_PATH_PRODUCT+
+                " where "+ImagePathProductTable_ForeignKey_ProductId+ " = " + productId +
+                " and "+ImagePathProductTable_Image_Path+ "='"+imagePath+"'";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from "+TABLE_IMAGES_PATH_PRODUCT+" where fkProductId= " + productId +" and imagePath='"+imagePath+"'", null);
+        Cursor rs = db.rawQuery(query, null);
         if (rs.moveToFirst()) {
             //Exist Product
             rs.close();
@@ -268,40 +297,11 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
     public Boolean ExistACategory(int catId) {
+        String query="select "+CategoryTable_Column_Category_Id+
+                " from "+TABLE_CATEGORY+"" +
+                " where "+CategoryTable_Column_Category_Id+"="+ catId;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select catId from tblCategory where catId=" + catId, null);
-        if (rs.moveToFirst()) {
-            //Exist Product
-            rs.close();
-            return true;
-        } else {
-            //Not Exist
-            rs.close();
-            return false;
-        }
-    }
-
-
-    public Boolean ExistAProductIdInOptionTable(int productId) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblProductOption where " +
-                "fkProductId=" + productId, null);
-        if (rs.moveToFirst()) {
-            //Exist Product
-            rs.close();
-            return true;
-        } else {
-            //Not Exist
-            rs.close();
-            return false;
-        }
-    }
-
-
-    public Boolean ExistAProductOption(int productId,String title) {
-        SQLiteDatabase db = this.getReadableDatabase();
-         Cursor rs = db.rawQuery("select * from tblProductOption where " +
-                "fkProductId=" + productId+" and titleOption"+ "='" +title+"'", null);
+        Cursor rs = db.rawQuery(query, null);
         if (rs.moveToFirst()) {
             //Exist Product
             rs.close();
@@ -316,141 +316,138 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     public void insertSettingApp(String lastTimeStamp,String articlesNum,String version,String lastUpdateTimeStamp) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values=new ContentValues();
-        values.put("lastTimeStamp",lastTimeStamp);
-        values.put("lastArticlesNum",articlesNum);
-        values.put("lastVersionOfApp",version);
-        values.put("lastUpdateTimeStamp",lastUpdateTimeStamp);
-        db.insert("tblSetting", null,values);
+        db.insert(TABLE_SETTINGS, null, addFieldToSettingsTable(lastTimeStamp, articlesNum, version, lastUpdateTimeStamp));
         Log.v("insert", "insert Setting for App");
+    }
 
+    private ContentValues addFieldToSettingsTable(String lastTimeStamp,String articlesNum,String version,String lastUpdateTimeStamp){
+        ContentValues values=new ContentValues();
+        values.put(SettingsTable_Column_Last_TimeStamp,lastTimeStamp);
+        values.put(SettingsTable_Column_Last_Articles_Number,articlesNum);
+        values.put(SettingsTable_Column_Last_Version_Application, version);
+        values.put(SettingsTable_Column_Last_Update_TimeStamp, lastUpdateTimeStamp);
+        return values;
     }
 
     public void insertUserInfo(UserInfo aUser) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert("tblUserInfo", null, addFieldToUserInfoTable(aUser));
+        db.insert(TABLE_USER_INFO, null, addFieldToUserInfoTable(aUser));
         Log.v("insert", "insert A UserLogin into Table");
 
     }
     private ContentValues addFieldToUserInfoTable(UserInfo aUser) {
         ContentValues values = new ContentValues();
-        values.put("userId", aUser.getUserId());
-        values.put("userEmail", aUser.getUserEmail());
-        values.put("userLoginStatus", aUser.getUserLoginStatus());
+        values.put(UserInfoTable_Column_User_Id, aUser.getUserId());
+        values.put(UserInfoTable_Column_User_email, aUser.getUserEmail());
+        values.put(UserInfoTable_Column_User_Login_Status, aUser.getUserLoginStatus());
         return values;
     }
-    public void insertSetting(String timeStamp,String lastArticlesNum) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("lastTimeStamp", timeStamp);
-        values.put("lastArticlesNum",lastArticlesNum);
-        db.insert("tblSetting", null, values);
-        Log.v("insert", "insert A TimeStamp into Table");
 
-    }
     public void insertShoppingBag(int productID, int numberPurchased) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("fkProductId", productID);
-        values.put("numberPurchased",numberPurchased);
-        db.insert("tblShopping", null, values);
+        values.put(ShoppingTable_Column_ForeignKey_ProductId, productID);
+        values.put(ShoppingTable_Column_Number_Purchased,numberPurchased);
+        db.insert(TABLE_SHOPPING, null, values);
         Log.v("insert", "insert A ProductId into Shopping Table");
     }
     public void insertACategory(Category aCategory) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert("tblCategory", null, addFieldToCategoryTable(aCategory));
+        db.insert(TABLE_CATEGORY, null, addFieldToCategoryTable(aCategory));
         Log.v("insert", "insert A Category into Table");
     }
     private ContentValues addFieldToCategoryTable(Category aCategory) {
         ContentValues values = new ContentValues();
-        values.put("title", aCategory.getTitle());
-        values.put("catId", aCategory.getId());
-        values.put("parentId", aCategory.getParentId());
-        values.put("hasChild", aCategory.getHasChild());
-        values.put("sortOrder", aCategory.getSortOrder());
+        values.put(CategoryTable_Column_Title, aCategory.getTitle());
+        values.put(CategoryTable_Column_Category_Id, aCategory.getId());
+        values.put(CategoryTable_Column_Parent_Id, aCategory.getParentId());
+        values.put(CategoryTable_Column_Has_Child, aCategory.getHasChild());
+        values.put(CategoryTable_Column_SortOrder, aCategory.getSortOrder());
         return values;
     }
     public void insertAProduct(Product aProduct) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert("tblProduct", null, addFieldToProductTable(aProduct));
+        db.insert(TABLE_PRODUCT, null, addFieldToProductTable(aProduct));
         for (int i = 0; i < aProduct.getImagesPath().size(); i++)
             insertImagePathProduct(aProduct.getId(), aProduct.getImagesPath().get(i));
         Log.v("insert", "insert A Product into Table");
     }
     private ContentValues addFieldToProductTable(Product aProduct) {
         ContentValues values = new ContentValues();
-        values.put("title", aProduct.getTitle());
-        values.put("productId", aProduct.getId());
-        values.put("groupId", aProduct.getGroupId());
-        values.put("price", aProduct.getPrice());
-        values.put("priceOff", aProduct.getPriceOff());
-        values.put("visits", aProduct.getVisits());
-        values.put("minCounts", aProduct.getMinCounts());
-        values.put("stock", aProduct.getStock());
-        values.put("qualityRank", aProduct.getQualityRank());
-        values.put("commentsCount", aProduct.getCommentsCount());
-        values.put("codeProduct", aProduct.getCodeProduct());
-        values.put("description", aProduct.getDescription());
-        values.put("sellsCount", aProduct.getSellsCount());
-        values.put("timeStamp", aProduct.getTimeStamp());
-        values.put("updateTimeStamp",aProduct.getUpdateTimeStamp());
-        values.put("showAtHomeScreen", aProduct.getShowAtHomeScreen());
-        values.put("watermarkPath", aProduct.getWatermarkPath());
-        values.put("imagesMainPath", aProduct.getImagesMainPath());
-        values.put("like",aProduct.getLike());
-        values.put("linkInSite",aProduct.getLinkInSite());
-        values.put("brandName",aProduct.getBrandName());
+        values.put(ProductTable_Column_Title, aProduct.getTitle());
+        values.put(ProductTable_Column_Product_Id, aProduct.getId());
+        values.put(ProductTable_Column_Group_Id, aProduct.getGroupId());
+        values.put(ProductTable_Column_Price, aProduct.getPrice());
+        values.put(ProductTable_Column_Price_Off, aProduct.getPriceOff());
+        values.put(ProductTable_Column_Visits, aProduct.getVisits());
+        values.put(ProductTable_Column_Min_Counts, aProduct.getMinCounts());
+        values.put(ProductTable_Column_Stock, aProduct.getStock());
+        values.put(ProductTable_Column_Quality_Rank, aProduct.getQualityRank());
+        values.put(ProductTable_Column_Comments_Count, aProduct.getCommentsCount());
+        values.put(ProductTable_Column_Code_Product, aProduct.getCodeProduct());
+        values.put(ProductTable_Column_Description, aProduct.getDescription());
+        values.put(ProductTable_Column_Sells_Count, aProduct.getSellsCount());
+        values.put(ProductTable_Column_TimeStamp, aProduct.getTimeStamp());
+        values.put(ProductTable_Column_Update_TimeStamp,aProduct.getUpdateTimeStamp());
+        values.put(ProductTable_Column_Show_AtHome_Screen, aProduct.getShowAtHomeScreen());
+        values.put(ProductTable_Column_WaterMark_Path, aProduct.getWatermarkPath());
+        values.put(ProductTable_Column_Images_Main_Path, aProduct.getImagesMainPath());
+        values.put(ProductTable_Column_Like,aProduct.getLike());
+        values.put(ProductTable_Column_Link_In_Site,aProduct.getLinkInSite());
+        values.put(ProductTable_Column_Brand_Name,aProduct.getBrandName());
         Log.v("insert", "insert A Field into Product Table");
         return values;
     }
     public void insertImagePathProduct(int productId, String path) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert("tblImagesPathProduct", null, addFieldImagePath(productId, path));
+        db.insert(TABLE_IMAGES_PATH_PRODUCT, null, addFieldImagePath(productId, path));
         Log.v("insert", "insert A Image Path Product into Table");
 
     }
     private ContentValues addFieldImagePath(int productId, String path) {
         ContentValues values = new ContentValues();
-        values.put("fkProductId", productId);
-        values.put("imagePath", path);
+        values.put(ImagePathProductTable_ForeignKey_ProductId, productId);
+        values.put(ImagePathProductTable_Image_Path, path);
         return values;
     }
     public void insertOptionProduct(int productId, String title, String value) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert("tblProductOption", null, addFieldOptionProduct(productId, title, value));
+        db.insert(TABLE_PRODUCT_OPTION, null, addFieldOptionProduct(productId, title, value));
         Log.v("insert", "insert A Option of Product into Table");
 
     }
     private ContentValues addFieldOptionProduct(int productId, String title, String value) {
         ContentValues values = new ContentValues();
-        values.put("fkProductId", productId);
-        values.put("titleOption", title);
-        values.put("valueOption", value);
+        values.put(ProductOptionTable_ForeignKey_ProductId, productId);
+        values.put(ProductOptionTable_Title_Option, title);
+        values.put(ProductOptionTable_Value_Option, value);
         return values;
     }
     public void insertArticle(Article aArticle) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert("tblArticle", null, addFieldToArticleTable(aArticle));
+        db.insert(TABLE_ARTICLE, null, addFieldToArticleTable(aArticle));
         Log.v("insert", "insert A Product into Table");
     }
     private ContentValues addFieldToArticleTable(Article aArticle) {
         ContentValues values = new ContentValues();
-        values.put("title", aArticle.getTitle());
-        values.put("brief", aArticle.getBrief());
-        values.put("date", aArticle.getDate());
-        values.put("linkInWebsite", aArticle.getLinkInWebsite());
-        values.put("imageLink", aArticle.getImageLink());
+        values.put(ArticleTable_Title, aArticle.getTitle());
+        values.put(ArticleTable_Brief, aArticle.getBrief());
+        values.put(ArticleTable_Date, aArticle.getDate());
+        values.put(ArticleTable_Link_In_Website, aArticle.getLinkInWebsite());
+        values.put(ArticleTable_Image_Link, aArticle.getImageLink());
         return values;
     }
 
 
     public String selectLastVersionApp() {
+        String query="select "+ SettingsTable_Column_Last_Version_Application+
+                " from "+TABLE_SETTINGS;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select lastVersionOfApp from tblSetting", null);
+        Cursor rs = db.rawQuery(query, null);
         String lastVersion = "";
         if (rs != null) {
             if (rs.moveToFirst()) {
-                lastVersion = rs.getString(rs.getColumnIndex("lastVersionOfApp"));
+                lastVersion = rs.getString(rs.getColumnIndex(SettingsTable_Column_Last_Version_Application));
             }
             rs.close();
         }
@@ -460,12 +457,14 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
 
     public String selectLastTimeStamp() {
+        String query="select "+SettingsTable_Column_Last_TimeStamp+
+                " from "+TABLE_SETTINGS;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select lastTimeStamp from tblSetting", null);
+        Cursor rs = db.rawQuery(query, null);
         String timeStamp = "";
         if (rs != null) {
             if (rs.moveToFirst()) {
-                timeStamp = rs.getString(rs.getColumnIndex("lastTimeStamp"));
+                timeStamp = rs.getString(rs.getColumnIndex(SettingsTable_Column_Last_TimeStamp));
             }
             rs.close();
         }
@@ -474,12 +473,14 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
     public String selectLastUpdateTimeStamp() {
+        String query="select "+SettingsTable_Column_Last_Update_TimeStamp+
+                " from "+TABLE_SETTINGS;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select lastUpdateTimeStamp from tblSetting", null);
+        Cursor rs = db.rawQuery(query, null);
         String timeStamp = "";
         if (rs != null) {
             if (rs.moveToFirst()) {
-                timeStamp = rs.getString(rs.getColumnIndex("lastUpdateTimeStamp"));
+                timeStamp = rs.getString(rs.getColumnIndex(SettingsTable_Column_Last_Update_TimeStamp));
             }
             rs.close();
         }
@@ -488,12 +489,14 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
     public String selectLastArticlesNum() {
+        String query="select "+SettingsTable_Column_Last_Articles_Number+
+                " from "+TABLE_SETTINGS;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select lastArticlesNum from tblSetting", null);
+        Cursor rs = db.rawQuery(query, null);
         String timeStamp = "";
         if (rs != null) {
             if (rs.moveToFirst()) {
-                timeStamp = rs.getString(rs.getColumnIndex("lastArticlesNum"));
+                timeStamp = rs.getString(rs.getColumnIndex(SettingsTable_Column_Last_Articles_Number));
             }
             rs.close();
         }
@@ -501,14 +504,15 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return timeStamp;
     }
     public UserInfo selectUserInformation() {
+        String query="select * from "+TABLE_USER_INFO;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblUserInfo", null);
+        Cursor rs = db.rawQuery(query, null);
         UserInfo aUser=new UserInfo();
         if (rs != null) {
             if (rs.moveToFirst()) {
-                aUser.setUserEmail(rs.getString(rs.getColumnIndex("userEmail")));
-                aUser.setUserId(rs.getInt(rs.getColumnIndex("userId")));
-                aUser.setUserLoginStatus(rs.getInt(rs.getColumnIndex("userLoginStatus")));
+                aUser.setUserEmail(rs.getString(rs.getColumnIndex(UserInfoTable_Column_User_email)));
+                aUser.setUserId(rs.getInt(rs.getColumnIndex(UserInfoTable_Column_User_Id)));
+                aUser.setUserLoginStatus(rs.getInt(rs.getColumnIndex(UserInfoTable_Column_User_Login_Status)));
             }
             rs.close();
         }
@@ -518,13 +522,15 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
 
     public ArrayList<Integer> selectAllIdProductShopping(){
+        String query="select * from "+TABLE_SHOPPING+
+                " order by "+ShoppingTable_Column_Primary_Id+" DESC";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblShopping order by id DESC", null);
+        Cursor rs = db.rawQuery(query, null);
         ArrayList<Integer> allProductsId=new ArrayList<Integer>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    allProductsId.add(rs.getInt(rs.getColumnIndex("fkProductId")));
+                    allProductsId.add(rs.getInt(rs.getColumnIndex(ShoppingTable_Column_ForeignKey_ProductId)));
                 }
                 while (rs.moveToNext());
             }
@@ -535,14 +541,15 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     }
     public Map<Integer,Integer> selectAllProductShopping(){
+        String query="select * from "+TABLE_SHOPPING;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblShopping", null);
+        Cursor rs = db.rawQuery(query, null);
         Map<Integer,Integer> allProductsShop=new HashMap<Integer,Integer>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    allProductsShop.put(rs.getInt(rs.getColumnIndex("fkProductId")),
-                            rs.getInt(rs.getColumnIndex("numberPurchased")));
+                    allProductsShop.put(rs.getInt(rs.getColumnIndex(ShoppingTable_Column_ForeignKey_ProductId)),
+                            rs.getInt(rs.getColumnIndex(ShoppingTable_Column_Number_Purchased)));
                 }
                 while (rs.moveToNext());
             }
@@ -553,8 +560,10 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     }
     public boolean ExistAProductShopping(int productId){
+        String query="select * from "+TABLE_SHOPPING+
+                " where "+ShoppingTable_Column_ForeignKey_ProductId+"="+productId;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblShopping where fkProductId="+productId, null);
+        Cursor rs = db.rawQuery(query, null);
         if (rs.moveToFirst()) {
             rs.close();
            return true;
@@ -566,37 +575,46 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     }
     public int CounterProductShopping(){
+        String query="select * from "+TABLE_SHOPPING;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblShopping", null);
+        Cursor rs = db.rawQuery(query, null);
         return  rs.getCount();
     }
 
     public int numberPurchasedAProduct(int productId){
-
+        String query="select * from "+TABLE_SHOPPING+
+                " where "+ShoppingTable_Column_ForeignKey_ProductId+"=" + productId;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblShopping where fkProductId=" + productId, null);
+        Cursor rs = db.rawQuery(query, null);
         int numberPurchased=0;
         if (rs!= null)
             if(rs.moveToFirst())
-                numberPurchased=rs.getInt(rs.getColumnIndex("numberPurchased"));
+                numberPurchased=rs.getInt(rs.getColumnIndex(ShoppingTable_Column_Number_Purchased));
         return numberPurchased;
 
     }
 
+    private Category createACategoryFromCursor(Cursor rs){
+        Category aCategory = new Category();
+        aCategory.setTitle(rs.getString(rs.getColumnIndex(CategoryTable_Column_Title)));
+        aCategory.setId(Integer.parseInt(rs.getString((rs.getColumnIndex(CategoryTable_Column_Category_Id)))));
+        aCategory.setParentId(Integer.parseInt(rs.getString((rs.getColumnIndex(CategoryTable_Column_Parent_Id)))));
+        aCategory.setHasChild(Integer.parseInt(rs.getString((rs.getColumnIndex(CategoryTable_Column_Has_Child)))));
+        aCategory.setSortOrder(Integer.parseInt(rs.getString((rs.getColumnIndex(CategoryTable_Column_SortOrder)))));
+        return aCategory;
+    }
+
     public ArrayList<Category> selectAllCategory() {
+        String query="select * from "+TABLE_CATEGORY+
+                " order by "+CategoryTable_Column_Category_Id+
+                " and "+CategoryTable_Column_SortOrder+" ASC ";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblCategory order by catId and sortOrder ASC ", null);
+        Cursor rs = db.rawQuery(query, null);
         allCategories = new ArrayList<Category>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    Category aCategory = new Category();
-                    aCategory.setTitle(rs.getString(rs.getColumnIndex("title")));
-                    aCategory.setId(Integer.parseInt(rs.getString((rs.getColumnIndex("catId")))));
-                    aCategory.setParentId(Integer.parseInt(rs.getString((rs.getColumnIndex("parentId")))));
-                    aCategory.setHasChild(Integer.parseInt(rs.getString((rs.getColumnIndex("hasChild")))));
-                    aCategory.setSortOrder(Integer.parseInt(rs.getString((rs.getColumnIndex("sortOrder")))));
-                    allCategories.add(aCategory);
+                    allCategories.add(createACategoryFromCursor(rs));
                 }
                 while (rs.moveToNext());
             }
@@ -608,14 +626,17 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
 
     public Map<String,Integer> selectAllCategoryTitleAndId() {
+        String query="select * from "+TABLE_CATEGORY+
+                " order by "+CategoryTable_Column_Category_Id+
+                " and "+CategoryTable_Column_SortOrder+" ASC ";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblCategory order by catId and sortOrder ASC ", null);
+        Cursor rs = db.rawQuery(query, null);
         Map<String,Integer> allCategory = new HashMap<String,Integer>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                   allCategory.put(rs.getString(rs.getColumnIndex("title")),
-                           rs.getInt(rs.getColumnIndex("catId")));
+                   allCategory.put(rs.getString(rs.getColumnIndex(CategoryTable_Column_Title)),
+                           rs.getInt(rs.getColumnIndex(CategoryTable_Column_Category_Id)));
                 }
                 while (rs.moveToNext());
             }
@@ -626,14 +647,18 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
     public Map<String,Integer> selectChildOfACategoryTitleAndId(int categoryId) {
+        String query="select * from "+TABLE_CATEGORY+
+                " where "+CategoryTable_Column_Parent_Id+"== "+categoryId+
+                " order by "+CategoryTable_Column_Category_Id+
+                " and "+CategoryTable_Column_SortOrder+" ASC ";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblCategory where parentId== "+categoryId+" order by catId and sortOrder ASC ", null);
+        Cursor rs = db.rawQuery(query, null);
         Map<String,Integer> allCategory = new HashMap<String,Integer>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    allCategory.put(rs.getString(rs.getColumnIndex("title")),
-                            rs.getInt(rs.getColumnIndex("catId")));
+                    allCategory.put(rs.getString(rs.getColumnIndex(CategoryTable_Column_Title)),
+                            rs.getInt(rs.getColumnIndex(CategoryTable_Column_Category_Id)));
                 }
                 while (rs.moveToNext());
             }
@@ -645,18 +670,15 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
 
     public Category selectACategory(int catId){
-
+        String query="select * from "+TABLE_CATEGORY+
+                " where "+CategoryTable_Column_Category_Id+"=" + catId;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblCategory where catId=" + catId, null);
+        Cursor rs = db.rawQuery(query, null);
         Category aCategory = new Category();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    aCategory.setTitle(rs.getString(rs.getColumnIndex("title")));
-                    aCategory.setId(Integer.parseInt(rs.getString((rs.getColumnIndex("catId")))));
-                    aCategory.setParentId(Integer.parseInt(rs.getString((rs.getColumnIndex("parentId")))));
-                    aCategory.setHasChild(Integer.parseInt(rs.getString((rs.getColumnIndex("hasChild")))));
-                    aCategory.setSortOrder(Integer.parseInt(rs.getString((rs.getColumnIndex("sortOrder")))));
+                    aCategory=createACategoryFromCursor(rs);
                 }
                 while (rs.moveToNext());
             }
@@ -664,18 +686,21 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
         Log.v("select", "Select A Category With Id");
         return aCategory;
-
     }
 
 
     public ArrayList<String> selectMainCategoriesTitle(){
+        String query="select "+CategoryTable_Column_Title+
+                " from "+TABLE_CATEGORY+
+                " where "+CategoryTable_Column_Parent_Id+"=0"+
+                " order by "+CategoryTable_Column_SortOrder+" ASC";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select title from tblCategory where parentId=0 order by sortOrder ASC", null);
+        Cursor rs = db.rawQuery(query, null);
         ArrayList<String> categoryTitles = new ArrayList<String>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    categoryTitles.add(rs.getString(rs.getColumnIndex("title")));
+                    categoryTitles.add(rs.getString(rs.getColumnIndex(CategoryTable_Column_Title)));
                 }
                 while (rs.moveToNext());
             }
@@ -686,14 +711,19 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
     public Map<String,Integer> selectMainCategories(){
+        String query="select "+CategoryTable_Column_Category_Id+","+CategoryTable_Column_Title+
+                " from "+TABLE_CATEGORY+
+                " where "+CategoryTable_Column_Parent_Id+"=0"+
+                " order by "+CategoryTable_Column_Category_Id+
+                " and "+CategoryTable_Column_SortOrder+" ASC";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId=0 order by catId and sortOrder ASC", null);
+        Cursor rs = db.rawQuery(query, null);
         Map<String,Integer> categoryTitles = new HashMap<String,Integer>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    categoryTitles.put(rs.getString(rs.getColumnIndex("title")),
-                            rs.getInt(rs.getColumnIndex("catId")));
+                    categoryTitles.put(rs.getString(rs.getColumnIndex(CategoryTable_Column_Title)),
+                            rs.getInt(rs.getColumnIndex(CategoryTable_Column_Category_Id)));
                 }
                 while (rs.moveToNext());
             }
@@ -704,13 +734,15 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
     public int selectACategoryParent(int catId){
+        String query="select * from "+TABLE_CATEGORY+
+                " where "+CategoryTable_Column_Category_Id+"= " + catId;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblCategory where catID= " + catId, null);
+        Cursor rs = db.rawQuery(query, null);
         int parentId = 0;
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    parentId=rs.getInt(rs.getColumnIndex("parentId"));
+                    parentId=rs.getInt(rs.getColumnIndex(CategoryTable_Column_Parent_Id));
                 }
                 while (rs.moveToNext());
             }
@@ -723,13 +755,17 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
 
     public ArrayList<Integer> selectChildIdOfACategory(int parentID){
+        String query="select * from "+TABLE_CATEGORY+
+                " where "+CategoryTable_Column_Parent_Id+"= " + parentID+
+                " order by "+CategoryTable_Column_Category_Id+
+                " and "+CategoryTable_Column_SortOrder+" ASC";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblCategory where parentId= " + parentID+" order by catId and sortOrder ASC", null);
+        Cursor rs = db.rawQuery(query, null);
         ArrayList<Integer> categoryId = new ArrayList<Integer>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    categoryId.add(rs.getInt(rs.getColumnIndex("catId")));
+                    categoryId.add(rs.getInt(rs.getColumnIndex(CategoryTable_Column_Category_Id)));
                 }
                 while (rs.moveToNext());
             }
@@ -740,13 +776,16 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
     public ArrayList<String> selectChildOfACategoryTitle(int parentID){
+        String query="select * from "+TABLE_CATEGORY+
+                " where "+CategoryTable_Column_Parent_Id+"=" + parentID +
+                " order by "+CategoryTable_Column_SortOrder+","+CategoryTable_Column_Category_Id+" ASC";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblCategory where parentId=" + parentID + " order by sortOrder,catId ASC", null);
+        Cursor rs = db.rawQuery(query, null);
         ArrayList<String> categoryTitles = new ArrayList<String>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    categoryTitles.add(rs.getString(rs.getColumnIndex("title")));
+                    categoryTitles.add(rs.getString(rs.getColumnIndex(CategoryTable_Column_Title)));
                 }
                 while (rs.moveToNext());
             }
@@ -756,33 +795,19 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return categoryTitles;
     }
 
-    public Map<Integer,String> selectChildOfACategory(int parentID){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblCategory where parentId="+parentID+" order by sortOrder ASC", null);
-        Map<Integer,String> categoryTitles = new HashMap<Integer,String>();
-        if (rs != null) {
-            if (rs.moveToFirst()) {
-                do {
-                    categoryTitles.put(rs.getInt(rs.getColumnIndex("catId")),
-                            rs.getString(rs.getColumnIndex("title")));
-                }
-                while (rs.moveToNext());
-            }
-            rs.close();
-        }
-        Log.v("select", "Select All Child of A Category Title and ID");
-        return categoryTitles;
-    }
-
     public Map<Integer,String> selectMainCategoryTitle(){
+        String query="select "+CategoryTable_Column_Category_Id+","+CategoryTable_Column_Title+
+                " from "+TABLE_CATEGORY+
+                " where "+CategoryTable_Column_Parent_Id+"=0"+
+                " order by "+CategoryTable_Column_Category_Id+","+CategoryTable_Column_SortOrder+" Desc";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select catId,title from tblCategory where parentId=0 order by catId,sortOrder Desc", null);
+        Cursor rs = db.rawQuery(query, null);
         Map<Integer,String> categoryTitles = new HashMap<Integer,String>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    categoryTitles.put(rs.getInt(rs.getColumnIndex("catId")),
-                            rs.getString(rs.getColumnIndex("title")));
+                    categoryTitles.put(rs.getInt(rs.getColumnIndex(CategoryTable_Column_Category_Id)),
+                            rs.getString(rs.getColumnIndex(CategoryTable_Column_Title)));
                 }
                 while (rs.moveToNext());
             }
@@ -794,14 +819,16 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
 
     public Map<Integer,String> selectAllProductTitle(){
+        String query="select "+ProductTable_Column_Product_Id+","+ProductTable_Column_Title+
+                " from "+TABLE_PRODUCT;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select productId,title from tblProduct", null);
+        Cursor rs = db.rawQuery(query, null);
         Map<Integer,String> productTitle = new HashMap<Integer,String>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    productTitle.put(rs.getInt(rs.getColumnIndex("productId")),
-                            rs.getString(rs.getColumnIndex("title")));
+                    productTitle.put(rs.getInt(rs.getColumnIndex(ProductTable_Column_Product_Id)),
+                            rs.getString(rs.getColumnIndex(ProductTable_Column_Title)));
                 }
                 while (rs.moveToNext());
             }
@@ -813,14 +840,16 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
 
     public ArrayList<Product> selectAllProduct() {
+        String query="select * from "+TABLE_PRODUCT+
+                " order by "+ProductTable_Column_Primary_Key+" Desc";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblProduct order by id Desc", null);
+        Cursor rs = db.rawQuery(query, null);
         allProducts = new ArrayList<Product>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
 
-                    allProducts.add(getAProduct(rs));
+                    allProducts.add(createAProductFromCursor(rs));
                 }
                 while (rs.moveToNext());
             }
@@ -830,41 +859,44 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return allProducts;
     }
 
-    public Product getAProduct(Cursor rs){
+    public Product createAProductFromCursor(Cursor rs){
         Product aProduct = new Product();
-        aProduct.setTitle(rs.getString(rs.getColumnIndex("title")));
-        aProduct.setId(rs.getInt(rs.getColumnIndex("productId")));
-        aProduct.setGroupId(rs.getInt(rs.getColumnIndex("groupId")));
-        aProduct.setPrice(rs.getInt(rs.getColumnIndex("price")));
-        aProduct.setPriceOff(rs.getInt(rs.getColumnIndex("priceOff")));
-        aProduct.setVisits(rs.getInt(rs.getColumnIndex("visits")));
-        aProduct.setMinCounts(rs.getInt(rs.getColumnIndex("minCounts")));
-        aProduct.setStock(rs.getInt(rs.getColumnIndex("stock")));
-        aProduct.setQualityRank(rs.getString(rs.getColumnIndex("qualityRank")));
-        aProduct.setCommentsCount(rs.getInt(rs.getColumnIndex("commentsCount")));
-        aProduct.setCodeProduct(rs.getString(rs.getColumnIndex("codeProduct")));
-        aProduct.setDescription(rs.getString(rs.getColumnIndex("description")));
-        aProduct.setSellsCount(rs.getInt(rs.getColumnIndex("sellsCount")));
-        aProduct.setTimeStamp(rs.getString(rs.getColumnIndex("timeStamp")));
-        aProduct.setUpdateTimeStamp((rs.getString(rs.getColumnIndex("updateTimeStamp"))));
-        aProduct.setShowAtHomeScreen(rs.getInt(rs.getColumnIndex("showAtHomeScreen")));
-        aProduct.setWatermarkPath(rs.getString(rs.getColumnIndex("watermarkPath")));
-        aProduct.setImagesMainPath(rs.getString(rs.getColumnIndex("imagesMainPath")));
-        aProduct.setLike(rs.getInt(rs.getColumnIndex("like")));
-        aProduct.setBrandName(rs.getString(rs.getColumnIndex("brandName")));
-        aProduct.setLinkInSite(rs.getString(rs.getColumnIndex("linkInSite")));
+        aProduct.setTitle(rs.getString(rs.getColumnIndex(ProductTable_Column_Title)));
+        aProduct.setId(rs.getInt(rs.getColumnIndex(ProductTable_Column_Product_Id)));
+        aProduct.setGroupId(rs.getInt(rs.getColumnIndex(ProductTable_Column_Group_Id)));
+        aProduct.setPrice(rs.getInt(rs.getColumnIndex(ProductTable_Column_Price)));
+        aProduct.setPriceOff(rs.getInt(rs.getColumnIndex(ProductTable_Column_Price_Off)));
+        aProduct.setVisits(rs.getInt(rs.getColumnIndex(ProductTable_Column_Visits)));
+        aProduct.setMinCounts(rs.getInt(rs.getColumnIndex(ProductTable_Column_Min_Counts)));
+        aProduct.setStock(rs.getInt(rs.getColumnIndex(ProductTable_Column_Stock)));
+        aProduct.setQualityRank(rs.getString(rs.getColumnIndex(ProductTable_Column_Quality_Rank)));
+        aProduct.setCommentsCount(rs.getInt(rs.getColumnIndex(ProductTable_Column_Comments_Count)));
+        aProduct.setCodeProduct(rs.getString(rs.getColumnIndex(ProductTable_Column_Code_Product)));
+        aProduct.setDescription(rs.getString(rs.getColumnIndex(ProductTable_Column_Description)));
+        aProduct.setSellsCount(rs.getInt(rs.getColumnIndex(ProductTable_Column_Sells_Count)));
+        aProduct.setTimeStamp(rs.getString(rs.getColumnIndex(ProductTable_Column_TimeStamp)));
+        aProduct.setUpdateTimeStamp((rs.getString(rs.getColumnIndex(ProductTable_Column_Update_TimeStamp))));
+        aProduct.setShowAtHomeScreen(rs.getInt(rs.getColumnIndex(ProductTable_Column_Show_AtHome_Screen)));
+        aProduct.setWatermarkPath(rs.getString(rs.getColumnIndex(ProductTable_Column_WaterMark_Path)));
+        aProduct.setImagesMainPath(rs.getString(rs.getColumnIndex(ProductTable_Column_Images_Main_Path)));
+        aProduct.setLike(rs.getInt(rs.getColumnIndex(ProductTable_Column_Like)));
+        aProduct.setBrandName(rs.getString(rs.getColumnIndex(ProductTable_Column_Brand_Name)));
+        aProduct.setLinkInSite(rs.getString(rs.getColumnIndex(ProductTable_Column_Link_In_Site)));
         aProduct.setImagesPath(selectAllImagePathAProduct(aProduct.getId()));
         aProduct.setProductOptions(selectAllOptionProduct(aProduct.getId()));
         return aProduct;
     }
     public ArrayList<Product> selectAllProductOfACategory(int categoryId){
+        String query="select * from "+TABLE_PRODUCT+
+                " where "+ProductTable_Column_Group_Id+"="+categoryId+
+                " order by "+ProductTable_Column_Primary_Key+" ASC ";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblProduct where groupId="+categoryId+" "+ "order by id ASC ", null);
+        Cursor rs = db.rawQuery(query, null);
         allProducts = new ArrayList<Product>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    allProducts.add(getAProduct(rs));
+                    allProducts.add(createAProductFromCursor(rs));
                 }
                 while (rs.moveToNext());
             }
@@ -876,14 +908,18 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
 
     public ArrayList<Product> selectSpecialProduct(){
+        String query="select * from "+TABLE_PRODUCT+
+                " where "+ProductTable_Column_Price_Off+" !=0"+
+                " or "+ProductTable_Column_Show_AtHome_Screen+"=1"+
+                " order by "+ProductTable_Column_Primary_Key+" ASC ";
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblProduct where priceOff !=0 or showAtHomeScreen=1 order by id ASC ", null);
+        Cursor rs = db.rawQuery(query, null);
         allProducts = new ArrayList<Product>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
 
-                    allProducts.add(getAProduct(rs));
+                    allProducts.add(createAProductFromCursor(rs));
                 }
                 while (rs.moveToNext());
             }
@@ -894,12 +930,14 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
     public Product selectAProduct(int productId) {
+        String query="select * from "+TABLE_PRODUCT+
+                " where "+ProductTable_Column_Product_Id+"="+productId;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblProduct where productId="+productId, null);
+        Cursor rs = db.rawQuery(query, null);
         aProduct= new Product();
         if (rs != null) {
             if (rs.moveToFirst()) {
-                    aProduct=getAProduct(rs);
+                    aProduct= createAProductFromCursor(rs);
             }
             rs.close();
         }
@@ -907,13 +945,15 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return aProduct;
     }
     public ArrayList<String> selectAllImagePathAProduct(int productId) {
+        String query="select * from "+TABLE_IMAGES_PATH_PRODUCT+
+                " where "+ImagePathProductTable_ForeignKey_ProductId+"=" + productId;
         ArrayList<String> path = new ArrayList<String>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblImagesPathProduct where fkProductId=" + productId + "", null);
+        Cursor rs = db.rawQuery(query, null);
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    path.add(rs.getString(rs.getColumnIndex("imagePath")));
+                    path.add(rs.getString(rs.getColumnIndex(ImagePathProductTable_Image_Path)));
                 }
                 while (rs.moveToNext());
             }
@@ -921,17 +961,23 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
         return path;
     }
+    private ProductOption createAProductOptionFromCursor(Cursor rs){
+        ProductOption aOption = new ProductOption();
+        aOption.setTitle(rs.getString(rs.getColumnIndex(ProductOptionTable_Title_Option)));
+        aOption.setValue(rs.getString(rs.getColumnIndex(ProductOptionTable_Value_Option)));
+        return aOption;
+    }
+
     public ArrayList<ProductOption> selectAllOptionProduct(int productId) {
         ArrayList<ProductOption> options = new ArrayList<ProductOption>();
+        String query="select * from "+TABLE_PRODUCT_OPTION+
+                " where "+ProductOptionTable_ForeignKey_ProductId+"=" + productId;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblProductOption where fkProductId=" + productId + "", null);
+        Cursor rs = db.rawQuery(query, null);
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    ProductOption aOption = new ProductOption();
-                    aOption.setTitle(rs.getString(rs.getColumnIndex("titleOption")));
-                    aOption.setValue(rs.getString(rs.getColumnIndex("valueOption")));
-                    options.add(aOption);
+                    options.add(createAProductOptionFromCursor(rs));
                 }
                 while (rs.moveToNext());
             }
@@ -940,20 +986,24 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return options;
     }
 
+    private Article createAArticleFromCursor(Cursor rs){
+        Article aArticle = new Article();
+        aArticle.setTitle(rs.getString(rs.getColumnIndex(ArticleTable_Title)));
+        aArticle.setBrief(rs.getString(rs.getColumnIndex(ArticleTable_Brief)));
+        aArticle.setDate(rs.getString(rs.getColumnIndex(ArticleTable_Date)));
+        aArticle.setImageLink(rs.getString(rs.getColumnIndex(ArticleTable_Image_Link)));
+        aArticle.setLinkInWebsite(rs.getString(rs.getColumnIndex(ArticleTable_Link_In_Website)));
+        return aArticle;
+    }
     public ArrayList<Article> selectAllArticle() {
+        String query="select * from "+TABLE_ARTICLE;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery("select * from tblArticle", null);
+        Cursor rs = db.rawQuery(query, null);
         allArticles = new ArrayList<Article>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                    Article aArticle = new Article();
-                    aArticle.setTitle(rs.getString(rs.getColumnIndex("title")));
-                    aArticle.setBrief(rs.getString(rs.getColumnIndex("brief")));
-                    aArticle.setDate(rs.getString(rs.getColumnIndex("date")));
-                    aArticle.setImageLink(rs.getString(rs.getColumnIndex("imageLink")));
-                    aArticle.setLinkInWebsite(rs.getString(rs.getColumnIndex("linkInWebsite")));
-                    allArticles.add(aArticle);
+                    allArticles.add(createAArticleFromCursor(rs));
                 }
                 while (rs.moveToNext());
             }
@@ -968,8 +1018,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     public void updateLastVersion(String newVersion) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("lastVersionOfApp", newVersion);
-        db.update("tblSetting", values, null, null);
+        values.put(SettingsTable_Column_Last_Version_Application, newVersion);
+        db.update(TABLE_SETTINGS, values, null, null);
         Log.v("update", "Update Last Version Off App");
 
     }
@@ -978,8 +1028,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     public void updateTimeStamp(String TimeStamp) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("lastTimeStamp", TimeStamp);
-        db.update("tblSetting", values, null, null);
+        values.put(SettingsTable_Column_Last_TimeStamp, TimeStamp);
+        db.update(TABLE_SETTINGS, values, null, null);
         Log.v("update", "Update Last time stamp");
 
     }
@@ -988,83 +1038,59 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     public void updateLastUpdateTimeStamp(String updateTimeStamp) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("lastUpdateTimeStamp", updateTimeStamp);
-        db.update("tblSetting", values, null, null);
+        values.put(SettingsTable_Column_Last_Update_TimeStamp, updateTimeStamp);
+        db.update(TABLE_SETTINGS, values, null, null);
         Log.v("update", "Update Last Update Time stamp");
 
     }
 
-    public void updateLastArticlesNum(String lastNum) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("lastArticlesNum", lastNum);
-        db.update("tblSetting", values, null, null);
-        Log.v("update", "Update Last Articles Num");
-
-    }
-
-
     public void updateAProduct(Product aProduct) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.update("tblProduct", addFieldToProductTable(aProduct),
-                "productId=" + aProduct.getId(), null);
+        db.update(TABLE_PRODUCT, addFieldToProductTable(aProduct),
+                ProductTable_Column_Product_Id+"=" + aProduct.getId(), null);
         Log.v("update", "Update a Product");
     }
 
     public void updateACategory(Category aCategory) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.update("tblCategory", addFieldToCategoryTable(aCategory),
-                "catId=" + aCategory.getId(), null);
+        db.update(TABLE_CATEGORY, addFieldToCategoryTable(aCategory),
+                CategoryTable_Column_Category_Id+"=" + aCategory.getId(), null);
         Log.v("update", "Update a Category");
     }
 
 
-    public void updateAProductOption(int productId,ProductOption aOption) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.update("tblProductOption",
-                addFieldOptionProduct(productId, aOption.getTitle(), aOption.getValue()),
-                "fkProductId=" +productId+" and titleOption= ' "+aOption.getTitle()+"'", null);
-        Log.v("update", "Update a Product option");
-    }
-
     public void updateAProductLike(int productId,int like) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values=new ContentValues();
-        values.put("like",like);
-        db.update("tblProduct",values,
-                "productId=" +productId, null);
+        values.put(ProductTable_Column_Like,like);
+        db.update(TABLE_PRODUCT, values,
+                ProductTable_Column_Product_Id+"="+productId, null);
         Log.v("update", "Update a Product Like");
     }
 
     public void updateAShoppingNumberPurchased(int productId,int count) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values=new ContentValues();
-        values.put("numberPurchased",count);
-        db.update("tblShopping",values,
-                "fkProductId=" +productId, null);
+        values.put(ShoppingTable_Column_Number_Purchased,count);
+        db.update(TABLE_SHOPPING, values,
+                ShoppingTable_Column_ForeignKey_ProductId + "=" + productId, null);
         Log.v("update", "Update a shopping Number Purchased");
     }
 
-    public void deleteAProduct(int productId) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete("tblImagesPathProduct", "fkProductId=" + productId + "", null);
-        db.delete("tblProduct", "productId=" + productId + "", null);
-        Log.v("delete", "Delete A Product");
-    }
     public void deleteAProductShopping(int productId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete("tblShopping", "fkProductId=" + productId + "", null);
+        db.delete(TABLE_SHOPPING,ShoppingTable_Column_ForeignKey_ProductId + "=" + productId, null);
         Log.v("delete", "Delete A Product from Shopping Table");
     }
     public void deleteUserInfo() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete("tblUserInfo",null, null);
+        db.delete(TABLE_USER_INFO,null, null);
         Log.v("delete", "Delete A User Information from Table");
     }
 
     public void deleteAllShoppingTable() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete("tblShopping",null, null);
+        db.delete(TABLE_SHOPPING,null, null);
         Log.v("delete", "Delete All Record From Shopping Table");
     }
 }
