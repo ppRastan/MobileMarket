@@ -36,6 +36,7 @@ public class FilterCategory extends DialogFragment {
     private Map<String,Integer> mapCategoryTitleToId;
     private static FilterCategory filterCategory;
     private TextView titleOfAlertDialog;
+
     public static FilterCategory getInstance() {
         if(filterCategory == null){
             filterCategory = new FilterCategory();
@@ -52,7 +53,7 @@ public class FilterCategory extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch = new ServerConnectionHandler(Configuration.ShopFragmentContext);
+        sch = new ServerConnectionHandler(Configuration.getConfig().ShopFragmentContext);
         pageId = getArguments().getInt("pageId");
         mapCategoryTitleToId=new HashMap<String,Integer>();
         mapCategoryTitleToId=sch.MapTitleToIDForAllCategory();
@@ -120,22 +121,22 @@ public class FilterCategory extends DialogFragment {
                 Bundle bundle = data.getExtras();
                 int subCategorySelected = bundle.getInt("subCategorySelected");
                 //send subCategory selected to SuperAwesomeCardFragment for show
-                DataFilter.FilterCategoryId = subCategorySelected;
-                DataFilter.FilterCategoryTitle=sch.getACategoryTitleWithCategoryId(subCategorySelected);
+                DataFilter.getInstance().FilterCategoryId = subCategorySelected;
+                DataFilter.getInstance().FilterCategoryTitle=sch.getACategoryTitleWithCategoryId(subCategorySelected);
                 ObserverFilterCategory.setAddFilter(true);
                 break;
             case 1:
                 Bundle bundleAll = data.getExtras();
                 int selectedAll = bundleAll.getInt("all");
-                DataFilter.FilterCategoryTitle =Configuration.ShopFragmentContext.getResources().getString(R.string.all) ;
-                DataFilter.FilterCategoryId=selectedAll;
+                DataFilter.getInstance().FilterCategoryTitle =Configuration.ShopFragmentContext.getResources().getString(R.string.all) ;
+                DataFilter.getInstance().FilterCategoryId=selectedAll;
                 ObserverFilterCategory.setAddFilter(true);
                 break;
             case 2:
                 Bundle bundleNoChild = data.getExtras();
                 int selectACategoryNoChild = bundleNoChild.getInt("noChild");
-                DataFilter.FilterCategoryTitle=sch.getACategoryTitleWithCategoryId(selectACategoryNoChild);
-                DataFilter.FilterCategoryId = selectACategoryNoChild;
+                DataFilter.getInstance().FilterCategoryTitle=sch.getACategoryTitleWithCategoryId(selectACategoryNoChild);
+                DataFilter.getInstance().FilterCategoryId = selectACategoryNoChild;
                 ObserverFilterCategory.setAddFilter(true);
                 break;
         }

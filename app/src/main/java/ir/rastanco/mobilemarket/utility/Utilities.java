@@ -1,5 +1,7 @@
 package ir.rastanco.mobilemarket.utility;
 
+import java.util.ArrayList;
+
 /**
  * Created by ShaisteS on 1395/1/8.
  * This class include utility Method
@@ -15,6 +17,14 @@ public class Utilities {
         else return new Utilities();
     }
 
+    public ArrayList<String> getPriceFilterTitle(){
+        ArrayList<String> priceFilter = new ArrayList<String>();
+        priceFilter.add("تا سقف 1 میلیون تومان");
+        priceFilter.add("تا سقف 5 میلیون تومان");
+        priceFilter.add("تا سقف 10 میلیون تومان");
+        priceFilter.add("بالاتر از 10 میلیون تومان");
+        return priceFilter;
+    }
     public int convertPriceTitleToInt(String priceTitle){
         int price=0;
         if(priceTitle.equals("تا سقف 1 میلیون تومان"))

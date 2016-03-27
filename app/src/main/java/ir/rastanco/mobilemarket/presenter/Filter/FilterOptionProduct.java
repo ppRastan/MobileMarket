@@ -1,6 +1,7 @@
 package ir.rastanco.mobilemarket.presenter.Filter;
 
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,6 +30,7 @@ public class FilterOptionProduct extends DialogFragment {
 
     private int pageId;
     private static FilterOptionProduct filterOptionProduct;
+    private Context context;
     public static FilterOptionProduct getInstance() {
         if(filterOptionProduct == null){
             filterOptionProduct = new FilterOptionProduct();
@@ -41,6 +43,7 @@ public class FilterOptionProduct extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        context=Configuration.getConfig().ShopFragmentContext;
         pageId = getArguments().getInt("pageId");
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -89,15 +92,15 @@ public class FilterOptionProduct extends DialogFragment {
             case 0:
                 //get price Selected from FilterOptionPrice Dialog
                 Bundle bundlePrice = data.getExtras();
-                DataFilter.FilterPriceTitle=bundlePrice.getString("priceTitle");
-                DataFilter.FilterOption="price";
+                DataFilter.getInstance().FilterPriceTitle=bundlePrice.getString("priceTitle");
+                DataFilter.getInstance().FilterOption=context.getResources().getString(R.string.price);
                 ObserverFilterPrice.setAddFilterPrice(true);
                 break;
             case 1:
                 //get brand Selected from FilterOptionBrand Dialog
                 Bundle bundleBrand=data.getExtras();
                 DataFilter.FilterBrand=bundleBrand.getString("brand");
-                DataFilter.FilterOption="brand";
+                DataFilter.FilterOption=context.getResources().getString(R.string.brand);
                 ObserverFilterBrand.setAddFilterBrand(true);
                 break;
         }

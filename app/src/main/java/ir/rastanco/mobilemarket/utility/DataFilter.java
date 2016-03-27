@@ -8,7 +8,7 @@ public class DataFilter {
 
     private static DataFilter data = new DataFilter();
 
-    public static DataFilter getConfig() {
+    public static DataFilter getInstance() {
         if (data != null) {
             return data;
         } else return new DataFilter();

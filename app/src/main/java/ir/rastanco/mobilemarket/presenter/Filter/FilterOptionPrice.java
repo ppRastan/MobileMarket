@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.Utilities;
 
 /**
  * Created by ShaisteS on 1394/11/28.
@@ -25,6 +26,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 public class FilterOptionPrice extends DialogFragment {
 
     private static FilterOptionPrice filterOptionPrice;
+
     public static FilterOptionPrice getInstance() {
         if(filterOptionPrice == null){
            filterOptionPrice = new FilterOptionPrice();
@@ -56,10 +58,7 @@ public class FilterOptionPrice extends DialogFragment {
             }
         });
         ArrayList<String> priceFilter = new ArrayList<String>();
-        priceFilter.add("تا سقف 1 میلیون تومان");
-        priceFilter.add("تا سقف 5 میلیون تومان");
-        priceFilter.add("تا سقف 10 میلیون تومان");
-        priceFilter.add("بالاتر از 10 میلیون توملن");
+        priceFilter= Utilities.getInstance().getPriceFilterTitle();
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, priceFilter);

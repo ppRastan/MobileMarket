@@ -29,6 +29,7 @@ public class FilterOptionBrand extends DialogFragment{
     private ServerConnectionHandler sch;
     private int pageId;
     private static FilterOptionBrand filterOptionBrand;
+
     public static FilterOptionBrand getInstance() {
         if(filterOptionBrand == null){
             filterOptionBrand = new FilterOptionBrand();
@@ -40,7 +41,7 @@ public class FilterOptionBrand extends DialogFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch = new ServerConnectionHandler(Configuration.ShopFragmentContext);
+        sch = new ServerConnectionHandler(Configuration.getConfig().ShopFragmentContext);
         pageId=getArguments().getInt("pageId");
         ArrayList<Product> products=new ArrayList<Product>();
         products=sch.getProductsOfAParentCategory(pageId);
