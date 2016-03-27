@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.dataModel.Category;
 
 /**
- * Created by ShaisteS on 12/31/2015.
+ * Created by ShaisteS on 1394/10/10.
  * This Class Parse Category Json String
  */
 public class ParseJsonCategory {
