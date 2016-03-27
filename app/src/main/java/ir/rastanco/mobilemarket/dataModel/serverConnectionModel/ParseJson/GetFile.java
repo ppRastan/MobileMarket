@@ -17,10 +17,9 @@ import java.net.URL;
  */
 public class GetFile extends AsyncTask<String,String,String> {
 
-    private static InputStream is = null;
-    private static String jsonString = "";
+    private InputStream is = null;
+    private String jsonString = "";
     private HttpURLConnection connection;
-
 
     @Override
     protected String doInBackground(String... params) {
@@ -33,7 +32,7 @@ public class GetFile extends AsyncTask<String,String,String> {
         connection.setDoInput(true);
         connection.setDoOutput(true);
         connection.setUseCaches(false);
-        Log.v("connect", "Connecte to Internet");
+        Log.v("connect", "Connect to Internet");
         int response=0;
         try {
             connection.setRequestMethod("GET");
