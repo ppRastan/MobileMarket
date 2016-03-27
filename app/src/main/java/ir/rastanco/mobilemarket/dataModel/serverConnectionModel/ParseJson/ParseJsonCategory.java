@@ -15,7 +15,6 @@ import ir.rastanco.mobilemarket.dataModel.Category;
 public class ParseJsonCategory {
 
     private ArrayList<Category> allCategory;
-    private String yourJsonStringUrl;
     private JSONArray dataJsonArr;
 
     public ArrayList<Category> getAllCategory(String params) {
