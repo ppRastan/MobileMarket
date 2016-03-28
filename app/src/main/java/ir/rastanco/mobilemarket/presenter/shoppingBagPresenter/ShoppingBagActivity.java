@@ -116,10 +116,15 @@ public class ShoppingBagActivity extends Activity {
                 int price;
                 for (Map.Entry<Integer, Integer> entry : refreshProductsId.entrySet()) {
                     Product product = sch.getAProduct(entry.getKey());
-                    if(product.getPriceOff()!=0)
-                        price= Utilities.getInstance().calculatePriceOffProduct(product.getPrice(),product.getPriceOff());
-                    else
-                        price=product.getPrice();
+                    if(product.getPriceOff()!=0) {
+                        price = Utilities.getInstance().calculatePriceOffProduct(product.getPrice(), product.getPriceOff());
+                        price=price*entry.getValue();
+                    }
+
+                    else {
+                        price = product.getPrice();
+                        price=price*entry.getValue();
+                    }
                     finalPrice=finalPrice+price;
                 }
                 totalPriceTextView.setText(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice));
