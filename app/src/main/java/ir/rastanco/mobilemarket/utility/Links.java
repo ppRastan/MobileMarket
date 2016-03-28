@@ -65,6 +65,14 @@ public class Links {
         return url;
     }
 
+    public String generateURLForGetImageProduct(String mainImageURL,String imageNumberPath,String imageWidth,String imageHeight){
+        String url = mainImageURL +imageNumberPath +
+                "&size=" + imageWidth + "x" + imageHeight +
+                "&q="+Utilities.getInstance().getImageQuality();
+        return url;
+
+    }
+
 
 
 

@@ -2,6 +2,7 @@ package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
 
 /**
  * Created by ShaisteS on 1394/10/23.
+ * A pagerAdapter for show product information and picture
  */
 
 import android.app.Activity;
@@ -36,7 +37,9 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverLike;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.Links;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
+import ir.rastanco.mobilemarket.utility.Utilities;
 
 public class FullScreenImageAdapter extends PagerAdapter {
 
@@ -63,7 +66,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         this.activity = activity;
         this.products=allProducts;
         this.productsSize=allProductSize;
-        sch=new ServerConnectionHandler(Configuration.ProductInfoContext);
+        sch=new ServerConnectionHandler(Configuration.getConfig().ProductInfoContext);
     }
 
     @Override
@@ -79,56 +82,57 @@ public class FullScreenImageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(final ViewGroup container, final int position) {
 
-        inflater = (LayoutInflater) activity
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewLayout = inflater.inflate(R.layout.activity_product_info, container, false);
+        final Product aProduct=products.get(position);
         addToBasketBtn = (Button)viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
         nameOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.name_of_photo);
-        nameOfCurrentProduct.setText(products.get(position).getTitle());
+        nameOfCurrentProduct.setText(aProduct.getTitle());
 
-        setProductQuality(products.get(position).getQualityRank());
-        //امحصولات با عنوان به زودی
-        if(products.get(position).getPrice()==0){
-            addToBasketBtn.setText("به زودی");
+        setProductQuality(aProduct.getQualityRank());
+        if (aProduct.getPrice()==0){
+            addToBasketBtn.setText(activity.getString(R.string.coming_soon));
             addToBasketBtn.setCompoundDrawables(null,null,null,null);
             addToBasketBtn.setEnabled(false);
 
         }
 
-        //این محصول تخفیف ندارد
-        if (products.get(position).getPriceOff()==0 && products.get(position).getPrice()!=0){
-            int price=products.get(position).getPrice();
+        if (aProduct.getPriceOff()==0 && aProduct.getPrice()!=0){
+            int price=aProduct.getPrice();
             numberOfFinalPrice = String.valueOf(price);
-            addToBasketBtn.setText("قیمت : "+" "+PriceUtility.getInstance().formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice)) + "  " + "تومان");
+            addToBasketBtn.setText(activity.getString(R.string.productPrice)+" "+
+                    PriceUtility.getInstance().formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice)) + "  " +
+                    activity.getString(R.string.currency));
         }
-        //این محصول تخفیف دارد
-        if (products.get(position).getPriceOff()!=0 && products.get(position).getPrice()!=0)
+        if (aProduct.getPriceOff()!=0 && aProduct.getPrice()!=0)
         {
-            int price=products.get(position).getPrice();
-            int off=(price*products.get(position).getPriceOff())/100;
-            int priceForYou=price-off;
+            int price=aProduct.getPrice();
+            int priceOff=aProduct.getPriceOff();
+            int priceForYou= Utilities.getInstance().calculatePriceOffProduct(price,priceOff);
             numberOfFinalPrice = String.valueOf(priceForYou);
-            addToBasketBtn.setText("قیمت برای شما:"+" "+PriceUtility.getInstance().formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice)) + "  " + "تومان");
+            addToBasketBtn.setText(activity.getString(R.string.price_for_you)+" "
+                    +PriceUtility.getInstance().formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice)) + "  " +
+                    activity.getString(R.string.currency));
             //addToBasketBtn.invalidateDrawable(null);
 
         }
 
-       addToBasketBtn = PriceUtility.getInstance().ChangeButtonFont(addToBasketBtn,activity);
+        addToBasketBtn = PriceUtility.getInstance().ChangeButtonFont(addToBasketBtn,activity);
         addToBasketBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sch.addProductToShoppingBag(products.get(position).getId(), 1);
-                Configuration.ProductInfoContext.startActivity(new Intent(Configuration.ProductInfoContext, ShoppingBagActivity.class));
+                sch.addProductToShoppingBag(aProduct.getId(), 1);
+                Configuration.getConfig().ProductInfoContext.startActivity(new Intent(Configuration.getConfig().ProductInfoContext, ShoppingBagActivity.class));
                 ObserverShopping.setMyBoolean(true);
             }
         });
 
-        sch.getAllProductOptionOfAProduct(products.get(position).getId(),
-                products.get(position).getGroupId());
+        sch.getAllProductOptionOfAProduct(aProduct.getId(),
+                aProduct.getGroupId());
 
         final ImageButton btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
 
-        if (sch.getAProduct(products.get(position).getId()).getLike()==0){
+        if (sch.getAProduct(aProduct.getId()).getLike()==0){
             //this Product No Favorite
             btnLike.setImageResource(R.mipmap.ic_like_toolbar);
         }
@@ -140,31 +144,29 @@ public class FullScreenImageAdapter extends PagerAdapter {
             @Override
             public void onClick(View v)
             {
-                if(sch.getAProduct(products.get(position).getId()).getLike()==0){
+                if(sch.getAProduct(aProduct.getId()).getLike()==0){
 
-                    if(Configuration.userLoginStatus)
+                    if(Configuration.getConfig().userLoginStatus)
                         Toast.makeText(activity,activity.getResources().getString(R.string.thanks),Toast.LENGTH_LONG).show();
                     else
                         Toast.makeText(activity,activity.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
 
                     btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
-                    products.get(position).setLike(1);
-                    sch.changeProductLike(products.get(position).getId(), 1);
+                    aProduct.setLike(1);
+                    sch.changeProductLike(aProduct.getId(), 1);
                     ObserverLike.setLikeStatus(position);
 
 
                 }
-                else if(sch.getAProduct(products.get(position).getId()).getLike()==1){
+                else if(sch.getAProduct(aProduct.getId()).getLike()==1){
 
-                    if(!Configuration.userLoginStatus)
+                    if(!Configuration.getConfig().userLoginStatus)
                         Toast.makeText(activity,activity.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
 
                     btnLike.setImageResource(R.mipmap.ic_like_toolbar);
-                    products.get(position).setLike(0);
-                    sch.changeProductLike(products.get(position).getId(), 0);
+                    aProduct.setLike(0);
+                    sch.changeProductLike(aProduct.getId(), 0);
                     ObserverLike.setLikeStatus(position);
-
-
                 }
             }
         });
@@ -174,9 +176,9 @@ public class FullScreenImageAdapter extends PagerAdapter {
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentProductInfo = new Intent(viewLayout.getContext(), ProductOptionActivity.class);
-                intentProductInfo.putExtra("productId", products.get(position).getId());
-                intentProductInfo.putExtra("groupId", products.get(position).getGroupId());
+                Intent intentProductInfo = new Intent(viewLayout.getContext(),ProductOptionActivity.class);
+                intentProductInfo.putExtra("productId", aProduct.getId());
+                intentProductInfo.putExtra("groupId", aProduct.getGroupId());
                 viewLayout.getContext().startActivity(intentProductInfo);
                 activity.overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
 
@@ -206,9 +208,9 @@ public class FullScreenImageAdapter extends PagerAdapter {
                         sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
                         textToSend = editTextToShare.getText().toString();
                         String Share=textToSend+"\n\n"+
-                                products.get(position).getLinkInSite()+ "\n\n"+
-                                Configuration.ProductInfoContext.getResources().getString(R.string.text_to_advertise)+"\n\n"
-                                +Configuration.ProductInfoContext.getResources().getString(R.string.LinkDownloadApp);
+                                aProduct.getLinkInSite()+ "\n\n"+
+                                activity.getResources().getString(R.string.text_to_advertise)+"\n\n"
+                                +activity.getResources().getString(R.string.LinkDownloadApp);
 
                         sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
@@ -230,79 +232,62 @@ public class FullScreenImageAdapter extends PagerAdapter {
         btnShareByTelegram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                shareByTelegram(position);
-
+                shareByTelegram(aProduct.getLinkInSite());
             }
         });
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
-        imgProduct.getLayoutParams().width=Configuration.homeDisplaySizeForShow;
-        imgProduct.getLayoutParams().height=Configuration.productInfoHeightForShow;
-        final ImageLoader imgLoader = new ImageLoader(Configuration.ProductInfoContext,viewLayout,Configuration.homeDisplaySizeForShow); // important
+        imgProduct.getLayoutParams().width=Configuration.getConfig().homeDisplaySizeForShow;
+        imgProduct.getLayoutParams().height=Configuration.getConfig().productInfoHeightForShow;
+        final ImageLoader imgLoader = new ImageLoader(Configuration.getConfig().ProductInfoContext,viewLayout,Configuration.getConfig().homeDisplaySizeForShow); // important
 
-        String picNum;
-        if(products.get(position).getImagesPath().size()==0)
-            picNum="no_image_path";
+        String imageNumberPath;
+        if(aProduct.getImagesPath().size()==0)
+            imageNumberPath="no_image_path";
         else
-            picNum = products.get(position).getImagesPath().get(0);
+            imageNumberPath = aProduct.getImagesPath().get(0);
 
         try {
-            picNum = URLEncoder.encode(picNum, "UTF-8");
+            imageNumberPath = URLEncoder.encode(imageNumberPath, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
-        String image_url_Main = products.get(position).getImagesMainPath() +
-                picNum +
-                "&size=" +
-                Configuration.homeDisplaySizeForURL + "x" + Configuration.productInfoHeightForURL +
-                "&q=30";
+        String image_url_Main = Links.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().homeDisplaySizeForURL,Configuration.getConfig().productInfoHeightForURL);
         imgLoader.DisplayImage(image_url_Main, imgProduct);
         LinearLayout layout = (LinearLayout) viewLayout.findViewById(R.id.linear);
         int counter;
-        if(products.get(position).getImagesPath().size()>1)
+        if(aProduct.getImagesPath().size()>1)
             counter=0;
         else
             counter=1;
 
-        for (int i = counter; i < products.get(position).getImagesPath().size(); i++) {
+        for (int i = counter; i < aProduct.getImagesPath().size(); i++) {
             final ImageView imageView = new ImageView(Configuration.ProductInfoContext);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Configuration.articleDisplaySizeForShow,Configuration.articleDisplaySizeForShow);
             imageView.setLayoutParams(layoutParams);
             imageView.setId(i - 1);
             imageView.setPadding(1, 1, 1, 0);
             layout.addView(imageView);
-            picNum = products.get(position).getImagesPath().get(i);
+            imageNumberPath = aProduct.getImagesPath().get(i);
             try {
-                picNum = URLEncoder.encode(picNum, "UTF-8");
+                imageNumberPath = URLEncoder.encode(imageNumberPath, "UTF-8");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-            String image_url_otherPic = products.get(position).getImagesMainPath() +
-                    picNum +
-                    "&size=" +
-                    Configuration.articleDisplaySizeForURL + "x" + Configuration.articleDisplaySizeForURL +
-                    "&q=30";
+            String image_url_otherPic =Links.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().articleDisplaySizeForURL,Configuration.getConfig().articleDisplaySizeForURL);
             imgLoader.DisplayImage(image_url_otherPic, imageView);
 
-            final int parentClickImage=position;
             final int clickImageNum=i;
-
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    String picNum = products.get(parentClickImage).getImagesPath().get(clickImageNum);
+                    String imageNumberPath = aProduct.getImagesPath().get(clickImageNum);
                     try {
-                        picNum = URLEncoder.encode(picNum, "UTF-8");
+                        imageNumberPath = URLEncoder.encode(imageNumberPath, "UTF-8");
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-                    String image_url_otherPic = products.get(parentClickImage).getImagesMainPath() +
-                            picNum +
-                            "&size=" +
-                            Configuration.homeDisplaySizeForURL + "x" + Configuration.productInfoHeightForURL +
-                            "&q=30";
+                    String image_url_otherPic = Links.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().homeDisplaySizeForURL,Configuration.getConfig().productInfoHeightForURL);
                     imgLoader.DisplayImage(image_url_otherPic, imgProduct);
 
                 }
@@ -313,11 +298,11 @@ public class FullScreenImageAdapter extends PagerAdapter {
         return viewLayout;
     }
 
-    private void shareByTelegram(final int position) {
+    private void shareByTelegram(String productLinkInSite) {
 
         final String appName = "org.telegram.messenger";
-        final String msg = products.get(position).getLinkInSite();
-        final boolean isAppInstalled = isAppAvailable(activity.getApplicationContext(), appName);
+        final String visitProductLinkInSite=productLinkInSite;
+        final boolean isAppInstalled = isAppAvailable(appName);
         if (isAppInstalled) {
             shareDialog = new Dialog(activity);
             shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -337,19 +322,17 @@ public class FullScreenImageAdapter extends PagerAdapter {
                     sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
                     textToSend = editTextToShare.getText().toString();
                     String Share=textToSend+"\n\n"+
-                            products.get(position).getLinkInSite()+ "\n\n"+
-                            Configuration.ProductInfoContext.getResources().getString(R.string.text_to_advertise)+"\n\n"
-                            +Configuration.ProductInfoContext.getResources().getString(R.string.LinkDownloadApp);
-
-                        sendIntent = new Intent();
-                        sendIntent.setAction(Intent.ACTION_SEND);
+                            visitProductLinkInSite+ "\n\n"+
+                            activity.getResources().getString(R.string.text_to_advertise)+"\n\n"
+                            +activity.getResources().getString(R.string.LinkDownloadApp);
+                    sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
                     sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
                     sendIntent.setType("text/plain");
                     sendIntent.setPackage(appName);
-                        activity.startActivity(sendIntent);
+                    activity.startActivity(sendIntent);
                     shareDialog.cancel();
-
                 }
             });
             shareDialog.setCancelable(true);
@@ -361,7 +344,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         }
     }
 
-    private boolean isAppAvailable(Context applicationContext, String appName) {
+    private boolean isAppAvailable(String appName) {
         PackageManager pm = activity.getPackageManager();
         try
         {

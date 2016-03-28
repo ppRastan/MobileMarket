@@ -45,6 +45,12 @@ public class Utilities {
     public int getArticleNumberWhenRefresh(){return 100;}
     public String getImageQuality(){
         String quality="30";
-        return quality;}
+        return quality;
+    }
+    public int calculatePriceOffProduct(int price,int priceOff){
+        int off=(price*priceOff)/100;
+        int priceForYou=price-off;
+        return priceForYou;
+    }
 
 }

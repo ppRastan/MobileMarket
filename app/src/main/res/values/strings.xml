@@ -96,12 +96,15 @@
     <string name="filter">فیلتر کردن براساس :</string>
     <string name="choose_brand">انتخاب برند</string>
     <string name="choose_price">انتخاب محدوده قیمت</string>
-    <string name="price_for_you">قیمت برای شما</string>
+    <string name="price_for_you">قیمت برای شما : </string>
+    <string name="productPrice">قیمت : </string>
+    <string name="currency">تومان</string>
     <string name="previous_shoped_items">خریدهای گذشته ی من</string>
     <string name="liked">علاقه مندی ها</string>
     <string name="exit">خروج از حساب کاربری</string>
     <string name="try_more">دوباره تلاش کنید</string>
     <string name="not_correct">نام کاربری یا رمزعبور صحیح نمی باشد</string>
+    <string name="coming_soon">به زودی</string>
 
     <string name="price">price</string>
     <string name="brand">brand</string>
