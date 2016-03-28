@@ -15,9 +15,11 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.utility.Links;
 
 /**
  * Created by ShaisteS on 1394/12/09.
+ * This Fragment show specialProduct(specialProduct is a product that discount or showAtHomeProduct=1)
  */
 public class SpecialProductFragment extends Fragment {
 
@@ -67,7 +69,7 @@ public class SpecialProductFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        sch.refreshCategories("http://decoriss.com/json/get,com=allcats&cache=false");
+                        sch.refreshCategories(Links.getInstance().generateURLForGetAllCategories());
                         sch.getNewProducts();
                         sch.getEditProducts();
                         products = sch.getSpecialProduct();
