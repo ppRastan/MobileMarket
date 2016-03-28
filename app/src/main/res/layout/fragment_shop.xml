@@ -31,12 +31,22 @@
             android:text="@string/no_product_to_show"
             android:layout_gravity="center"
             android:layout_centerInParent="true" />
-        <android.support.v7.widget.RecyclerView
+        <!--<android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/gv_infoProduct"
             android:layout_gravity="center"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical"/>-->
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/gv_infoProduct"
+                android:numColumns="2"
+                android:verticalSpacing="4dp"
+                android:horizontalSpacing="2dp"
+                android:layout_gravity="center"
+                android:paddingRight="4dp"
+                android:scrollbars="vertical"/>
         </RelativeLayout>
     </LinearLayout>
 

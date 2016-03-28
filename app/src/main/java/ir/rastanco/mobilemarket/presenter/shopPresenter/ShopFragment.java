@@ -6,12 +6,12 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,8 +35,6 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProductListener;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.DataFilter;
-import ir.rastanco.mobilemarket.utility.MyCustomLayoutManager;
-import ir.rastanco.mobilemarket.utility.RecyclerViewItemDecoration;
 
 /**
  * Created by ShaisteS on 1394/12/09.
@@ -65,14 +63,15 @@ public class ShopFragment extends Fragment {
         products=sch.getProductsOfAParentCategory(pageId);
         noThingToShow = (TextView)mainView.findViewById(R.id.no_thing_to_show1);
         noThingToShow.setTypeface(Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf"));
-        final RecyclerView gridview = (RecyclerView) mainView.findViewById(R.id.gv_infoProduct);
+        final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
+        /*final RecyclerView gridview = (RecyclerView) mainView.findViewById(R.id.gv_infoProduct);
         MyCustomLayoutManager mLayoutManager = new MyCustomLayoutManager(Configuration.ShopFragmentContext);
         gridview.setLayoutManager(mLayoutManager);
         gridview.smoothScrollToPosition(0);
         gridview.setLayoutManager(new GridLayoutManager(Configuration.ShopFragmentContext, 2));
         gridview.addItemDecoration(new RecyclerViewItemDecoration(6, 6));
         final GridLayoutManager layoutManager = ((GridLayoutManager)gridview.getLayoutManager());
-        final boolean firstVisiblePosition = layoutManager.findFirstVisibleItemPosition()==0;
+        final boolean firstVisiblePosition = layoutManager.findFirstVisibleItemPosition()==0;*/
 
         if(products.size()==0){
 
@@ -86,20 +85,32 @@ public class ShopFragment extends Fragment {
             gridview.setVisibility(View.VISIBLE);
         }
 
-        /*if (products.size()>0){
-            ArrayList<Product> test=new ArrayList<Product>();
-            for (int i=0;i<6;i++)
-                test.add(products.get(i));
-            products=test;
-        }*/
-
         final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
         gridview.setAdapter(adapter);
 
         //refresh grid view
         final SwipeRefreshLayout mSwipeRefreshLayout= (SwipeRefreshLayout)
                 mainView.findViewById(R.id.swipe_refresh_layout);
-        mSwipeRefreshLayout.setEnabled(true);
+        //mSwipeRefreshLayout.setEnabled(true);
+        mSwipeRefreshLayout.setEnabled(false);
+        gridview.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                boolean enable = false;
+                if (gridview != null && gridview.getChildCount() > 0) {
+                    boolean firstItemVisible = gridview.getFirstVisiblePosition() == 0;
+                    boolean topOfFirstItemVisible = gridview.getChildAt(0).getTop() == 0;
+                    enable = firstItemVisible && topOfFirstItemVisible;
+                }
+                mSwipeRefreshLayout.setEnabled(enable);
+            }
+        });
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -133,9 +144,9 @@ public class ShopFragment extends Fragment {
         ObserverSimilarProduct.SimilarProductListener(new ObserverSimilarProductListener() {
             @Override
             public void SimilarProductSet() {
-                DataFilter.FilterCategoryId=ObserverSimilarProduct.getSimilarProduct();
-                DataFilter.FilterPriceTitle=sch.getACategoryTitleWithCategoryId(DataFilter.FilterCategoryId);
-                DataFilter.FilterBrand=Configuration.ShopFragmentContext.getResources().getString(R.string.all);
+                DataFilter.getInstance().FilterCategoryId=ObserverSimilarProduct.getSimilarProduct();
+                DataFilter.getInstance().FilterPriceTitle=sch.getACategoryTitleWithCategoryId(DataFilter.FilterCategoryId);
+                DataFilter.getInstance().FilterBrand=Configuration.ShopFragmentContext.getResources().getString(R.string.all);
                 txtFilterCategorySelected.setText(DataFilter.FilterPriceTitle);
                 txtFilterCategorySelected.setTextColor(getResources().getColor(R.color.red));
                 txtFilterOptionProductSelected.setText(Configuration.ShopFragmentContext.getResources().getString(R.string.all));
@@ -151,7 +162,8 @@ public class ShopFragment extends Fragment {
         ObserverLike.changeLikeStatusListener(new ObserverLikeListener() {
             @Override
             public void changeLikeStatus() {
-                gridview.scrollToPosition(ObserverLike.getLikeStatus());
+                //gridview.scrollToPosition(ObserverLike.getLikeStatus());
+                gridview.setSelection(ObserverLike.getLikeStatus());
                 gridview.setAdapter(adapter);
 
             }
