@@ -1,5 +1,9 @@
 package ir.rastanco.mobilemarket.utility;
 
+import java.util.Map;
+
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.Security;
+
 /**
  * Created by ShaisteS on 1395/1/8.
  * A Singleton Class For Generate Link For get data from server
@@ -70,7 +74,17 @@ public class Links {
                 "&size=" + imageWidth + "x" + imageHeight +
                 "&q="+Utilities.getInstance().getImageQuality();
         return url;
+    }
 
+    public String generateURLForSendShoppingProductsToServer(String userEmail,Map<Integer,Integer> shopInformation){
+        Security security=new Security();
+        String url = "http://decoriss.com/app,data=";
+        String urlInfo = userEmail + "##";
+        for (Map.Entry<Integer, Integer> entry : shopInformation.entrySet())
+            urlInfo = urlInfo + entry.getKey() + "_" + entry.getValue() + "#";
+        urlInfo = security.Base64(urlInfo);
+        url = url + urlInfo;
+        return url;
     }
 
 

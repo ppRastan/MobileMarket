@@ -28,7 +28,9 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancel;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancelListener;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.Links;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
+import ir.rastanco.mobilemarket.utility.Utilities;
 
 /**
  ** Created by ShaisteS on 1394/10/30.
@@ -46,28 +48,25 @@ public class ShoppingBagActivity extends Activity {
     private ListView lvShoppingBag;
     protected void onCreate(Bundle savedInstanceState) {
 
-        Configuration.ShoppingBagContext =this;
+        Configuration.getConfig().ShoppingBagContext =this;
         security =new Security();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_bag);
         this.shoppingBagRTLizer();
         this.setYekanFont();
         this.closeShoppingBag();
-        Configuration.ShoppingBagContext =this;
-        sch=new ServerConnectionHandler(Configuration.ShoppingBagContext);
+        sch=new ServerConnectionHandler(Configuration.getConfig().ShoppingBagContext);
         productsId = new ArrayList<Integer>();
         productsId = sch.getProductShoppingID();
         this.shoppingListViewCreator();
         int finalPrice= 0;
         int price;
-        int finalOff = 0;
         for(int i=0;i<productsId.size();i++){
-            finalOff=0;
-            Product product=new Product();
-            product=sch.getAProduct(productsId.get(i));
+            Product product=sch.getAProduct(productsId.get(i));
             if(product.getPriceOff()!=0)
-                finalOff=(product.getPrice()*product.getPriceOff())/100;
-            price=product.getPrice()-finalOff;
+                price= Utilities.getInstance().calculatePriceOffProduct(product.getPrice(),product.getPriceOff());
+            else
+                price=product.getPrice();
             finalPrice=finalPrice+price;
         }
 
@@ -79,21 +78,15 @@ public class ShoppingBagActivity extends Activity {
                 Map<Integer, Integer> shopInfo = new HashMap<Integer, Integer>();
                 shopInfo = sch.getAllProductShopping();
                 if (shopInfo.size() == 0) {
-                    Toast.makeText(Configuration.ShoppingBagContext, getResources().getString(R.string.empty_basket),
+                    Toast.makeText(Configuration.getConfig().ShoppingBagContext, getResources().getString(R.string.empty_basket),
                             Toast.LENGTH_LONG).show();
                 } else {
                     UserInfo user = sch.getUserInfo();
                     if (user == null) {
-                        Intent shoppingBagIntent = new Intent(Configuration.ShoppingBagContext, LoginHandler.class);
+                        Intent shoppingBagIntent = new Intent(Configuration.getConfig().ShoppingBagContext, LoginHandler.class);
                         startActivity(shoppingBagIntent);
                     } else {
-                        String url = "http://decoriss.com/app,data=";
-                        String urlInfo = user.getUserEmail() + "##";
-                        for (Map.Entry<Integer, Integer> entry : shopInfo.entrySet())
-                            urlInfo = urlInfo + entry.getKey() + "_" + entry.getValue() + "#";
-
-                        urlInfo = security.Base64(urlInfo);
-                        url = url + urlInfo;
+                        String url = Links.getInstance().generateURLForSendShoppingProductsToServer(user.getUserEmail(),shopInfo);
                         Intent intent = new Intent();
                         intent.setAction(Intent.ACTION_VIEW);
                         intent.addCategory(Intent.CATEGORY_BROWSABLE);
@@ -103,7 +96,7 @@ public class ShoppingBagActivity extends Activity {
                         ObserverShoppingCancel.setShoppingCancel(true);
                         ObserverShopping.setMyBoolean(false);
                         productsId = sch.getProductShoppingID();
-                        shoppingBagAdapter adapter = new shoppingBagAdapter(Configuration.ShoppingBagContext,
+                        shoppingBagAdapter adapter = new shoppingBagAdapter(Configuration.getConfig().ShoppingBagContext,
                                 R.layout.activity_shopping_bag, productsId);
                         lvShoppingBag.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
@@ -120,19 +113,14 @@ public class ShoppingBagActivity extends Activity {
                 Map<Integer, Integer> refreshProductsId = new Hashtable<Integer, Integer>();
                 refreshProductsId = sch.getAllProductShopping();
                 int finalPrice = 0;
-                //Total Price
                 int price;
-                int off;
                 for (Map.Entry<Integer, Integer> entry : refreshProductsId.entrySet()) {
-                    price = 0;
-                    off = 0;
-                    Product product = new Product();
-                    product = sch.getAProduct(entry.getKey());
-                    if (product.getPriceOff() != 0)
-                        off = (product.getPrice() * product.getPriceOff()) / 100;
-               price = (product.getPrice() * entry.getValue()) - (off * entry.getValue());
-                    finalPrice = finalPrice + price;
-
+                    Product product = sch.getAProduct(entry.getKey());
+                    if(product.getPriceOff()!=0)
+                        price= Utilities.getInstance().calculatePriceOffProduct(product.getPrice(),product.getPriceOff());
+                    else
+                        price=product.getPrice();
+                    finalPrice=finalPrice+price;
                 }
                 totalPriceTextView.setText(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice));
             }
