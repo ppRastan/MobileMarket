@@ -70,6 +70,7 @@
     <string name="welcome_to_decoriss">کاربر گرامی خوش آمدید</string>
     <string name="please_wait_message">بارگذاری اولیه ممکن است چند دقیقه طول بکشد</string>
     <string name="please_wait">لطفا منتظر بمانید . . .</string>
+    <string name="downloadFile">در حال دانلود فایل . . .</string>
     <string-array name="list_view_item">
         <item>item1</item>
         <item>item2</item>

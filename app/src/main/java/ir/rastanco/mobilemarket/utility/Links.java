@@ -114,7 +114,24 @@ public class Links {
 
     }
 
+    public String generateURLForGetLastVersionAppInServer(){
+        String url="http://decoriss.com/app/Version.txt";
+        return url;
+    }
 
+    public String generateYRLForGetApplicationInServer(){
+        String url="http://decoriss.com/app/Decoriss.apk";
+        return url;
+    }
 
+    public String telephoneNumber(){
+        String telephone="tel:02166558994";
+        return telephone;
+    }
 
+    public String generatePathAPKApplicationInMobile(){
+        String path="/Download/Decoriss.apk";
+        return path;
+
+    }
 }
