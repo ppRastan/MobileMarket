@@ -22,6 +22,7 @@ import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 /**
  * Created by ShaisteS on 1394/11/3.
+ * This class is a ArrayAdapter for list view in UserLastShoppingProduct Class
  */
 public class UserLastShoppingProductItemAdapter extends ArrayAdapter<ProductShop> {
 
