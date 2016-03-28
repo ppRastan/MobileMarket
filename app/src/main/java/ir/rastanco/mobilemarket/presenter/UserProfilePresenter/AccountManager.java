@@ -1,23 +1,25 @@
 package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.utility.Configuration;
-
-import java.util.ArrayList;
 
 
 public class AccountManager extends AppCompatActivity {
 
     private ListView accountListView;
     private ArrayList<String>accountItems;
-    public static int [] listViewImages ={R.mipmap.previous_invoices,R.mipmap.favorites,R.mipmap.exit};
+    public static int [] listViewImages ={
+            R.mipmap.previous_invoices,
+            R.mipmap.favorites,
+            R.mipmap.exit};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +38,7 @@ public class AccountManager extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
-    this.finish();
+        this.finish();
     }
 
 }

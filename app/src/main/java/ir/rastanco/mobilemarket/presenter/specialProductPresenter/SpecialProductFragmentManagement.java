@@ -19,6 +19,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by ShaisteS on 1394/12/09.
+ * This Fragment Manage that show Loading Fragment or Special Product Fragment
  */
 public class SpecialProductFragmentManagement extends Fragment {
 
@@ -26,8 +27,8 @@ public class SpecialProductFragmentManagement extends Fragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
 
         View specialProductView = inflater.inflate(R.layout.fragment_special_product_manager, container, false);
-        Configuration.SpecialProductManagementContext=getContext();
-        if (Configuration.productTableEmptyStatus==true && !Configuration.connectionStatus) {
+        Configuration.getConfig().SpecialProductManagementContext=getContext();
+        if (Configuration.getConfig().productTableEmptyStatus==true && !Configuration.getConfig().connectionStatus) {
 
             CheckConnectionFragment check=new CheckConnectionFragment();
             FragmentTransaction setCheck=getFragmentManager().beginTransaction();
@@ -35,7 +36,7 @@ public class SpecialProductFragmentManagement extends Fragment {
             setCheck.commit();
 
         }
-        if (Configuration.productTableEmptyStatus==true && Configuration.connectionStatus){
+        if (Configuration.getConfig().productTableEmptyStatus==true && Configuration.getConfig().connectionStatus){
 
             LoadingFragment loading = new LoadingFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
