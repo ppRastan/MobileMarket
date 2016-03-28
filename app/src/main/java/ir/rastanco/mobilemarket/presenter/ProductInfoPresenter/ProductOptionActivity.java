@@ -20,6 +20,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by ShaisteS on 1394/11/05
+ * this activity show product option and product comment and product description
  */
 public class ProductOptionActivity extends Activity {
 
