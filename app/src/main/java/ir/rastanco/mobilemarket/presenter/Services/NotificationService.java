@@ -28,10 +28,10 @@ public class NotificationService extends Service {
         Intent notificationIntent = new Intent(this, SplashHandler.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), notificationIntent, 0);
         Notification notification = new Notification.Builder(this)
-                .setContentTitle("دکوریس")
+                .setContentTitle(getApplicationContext().getString(R.string.decoriss))
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(pendingIntent)
-                .setContentText("آپدیت دکوریس")
+                .setContentText(getApplicationContext().getString(R.string.update_decoriis))
                 .setAutoCancel(true).build();
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(9999, notification);
