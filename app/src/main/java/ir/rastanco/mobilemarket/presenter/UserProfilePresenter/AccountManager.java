@@ -11,6 +11,11 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
+/**
+ * Created by Parisa on 1394/11/22.
+ * This class Manging User Favourite Product , User Last Shopping Product and exit profile
+ */
+
 
 public class AccountManager extends AppCompatActivity {
 

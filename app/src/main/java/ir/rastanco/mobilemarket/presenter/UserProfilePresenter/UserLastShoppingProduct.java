@@ -44,7 +44,7 @@ public class UserLastShoppingProduct extends Activity {
             allProductsShop=sch.getLastProductShop(Links.getInstance().generateURLForGetUserLasShopping(user.getUserId()));
         }
         ListView lvLastShopping=(ListView)findViewById(R.id.lv_lastShopping);
-        LastShoppingItemAdapter adapter=new LastShoppingItemAdapter(Configuration.getConfig().UserLastShoppingContext,R.layout.last_shopping_item,allProductsShop);
+        UserLastShoppingProductItemAdapter adapter=new UserLastShoppingProductItemAdapter(Configuration.getConfig().UserLastShoppingContext,R.layout.last_shopping_item,allProductsShop);
         lvLastShopping.setAdapter(adapter);
     }
 

@@ -23,7 +23,7 @@ import ir.rastanco.mobilemarket.utility.PriceUtility;
 /**
  * Created by ShaisteS on 1394/11/3.
  */
-public class LastShoppingItemAdapter extends ArrayAdapter<ProductShop> {
+public class UserLastShoppingProductItemAdapter extends ArrayAdapter<ProductShop> {
 
     private Activity myContext;
     private ArrayList<ProductShop> allProductsShop;
@@ -35,7 +35,7 @@ public class LastShoppingItemAdapter extends ArrayAdapter<ProductShop> {
     private TextView invoiceNum;
     private TextView invoiceDate;
     private TextView invoiceStatus;
-    public LastShoppingItemAdapter(Context context, int resource, ArrayList<ProductShop> productsShop) {
+    public UserLastShoppingProductItemAdapter(Context context, int resource, ArrayList<ProductShop> productsShop) {
         super(context, resource,productsShop);
         myContext=(Activity)context;
         allProductsShop=productsShop;

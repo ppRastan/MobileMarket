@@ -19,9 +19,10 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 
 
 /**
- * Created by shaisteS on 1394/11/22.
+ * Created by ShaisteS on 1394/11/22.
+ * This class is a ArrayAdapter for list view in UserFavouriteProduct Class
  */
-public class UserProfileAdapter extends ArrayAdapter<Product> {
+public class UserFavouriteProductItemAdapter extends ArrayAdapter<Product> {
 
     private Activity myContext;
     private ArrayList<Product> products;
@@ -29,7 +30,7 @@ public class UserProfileAdapter extends ArrayAdapter<Product> {
     private View rowView;
 
 
-    public UserProfileAdapter(Context context, int resource, ArrayList<Product> allProduct) {
+    public UserFavouriteProductItemAdapter(Context context, int resource, ArrayList<Product> allProduct) {
         super(context, resource, allProduct);
         myContext = (Activity) context;
         products = allProduct;
@@ -50,7 +51,7 @@ public class UserProfileAdapter extends ArrayAdapter<Product> {
                 aProduct = sch.getAProduct(productId);
                 ArrayList<Product> product = new ArrayList<Product>();
                 product.add(aProduct);
-                Intent intent = new Intent(Configuration.MainActivityContext, ProductInfoActivity.class);
+                Intent intent = new Intent(Configuration.getConfig().MainActivityContext, ProductInfoActivity.class);
                 intent.putParcelableArrayListExtra("allProduct", product);
                 intent.putExtra("position", 0);
                 myContext.startActivity(intent);
