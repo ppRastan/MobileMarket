@@ -25,8 +25,8 @@ public class CheckConnectionFragment extends Fragment {
         reload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Configuration.connectionStatus){
-                    if (Configuration.productTableEmptyStatus)
+                if (Configuration.getConfig().connectionStatus){
+                    if (Configuration.getConfig().productTableEmptyStatus)
                         ObserverConnectionInternetOK.setChangeFragmentParameter(true);
                 }
             }
