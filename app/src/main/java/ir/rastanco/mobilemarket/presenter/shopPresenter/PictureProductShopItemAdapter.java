@@ -11,12 +11,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,7 +38,9 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.Links;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
+import ir.rastanco.mobilemarket.utility.Utilities;
 
 
 public class PictureProductShopItemAdapter extends BaseAdapter{
@@ -55,9 +53,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private Context myContext;
     private String textToSend = null;
     private Dialog shareDialog;
-    private ImageButton cancelShareDialog;
-    private Button sendBtn;
-    private EditText editTextToShare;
     private Intent sendIntent;
     private Activity shopPresenterActivity;
 
@@ -128,19 +123,29 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.image=null;
 
         final Product aProduct=allProduct.get(position);
-        if (aProduct.getPriceOff()==0){
+        if (aProduct.getPriceOff()==0 && aProduct.getPrice()!=0){
             holder.priceForYou.setVisibility(View.INVISIBLE);
             holder.originalPrice.setTextColor(Color.BLACK);
+            holder.originalPrice.setText(PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice()));
+            holder.basketToolbar.setVisibility(View.VISIBLE);
         }
-        else {
+        else if(aProduct.getPrice()!=0 && aProduct.getPrice()!=0) {
             int price= aProduct.getPrice();
-            int offPrice= (price*aProduct.getPriceOff())/100;
+            int discountPercent=aProduct.getPriceOff();
+            int finalPrice= Utilities.getInstance().calculatePriceOffProduct(price,discountPercent);
             holder.originalPrice.setTextColor(Color.RED);
             holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.originalPrice.setText(PriceUtility.getInstance().formatPriceCommaSeprated(price));
             holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou, shopPresenterActivity);
-            holder.priceForYou.setText(PriceUtility.getInstance().formatPriceCommaSeprated(price - offPrice));
+            holder.priceForYou.setText(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice));
             holder.priceForYou.setVisibility(View.VISIBLE);
+            holder.basketToolbar.setVisibility(View.VISIBLE);
         }
+        else if(aProduct.getPrice()==0 && aProduct.getPriceOff()==0){
+            holder.basketToolbar.setVisibility(View.GONE);
+            holder.originalPrice.setText(myContext.getString(R.string.coming_soon));
+        }
+
         if(Configuration.RTL)
         {
 
@@ -168,10 +173,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             }
         }
 
-        if (aProduct.getPrice()==0)
-            holder.basketToolbar.setVisibility(View.GONE);
-        else
-            holder.basketToolbar.setVisibility(View.VISIBLE);
 
         if (sch.checkSelectProductForShop(aProduct.getId()))
             holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
@@ -281,56 +282,23 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         });
 
         //get main picture from server or cache
-        String picCounter;
+        String imageNumberPath;
         if(aProduct.getImagesPath().size()==0)
-            picCounter="no_image_path";
+            imageNumberPath="no_image_path";
         else
-            picCounter = aProduct.getImagesPath().get(0);
+            imageNumberPath = aProduct.getImagesPath().get(0);
 
-        holder.imgP.getLayoutParams().width=Configuration.shopDisplaySizeForShow;
-        holder.imgP.getLayoutParams().height=Configuration.shopDisplaySizeForShow;
+        holder.imgP.getLayoutParams().width=Configuration.getConfig().shopDisplaySizeForShow;
+        holder.imgP.getLayoutParams().height=Configuration.getConfig().shopDisplaySizeForShow;
         try {
-            picCounter= URLEncoder.encode(picCounter, "UTF-8");
+            imageNumberPath= URLEncoder.encode(imageNumberPath, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String image_url_1 =aProduct.getImagesMainPath()+
-                picCounter+
-                "&size="+
-                Configuration.shopDisplaySizeForURL +"x"+Configuration.shopDisplaySizeForURL +
-                "&q=30";
-        holder.imgLoader.DisplayImage(image_url_1, holder.imgP);
-
-        //Drawable d=ResizeImage(R.drawable.loadingholder,holder.rowView,Configuration.shopDisplaySizeForShow);
-        //Picasso.with(Configuration.ShopFragmentContext).load(image_url_1).into(holder.imgP);
-        /*Drawable d=ResizeImage(R.drawable.loadingholder,rowView,Configuration.shopDisplaySizeForShow);
-        final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
-        progressBar.getLayoutParams().height=Configuration.progressBarSize;
-        progressBar.getLayoutParams().width=Configuration.progressBarSize;
-        Glide.with(myContext)
-                .load(image_url_1).override(Configuration.shopDisplaySizeForShow, Configuration.shopDisplaySizeForShow)
-                .listener(new RequestListener<String, GlideDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        progressBar.setVisibility(View.GONE);
-                        return false;
-                    }
-                })
-                //.placeholder(d)
-                .error(d)
-                .into(holder.imgP);*/
-
+        String imageURL = Links.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().shopDisplaySizeForURL,Configuration.getConfig().shopDisplaySizeForURL);
+        holder.imgLoader.DisplayImage(imageURL, holder.imgP);
         holder.infoP.setText(aProduct.getTitle());
-        if (aProduct.getPrice()==0) {
-            holder.originalPrice.setText("به زودی ");
-        }
-        else
-            holder.originalPrice.setText(PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice()));
+
         holder.imgP.setImageBitmap(holder.image);
         holder.imgP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -345,38 +313,9 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         return rowView;
     }
 
-    public Drawable ResizeImage (int imageID,View rowView,int deviceWidth) {
-
-        BitmapDrawable bd=(BitmapDrawable) rowView.getResources().getDrawable(imageID);
-        double imageHeight = bd.getBitmap().getHeight();
-        double imageWidth = bd.getBitmap().getWidth();
-
-        double ratio = deviceWidth / imageWidth;
-        int newImageHeight = (int) (imageHeight * ratio);
-
-        Bitmap bMap = BitmapFactory.decodeResource(rowView.getResources(), imageID);
-        Drawable drawable = new BitmapDrawable(rowView.getResources(),getResizedBitmap(bMap,newImageHeight,(int) deviceWidth));
-
-        return drawable;
-    }
-
-    /************************ Resize Bitmap *********************************/
-    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
-
-        int width = bm.getWidth();
-        int height = bm.getHeight();
-
-        float scaleWidth = ((float) newWidth) / width;
-        float scaleHeight = ((float) newHeight) / height;
-
-        Matrix matrix = new Matrix();
-        matrix.postScale(scaleWidth, scaleHeight);
-        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
-
-        return resizedBitmap;
-    }
-
 }
+
+//Code for recycler view
 /*public class PictureProductShopItemAdapter extends RecyclerView.Adapter<PictureProductShopItemAdapter.Holder>{
 
     private static LayoutInflater inflater=null;
