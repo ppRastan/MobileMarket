@@ -29,7 +29,9 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancel;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.Links;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
+import ir.rastanco.mobilemarket.utility.Utilities;
 
 /**
  * Created by ShaisteS on 1394/10/30.
@@ -59,8 +61,8 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private int finalPrice = 0;
     private int off = 0;
     private ImageLoader imgLoader;
-    private String picCounter;
-    private String image_url_1;
+    private String imageNumberPath;
+    private String imageURL;
     private Map<Integer,Integer> selectedItem;
     private TextView shoppingOffer;
     private Integer eachproductoff;
@@ -128,35 +130,35 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         shoppingBagTotalPriceTextView = PriceUtility.getInstance().changeFontToYekan(shoppingBagTotalPriceTextView, shoppingBagActivityContext);
         eachProductPriceTextView = PriceUtility.getInstance().changeFontToYekan(eachProductPriceTextView, shoppingBagActivityContext);
         LinearLayout priceOffLinear = (LinearLayout)rowView.findViewById(R.id.priceOffLinear);
-        if (aProduct.getPriceOff() != 0)
-            off = ((aProduct.getPrice() * aProduct.getPriceOff()) / 100);
-        finalPrice = (aProduct.getPrice()  - off );
-        numberProducePriceOff = String.valueOf(off * counterSelected);
-        eachproductoff = aProduct.getPrice()-finalPrice;
-        if(eachproductoff != 0)
-        {
-        priceOffLinear.setVisibility(View.VISIBLE);
-        shoppingOffer.setVisibility(View.VISIBLE);
-        shoppingOffer.setText(shoppingBagActivityContext.getResources().getString(R.string.price_off) + "   " + PriceUtility.getInstance().formatPriceCommaSeprated(eachproductoff) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));}
-        eachProductPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.peice) + "     " + PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice()) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
-        shoppingBagTotalPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.price_for_you) + "     " + PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
+
+        if (aProduct.getPriceOff() != 0) {
+            finalPrice = Utilities.getInstance().calculatePriceOffProduct(aProduct.getPrice(), aProduct.getPriceOff());
+            eachproductoff = aProduct.getPrice()-finalPrice;
+            priceOffLinear.setVisibility(View.VISIBLE);
+            shoppingOffer.setVisibility(View.VISIBLE);
+            shoppingOffer.setText(shoppingBagActivityContext.getResources().getString(R.string.price_off) + "   " + PriceUtility.getInstance().formatPriceCommaSeprated(eachproductoff) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
+            eachProductPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.peice) + "     " + PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice()) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
+            shoppingBagTotalPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.price_for_you) + "     " + PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
+
+        }
+        else {
+            finalPrice=aProduct.getPrice();
+            eachProductPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.peice) + "     " + PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice()) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
+            shoppingBagTotalPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.price_for_you) + "     " + PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
+        }
 
         if(aProduct.getImagesPath().size()==0)
-            picCounter="no_image_path";
+            imageNumberPath ="no_image_path";
         else
-            picCounter = aProduct.getImagesPath().get(0);
+            imageNumberPath = aProduct.getImagesPath().get(0);
 
         try {
-            picCounter= URLEncoder.encode(picCounter, "UTF-8");
+            imageNumberPath = URLEncoder.encode(imageNumberPath, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        image_url_1 = aProduct.getImagesMainPath()+
-                picCounter+
-                "&size="+
-                Configuration.articleDisplaySizeForURL +"x"+Configuration.articleDisplaySizeForURL +
-                "&q=30";
-        imgLoader.DisplayImage(image_url_1, imgProduct);
+        imageURL = Links.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(), imageNumberPath,Configuration.articleDisplaySizeForURL,Configuration.articleDisplaySizeForURL);
+        imgLoader.DisplayImage(imageURL, imgProduct);
     }
 
     private void deleteFromBasket() {
