@@ -31,7 +31,7 @@ public class LastShoppingItemAdapter extends ArrayAdapter<ProductShop> {
     private View rowView;
     private ImageLoader imgLoader;
     private ImageView picInvoice;
-    private String image_url_1;
+    private String imageURL;
     private TextView invoiceNum;
     private TextView invoiceDate;
     private TextView invoiceStatus;
@@ -47,10 +47,10 @@ public class LastShoppingItemAdapter extends ArrayAdapter<ProductShop> {
         rowView = inflater.inflate(R.layout.last_shopping_item, null);
 
 
-        imgLoader = new ImageLoader(Configuration.UserLastShoppingContext,rowView,Configuration.homeDisplaySizeForShow); // important
+        imgLoader = new ImageLoader(Configuration.getConfig().UserLastShoppingContext,rowView,Configuration.getConfig().homeDisplaySizeForShow); // important
         picInvoice = (ImageView) rowView.findViewById(R.id.img_invoice);
-        image_url_1 = allProductsShop.get(position).getInvoiceImageLink();
-        imgLoader.DisplayImage(image_url_1, picInvoice);
+        imageURL = allProductsShop.get(position).getInvoiceImageLink();
+        imgLoader.DisplayImage(imageURL, picInvoice);
 
         invoiceNum=(TextView) rowView.findViewById(R.id.txt_invoiceNum);
         invoiceDate=(TextView)rowView.findViewById(R.id.txt_invoceDate);
