@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +28,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.Links;
 
 /**
  * Created by ShaisteS on 1394/10/6.
@@ -38,7 +38,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
 
     private Activity myContext;
     private ArrayList<Product> allProduct;
-    private ServerConnectionHandler sch;
+    private ServerConnectionHandler serverConnectionHandler;
     private ImageButton shareBtn;
     private String textToSend = null;
     private Dialog shareDialog;
@@ -53,13 +53,12 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         super(context, resource,products);
         myContext=(Activity)context;
         allProduct=products;
-        sch=new ServerConnectionHandler(context);
+        serverConnectionHandler =new ServerConnectionHandler(context);
 
     }
 
     public View getView(final int position, View convertView, ViewGroup parent){
 
-        Bitmap image=null;
         LayoutInflater inflater = myContext.getLayoutInflater();
         final View rowView = inflater.inflate(R.layout.picture_product_item_home, null);
 
@@ -91,7 +90,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         }*/
 
         basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
-        if (sch.checkSelectProductForShop(allProduct.get(position).getId()))
+        if (serverConnectionHandler.checkSelectProductForShop(allProduct.get(position).getId()))
             basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
         else
             basketToolbar.setImageResource(R.mipmap.bye_toolbar);
@@ -103,7 +102,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
             if (isSelectedForShop==false) {
                 basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
                 isSelectedForShop=true;
-                sch.addProductToShoppingBag(allProduct.get(position).getId(),1);
+                serverConnectionHandler.addProductToShoppingBag(allProduct.get(position).getId(), 1);
                 myContext.startActivity(new Intent(myContext,ShoppingBagActivity.class));
                 myContext.overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up);
                 ObserverShopping.setMyBoolean(true);
@@ -114,7 +113,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
             else if (isSelectedForShop==true){
                 basketToolbar.setImageResource(R.mipmap.bye_toolbar);
                 isSelectedForShop=false;
-                sch.deleteAProductShopping(allProduct.get(position).getId());
+                serverConnectionHandler.deleteAProductShopping(allProduct.get(position).getId());
                 ObserverShopping.setMyBoolean(false);
                 isSelectedForShop = false;
 
@@ -126,14 +125,14 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         btnSimilar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String pageTitle= sch.getTabTitleForSimilarProduct(allProduct.get(position).getGroupId());
-                        int switchToPage=Configuration.MainPager.getCurrentItem();
-                        for (int i=0;i<Configuration.MainPager.getAdapter().getCount();i++){
-                            if (Configuration.MainPager.getAdapter().getPageTitle(i).toString().equals(pageTitle))
+                        String pageTitle= serverConnectionHandler.getTabTitleForSimilarProduct(allProduct.get(position).getGroupId());
+                        int switchToPage=Configuration.getConfig().MainPager.getCurrentItem();
+                        for (int i=0;i<Configuration.getConfig().MainPager.getAdapter().getCount();i++){
+                            if (Configuration.getConfig().MainPager.getAdapter().getPageTitle(i).toString().equals(pageTitle))
                                 switchToPage=i;
                         }
                         Configuration.MainPager.setCurrentItem(switchToPage);
-                        int parentId=sch.getACategoryWithId(allProduct.get(position).getGroupId()).getParentId();
+                        int parentId= serverConnectionHandler.getACategoryWithId(allProduct.get(position).getGroupId()).getParentId();
                         ObserverSimilarProduct.setSimilarProduct(parentId);
                    }
                });
@@ -181,51 +180,29 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
 //                shareDialog.cancel();
             }
         });
-        ImageLoader imgLoader = new ImageLoader(myContext,rowView,Configuration.homeDisplaySizeForShow); // important
+        ImageLoader imgLoader = new ImageLoader(myContext,rowView,Configuration.getConfig().homeDisplaySizeForShow); // important
         final  ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
-        PicProductImage.getLayoutParams().width= Configuration.homeDisplaySizeForShow;
-        PicProductImage.getLayoutParams().height=Configuration.homeDisplaySizeForShow;
+        PicProductImage.getLayoutParams().width= Configuration.getConfig().homeDisplaySizeForShow;
+        PicProductImage.getLayoutParams().height=Configuration.getConfig().homeDisplaySizeForShow;
 
 
-        String picCounter = allProduct.get(position).getImagesPath().get(0);
+        String imageNumberPath;
+        if (allProduct.get(position).getImagesPath().size()==0)
+            imageNumberPath="no_image_path";
+        else
+            imageNumberPath=allProduct.get(position).getImagesPath().get(0);
         try {
-            picCounter= URLEncoder.encode(picCounter, "UTF-8");
+            imageNumberPath= URLEncoder.encode(imageNumberPath, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String image_url_1 = allProduct.get(position).getImagesMainPath()+picCounter+
-                "&size="+
-                Configuration.homeDisplaySizeForURL +"x"+Configuration.homeDisplaySizeForURL +
-                "&q=30";
-        imgLoader.DisplayImage(image_url_1, PicProductImage);
-
-        /*Drawable d=ResizeImage(R.drawable.loadingholder,rowView,Configuration.homeDisplaySizeForShow);
-        final ProgressBar progressBar=(ProgressBar)rowView.findViewById(R.id.prograssBar);
-        progressBar.getLayoutParams().height=Configuration.progressBarSize;
-        progressBar.getLayoutParams().width=Configuration.progressBarSize;
-        Glide.with(myContext)
-               .load(image_url_1).override(Configuration.homeDisplaySizeForShow, Configuration.homeDisplaySizeForShow)
-                .listener(new RequestListener<String, GlideDrawable>() {
-                    @Override
-                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                        progressBar.setVisibility(View.GONE);
-                        return false;
-                    }
-                })
-                .error(d)
-               .into(PicProductImage);*/
-
-        ImageButton shareImgB=(ImageButton)rowView.findViewById(R.id.imbt_share);
+        String imageURL = Links.getInstance().generateURLForGetImageProduct(allProduct.get(position).getImagesMainPath(),imageNumberPath,Configuration.getConfig().homeDisplaySizeForURL,Configuration.getConfig().homeDisplaySizeForURL);
+        imgLoader.DisplayImage(imageURL, PicProductImage);
         PicProductImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ArrayList<Product> newAllProduct=new ArrayList<Product>();
-                newAllProduct=sch.getSpecialProduct();
+                newAllProduct= serverConnectionHandler.getSpecialProduct();
                 Intent intent = new Intent(rowView.getContext(), ProductInfoActivity.class);
                 intent.putParcelableArrayListExtra("allProduct",newAllProduct);
                 intent.putExtra("position",position);
