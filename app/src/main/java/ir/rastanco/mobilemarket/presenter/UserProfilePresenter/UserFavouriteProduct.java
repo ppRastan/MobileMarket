@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.UserInfo;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -31,36 +30,35 @@ public class UserFavouriteProduct extends Activity {
         setContentView(R.layout.activity_user_profile2);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        Configuration.UserProfileContext =this;
-        sch=new ServerConnectionHandler(Configuration.UserProfileContext);
-        UserInfo aUser=sch.getUserInfo();
+        Configuration.getConfig().UserProfileContext =this;
+        sch=new ServerConnectionHandler(Configuration.getConfig().UserProfileContext);
         ArrayList<Product> allProductLike=new ArrayList<Product>();
         allProductLike=sch.getAllProductFavourite();
         ListView lsvFavourite=(ListView) findViewById(R.id.lsv_favouriteProduct);
-        UserProfileAdapter adapter= new UserProfileAdapter(Configuration.UserProfileContext,R.layout.user_profile_like_product_item,allProductLike);
+        UserProfileAdapter adapter= new UserProfileAdapter(Configuration.getConfig().UserProfileContext,R.layout.user_profile_like_product_item,allProductLike);
         lsvFavourite.setAdapter(adapter);
         lsvFavourite.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                                @Override
-                                                public void onItemClick(AdapterView<?> parent, View view,
-                                                                        int position, long id) {
-                                                    int productId = sch.getProductIdWithTitle((String) parent.getItemAtPosition(position));
-                                                    Product aProduct = new Product();
-                                                    aProduct = sch.getAProduct(productId);
-                                                    ArrayList<Product> product = new ArrayList<Product>();
-                                                    product.add(aProduct);
-                                                    Intent intent = new Intent(Configuration.MainActivityContext, ProductInfoActivity.class);
-                                                    intent.putParcelableArrayListExtra("allProduct", product);
-                                                    intent.putExtra("position", 0);
-                                                    startActivity(intent);
-                                                }
-                                            }
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                int productId = sch.getProductIdWithTitle((String) parent.getItemAtPosition(position));
+                Product aProduct = new Product();
+                aProduct = sch.getAProduct(productId);
+                ArrayList<Product> product = new ArrayList<Product>();
+                product.add(aProduct);
+                Intent intent = new Intent(Configuration.getConfig().MainActivityContext, ProductInfoActivity.class);
+                intent.putParcelableArrayListExtra("allProduct", product);
+                intent.putExtra("position", 0);
+                startActivity(intent);
+            }
+        }
         );
 
     }
     @Override
     public void onBackPressed() {
-        Intent UserFavoridProduct = new Intent(UserFavouriteProduct.this,AccountManager.class);
-        startActivity(UserFavoridProduct);
+        Intent UserFavoriteProduct = new Intent(UserFavouriteProduct.this,AccountManager.class);
+        startActivity(UserFavoriteProduct);
         this.finish();
     }
 }
