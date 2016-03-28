@@ -18,6 +18,7 @@ import ir.rastanco.mobilemarket.dataModel.UserInfo;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.Security;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.Links;
 
 public class LoginHandler extends AppCompatActivity {
 
@@ -38,8 +39,8 @@ public class LoginHandler extends AppCompatActivity {
         setContentView(R.layout.activity_user_login2);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        Configuration.UserLoginContext =this;
-        sch=new ServerConnectionHandler(Configuration.UserLoginContext);
+        Configuration.getConfig().UserLoginContext =this;
+        sch=new ServerConnectionHandler(Configuration.getConfig().UserLoginContext);
         btnLogin=(Button)findViewById(R.id.btn_login);
         btnSignUp=(Button)findViewById(R.id.btn_enter);
         btnForgotPass=(Button)findViewById(R.id.btn_forgot);
@@ -49,16 +50,12 @@ public class LoginHandler extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(Configuration.connectionStatus){
-
+                if(Configuration.getConfig().connectionStatus){
                     UserInfo aUser=new UserInfo();
-                    String key=sch.GetKey("http://decoriss.com/json/get,com=auth");
-                    //String key="974401741";
+                    String key=sch.GetKey(Links.getInstance().generateURLForGetKey());
                     user= String.valueOf(username.getText());
-                    //user="mahdavikia.m@gmail.com";
                     aUser.setUserEmail(user);
                     pass= String.valueOf(password.getText());
-                    //pass="1234";
                     String hashInfo=sec.encode(user,pass,key);
                     ArrayList<String> response=new ArrayList<String>();
                     response=sch.GetAuthorizeResponse(hashInfo,key);
@@ -67,22 +64,22 @@ public class LoginHandler extends AppCompatActivity {
                         aUser.setUserId(Integer.parseInt(response.get(1)));
                         aUser.setUserLoginStatus(1);
                         sch.addUserInfoToTable(aUser);
-                        Configuration.userLoginStatus=true;
-                        Intent userAccount=new Intent(Configuration.UserLoginContext,AccountManager.class);
+                        Configuration.getConfig().userLoginStatus=true;
+                        Intent userAccount=new Intent(Configuration.getConfig().UserLoginContext,AccountManager.class);
                         startActivity(userAccount);
                         finish();
                     }
                     if (response.get(0).equals("key_expired"))
-                        Toast.makeText(Configuration.UserLoginContext,Configuration.UserLoginContext.getResources().getString(R.string.try_more),
+                        Toast.makeText(Configuration.getConfig().UserLoginContext,Configuration.UserLoginContext.getResources().getString(R.string.try_more),
                                 Toast.LENGTH_LONG).show();
                     if (response.get(0).equals("user_pass_invalid"))
-                        Toast.makeText(Configuration.UserLoginContext,Configuration.UserLoginContext.getResources().getString(R.string.not_correct),
+                        Toast.makeText(Configuration.getConfig().UserLoginContext,Configuration.UserLoginContext.getResources().getString(R.string.not_correct),
                                 Toast.LENGTH_LONG).show();
 
                 }
 
                 else
-                    Toast.makeText(Configuration.UserLoginContext,Configuration.UserLoginContext.getResources().getString(R.string.checkConnection),
+                    Toast.makeText(Configuration.getConfig().UserLoginContext,Configuration.UserLoginContext.getResources().getString(R.string.checkConnection),
                             Toast.LENGTH_LONG).show();
 
 
@@ -95,7 +92,7 @@ public class LoginHandler extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("http://decoriss.com/register,ثبت-نام_"));
+                intent.setData(Uri.parse(Links.getInstance().generateURLSignUp()));
                 startActivity(intent);
             }
         });
@@ -106,7 +103,7 @@ public class LoginHandler extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("http://decoriss.com/forgetpassword,فراموشی-رمز-عبور_"));
+                intent.setData(Uri.parse(Links.getInstance().generateURLForForgotPassword()));
                 startActivity(intent);
             }
         });

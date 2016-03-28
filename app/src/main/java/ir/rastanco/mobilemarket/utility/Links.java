@@ -98,6 +98,22 @@ public class Links {
         return url;
     }
 
+    public String generateURLForGetKey(){
+        String url="http://decoriss.com/json/get,com=auth";
+        return url;
+    }
+
+    public String generateURLSignUp(){
+        String url="http://decoriss.com/register,ثبت-نام_";
+        return url;
+    }
+
+    public String generateURLForForgotPassword(){
+        String url="http://decoriss.com/forgetpassword,فراموشی-رمز-عبور_";
+        return url;
+
+    }
+
 
 
 
