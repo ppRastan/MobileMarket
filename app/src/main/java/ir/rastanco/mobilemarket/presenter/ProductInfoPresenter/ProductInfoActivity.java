@@ -14,6 +14,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by ShaisteS on 1394/10/16.
+ * A Activity For show Product Information
  **/
 public class ProductInfoActivity extends Activity {
 
@@ -26,13 +27,11 @@ public class ProductInfoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.swip_product_gallery);
-        Configuration.ProductInfoContext = this;
+        Configuration.getConfig().ProductInfoContext = this;
         intent = this.getIntent();
         productBundle = new Bundle();
         productBundle = intent.getExtras();
         allProducts = productBundle.getParcelableArrayList("allProduct");
-        //ServerConnectionHandler sch = new ServerConnectionHandler(Configuration.ProductInfoContext);
-        //inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new FullScreenImageAdapter(this, allProducts, allProducts.size()));
         viewPager.setCurrentItem(intent.getIntExtra("position", 0));
