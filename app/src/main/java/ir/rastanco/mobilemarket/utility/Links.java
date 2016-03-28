@@ -92,6 +92,12 @@ public class Links {
         return url;
     }
 
+    public String generateURLForGetUserLasShopping(int userId){
+        String url="http://decoriss.com/json/get,com=orders&uid="+
+                userId+"&cache=false";
+        return url;
+    }
+
 
 
 

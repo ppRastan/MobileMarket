@@ -14,6 +14,7 @@ import ir.rastanco.mobilemarket.dataModel.ProductShop;
 import ir.rastanco.mobilemarket.dataModel.UserInfo;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.Links;
 
 
 /**
@@ -34,17 +35,16 @@ public class UserLastShoppingProduct extends Activity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
-        Configuration.UserLastShoppingContext =this;
-        sch=new ServerConnectionHandler(Configuration.UserLastShoppingContext);
+        Configuration.getConfig().UserLastShoppingContext =this;
+        sch=new ServerConnectionHandler(Configuration.getConfig().UserLastShoppingContext);
         allProductsShop=new ArrayList<ProductShop>();
         user=new UserInfo();
         user=sch.getUserInfo();
         if (user != null){
-            allProductsShop=sch.getLastProductShop("http://decoriss.com/json/get,com=orders&uid="+
-                    user.getUserId()+"&cache=false");
+            allProductsShop=sch.getLastProductShop(Links.getInstance().generateURLForGetUserLasShopping(user.getUserId()));
         }
         ListView lvLastShopping=(ListView)findViewById(R.id.lv_lastShopping);
-        LastShoppingItemAdapter adapter=new LastShoppingItemAdapter(Configuration.UserLastShoppingContext,R.layout.last_shopping_item,allProductsShop);
+        LastShoppingItemAdapter adapter=new LastShoppingItemAdapter(Configuration.getConfig().UserLastShoppingContext,R.layout.last_shopping_item,allProductsShop);
         lvLastShopping.setAdapter(adapter);
     }
 
