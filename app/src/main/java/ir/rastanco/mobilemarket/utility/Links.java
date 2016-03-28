@@ -19,6 +19,11 @@ public class Links {
         else return new Links();
     }
 
+    public String generateURLForGetAllCategories(){
+        String url="http://decoriss.com/json/get,com=allcats&cache=false";
+        return url;
+    }
+
     public String generateUrlForGetNewProduct(String lastTimeStamp){
         String url="http://decoriss.com/json/get,com=product&newfromts="+
                 lastTimeStamp+"&cache=false";

@@ -35,6 +35,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProductListener;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.DataFilter;
+import ir.rastanco.mobilemarket.utility.Links;
 
 /**
  * Created by ShaisteS on 1394/12/09.
@@ -55,13 +56,14 @@ public class ShopFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View mainView=inflater.inflate(R.layout.fragment_shop, null);
-        Configuration.ShopFragmentContext=getContext();
-        myContext=(FragmentActivity)Configuration.ShopFragmentContext;
+        Configuration.getConfig().ShopFragmentContext=getContext();
+        myContext=(FragmentActivity)Configuration.getConfig().ShopFragmentContext;
         final int pageId;
         pageId=getArguments().getInt("pageId");
         sch=new ServerConnectionHandler(getContext());
         products=sch.getProductsOfAParentCategory(pageId);
         noThingToShow = (TextView)mainView.findViewById(R.id.no_thing_to_show1);
+        //TODO Parisa for use font method
         noThingToShow.setTypeface(Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf"));
         final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
         /*final RecyclerView gridview = (RecyclerView) mainView.findViewById(R.id.gv_infoProduct);
@@ -74,10 +76,8 @@ public class ShopFragment extends Fragment {
         final boolean firstVisiblePosition = layoutManager.findFirstVisibleItemPosition()==0;*/
 
         if(products.size()==0){
-
             noThingToShow.setVisibility(View.VISIBLE);
             gridview.setVisibility(View.GONE);
-
         }
         else
         {
@@ -118,13 +118,13 @@ public class ShopFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        sch.refreshCategories("http://decoriss.com/json/get,com=allcats&cache=false");
+                        sch.refreshCategories(Links.getInstance().generateURLForGetAllCategories());
                         sch.getNewProducts();
                         sch.getEditProducts();
                         ArrayList<Product> newProducts = sch.getProductAfterRefresh(pageId,
-                                DataFilter.FilterCategoryId,
+                                DataFilter.getInstance().FilterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
-                                DataFilter.FilterOption);
+                                DataFilter.getInstance().FilterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
                             gridview.setVisibility(View.GONE);
@@ -145,9 +145,9 @@ public class ShopFragment extends Fragment {
             @Override
             public void SimilarProductSet() {
                 DataFilter.getInstance().FilterCategoryId=ObserverSimilarProduct.getSimilarProduct();
-                DataFilter.getInstance().FilterPriceTitle=sch.getACategoryTitleWithCategoryId(DataFilter.FilterCategoryId);
+                DataFilter.getInstance().FilterPriceTitle=sch.getACategoryTitleWithCategoryId(DataFilter.getInstance().FilterCategoryId);
                 DataFilter.getInstance().FilterBrand=Configuration.ShopFragmentContext.getResources().getString(R.string.all);
-                txtFilterCategorySelected.setText(DataFilter.FilterPriceTitle);
+                txtFilterCategorySelected.setText(DataFilter.getInstance().FilterPriceTitle);
                 txtFilterCategorySelected.setTextColor(getResources().getColor(R.color.red));
                 txtFilterOptionProductSelected.setText(Configuration.ShopFragmentContext.getResources().getString(R.string.all));
                 txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.black));
@@ -175,8 +175,6 @@ public class ShopFragment extends Fragment {
         btnFilterCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*txtFilterOptionProductSelected.setText(getResources().getText(R.string.all));
-                txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.black));*/
                 //show Dialog Fragment
                 Bundle args = new Bundle();
                 args.putInt("pageId", pageId);
@@ -186,11 +184,10 @@ public class ShopFragment extends Fragment {
                 ObserverFilterCategory.changeFilterCategoryListener(new ObserverFilterCategoryListener() {
                     @Override
                     public void changeFilterCategory() {
-                        txtFilterCategorySelected.setText(DataFilter.FilterCategoryTitle);
+                        txtFilterCategorySelected.setText(DataFilter.getInstance().FilterCategoryTitle);
                         txtFilterCategorySelected.setTextColor(getResources().getColor(R.color.red));
-                        //ArrayList<Product> newProducts = sch.getProductsAfterFilterCategory(products, txtFilterCategorySelected.getText().toString());
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
-                                DataFilter.FilterCategoryId,
+                                DataFilter.getInstance().FilterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 DataFilter.FilterOption);
                         if (newProducts.size() == 0) {
@@ -199,7 +196,6 @@ public class ShopFragment extends Fragment {
                         }
                         else
                         {
-
                             noThingToShow.setVisibility(View.GONE);
                             gridview.setVisibility(View.VISIBLE);
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
@@ -217,23 +213,19 @@ public class ShopFragment extends Fragment {
         btnFilterOptionProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //txtFilterCategorySelected.setText(getResources().getText(R.string.all));
-                //txtFilterCategorySelected.setTextColor(getResources().getColor(R.color.black));
                 Bundle args = new Bundle();
                 args.putInt("pageId", pageId);
-                FilterOptionProduct filterOptionProduct = new FilterOptionProduct();
-                filterOptionProduct.setArguments(args);
-                filterOptionProduct.show(myContext.getFragmentManager(), "FilterProductOption");
+                FilterOptionProduct.getInstance().setArguments(args);
+                FilterOptionProduct.getInstance().show(myContext.getFragmentManager(), "FilterProductOption");
                 ObserverFilterPrice.changeFilterPriceListener(new ObserverFilterPriceListener() {
                     @Override
                     public void changeFilterPrice() {
-                        txtFilterOptionProductSelected.setText(DataFilter.FilterPriceTitle);
+                        txtFilterOptionProductSelected.setText(DataFilter.getInstance().FilterPriceTitle);
                         txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.red));
-                        //ArrayList<Product> newProducts = sch.getProductAsPriceFilter(products, txtFilterOptionProductSelected.getText().toString());
                         ArrayList<Product> newProducts=sch.getProductAfterFilter(pageId,
-                                DataFilter.FilterCategoryId,
+                                DataFilter.getInstance().FilterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
-                                DataFilter.FilterOption);
+                                DataFilter.getInstance().FilterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
                             gridview.setVisibility(View.GONE);
@@ -253,13 +245,12 @@ public class ShopFragment extends Fragment {
                 ObserverFilterBrand.changeFilterBrandListener(new ObserverFilterBrandListener() {
                     @Override
                     public void changeFilterBrand() {
-                        txtFilterOptionProductSelected.setText(DataFilter.FilterBrand);
+                        txtFilterOptionProductSelected.setText(DataFilter.getInstance().FilterBrand);
                         txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.red));
-                        //ArrayList<Product> newProducts = sch.getAllProductOfABrand(products, DataFilter.FilterBrand);
                         ArrayList<Product> newProducts=sch.getProductAfterFilter(pageId,
-                                DataFilter.FilterCategoryId,
+                                DataFilter.getInstance().FilterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
-                                DataFilter.FilterOption);
+                                DataFilter.getInstance().FilterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
                             gridview.setVisibility(View.GONE);
@@ -284,9 +275,9 @@ public class ShopFragment extends Fragment {
                         txtFilterOptionProductSelected.setText(DataFilter.FilterAll);
                         txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.red));
                         ArrayList<Product> newProducts=sch.getProductAfterFilter(pageId,
-                                DataFilter.FilterCategoryId,
+                                DataFilter.getInstance().FilterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
-                                DataFilter.FilterOption);
+                                DataFilter.getInstance().FilterOption);
                         if (newProducts.size()==0){
                             noThingToShow.setVisibility(View.VISIBLE);
                             gridview.setVisibility(View.GONE);
