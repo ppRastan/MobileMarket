@@ -20,7 +20,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Links;
 
-public class LoginHandler extends AppCompatActivity {
+public class LoginPage extends AppCompatActivity {
 
 
     private ServerConnectionHandler sch;

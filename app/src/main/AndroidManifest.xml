@@ -58,7 +58,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".presenter.UserProfilePresenter.LoginHandler" />
+        <activity android:name=".presenter.UserProfilePresenter.LoginPage" />
 
         <activity android:name=".presenter.FullScreenPAgeUserGuider"
             android:theme="@style/Transparent">

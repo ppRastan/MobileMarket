@@ -79,7 +79,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingBagClickListener;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManager;
-import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginHandler;
+import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginPage;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragmentManagement;
@@ -405,7 +405,7 @@ public class MainActivity extends AppCompatActivity {
                     this.startActivity(userProfileIntent);
                 }
                 else {
-                    Intent userProfileIntent=new Intent(Configuration.MainActivityContext,LoginHandler.class);
+                    Intent userProfileIntent=new Intent(Configuration.MainActivityContext,LoginPage.class);
                     this.startActivity(userProfileIntent);
                 }
                 break;

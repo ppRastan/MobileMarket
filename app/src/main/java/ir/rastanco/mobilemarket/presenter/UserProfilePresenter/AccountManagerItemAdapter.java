@@ -21,13 +21,13 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 
-public class LoginHandlerAdapter extends BaseAdapter{
+public class AccountManagerItemAdapter extends BaseAdapter{
     ArrayList <String> result;
     Context context;
     int [] imageId;
     private static LayoutInflater inflater=null;
     private ServerConnectionHandler sch;
-    public LoginHandlerAdapter(AccountManager mainActivity, ArrayList<String> prgmNameList, int[] prgmImages) {
+    public AccountManagerItemAdapter(AccountManager mainActivity, ArrayList<String> prgmNameList, int[] prgmImages) {
 
         result=prgmNameList;
         context=mainActivity;
@@ -84,7 +84,7 @@ public class LoginHandlerAdapter extends BaseAdapter{
                         break;
                     case 2:
                         sch.deleteUserInfo();
-                        Intent login=new Intent(context,LoginHandler.class);
+                        Intent login=new Intent(context,LoginPage.class);
                         context.startActivity(login);
                         ((Activity)context).finish();
                         break;

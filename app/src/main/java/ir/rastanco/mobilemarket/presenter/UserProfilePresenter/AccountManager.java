@@ -38,7 +38,7 @@ public class AccountManager extends AppCompatActivity {
         accountItems.add(getResources().getString(R.string.liked));
         accountItems.add(getResources().getString(R.string.exit));
         accountListView = (ListView)findViewById(R.id.account_lv);
-        accountListView.setAdapter(new LoginHandlerAdapter(this, accountItems ,listViewImages));
+        accountListView.setAdapter(new AccountManagerItemAdapter(this, accountItems ,listViewImages));
     }
 
     @Override
