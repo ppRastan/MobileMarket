@@ -2,20 +2,20 @@ package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.ProductOption;
 
-import java.util.ArrayList;
-
 /**
  * Created by shaisteS on 1394/10/27.
+ * A adapter for List view, this list view show product option (Option title and Option value )
  */
 public class ProductInfoItemAdapter extends ArrayAdapter<ProductOption> {
 
