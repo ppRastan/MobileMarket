@@ -3,165 +3,173 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:background="@color/background_window"
-    android:orientation="vertical">
-<android.support.v7.widget.CardView
-    android:id="@+id/card_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    card_view:cardElevation="@dimen/cardview_compat_inset_shadow"
-    card_view:cardCornerRadius="5dp"
-    card_view:contentPadding="4dp">
-    <RelativeLayout
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/decoriss">
-     <LinearLayout
-         android:weightSum="15"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:orientation="vertical"
-         android:background="@color/white">
-             <LinearLayout
-                 android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:layout_weight="6"
-                 android:orientation="horizontal"
-                 android:weightSum="10">
+        card_view:cardCornerRadius="5dp"
+        card_view:cardElevation="@dimen/cardview_compat_inset_shadow"
+        card_view:contentPadding="4dp">
 
-                 <ImageView
-                     android:id="@+id/shopping__bag_img"
-                     android:layout_width="0dp"
-                     android:layout_weight="4"
-                     android:background="@color/white"
-                     android:layout_height="match_parent"
-                     android:scaleType="fitXY"
-                     />
-                 <TextView
-                     android:id="@+id/shopping_bag_txt_productTitle"
-                     android:layout_width="0dp"
-                     android:layout_weight="6"
-                     android:layout_height="match_parent"
-                     android:singleLine="false"
-                     android:padding="20dp"
-                     android:text="title"
-                     android:lineSpacingExtra="7dp"
-                     android:gravity="center_vertical"
-                     android:textColor="@color/black"
-                     android:textSize="17dp"
-                     />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/decoriss">
 
-             </LinearLayout>
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="0dp"
-             android:layout_weight="2"></LinearLayout>
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="0dp"
-             android:layout_weight="1"
-             android:gravity="right"
-             android:layout_gravity="center_vertical|center_horizontal"
-             android:orientation="horizontal"
-             android:weightSum="10"
-             >
-             <TextView
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:gravity="center"
-                 android:paddingRight="20dp"
-                 android:layout_gravity="center_vertical|left"
-                 android:textColor="@color/black"
-                 android:textSize="12sp"
-                 android:text="@string/number_of_shopping_items"
-                 />
-             <Spinner
-                 android:layout_gravity="right|center_vertical"
-                 android:layout_width="wrap_content"
-                 android:gravity="center"
-                 android:layout_height="wrap_content"
-                 android:padding="8dp"
-                 android:layout_marginBottom="2dp"
-                 android:textColor="@color/black"
-                 android:id="@+id/spinner" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:weightSum="15">
 
-         </LinearLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="5"
-    android:weightSum="2"
-    android:background="@color/decoriss"
-    android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="6"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/background_window"></LinearLayout>
+                    <ImageView
+                        android:id="@+id/shopping__bag_img"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:background="@color/white"
+                        android:scaleType="fitXY" />
 
-    <TextView
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:padding="8dp"
-    android:id="@+id/shopping_bag_price_Off_product"
-    android:textColor="@color/black"
-    android:layout_marginRight="13dp"
-    android:textSize="14dp"
-    android:gravity="center_horizontal|right"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/background_window"></LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="8dp"
-        android:visibility="gone"
-        android:id="@+id/shoppingbag_offer"
-        android:textColor="@color/red"
-        android:layout_marginRight="13dp"
-        android:textSize="14dp"
-        android:gravity="center_horizontal|right"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:id="@+id/priceOffLinear"
-        android:visibility="gone"
-        android:background="@color/background_window"
-        android:orientation="horizontal"></LinearLayout>
+                    <TextView
+                        android:id="@+id/shopping_bag_txt_productTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="6"
+                        android:gravity="center_vertical"
+                        android:lineSpacingExtra="7dp"
+                        android:padding="20dp"
+                        android:singleLine="false"
+                        android:text="title"
+                        android:textColor="@color/black"
+                        android:textSize="17dp" />
 
-    <TextView
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:padding="8dp"
-        android:id="@+id/shopping_bag_price_for_you"
-        android:textColor="@color/green"
-        android:textSize="14dp"
-        android:layout_marginRight="13dp"
-        android:gravity="center_horizontal|right"/>
+                </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/background_window"></LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"></LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|left"
+                        android:gravity="center"
+                        android:paddingRight="20dp"
+                        android:text="@string/number_of_shopping_items"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:layout_marginBottom="2dp"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5"
+                    android:background="@color/decoriss"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/background_window"></LinearLayout>
+
+                    <TextView
+                        android:id="@+id/shopping_bag_price_Off_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginRight="13dp"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal|right"
+                        android:padding="8dp"
+                        android:textColor="@color/black"
+                        android:textSize="14dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/background_window"></LinearLayout>
+
+                    <TextView
+                        android:id="@+id/shoppingbag_offer"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginRight="13dp"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal|right"
+                        android:padding="8dp"
+                        android:textColor="@color/red"
+                        android:textSize="14dp"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/priceOffLinear"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/background_window"
+                        android:orientation="horizontal"
+                        android:visibility="gone"></LinearLayout>
+
+                    <TextView
+                        android:id="@+id/shopping_bag_price_for_you"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginRight="13dp"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal|right"
+                        android:padding="8dp"
+                        android:textColor="@color/green"
+                        android:textSize="14dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/background_window"></LinearLayout>
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/_shopping_bag_delete_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="left"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:padding="4dp"
+                    android:src="@mipmap/close_small" />
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="4dp"
-        android:src="@mipmap/close_small"
-        android:background="@null"
-        android:id="@+id/_shopping_bag_delete_btn"
-        android:layout_gravity="left"
-        />
-        </LinearLayout>
-    </RelativeLayout>
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
 

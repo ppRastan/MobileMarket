@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:weightSum="7"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:weightSum="7">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/img_article"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="2dp"
-            android:paddingTop="2dp"
-            android:id="@+id/img_article"
+            android:layout_gravity="center"
             android:background="@color/transparent"
-            android:layout_gravity="center" />
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp" />
 
         <!--<ProgressBar
             android:layout_width="wrap_content"
@@ -29,17 +30,16 @@
     </RelativeLayout>
 
 
-
     <TextView
-        android:padding="5dp"
-        android:layout_weight="7"
+        android:id="@+id/txt_titleArticle"
         android:layout_width="0dp"
-        android:textSize="13dp"
-        android:layout_marginRight="9dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginRight="9dp"
+        android:layout_weight="7"
+        android:padding="5dp"
         android:singleLine="true"
         android:textColor="@color/black"
-        android:id="@+id/txt_titleArticle"
-        android:layout_gravity="center" />
+        android:textSize="13dp" />
 
 </LinearLayout>

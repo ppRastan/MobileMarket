@@ -4,14 +4,14 @@
     <item
         android:id="@+id/update"
         android:icon="@mipmap/upload_star_icon"
-        app:showAsAction="always"
-        android:title="به روز رسانی"/>
+        android:title="به روز رسانی"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_search"
         android:icon="@mipmap/ic_search"
-        app:showAsAction="always"
-        android:title="جست و جو" />
+        android:title="جست و جو"
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_notifications"
         android:icon="@drawable/ic_menu_notifications"
@@ -20,7 +20,7 @@
     <item
         android:id="@+id/action_contact"
         android:icon="@mipmap/ic_person"
-        app:showAsAction="always"
-        android:title="کاربر"/>
+        android:title="کاربر"
+        app:showAsAction="always" />
 
 </menu>

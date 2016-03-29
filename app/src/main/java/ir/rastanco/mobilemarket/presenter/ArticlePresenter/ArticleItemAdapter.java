@@ -22,6 +22,7 @@ import ir.rastanco.mobilemarket.utility.Links;
  * Created by ShaisteS on 1394/10/21
  * This class is for filling data in listView for displaying Articles information
  */
+//test
 public class ArticleItemAdapter extends ArrayAdapter<Article>{
 
     private Activity myContext;
