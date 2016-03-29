@@ -39,13 +39,8 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
     private Activity myContext;
     private ArrayList<Product> allProduct;
     private ServerConnectionHandler serverConnectionHandler;
-    private ImageButton shareBtn;
     private String textToSend = null;
     private Dialog shareDialog;
-    private ImageButton cancelShareDialog;
-    private ImageButton basketToolbar;
-    private Button sendBtn;
-    private EditText editTextToShare;
     private Intent sendIntent;
     private boolean isSelectedForShop=false;
 
@@ -57,10 +52,24 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
 
     }
 
+    public class Holder{
+        ImageButton shareBtn;
+        ImageButton cancelShareDialog;
+        ImageButton basketToolbar;
+        Button sendBtn;
+        EditText editTextToShare;
+        Button btnSimilar;
+    }
+
     public View getView(final int position, View convertView, ViewGroup parent){
 
         LayoutInflater inflater = myContext.getLayoutInflater();
         final View rowView = inflater.inflate(R.layout.picture_product_item_home, null);
+        final Holder holder=new Holder();
+        holder.basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
+        holder.btnSimilar=(Button) rowView.findViewById(R.id.btn_similar);
+        holder.shareBtn = (ImageButton) rowView.findViewById(R.id.imbt_share);
+
 
         //Special Icon
         //ImageButton offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
@@ -89,18 +98,17 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
             }
         }*/
 
-        basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
         if (serverConnectionHandler.checkSelectProductForShop(allProduct.get(position).getId()))
-            basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
+            holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
         else
-            basketToolbar.setImageResource(R.mipmap.bye_toolbar);
+            holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
 
-        basketToolbar.setOnClickListener(new View.OnClickListener() {
+        holder.basketToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             if (isSelectedForShop==false) {
-                basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
+                holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
                 isSelectedForShop=true;
                 serverConnectionHandler.addProductToShoppingBag(allProduct.get(position).getId(), 1);
                 myContext.startActivity(new Intent(myContext,ShoppingBagActivity.class));
@@ -111,7 +119,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
             }
 
             else if (isSelectedForShop==true){
-                basketToolbar.setImageResource(R.mipmap.bye_toolbar);
+                holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
                 isSelectedForShop=false;
                 serverConnectionHandler.deleteAProductShopping(allProduct.get(position).getId());
                 ObserverShopping.setMyBoolean(false);
@@ -120,46 +128,42 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
             }
             }
         });
+        holder.btnSimilar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pageTitle= serverConnectionHandler.getTabTitleForSimilarProduct(allProduct.get(position).getGroupId());
+                int switchToPage=Configuration.getConfig().MainPager.getCurrentItem();
+                for (int i=0;i<Configuration.getConfig().MainPager.getAdapter().getCount();i++){
+                    if (Configuration.getConfig().MainPager.getAdapter().getPageTitle(i).toString().equals(pageTitle))
+                        switchToPage=i;
+                }
+                Configuration.MainPager.setCurrentItem(switchToPage);
+                int parentId= serverConnectionHandler.getACategoryWithId(allProduct.get(position).getGroupId()).getParentId();
+                ObserverSimilarProduct.setSimilarProduct(parentId);
+           }
+       });
 
-        Button btnSimilar=(Button) rowView.findViewById(R.id.btn_similar);
-        btnSimilar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String pageTitle= serverConnectionHandler.getTabTitleForSimilarProduct(allProduct.get(position).getGroupId());
-                        int switchToPage=Configuration.getConfig().MainPager.getCurrentItem();
-                        for (int i=0;i<Configuration.getConfig().MainPager.getAdapter().getCount();i++){
-                            if (Configuration.getConfig().MainPager.getAdapter().getPageTitle(i).toString().equals(pageTitle))
-                                switchToPage=i;
-                        }
-                        Configuration.MainPager.setCurrentItem(switchToPage);
-                        int parentId= serverConnectionHandler.getACategoryWithId(allProduct.get(position).getGroupId()).getParentId();
-                        ObserverSimilarProduct.setSimilarProduct(parentId);
-                   }
-               });
-
-
-        shareBtn = (ImageButton) rowView.findViewById(R.id.imbt_share);
-        shareBtn.setOnClickListener(new View.OnClickListener() {
+        holder.shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 shareDialog = new Dialog(myContext);
                 shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 shareDialog.setContentView(R.layout.share_alert_dialog);
-                cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
-                sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
-                editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
-                cancelShareDialog.setOnClickListener(new View.OnClickListener() {
+                holder.cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
+                holder.sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
+                holder.editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
+                holder.cancelShareDialog.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         shareDialog.dismiss();
                     }
                 });
-                sendBtn.setOnClickListener(new View.OnClickListener() {
+                holder.sendBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
-                        textToSend = editTextToShare.getText().toString();
+                        holder.sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
+                        textToSend = holder.editTextToShare.getText().toString();
                         String Share = textToSend + "\n\n" +
                                 allProduct.get(position).getLinkInSite() + "\n\n" +
                                 myContext.getResources().getString(R.string.text_to_advertise) + "\n\n"
@@ -184,8 +188,6 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         final  ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
         PicProductImage.getLayoutParams().width= Configuration.getConfig().homeDisplaySizeForShow;
         PicProductImage.getLayoutParams().height=Configuration.getConfig().homeDisplaySizeForShow;
-
-
         String imageNumberPath;
         if (allProduct.get(position).getImagesPath().size()==0)
             imageNumberPath="no_image_path";
