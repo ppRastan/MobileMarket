@@ -69,7 +69,7 @@ import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivi
 import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragmentManagement;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconDisplayer;
-import ir.rastanco.mobilemarket.utility.Links;
+import ir.rastanco.mobilemarket.utility.LinkHandler;
 
 /*created by parisan*/
 
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse(Links.getInstance().telephoneNumber()));
+                callIntent.setData(Uri.parse(LinkHandler.getInstance().telephoneNumber()));
                 if (ActivityCompat.checkSelfPermission(Configuration.getConfig().MainActivityContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
@@ -272,7 +272,7 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem upgradeItem=menu.findItem(R.id.update);
         Configuration.getConfig().UpgradeButtonMenu=upgradeItem;
-        if(!sch.checkNewVersion(Links.getInstance().generateURLForGetLastVersionAppInServer())||
+        if(!sch.checkNewVersion(LinkHandler.getInstance().generateURLForGetLastVersionAppInServer())||
                 Configuration.getConfig().productTableEmptyStatus ||
                 !Configuration.getConfig().connectionStatus)
             upgradeItem.setVisible(false);
@@ -342,8 +342,8 @@ public class MainActivity extends AppCompatActivity {
                 this.startActivity(shoppingBagIntent);
                 break;
             case R.id.update:
-                version=sch.getLastVersionInServer(Links.getInstance().generateURLForGetLastVersionAppInServer());
-                new DownloadFileFromURL(this).execute(Links.getInstance().generateYRLForGetApplicationInServer());
+                version=sch.getLastVersionInServer(LinkHandler.getInstance().generateURLForGetLastVersionAppInServer());
+                new DownloadFileFromURL(this).execute(LinkHandler.getInstance().generateYRLForGetApplicationInServer());
                 break;
         }
 
@@ -407,7 +407,7 @@ public class MainActivity extends AppCompatActivity {
                 InputStream input = new BufferedInputStream(url.openStream(),8192);
                 OutputStream output = new FileOutputStream(Environment
                         .getExternalStorageDirectory().toString()
-                        + Links.getInstance().generatePathAPKApplicationInMobile());
+                        + LinkHandler.getInstance().generatePathAPKApplicationInMobile());
 
                 byte data[] = new byte[2048];
                 long total = 0;
@@ -421,7 +421,7 @@ public class MainActivity extends AppCompatActivity {
                 input.close();
 
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + Links.getInstance().generatePathAPKApplicationInMobile())), "application/vnd.android.package-archive");
+                intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + LinkHandler.getInstance().generatePathAPKApplicationInMobile())), "application/vnd.android.package-archive");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 sch.updateVersionApp(version);
@@ -450,10 +450,10 @@ public class MainActivity extends AppCompatActivity {
     private void checkDbState() {
         ArrayList<Category> categories = new ArrayList<Category>();
         if (sch.emptyDBCategory()) {
-            categories = sch.getAllCategoryInfoURL(Links.getInstance().generateURLForGetAllCategories());
+            categories = sch.getAllCategoryInfoURL(LinkHandler.getInstance().generateURLForGetAllCategories());
             sch.addAllCategoryToTable(categories);
         } else
-            sch.refreshCategories(Links.getInstance().generateURLForGetAllCategories());
+            sch.refreshCategories(LinkHandler.getInstance().generateURLForGetAllCategories());
 
     }
 
@@ -467,13 +467,13 @@ public class MainActivity extends AppCompatActivity {
                     synchronized (this) {
                         // Wait given period of time or exit on touch
                         checkDbState();
-                        jsonString[0] = parseInformationProduct.getProductInfoFromServer(Links.getInstance().generateUrlForGetNewProduct(Configuration.getConfig().MainActivityContext.getString(R.string.firstTimeStamp)));
+                        jsonString[0] = parseInformationProduct.getProductInfoFromServer(LinkHandler.getInstance().generateUrlForGetNewProduct(Configuration.getConfig().MainActivityContext.getString(R.string.firstTimeStamp)));
                         wait(10);
                     }
                 } catch (InterruptedException ex) {
                 }
                 String timeStamp = parseInformationProduct.addProductToTable(jsonString[0]);
-                String lastVersionInServer=sch.getLastVersionInServer(Links.getInstance().generateURLForGetLastVersionAppInServer());
+                String lastVersionInServer=sch.getLastVersionInServer(LinkHandler.getInstance().generateURLForGetLastVersionAppInServer());
                 sch.setSetting(timeStamp,
                         Configuration.getConfig().MainActivityContext.getResources().getString(R.string.firstArticleNumber),
                         lastVersionInServer,

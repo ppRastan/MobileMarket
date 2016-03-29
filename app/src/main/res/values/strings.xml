@@ -8,7 +8,6 @@
     <string name="fourth_page">نوزاد و نوجوان</string>
     <string name="fifth_page">مقاله</string>
     <string name="sixth_page">مشاوره</string>
-    <string name="title_activity_main">Decoriss</string>
     <string name="search_in_decoriss">جستجو در محصولات</string>
     <string name="tab1_userProfile">پروفایل کاربری</string>
     <string name="tab2_userAccunt">حساب کاربری</string>
@@ -35,16 +34,13 @@
     <string name="confirm_to_delete">آیا مایل به حذف محصول از سبد خرید هستید؟</string>
     <string name="yes">بله</string>
     <string name="no">خیر</string>
-    <string name="number">30000</string>
     <string name="finish_shopping">خرید خود را نهایی کنید</string>
     <string name="number_of_shopping_items">تعداد :</string>
-    <string name="added_to_basket">کالا به سبد خرید شما افزوده شد</string>
     <string name="delete">حذف</string>
     <string name="peice">قیمت :</string>
     <string name="price_off">تخفیف :</string>
     <string name="telegram_not_installed">تلگرام روی گوشی شما نصب نیست</string>
     <string name="goods_info">مشخصات کالا</string>
-    <string name="delete_from_basket">کالا از سبد خرید شما حذف شد</string>
     <string name="bye">خرید</string>
     <string name="decoriss">دکوریس</string>
     <string name="update_decoriis">آپدیت دکوریس</string>
@@ -71,31 +67,16 @@
     <string name="please_wait_message">بارگذاری اولیه ممکن است چند دقیقه طول بکشد</string>
     <string name="please_wait">لطفا منتظر بمانید . . .</string>
     <string name="downloadFile">در حال دانلود فایل . . .</string>
-    <string-array name="list_view_item">
-        <item>item1</item>
-        <item>item2</item>
-        <item>item3</item>
-        <item>item4</item>
-        <item>item5</item>
-        <item>item6</item>
-    </string-array>
     <string name="title_activity_user_guider">UserGuider</string>
     <string name="similar_photoes">مشاهده ی سایر محصولات</string>
     <string name="filterBrandTitle">برند</string>
     <string name="filterPriceTitle">قیمت</string>
     <string name="checkConnection">لطفا اتصال اینترنت خود را بررسی کنید</string>
-
-    <string name="oneCellingPrice">تا سقف 1 میلیون تومان</string>
-    <string name="twoCellingPrice">تا سقف 5 میلیون تومان</string>
-    <string name="threeCellingPrice">تا سقف 10 میلیون تومان</string>
-    <string name="foureCellingPrice">بالاتر از 10 میلیون تومان</string>
-
-    <!-- first Information For App Setting When App install  -->
     <string name="firstTimeStamp">1352689345</string>
     <string name="firstArticleNumber">25</string>
     <string name="no_product_to_show">این مجموعه فعلا فاقد محصول است</string>
     <string name="choose_group">انتخاب دسته</string>
-    <string name="filter">فیلتر کردن براساس :</string>
+    <string name="filter">براساس</string>
     <string name="choose_brand">انتخاب برند</string>
     <string name="choose_price">انتخاب محدوده قیمت</string>
     <string name="price_for_you">قیمت برای شما : </string>
@@ -107,13 +88,10 @@
     <string name="try_more">دوباره تلاش کنید</string>
     <string name="not_correct">نام کاربری یا رمزعبور صحیح نمی باشد</string>
     <string name="coming_soon">به زودی</string>
-
     <string name="price">price</string>
     <string name="brand">brand</string>
-
     <string name="over10million">بالاتر از 10 ملیون تومان</string>
     <string name="upto10million">تا سقف 10 ملیون تومان</string>
     <string name="upto5million">تا سقف 5 ملیون تومان</string>
     <string name="upto1million">تا سقف 1 ملیون تومان</string>
-
 </resources>

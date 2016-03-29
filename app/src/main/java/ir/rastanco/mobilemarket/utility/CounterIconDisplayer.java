@@ -19,7 +19,7 @@ public class CounterIconDisplayer {
   if (reuse != null && reuse instanceof ShoppingCounterIconCreator) {
   badge = (ShoppingCounterIconCreator) reuse;
   } else {
-  badge = new ShoppingCounterIconCreator(context);
+  badge = ShoppingCounterIconCreator.getInstance();
   }
 
   badge.setCount(count);

@@ -8,15 +8,15 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.Security;
  * Created by ShaisteS on 1395/1/8.
  * A Singleton Class For Generate Link For get data from server
  */
-public class Links {
+public class LinkHandler {
 
-    private static Links link = new Links();
+    private static LinkHandler link = new LinkHandler();
 
-    public static Links getInstance() {
+    public static LinkHandler getInstance() {
         if (link != null) {
             return link;
         }
-        else return new Links();
+        else return new LinkHandler();
     }
 
     public String generateURLForGetAllCategories(){

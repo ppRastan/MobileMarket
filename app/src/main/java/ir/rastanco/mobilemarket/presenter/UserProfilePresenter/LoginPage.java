@@ -18,7 +18,7 @@ import ir.rastanco.mobilemarket.dataModel.UserInfo;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.Security;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.Links;
+import ir.rastanco.mobilemarket.utility.LinkHandler;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -52,7 +52,7 @@ public class LoginPage extends AppCompatActivity {
             public void onClick(View v) {
                 if(Configuration.getConfig().connectionStatus){
                     UserInfo aUser=new UserInfo();
-                    String key=sch.GetKey(Links.getInstance().generateURLForGetKey());
+                    String key=sch.GetKey(LinkHandler.getInstance().generateURLForGetKey());
                     user= String.valueOf(username.getText());
                     aUser.setUserEmail(user);
                     pass= String.valueOf(password.getText());
@@ -92,7 +92,7 @@ public class LoginPage extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse(Links.getInstance().generateURLSignUp()));
+                intent.setData(Uri.parse(LinkHandler.getInstance().generateURLSignUp()));
                 startActivity(intent);
             }
         });
@@ -103,7 +103,7 @@ public class LoginPage extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse(Links.getInstance().generateURLForForgotPassword()));
+                intent.setData(Uri.parse(LinkHandler.getInstance().generateURLForForgotPassword()));
                 startActivity(intent);
             }
         });

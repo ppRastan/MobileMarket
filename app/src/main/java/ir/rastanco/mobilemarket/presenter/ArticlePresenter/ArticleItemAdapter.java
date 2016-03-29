@@ -15,7 +15,7 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.Links;
+import ir.rastanco.mobilemarket.utility.LinkHandler;
 
 
 /**
@@ -42,7 +42,7 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
         ImageView articleImage = (ImageView) rowView.findViewById(R.id.img_article);
         articleImage.getLayoutParams().width=Configuration.getConfig().articleDisplaySizeForShow;
         articleImage.getLayoutParams().height=Configuration.getConfig().articleDisplaySizeForShow;
-        String articleImageURL= Links.getInstance().generateURLForGetArticleImage(articles.get(position).getImageLink());
+        String articleImageURL= LinkHandler.getInstance().generateURLForGetArticleImage(articles.get(position).getImageLink());
         imgLoader.DisplayImage(articleImageURL, articleImage);
         TextView articleTitle=(TextView)rowView.findViewById(R.id.txt_titleArticle);
         articleTitle.setText(articles.get(position).getTitle());

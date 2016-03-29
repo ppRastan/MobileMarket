@@ -4,7 +4,6 @@
     <color name="psts_background_tab_pressed_ripple">#AAFFFFFF</color>
     <color name="background_window">#d7d5d5</color>
     <color name="greenDark">#3E5F22</color>
-    <color name="banana">#EB4D2A</color>
     <color name="orange">#EB4D2A</color>
     <color name="decoriss">#FAFAFA</color>
     <color name="black">#000000</color>
@@ -12,7 +11,6 @@
     <color name="white">#fdfdfd</color>
     <color name="fab_color">#FAFAFA</color>
     <color name="green">#31a140</color>
-    <color name="golden">#ffd700</color>
     <color name="red">#EB4D2A</color>
     <color name="transparent">#10f7f7f7</color>
 </resources>

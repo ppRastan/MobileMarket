@@ -4,7 +4,7 @@
         <item name="android:windowBackground">@color/background_window</item>
         <item name="colorPrimary">@color/decoriss</item>
         <item name="colorPrimaryDark">@color/greenDark</item>
-        <item name="colorAccent">@color/banana</item>
+        <item name="colorAccent">@color/red</item>
         <item name="android:textColorPrimary">@color/black</item>
     </style>
 

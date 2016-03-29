@@ -21,7 +21,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.Links;
+import ir.rastanco.mobilemarket.utility.LinkHandler;
 import ir.rastanco.mobilemarket.utility.Utilities;
 
 /**
@@ -46,7 +46,7 @@ public class ArticleFragment extends Fragment {
         articles=new ArrayList<Article>();
 
         if (sch.emptyDBArticle()){
-            String url= Links.getInstance().generateURLForGetArticle(startArticleNumber,leastArticleNumberInFirstTime);
+            String url= LinkHandler.getInstance().generateURLForGetArticle(startArticleNumber,leastArticleNumberInFirstTime);
             articles=sch.getAllArticlesAndNewsURL(url);
             sch.addAllArticlesToTable(articles);
         }
@@ -56,7 +56,7 @@ public class ArticleFragment extends Fragment {
             public void connectionOK() {
 
                 if (sch.emptyDBArticle()){
-                    String url= Links.getInstance().generateURLForGetArticle(startArticleNumber,leastArticleNumberInFirstTime);
+                    String url= LinkHandler.getInstance().generateURLForGetArticle(startArticleNumber,leastArticleNumberInFirstTime);
                     articles=sch.getAllArticlesAndNewsURL(url);
                     sch.addAllArticlesToTable(articles);
                 }

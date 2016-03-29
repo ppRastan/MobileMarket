@@ -13,7 +13,11 @@ public class Utilities {
     private int oneMillion = 1000000 ;
     private int fiveMillion = 5000000 ;
     private int overOneMillion = 10000001 ;
-    private static Utilities utility = new Utilities();
+    private int numberOfArticlesAfterRefresh = 100;
+    private int atLeastArticleInFirstTime = 25;
+    private int calculatePercent = 100;
+    private String imageQuality = "30";
+        private static Utilities utility = new Utilities();
 
     public static Utilities getInstance() {
         if (utility != null) {
@@ -46,14 +50,17 @@ public class Utilities {
         return oneMillion;
     }
     public int getStartArticleNumber(){return 0;}
-    public int getAtLeastArticleInFirstTime(){return 25;}
-    public int getArticleNumberWhenRefresh(){return 100;}
+    public int getAtLeastArticleInFirstTime()
+    {return atLeastArticleInFirstTime;}
+    public int getArticleNumberWhenRefresh()
+    {return numberOfArticlesAfterRefresh;
+            }
     public String getImageQuality(){
-        String quality="30";
+        String quality= imageQuality;
         return quality;
     }
     public int calculatePriceOffProduct(int price,int priceOff){
-        int off=(price*priceOff)/100;
+        int off=(price*priceOff)/calculatePercent;
         int priceForYou=price-off;
         return priceForYou;
     }

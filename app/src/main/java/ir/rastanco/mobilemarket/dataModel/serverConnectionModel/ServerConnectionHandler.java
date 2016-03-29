@@ -25,7 +25,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJ
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonLastShop;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductOption;
-import ir.rastanco.mobilemarket.utility.Links;
+import ir.rastanco.mobilemarket.utility.LinkHandler;
 import ir.rastanco.mobilemarket.utility.Utilities;
 
 /**
@@ -227,7 +227,7 @@ public class ServerConnectionHandler {
     public void getNewProducts(){
         String lastTimeStamp=getLastTimeStamp();
         ParseJsonProduct pjp=new ParseJsonProduct(context);
-        String url= Links.getInstance().generateUrlForGetNewProduct(lastTimeStamp);
+        String url= LinkHandler.getInstance().generateUrlForGetNewProduct(lastTimeStamp);
         try {
             pjp.execute(url).get();
         } catch (InterruptedException e) {
@@ -240,7 +240,7 @@ public class ServerConnectionHandler {
     public void getEditProducts(){
         String lastUpdateTimeStamp=getLastUpdateTimeStamp();
         ParseJsonProduct pjp=new ParseJsonProduct(context);
-        String url=Links.getInstance().generateURLForGetEditProduct(lastUpdateTimeStamp);
+        String url= LinkHandler.getInstance().generateURLForGetEditProduct(lastUpdateTimeStamp);
         try {
             pjp.execute(url).get();
         } catch (InterruptedException e) {
@@ -312,7 +312,7 @@ public class ServerConnectionHandler {
         ArrayList<ProductOption> options=new ArrayList<ProductOption>();
         options=DataBaseHandler.getInstance(context).selectAllOptionProduct(productId);
         if(options.size()==0) {
-            String url= Links.getInstance().generateURLForGetProductOptionsOfAProduct(productId,groupId);
+            String url= LinkHandler.getInstance().generateURLForGetProductOptionsOfAProduct(productId,groupId);
             options = getOptionsOfAProductFromURL(url);
             addProductOptionsToTable(productId,options);
         }
@@ -470,7 +470,7 @@ public class ServerConnectionHandler {
     }
     public void refreshArticles(){
         String lastArticlesNum=DataBaseHandler.getInstance(context).selectLastArticlesNum();
-        String url=Links.getInstance().generateURLForRefreshArticles(lastArticlesNum);
+        String url= LinkHandler.getInstance().generateURLForRefreshArticles(lastArticlesNum);
         addAllArticlesToTable(getAllArticlesAndNewsURL(url));
     }
 
@@ -490,7 +490,7 @@ public class ServerConnectionHandler {
         return  pjk.getKey(jsonKeyString);
     }
     public ArrayList<String> GetAuthorizeResponse(String hashInfo,String key){
-        String url=Links.getInstance().generateURLGetAuthorizeResponse(hashInfo, key);
+        String url= LinkHandler.getInstance().generateURLGetAuthorizeResponse(hashInfo, key);
         GetFile jsonAuth = new GetFile();
         String jsonKeyString= null;
         try {
@@ -605,7 +605,7 @@ public class ServerConnectionHandler {
 
     //Comments
     public ArrayList<Comment> getAllCommentAProduct(int productId){
-        String url=Links.getInstance().generateURLGetAllCommentAProduct(productId);
+        String url= LinkHandler.getInstance().generateURLGetAllCommentAProduct(productId);
         GetFile jParserComment = new GetFile();
         String jsonComment= null;
         try {

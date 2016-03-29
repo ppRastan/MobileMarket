@@ -1,6 +1,5 @@
 package ir.rastanco.mobilemarket.presenter.shopPresenter;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -35,7 +34,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProductListener;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.DataFilter;
-import ir.rastanco.mobilemarket.utility.Links;
+import ir.rastanco.mobilemarket.utility.LinkHandler;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 /**
@@ -123,7 +122,7 @@ public class ShopFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        sch.refreshCategories(Links.getInstance().generateURLForGetAllCategories());
+                        sch.refreshCategories(LinkHandler.getInstance().generateURLForGetAllCategories());
                         sch.getNewProducts();
                         sch.getEditProducts();
                         ArrayList<Product> newProducts = sch.getProductAfterRefresh(pageId,

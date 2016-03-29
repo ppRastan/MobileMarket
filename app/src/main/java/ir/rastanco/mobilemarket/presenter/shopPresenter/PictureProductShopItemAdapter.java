@@ -38,8 +38,9 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.Links;
+import ir.rastanco.mobilemarket.utility.LinkHandler;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
+import ir.rastanco.mobilemarket.utility.ToolbarHandler;
 import ir.rastanco.mobilemarket.utility.Utilities;
 
 
@@ -207,40 +208,8 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.shareToolBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shareDialog = new Dialog(myContext);
-                shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                shareDialog.setContentView(R.layout.share_alert_dialog);
-                ImageButton cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
-                final Button sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
-                final EditText editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
-                cancelShareDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        shareDialog.dismiss();
-                    }
-                });
-                sendBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
-                        textToSend = editTextToShare.getText().toString();
-                        String share=textToSend+"\n\n"+
-                                aProduct.getLinkInSite()+ "\n\n"+
-                                myContext.getResources().getString(R.string.text_to_advertise)+"\n\n"
-                                + myContext.getResources().getString(R.string.LinkDownloadApp) ;
-                        sendIntent = new Intent();
-                        sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
-                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
-                        sendIntent.putExtra(Intent.EXTRA_TEXT,share);
-                        sendIntent.setType("text/plain");
-                        myContext.startActivity(sendIntent);
-                        shareDialog.cancel();
-                    }
-                });
-                shareDialog.setCancelable(true);
-                shareDialog.show();
 
+                ToolbarHandler.getInstance().generalShare(shopPresenterActivity,aProduct.getLinkInSite());
             }
         });
 
@@ -295,7 +264,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String imageURL = Links.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().shopDisplaySizeForURL,Configuration.getConfig().shopDisplaySizeForURL);
+        String imageURL = LinkHandler.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().shopDisplaySizeForURL,Configuration.getConfig().shopDisplaySizeForURL);
         holder.imgLoader.DisplayImage(imageURL, holder.imgP);
         holder.infoP.setText(aProduct.getTitle());
 

@@ -12,18 +12,23 @@ import android.graphics.drawable.Drawable;
 
 /**
  * Created by ParisaRashidhi on 22/01/2016.
- * مشخصات فونت و رنگ آیکن شمارنده ی تعداد خرید را تعیین میکند
+ * this class declares how we can have a circle paint above shopping bag using paint class
  */
 public class ShoppingCounterIconCreator extends Drawable{
     private float mTextSize;
     private Paint mBadgePaint;
     private Paint mTextPaint;
     private Rect mTxtRect = new Rect();
-
     private String mCount = "";
     private boolean mWillDraw = false;
-
-    public ShoppingCounterIconCreator(Context context) {
+    private static ShoppingCounterIconCreator shoppingCounterIconCreator = new ShoppingCounterIconCreator();
+    public static ShoppingCounterIconCreator getInstance() {
+        if (shoppingCounterIconCreator != null) {
+            return shoppingCounterIconCreator;
+        }
+        else return new ShoppingCounterIconCreator();
+    }
+    public ShoppingCounterIconCreator() {
         //سایز عدد روی سبد خرید را مشخص میکند
         mTextSize = 24F;
         mBadgePaint = new Paint();
