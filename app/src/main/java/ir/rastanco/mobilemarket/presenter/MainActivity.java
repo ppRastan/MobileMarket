@@ -19,6 +19,7 @@ import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -187,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
     private void setFAb(){
         fab = (FloatingActionButton) findViewById(R.id.fab);
         Configuration.getConfig().telephoneFloatingActionButton=fab;
-        fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.fab_color)));
+        fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.fab_color)));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

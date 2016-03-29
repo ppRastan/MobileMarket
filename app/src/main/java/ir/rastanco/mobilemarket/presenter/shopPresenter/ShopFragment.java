@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -152,9 +153,9 @@ public class ShopFragment extends Fragment {
                 DataFilter.getInstance().FilterPriceTitle=sch.getACategoryTitleWithCategoryId(DataFilter.getInstance().FilterCategoryId);
                 DataFilter.getInstance().FilterBrand=Configuration.ShopFragmentContext.getResources().getString(R.string.all);
                 txtFilterCategorySelected.setText(DataFilter.getInstance().FilterPriceTitle);
-                txtFilterCategorySelected.setTextColor(getResources().getColor(R.color.red));
+                txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
                 txtFilterOptionProductSelected.setText(Configuration.ShopFragmentContext.getResources().getString(R.string.all));
-                txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.black));
+                txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.black));
                 ArrayList<Product> newProducts = sch.getProductsOfAParentCategory(ObserverSimilarProduct.getSimilarProduct());
                 PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                 gridview.setAdapter(newAdapter);
@@ -189,7 +190,7 @@ public class ShopFragment extends Fragment {
                     @Override
                     public void changeFilterCategory() {
                         txtFilterCategorySelected.setText(DataFilter.getInstance().FilterCategoryTitle);
-                        txtFilterCategorySelected.setTextColor(getResources().getColor(R.color.red));
+                        txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
                                 DataFilter.getInstance().FilterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
@@ -225,7 +226,7 @@ public class ShopFragment extends Fragment {
                     @Override
                     public void changeFilterPrice() {
                         txtFilterOptionProductSelected.setText(DataFilter.getInstance().FilterPriceTitle);
-                        txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.red));
+                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
                         ArrayList<Product> newProducts=sch.getProductAfterFilter(pageId,
                                 DataFilter.getInstance().FilterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
@@ -250,7 +251,7 @@ public class ShopFragment extends Fragment {
                     @Override
                     public void changeFilterBrand() {
                         txtFilterOptionProductSelected.setText(DataFilter.getInstance().FilterBrand);
-                        txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.red));
+                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
                         ArrayList<Product> newProducts=sch.getProductAfterFilter(pageId,
                                 DataFilter.getInstance().FilterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
@@ -277,7 +278,7 @@ public class ShopFragment extends Fragment {
                     @Override
                     public void changeFilterAll() {
                         txtFilterOptionProductSelected.setText(DataFilter.FilterAll);
-                        txtFilterOptionProductSelected.setTextColor(getResources().getColor(R.color.red));
+                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext,R.color.red));
                         ArrayList<Product> newProducts=sch.getProductAfterFilter(pageId,
                                 DataFilter.getInstance().FilterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
