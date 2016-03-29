@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.media.Image;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -15,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.dataModel.Product;
 
 /**
  * Created by ParisaRashidhi on 29/03/2016.
@@ -26,7 +22,6 @@ public class ToolbarHandler {
     private Button sendBtn;
     private EditText editTextToShare;
     private ImageButton cancelShareDialog;
-    private String buttonSelectedColor = "#EB4D2A";
     private String textToSend;
     private Intent sendIntent;
     private Activity toolbarHandlerActivity;
@@ -61,8 +56,6 @@ public class ToolbarHandler {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                sendBtn.setTextColor(Color.parseColor(buttonSelectedColor));
                 textToSend = editTextToShare.getText().toString();
                 String Share=textToSend+"\n\n"+
                         product + "\n\n"+
@@ -104,7 +97,6 @@ public class ToolbarHandler {
                 sendBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
                         textToSend = editTextToShare.getText().toString();
                         String Share=textToSend+"\n\n"+
                                 visitProductLinkInSite+ "\n\n"+
