@@ -2,21 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_marginTop="50dp"
+        android:id="@+id/txt_lastShopTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="خریدهای گذشته من :"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="50dp"
         android:gravity="center"
         android:padding="4dp"
-        android:id="@+id/txt_lastShopTitle"
-        android:layout_marginBottom="5dp"/>
+        android:text="خریدهای گذشته من :" />
 
     <ListView
+        android:id="@+id/lv_lastShopping"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/lv_lastShopping" />
+        android:layout_height="wrap_content" />
 </LinearLayout>

@@ -9,37 +9,37 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:weightSum="3"
         android:background="@color/decoriss"
         android:orientation="vertical"
-        >
+        android:weightSum="3">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:textSize="18dp"
-            android:text="@string/your_account"
             android:background="@color/decoriss"
             android:gravity="center_vertical|center_horizontal|bottom"
+            android:text="@string/your_account"
             android:textColor="@color/black"
-            />
-<TextView
-    android:layout_width="match_parent"
-    android:gravity="center_vertical|center_horizontal"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:text="@string/welcome_to_decoriss"
-    android:textSize="12dp"
-    android:textColor="@color/orange"/>
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/welcome_to_decoriss"
+            android:textColor="@color/orange"
+            android:textSize="12dp" />
 
     </LinearLayout>
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_marginTop="125dp"
-        android:layout_height="wrap_content"
         android:id="@+id/account_lv"
-        android:dividerHeight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="125dp"
+        android:background="@color/white"
         android:divider="@color/white"
-        android:background="@color/white"></ListView>
+        android:dividerHeight="20dp"></ListView>
 </RelativeLayout>

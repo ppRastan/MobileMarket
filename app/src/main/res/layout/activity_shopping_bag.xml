@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:weightSum="10.5"
     android:layout_height="match_parent"
-    android:background="@color/decoriss">
+    android:background="@color/decoriss"
+    android:orientation="vertical"
+    android:weightSum="10.5">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -12,93 +13,98 @@
         android:background="@color/decoriss">
 
     </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:weightSum="10"
+
+    <LinearLayout
+        android:id="@+id/main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/decoriss"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <ImageButton
+            android:id="@+id/close_shopping_page"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
             android:background="@color/decoriss"
-            android:id="@+id/main_toolbar"
-            android:orientation="horizontal">
-            <ImageButton
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:id="@+id/close_shopping_page"
-                android:background="@color/decoriss"
-                android:src="@mipmap/ic_back"
-                android:layout_height="match_parent" />
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="8"
-                android:layout_marginRight="1dp"
-                android:text="@string/your_basket"
-                android:gravity="center_vertical|right"
-                android:textColor="@color/black"
-                android:textSize="17dp"/>
+            android:src="@mipmap/ic_back" />
 
-        </LinearLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="1dp"
+            android:layout_weight="8"
+            android:gravity="center_vertical|right"
+            android:text="@string/your_basket"
+            android:textColor="@color/black"
+            android:textSize="17dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:weightSum="8"
-            android:background="@color/decoriss"
-            android:orientation="horizontal">
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_marginRight="2dp"
-                android:layout_weight="3"
-                android:layout_height="match_parent"
-                android:text="@string/total_prica"
-                android:singleLine="true"
-                android:layout_gravity="right"
-                android:gravity="right|center_vertical"
-                android:textColor="@color/green"
-                android:paddingRight="9dp"
-                android:textSize="16dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/decoriss"
+        android:orientation="horizontal"
+        android:weightSum="8">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="5"
-                android:layout_height="match_parent"
-                android:padding="3dp"
-                android:gravity="center_vertical|left"
-                android:id="@+id/total_price"
-                android:textColor="@color/green"
-                android:textSize="18dp"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_marginRight="2dp"
+            android:layout_weight="3"
+            android:gravity="right|center_vertical"
+            android:paddingRight="9dp"
+            android:singleLine="true"
+            android:text="@string/total_prica"
+            android:textColor="@color/green"
+            android:textSize="16dp" />
 
-        </LinearLayout>
+        <TextView
+            android:id="@+id/total_price"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:gravity="center_vertical|left"
+            android:padding="3dp"
+            android:textColor="@color/green"
+            android:textSize="18dp" />
+
+    </LinearLayout>
 
 
     <ListView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="7"
-            android:id="@+id/lv_shoppingBag"
-            android:layout_gravity="right"
-            android:divider="@color/background_window"
-            android:background="@color/background_window"
-            android:scrollbars="none"/>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:background="@color/green"
-    android:gravity="center_vertical|center_horizontal">
-    <Button
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:background="@color/green"
-        android:textColor="@color/white"
-        android:text="@string/finish_shopping"
-        android:textSize="14dp"
-        android:id="@+id/ok_shop"
-        android:drawableLeft="@mipmap/finish_shopping"
-        android:drawablePadding="5dp"/>
-</LinearLayout>
+        android:id="@+id/lv_shoppingBag"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="right"
+        android:layout_weight="7"
+        android:background="@color/background_window"
+        android:divider="@color/background_window"
+        android:scrollbars="none" />
 
-       </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/green"
+        android:gravity="center_vertical|center_horizontal">
+
+        <Button
+            android:id="@+id/ok_shop"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/green"
+            android:drawableLeft="@mipmap/finish_shopping"
+            android:drawablePadding="5dp"
+            android:text="@string/finish_shopping"
+            android:textColor="@color/white"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+</LinearLayout>

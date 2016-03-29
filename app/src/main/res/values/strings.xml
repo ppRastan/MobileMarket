@@ -111,5 +111,9 @@
     <string name="price">price</string>
     <string name="brand">brand</string>
 
+    <string name="over10million">بالاتر از 10 ملیون تومان</string>
+    <string name="upto10million">تا سقف 10 ملیون تومان</string>
+    <string name="upto5million">تا سقف 5 ملیون تومان</string>
+    <string name="upto1million">تا سقف 1 ملیون تومان</string>
 
 </resources>

@@ -3,53 +3,58 @@
     android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/background_window"></LinearLayout>
-        <include layout="@layout/toolbar_categories"/>
+
+        <include layout="@layout/toolbar_categories" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/black"></LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:visibility="invisible"
-            android:id="@+id/no_thing_to_show1"
-            android:textSize="13dp"
-            android:gravity="center"
-            android:textColor="@color/orange"
-            android:text="@string/no_product_to_show"
-            android:layout_gravity="center"
-            android:layout_centerInParent="true" />
-        <!--<android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/gv_infoProduct"
-            android:layout_gravity="center"
-            android:scrollbars="vertical"/>-->
-            <GridView
+
+            <TextView
+                android:id="@+id/no_thing_to_show1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/no_product_to_show"
+                android:textColor="@color/orange"
+                android:textSize="13dp"
+                android:visibility="invisible" />
+            <!--<android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/gv_infoProduct"
-                android:numColumns="2"
-                android:verticalSpacing="4dp"
-                android:horizontalSpacing="2dp"
                 android:layout_gravity="center"
+                android:scrollbars="vertical"/>-->
+            <GridView
+                android:id="@+id/gv_infoProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:horizontalSpacing="2dp"
+                android:numColumns="2"
                 android:paddingRight="4dp"
-                android:scrollbars="vertical"/>
+                android:scrollbars="vertical"
+                android:verticalSpacing="4dp" />
         </RelativeLayout>
     </LinearLayout>
-
 
 
 </android.support.v4.widget.SwipeRefreshLayout>
