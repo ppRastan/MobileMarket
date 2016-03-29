@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -120,7 +119,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
         imgProduct=(ImageView)rowView.findViewById(R.id.shopping__bag_img);
         nameOfEachProductTextView =(TextView) rowView.findViewById(R.id.shopping_bag_txt_productTitle);
-        imgLoader = new ImageLoader(shoppingBagActivityContext,rowView, Configuration.articleDisplaySizeForShow);
+        imgLoader = new ImageLoader(shoppingBagActivityContext, Configuration.articleDisplaySizeForShow);
         eachProductPriceTextView =(TextView) rowView.findViewById(R.id.shopping_bag_price_Off_product);
         shoppingBagTotalPriceTextView = (TextView)rowView.findViewById(R.id.shopping_bag_price_for_you);
         shoppingOffer = (TextView)rowView.findViewById(R.id.shoppingbag_offer);

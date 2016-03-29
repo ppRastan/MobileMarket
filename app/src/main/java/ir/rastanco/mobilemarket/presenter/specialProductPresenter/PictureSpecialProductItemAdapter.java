@@ -1,17 +1,14 @@
 package ir.rastanco.mobilemarket.presenter.specialProductPresenter;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -30,6 +27,7 @@ import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivi
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Links;
 import ir.rastanco.mobilemarket.utility.ToolbarHandler;
+import ir.rastanco.mobilemarket.utility.Utilities;
 
 /**
  * Created by ShaisteS on 1394/10/6.
@@ -40,25 +38,22 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
     private Activity myContext;
     private ArrayList<Product> allProduct;
     private ServerConnectionHandler serverConnectionHandler;
-    private String textToSend = null;
-    private Dialog shareDialog;
-    private Intent sendIntent;
     private boolean isSelectedForShop=false;
+    private Drawable defaultPicture;
+
 
     public PictureSpecialProductItemAdapter(Context context, int resource, ArrayList<Product> products) {
         super(context, resource,products);
         myContext=(Activity)context;
         allProduct=products;
         serverConnectionHandler =new ServerConnectionHandler(context);
+        defaultPicture= Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().homeDisplaySizeForShow);
 
     }
 
     public class Holder{
         ImageButton shareBtn;
-        ImageButton cancelShareDialog;
         ImageButton basketToolbar;
-        Button sendBtn;
-        EditText editTextToShare;
         Button btnSimilar;
     }
 
@@ -151,10 +146,11 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
                 ToolbarHandler.getInstance().generalShare(myContext,allProduct.get(position).getLinkInSite());
             }
         });
-        ImageLoader imgLoader = new ImageLoader(myContext,rowView,Configuration.getConfig().homeDisplaySizeForShow); // important
+        ImageLoader imgLoader = new ImageLoader(myContext,Configuration.getConfig().homeDisplaySizeForShow); // important
         final  ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
         PicProductImage.getLayoutParams().width= Configuration.getConfig().homeDisplaySizeForShow;
         PicProductImage.getLayoutParams().height=Configuration.getConfig().homeDisplaySizeForShow;
+        PicProductImage.setImageDrawable(defaultPicture);
         String imageNumberPath;
         if (allProduct.get(position).getImagesPath().size()==0)
             imageNumberPath="no_image_path";

@@ -1,5 +1,12 @@
 package ir.rastanco.mobilemarket.utility;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
@@ -57,5 +64,38 @@ public class Utilities {
         int priceForYou=price-off;
         return priceForYou;
     }
+
+
+    public Drawable ResizeImage (int imageID,Context context,int deviceWidth) {
+
+        BitmapDrawable bd=(BitmapDrawable) context.getResources().getDrawable(imageID);
+        double imageHeight = bd.getBitmap().getHeight();
+        double imageWidth = bd.getBitmap().getWidth();
+
+        double ratio = deviceWidth / imageWidth;
+        int newImageHeight = (int) (imageHeight * ratio);
+
+        Bitmap bMap = BitmapFactory.decodeResource(context.getResources(), imageID);
+        Drawable drawable = new BitmapDrawable(context.getResources(),getResizedBitmap(bMap,newImageHeight,(int) deviceWidth));
+
+        return drawable;
+    }
+    //Resize Bitmap
+    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+
+        return resizedBitmap;
+    }
+
+
 
 }
