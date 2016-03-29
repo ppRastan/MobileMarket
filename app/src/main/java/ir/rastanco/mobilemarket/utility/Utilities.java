@@ -10,6 +10,9 @@ import ir.rastanco.mobilemarket.R;
  */
 public class Utilities {
 
+    private int oneMillion = 1000000 ;
+    private int fiveMillion = 5000000 ;
+    private int overOneMillion = 10000001 ;
     private static Utilities utility = new Utilities();
 
     public static Utilities getInstance() {
@@ -30,17 +33,17 @@ public class Utilities {
     public int convertPriceTitleToInt(String priceTitle){
         int price=0;
         if(priceTitle.equals(Configuration.getConfig().MainActivityContext.getResources().getString(R.string.upto1million)))
-            price=1000000;
+            price= oneMillion ;
         else if (priceTitle.equals(Configuration.getConfig().MainActivityContext.getResources().getString(R.string.upto5million)))
-            price=5000000;
+            price=fiveMillion ;
         else if (priceTitle.equals(Configuration.getConfig().MainActivityContext.getResources().getString(R.string.upto10million)))
             price=getAtLeastHighestPrice();
         else
-            price=10000001; //1 is sign for price is above
+            price=overOneMillion ; //1 is sign for price is above
         return price;
     }
     public int getAtLeastHighestPrice(){
-        return 10000000;
+        return oneMillion;
     }
     public int getStartArticleNumber(){return 0;}
     public int getAtLeastArticleInFirstTime(){return 25;}
