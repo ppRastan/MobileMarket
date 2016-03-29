@@ -84,7 +84,7 @@
     <string name="filterBrandTitle">برند</string>
     <string name="filterPriceTitle">قیمت</string>
     <string name="checkConnection">لطفا اتصال اینترنت خود را بررسی کنید</string>
-    
+
     <string name="oneCellingPrice">تا سقف 1 میلیون تومان</string>
     <string name="twoCellingPrice">تا سقف 5 میلیون تومان</string>
     <string name="threeCellingPrice">تا سقف 10 میلیون تومان</string>
