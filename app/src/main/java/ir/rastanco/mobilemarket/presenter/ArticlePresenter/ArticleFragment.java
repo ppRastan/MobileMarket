@@ -20,6 +20,7 @@ import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
+import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Links;
 import ir.rastanco.mobilemarket.utility.Utilities;
 
@@ -132,6 +133,11 @@ public class ArticleFragment extends Fragment {
                     boolean topOfFirstItemVisible = articleList.getChildAt(0).getTop() == 0;
                     // enabling or disabling the refresh layout
                     enable = firstItemVisible && topOfFirstItemVisible;
+                    if (enable)
+                        Configuration.getConfig().telephoneFloatingActionButton.setVisibility(View.VISIBLE);
+                    else
+                        Configuration.getConfig().telephoneFloatingActionButton.setVisibility(View.GONE);
+
                 }
                 srlArticles.setEnabled(enable);
 

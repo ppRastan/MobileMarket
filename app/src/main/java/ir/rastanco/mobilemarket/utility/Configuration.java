@@ -2,6 +2,7 @@ package ir.rastanco.mobilemarket.utility;
 
 
 import android.content.Context;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 
@@ -55,6 +56,8 @@ public class Configuration {
     public static Boolean connectionStatus=false;
 
     public static int MainTabCount;
+
+    public static FloatingActionButton telephoneFloatingActionButton;
 
 
 }
