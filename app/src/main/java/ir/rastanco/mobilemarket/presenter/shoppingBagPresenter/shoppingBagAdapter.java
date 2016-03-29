@@ -107,7 +107,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
                 selectedItem.put(position, selectedIndex);
                 counterSelected = Integer.parseInt(spinnerCounter.getSelectedItem().toString());
-                serverConnectionHandler.changeShoppingNumber(aProduct.getId(), counterSelected);
+                serverConnectionHandler.changeShoppingNumber(aProduct.getId(), selectedItem.get(position)+1);
                 ObserverShoppingCancel.setShoppingCancel(true);
             }
 
