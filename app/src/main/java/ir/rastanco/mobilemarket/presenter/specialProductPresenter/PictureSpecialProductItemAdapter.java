@@ -25,7 +25,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.Links;
+import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.ToolbarHandler;
 import ir.rastanco.mobilemarket.utility.Utilities;
 
@@ -161,7 +161,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String imageURL = Links.getInstance().generateURLForGetImageProduct(allProduct.get(position).getImagesMainPath(),imageNumberPath,Configuration.getConfig().homeDisplaySizeForURL,Configuration.getConfig().homeDisplaySizeForURL);
+        String imageURL = Link.getInstance().generateURLForGetImageProduct(allProduct.get(position).getImagesMainPath(),imageNumberPath,Configuration.getConfig().homeDisplaySizeForURL,Configuration.getConfig().homeDisplaySizeForURL);
         imgLoader.DisplayImage(imageURL, PicProductImage);
         PicProductImage.setOnClickListener(new View.OnClickListener() {
             @Override

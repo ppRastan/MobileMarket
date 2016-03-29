@@ -17,10 +17,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,7 +35,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.LinkHandler;
+import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 import ir.rastanco.mobilemarket.utility.ToolbarHandler;
 import ir.rastanco.mobilemarket.utility.Utilities;
@@ -264,7 +261,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String imageURL = LinkHandler.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().shopDisplaySizeForURL,Configuration.getConfig().shopDisplaySizeForURL);
+        String imageURL = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().shopDisplaySizeForURL,Configuration.getConfig().shopDisplaySizeForURL);
         holder.imgLoader.DisplayImage(imageURL, holder.imgP);
         holder.infoP.setText(aProduct.getTitle());
 

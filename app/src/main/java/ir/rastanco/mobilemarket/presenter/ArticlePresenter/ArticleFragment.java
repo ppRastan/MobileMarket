@@ -21,7 +21,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.LinkHandler;
+import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.Utilities;
 
 /**
@@ -43,10 +43,10 @@ public class ArticleFragment extends Fragment {
         leastArticleNumberInFirstTime= Utilities.getInstance().getAtLeastArticleInFirstTime();
         startArticleNumber=Utilities.getInstance().getStartArticleNumber();
 
-        articles=new ArrayList<Article>();
+        articles=new ArrayList<>();
 
         if (sch.emptyDBArticle()){
-            String url= LinkHandler.getInstance().generateURLForGetArticle(startArticleNumber,leastArticleNumberInFirstTime);
+            String url= Link.getInstance().generateURLForGetArticle(startArticleNumber,leastArticleNumberInFirstTime);
             articles=sch.getAllArticlesAndNewsURL(url);
             sch.addAllArticlesToTable(articles);
         }
@@ -56,7 +56,7 @@ public class ArticleFragment extends Fragment {
             public void connectionOK() {
 
                 if (sch.emptyDBArticle()){
-                    String url= LinkHandler.getInstance().generateURLForGetArticle(startArticleNumber,leastArticleNumberInFirstTime);
+                    String url= Link.getInstance().generateURLForGetArticle(startArticleNumber,leastArticleNumberInFirstTime);
                     articles=sch.getAllArticlesAndNewsURL(url);
                     sch.addAllArticlesToTable(articles);
                 }
@@ -73,7 +73,7 @@ public class ArticleFragment extends Fragment {
             endItem[0] =leastArticleNumberInFirstTime;
         else
             endItem[0] =articles.size();
-        ArrayList<Article> customArticles=new ArrayList<Article>();
+        ArrayList<Article> customArticles=new ArrayList<>();
         for(int i= startItem[0];i< endItem[0];i++){
             customArticles.add(articles.get(i));
 
@@ -104,7 +104,7 @@ public class ArticleFragment extends Fragment {
                     public void run() {
                         sch.refreshArticles();
                         articles = sch.getAllArticlesFromTable();
-                        ArrayList<Article> helpArticlesShow=new ArrayList<Article>();
+                        ArrayList<Article> helpArticlesShow=new ArrayList<>();
                         for (int i = 0; i < leastArticleNumberInFirstTime; i++) {
                             helpArticlesShow.add(articles.get(i));
 
@@ -142,7 +142,7 @@ public class ArticleFragment extends Fragment {
                 srlArticles.setEnabled(enable);
 
                 if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0 && endItem[0] < articles.size()) {
-                    ArrayList<Article> customArticles = new ArrayList<Article>();
+                    ArrayList<Article> customArticles = new ArrayList<>();
                     startItem[0] = endItem[0];
                     if (endItem[0] + leastArticleNumberInFirstTime < articles.size())
                         endItem[0] = endItem[0] + leastArticleNumberInFirstTime;

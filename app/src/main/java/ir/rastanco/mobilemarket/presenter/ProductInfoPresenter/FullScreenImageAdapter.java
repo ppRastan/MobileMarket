@@ -32,7 +32,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverLike;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.LinkHandler;
+import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 import ir.rastanco.mobilemarket.utility.ToolbarHandler;
 import ir.rastanco.mobilemarket.utility.Utilities;
@@ -205,7 +205,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String image_url_Main = LinkHandler.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().homeDisplaySizeForURL,Configuration.getConfig().productInfoHeightForURL);
+        String image_url_Main = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().homeDisplaySizeForURL,Configuration.getConfig().productInfoHeightForURL);
         imgLoader.DisplayImage(image_url_Main, imgProduct);
         LinearLayout layout = (LinearLayout) viewLayout.findViewById(R.id.linear);
         int counter;
@@ -227,7 +227,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-            String image_url_otherPic = LinkHandler.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().articleDisplaySizeForURL,Configuration.getConfig().articleDisplaySizeForURL);
+            String image_url_otherPic = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().articleDisplaySizeForURL,Configuration.getConfig().articleDisplaySizeForURL);
             imgLoader.DisplayImage(image_url_otherPic, imageView);
 
             final int clickImageNum=i;
@@ -241,7 +241,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-                    String image_url_otherPic = LinkHandler.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().homeDisplaySizeForURL,Configuration.getConfig().productInfoHeightForURL);
+                    String image_url_otherPic = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().homeDisplaySizeForURL,Configuration.getConfig().productInfoHeightForURL);
                     imgLoader.DisplayImage(image_url_otherPic, imgProduct);
 
                 }

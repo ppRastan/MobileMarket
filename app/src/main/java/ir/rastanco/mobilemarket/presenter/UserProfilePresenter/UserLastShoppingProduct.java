@@ -14,7 +14,7 @@ import ir.rastanco.mobilemarket.dataModel.ProductShop;
 import ir.rastanco.mobilemarket.dataModel.UserInfo;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.LinkHandler;
+import ir.rastanco.mobilemarket.utility.Link;
 
 
 /**
@@ -41,7 +41,7 @@ public class UserLastShoppingProduct extends Activity {
         user=new UserInfo();
         user=sch.getUserInfo();
         if (user != null){
-            allProductsShop=sch.getLastProductShop(LinkHandler.getInstance().generateURLForGetUserLasShopping(user.getUserId()));
+            allProductsShop=sch.getLastProductShop(Link.getInstance().generateURLForGetUserLasShopping(user.getUserId()));
         }
         ListView lvLastShopping=(ListView)findViewById(R.id.lv_lastShopping);
         UserLastShoppingProductItemAdapter adapter=new UserLastShoppingProductItemAdapter(Configuration.getConfig().UserLastShoppingContext,R.layout.last_shopping_item,allProductsShop);

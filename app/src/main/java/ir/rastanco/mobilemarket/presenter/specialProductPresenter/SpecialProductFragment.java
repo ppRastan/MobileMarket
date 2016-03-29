@@ -16,7 +16,7 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.LinkHandler;
+import ir.rastanco.mobilemarket.utility.Link;
 
 /**
  * Created by ShaisteS on 1394/12/09.
@@ -75,7 +75,7 @@ public class SpecialProductFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        sch.refreshCategories(LinkHandler.getInstance().generateURLForGetAllCategories());
+                        sch.refreshCategories(Link.getInstance().generateURLForGetAllCategories());
                         sch.getNewProducts();
                         sch.getEditProducts();
                         products = sch.getSpecialProduct();

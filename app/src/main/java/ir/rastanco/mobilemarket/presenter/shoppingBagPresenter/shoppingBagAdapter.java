@@ -28,7 +28,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancel;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.LinkHandler;
+import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 import ir.rastanco.mobilemarket.utility.Utilities;
 
@@ -155,7 +155,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        imageURL = LinkHandler.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(), imageNumberPath,Configuration.articleDisplaySizeForURL,Configuration.articleDisplaySizeForURL);
+        imageURL = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(), imageNumberPath,Configuration.articleDisplaySizeForURL,Configuration.articleDisplaySizeForURL);
         imgLoader.DisplayImage(imageURL, imgProduct);
     }
 

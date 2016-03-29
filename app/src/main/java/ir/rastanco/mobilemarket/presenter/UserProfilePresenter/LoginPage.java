@@ -18,7 +18,7 @@ import ir.rastanco.mobilemarket.dataModel.UserInfo;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.Security;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.LinkHandler;
+import ir.rastanco.mobilemarket.utility.Link;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -52,12 +52,12 @@ public class LoginPage extends AppCompatActivity {
             public void onClick(View v) {
                 if(Configuration.getConfig().connectionStatus){
                     UserInfo aUser=new UserInfo();
-                    String key=sch.GetKey(LinkHandler.getInstance().generateURLForGetKey());
+                    String key=sch.GetKey(Link.getInstance().generateURLForGetKey());
                     user= String.valueOf(username.getText());
                     aUser.setUserEmail(user);
                     pass= String.valueOf(password.getText());
                     String hashInfo=sec.encode(user,pass,key);
-                    ArrayList<String> response=new ArrayList<String>();
+                    ArrayList<String> response=new ArrayList<>();
                     response=sch.GetAuthorizeResponse(hashInfo,key);
                     Log.d("Response:", response.get(0));
                     if(response.get(0).equals("")){
@@ -92,7 +92,7 @@ public class LoginPage extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse(LinkHandler.getInstance().generateURLSignUp()));
+                intent.setData(Uri.parse(Link.getInstance().generateURLSignUp()));
                 startActivity(intent);
             }
         });
@@ -103,7 +103,7 @@ public class LoginPage extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse(LinkHandler.getInstance().generateURLForForgotPassword()));
+                intent.setData(Uri.parse(Link.getInstance().generateURLForForgotPassword()));
                 startActivity(intent);
             }
         });

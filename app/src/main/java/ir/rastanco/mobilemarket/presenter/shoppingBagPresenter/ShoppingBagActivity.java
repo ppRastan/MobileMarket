@@ -28,7 +28,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancel;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancelListener;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginPage;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.LinkHandler;
+import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 import ir.rastanco.mobilemarket.utility.Utilities;
 
@@ -86,7 +86,7 @@ public class ShoppingBagActivity extends Activity {
                         Intent shoppingBagIntent = new Intent(Configuration.getConfig().ShoppingBagContext, LoginPage.class);
                         startActivity(shoppingBagIntent);
                     } else {
-                        String url = LinkHandler.getInstance().generateURLForSendShoppingProductsToServer(user.getUserEmail(),shopInfo);
+                        String url = Link.getInstance().generateURLForSendShoppingProductsToServer(user.getUserEmail(),shopInfo);
                         Intent intent = new Intent();
                         intent.setAction(Intent.ACTION_VIEW);
                         intent.addCategory(Intent.CATEGORY_BROWSABLE);

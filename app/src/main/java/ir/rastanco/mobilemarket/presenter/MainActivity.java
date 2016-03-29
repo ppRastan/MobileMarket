@@ -69,7 +69,7 @@ import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivi
 import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragmentManagement;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconDisplayer;
-import ir.rastanco.mobilemarket.utility.LinkHandler;
+import ir.rastanco.mobilemarket.utility.Link;
 
 /*created by parisan*/
 
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse(LinkHandler.getInstance().telephoneNumber()));
+                callIntent.setData(Uri.parse(Link.getInstance().telephoneNumber()));
                 if (ActivityCompat.checkSelfPermission(Configuration.getConfig().MainActivityContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
@@ -218,8 +218,8 @@ public class MainActivity extends AppCompatActivity {
         Configuration.getConfig().AplicationContext =getBaseContext();
         sch=new ServerConnectionHandler(Configuration.getConfig().MainActivityContext);
         Configuration.getConfig().IsTheFirstTimeGoingToThisPage = true;
-        mainCategoryTitle= new ArrayList<String>();
-        mapTitleToIdMainCategory=new HashMap<String,Integer>();
+        mainCategoryTitle= new ArrayList<>();
+        mapTitleToIdMainCategory=new HashMap<>();
         mainCategoryTitle=sch.getMainCategoryTitle();
         mapTitleToIdMainCategory=sch.MapTitleToIDForMainCategory();
         Configuration.getConfig().MainTabCount=mainCategoryTitle.size();
@@ -252,10 +252,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void CreatePageRightToLeft() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            //getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             Configuration.getConfig().RTL=true;
-        }
         else
             Configuration.getConfig().RTL=false;
     }
@@ -272,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem upgradeItem=menu.findItem(R.id.update);
         Configuration.getConfig().UpgradeButtonMenu=upgradeItem;
-        if(!sch.checkNewVersion(LinkHandler.getInstance().generateURLForGetLastVersionAppInServer())||
+        if(!sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer())||
                 Configuration.getConfig().productTableEmptyStatus ||
                 !Configuration.getConfig().connectionStatus)
             upgradeItem.setVisible(false);
@@ -310,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
                 toolbarSearch = (LinearLayout)findViewById(R.id.toolbar_search);
                 toolbar.setVisibility(View.GONE);
                 toolbarSearch.setVisibility(View.VISIBLE);
-                ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(this,
+                ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
                         R.layout.customized_list_for_search, sch.searchInProductTitle());
                 textToSearch.setAdapter(listAdapter);
                 backButton.setOnClickListener(new View.OnClickListener() {
@@ -326,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
                         int productId=sch.getProductIdWithTitle((String)parent.getItemAtPosition(position));
                         Product aProduct=new Product();
                         aProduct=sch.getAProduct(productId);
-                        ArrayList<Product> product=new ArrayList<Product>();
+                        ArrayList<Product> product=new ArrayList<>();
                         product.add(aProduct);
                         Intent intent = new Intent(Configuration.getConfig().MainActivityContext, ProductInfoActivity.class);
                         intent.putParcelableArrayListExtra("allProduct",product);
@@ -342,8 +340,8 @@ public class MainActivity extends AppCompatActivity {
                 this.startActivity(shoppingBagIntent);
                 break;
             case R.id.update:
-                version=sch.getLastVersionInServer(LinkHandler.getInstance().generateURLForGetLastVersionAppInServer());
-                new DownloadFileFromURL(this).execute(LinkHandler.getInstance().generateYRLForGetApplicationInServer());
+                version=sch.getLastVersionInServer(Link.getInstance().generateURLForGetLastVersionAppInServer());
+                new DownloadFileFromURL(this).execute(Link.getInstance().generateYRLForGetApplicationInServer());
                 break;
         }
 
@@ -407,7 +405,7 @@ public class MainActivity extends AppCompatActivity {
                 InputStream input = new BufferedInputStream(url.openStream(),8192);
                 OutputStream output = new FileOutputStream(Environment
                         .getExternalStorageDirectory().toString()
-                        + LinkHandler.getInstance().generatePathAPKApplicationInMobile());
+                        + Link.getInstance().generatePathAPKApplicationInMobile());
 
                 byte data[] = new byte[2048];
                 long total = 0;
@@ -421,7 +419,7 @@ public class MainActivity extends AppCompatActivity {
                 input.close();
 
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + LinkHandler.getInstance().generatePathAPKApplicationInMobile())), "application/vnd.android.package-archive");
+                intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + Link.getInstance().generatePathAPKApplicationInMobile())), "application/vnd.android.package-archive");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 sch.updateVersionApp(version);
@@ -448,12 +446,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void checkDbState() {
-        ArrayList<Category> categories = new ArrayList<Category>();
+        ArrayList<Category> categories = new ArrayList<>();
         if (sch.emptyDBCategory()) {
-            categories = sch.getAllCategoryInfoURL(LinkHandler.getInstance().generateURLForGetAllCategories());
+            categories = sch.getAllCategoryInfoURL(Link.getInstance().generateURLForGetAllCategories());
             sch.addAllCategoryToTable(categories);
         } else
-            sch.refreshCategories(LinkHandler.getInstance().generateURLForGetAllCategories());
+            sch.refreshCategories(Link.getInstance().generateURLForGetAllCategories());
 
     }
 
@@ -467,13 +465,14 @@ public class MainActivity extends AppCompatActivity {
                     synchronized (this) {
                         // Wait given period of time or exit on touch
                         checkDbState();
-                        jsonString[0] = parseInformationProduct.getProductInfoFromServer(LinkHandler.getInstance().generateUrlForGetNewProduct(Configuration.getConfig().MainActivityContext.getString(R.string.firstTimeStamp)));
+                        jsonString[0] = parseInformationProduct.getProductInfoFromServer(Link.getInstance().generateUrlForGetNewProduct(Configuration.getConfig().MainActivityContext.getString(R.string.firstTimeStamp)));
                         wait(10);
                     }
                 } catch (InterruptedException ex) {
+                    Log.v("can not check data base","!");
                 }
                 String timeStamp = parseInformationProduct.addProductToTable(jsonString[0]);
-                String lastVersionInServer=sch.getLastVersionInServer(LinkHandler.getInstance().generateURLForGetLastVersionAppInServer());
+                String lastVersionInServer=sch.getLastVersionInServer(Link.getInstance().generateURLForGetLastVersionAppInServer());
                 sch.setSetting(timeStamp,
                         Configuration.getConfig().MainActivityContext.getResources().getString(R.string.firstArticleNumber),
                         lastVersionInServer,

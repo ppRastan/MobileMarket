@@ -34,7 +34,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProductListener;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.DataFilter;
-import ir.rastanco.mobilemarket.utility.LinkHandler;
+import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 /**
@@ -122,7 +122,7 @@ public class ShopFragment extends Fragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        sch.refreshCategories(LinkHandler.getInstance().generateURLForGetAllCategories());
+                        sch.refreshCategories(Link.getInstance().generateURLForGetAllCategories());
                         sch.getNewProducts();
                         sch.getEditProducts();
                         ArrayList<Product> newProducts = sch.getProductAfterRefresh(pageId,
