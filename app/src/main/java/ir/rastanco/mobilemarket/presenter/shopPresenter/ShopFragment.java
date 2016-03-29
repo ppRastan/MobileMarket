@@ -36,6 +36,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProductListene
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.DataFilter;
 import ir.rastanco.mobilemarket.utility.Links;
+import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 /**
  * Created by ShaisteS on 1394/12/09.
@@ -63,8 +64,7 @@ public class ShopFragment extends Fragment {
         sch=new ServerConnectionHandler(getContext());
         products=sch.getProductsOfAParentCategory(pageId);
         noThingToShow = (TextView)mainView.findViewById(R.id.no_thing_to_show1);
-        //TODO Parisa for use font method
-        noThingToShow.setTypeface(Typeface.createFromAsset(myContext.getAssets(), "fonts/yekan.ttf"));
+        noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow,myContext);
         final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
         /*final RecyclerView gridview = (RecyclerView) mainView.findViewById(R.id.gv_infoProduct);
         MyCustomLayoutManager mLayoutManager = new MyCustomLayoutManager(Configuration.ShopFragmentContext);

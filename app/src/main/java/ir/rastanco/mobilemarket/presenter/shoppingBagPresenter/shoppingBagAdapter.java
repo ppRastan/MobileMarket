@@ -46,7 +46,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private int spinnerValueInInteger;
     private TextView eachProductPriceTextView;
     private TextView shoppingBagTotalPriceTextView;
-    private EditText spinnerValue;
     private TextView spinnerTextView;
     private ArrayList<String> spinnerList ;
     private LayoutInflater inflater;
@@ -55,7 +54,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private ImageView imgProduct;
     private TextView nameOfEachProductTextView;
     private ImageButton btnDelete;
-    private String numberProducePriceOff;
     private AlertDialog.Builder alertDialog;
     private int counterSelected;
     private int finalPrice = 0;
@@ -129,6 +127,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         nameOfEachProductTextView.setText(aProduct.getTitle());
         shoppingBagTotalPriceTextView = PriceUtility.getInstance().changeFontToYekan(shoppingBagTotalPriceTextView, shoppingBagActivityContext);
         eachProductPriceTextView = PriceUtility.getInstance().changeFontToYekan(eachProductPriceTextView, shoppingBagActivityContext);
+        shoppingOffer = PriceUtility.getInstance().changeFontToYekan(shoppingOffer,shoppingBagActivityContext);
         LinearLayout priceOffLinear = (LinearLayout)rowView.findViewById(R.id.priceOffLinear);
 
         if (aProduct.getPriceOff() != 0) {
