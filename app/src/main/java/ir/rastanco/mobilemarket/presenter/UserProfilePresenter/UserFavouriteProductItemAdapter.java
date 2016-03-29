@@ -46,9 +46,8 @@ public class UserFavouriteProductItemAdapter extends ArrayAdapter<Product> {
             @Override
             public void onClick(View v) {
                 ServerConnectionHandler sch = new ServerConnectionHandler(myContext);
-                int productId = sch.getProductIdWithTitle((String)products.get(position).getTitle());
                 Product aProduct = new Product();
-                aProduct = sch.getAProduct(productId);
+                aProduct = sch.getAProduct(products.get(position).getId());
                 ArrayList<Product> product = new ArrayList<Product>();
                 product.add(aProduct);
                 Intent intent = new Intent(Configuration.getConfig().MainActivityContext, ProductInfoActivity.class);
