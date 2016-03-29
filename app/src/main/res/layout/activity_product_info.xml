@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -75,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:background="@color/white">
+        android:background="@color/background_window">
 
         <HorizontalScrollView
             android:id="@+id/horizontal_scroll"
@@ -100,13 +99,6 @@
         android:gravity="center"
         android:weightSum="10">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5">
-
-        </LinearLayout>
-
         <ImageView
             android:id="@+id/img_ProductQuality"
             android:layout_width="0dp"
@@ -123,12 +115,7 @@
             android:textColor="@color/black"
             android:textSize="15dp" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
 
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -194,7 +181,6 @@
             android:drawablePadding="8dp"
             android:drawableRight="@mipmap/basket_white"
             android:gravity="center"
-            android:text="@string/bye"
             android:textColor="@color/white" />
 
     </LinearLayout>
