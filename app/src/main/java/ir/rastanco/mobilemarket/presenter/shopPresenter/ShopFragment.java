@@ -109,6 +109,11 @@ public class ShopFragment extends Fragment {
                     enable = firstItemVisible && topOfFirstItemVisible;
                 }
                 mSwipeRefreshLayout.setEnabled(enable);
+                if (enable)
+                    Configuration.getConfig().telephoneFloatingActionButton.setVisibility(View.VISIBLE);
+                else
+                    Configuration.getConfig().telephoneFloatingActionButton.setVisibility(View.GONE);
+
             }
         });
 

@@ -186,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setFAb(){
         fab = (FloatingActionButton) findViewById(R.id.fab);
+        Configuration.getConfig().telephoneFloatingActionButton=fab;
         fab.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.fab_color)));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

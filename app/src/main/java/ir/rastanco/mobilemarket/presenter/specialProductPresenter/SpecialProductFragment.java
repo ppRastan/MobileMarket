@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Links;
 
 /**
@@ -46,7 +47,6 @@ public class SpecialProductFragment extends Fragment {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
             }
-
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
@@ -60,6 +60,12 @@ public class SpecialProductFragment extends Fragment {
                     enable = firstItemVisible && topOfFirstItemVisible;
                 }
                 mSwipeRefreshLayout.setEnabled(enable);
+                if (enable)
+                    Configuration.getConfig().telephoneFloatingActionButton.setVisibility(View.VISIBLE);
+                else
+                    Configuration.getConfig().telephoneFloatingActionButton.setVisibility(View.GONE);
+
+
 
             }
         });
@@ -73,7 +79,7 @@ public class SpecialProductFragment extends Fragment {
                         sch.getNewProducts();
                         sch.getEditProducts();
                         products = sch.getSpecialProduct();
-                        PictureSpecialProductItemAdapter newAdapter = new PictureSpecialProductItemAdapter(getActivity(), R.layout.picture_product_item_home,products);
+                        PictureSpecialProductItemAdapter newAdapter = new PictureSpecialProductItemAdapter(getActivity(), R.layout.picture_product_item_home, products);
                         productListView.setAdapter(newAdapter);
                         newAdapter.notifyDataSetChanged();
                         mSwipeRefreshLayout.setRefreshing(false);
