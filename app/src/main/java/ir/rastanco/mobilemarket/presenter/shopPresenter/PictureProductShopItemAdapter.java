@@ -10,9 +10,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +56,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private Dialog shareDialog;
     private Intent sendIntent;
     private Activity shopPresenterActivity;
+    private Drawable defaultPicture;
 
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
@@ -64,6 +65,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         allProduct =products;
         sch=new ServerConnectionHandler(myContext);
         shopPresenterActivity =(Activity) myContext;
+        defaultPicture=Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().shopDisplaySizeForShow);
     }
 
     @Override
@@ -94,8 +96,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         ImageButton offerRight;
         Product mProduct;
         ImageLoader imgLoader;
-        Bitmap image;
-
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -113,15 +113,15 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.priceForYou = (TextView)rowView.findViewById(R.id.txt_price_for_you);
         holder.priceForYou=PriceUtility.getInstance().changeFontToYekan(holder.priceForYou,myContext);;
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
-        holder.imgP.getLayoutParams().width= Configuration.shopDisplaySizeForShow;
-        holder.imgP.getLayoutParams().height=Configuration.shopDisplaySizeForShow;
+        holder.imgP.getLayoutParams().width= Configuration.getConfig().shopDisplaySizeForShow;
+        holder.imgP.getLayoutParams().height=Configuration.getConfig().shopDisplaySizeForShow;
+        holder.imgP.setImageDrawable(defaultPicture);
         holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
         holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
         holder. basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
         holder.shareToolBar = (ImageButton)rowView.findViewById(R.id.share_toolbar_in_main_page);
         holder.likeToolBar = (ImageButton)rowView.findViewById(R.id.empty_like_toolbar);
-        holder.imgLoader= new ImageLoader(myContext,rowView,Configuration.shopDisplaySizeForShow);
-        holder.image=null;
+        holder.imgLoader= new ImageLoader(myContext,Configuration.shopDisplaySizeForShow);
 
         final Product aProduct=allProduct.get(position);
         if (aProduct.getPriceOff()==0 && aProduct.getPrice()!=0){
@@ -268,7 +268,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.imgLoader.DisplayImage(imageURL, holder.imgP);
         holder.infoP.setText(aProduct.getTitle());
 
-        holder.imgP.setImageBitmap(holder.image);
         holder.imgP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
