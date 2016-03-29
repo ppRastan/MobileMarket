@@ -6,19 +6,14 @@ package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
  */
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,6 +34,7 @@ import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivi
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Links;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
+import ir.rastanco.mobilemarket.utility.ToolbarHandler;
 import ir.rastanco.mobilemarket.utility.Utilities;
 
 public class FullScreenImageAdapter extends PagerAdapter {
@@ -53,15 +49,9 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private ImageButton btnShare;
     private View viewLayout;
     private TextView nameOfCurrentProduct;
-    private String textToSend = null;
-    private Dialog shareDialog;
-    private ImageButton cancelShareDialog;
-    private Button sendBtn;
-    private EditText editTextToShare;
-    private Intent sendIntent;
     private Button addToBasketBtn;
     private String numberOfFinalPrice;
-
+    private ImageButton btnLike;
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
         this.products=allProducts;
@@ -113,7 +103,6 @@ public class FullScreenImageAdapter extends PagerAdapter {
             addToBasketBtn.setText(activity.getString(R.string.price_for_you)+" "
                     +PriceUtility.getInstance().formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice)) + "  " +
                     activity.getString(R.string.currency));
-            //addToBasketBtn.invalidateDrawable(null);
 
         }
 
@@ -130,7 +119,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         sch.getAllProductOptionOfAProduct(aProduct.getId(),
                 aProduct.getGroupId());
 
-        final ImageButton btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
+        btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
 
         if (sch.getAProduct(aProduct.getId()).getLike()==0){
             //this Product No Favorite
@@ -188,43 +177,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shareDialog = new Dialog(activity);
-                shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                shareDialog.setContentView(R.layout.share_alert_dialog);
-                cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
-                sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
-                editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
-                cancelShareDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        shareDialog.dismiss();
-                    }
-                });
-
-                sendBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
-                        textToSend = editTextToShare.getText().toString();
-                        String Share=textToSend+"\n\n"+
-                                aProduct.getLinkInSite()+ "\n\n"+
-                                activity.getResources().getString(R.string.text_to_advertise)+"\n\n"
-                                +activity.getResources().getString(R.string.LinkDownloadApp);
-
-                        sendIntent = new Intent();
-                        sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
-                        sendIntent.setType("text/plain");
-                        activity.startActivity(sendIntent);
-                        shareDialog.cancel();
-
-                    }
-                });
-                shareDialog.setCancelable(true);
-                shareDialog.show();
-            }
+                ToolbarHandler.getInstance().generalShare(activity , aProduct.getLinkInSite());
+             }
         });
 
 
@@ -232,7 +186,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         btnShareByTelegram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shareByTelegram(aProduct.getLinkInSite());
+                ToolbarHandler.getInstance().shareByTelegram(activity,aProduct.getLinkInSite());
             }
         });
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
@@ -297,66 +251,6 @@ public class FullScreenImageAdapter extends PagerAdapter {
         ((ViewPager) container).addView(viewLayout);
         return viewLayout;
     }
-
-    private void shareByTelegram(String productLinkInSite) {
-
-        final String appName = "org.telegram.messenger";
-        final String visitProductLinkInSite=productLinkInSite;
-        final boolean isAppInstalled = isAppAvailable(appName);
-        if (isAppInstalled) {
-            shareDialog = new Dialog(activity);
-            shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            shareDialog.setContentView(R.layout.share_alert_dialog);
-            cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
-            sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
-            editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
-            cancelShareDialog.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    shareDialog.dismiss();
-                }
-            });
-            sendBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
-                    textToSend = editTextToShare.getText().toString();
-                    String Share=textToSend+"\n\n"+
-                            visitProductLinkInSite+ "\n\n"+
-                            activity.getResources().getString(R.string.text_to_advertise)+"\n\n"
-                            +activity.getResources().getString(R.string.LinkDownloadApp);
-                    sendIntent = new Intent();
-                    sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
-                    sendIntent.setType("text/plain");
-                    sendIntent.setPackage(appName);
-                    activity.startActivity(sendIntent);
-                    shareDialog.cancel();
-                }
-            });
-            shareDialog.setCancelable(true);
-            shareDialog.show();
-        }
-        else
-        {
-            Toast.makeText(activity.getApplicationContext(), activity.getResources().getString(R.string.telegram_not_installed), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private boolean isAppAvailable(String appName) {
-        PackageManager pm = activity.getPackageManager();
-        try
-        {
-            pm.getPackageInfo(appName, PackageManager.GET_ACTIVITIES);
-            return true;
-        }
-        catch (PackageManager.NameNotFoundException e)
-        {
-            return false;
-        }
-    }
-
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         ((ViewPager) container).removeView((LinearLayout) object);
