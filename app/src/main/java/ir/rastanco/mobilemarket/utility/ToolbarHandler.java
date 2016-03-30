@@ -18,7 +18,7 @@ import ir.rastanco.mobilemarket.R;
  * this class will handel toolbar icons listener
  */
 public class ToolbarHandler {
-    private  Dialog shareDialog;
+    private Dialog shareDialog;
     private Button sendBtn;
     private EditText editTextToShare;
     private ImageButton cancelShareDialog;
@@ -29,7 +29,7 @@ public class ToolbarHandler {
     private static ToolbarHandler toolbarHandler;
 
     public static ToolbarHandler getInstance() {
-        if(toolbarHandler == null){
+        if (toolbarHandler == null) {
             toolbarHandler = new ToolbarHandler();
         }
         return toolbarHandler;
@@ -37,14 +37,14 @@ public class ToolbarHandler {
     }
 
 
-    public void generalShare(final Activity activity , final String product){
+    public void generalShare(final Activity activity, final String product) {
 
 
         shareDialog = new Dialog(activity);
         shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         shareDialog.setContentView(R.layout.share_alert_dialog);
-        sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
-        editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
+        sendBtn = (Button) shareDialog.findViewById(R.id.send_my_pm);
+        editTextToShare = (EditText) shareDialog.findViewById(R.id.text_to_send);
         cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
         cancelShareDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,14 +57,14 @@ public class ToolbarHandler {
             @Override
             public void onClick(View v) {
                 textToSend = editTextToShare.getText().toString();
-                String Share=textToSend+"\n\n"+
-                        product + "\n\n"+
-                        activity.getResources().getString(R.string.text_to_advertise)+"\n\n"
-                        +activity.getResources().getString(R.string.LinkDownloadApp);
+                String Share = textToSend + "\n\n" +
+                        product + "\n\n" +
+                        activity.getResources().getString(R.string.text_to_advertise) + "\n\n"
+                        + activity.getResources().getString(R.string.LinkDownloadApp);
 
                 sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
+                sendIntent.putExtra(Intent.EXTRA_SUBJECT, textToSend);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
                 sendIntent.setType("text/plain");
                 activity.startActivity(sendIntent);
@@ -76,98 +76,58 @@ public class ToolbarHandler {
         shareDialog.show();
     }
 
-    public void shareByTelegram(final Activity activity , String aproduct){
-            this.toolbarHandlerActivity = activity;
-            final String appName = "org.telegram.messenger";
-            final String visitProductLinkInSite = aproduct;
-            final boolean isAppInstalled = isAppAvailable(appName);
-            if (isAppInstalled) {
-                shareDialog = new Dialog(activity);
-                shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                shareDialog.setContentView(R.layout.share_alert_dialog);
-                cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
-                sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
-                editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
-                cancelShareDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        shareDialog.dismiss();
-                    }
-                });
-                sendBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        textToSend = editTextToShare.getText().toString();
-                        String Share=textToSend+"\n\n"+
-                                visitProductLinkInSite+ "\n\n"+
-                                activity.getResources().getString(R.string.text_to_advertise)+"\n\n"
-                                +activity.getResources().getString(R.string.LinkDownloadApp);
-                        sendIntent = new Intent();
-                        sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
-                        sendIntent.setType("text/plain");
-                        sendIntent.setPackage(appName);
-                        activity.startActivity(sendIntent);
-                        shareDialog.cancel();
-                    }
-                });
-                shareDialog.setCancelable(true);
-                shareDialog.show();
-            }
-            else
-            {
-                Toast.makeText(activity.getApplicationContext(), activity.getResources().getString(R.string.telegram_not_installed), Toast.LENGTH_SHORT).show();
-            }
+    public void shareByTelegram(final Activity activity, String aproduct) {
+        this.toolbarHandlerActivity = activity;
+        final String appName = "org.telegram.messenger";
+        final String visitProductLinkInSite = aproduct;
+        final boolean isAppInstalled = isAppAvailable(appName);
+        if (isAppInstalled) {
+            shareDialog = new Dialog(activity);
+            shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            shareDialog.setContentView(R.layout.share_alert_dialog);
+            cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
+            sendBtn = (Button) shareDialog.findViewById(R.id.send_my_pm);
+            editTextToShare = (EditText) shareDialog.findViewById(R.id.text_to_send);
+            cancelShareDialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    shareDialog.dismiss();
+                }
+            });
+            sendBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    textToSend = editTextToShare.getText().toString();
+                    String Share = textToSend + "\n\n" +
+                            visitProductLinkInSite + "\n\n" +
+                            activity.getResources().getString(R.string.text_to_advertise) + "\n\n"
+                            + activity.getResources().getString(R.string.LinkDownloadApp);
+                    sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_SUBJECT, textToSend);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
+                    sendIntent.setType("text/plain");
+                    sendIntent.setPackage(appName);
+                    activity.startActivity(sendIntent);
+                    shareDialog.cancel();
+                }
+            });
+            shareDialog.setCancelable(true);
+            shareDialog.show();
+        } else {
+            Toast.makeText(activity.getApplicationContext(), activity.getResources().getString(R.string.telegram_not_installed), Toast.LENGTH_SHORT).show();
+        }
 
-}
+    }
 
 
     private boolean isAppAvailable(String appName) {
         PackageManager pm = toolbarHandlerActivity.getPackageManager();
-        try
-        {
+        try {
             pm.getPackageInfo(appName, PackageManager.GET_ACTIVITIES);
             return true;
-        }
-        catch (PackageManager.NameNotFoundException e)
-        {
+        } catch (PackageManager.NameNotFoundException e) {
             return false;
         }
     }
-
-
-    public void addCurrentProductToShoppingBag(){
-
-
-    }
-    public void likeCurrentProduct(){
-
-
-    }
-
-
-    public void fillOrEmptyLikeToolbarDisplayer()
-    {
-
-
-    }
-
-    public void similarProducts()
-    {
-
-
-    }
-
-    public void CurrentProductInformationDisplay()
-
-    {
-
-
-    }
-
-    public void RateOfProductDisplayer(){
-
-    }
-
 }
