@@ -78,7 +78,6 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|left"
                         android:gravity="center"
-                        android:paddingRight="20dp"
                         android:text="@string/number_of_shopping_items"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
@@ -108,52 +107,94 @@
                         android:layout_height="1dp"
                         android:background="@color/background_window"></LinearLayout>
 
-                    <TextView
-                        android:id="@+id/shopping_bag_price_Off_product"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_marginRight="13dp"
                         android:layout_weight="1"
-                        android:gravity="center_horizontal|right"
-                        android:padding="8dp"
-                        android:textColor="@color/black"
-                        android:textSize="14dp" />
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/price"
+                            android:textColor="@color/black"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/shopping_bag_price_Off_product"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal|left"
+                            android:textColor="@color/black"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="@color/background_window"></LinearLayout>
 
-                    <TextView
-                        android:id="@+id/shoppingbag_offer"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_marginRight="13dp"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal|right"
-                        android:padding="8dp"
-                        android:textColor="@color/red"
-                        android:textSize="14dp"
-                        android:visibility="gone" />
-
                     <LinearLayout
                         android:id="@+id/priceOffLinear"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/background_window"
-                        android:orientation="horizontal"
-                        android:visibility="gone"></LinearLayout>
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        android:weightSum="2">
 
-                    <TextView
-                        android:id="@+id/shopping_bag_price_for_you"
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/price_off"
+                            android:textColor="@color/red"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/shoppingbag_offer"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal|left"
+                            android:textColor="@color/red"
+                            android:textSize="14dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/background_window"
+                            android:orientation="horizontal"></LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_marginRight="13dp"
                         android:layout_weight="1"
-                        android:gravity="center_horizontal|right"
-                        android:padding="8dp"
-                        android:textColor="@color/green"
-                        android:textSize="14dp" />
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/price_for_you"
+                            android:textColor="@color/green"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/shopping_bag_price_for_you"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal|left"
+                            android:textColor="@color/green"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"

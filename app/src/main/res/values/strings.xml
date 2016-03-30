@@ -37,7 +37,7 @@
     <string name="finish_shopping">خرید خود را نهایی کنید</string>
     <string name="number_of_shopping_items">تعداد :</string>
     <string name="delete">حذف</string>
-    <string name="peice">قیمت :</string>
+    <string name="price">قیمت :</string>
     <string name="price_off">تخفیف :</string>
     <string name="telegram_not_installed">تلگرام روی گوشی شما نصب نیست</string>
     <string name="goods_info">مشخصات کالا</string>
@@ -88,7 +88,6 @@
     <string name="try_more">دوباره تلاش کنید</string>
     <string name="not_correct">نام کاربری یا رمزعبور صحیح نمی باشد</string>
     <string name="coming_soon">به زودی</string>
-    <string name="price">price</string>
     <string name="brand">brand</string>
     <string name="over10million">بالاتر از 10 ملیون تومان</string>
     <string name="upto10million">تا سقف 10 ملیون تومان</string>
