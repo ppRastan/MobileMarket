@@ -71,7 +71,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         serverConnectionHandler =new ServerConnectionHandler(context);
         spinnerList = new ArrayList<String>();
         this.fillSpinnerItems();
-        selectedItem=new HashMap<Integer,Integer>();
+        selectedItem=new HashMap<>();
 
     }
 
