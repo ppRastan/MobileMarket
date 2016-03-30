@@ -82,6 +82,6 @@
             android:layout_gravity="bottom|left"
             android:layout_margin="@dimen/fab_margin"
             android:src="@mipmap/customer_support"
-            app:layout_behavior="ir.rastanco.mobilemarket.utility.FABScrollBehavior" />
+           />
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>
