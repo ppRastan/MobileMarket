@@ -12,41 +12,39 @@ import java.text.DecimalFormat;
  * this class is singletone
  */
 
-   public class PriceUtility{
-          private String priceInStringFormat;
-          private double amountOfFinalPrice;
-          private String  finalPriceWithComma;
-          private DecimalFormat formatter;
-          private static PriceUtility priceUtility;
-              public static PriceUtility getInstance() {
-        if(priceUtility == null)
-        {
-        priceUtility = new PriceUtility();
+public class PriceUtility {
+    private String priceInStringFormat;
+    private double amountOfFinalPrice;
+    private String finalPriceWithComma;
+    private static DecimalFormat formatter;
+    private static PriceUtility priceUtility;
+
+    public static PriceUtility getInstance() {
+        if (priceUtility == null) {
+            priceUtility = new PriceUtility();
+            formatter = new DecimalFormat("#,###,000");
 
         }
         return priceUtility;
 
-              }
+    }
 
 
-    public String formatPriceCommaSeprated(int price)
-    {   //TODO for samane compare this method with changeFontToYekan (exist in this class) .
-        //I want just one Object of DecimalFormat class as same as i did FontHelper in chageFontToYekan method
+    public String formatPriceCommaSeprated(int price) {
         priceInStringFormat = String.valueOf(price);
         amountOfFinalPrice = Double.parseDouble(priceInStringFormat);
-        formatter = new DecimalFormat("#,###,000");
         finalPriceWithComma = String.valueOf(formatter.format(amountOfFinalPrice));
         return finalPriceWithComma;
-            }
+    }
 
-         public TextView changeFontToYekan(TextView textView , Context context){
-         textView.setTypeface(FontHelper.get(context,"fonts/yekan.ttf"));
-         return textView;
+    public TextView changeFontToYekan(TextView textView, Context context) {
+        textView.setTypeface(FontHelper.get(context, "fonts/yekan.ttf"));
+        return textView;
     }
 
 
     public Button ChangeButtonFont(Button addToBasketBtn, Context context) {
-        addToBasketBtn.setTypeface(FontHelper.get(context,"fonts/yekan.ttf"));
+        addToBasketBtn.setTypeface(FontHelper.get(context, "fonts/yekan.ttf"));
         return addToBasketBtn;
     }
 }

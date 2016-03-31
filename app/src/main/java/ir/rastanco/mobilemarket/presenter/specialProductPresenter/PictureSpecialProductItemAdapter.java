@@ -142,8 +142,8 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         holder.shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                ToolbarHandler.getInstance().generalShare(myContext,allProduct.get(position).getLinkInSite());
+                ToolbarHandler toolbarHandler = new ToolbarHandler();
+                toolbarHandler.generalShare(myContext,allProduct.get(position).getLinkInSite());
             }
         });
         ImageLoader imgLoader = new ImageLoader(myContext,Configuration.getConfig().homeDisplaySizeForShow); // important

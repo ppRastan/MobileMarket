@@ -201,8 +201,8 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.shareToolBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                ToolbarHandler.getInstance().generalShare(shopPresenterActivity,aProduct.getLinkInSite());
+                ToolbarHandler toolbarHandler = new ToolbarHandler();
+                toolbarHandler.generalShare(shopPresenterActivity, aProduct.getLinkInSite());
             }
         });
 

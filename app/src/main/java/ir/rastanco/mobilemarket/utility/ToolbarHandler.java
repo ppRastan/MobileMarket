@@ -17,29 +17,15 @@ import ir.rastanco.mobilemarket.R;
  * Created by ParisaRashidhi on 29/03/2016.
  * this class will handel toolbar icons listener
  */
-public class ToolbarHandler {
+    public class ToolbarHandler {
     private Dialog shareDialog;
     private Button sendBtn;
     private EditText editTextToShare;
     private ImageButton cancelShareDialog;
     private String textToSend;
     private Intent sendIntent;
-    private Activity toolbarHandlerActivity;
-
-    private static ToolbarHandler toolbarHandler;
-
-    public static ToolbarHandler getInstance() {
-        if (toolbarHandler == null) {
-            toolbarHandler = new ToolbarHandler();
-        }
-        return toolbarHandler;
-
-    }
-
 
     public void generalShare(final Activity activity, final String product) {
-
-
         shareDialog = new Dialog(activity);
         shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         shareDialog.setContentView(R.layout.share_alert_dialog);
@@ -77,11 +63,8 @@ public class ToolbarHandler {
     }
 
     public void shareByTelegram(final Activity activity, String aproduct) {
-        this.toolbarHandlerActivity = activity;
         final String appName = "org.telegram.messenger";
         final String visitProductLinkInSite = aproduct;
-        final boolean isAppInstalled = isAppAvailable(appName);
-        if (isAppInstalled) {
             shareDialog = new Dialog(activity);
             shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             shareDialog.setContentView(R.layout.share_alert_dialog);
@@ -114,20 +97,6 @@ public class ToolbarHandler {
             });
             shareDialog.setCancelable(true);
             shareDialog.show();
-        } else {
-            Toast.makeText(activity.getApplicationContext(), activity.getResources().getString(R.string.telegram_not_installed), Toast.LENGTH_SHORT).show();
-        }
-
     }
 
-
-    private boolean isAppAvailable(String appName) {
-        PackageManager pm = toolbarHandlerActivity.getPackageManager();
-        try {
-            pm.getPackageInfo(appName, PackageManager.GET_ACTIVITIES);
-            return true;
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-    }
 }

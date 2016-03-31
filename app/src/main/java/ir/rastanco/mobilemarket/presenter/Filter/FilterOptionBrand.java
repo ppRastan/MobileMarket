@@ -43,8 +43,7 @@ public class FilterOptionBrand extends DialogFragment{
 
         sch = new ServerConnectionHandler(Configuration.getConfig().ShopFragmentContext);
         pageId=getArguments().getInt("pageId");
-        ArrayList<Product> products=new ArrayList<>();
-        products=sch.getProductsOfAParentCategory(pageId);
+        ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);

@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setTabTextColors(Color.BLACK, Color.RED);
         this.changeTabsFont();
 
+
         //DataBase empty in first install Application
         if (Configuration.getConfig().productTableEmptyStatus)
             tabLayout.setTabMode(TabLayout.MODE_FIXED);
