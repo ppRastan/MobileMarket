@@ -43,13 +43,11 @@ public class ShoppingBagActivity extends Activity {
     private ServerConnectionHandler sch;
     private Button confirmShopping;
     private TextView totalPriceTextView;
-    private Security security;
     private ArrayList<Integer> productsId;
     private ListView lvShoppingBag;
     protected void onCreate(Bundle savedInstanceState) {
 
         Configuration.getConfig().ShoppingBagContext =this;
-        security =new Security();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_bag);
         this.shoppingBagRTLizer();

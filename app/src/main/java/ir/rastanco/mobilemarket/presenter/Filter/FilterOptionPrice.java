@@ -1,6 +1,7 @@
 package ir.rastanco.mobilemarket.presenter.Filter;
 
 import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -57,7 +58,7 @@ public class FilterOptionPrice extends DialogFragment {
 
             }
         });
-        ArrayList<String> priceFilter = new ArrayList<String>();
+        ArrayList<String> priceFilter = new ArrayList<>();
         priceFilter= Utilities.getInstance().getPriceFilterTitle();
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
@@ -76,4 +77,6 @@ public class FilterOptionPrice extends DialogFragment {
         });
         return dialogView;
     }
+
+
 }

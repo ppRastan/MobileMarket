@@ -42,7 +42,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private ServerConnectionHandler serverConnectionHandler;
     private Spinner spinnerCounter;
     private String spinnerValueInString;
-    private int spinnerValueInInteger;
     private TextView eachProductPriceTextView;
     private TextView shoppingBagTotalPriceTextView;
     private TextView spinnerTextView;
@@ -54,9 +53,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private TextView nameOfEachProductTextView;
     private ImageButton btnDelete;
     private AlertDialog.Builder alertDialog;
-    private int counterSelected;
     private int finalPrice = 0;
-    private int off = 0;
     private ImageLoader imgLoader;
     private String imageNumberPath;
     private String imageURL;
@@ -69,7 +66,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         selectedProducts = productsId;
         shoppingBagActivityContext =(Activity) context;
         serverConnectionHandler =new ServerConnectionHandler(context);
-        spinnerList = new ArrayList<String>();
+        spinnerList = new ArrayList<>();
         this.fillSpinnerItems();
         selectedItem=new HashMap<>();
 
@@ -103,7 +100,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
             public void onItemSelected(AdapterView<?> parent, View view, int selectedIndex, long id) {
 
                 selectedItem.put(position, selectedIndex);
-                counterSelected = Integer.parseInt(spinnerCounter.getSelectedItem().toString());
                 serverConnectionHandler.changeShoppingNumber(aProduct.getId(), selectedItem.get(position)+1);
                 ObserverShoppingCancel.setShoppingCancel(true);
             }
@@ -199,7 +195,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(shoppingBagActivityContext, R.layout.spinner_item, spinnerList);
         spinnerCounter.setAdapter(adapter);
         spinnerValueInString = spinnerCounter.getSelectedItem().toString();
-        spinnerValueInInteger = Integer.parseInt(spinnerValueInString);
         spinnerTextView = (TextView)spinnerView.findViewById(R.id.spinner_text);
         spinnerTextView = PriceUtility.getInstance().changeFontToYekan(spinnerTextView, shoppingBagActivityContext);
 

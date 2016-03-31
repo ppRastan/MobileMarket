@@ -7,7 +7,6 @@ package ir.rastanco.mobilemarket.presenter.shopPresenter;
 
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -49,9 +48,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private boolean isSelectedForShop=false;
     private ServerConnectionHandler sch;
     private Context myContext;
-    private String textToSend = null;
-    private Dialog shareDialog;
-    private Intent sendIntent;
     private Activity shopPresenterActivity;
     private Drawable defaultPicture;
 

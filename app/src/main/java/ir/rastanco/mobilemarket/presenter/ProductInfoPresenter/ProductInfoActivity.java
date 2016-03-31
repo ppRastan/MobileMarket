@@ -19,7 +19,6 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 public class ProductInfoActivity extends Activity {
 
     private ArrayList<Product> allProducts;
-    //private LayoutInflater inflater;
     private ViewPager viewPager;
     private Intent intent;
     private Bundle productBundle;
