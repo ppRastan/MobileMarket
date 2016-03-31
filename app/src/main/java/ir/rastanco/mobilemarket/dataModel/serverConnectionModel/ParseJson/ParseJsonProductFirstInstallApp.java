@@ -86,7 +86,7 @@ public class ParseJsonProductFirstInstallApp {
         ArrayList<String> imagePath;
 
         dataJsonArr = null;
-        allProduct = new ArrayList<Product>();
+        allProduct = new ArrayList<>();
 
         try {
 
@@ -94,7 +94,7 @@ public class ParseJsonProductFirstInstallApp {
             dataJsonArr = json.getJSONArray("product");
             for (int i = 0; i < dataJsonArr.length(); i++) {
                 JSONObject c = dataJsonArr.getJSONObject(i);
-                imagePath = new ArrayList<String>();
+                imagePath = new ArrayList<>();
                 Product aProduct = new Product();
                 aProduct.setTitle(c.getString("t"));
                 aProduct.setId(Integer.parseInt(c.getString("id")));

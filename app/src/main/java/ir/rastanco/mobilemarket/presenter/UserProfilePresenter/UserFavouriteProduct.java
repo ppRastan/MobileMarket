@@ -32,7 +32,7 @@ public class UserFavouriteProduct extends Activity {
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         Configuration.getConfig().UserProfileContext =this;
         sch=new ServerConnectionHandler(Configuration.getConfig().UserProfileContext);
-        ArrayList<Product> allProductLike=new ArrayList<Product>();
+        ArrayList<Product> allProductLike=new ArrayList<>();
         allProductLike=sch.getAllProductFavourite();
         ListView lsvFavourite=(ListView) findViewById(R.id.lsv_favouriteProduct);
         UserFavouriteProductItemAdapter adapter= new UserFavouriteProductItemAdapter(Configuration.getConfig().UserProfileContext,R.layout.user_profile_like_product_item,allProductLike);
@@ -44,7 +44,7 @@ public class UserFavouriteProduct extends Activity {
                 int productId = sch.getProductIdWithTitle((String) parent.getItemAtPosition(position));
                 Product aProduct = new Product();
                 aProduct = sch.getAProduct(productId);
-                ArrayList<Product> product = new ArrayList<Product>();
+                ArrayList<Product> product = new ArrayList<>();
                 product.add(aProduct);
                 Intent intent = new Intent(Configuration.getConfig().MainActivityContext, ProductInfoActivity.class);
                 intent.putParcelableArrayListExtra("allProduct", product);

@@ -37,7 +37,7 @@ public class UserLastShoppingProduct extends Activity {
 
         Configuration.getConfig().UserLastShoppingContext =this;
         sch=new ServerConnectionHandler(Configuration.getConfig().UserLastShoppingContext);
-        allProductsShop=new ArrayList<ProductShop>();
+        allProductsShop=new ArrayList<>();
         user=new UserInfo();
         user=sch.getUserInfo();
         if (user != null){

@@ -103,7 +103,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
             @Override
             public void onClick(View v) {
 
-            if (isSelectedForShop==false) {
+            if (!isSelectedForShop) {
                 holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
                 isSelectedForShop=true;
                 serverConnectionHandler.addProductToShoppingBag(allProduct.get(position).getId(), 1);
@@ -114,7 +114,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
 
             }
 
-            else if (isSelectedForShop==true){
+            else if (isSelectedForShop){
                 holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
                 isSelectedForShop=false;
                 serverConnectionHandler.deleteAProductShopping(allProduct.get(position).getId());
@@ -166,7 +166,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         PicProductImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Product> newAllProduct=new ArrayList<Product>();
+                ArrayList<Product> newAllProduct=new ArrayList<>();
                 newAllProduct= serverConnectionHandler.getSpecialProduct();
                 Intent intent = new Intent(rowView.getContext(), ProductInfoActivity.class);
                 intent.putParcelableArrayListExtra("allProduct",newAllProduct);

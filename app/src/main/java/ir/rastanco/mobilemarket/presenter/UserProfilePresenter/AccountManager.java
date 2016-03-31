@@ -33,7 +33,7 @@ public class AccountManager extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         Configuration.getConfig().AccountManagerContext=this;
-        accountItems = new ArrayList<String>();
+        accountItems = new ArrayList<>();
         accountItems.add(getResources().getString(R.string.previous_shoped_items));
         accountItems.add(getResources().getString(R.string.liked));
         accountItems.add(getResources().getString(R.string.exit));

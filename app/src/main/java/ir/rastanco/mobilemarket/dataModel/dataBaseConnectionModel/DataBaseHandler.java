@@ -537,7 +537,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 " order by "+ShoppingTable_Column_Primary_Id+" DESC";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        ArrayList<Integer> allProductsId=new ArrayList<Integer>();
+        ArrayList<Integer> allProductsId=new ArrayList<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
@@ -555,7 +555,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         String query="select * from "+TABLE_SHOPPING;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        Map<Integer,Integer> allProductsShop=new HashMap<Integer,Integer>();
+        Map<Integer,Integer> allProductsShop=new HashMap<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
@@ -621,7 +621,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 " and "+CategoryTable_Column_SortOrder+" ASC ";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        allCategories = new ArrayList<Category>();
+        allCategories = new ArrayList<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
@@ -660,7 +660,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 " and "+CategoryTable_Column_SortOrder+" ASC ";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        Map<String,Integer> allCategory = new HashMap<String,Integer>();
+        Map<String,Integer> allCategory = new HashMap<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
@@ -682,7 +682,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 " and "+CategoryTable_Column_SortOrder+" ASC ";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        Map<String,Integer> allCategory = new HashMap<String,Integer>();
+        Map<String,Integer> allCategory = new HashMap<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
@@ -706,7 +706,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 " order by "+CategoryTable_Column_SortOrder+" ASC";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        ArrayList<String> categoryTitles = new ArrayList<String>();
+        ArrayList<String> categoryTitles = new ArrayList<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
@@ -728,7 +728,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 " and "+CategoryTable_Column_SortOrder+" ASC";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        Map<String,Integer> categoryTitles = new HashMap<String,Integer>();
+        Map<String,Integer> categoryTitles = new HashMap<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
@@ -771,7 +771,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 " and "+CategoryTable_Column_SortOrder+" ASC";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        ArrayList<Integer> categoryId = new ArrayList<Integer>();
+        ArrayList<Integer> categoryId = new ArrayList<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
@@ -791,7 +791,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 " order by "+CategoryTable_Column_SortOrder+","+CategoryTable_Column_Category_Id+" ASC";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        ArrayList<String> categoryTitles = new ArrayList<String>();
+        ArrayList<String> categoryTitles = new ArrayList<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
@@ -812,7 +812,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 " order by "+CategoryTable_Column_Category_Id+","+CategoryTable_Column_SortOrder+" Desc";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        Map<Integer,String> categoryTitles = new HashMap<Integer,String>();
+        Map<Integer,String> categoryTitles = new HashMap<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
@@ -833,7 +833,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 " from "+TABLE_PRODUCT;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        Map<Integer,String> productTitle = new HashMap<Integer,String>();
+        Map<Integer,String> productTitle = new HashMap<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
@@ -854,7 +854,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 " order by "+ProductTable_Column_Primary_Key+" Desc";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        allProducts = new ArrayList<Product>();
+        allProducts = new ArrayList<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
@@ -902,7 +902,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 " order by "+ProductTable_Column_Primary_Key+" ASC ";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        allProducts = new ArrayList<Product>();
+        allProducts = new ArrayList<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
@@ -924,7 +924,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 " order by "+ProductTable_Column_Primary_Key+" ASC ";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        allProducts = new ArrayList<Product>();
+        allProducts = new ArrayList<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
@@ -957,7 +957,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     public ArrayList<String> selectAllImagePathAProduct(int productId) {
         String query="select * from "+TABLE_IMAGES_PATH_PRODUCT+
                 " where "+ImagePathProductTable_ForeignKey_ProductId+"=" + productId;
-        ArrayList<String> path = new ArrayList<String>();
+        ArrayList<String> path = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
         if (rs != null) {
@@ -979,7 +979,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
     public ArrayList<ProductOption> selectAllOptionProduct(int productId) {
-        ArrayList<ProductOption> options = new ArrayList<ProductOption>();
+        ArrayList<ProductOption> options = new ArrayList<>();
         String query="select * from "+TABLE_PRODUCT_OPTION+
                 " where "+ProductOptionTable_ForeignKey_ProductId+"=" + productId;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -1009,7 +1009,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         String query="select * from "+TABLE_ARTICLE;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        allArticles = new ArrayList<Article>();
+        allArticles = new ArrayList<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {

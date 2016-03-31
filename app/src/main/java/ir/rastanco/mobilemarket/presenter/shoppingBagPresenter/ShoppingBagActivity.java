@@ -20,7 +20,6 @@ import java.util.Map;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.UserInfo;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.Security;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.MainActivity;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
@@ -54,7 +53,7 @@ public class ShoppingBagActivity extends Activity {
         this.setYekanFont();
         this.closeShoppingBag();
         sch=new ServerConnectionHandler(Configuration.getConfig().ShoppingBagContext);
-        productsId = new ArrayList<Integer>();
+        productsId = new ArrayList<>();
         productsId = sch.getProductShoppingID();
         this.shoppingListViewCreator();
         int finalPrice= 0;
@@ -73,7 +72,7 @@ public class ShoppingBagActivity extends Activity {
         confirmShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<Integer, Integer> shopInfo = new HashMap<Integer, Integer>();
+                Map<Integer, Integer> shopInfo = new HashMap<>();
                 shopInfo = sch.getAllProductShopping();
                 if (shopInfo.size() == 0) {
                     Toast.makeText(Configuration.getConfig().ShoppingBagContext, getResources().getString(R.string.empty_basket),
@@ -108,7 +107,7 @@ public class ShoppingBagActivity extends Activity {
         ObserverShoppingCancel.addShoppingCancelListener(new ObserverShoppingCancelListener() {
             @Override
             public void ShoppingChanged() {
-                Map<Integer, Integer> refreshProductsId = new Hashtable<Integer, Integer>();
+                Map<Integer, Integer> refreshProductsId = new Hashtable<>();
                 refreshProductsId = sch.getAllProductShopping();
                 int finalPrice = 0;
                 int price;

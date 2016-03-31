@@ -20,7 +20,7 @@ public class ParseJsonCategory {
     public ArrayList<Category> getAllCategory(String params) {
 
         dataJsonArr = null;
-        allCategory=new ArrayList<Category>();
+        allCategory=new ArrayList<>();
 
         try {
 

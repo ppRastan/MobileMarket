@@ -9,7 +9,7 @@ import java.util.List;
 public class ObserverSimilarProduct {
 
     private static int similarProduct;
-    private static List<ObserverSimilarProductListener> similarProductListener = new ArrayList<ObserverSimilarProductListener>();
+    private static List<ObserverSimilarProductListener> similarProductListener = new ArrayList<>();
     public static int getSimilarProduct() {
         return similarProduct;
     }

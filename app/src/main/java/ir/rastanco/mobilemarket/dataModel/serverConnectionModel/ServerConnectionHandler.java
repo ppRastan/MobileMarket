@@ -252,7 +252,7 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<Product> getProductsOfAParentCategory(int categoryId){
-        ArrayList<Product> products=new ArrayList<Product>();
+        ArrayList<Product> products=new ArrayList<>();
         ArrayList<Integer> childOfParentCategoryId=getAllChildOfACategoryWithParentCategoryId(categoryId);
         if(childOfParentCategoryId.size()==0)
             products=getProductsOfACategoryNoChild(categoryId);
@@ -267,8 +267,8 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<Product> getAllProductFavourite(){
-        ArrayList<Product> allProduct=new ArrayList<Product>();
-        ArrayList<Product> allProductFavorite=new ArrayList<Product>();
+        ArrayList<Product> allProduct=new ArrayList<>();
+        ArrayList<Product> allProductFavorite=new ArrayList<>();
         allProduct=getAllProductFromTable();
         for (int i=0;i<allProduct.size();i++){
             if (allProduct.get(i).getLike()==1)
@@ -309,7 +309,7 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<ProductOption> getAllProductOptionOfAProduct(int productId, int groupId){
-        ArrayList<ProductOption> options=new ArrayList<ProductOption>();
+        ArrayList<ProductOption> options=new ArrayList<>();
         options=DataBaseHandler.getInstance(context).selectAllOptionProduct(productId);
         if(options.size()==0) {
             String url= Link.getInstance().generateURLForGetProductOptionsOfAProduct(productId,groupId);
@@ -320,7 +320,7 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<String> getAllBrands(ArrayList<Product> products){
-        ArrayList<String> brandsTitle=new ArrayList<String>();
+        ArrayList<String> brandsTitle=new ArrayList<>();
         for (int i=0;i<products.size();i++){
             if(brandsTitle.size()==0 && !products.get(i).getBrandName().equals(""))
                 brandsTitle.add(products.get(i).getBrandName());
@@ -335,7 +335,7 @@ public class ServerConnectionHandler {
                         statusNotExist=true;
                     }
                 }
-                if (statusExist==false && statusNotExist==true && !products.get(i).getBrandName().equals(""))
+                if (!statusExist && statusNotExist && !products.get(i).getBrandName().equals(""))
                     brandsTitle.add(products.get(i).getBrandName());
 
             }
@@ -343,7 +343,7 @@ public class ServerConnectionHandler {
         return brandsTitle;
     }
     public ArrayList<Product> getAllProductOfABrand(ArrayList<Product> products,String brandTitle) {
-        ArrayList<Product> productsOfABrand = new ArrayList<Product>();
+        ArrayList<Product> productsOfABrand = new ArrayList<>();
         for (int i = 0; i < products.size(); i++) {
                if (products.get(i).getBrandName().equals(brandTitle))
                     productsOfABrand.add(products.get(i));
@@ -354,16 +354,16 @@ public class ServerConnectionHandler {
         DataBaseHandler.getInstance(context).updateAProductLike(productId, like);
     }
     public ArrayList<String> searchInProductTitle(){
-        Map<Integer,String> productTitle= new HashMap<Integer,String>();
+        Map<Integer,String> productTitle= new HashMap<>();
         productTitle=DataBaseHandler.getInstance(context).selectAllProductTitle();
-        ArrayList<String> titles=new ArrayList<String>();
+        ArrayList<String> titles=new ArrayList<>();
         for (Map.Entry<Integer, String> entry : productTitle.entrySet()) {
             titles.add(entry.getValue());
         }
         return titles;
     }
     public int getProductIdWithTitle(String title){
-        Map<Integer,String> productTitle= new HashMap<Integer,String>();
+        Map<Integer,String> productTitle= new HashMap<>();
         productTitle=DataBaseHandler.getInstance(context).selectAllProductTitle();
         int productId=0;
         for (Map.Entry<Integer, String> entry : productTitle.entrySet()) {
@@ -382,7 +382,7 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<Product> getProductSmallerThanAPrice(ArrayList<Product> allProduct,int price){
-        ArrayList<Product> productPrice = new ArrayList<Product>();
+        ArrayList<Product> productPrice = new ArrayList<>();
         for (int i = 0; i < allProduct.size(); i++) {
             if (allProduct.get(i).getPrice() <= price)
                 productPrice.add(allProduct.get(i));
@@ -390,7 +390,7 @@ public class ServerConnectionHandler {
         return productPrice;
     }
     public ArrayList<Product> getProductAboveAsAPrice(ArrayList<Product> allProduct,int price){
-        ArrayList<Product> productPrice = new ArrayList<Product>();
+        ArrayList<Product> productPrice = new ArrayList<>();
         for (int i = 0; i < allProduct.size(); i++) {
             if (allProduct.get(i).getPrice() >= price)
                 productPrice.add(allProduct.get(i));
@@ -398,7 +398,7 @@ public class ServerConnectionHandler {
         return productPrice;
     }
     public ArrayList<Product> getProductsAfterFilterCategory(int pageID,int categoryId){
-        ArrayList<Product> products=new ArrayList<Product>();
+        ArrayList<Product> products=new ArrayList<>();
         if (categoryId==0)
             products= getProductsOfAParentCategory(pageID);
         else {
@@ -412,7 +412,7 @@ public class ServerConnectionHandler {
                                                      String filterOptionContent,
                                                      String filterOptionStatus
                                                      ){
-        ArrayList<Product> allProduct=new ArrayList<Product>();
+        ArrayList<Product> allProduct=new ArrayList<>();
         allProduct= getProductsOfAParentCategory(pageId);
         if(filterCategoryId!=0)
              allProduct=getProductsAfterFilterCategory(pageId, filterCategoryId);
@@ -430,7 +430,7 @@ public class ServerConnectionHandler {
                                                      String filterOptionContent,
                                                      String filterOptionStatus
     ){
-        ArrayList<Product> allProduct=new ArrayList<Product>();
+        ArrayList<Product> allProduct=new ArrayList<>();
         allProduct= getProductsOfAParentCategory(pageID);
         if(filterCategoryId != 0)
             allProduct=getProductsAfterFilterCategory(pageID, filterCategoryId);

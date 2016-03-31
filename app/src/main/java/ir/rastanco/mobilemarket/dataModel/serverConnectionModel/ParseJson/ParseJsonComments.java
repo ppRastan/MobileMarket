@@ -17,8 +17,8 @@ public class ParseJsonComments {
     public ArrayList<Comment> getAllCommentAProduct(String params) {
 
         JSONArray dataJsonArr = null;
-        ArrayList<Comment> allComments = new ArrayList<Comment>();
-        allComments = new ArrayList<Comment>();
+        ArrayList<Comment> allComments = new ArrayList<>();
+        allComments = new ArrayList<>();
 
         JSONObject json = null;
         try {

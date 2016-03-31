@@ -43,7 +43,7 @@ public class FilterOptionBrand extends DialogFragment{
 
         sch = new ServerConnectionHandler(Configuration.getConfig().ShopFragmentContext);
         pageId=getArguments().getInt("pageId");
-        ArrayList<Product> products=new ArrayList<Product>();
+        ArrayList<Product> products=new ArrayList<>();
         products=sch.getProductsOfAParentCategory(pageId);
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -59,11 +59,11 @@ public class FilterOptionBrand extends DialogFragment{
                 FilterOptionProduct.getInstance();
             }
         });
-        ArrayList<String> brandFilter = new ArrayList<String>();
+        ArrayList<String> brandFilter = new ArrayList<>();
         brandFilter=sch.getAllBrands(products);
 
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, brandFilter);
         listCategory.setAdapter(adapter);
 

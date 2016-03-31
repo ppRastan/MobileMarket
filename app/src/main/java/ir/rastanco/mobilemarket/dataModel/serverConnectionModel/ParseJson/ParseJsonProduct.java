@@ -94,7 +94,7 @@ public class ParseJsonProduct extends AsyncTask<String, String, String> {
     public void onPostExecute(String jsonString) {
 
         dataJsonArr = null;
-        allProduct=new ArrayList<Product>();
+        allProduct=new ArrayList<>();
 
         try {
 
@@ -103,7 +103,7 @@ public class ParseJsonProduct extends AsyncTask<String, String, String> {
             for (int i = 0; i < dataJsonArr.length(); i++)
             {
                 JSONObject c = dataJsonArr.getJSONObject(i);
-                imagePath=new ArrayList<String>();
+                imagePath=new ArrayList<>();
                 Product aProduct=new Product();
                 aProduct.setTitle(c.getString("t"));
                 aProduct.setId(Integer.parseInt(c.getString("id")));

@@ -192,7 +192,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private void setSpinner() {
         spinnerView = inflater.inflate(R.layout.spinner_item, null);
         spinnerCounter = (Spinner)rowView.findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(shoppingBagActivityContext, R.layout.spinner_item, spinnerList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(shoppingBagActivityContext, R.layout.spinner_item, spinnerList);
         spinnerCounter.setAdapter(adapter);
         spinnerValueInString = spinnerCounter.getSelectedItem().toString();
         spinnerTextView = (TextView)spinnerView.findViewById(R.id.spinner_text);

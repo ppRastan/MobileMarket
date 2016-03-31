@@ -19,7 +19,7 @@ public class ParseJsonArticles {
 
     public ArrayList<Article> getAllProductOptions(String jsonString) {
 
-        articles = new ArrayList<Article>();
+        articles = new ArrayList<>();
         JSONArray dataJsonArr = null;
 
         try {

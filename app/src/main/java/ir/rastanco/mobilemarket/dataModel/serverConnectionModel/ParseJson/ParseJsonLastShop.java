@@ -17,7 +17,7 @@ public class ParseJsonLastShop {
     private ArrayList<ProductShop> productsShop;
 
     public ArrayList<ProductShop> getLastShop(String LastProductShop) {
-        productsShop=new ArrayList<ProductShop>();
+        productsShop=new ArrayList<>();
         JSONObject json = null;
         String LastShop="";
         try {

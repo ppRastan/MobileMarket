@@ -59,7 +59,7 @@ public class ProductOptionActivity extends Activity {
             }
         });
         sch=new ServerConnectionHandler(Configuration.getConfig().ProductOptionContext);
-        options=new ArrayList<ProductOption>();
+        options=new ArrayList<>();
         options=sch.getAllProductOptionOfAProduct(productId, groupId);
         lvProductOption=(ListView)findViewById(R.id.lv_productOption);
         ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.getConfig().ProductOptionContext,
@@ -67,9 +67,9 @@ public class ProductOptionActivity extends Activity {
         lvProductOption.setAdapter(adapter);
 
         ListView lvComment=(ListView)findViewById(R.id.lv_comments);
-        ArrayList<String> commentsAProduct=new ArrayList<String>();
+        ArrayList<String> commentsAProduct=new ArrayList<>();
         commentsAProduct=sch.getContentCommentsAllProduct(productId);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 Configuration.getConfig().ProductOptionContext,
                 android.R.layout.simple_list_item_1,
                 commentsAProduct );

@@ -48,7 +48,7 @@ public class UserFavouriteProductItemAdapter extends ArrayAdapter<Product> {
                 ServerConnectionHandler sch = new ServerConnectionHandler(myContext);
                 Product aProduct = new Product();
                 aProduct = sch.getAProduct(products.get(position).getId());
-                ArrayList<Product> product = new ArrayList<Product>();
+                ArrayList<Product> product = new ArrayList<>();
                 product.add(aProduct);
                 Intent intent = new Intent(Configuration.getConfig().MainActivityContext, ProductInfoActivity.class);
                 intent.putParcelableArrayListExtra("allProduct", product);

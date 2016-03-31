@@ -32,7 +32,7 @@ public class SpecialProductFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         sch=new ServerConnectionHandler(getContext());
-        products=new ArrayList<Product>();
+        products=new ArrayList<>();
         products=sch.getSpecialProduct();
         mainView = inflater.inflate(R.layout.fragment_home, null);
         final ListView productListView = (ListView) mainView.findViewById(R.id.lstv_picProduct);

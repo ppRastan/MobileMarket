@@ -55,7 +55,7 @@ public class FilterCategory extends DialogFragment {
 
         sch = new ServerConnectionHandler(Configuration.getConfig().ShopFragmentContext);
         pageId = getArguments().getInt("pageId");
-        mapCategoryTitleToId=new HashMap<String,Integer>();
+        mapCategoryTitleToId=new HashMap<>();
         mapCategoryTitleToId=sch.MapTitleToIDForAllCategory();
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -74,7 +74,7 @@ public class FilterCategory extends DialogFragment {
         //add filter=All
         subCategoryTitle.add(0,dialogView.getResources().getString(R.string.all));
         final ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
         listCategory.setAdapter(adapter);
 
@@ -94,7 +94,7 @@ public class FilterCategory extends DialogFragment {
 
                     int catId=mapCategoryTitleToId.get(itemSelectedContent);
                     ArrayList<String> subCategoryChildTitle=sch.getTitleOfChildOfACategory(catId);
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                             android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
                     listCategory.setAdapter(adapter);
                     mapCategoryTitleToId =sch.MapTitleToIDForChildOfACategory(catId);

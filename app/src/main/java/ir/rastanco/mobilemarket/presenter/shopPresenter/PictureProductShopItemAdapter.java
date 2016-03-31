@@ -100,11 +100,11 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         rowView = inflater.inflate(R.layout.picture_produc_item_shop, null);
 
         holder.infoP=(TextView) rowView.findViewById(R.id.txt_infoProduct);
-        holder.infoP= PriceUtility.getInstance().changeFontToYekan(holder.infoP, myContext);;
+        holder.infoP= PriceUtility.getInstance().changeFontToYekan(holder.infoP, myContext);
         holder.originalPrice =(TextView) rowView.findViewById(R.id.txt_priceProduct);
         holder.originalPrice =PriceUtility.getInstance().changeFontToYekan(holder.originalPrice,myContext);
         holder.priceForYou = (TextView)rowView.findViewById(R.id.txt_price_for_you);
-        holder.priceForYou=PriceUtility.getInstance().changeFontToYekan(holder.priceForYou,myContext);;
+        holder.priceForYou=PriceUtility.getInstance().changeFontToYekan(holder.priceForYou,myContext);
         holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
         holder.imgP.getLayoutParams().width= Configuration.getConfig().shopDisplaySizeForShow;
         holder.imgP.getLayoutParams().height=Configuration.getConfig().shopDisplaySizeForShow;
@@ -177,7 +177,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
 
-                if (isSelectedForShop==false) {
+                if (!isSelectedForShop) {
                     holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
                     isSelectedForShop=true;
                     sch.addProductToShoppingBag(aProduct.getId(),1);
@@ -187,7 +187,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
 
                 }
 
-                else if (isSelectedForShop==true)
+                else if (isSelectedForShop)
                 {
                     holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
                     isSelectedForShop=false;

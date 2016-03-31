@@ -56,13 +56,13 @@ public class FilterOptionProduct extends DialogFragment {
                 dismiss();
             }
         });
-        ArrayList<String> optionProductFilter = new ArrayList<String>();
+        ArrayList<String> optionProductFilter = new ArrayList<>();
         optionProductFilter.add(dialogView.getResources().getString(R.string.filterPriceTitle));
         optionProductFilter.add(dialogView.getResources().getString(R.string.filterBrandTitle));
         btnCancelAlertDialog.setImageResource(R.mipmap.ic_cancel_dialog);
 
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, optionProductFilter);
         listCategory.setAdapter(adapter);
 
