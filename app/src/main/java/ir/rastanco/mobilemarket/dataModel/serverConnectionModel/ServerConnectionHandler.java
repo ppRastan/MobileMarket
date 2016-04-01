@@ -34,7 +34,7 @@ import ir.rastanco.mobilemarket.utility.Utilities;
  */
 public class ServerConnectionHandler {
 
-    private Context context;
+    private final Context context;
 
     public ServerConnectionHandler(Context myContext){
         context=myContext;
@@ -332,7 +332,7 @@ public class ServerConnectionHandler {
                         statusNotExist=true;
                     }
                 }
-                if (!statusExist && statusNotExist && !products.get(i).getBrandName().equals(""))
+                if (!statusExist && !products.get(i).getBrandName().equals(""))
                     brandsTitle.add(products.get(i).getBrandName());
 
             }

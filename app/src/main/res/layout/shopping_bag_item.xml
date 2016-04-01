@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_window"
@@ -37,10 +38,12 @@
                     android:weightSum="10">
 
                     <ImageView
+                        tools:ignore="NestedWeights"
                         android:id="@+id/shopping__bag_img"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="4"
+                        android:contentDescription="@string/productPicture"
                         android:background="@color/white"
                         android:scaleType="fitXY" />
 
@@ -53,7 +56,6 @@
                         android:lineSpacingExtra="7dp"
                         android:padding="20dp"
                         android:singleLine="false"
-                        android:text="title"
                         android:textColor="@color/black"
                         android:textSize="17dp" />
 
@@ -108,12 +110,14 @@
                         android:background="@color/background_window"/>
 
                     <LinearLayout
+                        tools:ignore="NestedWeights"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:weightSum="2">
 
                         <TextView
+                            tools:ignore="NestedWeights"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -148,13 +152,14 @@
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="0dp"
                             android:layout_weight="1"
                             android:orientation="horizontal"
                             android:weightSum="2">
 
                             <TextView
                                 android:layout_width="0dp"
+                                tools:ignore="NestedWeights"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:text="@string/price_off"
@@ -219,6 +224,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:padding="4dp"
+                    android:contentDescription="@string/delete"
                     android:src="@mipmap/close_small" />
             </LinearLayout>
         </RelativeLayout>

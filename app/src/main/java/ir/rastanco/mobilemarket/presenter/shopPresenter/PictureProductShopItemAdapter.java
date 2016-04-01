@@ -94,11 +94,8 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         final Holder holder=new Holder();
-       holder.mProduct = new Product();
-
-        final View rowView;
-        rowView = inflater.inflate(R.layout.picture_produc_item_shop, null);
-
+        holder.mProduct = new Product();
+        final View rowView = inflater.inflate(R.layout.picture_produc_item_shop, parent , false);
         holder.infoP=(TextView) rowView.findViewById(R.id.txt_infoProduct);
         holder.infoP= PriceUtility.getInstance().changeFontToYekan(holder.infoP, myContext);
         holder.originalPrice =(TextView) rowView.findViewById(R.id.txt_priceProduct);

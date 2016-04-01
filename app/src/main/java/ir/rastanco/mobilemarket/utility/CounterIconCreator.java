@@ -9,7 +9,7 @@ import android.graphics.drawable.LayerDrawable;
 import ir.rastanco.mobilemarket.R;
 
 
-public class CounterIconDisplayer {
+public class CounterIconCreator {
     public static void setBadgeCount(LayerDrawable icon, int count) {
 
         ShoppingCounterIconCreator badge;

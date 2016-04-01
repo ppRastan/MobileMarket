@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -19,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical|center_horizontal"
-            android:text="name"
             android:textColor="@color/black"
             android:textSize="15dp" />
 
@@ -36,6 +36,7 @@
 
             <ImageView
                 android:id="@+id/img_productInfo"
+                android:contentDescription="@string/productFullScreenPhoto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
@@ -45,6 +46,7 @@
                 android:id="@+id/ic_offer_full_screen_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/thisProductHasOffer"
                 android:layout_alignParentEnd="false"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="false"
@@ -90,8 +92,10 @@
         <ImageView
             android:id="@+id/img_ProductQuality"
             android:layout_width="0dp"
+            android:contentDescription="@string/imageQuality"
             android:layout_height="match_parent"
-            android:layout_weight="4" />
+            android:layout_weight="4"
+            tools:ignore="NestedWeights"/>
 
         <TextView
             android:layout_width="0dp"
@@ -118,14 +122,17 @@
             android:id="@+id/img_share_full_screen"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:contentDescription="@string/shareCurrentProduct"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="1"
+            tools:ignore="NestedWeights"
             android:background="@color/white"
             android:src="@mipmap/ic_share_toolbar" />
 
         <ImageButton
             android:id="@+id/telegram_share"
             android:layout_width="0dp"
+            android:contentDescription="@string/shareByTelegram"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="1"
@@ -138,6 +145,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal|center_vertical"
             android:layout_weight="1"
+            android:contentDescription="@string/addProductToFavorits"
             android:background="@color/white"
             android:src="@mipmap/ic_like_toolbar" />
 
@@ -147,6 +155,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal|center_vertical"
             android:layout_weight="1"
+            android:contentDescription="@string/informationOfCurrentProduct"
             android:background="@color/white"
             android:src="@mipmap/information" />
 

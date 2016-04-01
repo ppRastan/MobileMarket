@@ -69,7 +69,7 @@ import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragmentManagement;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.CounterIconDisplayer;
+import ir.rastanco.mobilemarket.utility.CounterIconCreator;
 import ir.rastanco.mobilemarket.utility.Link;
 
 /*created by parisa*/
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             public void OnMyBooleanChanged() {
                 MenuItem item = menu.findItem(R.id.action_notifications);
                 LayerDrawable icon = (LayerDrawable) item.getIcon();
-                CounterIconDisplayer.setBadgeCount(icon, sch.getCountProductShop());
+                CounterIconCreator.setBadgeCount(icon, sch.getCountProductShop());
 
             }
         });
@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem item = menu.findItem(R.id.action_notifications);
         LayerDrawable icon = (LayerDrawable) item.getIcon();
-        CounterIconDisplayer.setBadgeCount(icon, filBasketColor());
+        CounterIconCreator.setBadgeCount(icon, filBasketColor());
 
         MenuItem upgradeItem=menu.findItem(R.id.update);
         Configuration.getConfig().upgradeButtonMenu =upgradeItem;
@@ -378,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
 
     class DownloadFileFromURL extends AsyncTask<String, String, String> {
 
-        private Context context;
+        private final Context context;
         public DownloadFileFromURL(Context mayContext){
             context=mayContext;
         }

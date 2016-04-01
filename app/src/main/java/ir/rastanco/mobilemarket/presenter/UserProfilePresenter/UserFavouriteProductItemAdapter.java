@@ -35,7 +35,7 @@ public class UserFavouriteProductItemAdapter extends ArrayAdapter<Product> {
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
         LayoutInflater inflater = myContext.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.user_profile_like_product_item, null);
+        View rowView = inflater.inflate(R.layout.user_profile_like_product_item, parent , false);
         TextView txtProductName=(TextView)rowView.findViewById(R.id.txt_likeProductTitle);
         txtProductName.setText(products.get(position).getTitle());
         rowView.setOnClickListener(new View.OnClickListener() {

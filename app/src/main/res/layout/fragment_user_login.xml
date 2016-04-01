@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_window"
@@ -36,6 +37,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:padding="10dp"
+                        android:contentDescription="@string/logo"
                         android:src="@drawable/logo" />
 
                 </LinearLayout>
@@ -50,6 +52,7 @@
                     android:weightSum="10">
 
                     <TextView
+                        tools:ignore="NestedWeights"
                         android:id="@+id/userName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -91,6 +94,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
+                        tools:ignore="NestedWeights"
                         android:gravity="center_horizontal|center_vertical"
                         android:paddingRight="5dp"
                         android:text="@string/password"
@@ -152,6 +156,7 @@
                     android:weightSum="10">
 
                     <LinearLayout
+                        tools:ignore="NestedWeights"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"/>

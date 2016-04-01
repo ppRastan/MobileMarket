@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -33,12 +34,12 @@ import ir.rastanco.mobilemarket.utility.Utilities;
 //test connection
 public class ImageLoader {
 
-    MemoryCache memoryCache=new MemoryCache();
-    FileCache fileCache;
-    private Map<ImageView, String> imageViews= Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
-    ExecutorService executorService;
-    private int displayWidth;
-    private Context context;
+    private final MemoryCache memoryCache=new MemoryCache();
+    private final FileCache fileCache;
+    private final Map<ImageView, String> imageViews= Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
+    private final ExecutorService executorService;
+    private final int displayWidth;
+    private final Context context;
 
     public ImageLoader(Context context,int size){
         fileCache=new FileCache(context);
@@ -113,14 +114,15 @@ public class ImageLoader {
             BitmapFactory.Options o2 = new BitmapFactory.Options();
             o2.inSampleSize=scale;
             return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
-        } catch (FileNotFoundException e) {}
+        } catch (FileNotFoundException e) {
+            Log.v("can not load image" , "!");}
         return null;
     }
     //Task for the queue
     private class PhotoToLoad
     {
-        public String url;
-        public ImageView imageView;
+        public final String url;
+        public final ImageView imageView;
         public PhotoToLoad(String u, ImageView i){
             url=u;
             imageView=i;
@@ -128,7 +130,7 @@ public class ImageLoader {
     }
 
     class PhotosLoader implements Runnable {
-        PhotoToLoad photoToLoad;
+        final PhotoToLoad photoToLoad;
         PhotosLoader(PhotoToLoad photoToLoad){
             this.photoToLoad=photoToLoad;
         }
@@ -157,8 +159,8 @@ public class ImageLoader {
     //Used to display bitmap in the UI thread
     class BitmapDisplayer implements Runnable
     {
-        Bitmap bitmap;
-        PhotoToLoad photoToLoad;
+        final Bitmap bitmap;
+        final PhotoToLoad photoToLoad;
         public BitmapDisplayer(Bitmap b, PhotoToLoad p){bitmap=b;photoToLoad=p;}
         public void run() {
             if (imageViewReused(photoToLoad))

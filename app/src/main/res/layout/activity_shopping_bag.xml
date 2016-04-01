@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/decoriss"
@@ -26,8 +27,10 @@
         <ImageButton
             android:id="@+id/close_shopping_page"
             android:layout_width="0dp"
+            android:contentDescription="@string/exitInfoPage"
             android:layout_height="match_parent"
             android:layout_weight="2"
+            tools:ignore="NestedWeights"
             android:background="@color/decoriss"
             android:src="@mipmap/ic_back" />
 
@@ -57,6 +60,7 @@
             android:layout_gravity="right"
             android:layout_marginRight="2dp"
             android:layout_weight="3"
+            tools:ignore="NestedWeights"
             android:gravity="right|center_vertical"
             android:paddingRight="9dp"
             android:singleLine="true"

@@ -13,7 +13,7 @@
         android:layout_marginTop="50dp"
         android:gravity="center"
         android:padding="4dp"
-        android:text="خریدهای گذشته من :" />
+        android:text="@string/previous_shopped_items"/>
 
     <ListView
         android:id="@+id/lv_lastShopping"

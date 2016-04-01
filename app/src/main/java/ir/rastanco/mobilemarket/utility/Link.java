@@ -10,7 +10,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.Security;
  */
 public class Link {
 
-    private static Link link = new Link();
+    private final static Link link = new Link();
 
     public static Link getInstance() {
         if (link != null) {

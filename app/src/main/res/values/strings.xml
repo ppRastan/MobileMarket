@@ -91,4 +91,25 @@
     <string name="up_to5million">تا سقف 5 ملیون تومان</string>
     <string name="up_to1million">تا سقف 1 ملیون تومان</string>
     <string name="password">پسورد :</string>
+    <string name="update">آپدیت دکوریس</string>
+    <string name="search">جست و جو</string>
+    <string name="shoppingBag">سبد خرید</string>
+    <string name="userProfile">پروفایل کاربری</string>
+    <string name="cancel_search_dialuge">cancel_search_dialuge</string>
+    <string name="productFullScreenPhoto">تصویرکامل محصول</string>
+    <string name="thisProductHasOffer">تخفیف</string>
+    <string name="imageQuality">درجه کیفی محصول</string>
+    <string name="shareCurrentProduct">اشتراک گذاری این محصول</string>
+    <string name="shareByTelegram">ارسال با تلگرام</string>
+    <string name="addProductToFavorits">افزودن به علاقه مندی ها</string>
+    <string name="informationOfCurrentProduct">اطلاعات محصول</string>
+    <string name="exitInfoPage">خروج</string>
+    <string name="checkNextProduct">محصول بعدی</string>
+    <string name="previousProduct">محصول قبلی</string>
+    <string name="logo">دکوریس</string>
+    <string name="articles">مقاله</string>
+    <string name="reload">بارگذاری</string>
+    <string name="previousShoppedItems">خریدهای گذشته</string>
+    <string name="accountPicture">تصویر</string>
+    <string name="productPicture">تصویر محصول</string>
 </resources>

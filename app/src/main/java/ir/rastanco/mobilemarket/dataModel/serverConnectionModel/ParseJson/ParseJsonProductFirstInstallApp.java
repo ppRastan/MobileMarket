@@ -24,7 +24,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
  */
 public class ParseJsonProductFirstInstallApp {
 
-    private ServerConnectionHandler serverConnectionHandler;
+    private final ServerConnectionHandler serverConnectionHandler;
 
     public ParseJsonProductFirstInstallApp(Context context){
         serverConnectionHandler=new ServerConnectionHandler(context);

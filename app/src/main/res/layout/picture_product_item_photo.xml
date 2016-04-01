@@ -7,5 +7,6 @@
     <ImageView
         android:id="@+id/imageButton_picProduct"
         android:layout_width="wrap_content"
+        android:contentDescription="@string/productPicture"
         android:layout_height="wrap_content" />
 </LinearLayout>

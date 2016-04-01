@@ -19,7 +19,6 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:gravity="center_vertical"
-    android:layoutDirection="rtl"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:paddingRight="14dp"
     android:textAppearance="?android:attr/textAppearanceListItemSmall" />

@@ -27,7 +27,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 public class ParseJsonProduct extends AsyncTask<String, String, String> {
 
 
-    private Context myContext;
+    private final Context myContext;
 
     private InputStream is = null;
     private String jsonString = "";

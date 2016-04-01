@@ -7,7 +7,7 @@
     android:weightSum="10">
 
     <ImageView
-
+        android:contentDescription="@string/accountPicture"
         android:id="@+id/image_of_list_view"
         android:layout_width="0dp"
         android:layout_height="match_parent"

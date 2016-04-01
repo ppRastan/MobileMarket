@@ -26,7 +26,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     private static DataBaseHandler sInstance;
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "MobileMarket";
-    private Context myContext;
+    private final Context myContext;
     private final String TABLE_USER_INFO = "tblUserInfo";
     private final String TABLE_SETTINGS = "tblSetting";
     private final String TABLE_SHOPPING = "tblShopping";

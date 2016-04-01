@@ -10,7 +10,7 @@ import java.io.File;
  */
 public class FileCache {
 
-    private File cacheDir;
+    private final File cacheDir;
 
     public FileCache(Context context){
         //Find the dir to save cached images

@@ -53,7 +53,7 @@ public class ShopFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View mainView=inflater.inflate(R.layout.fragment_shop, null);
+        View mainView=inflater.inflate(R.layout.fragment_shop, container , false);
         Configuration.getConfig().ShopFragmentContext=getContext();
         myContext=(FragmentActivity)Configuration.getConfig().ShopFragmentContext;
         final int pageId;
