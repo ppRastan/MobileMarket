@@ -47,7 +47,7 @@
         <activity android:name=".presenter.UserProfilePresenter.AccountManager" />
         <activity android:name=".presenter.UserProfilePresenter.UserFavouriteProduct" />
         <activity android:name=".presenter.UserProfilePresenter.UserLastShoppingProduct" />
-
+        <activity android:name=".presenter.UserGuide"/>
         <service android:name=".presenter.Services.NotificationService" />
 
         <receiver android:name=".presenter.Services.UpdateEveryConnectionOk">
