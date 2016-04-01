@@ -88,8 +88,7 @@ public class ShoppingBagActivity extends Activity {
                         ObserverShoppingCancel.setShoppingCancel(true);
                         ObserverShopping.setMyBoolean(false);
                         productsId = sch.getProductShoppingID();
-                        shoppingBagAdapter adapter = new shoppingBagAdapter(Configuration.getConfig().ShoppingBagContext,
-                                R.layout.activity_shopping_bag, productsId);
+                        shoppingBagAdapter adapter = new shoppingBagAdapter(Configuration.getConfig().ShoppingBagContext, productsId);
                         lvShoppingBag.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
 
@@ -125,7 +124,7 @@ public class ShoppingBagActivity extends Activity {
 
     private void shoppingListViewCreator() {
         lvShoppingBag =(ListView)findViewById(R.id.lv_shoppingBag);
-        shoppingBagAdapter adapter= new shoppingBagAdapter(this, R.layout.activity_shopping_bag,productsId);
+        shoppingBagAdapter adapter= new shoppingBagAdapter(this,productsId);
         lvShoppingBag.setAdapter(adapter);
 
     }

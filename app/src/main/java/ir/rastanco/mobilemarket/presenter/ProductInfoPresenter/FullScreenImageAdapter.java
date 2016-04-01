@@ -100,7 +100,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         addToBasketBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sch.addProductToShoppingBag(aProduct.getId(), 1);
+                sch.addProductToShoppingBag(aProduct.getId());
                 Configuration.getConfig().productInfoContext.startActivity(new Intent(Configuration.getConfig().productInfoContext, ShoppingBagActivity.class));
                 ObserverShopping.setMyBoolean(true);
             }

@@ -26,8 +26,8 @@ public class UserFavouriteProductItemAdapter extends ArrayAdapter<Product> {
 
     private final Activity myContext;
     private final ArrayList<Product> products;
-    public UserFavouriteProductItemAdapter(Context context, int resource, ArrayList<Product> allProduct) {
-        super(context, resource, allProduct);
+    public UserFavouriteProductItemAdapter(Context context, ArrayList<Product> allProduct) {
+        super(context, R.layout.user_profile_like_product_item, allProduct);
         myContext = (Activity) context;
         products = allProduct;
     }

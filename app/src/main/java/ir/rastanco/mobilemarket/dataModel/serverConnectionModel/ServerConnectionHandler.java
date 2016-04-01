@@ -518,7 +518,8 @@ public class ServerConnectionHandler {
         ParseJsonLastShop pjl= new ParseJsonLastShop();
         return  pjl.getLastShop(jsonLastShopString);
     }
-    public void addProductToShoppingBag(int productId,int number){
+    public void addProductToShoppingBag(int productId){
+        int number = 1 ;
         DataBaseHandler.getInstance(context).insertShoppingBag(productId, number);
     }
     public Map<Integer,Integer> getAllProductShopping(){

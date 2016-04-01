@@ -177,7 +177,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 if (!isSelectedForShop) {
                     holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
                     isSelectedForShop=true;
-                    sch.addProductToShoppingBag(aProduct.getId(),1);
+                    sch.addProductToShoppingBag(aProduct.getId());
                     myContext.startActivity(new Intent(myContext, ShoppingBagActivity.class));
                     ObserverShopping.setMyBoolean(true);
                     isSelectedForShop = true;

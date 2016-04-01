@@ -49,8 +49,8 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private String imageURL;
     private final Map<Integer,Integer> selectedItem;
 
-    public shoppingBagAdapter(Context context, int resource, ArrayList<Integer> productsId) {
-        super(context, resource, productsId);
+    public shoppingBagAdapter(Context context, ArrayList<Integer> productsId) {
+        super(context ,R.layout.activity_shopping_bag, productsId);
         selectedProducts = productsId;
         shoppingBagActivityContext =(Activity) context;
         serverConnectionHandler =new ServerConnectionHandler(context);

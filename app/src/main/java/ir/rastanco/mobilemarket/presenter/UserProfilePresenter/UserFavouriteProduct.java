@@ -34,7 +34,7 @@ public class UserFavouriteProduct extends Activity {
         sch=new ServerConnectionHandler(Configuration.getConfig().UserProfileContext);
         ArrayList<Product>allProductLike=sch.getAllProductFavourite();
         ListView lsvFavourite=(ListView) findViewById(R.id.lsv_favouriteProduct);
-        UserFavouriteProductItemAdapter adapter= new UserFavouriteProductItemAdapter(Configuration.getConfig().UserProfileContext,R.layout.user_profile_like_product_item,allProductLike);
+        UserFavouriteProductItemAdapter adapter= new UserFavouriteProductItemAdapter(Configuration.getConfig().UserProfileContext,allProductLike);
         lsvFavourite.setAdapter(adapter);
         lsvFavourite.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

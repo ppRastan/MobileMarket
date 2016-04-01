@@ -42,8 +42,8 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
     private final Drawable defaultPicture;
 
 
-    public PictureSpecialProductItemAdapter(Context context, int resource, ArrayList<Product> products) {
-        super(context, resource,products);
+    public PictureSpecialProductItemAdapter(Context context,ArrayList<Product> products) {
+        super(context,R.layout.picture_product_item_home,products);
         myContext=(Activity)context;
         allProduct=products;
         serverConnectionHandler =new ServerConnectionHandler(context);
@@ -106,7 +106,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
             if (!isSelectedForShop) {
                 holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
                 isSelectedForShop=true;
-                serverConnectionHandler.addProductToShoppingBag(allProduct.get(position).getId(), 1);
+                serverConnectionHandler.addProductToShoppingBag(allProduct.get(position).getId());
                 myContext.startActivity(new Intent(myContext,ShoppingBagActivity.class));
                 myContext.overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up);
                 ObserverShopping.setMyBoolean(true);

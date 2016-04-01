@@ -21,8 +21,8 @@ public class ProductInfoItemAdapter extends ArrayAdapter<ProductOption> {
 
     private final ArrayList<ProductOption> options;
     private final Activity myActivity;
-    public ProductInfoItemAdapter(Context context, int resource, ArrayList<ProductOption> allProductOptions) {
-        super(context, resource,allProductOptions);
+    public ProductInfoItemAdapter(Context context, ArrayList<ProductOption> allProductOptions) {
+        super(context, R.layout.activity_product_info,allProductOptions);
         options = allProductOptions;
         myActivity = (Activity) context;
     }

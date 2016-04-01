@@ -13,11 +13,11 @@ import java.lang.reflect.Field;
 
 public final class GlobalFontSetter {
 
-    public static void setDefaultFont(Context context,
-                                      String staticTypefaceFieldName, String fontAssetName) {
+    public static void setDefaultFont(Context context, String fontAssetName) {
+
         final Typeface regular = Typeface.createFromAsset(context.getAssets(),
                 fontAssetName);
-        replaceFont(staticTypefaceFieldName, regular);
+        replaceFont("MONOSPACE", regular);
     }
 
     private static void replaceFont(String staticTypefaceFieldName,

@@ -28,8 +28,8 @@ public class UserLastShoppingProductItemAdapter extends ArrayAdapter<ProductShop
 
     private final Activity myContext;
     private final ArrayList<ProductShop> allProductsShop;
-    public UserLastShoppingProductItemAdapter(Context context, int resource, ArrayList<ProductShop> productsShop) {
-        super(context, resource,productsShop);
+    public UserLastShoppingProductItemAdapter(Context context, ArrayList<ProductShop> productsShop) {
+        super(context,R.layout.last_shopping_item,productsShop);
         myContext=(Activity)context;
         allProductsShop=productsShop;
     }

@@ -50,10 +50,8 @@ public class ProductOptionActivity extends Activity {
         sch=new ServerConnectionHandler(Configuration.getConfig().ProductOptionContext);
         ArrayList<ProductOption> options=sch.getAllProductOptionOfAProduct(productId, groupId);
         ListView lvProductOption=(ListView)findViewById(R.id.lv_productOption);
-        ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.getConfig().ProductOptionContext,
-                R.layout.product_info_item,options);
+        ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.getConfig().ProductOptionContext,options);
         lvProductOption.setAdapter(adapter);
-
         ListView lvComment=(ListView)findViewById(R.id.lv_comments);
         ArrayList<String> commentsAProduct=sch.getContentCommentsAllProduct(productId);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
