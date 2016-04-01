@@ -20,7 +20,6 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterBrand;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterPrice;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.DataFilter;
 
 /**
  * Created by ShaisteS on 1394/11/27.
@@ -49,7 +48,7 @@ public class FilterOptionProduct extends DialogFragment {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
         TextView titleBrand = (TextView)dialogView.findViewById(R.id.title_alert_dialogue_group);
-        titleBrand.setText(Configuration.ShopFragmentContext.getResources().getString(R.string.filter));
+        titleBrand.setText(Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.filter));
         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,15 +91,15 @@ public class FilterOptionProduct extends DialogFragment {
             case 0:
                 //get price Selected from FilterOptionPrice Dialog
                 Bundle bundlePrice = data.getExtras();
-                DataFilter.getInstance().FilterPriceTitle=bundlePrice.getString("priceTitle");
-                DataFilter.getInstance().FilterOption=context.getResources().getString(R.string.price);
+                Configuration.getConfig().FilterPriceTitle=bundlePrice.getString("priceTitle");
+                Configuration.getConfig().FilterOption=context.getResources().getString(R.string.price);
                 ObserverFilterPrice.setAddFilterPrice(true);
                 break;
             case 1:
                 //get brand Selected from FilterOptionBrand Dialog
                 Bundle bundleBrand=data.getExtras();
-                DataFilter.FilterBrand=bundleBrand.getString("brand");
-                DataFilter.FilterOption=context.getResources().getString(R.string.brand);
+                Configuration.getConfig().FilterBrand=bundleBrand.getString("brand");
+                Configuration.getConfig().FilterOption=context.getResources().getString(R.string.brand);
                 ObserverFilterBrand.setAddFilterBrand(true);
                 break;
         }

@@ -103,7 +103,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
         ImageView  imgProduct=(ImageView)rowView.findViewById(R.id.shopping__bag_img);
         TextView nameOfEachProductTextView =(TextView) rowView.findViewById(R.id.shopping_bag_txt_productTitle);
-        ImageLoader imgLoader = new ImageLoader(shoppingBagActivityContext, Configuration.articleDisplaySizeForShow);
+        ImageLoader imgLoader = new ImageLoader(shoppingBagActivityContext, Configuration.getConfig().articleDisplaySizeForShow);
         TextView eachProductPriceTextView =(TextView) rowView.findViewById(R.id.shopping_bag_price_Off_product);
         TextView shoppingBagTotalPriceTextView = (TextView)rowView.findViewById(R.id.shopping_bag_price_for_you);
         TextView shoppingOffer = (TextView)rowView.findViewById(R.id.shoppingBag_offer);
@@ -138,7 +138,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        imageURL = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(), imageNumberPath,Configuration.articleDisplaySizeForURL,Configuration.articleDisplaySizeForURL);
+        imageURL = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(), imageNumberPath,Configuration.getConfig().articleDisplaySizeForURL,Configuration.getConfig().articleDisplaySizeForURL);
         imgLoader.DisplayImage(imageURL, imgProduct);
     }
 

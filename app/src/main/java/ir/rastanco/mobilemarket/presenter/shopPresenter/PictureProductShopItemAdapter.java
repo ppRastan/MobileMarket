@@ -111,7 +111,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder. basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
         holder.shareToolBar = (ImageButton)rowView.findViewById(R.id.share_toolbar_in_main_page);
         holder.likeToolBar = (ImageButton)rowView.findViewById(R.id.empty_like_toolbar);
-        holder.imgLoader= new ImageLoader(myContext,Configuration.shopDisplaySizeForShow);
+        holder.imgLoader= new ImageLoader(myContext,Configuration.getConfig().shopDisplaySizeForShow);
 
         final Product aProduct=allProduct.get(position);
         if (aProduct.getPriceOff()==0 && aProduct.getPrice()!=0){
@@ -137,7 +137,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             holder.originalPrice.setText(myContext.getString(R.string.coming_soon));
         }
 
-        if(Configuration.RTL)
+        if(Configuration.getConfig().RTL)
         {
 
             holder.offerLeft.setVisibility(View.GONE);
@@ -151,7 +151,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         }
 
 
-        if (! Configuration.RTL)
+        if (! Configuration.getConfig().RTL)
         {
             holder.offerRight.setVisibility(View.GONE);
             if(aProduct.getPriceOff() != 0) {
@@ -220,7 +220,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
 
                 if (sch.getAProduct(aProduct.getId()).getLike() == 0) {
 
-                    if(Configuration.userLoginStatus)
+                    if(Configuration.getConfig().userLoginStatus)
                         Toast.makeText(myContext, myContext.getResources().getString(R.string.thanks), Toast.LENGTH_SHORT).show();
                     else
                         Toast.makeText(myContext,myContext.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
@@ -230,7 +230,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                     sch.changeProductLike(aProduct.getId(), 1);
                 } else if (sch.getAProduct(aProduct.getId()).getLike() == 1) {
 
-                    if(!Configuration.userLoginStatus)
+                    if(!Configuration.getConfig().userLoginStatus)
                         Toast.makeText(myContext,myContext.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
 
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);

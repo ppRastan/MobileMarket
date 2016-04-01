@@ -29,13 +29,13 @@ public class ProductInfoActivity extends Activity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new FullScreenImageAdapter(this, allProducts, allProducts.size()));
         viewPager.setCurrentItem(intent.getIntExtra("position", 0));
-        if (Configuration.isTheFirstTimeOpeningThisPage)
+        if (Configuration.getConfig().isTheFirstTimeOpeningThisPage)
             startActivity(new Intent(ProductInfoActivity.this, FullScreenPAgeUserGuider.class));
     }
 
     @Override
     public void onBackPressed() {
-        Configuration.isTheFirstTimeOpeningThisPage = false;
+        Configuration.getConfig().isTheFirstTimeOpeningThisPage = false;
         finish();
     }
 }

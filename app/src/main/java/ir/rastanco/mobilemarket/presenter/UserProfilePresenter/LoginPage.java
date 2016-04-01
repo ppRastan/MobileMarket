@@ -66,16 +66,16 @@ public class LoginPage extends AppCompatActivity {
                         finish();
                     }
                     if (response.get(0).equals("key_expired"))
-                        Toast.makeText(Configuration.getConfig().UserLoginContext,Configuration.UserLoginContext.getResources().getString(R.string.try_more),
+                        Toast.makeText(Configuration.getConfig().UserLoginContext,Configuration.getConfig().UserLoginContext.getResources().getString(R.string.try_more),
                                 Toast.LENGTH_LONG).show();
                     if (response.get(0).equals("user_pass_invalid"))
-                        Toast.makeText(Configuration.getConfig().UserLoginContext,Configuration.UserLoginContext.getResources().getString(R.string.not_correct),
+                        Toast.makeText(Configuration.getConfig().UserLoginContext,Configuration.getConfig().UserLoginContext.getResources().getString(R.string.not_correct),
                                 Toast.LENGTH_LONG).show();
 
                 }
 
                 else
-                    Toast.makeText(Configuration.getConfig().UserLoginContext,Configuration.UserLoginContext.getResources().getString(R.string.checkConnection),
+                    Toast.makeText(Configuration.getConfig().UserLoginContext,Configuration.getConfig().UserLoginContext.getResources().getString(R.string.checkConnection),
                             Toast.LENGTH_LONG).show();
 
 

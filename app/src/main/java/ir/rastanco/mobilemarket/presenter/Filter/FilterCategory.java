@@ -22,7 +22,6 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCategory;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.DataFilter;
 
 
 /**
@@ -64,7 +63,7 @@ public class FilterCategory extends DialogFragment {
             }
         });
         TextView titleOfAlertDialog = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
-        titleOfAlertDialog.setText(Configuration.ShopFragmentContext.getResources().getString(R.string.choose_group));
+        titleOfAlertDialog.setText(Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.choose_group));
         btnCancelAlertDialog.setImageResource(R.mipmap.ic_cancel_dialog);
         ArrayList<String> subCategoryTitle = sch.getTitleOfChildOfACategory(pageId);
 
@@ -118,22 +117,22 @@ public class FilterCategory extends DialogFragment {
                 Bundle bundle = data.getExtras();
                 int subCategorySelected = bundle.getInt("subCategorySelected");
                 //send subCategory selected to SuperAwesomeCardFragment for show
-                DataFilter.getInstance().FilterCategoryId = subCategorySelected;
-                DataFilter.getInstance().FilterCategoryTitle=sch.getACategoryTitleWithCategoryId(subCategorySelected);
+                Configuration.getConfig().FilterCategoryId = subCategorySelected;
+                Configuration.getConfig().FilterCategoryTitle=sch.getACategoryTitleWithCategoryId(subCategorySelected);
                 ObserverFilterCategory.setAddFilter(true);
                 break;
             case 1:
                 Bundle bundleAll = data.getExtras();
                 int selectedAll = bundleAll.getInt("all");
-                DataFilter.getInstance().FilterCategoryTitle =Configuration.ShopFragmentContext.getResources().getString(R.string.all) ;
-                DataFilter.getInstance().FilterCategoryId=selectedAll;
+                Configuration.getConfig().FilterCategoryTitle =Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.all) ;
+                Configuration.getConfig().FilterCategoryId=selectedAll;
                 ObserverFilterCategory.setAddFilter(true);
                 break;
             case 2:
                 Bundle bundleNoChild = data.getExtras();
                 int selectACategoryNoChild = bundleNoChild.getInt("noChild");
-                DataFilter.getInstance().FilterCategoryTitle=sch.getACategoryTitleWithCategoryId(selectACategoryNoChild);
-                DataFilter.getInstance().FilterCategoryId = selectACategoryNoChild;
+                Configuration.getConfig().FilterCategoryTitle=sch.getACategoryTitleWithCategoryId(selectACategoryNoChild);
+                Configuration.getConfig().FilterCategoryId = selectACategoryNoChild;
                 ObserverFilterCategory.setAddFilter(true);
                 break;
         }

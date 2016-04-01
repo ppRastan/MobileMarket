@@ -134,9 +134,9 @@ public class ArticleFragment extends Fragment {
                     // enabling or disabling the refresh layout
                     enable = firstItemVisible && topOfFirstItemVisible;
                     if (enable)
-                        Configuration.telephoneFloatingActionButton.setVisibility(View.VISIBLE);
+                        Configuration.getConfig().telephoneFloatingActionButton.setVisibility(View.VISIBLE);
                     else
-                        Configuration.telephoneFloatingActionButton.setVisibility(View.GONE);
+                        Configuration.getConfig().telephoneFloatingActionButton.setVisibility(View.GONE);
 
                 }
                 srlArticles.setEnabled(enable);

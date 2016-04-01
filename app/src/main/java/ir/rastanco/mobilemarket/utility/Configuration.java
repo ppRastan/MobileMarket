@@ -11,53 +11,49 @@ import android.view.MenuItem;
  * A Singleton Class For Access Static Parameter
  */
 public class Configuration {
-
     private final static Configuration config = new Configuration();
-
     public static Configuration getConfig() {
         if (config != null) {
             return config;
-        } else return new Configuration();
-
+        }
+        else return new Configuration();
     }
 
-    public static boolean userLoginStatus;
-    public static boolean isTheFirstTimeOpeningThisPage;
+    public  boolean userLoginStatus;
+    public  boolean isTheFirstTimeOpeningThisPage;
+    public  String homeDisplaySizeForURL;
+    public  int homeDisplaySizeForShow;
+    public  String shopDisplaySizeForURL;
+    public  int shopDisplaySizeForShow;
+    public  String productInfoHeightForURL;
+    public  int productInfoHeightForShow;
+    public  String articleDisplaySizeForURL;
+    public  int articleDisplaySizeForShow;
+    public  int progressBarSize;
 
-
-    public static String homeDisplaySizeForURL;
-    public static int homeDisplaySizeForShow;
-    public static String shopDisplaySizeForURL;
-    public static int shopDisplaySizeForShow;
-    public static String productInfoHeightForURL;
-    public static int productInfoHeightForShow;
-    public static String articleDisplaySizeForURL;
-    public static int articleDisplaySizeForShow;
-    public static int progressBarSize;
-
-    public static Context mainActivityContext;
-    public static Context productInfoContext;
-    public static Context ApplicationContext;
-    public static Context UserLoginContext;
-    public static Context UserProfileContext;
-    public static Context ShopFragmentContext;
-    public static Context ShoppingBagContext;
-    public static Context UserLastShoppingContext;
-    public static Context ProductOptionContext;
-    public static Context accountManagerContext;
-    public static Context specialProductManagementContext;
-
-    public static MenuItem upgradeButtonMenu;
-
-    public static ViewPager mainPager;
-
-    public static Boolean RTL;
-    public static Boolean productTableEmptyStatus; //true is empty and false is full
-    public static Boolean connectionStatus = false;
-
-    public static int mainTabCount;
-
-    public static FloatingActionButton telephoneFloatingActionButton;
-
+    public  Context mainActivityContext;
+    public  Context productInfoContext;
+    public  Context ApplicationContext;
+    public  Context UserLoginContext;
+    public  Context UserProfileContext;
+    public  Context ShopFragmentContext;
+    public  Context ShoppingBagContext;
+    public  Context UserLastShoppingContext;
+    public  Context ProductOptionContext;
+    public  Context accountManagerContext;
+    public  Context specialProductManagementContext;
+    public  MenuItem upgradeButtonMenu;
+    public  ViewPager mainPager;
+    public  Boolean RTL;
+    public  Boolean productTableEmptyStatus; //true is empty and false is full
+    public  Boolean connectionStatus = false;
+    public  int mainTabCount;
+    public  FloatingActionButton telephoneFloatingActionButton;
+    public  String FilterCategoryTitle;
+    public  int FilterCategoryId;
+    public  String FilterOption;
+    public  String FilterPriceTitle;
+    public  String FilterBrand;
+    public  String FilterAll;
 
 }

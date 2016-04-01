@@ -35,16 +35,16 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
         super(context, resource, allArticles);
         myContext=(Activity)context;
         articles=allArticles;
-        defaultPicture= Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.articleDisplaySizeForShow);
+        defaultPicture= Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().articleDisplaySizeForShow);
     }
 
     public View getView(final int position, View convertView, ViewGroup parent){
         LayoutInflater inflater = myContext.getLayoutInflater();
         final View rowView = inflater.inflate(R.layout.article_item, parent,false);
-        ImageLoader imgLoader = new ImageLoader(getContext(), Configuration.articleDisplaySizeForShow); // important
+        ImageLoader imgLoader = new ImageLoader(getContext(), Configuration.getConfig().articleDisplaySizeForShow); // important
         ImageView articleImage = (ImageView) rowView.findViewById(R.id.img_article);
-        articleImage.getLayoutParams().width=Configuration.articleDisplaySizeForShow;
-        articleImage.getLayoutParams().height=Configuration.articleDisplaySizeForShow;
+        articleImage.getLayoutParams().width=Configuration.getConfig().articleDisplaySizeForShow;
+        articleImage.getLayoutParams().height=Configuration.getConfig().articleDisplaySizeForShow;
         articleImage.setImageDrawable(defaultPicture);
         String articleImageURL= Link.getInstance().generateURLForGetArticleImage(articles.get(position).getImageLink());
         imgLoader.DisplayImage(articleImageURL, articleImage);

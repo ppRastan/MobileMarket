@@ -45,7 +45,7 @@ public class SpecialProductFragmentManagement extends Fragment {
 
         }
 
-        else if (!Configuration.productTableEmptyStatus)
+        else if (!Configuration.getConfig().productTableEmptyStatus)
         {
             SpecialProductFragment specialProductFragment = new SpecialProductFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();

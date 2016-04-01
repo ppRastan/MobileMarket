@@ -37,16 +37,16 @@ public class SplashHandler extends AppCompatActivity {
                         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                         NetworkInfo ni = cm.getActiveNetworkInfo();
                         if (ni != null && ni.isConnected()) {
-                            Configuration.connectionStatus=true;
+                            Configuration.getConfig().connectionStatus=true;
                         }
                         if (sch.emptyUserInfo())
-                            Configuration.userLoginStatus=false; //please login
-                        else Configuration.userLoginStatus=true;//
+                            Configuration.getConfig().userLoginStatus=false; //please login
+                        else Configuration.getConfig().userLoginStatus=true;//
 
                         if (sch.emptyDBProduct())
-                            Configuration.productTableEmptyStatus=true;
+                            Configuration.getConfig().productTableEmptyStatus=true;
                         else
-                            Configuration.productTableEmptyStatus=false;
+                            Configuration.getConfig().productTableEmptyStatus=false;
 
                         wait(delay);
                     }

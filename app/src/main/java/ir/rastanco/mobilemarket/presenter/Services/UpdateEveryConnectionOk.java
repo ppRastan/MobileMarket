@@ -25,10 +25,10 @@ public class UpdateEveryConnectionOk extends BroadcastReceiver {
         if (intent.getExtras() != null) {
             NetworkInfo ni = (NetworkInfo) intent.getExtras().get(ConnectivityManager.EXTRA_NETWORK_INFO);
             if (ni != null && ni.getState() == NetworkInfo.State.CONNECTING) {
-                Configuration.connectionStatus=true;
+                Configuration.getConfig().connectionStatus=true;
                 if (sch.checkNewVersion("http://decoriss.com/app/Version.txt")) {
-                    if (Configuration.upgradeButtonMenu != null && !Configuration.productTableEmptyStatus) {
-                        Configuration.upgradeButtonMenu.setVisible(true);
+                    if (Configuration.getConfig().upgradeButtonMenu != null && !Configuration.getConfig().productTableEmptyStatus) {
+                        Configuration.getConfig().upgradeButtonMenu.setVisible(true);
                     }
                     Intent notificationService = new Intent(context, NotificationService.class);
                     context.startService(notificationService);
@@ -36,7 +36,7 @@ public class UpdateEveryConnectionOk extends BroadcastReceiver {
 
             }
             if (intent.getExtras().getBoolean(ConnectivityManager.EXTRA_NO_CONNECTIVITY, Boolean.FALSE)) {
-                Configuration.connectionStatus=false;
+                Configuration.getConfig().connectionStatus=false;
             }
         }
     }

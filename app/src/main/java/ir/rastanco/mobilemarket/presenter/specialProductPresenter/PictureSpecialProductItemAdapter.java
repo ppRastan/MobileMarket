@@ -70,7 +70,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         //Special Icon
         //ImageButton offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
         ImageButton offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
-        if(Configuration.RTL)
+        if(Configuration.getConfig().RTL)
         {
             //offerLeft.setVisibility(View.GONE);
             if(allProduct.get(position).getPriceOff() != 0)
@@ -133,7 +133,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
                     if (Configuration.getConfig().mainPager.getAdapter().getPageTitle(i).toString().equals(pageTitle))
                         switchToPage=i;
                 }
-                Configuration.mainPager.setCurrentItem(switchToPage);
+                Configuration.getConfig().mainPager.setCurrentItem(switchToPage);
                 int parentId= serverConnectionHandler.getACategoryWithId(allProduct.get(position).getGroupId()).getParentId();
                 ObserverSimilarProduct.setSimilarProduct(parentId);
            }
