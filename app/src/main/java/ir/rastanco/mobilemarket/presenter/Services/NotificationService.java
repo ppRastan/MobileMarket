@@ -31,7 +31,7 @@ public class NotificationService extends Service {
                 .setContentTitle(getApplicationContext().getString(R.string.decoriss))
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentIntent(pendingIntent)
-                .setContentText(getApplicationContext().getString(R.string.update_decoriis))
+                .setContentText(getApplicationContext().getString(R.string.update_decoriss))
                 .setAutoCancel(true).build();
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.notify(9999, notification);

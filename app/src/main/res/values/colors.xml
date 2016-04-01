@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="psts_background_tab_pressed">#1AFFFFFF</color>
+    <color name="psts_background_tab_pressed">#1a383030</color>
     <color name="psts_background_tab_pressed_ripple">#AAFFFFFF</color>
     <color name="background_window">#d7d5d5</color>
     <color name="greenDark">#3E5F22</color>

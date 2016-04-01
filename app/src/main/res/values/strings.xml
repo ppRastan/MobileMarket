@@ -9,14 +9,12 @@
     <string name="fifth_page">مقاله</string>
     <string name="sixth_page">مشاوره</string>
     <string name="search_in_decoriss">جستجو در محصولات</string>
-    <string name="tab1_userProfile">پروفایل کاربری</string>
-    <string name="tab2_userAccunt">حساب کاربری</string>
     <string name="group">دسته</string>
     <string name="all">همه</string>
     <string name="add_filter">نمایش بر اساس</string>
     <string name="user_name">نام کاربری :</string>
     <string name="enter_email_address">آدرس ایمیل خود را وارد کنید</string>
-    <string name="password">پسورد :</string>
+    <string name="pastab2_userAccuntsword">پسورد :</string>
     <string name="enter_password">پسورد خود را وارد کنید</string>
     <string name="enter">ورود</string>
     <string name="login">ثبت نام</string>
@@ -27,7 +25,6 @@
     <string name="share_twitter">share twitter</string>
     <string name="share_facebook">share face book</string>
     <string name="share_sms">share sms</string>
-    <string name="share_email_gmail">share email gmail</string>
     <string name="your_basket">سبد خرید شما</string>
     <string name="total_price">جمع کل خرید</string>
     <string name="toman">تومان</string>
@@ -43,7 +40,7 @@
     <string name="goods_info">مشخصات کالا</string>
     <string name="bye">خرید</string>
     <string name="decoriss">دکوریس</string>
-    <string name="update_decoriis">آپدیت دکوریس</string>
+    <string name="update_decoriss">آپدیت دکوریس</string>
     <string name="pm_to_friend">پیام به دوست</string>
     <string name="share">ارسال</string>
     <string name="text_to_send">متن مورد نظر خود را وارد کنید سپس کلید ارسال را فشار دهید</string>
@@ -82,7 +79,7 @@
     <string name="price_for_you">قیمت برای شما : </string>
     <string name="productPrice">قیمت : </string>
     <string name="currency">تومان</string>
-    <string name="previous_shoped_items">خریدهای گذشته ی من</string>
+    <string name="previous_shopped_items">خریدهای گذشته ی من</string>
     <string name="liked">علاقه مندی ها</string>
     <string name="exit">خروج از حساب کاربری</string>
     <string name="try_more">دوباره تلاش کنید</string>
@@ -90,7 +87,7 @@
     <string name="coming_soon">به زودی</string>
     <string name="brand">brand</string>
     <string name="over10million">بالاتر از 10 ملیون تومان</string>
-    <string name="upto10million">تا سقف 10 ملیون تومان</string>
-    <string name="upto5million">تا سقف 5 ملیون تومان</string>
-    <string name="upto1million">تا سقف 1 ملیون تومان</string>
+    <string name="up_to10million">تا سقف 10 ملیون تومان</string>
+    <string name="up_to5million">تا سقف 5 ملیون تومان</string>
+    <string name="up_to1million">تا سقف 1 ملیون تومان</string>
 </resources>

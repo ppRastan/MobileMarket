@@ -36,20 +36,20 @@ public class Utilities {
 
     public ArrayList<String> getPriceFilterTitle() {
         ArrayList<String> priceFilter = new ArrayList<>();
-        priceFilter.add(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.upto1million));
-        priceFilter.add(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.upto5million));
-        priceFilter.add(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.upto10million));
+        priceFilter.add(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.up_to1million));
+        priceFilter.add(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.up_to5million));
+        priceFilter.add(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.up_to10million));
         priceFilter.add(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.over10million));
         return priceFilter;
     }
 
     public int convertPriceTitleToInt(String priceTitle) {
         int price;
-        if (priceTitle.equals(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.upto1million)))
+        if (priceTitle.equals(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.up_to1million)))
             price = oneMillion;
-        else if (priceTitle.equals(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.upto5million)))
+        else if (priceTitle.equals(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.up_to5million)))
             price = fiveMillion;
-        else if (priceTitle.equals(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.upto10million)))
+        else if (priceTitle.equals(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.up_to10million)))
             price = getAtLeastHighestPrice();
         else
             price = overOneMillion; //1 is sign for price is above

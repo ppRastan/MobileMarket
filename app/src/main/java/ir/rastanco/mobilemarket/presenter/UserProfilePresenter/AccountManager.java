@@ -31,7 +31,7 @@ public class AccountManager extends AppCompatActivity {
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         Configuration.getConfig().accountManagerContext =this;
         ArrayList<String>accountItems = new ArrayList<>();
-        accountItems.add(getResources().getString(R.string.previous_shoped_items));
+        accountItems.add(getResources().getString(R.string.previous_shopped_items));
         accountItems.add(getResources().getString(R.string.liked));
         accountItems.add(getResources().getString(R.string.exit));
         ListView accountListView = (ListView)findViewById(R.id.account_lv);
