@@ -17,11 +17,10 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  *
  */
 public class UpdateEveryConnectionOk extends BroadcastReceiver {
-    private ServerConnectionHandler sch;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        sch = new ServerConnectionHandler(context);
+        ServerConnectionHandler sch = new ServerConnectionHandler(context);
         if (intent.getExtras() != null) {
             NetworkInfo ni = (NetworkInfo) intent.getExtras().get(ConnectivityManager.EXTRA_NETWORK_INFO);
             if (ni != null && ni.getState() == NetworkInfo.State.CONNECTING) {

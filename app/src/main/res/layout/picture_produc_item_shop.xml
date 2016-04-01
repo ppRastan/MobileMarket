@@ -62,7 +62,7 @@
         android:singleLine="true"
         android:textColor="@color/black"
         android:textIsSelectable="false"
-        android:textSize="13dp" />
+        android:textSize="@dimen/textSize" />
     <!--
     price of product
     -->
@@ -74,7 +74,7 @@
         android:background="@color/white"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="13dp" />
+        android:textSize="@dimen/textSize" />
 
     <!--
     price of product for you
@@ -87,7 +87,7 @@
         android:background="@color/white"
         android:gravity="center"
         android:textColor="@color/green"
-        android:textSize="13dp" />
+        android:textSize="@dimen/textSize" />
 
     <LinearLayout
         android:layout_width="match_parent"

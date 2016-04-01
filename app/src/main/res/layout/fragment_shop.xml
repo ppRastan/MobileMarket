@@ -35,7 +35,7 @@
                 android:singleLine="true"
                 android:text="@string/no_product_to_show"
                 android:textColor="@color/orange"
-                android:textSize="13dp"
+                android:textSize="@dimen/textSize"
                 android:visibility="invisible" />
             <!--<android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"

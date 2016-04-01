@@ -19,7 +19,7 @@
             android:padding="5dp"
             android:text="@string/pm_to_friend"
             android:textColor="@color/black"
-            android:textSize="15dp" />
+            android:textSize="@dimen/textSize" />
 
         <ImageButton
             android:id="@+id/close_pm_to_friend"
@@ -50,7 +50,7 @@
         android:maxLines="10"
         android:padding="5dp"
         android:textColor="@color/black"
-        android:textSize="13dp" />
+        android:textSize="@dimen/textSize" />
 
     <Button
         android:id="@+id/send_my_pm"

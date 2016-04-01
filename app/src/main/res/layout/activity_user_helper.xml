@@ -36,7 +36,7 @@
             android:gravity="center"
             android:text="@string/similar_photos"
             android:textColor="#ffffff"
-            android:textSize="18dp" />
+            android:textSize="@dimen/textSize" />
 
         <ImageButton
             android:id="@+id/go_to_left"

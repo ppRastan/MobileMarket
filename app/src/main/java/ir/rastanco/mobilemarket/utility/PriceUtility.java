@@ -13,9 +13,6 @@ import java.text.DecimalFormat;
  */
 
 public class PriceUtility {
-    private String priceInStringFormat;
-    private double amountOfFinalPrice;
-    private String finalPriceWithComma;
     private static DecimalFormat formatter;
     private static PriceUtility priceUtility;
 
@@ -31,9 +28,9 @@ public class PriceUtility {
 
 
     public String formatPriceCommaSeprated(int price) {
-        priceInStringFormat = String.valueOf(price);
-        amountOfFinalPrice = Double.parseDouble(priceInStringFormat);
-        finalPriceWithComma = String.valueOf(formatter.format(amountOfFinalPrice));
+        String priceInStringFormat = String.valueOf(price);
+        double amountOfFinalPrice = Double.parseDouble(priceInStringFormat);
+        String finalPriceWithComma = String.valueOf(formatter.format(amountOfFinalPrice));
         return finalPriceWithComma;
     }
 

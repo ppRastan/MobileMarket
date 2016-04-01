@@ -19,13 +19,13 @@ import ir.rastanco.mobilemarket.R;
 //test
 public class Utilities {
 
-    private int oneMillion = 1000000;
-    private int fiveMillion = 5000000;
-    private int overOneMillion = 10000001;
-    private int numberOfArticlesAfterRefresh = 100;
-    private int atLeastArticleInFirstTime = 25;
-    private int calculatePercent = 100;
-    private String imageQuality = "30";
+    private final int oneMillion = 1000000;
+    private final int fiveMillion = 5000000;
+    private final int overOneMillion = 10000001;
+    private final int numberOfArticlesAfterRefresh = 100;
+    private final int atLeastArticleInFirstTime = 25;
+    private final int calculatePercent = 100;
+    private final String imageQuality = "30";
     private static Utilities utility = new Utilities();
 
     public static Utilities getInstance() {

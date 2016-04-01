@@ -27,11 +27,11 @@ public class AccountManagerItemAdapter extends BaseAdapter{
     private final int [] imageId;
     private static LayoutInflater inflater=null;
     private final ServerConnectionHandler sch;
-    public AccountManagerItemAdapter(AccountManager mainActivity, ArrayList<String> prgmNameList, int[] prgmImages) {
+    public AccountManagerItemAdapter(AccountManager mainActivity, ArrayList<String> programNameList, int[] programImages) {
 
-        result=prgmNameList;
+        result=programNameList;
         context=mainActivity;
-        imageId=prgmImages;
+        imageId=programImages;
         inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         sch=new ServerConnectionHandler(context);
     }

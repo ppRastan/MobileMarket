@@ -46,7 +46,6 @@ public class Security {
     public String encode(String user,String pass,String key){
 
         String hashKey=MD5(Base64(MD5(key)));
-        String hashUserPass=MD5(hashKey+Base64(user+hashKey+pass)+hashKey);
-        return hashUserPass;
+        return MD5(hashKey+Base64(user+hashKey+pass)+hashKey);
     }
 }

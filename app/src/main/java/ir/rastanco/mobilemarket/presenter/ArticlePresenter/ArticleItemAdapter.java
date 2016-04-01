@@ -31,8 +31,8 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
     private final ArrayList<Article> articles ;
     private final Drawable defaultPicture;
 
-    public ArticleItemAdapter(Context context,int resource, ArrayList<Article> allArticles) {
-        super(context, resource, allArticles);
+    public ArticleItemAdapter(Context context, ArrayList<Article> allArticles) {
+        super(context, R.layout.article_item, allArticles);
         myContext=(Activity)context;
         articles=allArticles;
         defaultPicture= Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().articleDisplaySizeForShow);

@@ -7,6 +7,6 @@
     android:gravity="center"
     android:padding="10dp"
     android:textColor="@color/black"
-    android:textSize="12dp"
+    android:textSize="@dimen/textSize"
 
     />

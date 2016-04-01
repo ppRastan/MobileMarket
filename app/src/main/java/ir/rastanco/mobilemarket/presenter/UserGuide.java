@@ -16,7 +16,7 @@ means that it appears once when you run application
  */
 public class UserGuide extends Activity {
 
-    private float x1,x2,y1,y2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +26,7 @@ public class UserGuide extends Activity {
     }
     public boolean onTouchEvent(MotionEvent motionEvent)
     {
+        float x1 = 0,x2,y1 = 0,y2 = 0;
         switch (motionEvent.getAction())
         {
             // when user first touches the screen we get x and y coordinate

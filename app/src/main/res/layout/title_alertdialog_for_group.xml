@@ -20,7 +20,7 @@
             android:layout_gravity="center_horizontal|center_vertical"
             android:layout_weight="3"
             android:textColor="@color/black"
-            android:textSize="15dp" />
+            android:textSize="@dimen/textSize" />
 
         <ImageButton
             android:id="@+id/cancel"

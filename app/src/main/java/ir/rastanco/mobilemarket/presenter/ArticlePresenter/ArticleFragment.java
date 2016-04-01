@@ -79,7 +79,7 @@ public class ArticleFragment extends Fragment {
 
         }
         final ArticleItemAdapter adapter = new ArticleItemAdapter(getActivity(),
-                R.layout.article_item, customArticles);
+                 customArticles);
         articleList.setAdapter(adapter);
         final View finalMainView = mainView;
         articleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -110,7 +110,7 @@ public class ArticleFragment extends Fragment {
 
                         }
                         ArticleItemAdapter newAdapter = new ArticleItemAdapter(getActivity(),
-                                R.layout.article_item, helpArticlesShow);
+                                helpArticlesShow);
                         articleList.setAdapter(newAdapter);
                         newAdapter.notifyDataSetChanged();
                         srlArticles.setRefreshing(false);

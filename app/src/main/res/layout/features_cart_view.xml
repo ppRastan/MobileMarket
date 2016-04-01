@@ -28,7 +28,7 @@
                     android:layout_weight="1"
                     android:text="@string/features"
                     android:textColor="@color/orange"
-                    android:textSize="18dp" />
+                    android:textSize="@dimen/textSize" />
 
                 <ListView
                     android:id="@+id/lv_productOption"
