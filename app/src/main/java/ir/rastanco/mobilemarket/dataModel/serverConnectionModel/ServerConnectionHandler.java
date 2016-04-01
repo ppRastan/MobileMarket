@@ -80,13 +80,12 @@ public class ServerConnectionHandler {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        ArrayList<Category> allCategoryInfo=new ParseJsonCategory().getAllCategory(jsonCategory);
-        return allCategoryInfo;
+//        ArrayList<Category> allCategoryInfo;
+        return new ParseJsonCategory().getAllCategory(jsonCategory);
     }
 
     public Boolean emptyDBCategory(){
-        Boolean empty=DataBaseHandler.getInstance(context).emptyCategoryTable();
-        return empty;
+        return DataBaseHandler.getInstance(context).emptyCategoryTable();
     }
     public void addAllCategoryToTable(ArrayList<Category> allCategories){
         for (int i=0;i<allCategories.size();i++){
@@ -125,8 +124,7 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<Integer> getAllChildOfACategoryWithParentCategoryId(int categoryId){
-        ArrayList<Integer> subCategoriesId=DataBaseHandler.getInstance(context).selectChildIdOfACategory(categoryId);
-        return subCategoriesId;
+        return DataBaseHandler.getInstance(context).selectChildIdOfACategory(categoryId);
     }
 
     public int getParentIdACategoryWithCategoryId(int categoryId){
@@ -172,8 +170,7 @@ public class ServerConnectionHandler {
     //product
 
     public Boolean emptyDBProduct(){
-        Boolean empty=DataBaseHandler.getInstance(context).emptyProductTable();
-        return empty;
+        return DataBaseHandler.getInstance(context).emptyProductTable();
     }
 
     public ArrayList<Product> getAllProductFromTable(){
@@ -445,8 +442,7 @@ public class ServerConnectionHandler {
 
     //article
     public Boolean emptyDBArticle(){
-        Boolean empty=DataBaseHandler.getInstance(context).emptyArticleTable();
-        return empty;
+        return DataBaseHandler.getInstance(context).emptyArticleTable();
     }
     public void addAllArticlesToTable(ArrayList<Article> allArticles){
         for (int i=0;i<allArticles.size();i++)

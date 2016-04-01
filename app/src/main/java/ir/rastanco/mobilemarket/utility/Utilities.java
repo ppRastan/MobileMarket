@@ -92,7 +92,7 @@ public class Utilities {
         int newImageHeight = (int) (imageHeight * ratio);
 
         Bitmap bMap = BitmapFactory.decodeResource(context.getResources(), imageID);
-        return new BitmapDrawable(context.getResources(), getResizedBitmap(bMap, newImageHeight, (int) deviceWidth));
+        return new BitmapDrawable(context.getResources(), getResizedBitmap(bMap, newImageHeight,deviceWidth));
     }
 
     //Resize Bitmap

@@ -14,13 +14,11 @@ import ir.rastanco.mobilemarket.dataModel.Category;
  */
 public class ParseJsonCategory {
 
-    private ArrayList<Category> allCategory;
-    private JSONArray dataJsonArr;
 
     public ArrayList<Category> getAllCategory(String params) {
 
-        dataJsonArr = null;
-        allCategory=new ArrayList<>();
+        JSONArray dataJsonArr = null;
+        ArrayList<Category> allCategory=new ArrayList<>();
 
         try {
 

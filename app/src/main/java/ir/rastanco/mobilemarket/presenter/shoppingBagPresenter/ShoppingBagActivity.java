@@ -13,8 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
 
 import ir.rastanco.mobilemarket.R;

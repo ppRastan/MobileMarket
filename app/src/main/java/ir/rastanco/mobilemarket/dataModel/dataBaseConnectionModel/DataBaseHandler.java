@@ -22,17 +22,11 @@ import ir.rastanco.mobilemarket.dataModel.UserInfo;
  * A Singleton Class for Manage CRUD(Create-Retrieve-Update-Delete) operation
  */
 public class DataBaseHandler  extends SQLiteOpenHelper {
-
-    private Product aProduct;
-    private ArrayList<Category> allCategories;
     private ArrayList<Product> allProducts;
-    private ArrayList<Article> allArticles;
-
     private static DataBaseHandler sInstance;
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "MobileMarket";
     private Context myContext;
-
     private final String TABLE_USER_INFO = "tblUserInfo";
     private final String TABLE_SETTINGS = "tblSetting";
     private final String TABLE_SHOPPING = "tblShopping";
@@ -621,7 +615,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 " and "+CategoryTable_Column_SortOrder+" ASC ";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        allCategories = new ArrayList<>();
+        ArrayList<Category> allCategories = new ArrayList<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
@@ -944,7 +938,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 " where "+ProductTable_Column_Product_Id+"="+productId;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        aProduct= new Product();
+        Product aProduct= new Product();
         if (rs != null) {
             if (rs.moveToFirst()) {
                     aProduct= createAProductFromCursor(rs);
@@ -1009,7 +1003,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         String query="select * from "+TABLE_ARTICLE;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        allArticles = new ArrayList<>();
+        ArrayList<Article> allArticles = new ArrayList<>();
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {

@@ -13,13 +13,9 @@ import ir.rastanco.mobilemarket.dataModel.Article;
  * This Class Parse Articles Information Json String
  */
 public class ParseJsonArticles {
-
-    private ArrayList<Article> articles;
-
-
     public ArrayList<Article> getAllProductOptions(String jsonString) {
 
-        articles = new ArrayList<>();
+        ArrayList<Article> articles = new ArrayList<>();
         JSONArray dataJsonArr = null;
 
         try {

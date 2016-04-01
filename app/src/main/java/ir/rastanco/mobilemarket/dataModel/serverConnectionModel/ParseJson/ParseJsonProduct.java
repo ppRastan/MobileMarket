@@ -32,18 +32,9 @@ public class ParseJsonProduct extends AsyncTask<String, String, String> {
     private InputStream is = null;
     private String jsonString = "";
     private HttpURLConnection connection;
-
-    private ArrayList<Product> allProduct;
-    private JSONArray dataJsonArr;
-    private ArrayList<String> imagePath;
-
-    private ServerConnectionHandler sch;
-
-
     public ParseJsonProduct(Context context){
         myContext=context;
     }
-
     @Override
     protected String doInBackground(String... jsonUrl) {
 
@@ -93,8 +84,8 @@ public class ParseJsonProduct extends AsyncTask<String, String, String> {
 
     public void onPostExecute(String jsonString) {
 
-        dataJsonArr = null;
-        allProduct=new ArrayList<>();
+        JSONArray dataJsonArr = null;
+        ArrayList<Product>  allProduct=new ArrayList<>();
 
         try {
 
@@ -103,7 +94,7 @@ public class ParseJsonProduct extends AsyncTask<String, String, String> {
             for (int i = 0; i < dataJsonArr.length(); i++)
             {
                 JSONObject c = dataJsonArr.getJSONObject(i);
-                imagePath=new ArrayList<>();
+                ArrayList<String> imagePath=new ArrayList<>();
                 Product aProduct=new Product();
                 aProduct.setTitle(c.getString("t"));
                 aProduct.setId(Integer.parseInt(c.getString("id")));
@@ -134,7 +125,7 @@ public class ParseJsonProduct extends AsyncTask<String, String, String> {
                 aProduct.setImagesPath(imagePath);
                 allProduct.add(aProduct);
             }
-            sch=new ServerConnectionHandler(myContext);
+            ServerConnectionHandler sch=new ServerConnectionHandler(myContext);
             sch.addAllProductToTable(allProduct);
         } catch (JSONException e) {
             e.printStackTrace();
