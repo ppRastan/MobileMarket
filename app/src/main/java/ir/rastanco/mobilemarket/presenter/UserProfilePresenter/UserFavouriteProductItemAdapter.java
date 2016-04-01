@@ -24,12 +24,8 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  */
 public class UserFavouriteProductItemAdapter extends ArrayAdapter<Product> {
 
-    private Activity myContext;
-    private ArrayList<Product> products;
-    private LayoutInflater inflater;
-    private View rowView;
-
-
+    private final Activity myContext;
+    private final ArrayList<Product> products;
     public UserFavouriteProductItemAdapter(Context context, int resource, ArrayList<Product> allProduct) {
         super(context, resource, allProduct);
         myContext = (Activity) context;
@@ -38,19 +34,18 @@ public class UserFavouriteProductItemAdapter extends ArrayAdapter<Product> {
 
     public View getView(final int position, View convertView, final ViewGroup parent) {
 
-        inflater = myContext.getLayoutInflater();
-        rowView = inflater.inflate(R.layout.user_profile_like_product_item, null);
+        LayoutInflater inflater = myContext.getLayoutInflater();
+        View rowView = inflater.inflate(R.layout.user_profile_like_product_item, null);
         TextView txtProductName=(TextView)rowView.findViewById(R.id.txt_likeProductTitle);
         txtProductName.setText(products.get(position).getTitle());
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ServerConnectionHandler sch = new ServerConnectionHandler(myContext);
-                Product aProduct = new Product();
-                aProduct = sch.getAProduct(products.get(position).getId());
+                Product aProduct = sch.getAProduct(products.get(position).getId());
                 ArrayList<Product> product = new ArrayList<>();
                 product.add(aProduct);
-                Intent intent = new Intent(Configuration.getConfig().MainActivityContext, ProductInfoActivity.class);
+                Intent intent = new Intent(Configuration.getConfig().mainActivityContext, ProductInfoActivity.class);
                 intent.putParcelableArrayListExtra("allProduct", product);
                 intent.putExtra("position", 0);
                 myContext.startActivity(intent);

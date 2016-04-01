@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
@@ -19,7 +20,7 @@ public class SplashHandler extends AppCompatActivity {
 
     private Thread mSplashThread;
     private ServerConnectionHandler sch;
-    private Integer delay = 3000;
+    private final Integer delay = 3000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class SplashHandler extends AppCompatActivity {
                     }
                 }
                 catch(InterruptedException ex){
+                   Log.v("unable to open splash screen","!");
                 }
                 finish();
                 Intent intent = new Intent();

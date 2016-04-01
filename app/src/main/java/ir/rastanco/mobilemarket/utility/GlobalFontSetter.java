@@ -1,11 +1,13 @@
 package ir.rastanco.mobilemarket.utility;
 
 /*
-created by parisan
+created by parisa
 this class created to set whole application font
  */
+
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 
 import java.lang.reflect.Field;
 
@@ -18,8 +20,8 @@ public final class GlobalFontSetter {
         replaceFont(staticTypefaceFieldName, regular);
     }
 
-    protected static void replaceFont(String staticTypefaceFieldName,
-                                      final Typeface newTypeface) {
+    private static void replaceFont(String staticTypefaceFieldName,
+                                    final Typeface newTypeface) {
         try {
             final Field staticField = Typeface.class
                     .getDeclaredField(staticTypefaceFieldName);
@@ -28,7 +30,9 @@ public final class GlobalFontSetter {
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
+
             e.printStackTrace();
+            Log.v("can not set this font", "!");
         }
     }
 }

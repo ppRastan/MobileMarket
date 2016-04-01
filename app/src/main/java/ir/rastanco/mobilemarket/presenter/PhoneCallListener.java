@@ -17,7 +17,7 @@ public class PhoneCallListener extends PhoneStateListener {
 
     private boolean isPhoneCalling = false;
 
-    String LOG_TAG = "LOGGING 123";
+    private final String LOG_TAG = "LOGGING 123";
 
     @Override
     public void onCallStateChanged(int state, String incomingNumber) {
@@ -29,14 +29,14 @@ public class PhoneCallListener extends PhoneStateListener {
 
         if (TelephonyManager.CALL_STATE_OFFHOOK == state) {
             // active
-            Log.i(LOG_TAG, "OFFHOOK");
+            Log.i(LOG_TAG, "OFF_HOOK");
 
             isPhoneCalling = true;
         }
 
         if (TelephonyManager.CALL_STATE_IDLE == state) {
             // run when class initial and phone call ended,
-            // need detect flag from CALL_STATE_OFFHOOK
+            // need detect flag from CALL_STATE_OFF_HOOK
             Log.i(LOG_TAG, "IDLE");
 
             if (isPhoneCalling) {
@@ -44,12 +44,12 @@ public class PhoneCallListener extends PhoneStateListener {
                 Log.i(LOG_TAG, "restart app");
 
                 // restart app
-                Intent i = Configuration.AplicationContext.getPackageManager()
+                Intent i = Configuration.ApplicationContext.getPackageManager()
                         .getLaunchIntentForPackage(
-                                Configuration.AplicationContext.getPackageName());
+                                Configuration.ApplicationContext.getPackageName());
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.setClass(Configuration.AplicationContext, MainActivity.class);
-                Configuration.AplicationContext.startActivity(i);
+                i.setClass(Configuration.ApplicationContext, MainActivity.class);
+                Configuration.ApplicationContext.startActivity(i);
                 isPhoneCalling = false;
             }
 

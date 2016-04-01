@@ -22,7 +22,7 @@ public class Configuration {
     }
 
     public static boolean userLoginStatus;
-    public static boolean IsTheFirstTimeGoingToThisPage;
+    public static boolean isTheFirstTimeOpeningThisPage;
 
 
     public static String homeDisplaySizeForURL;
@@ -35,27 +35,27 @@ public class Configuration {
     public static int articleDisplaySizeForShow;
     public static int progressBarSize;
 
-   public static Context MainActivityContext;
-    public static Context ProductInfoContext;
-    public static Context AplicationContext;
+    public static Context mainActivityContext;
+    public static Context productInfoContext;
+    public static Context ApplicationContext;
     public static Context UserLoginContext;
     public static Context UserProfileContext;
     public static Context ShopFragmentContext;
     public static Context ShoppingBagContext;
     public static Context UserLastShoppingContext;
     public static Context ProductOptionContext;
-    public static Context AccountManagerContext;
-    public static Context SpecialProductManagementContext;
+    public static Context accountManagerContext;
+    public static Context specialProductManagementContext;
 
-    public static MenuItem UpgradeButtonMenu;
+    public static MenuItem upgradeButtonMenu;
 
-    public static ViewPager MainPager;
+    public static ViewPager mainPager;
 
     public static Boolean RTL;
     public static Boolean productTableEmptyStatus; //true is empty and false is full
-    public static Boolean connectionStatus=false;
+    public static Boolean connectionStatus = false;
 
-    public static int MainTabCount;
+    public static int mainTabCount;
 
     public static FloatingActionButton telephoneFloatingActionButton;
 

@@ -3,13 +3,11 @@ package ir.rastanco.mobilemarket.utility;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import ir.rastanco.mobilemarket.R;
 
@@ -62,9 +60,9 @@ import ir.rastanco.mobilemarket.R;
         shareDialog.show();
     }
 
-    public void shareByTelegram(final Activity activity, String aproduct) {
+    public void shareByTelegram(final Activity activity, String eachProduct) {
         final String appName = "org.telegram.messenger";
-        final String visitProductLinkInSite = aproduct;
+        final String visitProductLinkInSite = eachProduct;
             shareDialog = new Dialog(activity);
             shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             shareDialog.setContentView(R.layout.share_alert_dialog);

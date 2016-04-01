@@ -1,6 +1,6 @@
 package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
 /*
- created by parisa rashidinezhad
+ created by parisa
  this adapter handled favourite items that user added during application
  log off configuration handled
  previous shopped items handled
@@ -22,9 +22,9 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 
 public class AccountManagerItemAdapter extends BaseAdapter{
-    ArrayList <String> result;
-    Context context;
-    int [] imageId;
+    private final ArrayList <String> result;
+    private final Context context;
+    private final int [] imageId;
     private static LayoutInflater inflater=null;
     private ServerConnectionHandler sch;
     public AccountManagerItemAdapter(AccountManager mainActivity, ArrayList<String> prgmNameList, int[] prgmImages) {

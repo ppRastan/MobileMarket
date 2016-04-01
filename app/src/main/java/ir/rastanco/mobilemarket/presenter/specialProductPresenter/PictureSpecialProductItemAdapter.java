@@ -128,12 +128,12 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
             @Override
             public void onClick(View v) {
                 String pageTitle= serverConnectionHandler.getTabTitleForSimilarProduct(allProduct.get(position).getGroupId());
-                int switchToPage=Configuration.getConfig().MainPager.getCurrentItem();
-                for (int i=0;i<Configuration.getConfig().MainPager.getAdapter().getCount();i++){
-                    if (Configuration.getConfig().MainPager.getAdapter().getPageTitle(i).toString().equals(pageTitle))
+                int switchToPage=Configuration.getConfig().mainPager.getCurrentItem();
+                for (int i=0;i<Configuration.getConfig().mainPager.getAdapter().getCount();i++){
+                    if (Configuration.getConfig().mainPager.getAdapter().getPageTitle(i).toString().equals(pageTitle))
                         switchToPage=i;
                 }
-                Configuration.MainPager.setCurrentItem(switchToPage);
+                Configuration.mainPager.setCurrentItem(switchToPage);
                 int parentId= serverConnectionHandler.getACategoryWithId(allProduct.get(position).getGroupId()).getParentId();
                 ObserverSimilarProduct.setSimilarProduct(parentId);
            }
@@ -143,7 +143,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
             @Override
             public void onClick(View v) {
                 ToolbarHandler toolbarHandler = new ToolbarHandler();
-                toolbarHandler.generalShare(myContext,allProduct.get(position).getLinkInSite());
+                toolbarHandler.generalShare(myContext, allProduct.get(position).getLinkInSite());
             }
         });
         ImageLoader imgLoader = new ImageLoader(myContext,Configuration.getConfig().homeDisplaySizeForShow); // important

@@ -8,8 +8,8 @@ import java.text.DecimalFormat;
 
 /**
  * Created by ParisaRashidhi on 17/03/2016.
- * this class set font numbers and formatt for whole application
- * this class is singletone
+ * this class set font numbers and format for whole application
+ * this class is singleton
  */
 
 public class PriceUtility {

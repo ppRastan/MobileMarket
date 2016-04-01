@@ -6,13 +6,14 @@ package ir.rastanco.mobilemarket.utility;
  */
 public class DataFilter {
 
-    private static DataFilter data = new DataFilter();
+    private final static DataFilter data = new DataFilter();
 
     public static DataFilter getInstance() {
         if (data != null) {
             return data;
         } else return new DataFilter();
     }
+
     public static String FilterCategoryTitle;
     public static int FilterCategoryId;
     public static String FilterOption;

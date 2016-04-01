@@ -57,7 +57,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         this.activity = activity;
         this.products=allProducts;
         this.productsSize=allProductSize;
-        sch=new ServerConnectionHandler(Configuration.getConfig().ProductInfoContext);
+        sch=new ServerConnectionHandler(Configuration.getConfig().productInfoContext);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
                 sch.addProductToShoppingBag(aProduct.getId(), 1);
-                Configuration.getConfig().ProductInfoContext.startActivity(new Intent(Configuration.getConfig().ProductInfoContext, ShoppingBagActivity.class));
+                Configuration.getConfig().productInfoContext.startActivity(new Intent(Configuration.getConfig().productInfoContext, ShoppingBagActivity.class));
                 ObserverShopping.setMyBoolean(true);
             }
         });
@@ -194,7 +194,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
         imgProduct.getLayoutParams().width=Configuration.getConfig().homeDisplaySizeForShow;
         imgProduct.getLayoutParams().height=Configuration.getConfig().productInfoHeightForShow;
-        final ImageLoader imgLoader = new ImageLoader(Configuration.getConfig().ProductInfoContext,Configuration.getConfig().homeDisplaySizeForShow); // important
+        final ImageLoader imgLoader = new ImageLoader(Configuration.getConfig().productInfoContext,Configuration.getConfig().homeDisplaySizeForShow); // important
 
         String imageNumberPath;
         if(aProduct.getImagesPath().size()==0)
@@ -217,7 +217,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
             counter=1;
 
         for (int i = counter; i < aProduct.getImagesPath().size(); i++) {
-            final ImageView imageView = new ImageView(Configuration.ProductInfoContext);
+            final ImageView imageView = new ImageView(Configuration.productInfoContext);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Configuration.articleDisplaySizeForShow,Configuration.articleDisplaySizeForShow);
             imageView.setLayoutParams(layoutParams);
             imageView.setId(i - 1);

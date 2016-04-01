@@ -13,7 +13,7 @@ import android.util.DisplayMetrics;
  */
 public class MyCustomLayoutManager extends LinearLayoutManager {
     private static final float MILLISECONDS_PER_INCH = 1000f;
-    private Context mContext;
+    private final Context mContext;
 
     public MyCustomLayoutManager(Context context) {
         super(context);
@@ -40,7 +40,7 @@ public class MyCustomLayoutManager extends LinearLayoutManager {
                     @Override
                     protected float calculateSpeedPerPixel
                     (DisplayMetrics displayMetrics) {
-                        return MILLISECONDS_PER_INCH/displayMetrics.densityDpi;
+                        return MILLISECONDS_PER_INCH / displayMetrics.densityDpi;
                     }
                 };
 

@@ -13,23 +13,24 @@ import android.graphics.drawable.Drawable;
  * Created by ParisaRashidhi on 22/01/2016.
  * this class declares how we can have a circle paint above shopping bag using paint class
  */
-public class ShoppingCounterIconCreator extends Drawable{
-    private float mTextSize;
-    private Paint mBadgePaint;
-    private Paint mTextPaint;
-    private Rect mTxtRect = new Rect();
+public class ShoppingCounterIconCreator extends Drawable {
+
+    private final Paint mBadgePaint;
+    private final Paint mTextPaint;
+    private final Rect mTxtRect = new Rect();
     private String mCount = "";
     private boolean mWillDraw = false;
-    private static ShoppingCounterIconCreator shoppingCounterIconCreator = new ShoppingCounterIconCreator();
+    private final static ShoppingCounterIconCreator shoppingCounterIconCreator = new ShoppingCounterIconCreator();
+
     public static ShoppingCounterIconCreator getInstance() {
         if (shoppingCounterIconCreator != null) {
             return shoppingCounterIconCreator;
-        }
-        else return new ShoppingCounterIconCreator();
+        } else return new ShoppingCounterIconCreator();
     }
-    public ShoppingCounterIconCreator() {
+
+    private ShoppingCounterIconCreator() {
         //سایز عدد روی سبد خرید را مشخص میکند
-        mTextSize = 24F;
+        float mTextSize = 24F;
         mBadgePaint = new Paint();
         //رنگ دایره ی سبد خرید را مشخص میکند که فعلا سبز است
         mBadgePaint.setColor(Color.parseColor("#31a140"));

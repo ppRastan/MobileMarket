@@ -10,8 +10,8 @@ import android.view.View;
  */
 public class RecyclerViewItemDecoration extends RecyclerView.ItemDecoration {
 
-    private int verticalSpacing;
-    private int horizontalSpacing;
+    private final int verticalSpacing;
+    private final int horizontalSpacing;
 
     public RecyclerViewItemDecoration(int verticalSpacing,int horizontalSpacing) {
         this.verticalSpacing = verticalSpacing;

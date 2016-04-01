@@ -27,8 +27,8 @@ public class UpdateEveryConnectionOk extends BroadcastReceiver {
             if (ni != null && ni.getState() == NetworkInfo.State.CONNECTING) {
                 Configuration.connectionStatus=true;
                 if (sch.checkNewVersion("http://decoriss.com/app/Version.txt")) {
-                    if (Configuration.UpgradeButtonMenu != null && !Configuration.productTableEmptyStatus) {
-                        Configuration.UpgradeButtonMenu.setVisible(true);
+                    if (Configuration.upgradeButtonMenu != null && !Configuration.productTableEmptyStatus) {
+                        Configuration.upgradeButtonMenu.setVisible(true);
                     }
                     Intent notificationService = new Intent(context, NotificationService.class);
                     context.startService(notificationService);

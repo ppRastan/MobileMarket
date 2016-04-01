@@ -22,12 +22,6 @@ import ir.rastanco.mobilemarket.utility.Link;
  * This class Show user past purchases from site
  */
 public class UserLastShoppingProduct extends Activity {
-
-    private ServerConnectionHandler sch;
-    private ArrayList<ProductShop> allProductsShop;
-    private UserInfo user;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +30,10 @@ public class UserLastShoppingProduct extends Activity {
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
         Configuration.getConfig().UserLastShoppingContext =this;
-        sch=new ServerConnectionHandler(Configuration.getConfig().UserLastShoppingContext);
-        allProductsShop=new ArrayList<>();
-        user=new UserInfo();
-        user=sch.getUserInfo();
+        ServerConnectionHandler sch=new ServerConnectionHandler(Configuration.getConfig().UserLastShoppingContext);
+        ArrayList<ProductShop> allProductsShop=new ArrayList<>();
+
+        UserInfo user=sch.getUserInfo();
         if (user != null){
             allProductsShop=sch.getLastProductShop(Link.getInstance().generateURLForGetUserLasShopping(user.getUserId()));
         }

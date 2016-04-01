@@ -26,16 +26,8 @@ import ir.rastanco.mobilemarket.utility.PriceUtility;
  */
 public class UserLastShoppingProductItemAdapter extends ArrayAdapter<ProductShop> {
 
-    private Activity myContext;
-    private ArrayList<ProductShop> allProductsShop;
-    private LayoutInflater inflater;
-    private View rowView;
-    private ImageLoader imgLoader;
-    private ImageView picInvoice;
-    private String imageURL;
-    private TextView invoiceNum;
-    private TextView invoiceDate;
-    private TextView invoiceStatus;
+    private final Activity myContext;
+    private final ArrayList<ProductShop> allProductsShop;
     public UserLastShoppingProductItemAdapter(Context context, int resource, ArrayList<ProductShop> productsShop) {
         super(context, resource,productsShop);
         myContext=(Activity)context;
@@ -44,18 +36,18 @@ public class UserLastShoppingProductItemAdapter extends ArrayAdapter<ProductShop
 
     public View getView(final int position, View convertView, ViewGroup parent){
 
-        inflater = myContext.getLayoutInflater();
-        rowView = inflater.inflate(R.layout.last_shopping_item, null);
+        LayoutInflater inflater = myContext.getLayoutInflater();
+        View rowView = inflater.inflate(R.layout.last_shopping_item,parent,false);
 
 
-        imgLoader = new ImageLoader(Configuration.getConfig().UserLastShoppingContext,Configuration.getConfig().homeDisplaySizeForShow); // important
-        picInvoice = (ImageView) rowView.findViewById(R.id.img_invoice);
-        imageURL = allProductsShop.get(position).getInvoiceImageLink();
+        ImageLoader imgLoader = new ImageLoader(Configuration.getConfig().UserLastShoppingContext,Configuration.getConfig().homeDisplaySizeForShow); // important
+        ImageView picInvoice = (ImageView) rowView.findViewById(R.id.img_invoice);
+        String imageURL = allProductsShop.get(position).getInvoiceImageLink();
         imgLoader.DisplayImage(imageURL, picInvoice);
 
-        invoiceNum=(TextView) rowView.findViewById(R.id.txt_invoiceNum);
-        invoiceDate=(TextView)rowView.findViewById(R.id.txt_invoceDate);
-        invoiceStatus=(TextView)rowView.findViewById(R.id.txt_invoiceStatus);
+        TextView invoiceNum=(TextView) rowView.findViewById(R.id.txt_invoiceNum);
+        TextView invoiceDate=(TextView)rowView.findViewById(R.id.txt_invoceDate);
+        TextView invoiceStatus=(TextView)rowView.findViewById(R.id.txt_invoiceStatus);
         invoiceNum = PriceUtility.getInstance().changeFontToYekan(invoiceNum, myContext);
         invoiceDate = PriceUtility.getInstance().changeFontToYekan(invoiceDate, myContext);
         invoiceStatus = PriceUtility.getInstance().changeFontToYekan(invoiceStatus, myContext);

@@ -27,10 +27,9 @@ import ir.rastanco.mobilemarket.utility.Utilities;
 
 public class ArticleItemAdapter extends ArrayAdapter<Article>{
 
-    private Activity myContext;
-    private ArrayList<Article> articles ;
-    private ImageLoader imgLoader;
-    private Drawable defaultPicture;
+    private final Activity myContext;
+    private final ArrayList<Article> articles ;
+    private final Drawable defaultPicture;
 
     public ArticleItemAdapter(Context context,int resource, ArrayList<Article> allArticles) {
         super(context, resource, allArticles);
@@ -41,8 +40,8 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
 
     public View getView(final int position, View convertView, ViewGroup parent){
         LayoutInflater inflater = myContext.getLayoutInflater();
-        final View rowView = inflater.inflate(R.layout.article_item, null);
-        imgLoader = new ImageLoader(getContext(), Configuration.getConfig().articleDisplaySizeForShow); // important
+        final View rowView = inflater.inflate(R.layout.article_item, parent,false);
+        ImageLoader imgLoader = new ImageLoader(getContext(), Configuration.getConfig().articleDisplaySizeForShow); // important
         ImageView articleImage = (ImageView) rowView.findViewById(R.id.img_article);
         articleImage.getLayoutParams().width=Configuration.getConfig().articleDisplaySizeForShow;
         articleImage.getLayoutParams().height=Configuration.getConfig().articleDisplaySizeForShow;

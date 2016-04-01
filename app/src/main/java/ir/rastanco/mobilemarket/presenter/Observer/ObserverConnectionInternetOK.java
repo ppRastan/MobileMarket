@@ -9,7 +9,7 @@ import java.util.List;
 public class ObserverConnectionInternetOK {
 
     private static Boolean changeConnection;
-    private static List<ObserverConnectionInternetOKListener> ChangeConnectionListener=new ArrayList<>();
+    private  static List<ObserverConnectionInternetOKListener> ChangeConnectionListener=new ArrayList<>();
 
     public static Boolean getChangeFragmentParameter() {
         return changeConnection;

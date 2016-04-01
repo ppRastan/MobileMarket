@@ -9,14 +9,14 @@ import android.view.View;
 import ir.rastanco.mobilemarket.R;
 
 /*
-created by parisan
+created by parisa
 this class created to guide user in fullScreen page
 this is visible on first time you enter in activity
 means that it appears once when you run application
  */
 public class UserGuide extends Activity {
 
-    float x1,x2,y1,y2;
+    private float x1,x2,y1,y2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,21 +24,21 @@ public class UserGuide extends Activity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
     }
-    public boolean onTouchEvent(MotionEvent touchevent)
+    public boolean onTouchEvent(MotionEvent motionEvent)
     {
-        switch (touchevent.getAction())
+        switch (motionEvent.getAction())
         {
             // when user first touches the screen we get x and y coordinate
             case MotionEvent.ACTION_DOWN:
             {
-                x1 = touchevent.getX();
-                y1 = touchevent.getY();
+                x1 = motionEvent.getX();
+                y1 = motionEvent.getY();
                 break;
             }
             case MotionEvent.ACTION_UP:
             {
-                x2 = touchevent.getX();
-                y2 = touchevent.getY();
+                x2 = motionEvent.getX();
+                y2 = motionEvent.getY();
 
                 if (x1 < x2)
                 {

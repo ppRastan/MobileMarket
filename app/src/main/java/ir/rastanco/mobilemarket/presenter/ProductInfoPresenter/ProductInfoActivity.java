@@ -26,7 +26,7 @@ public class ProductInfoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.swip_product_gallery);
-        Configuration.getConfig().ProductInfoContext = this;
+        Configuration.getConfig().productInfoContext = this;
         intent = this.getIntent();
         productBundle = new Bundle();
         productBundle = intent.getExtras();
@@ -34,13 +34,13 @@ public class ProductInfoActivity extends Activity {
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new FullScreenImageAdapter(this, allProducts, allProducts.size()));
         viewPager.setCurrentItem(intent.getIntExtra("position", 0));
-        if (Configuration.IsTheFirstTimeGoingToThisPage)
+        if (Configuration.isTheFirstTimeOpeningThisPage)
             startActivity(new Intent(ProductInfoActivity.this, FullScreenPAgeUserGuider.class));
     }
 
     @Override
     public void onBackPressed() {
-        Configuration.IsTheFirstTimeGoingToThisPage = false;
+        Configuration.isTheFirstTimeOpeningThisPage = false;
         finish();
     }
 }

@@ -27,9 +27,6 @@ public class LoginPage extends AppCompatActivity {
     private Security sec;
     private String user;
     private String pass;
-    private Button btnLogin;
-    private Button btnSignUp;
-    private Button btnForgotPass;
     private EditText username;
     private EditText password;
 
@@ -41,9 +38,9 @@ public class LoginPage extends AppCompatActivity {
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         Configuration.getConfig().UserLoginContext =this;
         sch=new ServerConnectionHandler(Configuration.getConfig().UserLoginContext);
-        btnLogin=(Button)findViewById(R.id.btn_login);
-        btnSignUp=(Button)findViewById(R.id.btn_enter);
-        btnForgotPass=(Button)findViewById(R.id.btn_forgot);
+        Button btnLogin=(Button)findViewById(R.id.btn_login);
+        Button btnSignUp=(Button)findViewById(R.id.btn_enter);
+        Button btnForgotPass=(Button)findViewById(R.id.btn_forgot);
         username=(EditText)findViewById(R.id.et_username);
         password=(EditText)findViewById(R.id.et_password);
         sec=new Security();
@@ -56,9 +53,8 @@ public class LoginPage extends AppCompatActivity {
                     user= String.valueOf(username.getText());
                     aUser.setUserEmail(user);
                     pass= String.valueOf(password.getText());
-                    String hashInfo=sec.encode(user,pass,key);
-                    ArrayList<String> response=new ArrayList<>();
-                    response=sch.GetAuthorizeResponse(hashInfo,key);
+                    String hashInfo=sec.encode(user, pass, key);
+                    ArrayList<String>response=sch.GetAuthorizeResponse(hashInfo,key);
                     Log.d("Response:", response.get(0));
                     if(response.get(0).equals("")){
                         aUser.setUserId(Integer.parseInt(response.get(1)));

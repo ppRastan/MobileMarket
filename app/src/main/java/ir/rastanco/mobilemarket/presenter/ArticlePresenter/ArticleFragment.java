@@ -35,7 +35,7 @@ public class ArticleFragment extends Fragment {
     private ArrayList<Article> articles;
     private int leastArticleNumberInFirstTime;
     private int startArticleNumber;
-    private View mainView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -64,7 +64,7 @@ public class ArticleFragment extends Fragment {
             }
         });
 
-        mainView = inflater.inflate(R.layout.fragment_article, null);
+       View  mainView = inflater.inflate(R.layout.fragment_article,container, false);
         articles=sch.getAllArticlesFromTable();
         final ListView articleList = (ListView) mainView.findViewById(R.id.lv_article);
         final int[] startItem = {0};
@@ -126,7 +126,7 @@ public class ArticleFragment extends Fragment {
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
                 boolean enable = false;
-                if (articleList != null && articleList.getChildCount() > 0) {
+                if (articleList.getChildCount() > 0) {
                     // check if the first item of the list is visible
                     boolean firstItemVisible = articleList.getFirstVisiblePosition() == 0;
                     // check if the top of the first item is visible

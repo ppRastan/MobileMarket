@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.LayerDrawable;
@@ -72,24 +73,16 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconDisplayer;
 import ir.rastanco.mobilemarket.utility.Link;
 
-/*created by parisan*/
+/*created by parisa*/
 
 public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
-    private ViewPager viewPager;
     private int exitSafeCounter = 0;
-    private AutoCompleteTextView textToSearch;
-    private ImageButton backButton;
     private ServerConnectionHandler sch;
     private ArrayList<String> mainCategoryTitle;
     private Map<String,Integer> mapTitleToIdMainCategory;
     private LinearLayout toolbarSearch;
-    private PhoneCallListener phoneListener;
-    private TelephonyManager telephonyManager;
-    private FloatingActionButton fab;
-    private Display display;
-    private Point size;
     private int shopCounter;
     private Menu menu;
     private String version;
@@ -106,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle(getString(R.string.action_bar_title));
         toolbar.setTitleTextColor(Color.BLACK);
         setSupportActionBar(toolbar);
-        Pushe.initialize(this, true);//Pushe Alert For Install Google Play
+        Pushe.initialize(this, true);//pushe Alert For Install Google Play
         this.addActionBar();
         this.setFAb();
         this.phoneManager();
@@ -118,13 +111,13 @@ public class MainActivity extends AppCompatActivity {
             public void OnMyBooleanChanged() {
                 MenuItem item = menu.findItem(R.id.action_notifications);
                 LayerDrawable icon = (LayerDrawable) item.getIcon();
-                CounterIconDisplayer.setBadgeCount(Configuration.MainActivityContext,
-                        icon, sch.getCountProductShop());
+                CounterIconDisplayer.setBadgeCount(icon, sch.getCountProductShop());
+
             }
         });
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        Configuration.getConfig().MainPager=viewPager;
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        Configuration.getConfig().mainPager =viewPager;
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
@@ -137,14 +130,14 @@ public class MainActivity extends AppCompatActivity {
             tabLayout.setTabMode(TabLayout.MODE_FIXED);
         if (Configuration.getConfig().productTableEmptyStatus &&
                 Configuration.getConfig().connectionStatus) {
-            getInformationFromServerInFirstRun(Configuration.getConfig().MainActivityContext);
+            getInformationFromServerInFirstRun(Configuration.getConfig().mainActivityContext);
         }
         ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
             @Override
             public void connectionOK() {
                 if (Configuration.getConfig().productTableEmptyStatus &&
                         Configuration.getConfig().connectionStatus) {
-                    getInformationFromServerInFirstRun(Configuration.getConfig().MainActivityContext);
+                    getInformationFromServerInFirstRun(Configuration.getConfig().mainActivityContext);
                 }
             }
         });
@@ -157,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
         for (int j = 0; j < tabsCount; j++) {
 
             ViewGroup vgTab = (ViewGroup) vg.getChildAt(j);
-            int tabChildsCount = vgTab.getChildCount();
-            for (int i = 0; i < tabChildsCount; i++) {
+            int tabChildCount = vgTab.getChildCount();
+            for (int i = 0; i < tabChildCount; i++) {
                 View tabViewChild = vgTab.getChildAt(i);
                 if (tabViewChild instanceof TextView) {
                     ((TextView) tabViewChild).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf"));
@@ -187,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setFAb(){
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         Configuration.getConfig().telephoneFloatingActionButton=fab;
         fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.fab_color)));
         fab.setOnClickListener(new View.OnClickListener() {
@@ -195,10 +188,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setData(Uri.parse(Link.getInstance().telephoneNumber()));
-                if (ActivityCompat.checkSelfPermission(Configuration.getConfig().MainActivityContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(Configuration.getConfig().mainActivityContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                if (ActivityCompat.checkSelfPermission(Configuration.getConfig().MainActivityContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(Configuration.getConfig().mainActivityContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
                 startActivity(callIntent);
@@ -208,29 +201,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void phoneManager() {
-        phoneListener = new PhoneCallListener();
-        telephonyManager = (TelephonyManager) this
+        PhoneCallListener phoneListener = new PhoneCallListener();
+         TelephonyManager telephonyManager = (TelephonyManager) this
                 .getSystemService(Context.TELEPHONY_SERVICE);
         telephonyManager.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
 
     }
 
     private void InitializationParametersNecessary() {
-        Configuration.getConfig().MainActivityContext = this;
-        Configuration.getConfig().AplicationContext =getBaseContext();
-        sch=new ServerConnectionHandler(Configuration.getConfig().MainActivityContext);
-        Configuration.getConfig().IsTheFirstTimeGoingToThisPage = true;
+        Configuration.getConfig().mainActivityContext = this;
+        Configuration.getConfig().ApplicationContext =getBaseContext();
+        sch=new ServerConnectionHandler(Configuration.getConfig().mainActivityContext);
+        Configuration.getConfig().isTheFirstTimeOpeningThisPage = true;
         mainCategoryTitle= new ArrayList<>();
         mapTitleToIdMainCategory=new HashMap<>();
         mainCategoryTitle=sch.getMainCategoryTitle();
         mapTitleToIdMainCategory=sch.MapTitleToIDForMainCategory();
-        Configuration.getConfig().MainTabCount=mainCategoryTitle.size();
+        Configuration.getConfig().mainTabCount =mainCategoryTitle.size();
         shopCounter=sch.getCountProductShop();
     }
 
     private void displayWindow() {
-        display = getWindowManager().getDefaultDisplay();
-        size = new Point();
+        Display display = getWindowManager().getDefaultDisplay();
+         Point size = new Point();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             display.getSize(size);
             Configuration.getConfig().homeDisplaySizeForShow=size.x;
@@ -268,10 +261,10 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem item = menu.findItem(R.id.action_notifications);
         LayerDrawable icon = (LayerDrawable) item.getIcon();
-        CounterIconDisplayer.setBadgeCount(this, icon, filBasketColor());
+        CounterIconDisplayer.setBadgeCount(icon, filBasketColor());
 
         MenuItem upgradeItem=menu.findItem(R.id.update);
-        Configuration.getConfig().UpgradeButtonMenu=upgradeItem;
+        Configuration.getConfig().upgradeButtonMenu =upgradeItem;
         if(!sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer())||
                 Configuration.getConfig().productTableEmptyStatus ||
                 !Configuration.getConfig().connectionStatus)
@@ -293,11 +286,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_contact:
                 if (Configuration.getConfig().userLoginStatus){
 
-                    Intent userProfileIntent=new Intent(Configuration.getConfig().MainActivityContext,AccountManager.class);
+                    Intent userProfileIntent=new Intent(Configuration.getConfig().mainActivityContext,AccountManager.class);
                     this.startActivity(userProfileIntent);
                 }
                 else {
-                    Intent userProfileIntent=new Intent(Configuration.getConfig().MainActivityContext,LoginPage.class);
+                    Intent userProfileIntent=new Intent(Configuration.getConfig().mainActivityContext,LoginPage.class);
                     this.startActivity(userProfileIntent);
                 }
                 break;
@@ -305,8 +298,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_search:
             {
                 final Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
-                backButton = (ImageButton)findViewById(R.id.back_button);
-                textToSearch=(AutoCompleteTextView) findViewById(R.id.text_for_search);
+                ImageButton backButton = (ImageButton)findViewById(R.id.back_button);
+                AutoCompleteTextView textToSearch=(AutoCompleteTextView) findViewById(R.id.text_for_search);
                 toolbarSearch = (LinearLayout)findViewById(R.id.toolbar_search);
                 toolbar.setVisibility(View.GONE);
                 toolbarSearch.setVisibility(View.VISIBLE);
@@ -323,12 +316,11 @@ public class MainActivity extends AppCompatActivity {
                 textToSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        int productId=sch.getProductIdWithTitle((String)parent.getItemAtPosition(position));
-                        Product aProduct=new Product();
-                        aProduct=sch.getAProduct(productId);
+                        int productId=sch.getProductIdWithTitle((String) parent.getItemAtPosition(position));
+                        Product aProduct=sch.getAProduct(productId);
                         ArrayList<Product> product=new ArrayList<>();
                         product.add(aProduct);
-                        Intent intent = new Intent(Configuration.getConfig().MainActivityContext, ProductInfoActivity.class);
+                        Intent intent = new Intent(Configuration.getConfig().mainActivityContext, ProductInfoActivity.class);
                         intent.putParcelableArrayListExtra("allProduct",product);
                         intent.putExtra("position", 0);
                         startActivity(intent);
@@ -372,7 +364,7 @@ public class MainActivity extends AppCompatActivity {
         switch (id) {
             case progress_bar_type: // we set this to 0
                 pDialog = new ProgressDialog(this);
-                pDialog.setMessage(Configuration.getConfig().MainActivityContext.getString(R.string.downloadFile));
+                pDialog.setMessage(Configuration.getConfig().mainActivityContext.getString(R.string.downloadFile));
                 pDialog.setIndeterminate(false);
                 pDialog.setMax(100);
                 pDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -401,9 +393,9 @@ public class MainActivity extends AppCompatActivity {
             int count;
             try {
                 URL url = new URL(f_url[0]);
-                URLConnection conection = url.openConnection();
-                conection.connect();
-                int lenghtOfFile = conection.getContentLength();
+                URLConnection connection = url.openConnection();
+                connection.connect();
+                int fileSize = connection.getContentLength();
                 InputStream input = new BufferedInputStream(url.openStream(),8192);
                 OutputStream output = new FileOutputStream(Environment
                         .getExternalStorageDirectory().toString()
@@ -413,7 +405,7 @@ public class MainActivity extends AppCompatActivity {
                 long total = 0;
                 while ((count = input.read(data)) != -1) {
                     total += count;
-                    publishProgress("" + (int) ((total * 100) / lenghtOfFile));
+                    publishProgress("" + (int) ((total * 100) / fileSize));
                     output.write(data, 0, count);
                 }
                 output.flush();
@@ -448,7 +440,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void checkDbState() {
-        ArrayList<Category> categories = new ArrayList<>();
+        ArrayList<Category> categories;
         if (sch.emptyDBCategory()) {
             categories = sch.getAllCategoryInfoURL(Link.getInstance().generateURLForGetAllCategories());
             sch.addAllCategoryToTable(categories);
@@ -467,7 +459,7 @@ public class MainActivity extends AppCompatActivity {
                     synchronized (this) {
                         // Wait given period of time or exit on touch
                         checkDbState();
-                        jsonString[0] = parseInformationProduct.getProductInfoFromServer(Link.getInstance().generateUrlForGetNewProduct(Configuration.getConfig().MainActivityContext.getString(R.string.firstTimeStamp)));
+                        jsonString[0] = parseInformationProduct.getProductInfoFromServer(Link.getInstance().generateUrlForGetNewProduct(Configuration.getConfig().mainActivityContext.getString(R.string.firstTimeStamp)));
                         wait(10);
                     }
                 } catch (InterruptedException ex) {
@@ -476,7 +468,7 @@ public class MainActivity extends AppCompatActivity {
                 String timeStamp = parseInformationProduct.addProductToTable(jsonString[0]);
                 String lastVersionInServer=sch.getLastVersionInServer(Link.getInstance().generateURLForGetLastVersionAppInServer());
                 sch.setSetting(timeStamp,
-                        Configuration.getConfig().MainActivityContext.getResources().getString(R.string.firstArticleNumber),
+                        Configuration.getConfig().mainActivityContext.getResources().getString(R.string.firstArticleNumber),
                         lastVersionInServer,
                         timeStamp);
                 Configuration.getConfig().productTableEmptyStatus = false;

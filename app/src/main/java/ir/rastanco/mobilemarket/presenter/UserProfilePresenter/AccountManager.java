@@ -18,10 +18,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 
 
 public class AccountManager extends AppCompatActivity {
-
-    private ListView accountListView;
-    private ArrayList<String>accountItems;
-    public static int [] listViewImages ={
+    private final static int [] listViewImages ={
             R.mipmap.previous_invoices,
             R.mipmap.favorites,
             R.mipmap.exit};
@@ -32,12 +29,12 @@ public class AccountManager extends AppCompatActivity {
         setContentView(R.layout.activity_account_manager);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        Configuration.getConfig().AccountManagerContext=this;
-        accountItems = new ArrayList<>();
+        Configuration.getConfig().accountManagerContext =this;
+        ArrayList<String>accountItems = new ArrayList<>();
         accountItems.add(getResources().getString(R.string.previous_shoped_items));
         accountItems.add(getResources().getString(R.string.liked));
         accountItems.add(getResources().getString(R.string.exit));
-        accountListView = (ListView)findViewById(R.id.account_lv);
+        ListView accountListView = (ListView)findViewById(R.id.account_lv);
         accountListView.setAdapter(new AccountManagerItemAdapter(this, accountItems ,listViewImages));
     }
 
