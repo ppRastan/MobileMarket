@@ -32,7 +32,7 @@ public class ProductInfoItemAdapter extends ArrayAdapter<ProductOption> {
         LayoutInflater inflater = myActivity.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.product_info_item,parent,false);
         TextView txtTitle=(TextView)rowView.findViewById(R.id.txt_title);
-        txtTitle.setText(options.get(position).getTitle()+myActivity.getResources().getString(R.string.is)+options.get(position).getValue() );
+        txtTitle.setText(myActivity.getResources().getString(R.string.titleOfCurrentProduct, options.get(position).getTitle() , options.get(position).getValue()));
         return rowView;
     }
 }

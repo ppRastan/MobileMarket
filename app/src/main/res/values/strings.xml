@@ -59,7 +59,7 @@
     <string name="filter">براساس</string>
     <string name="choose_brand">انتخاب برند</string>
     <string name="choose_price">انتخاب محدوده قیمت</string>
-    <string name="price_for_you">قیمت برای شما : </string>
+    <string name="price_for_you">قیمت برای شما :</string>
     <string name="productPrice">قیمت : </string>
     <string name="currency">تومان</string>
     <string name="previous_shopped_items">خریدهای گذشته ی من</string>
@@ -95,6 +95,8 @@
     <string name="previousShoppedItems">خریدهای گذشته</string>
     <string name="accountPicture">تصویر</string>
     <string name="productPicture">تصویر محصول</string>
-    <string name="is">\" : \"</string>
-    <string name="space">\"  \"</string>
+    <string name="titleOfCurrentProduct">%1$s : %1$s</string>
+    <string name="shoppingBagAdapterPriceForYou">%1$s  تومان </string>
+    <string name="FullScreenImageAdapterproductPrice">قیمت برای شما : %1$s  تومان</string>
+    <string name="FullScreenImageAdapterproductOriginalPrice">قیمت : %1$s  تومان</string>
 </resources>
