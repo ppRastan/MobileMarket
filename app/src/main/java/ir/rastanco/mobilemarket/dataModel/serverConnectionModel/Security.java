@@ -13,13 +13,13 @@ public class Security {
 
     private String MD5(String information)
     {
-        String informationToHash =information;
+
         String generatedInformation = null;
         try {
             // Create MessageDigest instance for MD5
             MessageDigest md = MessageDigest.getInstance("MD5");
             //Add password bytes to digest
-            md.update(informationToHash.getBytes());
+            md.update(information.getBytes());
             //Get the hash's bytes
             byte[] bytes = md.digest();
             //This bytes[] has bytes in decimal format;

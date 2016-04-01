@@ -5,22 +5,22 @@
         android:id="@+id/update"
         android:icon="@mipmap/upload_star_icon"
         android:title="@string/update"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_search"
         android:icon="@mipmap/ic_search"
         android:title="@string/search"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_notifications"
         android:icon="@drawable/ic_menu_notifications"
         android:title="@string/shoppingBag"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_contact"
         android:icon="@mipmap/ic_person"
         android:title="@string/userProfile"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
 </menu>

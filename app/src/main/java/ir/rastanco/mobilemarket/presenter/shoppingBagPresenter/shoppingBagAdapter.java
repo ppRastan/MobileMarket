@@ -117,15 +117,15 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
             int finalPrice = Utilities.getInstance().calculatePriceOffProduct(aProduct.getPrice(), aProduct.getPriceOff());
             Integer eachProductOfferPrice = aProduct.getPrice()-finalPrice;
             priceOffLinear.setVisibility(View.VISIBLE);
-            shoppingOffer.setText(PriceUtility.getInstance().formatPriceCommaSeprated(eachProductOfferPrice) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
-            eachProductPriceTextView.setText(PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice()) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
-            shoppingBagTotalPriceTextView.setText(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
+            shoppingOffer.setText(PriceUtility.getInstance().formatPriceCommaSeprated(eachProductOfferPrice) +shoppingBagActivityContext.getResources().getString(R.string.space) + shoppingBagActivityContext.getResources().getString(R.string.toman));
+            eachProductPriceTextView.setText(PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice()) +shoppingBagActivityContext.getResources().getString(R.string.space)+ shoppingBagActivityContext.getResources().getString(R.string.toman));
+            shoppingBagTotalPriceTextView.setText(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice) +shoppingBagActivityContext.getResources().getString(R.string.space)+ shoppingBagActivityContext.getResources().getString(R.string.toman));
 
         }
         else {
             int finalPrice=aProduct.getPrice();
-            eachProductPriceTextView.setText(PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice()) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
-            shoppingBagTotalPriceTextView.setText(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice) + " " + shoppingBagActivityContext.getResources().getString(R.string.toman));
+            eachProductPriceTextView.setText(PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice()) + shoppingBagActivityContext.getResources().getString(R.string.space) + shoppingBagActivityContext.getResources().getString(R.string.toman));
+            shoppingBagTotalPriceTextView.setText(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice) +shoppingBagActivityContext.getResources().getString(R.string.space)+ shoppingBagActivityContext.getResources().getString(R.string.toman));
         }
 
         if(aProduct.getImagesPath().size()==0)

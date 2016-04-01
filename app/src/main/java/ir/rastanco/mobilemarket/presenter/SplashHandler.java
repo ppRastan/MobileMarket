@@ -52,7 +52,7 @@ public class SplashHandler extends AppCompatActivity {
                     }
                 }
                 catch(InterruptedException ex){
-                   Log.v("unable to open splash screen","!");
+                   Log.v("unable to open splash","!");
                 }
                 finish();
                 Intent intent = new Intent();

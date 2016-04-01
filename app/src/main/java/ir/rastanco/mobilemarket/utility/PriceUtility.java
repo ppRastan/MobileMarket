@@ -30,8 +30,7 @@ public class PriceUtility {
     public String formatPriceCommaSeprated(int price) {
         String priceInStringFormat = String.valueOf(price);
         double amountOfFinalPrice = Double.parseDouble(priceInStringFormat);
-        String finalPriceWithComma = String.valueOf(formatter.format(amountOfFinalPrice));
-        return finalPriceWithComma;
+        return  String.valueOf(formatter.format(amountOfFinalPrice));
     }
 
     public TextView changeFontToYekan(TextView textView, Context context) {

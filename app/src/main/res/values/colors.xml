@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="psts_background_tab_pressed">#1a383030</color>
-    <color name="psts_background_tab_pressed_ripple">#AAFFFFFF</color>
     <color name="background_window">#d7d5d5</color>
     <color name="greenDark">#3E5F22</color>
     <color name="orange">#EB4D2A</color>
     <color name="decoriss">#FAFAFA</color>
     <color name="black">#000000</color>
-    <color name="light_black">#393737</color>
     <color name="white">#fdfdfd</color>
     <color name="fab_color">#FAFAFA</color>
     <color name="green">#31a140</color>

@@ -84,8 +84,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
         if (aProduct.getPriceOff()==0 && aProduct.getPrice()!=0){
             int price=aProduct.getPrice();
             String numberOfFinalPrice = String.valueOf(price);
-            addToBasketBtn.setText(activity.getString(R.string.productPrice)+" "+
-                    PriceUtility.getInstance().formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice)) + "  " +
+            addToBasketBtn.setText(activity.getString(R.string.productPrice)+activity.getResources().getString(R.string.space)+
+                    PriceUtility.getInstance().formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice)) + activity.getString(R.string.space) +
                     activity.getString(R.string.currency));
         }
         if (aProduct.getPriceOff()!=0 && aProduct.getPrice()!=0)
@@ -94,8 +94,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
             int priceOff=aProduct.getPriceOff();
             int priceForYou= Utilities.getInstance().calculatePriceOffProduct(price,priceOff);
             String numberOfFinalPrice = String.valueOf(priceForYou);
-            addToBasketBtn.setText(activity.getString(R.string.price_for_you)+" "
-                    +PriceUtility.getInstance().formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice)) + "  " +
+            addToBasketBtn.setText(activity.getString(R.string.price_for_you)+activity.getString(R.string.space)
+                    +PriceUtility.getInstance().formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice)) +activity.getString(R.string.space)+
                     activity.getString(R.string.currency));
 
         }

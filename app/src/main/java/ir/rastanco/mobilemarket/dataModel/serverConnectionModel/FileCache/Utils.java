@@ -26,7 +26,7 @@ public class Utils {
             }
         }
         catch(Exception ex){
-            Log.v("Error happened in Utils class" , " !");
+            Log.v("error happened in Utils","!");
         }
     }
 }

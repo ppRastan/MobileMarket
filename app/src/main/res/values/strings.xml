@@ -3,28 +3,17 @@
     <string name="app_name">Decoriss</string>
     <string name="first_page">ویژه ها</string>
     <string name="action_bar_title">دکوریس</string>
-    <string name="second_page">مبلمان منزل</string>
-    <string name="third_page">کالای خواب</string>
-    <string name="fourth_page">نوزاد و نوجوان</string>
     <string name="fifth_page">مقاله</string>
-    <string name="sixth_page">مشاوره</string>
     <string name="search_in_decoriss">جستجو در محصولات</string>
     <string name="group">دسته</string>
     <string name="all">همه</string>
     <string name="add_filter">نمایش بر اساس</string>
     <string name="user_name">نام کاربری :</string>
     <string name="enter_email_address">آدرس ایمیل خود را وارد کنید</string>
-    <string name="pastab2_userAccuntsword">پسورد :</string>
     <string name="enter_password">پسورد خود را وارد کنید</string>
     <string name="enter">ورود</string>
     <string name="login">ثبت نام</string>
     <string name="forget_password">رمز عبور را فراموش کرده ام !</string>
-    <string name="share_email_native">ارسال با ایمیل</string>
-    <string name="share_email_subject">ارسال شده از برنامه دکوریس</string>
-    <string name="share_chooser_text">share chooser text</string>
-    <string name="share_twitter">share twitter</string>
-    <string name="share_facebook">share face book</string>
-    <string name="share_sms">share sms</string>
     <string name="your_basket">سبد خرید شما</string>
     <string name="total_price">جمع کل خرید</string>
     <string name="toman">تومان</string>
@@ -36,8 +25,6 @@
     <string name="delete">حذف</string>
     <string name="price">قیمت :</string>
     <string name="price_off">تخفیف :</string>
-    <string name="telegram_not_installed">تلگرام روی گوشی شما نصب نیست</string>
-    <string name="goods_info">مشخصات کالا</string>
     <string name="bye">خرید</string>
     <string name="decoriss">دکوریس</string>
     <string name="update_decoriss">آپدیت دکوریس</string>
@@ -47,8 +34,6 @@
     <string name="text_to_advertise"> برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار \" دکوریس \" را دانلود کنید:</string>
     <string name="empty_basket">سبد خرید شما خالی است!</string>
     <string name="invoice_number">شماره فاکتور:</string>
-    <string name="date_of_shopping">تاریخ خرید محصول:</string>
-    <string name="state_of_invoice">وضعیت فاکتور</string>
     <string name="same_goods">محصولات مشابه</string>
     <string name="LinkDownloadApp">http://decoriss.com/app/Decoriss.apk</string>
     <string name="information">توضیحات:</string>
@@ -59,12 +44,10 @@
     <string name="thanks">سپاسگزار</string>
     <string name="pleaseLogin">لطفا با حساب کاربری خود وارد شوید</string>
     <string name="sure_to_exit">برای خروج کلید بازگشت را مجددا فشار دهید</string>
-    <string name="pref_previously_started">pref_previously_started</string>
     <string name="welcome_to_decoriss">کاربر گرامی خوش آمدید</string>
     <string name="please_wait_message">بارگذاری اولیه ممکن است چند دقیقه طول بکشد</string>
     <string name="please_wait">لطفا منتظر بمانید . . .</string>
     <string name="downloadFile">در حال دانلود فایل . . .</string>
-    <string name="title_activity_user_guider">UserGuider</string>
     <string name="similar_photos">مشاهده ی سایر محصولات</string>
     <string name="filterBrandTitle">برند</string>
     <string name="filterPriceTitle">قیمت</string>
@@ -112,4 +95,6 @@
     <string name="previousShoppedItems">خریدهای گذشته</string>
     <string name="accountPicture">تصویر</string>
     <string name="productPicture">تصویر محصول</string>
+    <string name="is">\" : \"</string>
+    <string name="space">\"  \"</string>
 </resources>
