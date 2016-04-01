@@ -99,4 +99,5 @@
     <string name="shoppingBagAdapterPriceForYou">%1$s  تومان </string>
     <string name="FullScreenImageAdapterproductPrice">قیمت برای شما : %1$s  تومان</string>
     <string name="FullScreenImageAdapterproductOriginalPrice">قیمت : %1$s  تومان</string>
+    <string name="shoppingBagActivityFinalPrice">%1$s  تومان</string>
 </resources>

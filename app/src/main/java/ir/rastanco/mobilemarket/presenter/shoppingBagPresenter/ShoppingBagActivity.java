@@ -63,7 +63,7 @@ public class ShoppingBagActivity extends Activity {
             finalPrice=finalPrice+price;
         }
 
-        totalPriceTextView.setText(String.valueOf(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice)+"  "+"تومان"));
+        totalPriceTextView.setText(Configuration.getConfig().ShoppingBagContext.getResources().getString(R.string.shoppingBagActivityFinalPrice , String.valueOf(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice))));
         Button confirmShopping = (Button)findViewById(R.id.ok_shop);
         confirmShopping.setOnClickListener(new View.OnClickListener() {
             @Override
