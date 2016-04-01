@@ -105,7 +105,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.originalPrice =PriceUtility.getInstance().changeFontToYekan(holder.originalPrice,myContext);
         holder.priceForYou = (TextView)rowView.findViewById(R.id.txt_price_for_you);
         holder.priceForYou=PriceUtility.getInstance().changeFontToYekan(holder.priceForYou,myContext);
-        holder.imgP=(ImageView) rowView.findViewById(R.id.imbt_picProduct);
+        holder.imgP=(ImageView) rowView.findViewById(R.id.imageButton_picProduct);
         holder.imgP.getLayoutParams().width= Configuration.getConfig().shopDisplaySizeForShow;
         holder.imgP.getLayoutParams().height=Configuration.getConfig().shopDisplaySizeForShow;
         holder.imgP.setImageDrawable(defaultPicture);

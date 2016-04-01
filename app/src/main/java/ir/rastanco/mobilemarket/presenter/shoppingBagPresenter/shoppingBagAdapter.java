@@ -106,7 +106,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         ImageLoader imgLoader = new ImageLoader(shoppingBagActivityContext, Configuration.articleDisplaySizeForShow);
         TextView eachProductPriceTextView =(TextView) rowView.findViewById(R.id.shopping_bag_price_Off_product);
         TextView shoppingBagTotalPriceTextView = (TextView)rowView.findViewById(R.id.shopping_bag_price_for_you);
-        TextView shoppingOffer = (TextView)rowView.findViewById(R.id.shoppingbag_offer);
+        TextView shoppingOffer = (TextView)rowView.findViewById(R.id.shoppingBag_offer);
         nameOfEachProductTextView.setText(aProduct.getTitle());
         shoppingBagTotalPriceTextView = PriceUtility.getInstance().changeFontToYekan(shoppingBagTotalPriceTextView, shoppingBagActivityContext);
         eachProductPriceTextView = PriceUtility.getInstance().changeFontToYekan(eachProductPriceTextView, shoppingBagActivityContext);

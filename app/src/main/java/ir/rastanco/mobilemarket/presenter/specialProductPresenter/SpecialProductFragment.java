@@ -34,7 +34,7 @@ public class SpecialProductFragment extends Fragment {
         products=new ArrayList<>();
         products=sch.getSpecialProduct();
         View mainView = inflater.inflate(R.layout.fragment_home,container,false);
-        final ListView productListView = (ListView) mainView.findViewById(R.id.lstv_picProduct);
+        final ListView productListView = (ListView) mainView.findViewById(R.id.listView_picProduct);
         PictureSpecialProductItemAdapter adapter = new PictureSpecialProductItemAdapter(getActivity(), R.layout.picture_product_item_home,products);
         productListView.setAdapter(adapter);
         final SwipeRefreshLayout mSwipeRefreshLayout= (SwipeRefreshLayout)

@@ -13,7 +13,7 @@
     <string name="tab2_userAccunt">حساب کاربری</string>
     <string name="group">دسته</string>
     <string name="all">همه</string>
-    <string name="acording_to">نمایش بر اساس</string>
+    <string name="add_filter">نمایش بر اساس</string>
     <string name="user_name">نام کاربری :</string>
     <string name="enter_email_address">آدرس ایمیل خود را وارد کنید</string>
     <string name="password">پسورد :</string>
@@ -29,7 +29,7 @@
     <string name="share_sms">share sms</string>
     <string name="share_email_gmail">share email gmail</string>
     <string name="your_basket">سبد خرید شما</string>
-    <string name="total_prica">جمع کل خرید</string>
+    <string name="total_price">جمع کل خرید</string>
     <string name="toman">تومان</string>
     <string name="confirm_to_delete">آیا مایل به حذف محصول از سبد خرید هستید؟</string>
     <string name="yes">بله</string>
@@ -68,7 +68,7 @@
     <string name="please_wait">لطفا منتظر بمانید . . .</string>
     <string name="downloadFile">در حال دانلود فایل . . .</string>
     <string name="title_activity_user_guider">UserGuider</string>
-    <string name="similar_photoes">مشاهده ی سایر محصولات</string>
+    <string name="similar_photos">مشاهده ی سایر محصولات</string>
     <string name="filterBrandTitle">برند</string>
     <string name="filterPriceTitle">قیمت</string>
     <string name="checkConnection">لطفا اتصال اینترنت خود را بررسی کنید</string>

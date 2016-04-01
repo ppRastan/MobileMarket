@@ -14,7 +14,7 @@
         android:text="@string/checkConnection" />
 
     <ImageButton
-        android:id="@+id/imgbReload"
+        android:id="@+id/imageButtonReload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

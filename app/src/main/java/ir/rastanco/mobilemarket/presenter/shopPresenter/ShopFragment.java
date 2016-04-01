@@ -210,8 +210,8 @@ public class ShopFragment extends Fragment {
             }
         });
         ///Filter in Product Features
-        txtFilterOptionProductSelected = (TextView)mainView.findViewById(R.id.acordingto_dialog_text);
-        Button btnFilterOptionProduct =(Button)mainView.findViewById(R.id.acording_to_dialog);
+        txtFilterOptionProductSelected = (TextView)mainView.findViewById(R.id.filter_dialogue_text);
+        Button btnFilterOptionProduct =(Button)mainView.findViewById(R.id.filter_dialogue);
         btnFilterOptionProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

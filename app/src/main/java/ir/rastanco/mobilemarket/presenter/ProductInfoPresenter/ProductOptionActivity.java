@@ -36,7 +36,7 @@ public class ProductOptionActivity extends Activity {
         int  productId=intent.getIntExtra("productId", 0);
         int groupId=intent.getIntExtra("groupId",0);
         Product aProduct=sch.getAProduct(productId);
-        TextView nameOfCurrentProduct = (TextView)findViewById(R.id.name_of_currrent_product);
+        TextView nameOfCurrentProduct = (TextView)findViewById(R.id.eachProductName);
         nameOfCurrentProduct.setText(aProduct.getTitle());
         ImageButton btnBack = (ImageButton)findViewById(R.id.back_full_screen);
         btnBack.setOnClickListener(new View.OnClickListener() {

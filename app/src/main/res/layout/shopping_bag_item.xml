@@ -162,7 +162,7 @@
                                 android:textSize="14dp" />
 
                             <TextView
-                                android:id="@+id/shoppingbag_offer"
+                                android:id="@+id/shoppingBag_offer"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"

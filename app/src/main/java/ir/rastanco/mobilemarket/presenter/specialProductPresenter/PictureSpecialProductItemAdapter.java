@@ -64,7 +64,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         final Holder holder=new Holder();
         holder.basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
         holder.btnSimilar=(Button) rowView.findViewById(R.id.btn_similar);
-        holder.shareBtn = (ImageButton) rowView.findViewById(R.id.imbt_share);
+        holder.shareBtn = (ImageButton) rowView.findViewById(R.id.imageButton_share);
 
 
         //Special Icon

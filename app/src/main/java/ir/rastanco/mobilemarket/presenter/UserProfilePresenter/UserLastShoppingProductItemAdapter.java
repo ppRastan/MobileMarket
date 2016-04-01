@@ -46,7 +46,7 @@ public class UserLastShoppingProductItemAdapter extends ArrayAdapter<ProductShop
         imgLoader.DisplayImage(imageURL, picInvoice);
 
         TextView invoiceNum=(TextView) rowView.findViewById(R.id.txt_invoiceNum);
-        TextView invoiceDate=(TextView)rowView.findViewById(R.id.txt_invoceDate);
+        TextView invoiceDate=(TextView)rowView.findViewById(R.id.txt_invoiceDate);
         TextView invoiceStatus=(TextView)rowView.findViewById(R.id.txt_invoiceStatus);
         invoiceNum = PriceUtility.getInstance().changeFontToYekan(invoiceNum, myContext);
         invoiceDate = PriceUtility.getInstance().changeFontToYekan(invoiceDate, myContext);

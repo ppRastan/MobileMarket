@@ -63,7 +63,7 @@ public class FilterCategory extends DialogFragment {
                 dismiss();
             }
         });
-        TextView titleOfAlertDialog = (TextView) dialogView.findViewById(R.id.title_alertdialog_group);
+        TextView titleOfAlertDialog = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
         titleOfAlertDialog.setText(Configuration.ShopFragmentContext.getResources().getString(R.string.choose_group));
         btnCancelAlertDialog.setImageResource(R.mipmap.ic_cancel_dialog);
         ArrayList<String> subCategoryTitle = sch.getTitleOfChildOfACategory(pageId);

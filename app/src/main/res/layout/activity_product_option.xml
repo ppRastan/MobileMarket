@@ -22,7 +22,7 @@
             android:src="@mipmap/ic_back" />
 
         <TextView
-            android:id="@+id/name_of_currrent_product"
+            android:id="@+id/eachProductName"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="8"
