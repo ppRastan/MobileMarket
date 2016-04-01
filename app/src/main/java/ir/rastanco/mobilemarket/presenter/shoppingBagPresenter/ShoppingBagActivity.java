@@ -38,9 +38,7 @@ import ir.rastanco.mobilemarket.utility.Utilities;
 public class ShoppingBagActivity extends Activity {
 
 
-    private ImageButton closeShoppingPage;
     private ServerConnectionHandler sch;
-    private Button confirmShopping;
     private TextView totalPriceTextView;
     private ArrayList<Integer> productsId;
     private ListView lvShoppingBag;
@@ -49,7 +47,7 @@ public class ShoppingBagActivity extends Activity {
         Configuration.getConfig().ShoppingBagContext =this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_bag);
-        this.shoppingBagRTLizer();
+        this.RTlizeShoppingBagXml();
         this.setYekanFont();
         this.closeShoppingBag();
         sch=new ServerConnectionHandler(Configuration.getConfig().ShoppingBagContext);
@@ -68,12 +66,11 @@ public class ShoppingBagActivity extends Activity {
         }
 
         totalPriceTextView.setText(String.valueOf(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice)+"  "+"تومان"));
-        confirmShopping = (Button)findViewById(R.id.ok_shop);
+        Button confirmShopping = (Button)findViewById(R.id.ok_shop);
         confirmShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<Integer, Integer> shopInfo = new HashMap<>();
-                shopInfo = sch.getAllProductShopping();
+                Map<Integer, Integer> shopInfo = sch.getAllProductShopping();
                 if (shopInfo.size() == 0) {
                     Toast.makeText(Configuration.getConfig().ShoppingBagContext, getResources().getString(R.string.empty_basket),
                             Toast.LENGTH_LONG).show();
@@ -107,8 +104,7 @@ public class ShoppingBagActivity extends Activity {
         ObserverShoppingCancel.addShoppingCancelListener(new ObserverShoppingCancelListener() {
             @Override
             public void ShoppingChanged() {
-                Map<Integer, Integer> refreshProductsId = new Hashtable<>();
-                refreshProductsId = sch.getAllProductShopping();
+                Map<Integer, Integer> refreshProductsId = sch.getAllProductShopping();
                 int finalPrice = 0;
                 int price;
                 for (Map.Entry<Integer, Integer> entry : refreshProductsId.entrySet()) {
@@ -138,7 +134,7 @@ public class ShoppingBagActivity extends Activity {
 
     private void closeShoppingBag() {
 
-        closeShoppingPage = (ImageButton)findViewById(R.id.close_shopping_page);
+        ImageButton closeShoppingPage = (ImageButton)findViewById(R.id.close_shopping_page);
         closeShoppingPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,7 +143,7 @@ public class ShoppingBagActivity extends Activity {
         });
     }
 
-    private void shoppingBagRTLizer() {
+    private void RTlizeShoppingBagXml() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
     }

@@ -9,7 +9,7 @@ import java.util.List;
 public class ObserverLike {
 
     private static int likeStatus;
-    private static List<ObserverLikeListener> ChangeLikeListener=new ArrayList<>();
+    private final static List<ObserverLikeListener> ChangeLikeListener=new ArrayList<>();
 
 
     public static int getLikeStatus() {

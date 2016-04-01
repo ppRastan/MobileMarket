@@ -45,9 +45,6 @@ public class ShopFragment extends Fragment {
 
 
     private ServerConnectionHandler sch;
-    private ArrayList<Product> products;
-    private Button btnFilterCategory;
-    private Button btnFilterOptionProduct;
     private TextView txtFilterOptionProductSelected;
     private TextView txtFilterCategorySelected;
     private FragmentActivity myContext;
@@ -62,7 +59,7 @@ public class ShopFragment extends Fragment {
         final int pageId;
         pageId=getArguments().getInt("pageId");
         sch=new ServerConnectionHandler(getContext());
-        products=sch.getProductsOfAParentCategory(pageId);
+        ArrayList<Product> products=sch.getProductsOfAParentCategory(pageId);
         noThingToShow = (TextView)mainView.findViewById(R.id.no_thing_to_show1);
         noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow,myContext);
         final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
@@ -103,7 +100,7 @@ public class ShopFragment extends Fragment {
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
                 boolean enable = false;
-                if (gridview != null && gridview.getChildCount() > 0) {
+                if (gridview.getChildCount() > 0) {
                     boolean firstItemVisible = gridview.getFirstVisiblePosition() == 0;
                     boolean topOfFirstItemVisible = gridview.getChildAt(0).getTop() == 0;
                     enable = firstItemVisible && topOfFirstItemVisible;
@@ -175,7 +172,7 @@ public class ShopFragment extends Fragment {
         });
         //Filter
         ///FilterSubCategory
-        btnFilterCategory =(Button)mainView.findViewById(R.id.group_dialog);
+        Button btnFilterCategory =(Button)mainView.findViewById(R.id.group_dialog);
         txtFilterCategorySelected =(TextView) mainView.findViewById(R.id.group_dialog_text);
         btnFilterCategory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,7 +211,7 @@ public class ShopFragment extends Fragment {
         });
         ///Filter in Product Features
         txtFilterOptionProductSelected = (TextView)mainView.findViewById(R.id.acordingto_dialog_text);
-        btnFilterOptionProduct =(Button)mainView.findViewById(R.id.acording_to_dialog);
+        Button btnFilterOptionProduct =(Button)mainView.findViewById(R.id.acording_to_dialog);
         btnFilterOptionProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

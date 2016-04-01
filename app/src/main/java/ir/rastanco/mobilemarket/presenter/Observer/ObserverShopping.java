@@ -10,7 +10,7 @@ public class ObserverShopping {
 
     //Click on Button Shopping Bag
     private static boolean shoppingStatus;
-    private static List<ObserverShoppingBagClickListener> listeners = new ArrayList<>();
+    private final static List<ObserverShoppingBagClickListener> listeners = new ArrayList<>();
     public static boolean getMyBoolean() { return shoppingStatus; }
     public static void setMyBoolean(boolean value) {
         shoppingStatus = value;
@@ -25,7 +25,7 @@ public class ObserverShopping {
 
     //Shopping Ok
     private static boolean shoppingOk;
-    private static List<ObserverShoppingOkListener> shoppingOkListener = new ArrayList<>();
+    private final static List<ObserverShoppingOkListener> shoppingOkListener = new ArrayList<>();
     public static boolean getShoppingOk() {
         return shoppingOk;
     }

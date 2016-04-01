@@ -9,7 +9,7 @@ import java.util.List;
 public class ObserverShoppingCancel {
     //Shopping cancel
     private static boolean shoppingCancel;
-    private static List<ObserverShoppingCancelListener> shoppingCancelListener = new ArrayList<>();
+    private final static List<ObserverShoppingCancelListener> shoppingCancelListener = new ArrayList<>();
     public static boolean getShoppingCancel() {
         return shoppingCancel;
     }

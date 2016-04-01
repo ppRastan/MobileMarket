@@ -64,7 +64,7 @@
                         android:layout_height="0dp"
                         android:background="@android:color/transparent"
                         android:focusable="true"
-                        android:focusableInTouchMode="true"></LinearLayout>
+                        android:focusableInTouchMode="true"/>
 
                     <EditText
                         android:id="@+id/et_username"
@@ -101,7 +101,7 @@
                         android:layout_height="0dp"
                         android:background="@android:color/transparent"
                         android:focusable="true"
-                        android:focusableInTouchMode="true"></LinearLayout>
+                        android:focusableInTouchMode="true"/>
 
                     <EditText
                         android:id="@+id/et_password"
@@ -154,7 +154,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"></LinearLayout>
+                        android:layout_weight="1"/>
 
                     <Button
                         android:id="@+id/btn_login"
@@ -168,7 +168,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"></LinearLayout>
+                        android:layout_weight="1"/>
 
                     <Button
                         android:id="@+id/btn_enter"
@@ -182,12 +182,12 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"></LinearLayout>
+                        android:layout_weight="1"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"></LinearLayout>
+                    android:layout_height="30dp"/>
             </LinearLayout>
 
         </RelativeLayout>

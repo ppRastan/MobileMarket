@@ -26,7 +26,6 @@ public class SpecialProductFragment extends Fragment {
 
     private ServerConnectionHandler sch;
     private ArrayList<Product> products;
-    private View mainView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class SpecialProductFragment extends Fragment {
         sch=new ServerConnectionHandler(getContext());
         products=new ArrayList<>();
         products=sch.getSpecialProduct();
-        mainView = inflater.inflate(R.layout.fragment_home, null);
+        View mainView = inflater.inflate(R.layout.fragment_home,container,false);
         final ListView productListView = (ListView) mainView.findViewById(R.id.lstv_picProduct);
         PictureSpecialProductItemAdapter adapter = new PictureSpecialProductItemAdapter(getActivity(), R.layout.picture_product_item_home,products);
         productListView.setAdapter(adapter);
@@ -51,7 +50,7 @@ public class SpecialProductFragment extends Fragment {
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
                 boolean enable = false;
-                if (productListView != null && productListView.getChildCount() > 0) {
+                if (productListView.getChildCount() > 0) {
                     // check if the first item of the list is visible
                     boolean firstItemVisible = productListView.getFirstVisiblePosition() == 0;
                     // check if the top of the first item is visible

@@ -32,11 +32,8 @@ import ir.rastanco.mobilemarket.utility.DataFilter;
 public class FilterCategory extends DialogFragment {
 
     private ServerConnectionHandler sch;
-    private int pageId;
     private Map<String,Integer> mapCategoryTitleToId;
     private static FilterCategory filterCategory;
-    private TextView titleOfAlertDialog;
-
     public static FilterCategory getInstance() {
         if(filterCategory == null){
             filterCategory = new FilterCategory();
@@ -54,7 +51,7 @@ public class FilterCategory extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         sch = new ServerConnectionHandler(Configuration.getConfig().ShopFragmentContext);
-        pageId = getArguments().getInt("pageId");
+        Integer pageId = getArguments().getInt("pageId");
         mapCategoryTitleToId=new HashMap<>();
         mapCategoryTitleToId=sch.MapTitleToIDForAllCategory();
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
@@ -66,7 +63,7 @@ public class FilterCategory extends DialogFragment {
                 dismiss();
             }
         });
-        titleOfAlertDialog = (TextView) dialogView.findViewById(R.id.title_alertdialog_group);
+        TextView titleOfAlertDialog = (TextView) dialogView.findViewById(R.id.title_alertdialog_group);
         titleOfAlertDialog.setText(Configuration.ShopFragmentContext.getResources().getString(R.string.choose_group));
         btnCancelAlertDialog.setImageResource(R.mipmap.ic_cancel_dialog);
         ArrayList<String> subCategoryTitle = sch.getTitleOfChildOfACategory(pageId);

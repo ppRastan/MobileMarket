@@ -13,7 +13,7 @@ import java.util.List;
 public class ObserverChangeFragment {
 
     private static Boolean changeFragmentParameter;
-    private static List<ObserverChangeFragmentListener> ChangeSetFilterAllListener=new ArrayList<>();
+    private final static List<ObserverChangeFragmentListener> ChangeSetFilterAllListener=new ArrayList<>();
 
     public static Boolean getChangeFragmentParameter() {
         return changeFragmentParameter;

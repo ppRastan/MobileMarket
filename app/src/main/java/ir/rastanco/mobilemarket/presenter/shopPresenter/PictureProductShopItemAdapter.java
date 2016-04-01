@@ -43,13 +43,13 @@ import ir.rastanco.mobilemarket.utility.Utilities;
 public class PictureProductShopItemAdapter extends BaseAdapter{
 
     private static LayoutInflater inflater=null;
-    private ArrayList<Product> allProduct;
+    private final ArrayList<Product> allProduct;
     private boolean isLikeButtonClicked = true;
     private boolean isSelectedForShop=false;
-    private ServerConnectionHandler sch;
-    private Context myContext;
-    private Activity shopPresenterActivity;
-    private Drawable defaultPicture;
+    private final ServerConnectionHandler sch;
+    private final Context myContext;
+    private final Activity shopPresenterActivity;
+    private final Drawable defaultPicture;
 
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
 
@@ -123,7 +123,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             holder.originalPrice.setText(PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice()));
             holder.basketToolbar.setVisibility(View.VISIBLE);
         }
-        else if(aProduct.getPrice()!=0 && aProduct.getPrice()!=0) {
+        else if(aProduct.getPrice()!=0) {
             int price= aProduct.getPrice();
             int discountPercent=aProduct.getPriceOff();
             int finalPrice= Utilities.getInstance().calculatePriceOffProduct(price,discountPercent);
@@ -135,7 +135,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             holder.priceForYou.setVisibility(View.VISIBLE);
             holder.basketToolbar.setVisibility(View.VISIBLE);
         }
-        else if(aProduct.getPrice()==0 && aProduct.getPriceOff()==0){
+        else if(aProduct.getPriceOff()==0){
             holder.basketToolbar.setVisibility(View.GONE);
             holder.originalPrice.setText(myContext.getString(R.string.coming_soon));
         }

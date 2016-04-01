@@ -39,18 +39,11 @@ import ir.rastanco.mobilemarket.utility.Utilities;
 
 public class FullScreenImageAdapter extends PagerAdapter {
 
-    private Activity activity;
-    private ArrayList<Product> products;
-    private LayoutInflater inflater;
-    private ServerConnectionHandler sch;
-    private int productsSize;
-    private ImageButton btnInfo;
-    private ImageButton btnShareByTelegram;
-    private ImageButton btnShare;
+    private final Activity activity;
+    private final ArrayList<Product> products;
+    private final ServerConnectionHandler sch;
+    private final int  productsSize;
     private View viewLayout;
-    private TextView nameOfCurrentProduct;
-    private Button addToBasketBtn;
-    private String numberOfFinalPrice;
     private ToolbarHandler toolbarHandler;
     private ImageButton btnLike;
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
@@ -67,17 +60,17 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((LinearLayout) object);
+        return view == object;
     }
 
     @Override
     public Object instantiateItem(final ViewGroup container, final int position) {
 
-        inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater  inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewLayout = inflater.inflate(R.layout.activity_product_info, container, false);
         final Product aProduct=products.get(position);
-        addToBasketBtn = (Button)viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
-        nameOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.name_of_photo);
+        Button addToBasketBtn = (Button)viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
+        TextView nameOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.name_of_photo);
         toolbarHandler = new ToolbarHandler();
         nameOfCurrentProduct.setText(aProduct.getTitle());
 
@@ -91,7 +84,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
         if (aProduct.getPriceOff()==0 && aProduct.getPrice()!=0){
             int price=aProduct.getPrice();
-            numberOfFinalPrice = String.valueOf(price);
+            String numberOfFinalPrice = String.valueOf(price);
             addToBasketBtn.setText(activity.getString(R.string.productPrice)+" "+
                     PriceUtility.getInstance().formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice)) + "  " +
                     activity.getString(R.string.currency));
@@ -101,7 +94,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
             int price=aProduct.getPrice();
             int priceOff=aProduct.getPriceOff();
             int priceForYou= Utilities.getInstance().calculatePriceOffProduct(price,priceOff);
-            numberOfFinalPrice = String.valueOf(priceForYou);
+            String numberOfFinalPrice = String.valueOf(priceForYou);
             addToBasketBtn.setText(activity.getString(R.string.price_for_you)+" "
                     +PriceUtility.getInstance().formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice)) + "  " +
                     activity.getString(R.string.currency));
@@ -163,7 +156,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         });
 
 
-        btnInfo=(ImageButton)viewLayout.findViewById(R.id.img_info);
+        ImageButton  btnInfo=(ImageButton)viewLayout.findViewById(R.id.img_info);
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,7 +168,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
             }
         });
-        btnShare = (ImageButton)viewLayout.findViewById(R.id.img_share_full_screen);
+        ImageButton btnShare = (ImageButton)viewLayout.findViewById(R.id.img_share_full_screen);
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,7 +177,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         });
 
 
-        btnShareByTelegram = (ImageButton)viewLayout.findViewById(R.id.telegram_share);
+        ImageButton  btnShareByTelegram = (ImageButton)viewLayout.findViewById(R.id.telegram_share);
         btnShareByTelegram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -250,12 +243,12 @@ public class FullScreenImageAdapter extends PagerAdapter {
             });
 
         }
-        ((ViewPager) container).addView(viewLayout);
+        container.addView(viewLayout);
         return viewLayout;
     }
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ((ViewPager) container).removeView((LinearLayout) object);
+        container.removeView((LinearLayout) object);
 
     }
 

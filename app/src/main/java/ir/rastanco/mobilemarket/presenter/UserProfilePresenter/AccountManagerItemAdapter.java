@@ -26,7 +26,7 @@ public class AccountManagerItemAdapter extends BaseAdapter{
     private final Context context;
     private final int [] imageId;
     private static LayoutInflater inflater=null;
-    private ServerConnectionHandler sch;
+    private final ServerConnectionHandler sch;
     public AccountManagerItemAdapter(AccountManager mainActivity, ArrayList<String> prgmNameList, int[] prgmImages) {
 
         result=prgmNameList;
@@ -59,7 +59,7 @@ public class AccountManagerItemAdapter extends BaseAdapter{
     public View getView(final int position, View convertView, ViewGroup parent) {
         Holder holder=new Holder();
         final View rowView;
-        rowView = inflater.inflate(R.layout.list_view_account_activity_items, null);
+        rowView = inflater.inflate(R.layout.list_view_account_activity_items, parent , false);
         holder.tv=(TextView) rowView.findViewById(R.id.text_of_list_view);
         holder.img=(ImageView) rowView.findViewById(R.id.image_of_list_view);
         holder.tv.setText(result.get(position));

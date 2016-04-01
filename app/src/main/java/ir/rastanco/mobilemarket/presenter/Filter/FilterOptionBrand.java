@@ -25,9 +25,6 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  * DialogFragment For Displaying Products Brand
  */
 public class FilterOptionBrand extends DialogFragment{
-
-    private ServerConnectionHandler sch;
-    private int pageId;
     private static FilterOptionBrand filterOptionBrand;
 
     public static FilterOptionBrand getInstance() {
@@ -41,8 +38,8 @@ public class FilterOptionBrand extends DialogFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch = new ServerConnectionHandler(Configuration.getConfig().ShopFragmentContext);
-        pageId=getArguments().getInt("pageId");
+        ServerConnectionHandler sch = new ServerConnectionHandler(Configuration.getConfig().ShopFragmentContext);
+        Integer pageId=getArguments().getInt("pageId");
         ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -52,14 +49,14 @@ public class FilterOptionBrand extends DialogFragment{
         titleBrand.setText(Configuration.ShopFragmentContext.getResources().getString(R.string.choose_brand));
         btnCancelAlertDialog.setOnClickListener(
                 new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
 
-                FilterOptionProduct.getInstance();
-            }
-        });
-        ArrayList<String> brandFilter = new ArrayList<>();
-        brandFilter=sch.getAllBrands(products);
+                        FilterOptionProduct.getInstance();
+                    }
+                });
+
+        ArrayList<String>brandFilter=sch.getAllBrands(products);
 
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),

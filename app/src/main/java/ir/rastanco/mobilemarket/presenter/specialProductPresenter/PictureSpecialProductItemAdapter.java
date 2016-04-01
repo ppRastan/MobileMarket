@@ -35,11 +35,11 @@ import ir.rastanco.mobilemarket.utility.Utilities;
  */
 public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
 
-    private Activity myContext;
-    private ArrayList<Product> allProduct;
-    private ServerConnectionHandler serverConnectionHandler;
+    private final Activity myContext;
+    private final ArrayList<Product> allProduct;
+    private final ServerConnectionHandler serverConnectionHandler;
     private boolean isSelectedForShop=false;
-    private Drawable defaultPicture;
+    private final Drawable defaultPicture;
 
 
     public PictureSpecialProductItemAdapter(Context context, int resource, ArrayList<Product> products) {
@@ -60,7 +60,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
     public View getView(final int position, View convertView, ViewGroup parent){
 
         LayoutInflater inflater = myContext.getLayoutInflater();
-        final View rowView = inflater.inflate(R.layout.picture_product_item_home, null);
+        final View rowView = inflater.inflate(R.layout.picture_product_item_home,parent,false);
         final Holder holder=new Holder();
         holder.basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
         holder.btnSimilar=(Button) rowView.findViewById(R.id.btn_similar);
@@ -166,8 +166,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         PicProductImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Product> newAllProduct=new ArrayList<>();
-                newAllProduct= serverConnectionHandler.getSpecialProduct();
+                ArrayList<Product> newAllProduct= serverConnectionHandler.getSpecialProduct();
                 Intent intent = new Intent(rowView.getContext(), ProductInfoActivity.class);
                 intent.putParcelableArrayListExtra("allProduct",newAllProduct);
                 intent.putExtra("position",position);

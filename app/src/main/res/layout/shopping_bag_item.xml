@@ -62,7 +62,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="2"></LinearLayout>
+                    android:layout_weight="2"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -105,7 +105,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/background_window"></LinearLayout>
+                        android:background="@color/background_window"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -135,7 +135,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/background_window"></LinearLayout>
+                        android:background="@color/background_window"/>
 
                     <LinearLayout
                         android:id="@+id/priceOffLinear"
@@ -175,7 +175,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/background_window"
-                            android:orientation="horizontal"></LinearLayout>
+                            android:orientation="horizontal"/>
 
                     </LinearLayout>
 
@@ -208,7 +208,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/background_window"></LinearLayout>
+                        android:background="@color/background_window"/>
                 </LinearLayout>
 
                 <ImageButton

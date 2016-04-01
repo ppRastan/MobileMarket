@@ -23,33 +23,22 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  * this activity show product option and product comment and product description
  */
 public class ProductOptionActivity extends Activity {
-
-    private ArrayList<ProductOption> options;
-    private ServerConnectionHandler sch;
-    private Product aProduct;
-    private ImageButton btnBack;
-    private TextView nameOfCurrentProduct;
     private boolean onBackBtnPressed = false;
-    private Intent intent;
-    private int productId;
-    private int groupId;
-    private ListView lvProductOption;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_option);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         Configuration.getConfig().ProductOptionContext=this;
-        sch=new ServerConnectionHandler(Configuration.getConfig().ProductOptionContext);
+        ServerConnectionHandler sch=new ServerConnectionHandler(Configuration.getConfig().ProductOptionContext);
 
-        intent = this.getIntent();
-        productId=intent.getIntExtra("productId", 0);
-        groupId=intent.getIntExtra("groupId",0);
-        aProduct=new Product();
-        aProduct=sch.getAProduct(productId);
-        nameOfCurrentProduct = (TextView)findViewById(R.id.name_of_currrent_product);
+        Intent intent = this.getIntent();
+        int  productId=intent.getIntExtra("productId", 0);
+        int groupId=intent.getIntExtra("groupId",0);
+        Product aProduct=sch.getAProduct(productId);
+        TextView nameOfCurrentProduct = (TextView)findViewById(R.id.name_of_currrent_product);
         nameOfCurrentProduct.setText(aProduct.getTitle());
-        btnBack = (ImageButton)findViewById(R.id.back_full_screen);
+        ImageButton btnBack = (ImageButton)findViewById(R.id.back_full_screen);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,16 +48,14 @@ public class ProductOptionActivity extends Activity {
             }
         });
         sch=new ServerConnectionHandler(Configuration.getConfig().ProductOptionContext);
-        options=new ArrayList<>();
-        options=sch.getAllProductOptionOfAProduct(productId, groupId);
-        lvProductOption=(ListView)findViewById(R.id.lv_productOption);
+        ArrayList<ProductOption> options=sch.getAllProductOptionOfAProduct(productId, groupId);
+        ListView lvProductOption=(ListView)findViewById(R.id.lv_productOption);
         ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.getConfig().ProductOptionContext,
                 R.layout.product_info_item,options);
         lvProductOption.setAdapter(adapter);
 
         ListView lvComment=(ListView)findViewById(R.id.lv_comments);
-        ArrayList<String> commentsAProduct=new ArrayList<>();
-        commentsAProduct=sch.getContentCommentsAllProduct(productId);
+        ArrayList<String> commentsAProduct=sch.getContentCommentsAllProduct(productId);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 Configuration.getConfig().ProductOptionContext,
                 android.R.layout.simple_list_item_1,

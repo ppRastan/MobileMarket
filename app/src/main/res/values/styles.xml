@@ -6,7 +6,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="CodeFont" parent="@android:style/TextAppearance.Medium"></style>
+    <style name="CodeFont" parent="@android:style/TextAppearance.Medium"/>
 
     <style name="Transparent" parent="@android:style/Theme.NoTitleBar">
         <item name="android:windowContentOverlay">@null</item>

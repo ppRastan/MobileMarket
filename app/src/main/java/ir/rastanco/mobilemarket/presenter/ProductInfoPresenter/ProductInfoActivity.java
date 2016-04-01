@@ -18,20 +18,15 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  **/
 public class ProductInfoActivity extends Activity {
 
-    private ArrayList<Product> allProducts;
-    private ViewPager viewPager;
-    private Intent intent;
-    private Bundle productBundle;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.swip_product_gallery);
         Configuration.getConfig().productInfoContext = this;
-        intent = this.getIntent();
-        productBundle = new Bundle();
+        Intent intent = this.getIntent();
+        Bundle productBundle = new Bundle();
         productBundle = intent.getExtras();
-        allProducts = productBundle.getParcelableArrayList("allProduct");
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        ArrayList<Product> allProducts = productBundle.getParcelableArrayList("allProduct");
+        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new FullScreenImageAdapter(this, allProducts, allProducts.size()));
         viewPager.setCurrentItem(intent.getIntExtra("position", 0));
         if (Configuration.isTheFirstTimeOpeningThisPage)

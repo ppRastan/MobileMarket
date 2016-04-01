@@ -17,7 +17,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  *
  */
 public class UpdateEveryConnectionOk extends BroadcastReceiver {
-    ServerConnectionHandler sch;
+    private ServerConnectionHandler sch;
 
     @Override
     public void onReceive(Context context, Intent intent) {

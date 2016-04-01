@@ -19,22 +19,19 @@ import ir.rastanco.mobilemarket.dataModel.ProductOption;
  */
 public class ProductInfoItemAdapter extends ArrayAdapter<ProductOption> {
 
-    private ArrayList<ProductOption> options;
-    private Activity myContext;
-    private TextView txtTitle;
-    private LayoutInflater inflater;
-    private View rowView;
+    private final ArrayList<ProductOption> options;
+    private final Activity myActivity;
     public ProductInfoItemAdapter(Context context, int resource, ArrayList<ProductOption> allProductOptions) {
         super(context, resource,allProductOptions);
         options = allProductOptions;
-        myContext = (Activity) context;
+        myActivity = (Activity) context;
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        inflater = myContext.getLayoutInflater();
-        rowView = inflater.inflate(R.layout.product_info_item, null);
-        txtTitle=(TextView)rowView.findViewById(R.id.txt_title);
+        LayoutInflater inflater = myActivity.getLayoutInflater();
+        View rowView = inflater.inflate(R.layout.product_info_item,parent,false);
+        TextView txtTitle=(TextView)rowView.findViewById(R.id.txt_title);
         txtTitle.setText(options.get(position).getTitle()+" : "+options.get(position).getValue() );
         return rowView;
     }

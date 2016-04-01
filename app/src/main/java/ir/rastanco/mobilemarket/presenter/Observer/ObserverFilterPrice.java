@@ -9,14 +9,13 @@ import java.util.List;
 public class ObserverFilterPrice {
 
     private static Boolean addFilterPrice;
-    private static List<ObserverFilterPriceListener> ChangeSetFilterPriceListener=new ArrayList<>();
+    private static final List<ObserverFilterPriceListener> ChangeSetFilterPriceListener=new ArrayList<>();
 
 
     public static Boolean getAddFilterPrice() {
         return addFilterPrice;
     }
-    public static void setAddFilterPrice(Boolean addFilterPricer) {
-        ObserverFilterPrice.addFilterPrice = addFilterPrice;
+    public static void setAddFilterPrice(Boolean filterPriceAdder) {
         for (ObserverFilterPriceListener setFilter : ChangeSetFilterPriceListener) {
             setFilter.changeFilterPrice();
         }

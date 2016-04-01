@@ -9,7 +9,7 @@ import java.util.List;
 public class ObserverFilterCategory {
 
     private static Boolean addFilter;
-    private static List<ObserverFilterCategoryListener> ChangeSetFilterListener=new ArrayList<>();
+    private final static List<ObserverFilterCategoryListener> ChangeSetFilterListener=new ArrayList<>();
 
 
     public static Boolean getAddFilter() {
