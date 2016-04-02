@@ -14,10 +14,9 @@ import java.lang.reflect.Field;
 public final class GlobalFontSetter {
 
     public static void setDefaultFont(Context context, String fontAssetName) {
-
-        final Typeface regular = Typeface.createFromAsset(context.getAssets(),
-                fontAssetName);
-        replaceFont("MONOSPACE", regular);
+        final String defaultFontStyle = "MONOSPACE";
+        final Typeface regular = Typeface.createFromAsset(context.getAssets(),fontAssetName);
+        replaceFont(defaultFontStyle , regular);
     }
 
     private static void replaceFont(String staticTypefaceFieldName,

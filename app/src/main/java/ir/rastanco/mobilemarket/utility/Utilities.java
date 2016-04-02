@@ -16,7 +16,6 @@ import ir.rastanco.mobilemarket.R;
  * Created by ShaisteS on 1395/1/8.
  * This class include utility Method
  */
-//test
 public class Utilities {
 
     private final int oneMillion = 1000000;
@@ -27,6 +26,8 @@ public class Utilities {
     private final int calculatePercent = 100;
     private final String imageQuality = "30";
     private static Utilities utility = new Utilities();
+
+
 
     public static Utilities getInstance() {
         if (utility != null) {

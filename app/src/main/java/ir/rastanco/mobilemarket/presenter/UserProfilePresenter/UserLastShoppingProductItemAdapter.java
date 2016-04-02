@@ -40,19 +40,19 @@ public class UserLastShoppingProductItemAdapter extends ArrayAdapter<ProductShop
         View rowView = inflater.inflate(R.layout.last_shopping_item,parent,false);
 
 
-        ImageLoader imgLoader = new ImageLoader(Configuration.getConfig().UserLastShoppingContext,Configuration.getConfig().homeDisplaySizeForShow); // important
+        ImageLoader imgLoader = new ImageLoader(Configuration.getConfig().userLastShoppingActivityContext,Configuration.getConfig().homeDisplaySizeForShow); // important
         ImageView picInvoice = (ImageView) rowView.findViewById(R.id.img_invoice);
         String imageURL = allProductsShop.get(position).getInvoiceImageLink();
         imgLoader.DisplayImage(imageURL, picInvoice);
 
         TextView invoiceNum=(TextView) rowView.findViewById(R.id.txt_invoiceNum);
-        TextView invoiceDate=(TextView)rowView.findViewById(R.id.txt_invoiceDate);
-        TextView invoiceStatus=(TextView)rowView.findViewById(R.id.txt_invoiceStatus);
+        //TextView invoiceDate=(TextView)rowView.findViewById(R.id.txt_invoiceDate);
+        //TextView invoiceStatus=(TextView)rowView.findViewById(R.id.txt_invoiceStatus);
         invoiceNum = PriceUtility.getInstance().changeFontToYekan(invoiceNum, myContext);
-        invoiceDate = PriceUtility.getInstance().changeFontToYekan(invoiceDate, myContext);
-        invoiceStatus = PriceUtility.getInstance().changeFontToYekan(invoiceStatus, myContext);
+        //invoiceDate = PriceUtility.getInstance().changeFontToYekan(invoiceDate, myContext);
+        //invoiceStatus = PriceUtility.getInstance().changeFontToYekan(invoiceStatus, myContext);
 
-        invoiceNum.setText(myContext.getResources().getString(R.string.invoice_number)+allProductsShop.get(position).getInvoiceNumber());
+        invoiceNum.setText(myContext.getResources().getString(R.string.invoice_number ,allProductsShop.get(position).getInvoiceNumber()));
 
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
         cal.setTimeInMillis(Integer.parseInt(allProductsShop.get(position).getTimeStamp()));

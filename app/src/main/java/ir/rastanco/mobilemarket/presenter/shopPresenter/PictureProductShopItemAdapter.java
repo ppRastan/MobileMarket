@@ -85,7 +85,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         ImageButton shareToolBar;
         ImageButton basketToolbar;
         ImageButton likeToolBar;
-        ImageButton offerLeft;
         ImageButton offerRight;
         Product mProduct;
         ImageLoader imgLoader;
@@ -106,23 +105,22 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         holder.imgP.getLayoutParams().width= Configuration.getConfig().shopDisplaySizeForShow;
         holder.imgP.getLayoutParams().height=Configuration.getConfig().shopDisplaySizeForShow;
         holder.imgP.setImageDrawable(defaultPicture);
-        holder.offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
         holder.offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
         holder. basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
         holder.shareToolBar = (ImageButton)rowView.findViewById(R.id.share_toolbar_in_main_page);
         holder.likeToolBar = (ImageButton)rowView.findViewById(R.id.empty_like_toolbar);
         holder.imgLoader= new ImageLoader(myContext,Configuration.getConfig().shopDisplaySizeForShow);
 
-        final Product aProduct=allProduct.get(position);
-        if (aProduct.getPriceOff()==0 && aProduct.getPrice()!=0){
+        final Product eachProduct=allProduct.get(position);
+        if (eachProduct.getPriceOff()==0 && eachProduct.getPrice()!=0){
             holder.priceForYou.setVisibility(View.INVISIBLE);
             holder.originalPrice.setTextColor(Color.BLACK);
-            holder.originalPrice.setText(PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice()));
+            holder.originalPrice.setText(PriceUtility.getInstance().formatPriceCommaSeprated(eachProduct.getPrice()));
             holder.basketToolbar.setVisibility(View.VISIBLE);
         }
-        else if(aProduct.getPrice()!=0) {
-            int price= aProduct.getPrice();
-            int discountPercent=aProduct.getPriceOff();
+        else if(eachProduct.getPrice()!=0) {
+            int price= eachProduct.getPrice();
+            int discountPercent=eachProduct.getPriceOff();
             int finalPrice= Utilities.getInstance().calculatePriceOffProduct(price,discountPercent);
             holder.originalPrice.setTextColor(Color.RED);
             holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -132,7 +130,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             holder.priceForYou.setVisibility(View.VISIBLE);
             holder.basketToolbar.setVisibility(View.VISIBLE);
         }
-        else if(aProduct.getPriceOff()==0){
+        else if(eachProduct.getPriceOff()==0){
             holder.basketToolbar.setVisibility(View.GONE);
             holder.originalPrice.setText(myContext.getString(R.string.coming_soon));
         }
@@ -140,8 +138,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         if(Configuration.getConfig().RTL)
         {
 
-            holder.offerLeft.setVisibility(View.GONE);
-            if(aProduct.getPriceOff() != 0)
+            if(eachProduct.getPriceOff() != 0)
             {
                 holder.offerRight.setVisibility(View.VISIBLE);
             }
@@ -150,22 +147,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             }
         }
 
-
-        if (! Configuration.getConfig().RTL)
-        {
-            holder.offerRight.setVisibility(View.GONE);
-            if(aProduct.getPriceOff() != 0) {
-
-                holder.offerLeft.setVisibility(View.VISIBLE);
-            }
-            else
-            {
-                holder.offerLeft.setVisibility(View.GONE);
-            }
-        }
-
-
-        if (sch.checkSelectProductForShop(aProduct.getId()))
+        if (sch.checkSelectProductForShop(eachProduct.getId()))
             holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
         else
             holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
@@ -177,7 +159,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 if (!isSelectedForShop) {
                     holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
                     isSelectedForShop=true;
-                    sch.addProductToShoppingBag(aProduct.getId());
+                    sch.addProductToShoppingBag(eachProduct.getId());
                     myContext.startActivity(new Intent(myContext, ShoppingBagActivity.class));
                     ObserverShopping.setMyBoolean(true);
                     isSelectedForShop = true;
@@ -188,7 +170,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
                 {
                     holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
                     isSelectedForShop=false;
-                    sch.deleteAProductShopping(aProduct.getId());
+                    sch.deleteAProductShopping(eachProduct.getId());
                     ObserverShopping.setMyBoolean(false);
                     isSelectedForShop = false;
                 }
@@ -199,11 +181,11 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
                 ToolbarHandler toolbarHandler = new ToolbarHandler();
-                toolbarHandler.generalShare(shopPresenterActivity, aProduct.getLinkInSite());
+                toolbarHandler.generalShare(shopPresenterActivity, eachProduct.getLinkInSite());
             }
         });
 
-        if (sch.getAProduct(aProduct.getId()).getLike()==0){
+        if (sch.getAProduct(eachProduct.getId()).getLike()==0){
             //this Product No Favorite
             holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);
             isLikeButtonClicked=false;
@@ -218,7 +200,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
 
-                if (sch.getAProduct(aProduct.getId()).getLike() == 0) {
+                if (sch.getAProduct(eachProduct.getId()).getLike() == 0) {
 
                     if(Configuration.getConfig().userLoginStatus)
                         Toast.makeText(myContext, myContext.getResources().getString(R.string.thanks), Toast.LENGTH_SHORT).show();
@@ -227,25 +209,25 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
 
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_filled_toolbar);
                     isLikeButtonClicked = true;
-                    sch.changeProductLike(aProduct.getId(), 1);
-                } else if (sch.getAProduct(aProduct.getId()).getLike() == 1) {
+                    sch.changeProductLike(eachProduct.getId(), 1);
+                } else if (sch.getAProduct(eachProduct.getId()).getLike() == 1) {
 
                     if(!Configuration.getConfig().userLoginStatus)
                         Toast.makeText(myContext,myContext.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
 
                     holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);
                     isLikeButtonClicked = false;
-                    sch.changeProductLike(aProduct.getId(), 0);
+                    sch.changeProductLike(eachProduct.getId(), 0);
                 }
             }
         });
 
         //get main picture from server or cache
         String imageNumberPath;
-        if(aProduct.getImagesPath().size()==0)
+        if(eachProduct.getImagesPath().size()==0)
             imageNumberPath="no_image_path";
         else
-            imageNumberPath = aProduct.getImagesPath().get(0);
+            imageNumberPath = eachProduct.getImagesPath().get(0);
 
         holder.imgP.getLayoutParams().width=Configuration.getConfig().shopDisplaySizeForShow;
         holder.imgP.getLayoutParams().height=Configuration.getConfig().shopDisplaySizeForShow;
@@ -254,9 +236,9 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String imageURL = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().shopDisplaySizeForURL,Configuration.getConfig().shopDisplaySizeForURL);
+        String imageURL = Link.getInstance().generateURLForGetImageProduct(eachProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().shopDisplaySizeForURL,Configuration.getConfig().shopDisplaySizeForURL);
         holder.imgLoader.DisplayImage(imageURL, holder.imgP);
-        holder.infoP.setText(aProduct.getTitle());
+        holder.infoP.setText(eachProduct.getTitle());
 
         holder.imgP.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -29,8 +29,8 @@ public class UserLastShoppingProduct extends Activity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
-        Configuration.getConfig().UserLastShoppingContext =this;
-        ServerConnectionHandler sch=new ServerConnectionHandler(Configuration.getConfig().UserLastShoppingContext);
+        Configuration.getConfig().userLastShoppingActivityContext =this;
+        ServerConnectionHandler sch=new ServerConnectionHandler(Configuration.getConfig().userLastShoppingActivityContext);
         ArrayList<ProductShop> allProductsShop=new ArrayList<>();
 
         UserInfo user=sch.getUserInfo();
@@ -38,13 +38,13 @@ public class UserLastShoppingProduct extends Activity {
             allProductsShop=sch.getLastProductShop(Link.getInstance().generateURLForGetUserLasShopping(user.getUserId()));
         }
         ListView lvLastShopping=(ListView)findViewById(R.id.lv_lastShopping);
-        UserLastShoppingProductItemAdapter adapter=new UserLastShoppingProductItemAdapter(Configuration.getConfig().UserLastShoppingContext,allProductsShop);
+        UserLastShoppingProductItemAdapter adapter=new UserLastShoppingProductItemAdapter(Configuration.getConfig().userLastShoppingActivityContext,allProductsShop);
         lvLastShopping.setAdapter(adapter);
     }
 
         @Override
         public void onBackPressed() {
-            Intent userPreviousShopping = new Intent(UserLastShoppingProduct.this,AccountManager.class);
+            Intent userPreviousShopping = new Intent(UserLastShoppingProduct.this,AccountManagerActivity.class);
             startActivity(userPreviousShopping);
             this.finish();
         }

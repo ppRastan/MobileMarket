@@ -15,12 +15,11 @@ import java.text.DecimalFormat;
 public class PriceUtility {
     private static DecimalFormat formatter;
     private static PriceUtility priceUtility;
-
+    private String defaultFont = "fonts/yekan.ttf";
     public static PriceUtility getInstance() {
         if (priceUtility == null) {
             priceUtility = new PriceUtility();
             formatter = new DecimalFormat("#,###,000");
-
         }
         return priceUtility;
 
@@ -34,13 +33,13 @@ public class PriceUtility {
     }
 
     public TextView changeFontToYekan(TextView textView, Context context) {
-        textView.setTypeface(FontHelper.get(context, "fonts/yekan.ttf"));
+        textView.setTypeface(FontHelper.get(context,defaultFont ));
         return textView;
     }
 
 
     public Button ChangeButtonFont(Button addToBasketBtn, Context context) {
-        addToBasketBtn.setTypeface(FontHelper.get(context, "fonts/yekan.ttf"));
+        addToBasketBtn.setTypeface(FontHelper.get(context, defaultFont));
         return addToBasketBtn;
     }
 }

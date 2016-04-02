@@ -117,22 +117,22 @@ public class FilterCategory extends DialogFragment {
                 Bundle bundle = data.getExtras();
                 int subCategorySelected = bundle.getInt("subCategorySelected");
                 //send subCategory selected to SuperAwesomeCardFragment for show
-                Configuration.getConfig().FilterCategoryId = subCategorySelected;
-                Configuration.getConfig().FilterCategoryTitle=sch.getACategoryTitleWithCategoryId(subCategorySelected);
+                Configuration.getConfig().filterCategoryId = subCategorySelected;
+                Configuration.getConfig().filterCategoryTitle =sch.getACategoryTitleWithCategoryId(subCategorySelected);
                 ObserverFilterCategory.setAddFilter(true);
                 break;
             case 1:
                 Bundle bundleAll = data.getExtras();
                 int selectedAll = bundleAll.getInt("all");
-                Configuration.getConfig().FilterCategoryTitle =Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.all) ;
-                Configuration.getConfig().FilterCategoryId=selectedAll;
+                Configuration.getConfig().filterCategoryTitle =Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.all) ;
+                Configuration.getConfig().filterCategoryId =selectedAll;
                 ObserverFilterCategory.setAddFilter(true);
                 break;
             case 2:
                 Bundle bundleNoChild = data.getExtras();
                 int selectACategoryNoChild = bundleNoChild.getInt("noChild");
-                Configuration.getConfig().FilterCategoryTitle=sch.getACategoryTitleWithCategoryId(selectACategoryNoChild);
-                Configuration.getConfig().FilterCategoryId = selectACategoryNoChild;
+                Configuration.getConfig().filterCategoryTitle =sch.getACategoryTitleWithCategoryId(selectACategoryNoChild);
+                Configuration.getConfig().filterCategoryId = selectACategoryNoChild;
                 ObserverFilterCategory.setAddFilter(true);
                 break;
         }

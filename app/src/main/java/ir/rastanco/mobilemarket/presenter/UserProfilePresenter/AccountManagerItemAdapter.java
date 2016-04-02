@@ -27,7 +27,7 @@ public class AccountManagerItemAdapter extends BaseAdapter{
     private final int [] imageId;
     private static LayoutInflater inflater=null;
     private final ServerConnectionHandler sch;
-    public AccountManagerItemAdapter(AccountManager mainActivity, ArrayList<String> programNameList, int[] programImages) {
+    public AccountManagerItemAdapter(AccountManagerActivity mainActivity, ArrayList<String> programNameList, int[] programImages) {
 
         result=programNameList;
         context=mainActivity;
@@ -84,7 +84,7 @@ public class AccountManagerItemAdapter extends BaseAdapter{
                         break;
                     case 2:
                         sch.deleteUserInfo();
-                        Intent login=new Intent(context,LoginPage.class);
+                        Intent login=new Intent(context,LoginActivity.class);
                         context.startActivity(login);
                         ((Activity)context).finish();
                         break;

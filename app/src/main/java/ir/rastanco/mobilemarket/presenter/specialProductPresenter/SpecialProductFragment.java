@@ -60,9 +60,9 @@ public class SpecialProductFragment extends Fragment {
                 }
                 mSwipeRefreshLayout.setEnabled(enable);
                 if (enable)
-                    Configuration.getConfig().telephoneFloatingActionButton.setVisibility(View.VISIBLE);
+                    Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.VISIBLE);
                 else
-                    Configuration.getConfig().telephoneFloatingActionButton.setVisibility(View.GONE);
+                    Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.GONE);
 
 
 

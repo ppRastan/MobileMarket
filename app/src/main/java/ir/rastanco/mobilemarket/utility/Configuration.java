@@ -19,41 +19,43 @@ public class Configuration {
         else return new Configuration();
     }
 
-    public  boolean userLoginStatus;
-    public  boolean isTheFirstTimeOpeningThisPage;
-    public  String homeDisplaySizeForURL;
-    public  int homeDisplaySizeForShow;
-    public  String shopDisplaySizeForURL;
-    public  int shopDisplaySizeForShow;
-    public  String productInfoHeightForURL;
-    public  int productInfoHeightForShow;
-    public  String articleDisplaySizeForURL;
-    public  int articleDisplaySizeForShow;
-    public  int progressBarSize;
 
     public  Context mainActivityContext;
-    public  Context productInfoContext;
-    public  Context ApplicationContext;
-    public  Context UserLoginContext;
-    public  Context UserProfileContext;
+    public  Context productInfoActivityContext;
+    public  Context applicationContext;
+    public  Context userLoginActivityContext;
+    public  Context userProfileActivityContext;
     public  Context ShopFragmentContext;
-    public  Context ShoppingBagContext;
-    public  Context UserLastShoppingContext;
-    public  Context ProductOptionContext;
+    public  Context ShoppingBagActivityContext;
+    public  Context userLastShoppingActivityContext;
+    public  Context productOptionActivityContext;
     public  Context accountManagerContext;
     public  Context specialProductManagementContext;
-    public  MenuItem upgradeButtonMenu;
-    public  ViewPager mainPager;
+    public  String filterOption;
+    public  String filterPriceTitle;
+    public  String filterBrand;
+    public  String filterAll;
+    public  String productInfoHeightForURL;
+    public  String homeDisplaySizeForURL;
+    public  String shopDisplaySizeForURL;
+    public  String articleDisplaySizeForURL;
+    public  String filterCategoryTitle;
+    public  Boolean userLoginStatus;
+    public  Boolean isTheFirstTimeOpeningThisPage;
     public  Boolean RTL;
     public  Boolean productTableEmptyStatus; //true is empty and false is full
     public  Boolean connectionStatus = false;
-    public  int mainTabCount;
-    public  FloatingActionButton telephoneFloatingActionButton;
-    public  String FilterCategoryTitle;
-    public  int FilterCategoryId;
-    public  String FilterOption;
-    public  String FilterPriceTitle;
-    public  String FilterBrand;
-    public  String FilterAll;
+    public  Integer filterCategoryId;
+    public  Integer homeDisplaySizeForShow;
+    public  Integer shopDisplaySizeForShow;
+    public  Integer productInfoHeightForShow;
+    public  Integer articleDisplaySizeForShow;
+    public  Integer progressBarSize;
+    public  Integer mainTabCount;
+    public  MenuItem upgradeButtonMenu;
+    public  ViewPager mainPager;
+    public  FloatingActionButton customerSupportFloatingActionButton;
+
+
 
 }

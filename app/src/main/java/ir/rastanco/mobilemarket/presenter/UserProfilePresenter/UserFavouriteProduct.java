@@ -30,11 +30,11 @@ public class UserFavouriteProduct extends Activity {
         setContentView(R.layout.activity_user_profile);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        Configuration.getConfig().UserProfileContext =this;
-        sch=new ServerConnectionHandler(Configuration.getConfig().UserProfileContext);
+        Configuration.getConfig().userProfileActivityContext =this;
+        sch=new ServerConnectionHandler(Configuration.getConfig().userProfileActivityContext);
         ArrayList<Product>allProductLike=sch.getAllProductFavourite();
         ListView lsvFavourite=(ListView) findViewById(R.id.lsv_favouriteProduct);
-        UserFavouriteProductItemAdapter adapter= new UserFavouriteProductItemAdapter(Configuration.getConfig().UserProfileContext,allProductLike);
+        UserFavouriteProductItemAdapter adapter= new UserFavouriteProductItemAdapter(Configuration.getConfig().userProfileActivityContext,allProductLike);
         lsvFavourite.setAdapter(adapter);
         lsvFavourite.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -55,7 +55,7 @@ public class UserFavouriteProduct extends Activity {
     }
     @Override
     public void onBackPressed() {
-        Intent UserFavoriteProduct = new Intent(UserFavouriteProduct.this,AccountManager.class);
+        Intent UserFavoriteProduct = new Intent(UserFavouriteProduct.this,AccountManagerActivity.class);
         startActivity(UserFavoriteProduct);
         this.finish();
     }

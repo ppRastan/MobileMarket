@@ -44,10 +44,10 @@
         <activity android:name=".presenter.ProductInfoPresenter.ProductInfoActivity" />
         <activity android:name=".presenter.shoppingBagPresenter.ShoppingBagActivity" />
         <activity android:name=".presenter.ProductInfoPresenter.ProductOptionActivity" />
-        <activity android:name=".presenter.UserProfilePresenter.AccountManager" />
+        <activity android:name=".presenter.UserProfilePresenter.AccountManagerActivity" />
         <activity android:name=".presenter.UserProfilePresenter.UserFavouriteProduct" />
         <activity android:name=".presenter.UserProfilePresenter.UserLastShoppingProduct" />
-        <activity android:name=".presenter.UserGuide"/>
+
         <service android:name=".presenter.Services.NotificationService" />
 
         <receiver android:name=".presenter.Services.UpdateEveryConnectionOk">
@@ -57,7 +57,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".presenter.UserProfilePresenter.LoginPage" />
+        <activity android:name=".presenter.UserProfilePresenter.LoginActivity" />
 
         <activity android:name=".presenter.FullScreenPAgeUserGuider"
             android:theme="@style/Transparent">

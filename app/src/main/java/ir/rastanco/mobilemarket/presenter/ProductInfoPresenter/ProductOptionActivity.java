@@ -29,8 +29,8 @@ public class ProductOptionActivity extends Activity {
         setContentView(R.layout.activity_product_option);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        Configuration.getConfig().ProductOptionContext=this;
-        ServerConnectionHandler sch=new ServerConnectionHandler(Configuration.getConfig().ProductOptionContext);
+        Configuration.getConfig().productOptionActivityContext =this;
+        ServerConnectionHandler sch=new ServerConnectionHandler(Configuration.getConfig().productOptionActivityContext);
 
         Intent intent = this.getIntent();
         int  productId=intent.getIntExtra("productId", 0);
@@ -47,15 +47,15 @@ public class ProductOptionActivity extends Activity {
                 checkBackButtonState();
             }
         });
-        sch=new ServerConnectionHandler(Configuration.getConfig().ProductOptionContext);
+        sch=new ServerConnectionHandler(Configuration.getConfig().productOptionActivityContext);
         ArrayList<ProductOption> options=sch.getAllProductOptionOfAProduct(productId, groupId);
         ListView lvProductOption=(ListView)findViewById(R.id.lv_productOption);
-        ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.getConfig().ProductOptionContext,options);
+        ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.getConfig().productOptionActivityContext,options);
         lvProductOption.setAdapter(adapter);
         ListView lvComment=(ListView)findViewById(R.id.lv_comments);
         ArrayList<String> commentsAProduct=sch.getContentCommentsAllProduct(productId);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                Configuration.getConfig().ProductOptionContext,
+                Configuration.getConfig().productOptionActivityContext,
                 android.R.layout.simple_list_item_1,
                 commentsAProduct );
 

@@ -21,7 +21,7 @@ public class ProductInfoActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.swip_product_gallery);
-        Configuration.getConfig().productInfoContext = this;
+        Configuration.getConfig().productInfoActivityContext = this;
         Intent intent = this.getIntent();
         Bundle productBundle = new Bundle();
         productBundle = intent.getExtras();

@@ -40,7 +40,7 @@ import ir.rastanco.mobilemarket.utility.PriceUtility;
 /**
  * Created by ShaisteS on 1394/12/09.
  */
-public class ShopFragment extends Fragment {
+public class shopFragmentFilterHandler extends Fragment {
 
 
     private ServerConnectionHandler sch;
@@ -106,9 +106,9 @@ public class ShopFragment extends Fragment {
                 }
                 mSwipeRefreshLayout.setEnabled(enable);
                 if (enable)
-                    Configuration.getConfig().telephoneFloatingActionButton.setVisibility(View.VISIBLE);
+                    Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.VISIBLE);
                 else
-                    Configuration.getConfig().telephoneFloatingActionButton.setVisibility(View.GONE);
+                    Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.GONE);
 
             }
         });
@@ -123,9 +123,9 @@ public class ShopFragment extends Fragment {
                         sch.getNewProducts();
                         sch.getEditProducts();
                         ArrayList<Product> newProducts = sch.getProductAfterRefresh(pageId,
-                                Configuration.getConfig().FilterCategoryId,
+                                Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
-                                Configuration.getConfig().FilterOption);
+                                Configuration.getConfig().filterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
                             gridview.setVisibility(View.GONE);
@@ -145,10 +145,10 @@ public class ShopFragment extends Fragment {
         ObserverSimilarProduct.SimilarProductListener(new ObserverSimilarProductListener() {
             @Override
             public void SimilarProductSet() {
-                Configuration.getConfig().FilterCategoryId=ObserverSimilarProduct.getSimilarProduct();
-                Configuration.getConfig().FilterPriceTitle=sch.getACategoryTitleWithCategoryId(Configuration.getConfig().FilterCategoryId);
-                Configuration.getConfig().FilterBrand=Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.all);
-                txtFilterCategorySelected.setText(Configuration.getConfig().FilterPriceTitle);
+                Configuration.getConfig().filterCategoryId =ObserverSimilarProduct.getSimilarProduct();
+                Configuration.getConfig().filterPriceTitle =sch.getACategoryTitleWithCategoryId(Configuration.getConfig().filterCategoryId);
+                Configuration.getConfig().filterBrand =Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.all);
+                txtFilterCategorySelected.setText(Configuration.getConfig().filterPriceTitle);
                 txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
                 txtFilterOptionProductSelected.setText(Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.all));
                 txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.black));
@@ -185,12 +185,12 @@ public class ShopFragment extends Fragment {
                 ObserverFilterCategory.changeFilterCategoryListener(new ObserverFilterCategoryListener() {
                     @Override
                     public void changeFilterCategory() {
-                        txtFilterCategorySelected.setText(Configuration.getConfig().FilterCategoryTitle);
+                        txtFilterCategorySelected.setText(Configuration.getConfig().filterCategoryTitle);
                         txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
-                                Configuration.getConfig().FilterCategoryId,
+                                Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
-                                Configuration.getConfig().FilterOption);
+                                Configuration.getConfig().filterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
                             gridview.setVisibility(View.GONE);
@@ -221,12 +221,12 @@ public class ShopFragment extends Fragment {
                 ObserverFilterPrice.changeFilterPriceListener(new ObserverFilterPriceListener() {
                     @Override
                     public void changeFilterPrice() {
-                        txtFilterOptionProductSelected.setText(Configuration.getConfig().FilterPriceTitle);
+                        txtFilterOptionProductSelected.setText(Configuration.getConfig().filterPriceTitle);
                         txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
                         ArrayList<Product> newProducts=sch.getProductAfterFilter(pageId,
-                                Configuration.getConfig().FilterCategoryId,
+                                Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
-                                Configuration.getConfig().FilterOption);
+                                Configuration.getConfig().filterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
                             gridview.setVisibility(View.GONE);
@@ -246,12 +246,12 @@ public class ShopFragment extends Fragment {
                 ObserverFilterBrand.changeFilterBrandListener(new ObserverFilterBrandListener() {
                     @Override
                     public void changeFilterBrand() {
-                        txtFilterOptionProductSelected.setText(Configuration.getConfig().FilterBrand);
+                        txtFilterOptionProductSelected.setText(Configuration.getConfig().filterBrand);
                         txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
                         ArrayList<Product> newProducts=sch.getProductAfterFilter(pageId,
-                                Configuration.getConfig().FilterCategoryId,
+                                Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
-                                Configuration.getConfig().FilterOption);
+                                Configuration.getConfig().filterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
                             gridview.setVisibility(View.GONE);
@@ -273,12 +273,12 @@ public class ShopFragment extends Fragment {
                 ObserverFilterAll.changeFilterAllListener(new ObserverFilterAllListener() {
                     @Override
                     public void changeFilterAll() {
-                        txtFilterOptionProductSelected.setText(Configuration.getConfig().FilterAll);
+                        txtFilterOptionProductSelected.setText(Configuration.getConfig().filterAll);
                         txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext,R.color.red));
                         ArrayList<Product> newProducts=sch.getProductAfterFilter(pageId,
-                                Configuration.getConfig().FilterCategoryId,
+                                Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
-                                Configuration.getConfig().FilterOption);
+                                Configuration.getConfig().filterOption);
                         if (newProducts.size()==0){
                             noThingToShow.setVisibility(View.VISIBLE);
                             gridview.setVisibility(View.GONE);

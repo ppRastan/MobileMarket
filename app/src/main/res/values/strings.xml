@@ -16,7 +16,6 @@
     <string name="forget_password">رمز عبور را فراموش کرده ام !</string>
     <string name="your_basket">سبد خرید شما</string>
     <string name="total_price">جمع کل خرید</string>
-    <string name="toman">تومان</string>
     <string name="confirm_to_delete">آیا مایل به حذف محصول از سبد خرید هستید؟</string>
     <string name="yes">بله</string>
     <string name="no">خیر</string>
@@ -33,7 +32,7 @@
     <string name="text_to_send">متن مورد نظر خود را وارد کنید سپس کلید ارسال را فشار دهید</string>
     <string name="text_to_advertise"> برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار \" دکوریس \" را دانلود کنید:</string>
     <string name="empty_basket">سبد خرید شما خالی است!</string>
-    <string name="invoice_number">شماره فاکتور:</string>
+    <string name="invoice_number">شماره ی فاکتور : %1$s </string>
     <string name="same_goods">محصولات مشابه</string>
     <string name="LinkDownloadApp">http://decoriss.com/app/Decoriss.apk</string>
     <string name="information">توضیحات:</string>
@@ -60,8 +59,6 @@
     <string name="choose_brand">انتخاب برند</string>
     <string name="choose_price">انتخاب محدوده قیمت</string>
     <string name="price_for_you">قیمت برای شما :</string>
-    <string name="productPrice">قیمت : </string>
-    <string name="currency">تومان</string>
     <string name="previous_shopped_items">خریدهای گذشته ی من</string>
     <string name="liked">علاقه مندی ها</string>
     <string name="exit">خروج از حساب کاربری</string>
@@ -95,7 +92,7 @@
     <string name="previousShoppedItems">خریدهای گذشته</string>
     <string name="accountPicture">تصویر</string>
     <string name="productPicture">تصویر محصول</string>
-    <string name="titleOfCurrentProduct">%1$s : %1$s</string>
+    <string name="titleOfCurrentProduct">%1$s</string>
     <string name="shoppingBagAdapterPriceForYou">%1$s  تومان </string>
     <string name="FullScreenImageAdapterproductPrice">قیمت برای شما : %1$s  تومان</string>
     <string name="FullScreenImageAdapterproductOriginalPrice">قیمت : %1$s  تومان</string>

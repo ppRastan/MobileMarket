@@ -178,7 +178,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     }
 
     private void setSpinner() {
-        View spinnerView = inflater.inflate(R.layout.spinner_item,null);
         spinnerCounter = (Spinner)rowView.findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(shoppingBagActivityContext, R.layout.spinner_item, spinnerList);
         spinnerCounter.setAdapter(adapter);

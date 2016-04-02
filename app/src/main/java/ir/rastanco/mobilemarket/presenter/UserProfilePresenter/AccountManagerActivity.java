@@ -17,7 +17,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  */
 
 
-public class AccountManager extends AppCompatActivity {
+public class AccountManagerActivity extends AppCompatActivity {
     private final static int [] listViewImages ={
             R.mipmap.previous_invoices,
             R.mipmap.favorites,
