@@ -56,7 +56,7 @@ public class UserFavouriteProduct extends Activity {
     }
     @Override
     public void onBackPressed() {
-        Intent UserFavoriteProduct = new Intent(UserFavouriteProduct.this,AccountManager.class);
+        Intent UserFavoriteProduct = new Intent(UserFavouriteProduct.this,AccountManagerActivity.class);
         startActivity(UserFavoriteProduct);
         this.finish();
     }
