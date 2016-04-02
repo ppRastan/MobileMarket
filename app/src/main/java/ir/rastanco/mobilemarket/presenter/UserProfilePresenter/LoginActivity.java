@@ -31,7 +31,8 @@ public class LoginActivity
     private String pass;
     private EditText username;
     private EditText password;
-
+    private String keyExpired = "key_expired";
+    private String invalidUserName = "user_pass_invalid";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,14 +64,14 @@ public class LoginActivity
                         aUser.setUserLoginStatus(1);
                         sch.addUserInfoToTable(aUser);
                         Configuration.getConfig().userLoginStatus=true;
-                        Intent userAccount=new Intent(Configuration.getConfig().userLoginActivityContext,AccountManager.class);
+                        Intent userAccount=new Intent(Configuration.getConfig().userLoginActivityContext,AccountManagerActivity.class);
                         startActivity(userAccount);
                         finish();
                     }
-                    if (response.get(0).equals("key_expired"))
+                    if (response.get(0).equals(keyExpired))
                         Toast.makeText(Configuration.getConfig().userLoginActivityContext,Configuration.getConfig().userLoginActivityContext.getResources().getString(R.string.try_more),
                                 Toast.LENGTH_LONG).show();
-                    if (response.get(0).equals("user_pass_invalid"))
+                    if (response.get(0).equals(invalidUserName))
                         Toast.makeText(Configuration.getConfig().userLoginActivityContext,Configuration.getConfig().userLoginActivityContext.getResources().getString(R.string.not_correct),
                                 Toast.LENGTH_LONG).show();
 
