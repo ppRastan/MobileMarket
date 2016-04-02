@@ -28,7 +28,7 @@ public class SpecialProductFragmentManagement extends Fragment {
 
         View specialProductView = inflater.inflate(R.layout.fragment_special_product_manager, container, false);
         Configuration.getConfig().specialProductManagementContext =getContext();
-        if (Configuration.getConfig().productTableEmptyStatus && !Configuration.getConfig().connectionStatus) {
+        if (!Configuration.getConfig().existProductInformation && !Configuration.getConfig().connectionStatus) {
 
             CheckConnectionFragment check=new CheckConnectionFragment();
             FragmentTransaction setCheck=getFragmentManager().beginTransaction();
@@ -36,16 +36,16 @@ public class SpecialProductFragmentManagement extends Fragment {
             setCheck.commit();
 
         }
-        if (Configuration.getConfig().productTableEmptyStatus && Configuration.getConfig().connectionStatus){
+        /*if (!Configuration.getConfig().existProductInformation && Configuration.getConfig().connectionStatus){
 
             LoadingFragment loading = new LoadingFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.specialProductManagement, loading);
             transaction.commit();
 
-        }
+        }*/
 
-        else if (!Configuration.getConfig().productTableEmptyStatus)
+        else if (!Configuration.getConfig().emptyProductTable || Configuration.getConfig().existProductInformation)
         {
             SpecialProductFragment specialProductFragment = new SpecialProductFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();

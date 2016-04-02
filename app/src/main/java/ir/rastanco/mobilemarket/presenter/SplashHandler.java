@@ -7,10 +7,15 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MotionEvent;
 
+import java.util.ArrayList;
+
+import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductFirstInstallApp;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.Link;
 
 /**
  *  Created by ShaisteS on 1394/12/1.
@@ -20,20 +25,23 @@ public class SplashHandler extends AppCompatActivity {
 
     private Thread mSplashThread;
     private ServerConnectionHandler sch;
-    private final Integer delay = 3000;
+    private Context splashContext;
+    private final Integer delay = 10;
+    ParseJsonProductFirstInstallApp parseInformationProduct;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final SplashHandler sPlashHandler = this;
-        sch=ServerConnectionHandler.getInstance(this);
+        splashContext=this;
+        sch=ServerConnectionHandler.getInstance(splashContext);
+        parseInformationProduct=new ParseJsonProductFirstInstallApp(splashContext);
         mSplashThread = new Thread(){
             @Override
             public void run(){
                 try {
                     synchronized(this){
                         // Wait given period of time or exit on touch
-
                         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                         NetworkInfo ni = cm.getActiveNetworkInfo();
                         if (ni != null && ni.isConnected()) {
@@ -43,10 +51,22 @@ public class SplashHandler extends AppCompatActivity {
                             Configuration.getConfig().userLoginStatus=false; //please login
                         else Configuration.getConfig().userLoginStatus=true;//
 
-                        if (sch.emptyDBProduct())
-                            Configuration.getConfig().productTableEmptyStatus=true;
-                        else
-                            Configuration.getConfig().productTableEmptyStatus=false;
+                        if (sch.emptyDBCategory()) {
+                            Configuration.getConfig().emptyCategoryTable=true;
+                            sch.setCategories(sch.getAllCategoryInfoURL(Link.getInstance().generateURLForGetAllCategories()));
+                        }
+                        if (sch.emptyDBProduct()) {
+                            Configuration.getConfig().emptyProductTable=true;
+                            Configuration.getConfig().existProductInformation = false;
+                            sch.setProducts(getProductInfoFromServer());
+                            if (sch.getProducts().size()!=0)
+                                Configuration.getConfig().existProductInformation=true;
+
+                        }
+                        else {
+                            Configuration.getConfig().existProductInformation = false;
+                            Configuration.getConfig().emptyProductTable=false;
+                        }
 
                         wait(delay);
                     }
@@ -63,18 +83,11 @@ public class SplashHandler extends AppCompatActivity {
 
         mSplashThread.start();
     }
-    /**
-     * Processes splash screen touch events
-     */
-    @Override
-    public boolean onTouchEvent(MotionEvent evt)
-    {
-        if(evt.getAction() == MotionEvent.ACTION_DOWN)
-        {
-            synchronized(mSplashThread){
-                mSplashThread.notifyAll();
-            }
-        }
-        return true;
+
+    private ArrayList<Product> getProductInfoFromServer(){
+        String[] jsonString = {""};
+        jsonString[0] = parseInformationProduct.getProductInfoFromServer(Link.getInstance().generateUrlForGetNewProduct(splashContext.getString(R.string.firstTimeStamp)));
+        ArrayList<Product> allProducts=parseInformationProduct.ParseJsonProducts(jsonString[0]);
+        return  allProducts;
     }
 }
