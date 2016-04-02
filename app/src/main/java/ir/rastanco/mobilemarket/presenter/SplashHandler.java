@@ -26,7 +26,7 @@ public class SplashHandler extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final SplashHandler sPlashHandler = this;
-        sch=new ServerConnectionHandler(this);
+        sch=ServerConnectionHandler.getInstance(this);
         mSplashThread = new Thread(){
             @Override
             public void run(){

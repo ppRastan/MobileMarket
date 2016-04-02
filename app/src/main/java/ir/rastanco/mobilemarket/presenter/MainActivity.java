@@ -63,9 +63,9 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKL
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingBagClickListener;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
-import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManagerActivity;
-import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginActivity;
-import ir.rastanco.mobilemarket.presenter.shopPresenter.shopFragmentFilterHandler;
+import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManager;
+import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginPage;
+import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragmentManagement;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -160,15 +160,15 @@ public class MainActivity extends AppCompatActivity {
     }
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ArticleFragment(), getResources().getString(R.string.fifth_page));
+        adapter.addFrag(new ArticleFragment(),getResources().getString(R.string.fifth_page));
         for (int i=mainCategoryTitle.size()-1;i>=0;i--) {
             Bundle args=new Bundle();
             args.putInt("pageId", mapTitleToIdMainCategory.get(mainCategoryTitle.get(i)));
-            shopFragmentFilterHandler shop=new shopFragmentFilterHandler();
+            ShopFragment shop=new ShopFragment();
             shop.setArguments(args);
-            adapter.addFragment(shop, mainCategoryTitle.get(i));
+            adapter.addFrag(shop, mainCategoryTitle.get(i));
         }
-        adapter.addFragment(new SpecialProductFragmentManagement(), getResources().getString(R.string.first_page));
+        adapter.addFrag(new SpecialProductFragmentManagement(),getResources().getString(R.string.first_page));
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(adapter.getCount() - 1);
     }
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setFAb(){
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        Configuration.getConfig().customerSupportFloatingActionButton =fab;
+        Configuration.getConfig().telephoneFloatingActionButton=fab;
         fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.fab_color)));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,8 +209,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void InitializationParametersNecessary() {
         Configuration.getConfig().mainActivityContext = this;
-        Configuration.getConfig().applicationContext =getBaseContext();
-        sch=new ServerConnectionHandler(Configuration.getConfig().mainActivityContext);
+        Configuration.getConfig().ApplicationContext =getBaseContext();
+        sch=ServerConnectionHandler.getInstance(Configuration.getConfig().mainActivityContext);
         Configuration.getConfig().isTheFirstTimeOpeningThisPage = true;
         mainCategoryTitle= new ArrayList<>();
         mapTitleToIdMainCategory=new HashMap<>();
@@ -285,11 +285,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_contact:
                 if (Configuration.getConfig().userLoginStatus){
 
-                    Intent userProfileIntent=new Intent(Configuration.getConfig().mainActivityContext,AccountManagerActivity.class);
+                    Intent userProfileIntent=new Intent(Configuration.getConfig().mainActivityContext,AccountManager.class);
                     this.startActivity(userProfileIntent);
                 }
                 else {
-                    Intent userProfileIntent=new Intent(Configuration.getConfig().mainActivityContext,LoginActivity.class);
+                    Intent userProfileIntent=new Intent(Configuration.getConfig().mainActivityContext,LoginPage.class);
                     this.startActivity(userProfileIntent);
                 }
                 break;

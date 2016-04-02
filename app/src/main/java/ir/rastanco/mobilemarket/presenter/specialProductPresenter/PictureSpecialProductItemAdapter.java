@@ -46,7 +46,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         super(context,R.layout.picture_product_item_home,products);
         myContext=(Activity)context;
         allProduct=products;
-        serverConnectionHandler =new ServerConnectionHandler(context);
+        serverConnectionHandler =ServerConnectionHandler.getInstance(context);
         defaultPicture= Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().homeDisplaySizeForShow);
 
     }

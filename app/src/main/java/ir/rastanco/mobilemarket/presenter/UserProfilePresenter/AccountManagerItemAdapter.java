@@ -33,7 +33,7 @@ public class AccountManagerItemAdapter extends BaseAdapter{
         context=mainActivity;
         imageId=programImages;
         inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        sch=new ServerConnectionHandler(context);
+        sch=ServerConnectionHandler.getInstance(context);
     }
     @Override
     public int getCount() {

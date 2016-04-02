@@ -38,7 +38,7 @@ public class FilterOptionBrand extends DialogFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        ServerConnectionHandler sch = new ServerConnectionHandler(Configuration.getConfig().ShopFragmentContext);
+        ServerConnectionHandler sch = ServerConnectionHandler.getInstance(Configuration.getConfig().ShopFragmentContext);
         Integer pageId=getArguments().getInt("pageId");
         ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);

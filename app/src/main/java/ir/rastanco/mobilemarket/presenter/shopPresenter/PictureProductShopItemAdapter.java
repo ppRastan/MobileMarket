@@ -56,7 +56,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
         myContext =mainActivity;
         inflater = ( LayoutInflater ) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         allProduct =products;
-        sch=new ServerConnectionHandler(myContext);
+        sch=ServerConnectionHandler.getInstance(myContext);
         shopPresenterActivity =(Activity) myContext;
         defaultPicture=Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().shopDisplaySizeForShow);
     }

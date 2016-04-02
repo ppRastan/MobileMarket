@@ -30,7 +30,7 @@ public class SpecialProductFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch=new ServerConnectionHandler(getContext());
+        sch=ServerConnectionHandler.getInstance(getContext());
         products=new ArrayList<>();
         products=sch.getSpecialProduct();
         View mainView = inflater.inflate(R.layout.fragment_home,container,false);

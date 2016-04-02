@@ -34,12 +34,29 @@ import ir.rastanco.mobilemarket.utility.Utilities;
  */
 public class ServerConnectionHandler {
 
+    private static ServerConnectionHandler serverConnectionHandlerInstance;
     private final Context context;
+    private ArrayList<Product> products;
+
+    public static ServerConnectionHandler getInstance(Context context) {
+
+        if (serverConnectionHandlerInstance == null) {
+            serverConnectionHandlerInstance = new ServerConnectionHandler(context.getApplicationContext());
+        }
+        return serverConnectionHandlerInstance;
+    }
 
     public ServerConnectionHandler(Context myContext){
         context=myContext;
     }
 
+    public ArrayList<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
+    }
 
     //Setting
     public void setSetting(String firstTimeStamp,String firstArticleNumber,String version,String firstUpdateTimeStamp){
@@ -293,7 +310,10 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<Product> getSpecialProduct(){
-        return DataBaseHandler.getInstance(context).selectSpecialProduct();
+        ArrayList<Product> allProducts=DataBaseHandler.getInstance(context).selectSpecialProduct();
+        if (allProducts.size()==0)
+            allProducts=products;
+        return allProducts;
     }
 
     public void addAProductOptionToTable(int productId, ProductOption aOption){
@@ -342,9 +362,9 @@ public class ServerConnectionHandler {
     public ArrayList<Product> getAllProductOfABrand(ArrayList<Product> products,String brandTitle) {
         ArrayList<Product> productsOfABrand = new ArrayList<>();
         for (int i = 0; i < products.size(); i++) {
-               if (products.get(i).getBrandName().equals(brandTitle))
-                    productsOfABrand.add(products.get(i));
-            }
+            if (products.get(i).getBrandName().equals(brandTitle))
+                productsOfABrand.add(products.get(i));
+        }
         return productsOfABrand;
     }
     public void changeProductLike(int productId,int like){
@@ -408,11 +428,11 @@ public class ServerConnectionHandler {
                                                      int filterCategoryId,
                                                      String filterOptionContent,
                                                      String filterOptionStatus
-                                                     ){
+    ){
         ArrayList<Product> allProduct=new ArrayList<>();
         allProduct= getProductsOfAParentCategory(pageId);
         if(filterCategoryId!=0)
-             allProduct=getProductsAfterFilterCategory(pageId, filterCategoryId);
+            allProduct=getProductsAfterFilterCategory(pageId, filterCategoryId);
         else if (!filterOptionContent.equals(context.getResources().getString(R.string.all))){
             if(filterOptionStatus.equals(context.getResources().getString(R.string.price)))
                 allProduct=getProductAsPriceFilter(allProduct, filterOptionContent);
@@ -423,9 +443,9 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<Product> getProductAfterFilter(int pageID,
-                                                     int filterCategoryId,
-                                                     String filterOptionContent,
-                                                     String filterOptionStatus
+                                                    int filterCategoryId,
+                                                    String filterOptionContent,
+                                                    String filterOptionStatus
     ){
         ArrayList<Product> allProduct=new ArrayList<>();
         allProduct= getProductsOfAParentCategory(pageID);

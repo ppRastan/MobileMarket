@@ -53,7 +53,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         super(context ,R.layout.activity_shopping_bag, productsId);
         selectedProducts = productsId;
         shoppingBagActivityContext =(Activity) context;
-        serverConnectionHandler =new ServerConnectionHandler(context);
+        serverConnectionHandler=ServerConnectionHandler.getInstance(context);
         spinnerList = new ArrayList<>();
         this.fillSpinnerItems();
         selectedItem=new HashMap<>();
