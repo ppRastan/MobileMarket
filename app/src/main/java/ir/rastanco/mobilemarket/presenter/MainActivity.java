@@ -52,7 +52,6 @@ import java.util.Map;
 
 import co.ronash.pushe.Pushe;
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductFirstInstallApp;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
@@ -125,22 +124,25 @@ public class MainActivity extends AppCompatActivity {
 
 
         //DataBase empty in first install Application
-        if (Configuration.getConfig().productTableEmptyStatus)
+        if (!Configuration.getConfig().existProductInformation && Configuration.getConfig().emptyProductTable)
             tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        if (Configuration.getConfig().productTableEmptyStatus &&
+
+        if (Configuration.getConfig().emptyProductTable &&
                 Configuration.getConfig().connectionStatus) {
-            getInformationFromServerInFirstRun(Configuration.getConfig().mainActivityContext);
+            addCategoryInformationAndProductInformationToDataBase(Configuration.getConfig().mainActivityContext);
+            //Configuration.getConfig().emptyProductTable=false;
         }
         ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
             @Override
             public void connectionOK() {
-                if (Configuration.getConfig().productTableEmptyStatus &&
+                if (Configuration.getConfig().emptyProductTable &&
                         Configuration.getConfig().connectionStatus) {
-                    getInformationFromServerInFirstRun(Configuration.getConfig().mainActivityContext);
+                    //getInformationFromServerInFirstRun(Configuration.getConfig().mainActivityContext);
+                    ObserverChangeFragment.setChangeFragmentParameter(true);
+
                 }
             }
         });
-
     }
     private void changeTabsFont() {
 
@@ -265,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
         MenuItem upgradeItem=menu.findItem(R.id.update);
         Configuration.getConfig().upgradeButtonMenu =upgradeItem;
         if(!sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer())||
-                Configuration.getConfig().productTableEmptyStatus ||
+                Configuration.getConfig().existProductInformation ||
                 !Configuration.getConfig().connectionStatus)
             upgradeItem.setVisible(false);
         else
@@ -358,6 +360,69 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void addCategoryInformationAndProductInformationToDataBase(Context context){
+        Thread getProductInfoFromServerThread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    synchronized (this) {
+                        sch.addAllCategoryToTable(sch.getCategories());
+                        addProductInformationToDataBaseFirstInstall(sch.getProducts());
+                        wait(10);
+                    }
+                } catch (InterruptedException ex) {
+                    Log.v("can not check data base","!");
+                }
+
+            }
+        };
+        getProductInfoFromServerThread.start();
+    }
+
+    private void addProductInformationToDataBaseFirstInstall(ArrayList<Product> allProducts){
+        sch.addAllProductToTable(allProducts);
+        String timeStamp= allProducts.get(0).getTimeStamp();
+        String lastVersionInServer=sch.getLastVersionInServer(Link.getInstance().generateURLForGetLastVersionAppInServer());
+        sch.setSetting(timeStamp,
+                Configuration.getConfig().mainActivityContext.getResources().getString(R.string.firstArticleNumber),
+                lastVersionInServer,
+                timeStamp);
+        Configuration.getConfig().existProductInformation = false;
+        Configuration.getConfig().emptyProductTable=false;
+
+    }
+
+    private void getInformationFromServerInFirstRun(Context context){
+        final ParseJsonProductFirstInstallApp parseInformationProduct=new ParseJsonProductFirstInstallApp(context);
+        final String[] jsonString = {""};
+        Thread getProductInfoFromServerThread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    synchronized (this) {
+                        // Wait given period of time or exit on touch
+                        jsonString[0] = parseInformationProduct.getProductInfoFromServer(Link.getInstance().generateUrlForGetNewProduct(Configuration.getConfig().mainActivityContext.getString(R.string.firstTimeStamp)));
+                        wait(10);
+                    }
+                } catch (InterruptedException ex) {
+                    Log.v("can not check data base","!");
+                }
+                sch.addAllCategoryToTable(sch.getAllCategoryInfoURL(Link.getInstance().generateURLForGetAllCategories()));
+                ArrayList<Product> allProducts;
+                allProducts = parseInformationProduct.ParseJsonProducts(jsonString[0]);
+                ServerConnectionHandler.getInstance(Configuration.getConfig().mainActivityContext).setProducts(allProducts);
+                addProductInformationToDataBaseFirstInstall(allProducts);
+                Configuration.getConfig().emptyProductTable = false;
+                ObserverChangeFragment.setChangeFragmentParameter(true);
+
+
+            }
+        };
+        getProductInfoFromServerThread.start();
+    }
+
+
+
     @Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
@@ -436,45 +501,4 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
-
-    private void checkDbState() {
-        ArrayList<Category> categories;
-        if (sch.emptyDBCategory()) {
-            categories = sch.getAllCategoryInfoURL(Link.getInstance().generateURLForGetAllCategories());
-            sch.addAllCategoryToTable(categories);
-        } else
-            sch.refreshCategories(Link.getInstance().generateURLForGetAllCategories());
-
-    }
-
-    private void getInformationFromServerInFirstRun(Context context){
-        final ParseJsonProductFirstInstallApp parseInformationProduct=new ParseJsonProductFirstInstallApp(context);
-        final String[] jsonString = {""};
-        Thread getProductInfoFromServerThread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    synchronized (this) {
-                        // Wait given period of time or exit on touch
-                        checkDbState();
-                        jsonString[0] = parseInformationProduct.getProductInfoFromServer(Link.getInstance().generateUrlForGetNewProduct(Configuration.getConfig().mainActivityContext.getString(R.string.firstTimeStamp)));
-                        wait(10);
-                    }
-                } catch (InterruptedException ex) {
-                    Log.v("can not check data base","!");
-                }
-                String timeStamp = parseInformationProduct.addProductToTable(jsonString[0]);
-                String lastVersionInServer=sch.getLastVersionInServer(Link.getInstance().generateURLForGetLastVersionAppInServer());
-                sch.setSetting(timeStamp,
-                        Configuration.getConfig().mainActivityContext.getResources().getString(R.string.firstArticleNumber),
-                        lastVersionInServer,
-                        timeStamp);
-                Configuration.getConfig().productTableEmptyStatus = false;
-                ObserverChangeFragment.setChangeFragmentParameter(true);
-            }
-        };
-        getProductInfoFromServerThread.start();
-    }
-
 }

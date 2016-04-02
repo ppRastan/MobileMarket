@@ -27,7 +27,7 @@ public class ParseJsonProductFirstInstallApp {
     private final ServerConnectionHandler serverConnectionHandler;
 
     public ParseJsonProductFirstInstallApp(Context context){
-        serverConnectionHandler=new ServerConnectionHandler(context);
+        serverConnectionHandler=ServerConnectionHandler.getInstance(context);
     }
 
     public String getProductInfoFromServer(String urlProduct) {
@@ -79,13 +79,11 @@ public class ParseJsonProductFirstInstallApp {
         return jsonString;
     }
 
-    public String addProductToTable(String jsonString) {
+    public ArrayList<Product> ParseJsonProducts(String jsonString) {
 
         ArrayList<Product> allProduct;
         JSONArray dataJsonArr;
         ArrayList<String> imagePath;
-
-        dataJsonArr = null;
         allProduct = new ArrayList<>();
 
         try {
@@ -126,11 +124,9 @@ public class ParseJsonProductFirstInstallApp {
                 aProduct.setImagesPath(imagePath);
                 allProduct.add(aProduct);
             }
-            serverConnectionHandler.addAllProductToTable(allProduct);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return allProduct.get(0).getTimeStamp();
+        return allProduct;
     }
-
 }

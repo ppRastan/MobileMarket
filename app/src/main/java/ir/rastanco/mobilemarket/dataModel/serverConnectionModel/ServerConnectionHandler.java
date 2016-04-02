@@ -25,6 +25,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJ
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonLastShop;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductOption;
+import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.Utilities;
 
@@ -37,6 +38,7 @@ public class ServerConnectionHandler {
     private static ServerConnectionHandler serverConnectionHandlerInstance;
     private final Context context;
     private ArrayList<Product> products;
+    private ArrayList<Category> categories;
 
     public static ServerConnectionHandler getInstance(Context context) {
 
@@ -48,14 +50,22 @@ public class ServerConnectionHandler {
 
     public ServerConnectionHandler(Context myContext){
         context=myContext;
+        products=new ArrayList<Product>();
     }
 
     public ArrayList<Product> getProducts() {
         return products;
     }
-
     public void setProducts(ArrayList<Product> products) {
         this.products = products;
+    }
+
+    public ArrayList<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(ArrayList<Category> categories) {
+        this.categories = categories;
     }
 
     //Setting
@@ -97,7 +107,6 @@ public class ServerConnectionHandler {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-//        ArrayList<Category> allCategoryInfo;
         return new ParseJsonCategory().getAllCategory(jsonCategory);
     }
 
@@ -123,7 +132,14 @@ public class ServerConnectionHandler {
     }
 
     public Category getACategoryWithId(int categoryId){
-        return DataBaseHandler.getInstance(context).selectACategoryWithId(categoryId);
+        Category aCategory=DataBaseHandler.getInstance(context).selectACategoryWithId(categoryId);
+        if (aCategory==null){
+            for (int i=0;i<categories.size();i++){
+                if (categories.get(i).getId()==categoryId)
+                    aCategory=categories.get(i);
+            }
+        }
+        return aCategory;
     }
 
     public String getACategoryTitleWithCategoryId(int categoryId){
@@ -132,7 +148,14 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<String> getTitleOfChildOfACategory(int catID){
-        return DataBaseHandler.getInstance(context).selectChildOfACategoryTitle(catID);
+        ArrayList<String> titleOfChildOfACategory=DataBaseHandler.getInstance(context).selectChildOfACategoryTitle(catID);
+        if (emptyDBCategory() && categories.size()!=0){
+            for (int i=0;i<categories.size();i++){
+                if (categories.get(i).getParentId()==catID)
+                    titleOfChildOfACategory.add(categories.get(i).getTitle());
+            }
+        }
+        return titleOfChildOfACategory;
     }
 
     public int getHasChildACategoryWithId(int categoryId){
@@ -141,27 +164,69 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<Integer> getAllChildOfACategoryWithParentCategoryId(int categoryId){
-        return DataBaseHandler.getInstance(context).selectChildIdOfACategory(categoryId);
+        ArrayList<Integer> allChildOfACategoryWithParentCategoryId=DataBaseHandler.getInstance(context).selectChildIdOfACategory(categoryId);
+        if (emptyDBCategory() && categories.size()!=0){
+            for (int i=0;i<categories.size();i++){
+                if (categories.get(i).getParentId()==categoryId)
+                    allChildOfACategoryWithParentCategoryId.add(categories.get(i).getId());
+
+            }
+        }
+        return allChildOfACategoryWithParentCategoryId;
     }
 
     public int getParentIdACategoryWithCategoryId(int categoryId){
-        return DataBaseHandler.getInstance(context).selectACategoryParent(categoryId);
+        int parentIdACategory=DataBaseHandler.getInstance(context).selectACategoryParent(categoryId);
+        if (emptyDBCategory() && categories.size()!=0)
+        {
+            Category aCategory=getACategoryWithId(categoryId);
+            parentIdACategory=aCategory.getId();
+
+        }
+        return parentIdACategory;
     }
 
     public Map<String,Integer> MapTitleToIDForMainCategory(){
-        return DataBaseHandler.getInstance(context).selectMainCategories();
+        Map<String,Integer> mapTitleToIDMainCategory=DataBaseHandler.getInstance(context).selectMainCategories();
+        if (emptyDBCategory() && categories.size()!=0){
+            for (int i=0;i<categories.size();i++){
+                if (categories.get(i).getParentId()==0)
+                    mapTitleToIDMainCategory.put(categories.get(i).getTitle(), categories.get(i).getId());
+            }
+        }
+        return mapTitleToIDMainCategory;
     }
 
     public Map<String,Integer> MapTitleToIDForAllCategory(){
-        return DataBaseHandler.getInstance(context).selectAllCategoryTitleAndId();
+        Map<String,Integer> mapTitleToIdForAllCategory=DataBaseHandler.getInstance(context).selectAllCategoryTitleAndId();
+        if (emptyDBCategory()&& categories.size()!=0){
+            for (int i=0;i<categories.size();i++)
+                mapTitleToIdForAllCategory.put(categories.get(i).getTitle(),categories.get(i).getId());
+        }
+        return mapTitleToIdForAllCategory ;
 
     }
     public Map<String,Integer> MapTitleToIDForChildOfACategory(int catId){
-        return DataBaseHandler.getInstance(context).selectChildOfACategoryTitleAndId(catId);
+        Map<String,Integer> mapTitleToIDForChildOfACategory=DataBaseHandler.getInstance(context).selectChildOfACategoryTitleAndId(catId);
+        if (emptyDBCategory()&& categories.size()!=0){
+            for (int i=0;i<categories.size();i++){
+                if (categories.get(i).getParentId()==catId){
+                    mapTitleToIDForChildOfACategory.put(categories.get(i).getTitle(),categories.get(i).getId());
+                }
+            }
+        }
+        return mapTitleToIDForChildOfACategory;
     }
 
     public ArrayList<String> getMainCategoryTitle(){
-        return DataBaseHandler.getInstance(context).selectMainCategoriesTitle();
+        ArrayList<String> mainCategoryTitle=DataBaseHandler.getInstance(context).selectMainCategoriesTitle();
+        if(emptyDBCategory() && categories.size()!=0){
+            for (int i=0;i<categories.size();i++){
+                if (categories.get(i).getParentId()==0)
+                    mainCategoryTitle.add(categories.get(i).getTitle());
+            }
+        }
+        return mainCategoryTitle;
     }
 
     public String getTabTitleForSimilarProduct(int categoryId){
@@ -190,12 +255,24 @@ public class ServerConnectionHandler {
         return DataBaseHandler.getInstance(context).emptyProductTable();
     }
 
-    public ArrayList<Product> getAllProductFromTable(){
-        return DataBaseHandler.getInstance(context).selectAllProduct();
+    public ArrayList<Product> getAllProduct(){
+        ArrayList<Product> allProducts=DataBaseHandler.getInstance(context).selectAllProduct();
+        if (allProducts.size()==0 && products.size()!=0)
+            allProducts=products;
+        return allProducts;
     }
 
     public ArrayList<Product> getProductsOfACategoryNoChild(int categoryId){
-        return DataBaseHandler.getInstance(context).selectAllProductOfACategory(categoryId);
+        ArrayList<Product> allProductOfACategoryNoChild = new ArrayList<Product>();
+        if (Configuration.getConfig().emptyProductTable && products.size()!=0 ){
+            for (int i=0;i<products.size();i++){
+                if (products.get(i).getGroupId()==categoryId)
+                    allProductOfACategoryNoChild.add(products.get(i));
+            }
+        }
+        else
+            allProductOfACategoryNoChild=DataBaseHandler.getInstance(context).selectAllProductOfACategory(categoryId);
+        return allProductOfACategoryNoChild;
     }
 
     public Boolean existAProductInDataBase(int productId){
@@ -266,24 +343,24 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<Product> getProductsOfAParentCategory(int categoryId){
-        ArrayList<Product> products=new ArrayList<>();
+        ArrayList<Product> allProducts=new ArrayList<>();
         ArrayList<Integer> childOfParentCategoryId=getAllChildOfACategoryWithParentCategoryId(categoryId);
         if(childOfParentCategoryId.size()==0)
-            products=getProductsOfACategoryNoChild(categoryId);
+            allProducts=getProductsOfACategoryNoChild(categoryId);
         else{
             for (int i=0;i<childOfParentCategoryId.size();i++){
                 ArrayList<Product> helpProduct=getProductsOfAParentCategory(childOfParentCategoryId.get(i));
                 for (int j=0;j<helpProduct.size();j++)
-                    products.add(helpProduct.get(j));
+                    allProducts.add(helpProduct.get(j));
             }
         }
-        return products;
+        return allProducts;
     }
 
     public ArrayList<Product> getAllProductFavourite(){
         ArrayList<Product> allProduct=new ArrayList<>();
         ArrayList<Product> allProductFavorite=new ArrayList<>();
-        allProduct=getAllProductFromTable();
+        allProduct= getAllProduct();
         for (int i=0;i<allProduct.size();i++){
             if (allProduct.get(i).getLike()==1)
                 allProductFavorite.add(allProduct.get(i));
@@ -311,8 +388,12 @@ public class ServerConnectionHandler {
 
     public ArrayList<Product> getSpecialProduct(){
         ArrayList<Product> allProducts=DataBaseHandler.getInstance(context).selectSpecialProduct();
-        if (allProducts.size()==0)
-            allProducts=products;
+        if (allProducts.size()==0 && products.size()!=0){
+            for (int i=0;i<products.size();i++){
+                if (products.get(i).getPriceOff()!=0 || products.get(i).getShowAtHomeScreen()==1)
+                    allProducts.add(products.get(i));
+            }
+        }
         return allProducts;
     }
 
