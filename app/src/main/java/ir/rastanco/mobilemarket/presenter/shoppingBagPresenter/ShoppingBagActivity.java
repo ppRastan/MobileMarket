@@ -48,7 +48,7 @@ public class ShoppingBagActivity extends Activity {
         this.RTlizeShoppingBagXml();
         this.setYekanFont();
         this.closeShoppingBag();
-        sch=new ServerConnectionHandler(Configuration.getConfig().ShoppingBagContext);
+        sch=ServerConnectionHandler.getInstance(Configuration.getConfig().ShoppingBagContext);
         productsId = new ArrayList<>();
         productsId = sch.getProductShoppingID();
         this.shoppingListViewCreator();

@@ -49,7 +49,7 @@ public class FilterCategory extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch = new ServerConnectionHandler(Configuration.getConfig().ShopFragmentContext);
+        sch =ServerConnectionHandler.getInstance(Configuration.getConfig().ShopFragmentContext);
         Integer pageId = getArguments().getInt("pageId");
         mapCategoryTitleToId=new HashMap<>();
         mapCategoryTitleToId=sch.MapTitleToIDForAllCategory();

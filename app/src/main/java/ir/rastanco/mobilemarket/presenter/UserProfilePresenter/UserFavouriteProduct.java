@@ -31,7 +31,7 @@ public class UserFavouriteProduct extends Activity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         Configuration.getConfig().UserProfileContext =this;
-        sch=new ServerConnectionHandler(Configuration.getConfig().UserProfileContext);
+        sch=ServerConnectionHandler.getInstance(Configuration.getConfig().UserProfileContext);
         ArrayList<Product>allProductLike=sch.getAllProductFavourite();
         ListView lsvFavourite=(ListView) findViewById(R.id.lsv_favouriteProduct);
         UserFavouriteProductItemAdapter adapter= new UserFavouriteProductItemAdapter(Configuration.getConfig().UserProfileContext,allProductLike);

@@ -57,7 +57,7 @@ public class ShopFragment extends Fragment {
         myContext=(FragmentActivity)Configuration.getConfig().ShopFragmentContext;
         final int pageId;
         pageId=getArguments().getInt("pageId");
-        sch=new ServerConnectionHandler(getContext());
+        sch=ServerConnectionHandler.getInstance(getContext());
         ArrayList<Product> products=sch.getProductsOfAParentCategory(pageId);
         noThingToShow = (TextView)mainView.findViewById(R.id.no_thing_to_show1);
         noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow,myContext);

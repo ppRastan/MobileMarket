@@ -39,7 +39,7 @@ public class ArticleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch=new ServerConnectionHandler(getContext());
+        sch=ServerConnectionHandler.getInstance(getContext());
         leastArticleNumberInFirstTime= Utilities.getInstance().getAtLeastArticleInFirstTime();
         startArticleNumber=Utilities.getInstance().getStartArticleNumber();
 

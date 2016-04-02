@@ -49,7 +49,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         this.activity = activity;
         this.products=allProducts;
         this.productsSize=allProductSize;
-        sch=new ServerConnectionHandler(Configuration.getConfig().productInfoContext);
+        sch=ServerConnectionHandler.getInstance(Configuration.getConfig().productInfoContext);
     }
 
     @Override

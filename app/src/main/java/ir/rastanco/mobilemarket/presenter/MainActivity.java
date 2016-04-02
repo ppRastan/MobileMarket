@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
     private void InitializationParametersNecessary() {
         Configuration.getConfig().mainActivityContext = this;
         Configuration.getConfig().ApplicationContext =getBaseContext();
-        sch=new ServerConnectionHandler(Configuration.getConfig().mainActivityContext);
+        sch=ServerConnectionHandler.getInstance(Configuration.getConfig().mainActivityContext);
         Configuration.getConfig().isTheFirstTimeOpeningThisPage = true;
         mainCategoryTitle= new ArrayList<>();
         mapTitleToIdMainCategory=new HashMap<>();

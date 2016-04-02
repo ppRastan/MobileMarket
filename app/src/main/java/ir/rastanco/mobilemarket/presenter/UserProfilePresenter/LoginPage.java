@@ -37,7 +37,7 @@ public class LoginPage extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         Configuration.getConfig().UserLoginContext =this;
-        sch=new ServerConnectionHandler(Configuration.getConfig().UserLoginContext);
+        sch=ServerConnectionHandler.getInstance(Configuration.getConfig().UserLoginContext);
         Button btnLogin=(Button)findViewById(R.id.btn_login);
         Button btnSignUp=(Button)findViewById(R.id.btn_enter);
         Button btnForgotPass=(Button)findViewById(R.id.btn_forgot);
