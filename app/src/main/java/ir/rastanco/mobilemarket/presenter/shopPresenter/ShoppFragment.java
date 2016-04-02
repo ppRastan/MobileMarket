@@ -40,7 +40,7 @@ import ir.rastanco.mobilemarket.utility.PriceUtility;
 /**
  * Created by ShaisteS on 1394/12/09.
  */
-public class shopFragmentFilterHandler extends Fragment {
+public class ShoppFragment extends Fragment {
 
 
     private ServerConnectionHandler sch;

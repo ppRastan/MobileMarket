@@ -1,5 +1,6 @@
 package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
 
+import android.accounts.AccountManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -20,7 +21,8 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 
-public class LoginPage extends AppCompatActivity {
+public class LoginActivity
+        extends AppCompatActivity {
 
 
     private ServerConnectionHandler sch;
@@ -36,8 +38,8 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_user_login);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        Configuration.getConfig().UserLoginContext =this;
-        sch=ServerConnectionHandler.getInstance(Configuration.getConfig().UserLoginContext);
+        Configuration.getConfig().userLoginActivityContext =this;
+        sch=ServerConnectionHandler.getInstance(Configuration.getConfig().userLoginActivityContext);
         Button btnLogin=(Button)findViewById(R.id.btn_login);
         Button btnSignUp=(Button)findViewById(R.id.btn_enter);
         Button btnForgotPass=(Button)findViewById(R.id.btn_forgot);
@@ -61,21 +63,21 @@ public class LoginPage extends AppCompatActivity {
                         aUser.setUserLoginStatus(1);
                         sch.addUserInfoToTable(aUser);
                         Configuration.getConfig().userLoginStatus=true;
-                        Intent userAccount=new Intent(Configuration.getConfig().UserLoginContext,AccountManager.class);
+                        Intent userAccount=new Intent(Configuration.getConfig().userLoginActivityContext,AccountManager.class);
                         startActivity(userAccount);
                         finish();
                     }
                     if (response.get(0).equals("key_expired"))
-                        Toast.makeText(Configuration.getConfig().UserLoginContext,Configuration.getConfig().UserLoginContext.getResources().getString(R.string.try_more),
+                        Toast.makeText(Configuration.getConfig().userLoginActivityContext,Configuration.getConfig().userLoginActivityContext.getResources().getString(R.string.try_more),
                                 Toast.LENGTH_LONG).show();
                     if (response.get(0).equals("user_pass_invalid"))
-                        Toast.makeText(Configuration.getConfig().UserLoginContext,Configuration.getConfig().UserLoginContext.getResources().getString(R.string.not_correct),
+                        Toast.makeText(Configuration.getConfig().userLoginActivityContext,Configuration.getConfig().userLoginActivityContext.getResources().getString(R.string.not_correct),
                                 Toast.LENGTH_LONG).show();
 
                 }
 
                 else
-                    Toast.makeText(Configuration.getConfig().UserLoginContext,Configuration.getConfig().UserLoginContext.getResources().getString(R.string.checkConnection),
+                    Toast.makeText(Configuration.getConfig().userLoginActivityContext,Configuration.getConfig().userLoginActivityContext.getResources().getString(R.string.checkConnection),
                             Toast.LENGTH_LONG).show();
 
 

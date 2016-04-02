@@ -23,7 +23,7 @@ import ir.rastanco.mobilemarket.presenter.MainActivity;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancel;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancelListener;
-import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginPage;
+import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
@@ -42,13 +42,13 @@ public class ShoppingBagActivity extends Activity {
     private ListView lvShoppingBag;
     protected void onCreate(Bundle savedInstanceState) {
 
-        Configuration.getConfig().ShoppingBagContext =this;
+        Configuration.getConfig().userLastShoppingActivityContext =this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_bag);
         this.RTlizeShoppingBagXml();
         this.setYekanFont();
         this.closeShoppingBag();
-        sch=ServerConnectionHandler.getInstance(Configuration.getConfig().ShoppingBagContext);
+        sch=ServerConnectionHandler.getInstance(Configuration.getConfig().userLastShoppingActivityContext);
         productsId = new ArrayList<>();
         productsId = sch.getProductShoppingID();
         this.shoppingListViewCreator();
@@ -63,19 +63,19 @@ public class ShoppingBagActivity extends Activity {
             finalPrice=finalPrice+price;
         }
 
-        totalPriceTextView.setText(Configuration.getConfig().ShoppingBagContext.getResources().getString(R.string.shoppingBagActivityFinalPrice , String.valueOf(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice))));
+        totalPriceTextView.setText(Configuration.getConfig().userLastShoppingActivityContext.getResources().getString(R.string.shoppingBagActivityFinalPrice, String.valueOf(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice))));
         Button confirmShopping = (Button)findViewById(R.id.ok_shop);
         confirmShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Map<Integer, Integer> shopInfo = sch.getAllProductShopping();
                 if (shopInfo.size() == 0) {
-                    Toast.makeText(Configuration.getConfig().ShoppingBagContext, getResources().getString(R.string.empty_basket),
+                    Toast.makeText(Configuration.getConfig().userLastShoppingActivityContext, getResources().getString(R.string.empty_basket),
                             Toast.LENGTH_LONG).show();
                 } else {
                     UserInfo user = sch.getUserInfo();
                     if (user == null) {
-                        Intent shoppingBagIntent = new Intent(Configuration.getConfig().ShoppingBagContext, LoginPage.class);
+                        Intent shoppingBagIntent = new Intent(Configuration.getConfig().userLastShoppingActivityContext, LoginActivity.class);
                         startActivity(shoppingBagIntent);
                     } else {
                         String url = Link.getInstance().generateURLForSendShoppingProductsToServer(user.getUserEmail(),shopInfo);
@@ -88,7 +88,7 @@ public class ShoppingBagActivity extends Activity {
                         ObserverShoppingCancel.setShoppingCancel(true);
                         ObserverShopping.setMyBoolean(false);
                         productsId = sch.getProductShoppingID();
-                        shoppingBagAdapter adapter = new shoppingBagAdapter(Configuration.getConfig().ShoppingBagContext, productsId);
+                        shoppingBagAdapter adapter = new shoppingBagAdapter(Configuration.getConfig().userLastShoppingActivityContext, productsId);
                         lvShoppingBag.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
 
@@ -106,16 +106,14 @@ public class ShoppingBagActivity extends Activity {
                 int price;
                 for (Map.Entry<Integer, Integer> entry : refreshProductsId.entrySet()) {
                     Product product = sch.getAProduct(entry.getKey());
-                    if(product.getPriceOff()!=0) {
+                    if (product.getPriceOff() != 0) {
                         price = Utilities.getInstance().calculatePriceOffProduct(product.getPrice(), product.getPriceOff());
-                        price=price*entry.getValue();
-                    }
-
-                    else {
+                        price = price * entry.getValue();
+                    } else {
                         price = product.getPrice();
-                        price=price*entry.getValue();
+                        price = price * entry.getValue();
                     }
-                    finalPrice=finalPrice+price;
+                    finalPrice = finalPrice + price;
                 }
                 totalPriceTextView.setText(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice));
             }
