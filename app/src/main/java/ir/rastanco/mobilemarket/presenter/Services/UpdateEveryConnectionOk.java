@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.Link;
 
 /**
  * Created by ShaisteS on 1394/11/30.
@@ -26,7 +27,7 @@ public class UpdateEveryConnectionOk extends BroadcastReceiver {
             NetworkInfo netInfo = cm.getActiveNetworkInfo();
             if (netInfo != null && netInfo.isConnectedOrConnecting()){
                 Configuration.getConfig().connectionStatus=true;
-                if (sch.checkNewVersion("http://decoriss.com/app/Version.txt")) {
+                if (sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer())) {
                     if (Configuration.getConfig().upgradeButtonMenu != null && !Configuration.getConfig().existProductInformation) {
                         Configuration.getConfig().upgradeButtonMenu.setVisible(true);
                     }
