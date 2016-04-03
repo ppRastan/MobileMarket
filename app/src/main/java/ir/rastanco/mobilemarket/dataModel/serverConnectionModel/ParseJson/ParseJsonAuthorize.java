@@ -14,7 +14,7 @@ public class ParseJsonAuthorize {
 
     public ArrayList<String> getResponse(String response) {
 
-        JSONObject json = null;
+        JSONObject json;
         ArrayList<String> responseArray=new ArrayList<>();
         try {
             json = new JSONObject(response);

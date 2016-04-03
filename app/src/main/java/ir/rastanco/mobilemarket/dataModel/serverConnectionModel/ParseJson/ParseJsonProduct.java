@@ -69,9 +69,9 @@ public class ParseJsonProduct extends AsyncTask<String, String, String> {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
             StringBuilder sb = new StringBuilder();
-            String line = null;
+            String line;
             while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
+                sb.append(line).append("\n");
             }
             is.close();
             jsonString = sb.toString();
@@ -84,7 +84,7 @@ public class ParseJsonProduct extends AsyncTask<String, String, String> {
 
     public void onPostExecute(String jsonString) {
 
-        JSONArray dataJsonArr = null;
+        JSONArray dataJsonArr;
         ArrayList<Product>  allProduct=new ArrayList<>();
 
         try {

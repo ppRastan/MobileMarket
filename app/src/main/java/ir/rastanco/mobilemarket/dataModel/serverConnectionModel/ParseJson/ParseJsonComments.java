@@ -16,11 +16,11 @@ public class ParseJsonComments {
 
     public ArrayList<Comment> getAllCommentAProduct(String params) {
 
-        JSONArray dataJsonArr = null;
-        ArrayList<Comment> allComments = new ArrayList<>();
+        JSONArray dataJsonArr;
+        ArrayList<Comment> allComments;
         allComments = new ArrayList<>();
 
-        JSONObject json = null;
+        JSONObject json;
         try {
             json = new JSONObject(params);
             dataJsonArr = json.getJSONArray("comments");

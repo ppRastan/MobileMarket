@@ -17,7 +17,7 @@ public class ParseJsonCategory {
 
     public ArrayList<Category> getAllCategory(String params) {
 
-        JSONArray dataJsonArr = null;
+        JSONArray dataJsonArr;
         ArrayList<Category> allCategory=new ArrayList<>();
 
         try {

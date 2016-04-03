@@ -12,7 +12,7 @@ public class ParseJsonKey {
 
     public String getKey(String key) {
 
-        JSONObject json = null;
+        JSONObject json;
         String keyGenerated="";
         try {
             json = new JSONObject(key);

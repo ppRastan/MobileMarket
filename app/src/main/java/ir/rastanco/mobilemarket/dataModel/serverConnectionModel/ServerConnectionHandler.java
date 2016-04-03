@@ -3,7 +3,6 @@ package ir.rastanco.mobilemarket.dataModel.serverConnectionModel;
 import android.content.Context;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -50,7 +49,7 @@ public class ServerConnectionHandler {
 
     public ServerConnectionHandler(Context myContext){
         context=myContext;
-        products=new ArrayList<Product>();
+        products= new ArrayList<>();
     }
 
     public ArrayList<Product> getProducts() {
@@ -102,9 +101,7 @@ public class ServerConnectionHandler {
         String jsonCategory= null;
         try {
             jsonCategory = jParserCategory.execute(url).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         return new ParseJsonCategory().getAllCategory(jsonCategory);
@@ -263,7 +260,7 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<Product> getProductsOfACategoryNoChild(int categoryId){
-        ArrayList<Product> allProductOfACategoryNoChild = new ArrayList<Product>();
+        ArrayList<Product> allProductOfACategoryNoChild = new ArrayList<>();
         if (Configuration.getConfig().emptyProductTable && products.size()!=0 ){
             for (int i=0;i<products.size();i++){
                 if (products.get(i).getGroupId()==categoryId)
@@ -321,9 +318,7 @@ public class ServerConnectionHandler {
         String url= Link.getInstance().generateUrlForGetNewProduct(lastTimeStamp);
         try {
             pjp.execute(url).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
@@ -334,9 +329,7 @@ public class ServerConnectionHandler {
         String url= Link.getInstance().generateURLForGetEditProduct(lastUpdateTimeStamp);
         try {
             pjp.execute(url).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
 
@@ -358,7 +351,7 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<Product> getAllProductFavourite(){
-        ArrayList<Product> allProduct=new ArrayList<>();
+        ArrayList<Product> allProduct;
         ArrayList<Product> allProductFavorite=new ArrayList<>();
         allProduct= getAllProduct();
         for (int i=0;i<allProduct.size();i++){
@@ -377,9 +370,7 @@ public class ServerConnectionHandler {
         String productInfoJson=null;
         try {
             productInfoJson=optionJson.execute(url).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         ParseJsonProductOption p=new  ParseJsonProductOption();
@@ -407,7 +398,7 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<ProductOption> getAllProductOptionOfAProduct(int productId, int groupId){
-        ArrayList<ProductOption> options=new ArrayList<>();
+        ArrayList<ProductOption> options;
         options=DataBaseHandler.getInstance(context).selectAllOptionProduct(productId);
         if(options.size()==0) {
             String url= Link.getInstance().generateURLForGetProductOptionsOfAProduct(productId,groupId);
@@ -452,7 +443,7 @@ public class ServerConnectionHandler {
         DataBaseHandler.getInstance(context).updateAProductLike(productId, like);
     }
     public ArrayList<String> searchInProductTitle(){
-        Map<Integer,String> productTitle= new HashMap<>();
+        Map<Integer,String> productTitle;
         productTitle=DataBaseHandler.getInstance(context).selectAllProductTitle();
         ArrayList<String> titles=new ArrayList<>();
         for (Map.Entry<Integer, String> entry : productTitle.entrySet()) {
@@ -461,7 +452,7 @@ public class ServerConnectionHandler {
         return titles;
     }
     public int getProductIdWithTitle(String title){
-        Map<Integer,String> productTitle= new HashMap<>();
+        Map<Integer,String> productTitle;
         productTitle=DataBaseHandler.getInstance(context).selectAllProductTitle();
         int productId=0;
         for (Map.Entry<Integer, String> entry : productTitle.entrySet()) {
@@ -496,7 +487,7 @@ public class ServerConnectionHandler {
         return productPrice;
     }
     public ArrayList<Product> getProductsAfterFilterCategory(int pageID,int categoryId){
-        ArrayList<Product> products=new ArrayList<>();
+        ArrayList<Product> products;
         if (categoryId==0)
             products= getProductsOfAParentCategory(pageID);
         else {
@@ -510,7 +501,7 @@ public class ServerConnectionHandler {
                                                      String filterOptionContent,
                                                      String filterOptionStatus
     ){
-        ArrayList<Product> allProduct=new ArrayList<>();
+        ArrayList<Product> allProduct;
         allProduct= getProductsOfAParentCategory(pageId);
         if(filterCategoryId!=0)
             allProduct=getProductsAfterFilterCategory(pageId, filterCategoryId);
@@ -528,7 +519,7 @@ public class ServerConnectionHandler {
                                                     String filterOptionContent,
                                                     String filterOptionStatus
     ){
-        ArrayList<Product> allProduct=new ArrayList<>();
+        ArrayList<Product> allProduct;
         allProduct= getProductsOfAParentCategory(pageID);
         if(filterCategoryId != 0)
             allProduct=getProductsAfterFilterCategory(pageID, filterCategoryId);
@@ -557,9 +548,7 @@ public class ServerConnectionHandler {
         String articlesInfo=null;
         try {
             articlesInfo=g.execute(url).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         ParseJsonArticles a=new ParseJsonArticles();
@@ -577,9 +566,7 @@ public class ServerConnectionHandler {
         String jsonKeyString= null;
         try {
             jsonKeyString = jSONKey.execute(url).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
 
@@ -592,9 +579,7 @@ public class ServerConnectionHandler {
         String jsonKeyString= null;
         try {
             jsonKeyString = jsonAuth.execute(url).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         ParseJsonAuthorize pja= new ParseJsonAuthorize();
@@ -611,9 +596,7 @@ public class ServerConnectionHandler {
         String jsonLastShopString= null;
         try {
             jsonLastShopString = jsonLastShop.execute(url).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         ParseJsonLastShop pjl= new ParseJsonLastShop();
@@ -678,9 +661,7 @@ public class ServerConnectionHandler {
         GetFile getFileVersionFrmURL=new GetFile();
         try {
             lastVersionInServer = getFileVersionFrmURL.execute(url).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         lastVersionInServer=lastVersionInServer.replace("\n","");
@@ -708,19 +689,17 @@ public class ServerConnectionHandler {
         String jsonComment= null;
         try {
             jsonComment = jParserComment.execute(url).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        ArrayList<Comment> allComments=new ArrayList<>();
+        ArrayList<Comment> allComments;
         allComments=new ParseJsonComments().getAllCommentAProduct(jsonComment);
 
         return allComments;
 
     }
     public ArrayList<String> getContentCommentsAllProduct(int productId){
-        ArrayList<Comment> allComment=new ArrayList<>();
+        ArrayList<Comment> allComment;
         allComment=getAllCommentAProduct(productId);
         ArrayList<String> commentsContent=new ArrayList<>();
         for (int i=0;i<allComment.size();i++ )

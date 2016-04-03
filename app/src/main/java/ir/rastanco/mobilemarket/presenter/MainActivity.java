@@ -392,8 +392,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void getInformationFromServerInFirstRun(Context context){
-        final ParseJsonProductFirstInstallApp parseInformationProduct=new ParseJsonProductFirstInstallApp(context);
+    private void getInformationFromServerInFirstRun(){
+        final ParseJsonProductFirstInstallApp parseInformationProduct=new ParseJsonProductFirstInstallApp();
         final String[] jsonString = {""};
         Thread getProductInfoFromServerThread = new Thread() {
             @Override

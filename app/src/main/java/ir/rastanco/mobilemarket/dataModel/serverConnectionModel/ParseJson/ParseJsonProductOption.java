@@ -16,7 +16,7 @@ public class ParseJsonProductOption {
     public ArrayList<ProductOption> getAllProductOptions(String jsonString) {
 
         ArrayList<ProductOption> productProductOptions = new ArrayList<>();
-        JSONArray dataJsonArr = null;
+        JSONArray dataJsonArr;
 
         try {
 

@@ -1,6 +1,5 @@
 package ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson;
 
-import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -17,18 +16,11 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 
 /**
  * Created by ShaisteS on 03/28/2016.
  */
 public class ParseJsonProductFirstInstallApp {
-
-    private final ServerConnectionHandler serverConnectionHandler;
-
-    public ParseJsonProductFirstInstallApp(Context context){
-        serverConnectionHandler=ServerConnectionHandler.getInstance(context);
-    }
 
     public String getProductInfoFromServer(String urlProduct) {
 
@@ -66,9 +58,9 @@ public class ParseJsonProductFirstInstallApp {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
             StringBuilder sb = new StringBuilder();
-            String line = null;
+            String line;
             while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
+                sb.append(line).append("\n");
             }
             is.close();
             jsonString = sb.toString();

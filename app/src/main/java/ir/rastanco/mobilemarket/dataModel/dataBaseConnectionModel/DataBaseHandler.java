@@ -26,7 +26,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     private static DataBaseHandler sInstance;
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "MobileMarket";
-    private final Context myContext;
     private final String TABLE_USER_INFO = "tblUserInfo";
     private final String TABLE_SETTINGS = "tblSetting";
     private final String TABLE_SHOPPING = "tblShopping";
@@ -108,9 +107,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
 
-    public DataBaseHandler(Context context) {
+    private DataBaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        this.myContext=context;
     }
 
     @Override
@@ -417,7 +415,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
     public void insertOptionProduct(int productId, ProductOption aOption) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(TABLE_PRODUCT_OPTION, null, addFieldOptionProduct(productId,aOption));
+        db.insert(TABLE_PRODUCT_OPTION, null, addFieldOptionProduct(productId, aOption));
         Log.v("insert", "insert A Option of Product into Table");
 
     }
@@ -583,7 +581,9 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         String query="select * from "+TABLE_SHOPPING;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
-        return  rs.getCount();
+        int counterProductShop=rs.getCount();
+        rs.close();
+        return  counterProductShop;
     }
 
     public int numberPurchasedAProduct(int productId){
@@ -593,8 +593,10 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Cursor rs = db.rawQuery(query, null);
         int numberPurchased=0;
         if (rs!= null)
-            if(rs.moveToFirst())
-                numberPurchased=rs.getInt(rs.getColumnIndex(ShoppingTable_Column_Number_Purchased));
+            if(rs.moveToFirst()) {
+                numberPurchased = rs.getInt(rs.getColumnIndex(ShoppingTable_Column_Number_Purchased));
+                rs.close();
+            }
         return numberPurchased;
 
     }
@@ -607,26 +609,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         aCategory.setHasChild(Integer.parseInt(rs.getString((rs.getColumnIndex(CategoryTable_Column_Has_Child)))));
         aCategory.setSortOrder(Integer.parseInt(rs.getString((rs.getColumnIndex(CategoryTable_Column_SortOrder)))));
         return aCategory;
-    }
-
-    public ArrayList<Category> selectAllCategory() {
-        String query="select * from "+TABLE_CATEGORY+
-                " order by "+CategoryTable_Column_Category_Id+
-                " and "+CategoryTable_Column_SortOrder+" ASC ";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery(query, null);
-        ArrayList<Category> allCategories = new ArrayList<>();
-        if (rs != null) {
-            if (rs.moveToFirst()) {
-                do {
-                    allCategories.add(createACategoryFromCursor(rs));
-                }
-                while (rs.moveToNext());
-            }
-            rs.close();
-        }
-        Log.v("select", "Select All Category");
-        return allCategories;
     }
 
     public Category selectACategoryWithId(int catId){
@@ -798,30 +780,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Child of A Category Title ");
         return categoryTitles;
     }
-
-    public Map<Integer,String> selectMainCategoryTitle(){
-        String query="select "+CategoryTable_Column_Category_Id+","+CategoryTable_Column_Title+
-                " from "+TABLE_CATEGORY+
-                " where "+CategoryTable_Column_Parent_Id+"=0"+
-                " order by "+CategoryTable_Column_Category_Id+","+CategoryTable_Column_SortOrder+" Desc";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor rs = db.rawQuery(query, null);
-        Map<Integer,String> categoryTitles = new HashMap<>();
-        if (rs != null) {
-            if (rs.moveToFirst()) {
-                do {
-                    categoryTitles.put(rs.getInt(rs.getColumnIndex(CategoryTable_Column_Category_Id)),
-                            rs.getString(rs.getColumnIndex(CategoryTable_Column_Title)));
-                }
-                while (rs.moveToNext());
-            }
-            rs.close();
-        }
-        Log.v("select", "Select Main Category Title and ID");
-        return categoryTitles;
-    }
-
-
     public Map<Integer,String> selectAllProductTitle(){
         String query="select "+ProductTable_Column_Product_Id+","+ProductTable_Column_Title+
                 " from "+TABLE_PRODUCT;
@@ -863,7 +821,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return allProducts;
     }
 
-    public Product createAProductFromCursor(Cursor rs){
+    private Product createAProductFromCursor(Cursor rs){
         Product aProduct = new Product();
         aProduct.setTitle(rs.getString(rs.getColumnIndex(ProductTable_Column_Title)));
         aProduct.setId(rs.getInt(rs.getColumnIndex(ProductTable_Column_Product_Id)));

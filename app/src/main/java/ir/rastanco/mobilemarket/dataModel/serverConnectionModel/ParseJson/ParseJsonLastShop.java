@@ -17,8 +17,7 @@ public class ParseJsonLastShop {
 
     public ArrayList<ProductShop> getLastShop(String LastProductShop) {
         ArrayList<ProductShop> productsShop=new ArrayList<>();
-        JSONObject json = null;
-        String LastShop="";
+        JSONObject json;
         try {
             json = new JSONObject(LastProductShop);
             JSONArray dataJsonArr = json.getJSONArray("orders");

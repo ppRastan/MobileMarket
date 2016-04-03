@@ -35,7 +35,7 @@ public class SplashHandler extends AppCompatActivity {
         final SplashHandler sPlashHandler = this;
         splashContext=this;
         sch=ServerConnectionHandler.getInstance(splashContext);
-        parseInformationProduct=new ParseJsonProductFirstInstallApp(splashContext);
+        parseInformationProduct=new ParseJsonProductFirstInstallApp();
         mSplashThread = new Thread(){
             @Override
             public void run(){
