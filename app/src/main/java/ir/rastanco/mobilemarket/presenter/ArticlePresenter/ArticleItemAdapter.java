@@ -30,6 +30,7 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
     private final Activity myContext;
     private final ArrayList<Article> articles ;
     private final Drawable defaultPicture;
+    private String articleImageURL;
 
     public ArticleItemAdapter(Context context, ArrayList<Article> allArticles) {
         super(context, R.layout.article_item, allArticles);
@@ -38,19 +39,34 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
         defaultPicture= Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().articleDisplaySizeForShow);
     }
 
+    static class ViewHolder{
+        private ImageView articleImage;
+        private TextView articleTitle;
+        private ImageLoader imgLoader;
+
+    }
+
     public View getView(final int position, View convertView, ViewGroup parent){
-        LayoutInflater inflater = myContext.getLayoutInflater();
-        final View rowView = inflater.inflate(R.layout.article_item, parent,false);
-        ImageLoader imgLoader = new ImageLoader(getContext(), Configuration.getConfig().articleDisplaySizeForShow); // important
-        ImageView articleImage = (ImageView) rowView.findViewById(R.id.img_article);
-        articleImage.getLayoutParams().width=Configuration.getConfig().articleDisplaySizeForShow;
-        articleImage.getLayoutParams().height=Configuration.getConfig().articleDisplaySizeForShow;
-        articleImage.setImageDrawable(defaultPicture);
-        String articleImageURL= Link.getInstance().generateURLForGetArticleImage(articles.get(position).getImageLink());
-        imgLoader.DisplayImage(articleImageURL, articleImage);
-        TextView articleTitle=(TextView)rowView.findViewById(R.id.txt_titleArticle);
-        articleTitle.setText(articles.get(position).getTitle());
-        return rowView;
+        ViewHolder holder;
+        if (convertView==null){
+            LayoutInflater inflater = myContext.getLayoutInflater();
+            convertView  = inflater.inflate(R.layout.article_item, parent,false);
+            holder=new ViewHolder();
+            holder.articleImage = (ImageView) convertView.findViewById(R.id.img_article);
+            holder.articleImage.getLayoutParams().width=Configuration.getConfig().articleDisplaySizeForShow;
+            holder.articleImage.getLayoutParams().height=Configuration.getConfig().articleDisplaySizeForShow;
+            holder.articleTitle=(TextView)convertView.findViewById(R.id.txt_titleArticle);
+            holder.imgLoader = new ImageLoader(getContext(), Configuration.getConfig().articleDisplaySizeForShow); // important
+
+            convertView.setTag(holder);
+        }
+        else
+            holder = (ViewHolder) convertView.getTag();
+        holder.articleImage.setImageDrawable(defaultPicture);
+        articleImageURL= Link.getInstance().generateURLForGetArticleImage(articles.get(position).getImageLink());
+        holder.imgLoader.DisplayImage(articleImageURL, holder.articleImage);
+        holder.articleTitle.setText(articles.get(position).getTitle());
+        return convertView;
     }
 
 }
