@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -21,9 +20,6 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.utility.Utilities;
 
 
 /**
@@ -169,8 +165,9 @@ public class ImageLoader {
 
                 photoToLoad.imageView.setImageBitmap(bitmap);
             } else {
-                Drawable drawable = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, context, displayWidth);
-                photoToLoad.imageView.setImageDrawable(drawable);
+                //show default image when get image from url with error
+                //Drawable drawable = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, context, displayWidth);
+                //photoToLoad.imageView.setImageDrawable(drawable);
 
             }
         }
