@@ -32,13 +32,27 @@ public class UserFavouriteProductItemAdapter extends ArrayAdapter<Product> {
         products = allProduct;
     }
 
-    public View getView(final int position, View convertView, final ViewGroup parent) {
+    static class ViewHolder{
+        private TextView txtProductName;
 
-        LayoutInflater inflater = myContext.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.user_profile_like_product_item, parent , false);
-        TextView txtProductName=(TextView)rowView.findViewById(R.id.txt_likeProductTitle);
-        txtProductName.setText(products.get(position).getTitle());
-        rowView.setOnClickListener(new View.OnClickListener() {
+    }
+
+    public View getView(final int position, View convertView, final ViewGroup parent) {
+        ViewHolder holder;
+        if (convertView==null){
+            LayoutInflater inflater = myContext.getLayoutInflater();
+            convertView = inflater.inflate(R.layout.user_profile_like_product_item, parent , false);
+            holder=new ViewHolder();
+            holder.txtProductName=(TextView)convertView.findViewById(R.id.txt_likeProductTitle);
+
+            convertView.setTag(holder);
+
+        }
+        else
+            holder=(ViewHolder)convertView.getTag();
+
+        holder.txtProductName.setText(products.get(position).getTitle());
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ServerConnectionHandler sch = new ServerConnectionHandler(myContext);
@@ -52,6 +66,6 @@ public class UserFavouriteProductItemAdapter extends ArrayAdapter<Product> {
             }
         });
 
-        return rowView;
+        return convertView;
     }
 }
