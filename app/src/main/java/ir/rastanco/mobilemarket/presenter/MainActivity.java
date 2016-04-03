@@ -53,6 +53,7 @@ import java.util.Map;
 import co.ronash.pushe.Pushe;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
@@ -345,6 +346,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+        //Clear Cache
+        ImageLoader imageLoader=new ImageLoader(Configuration.getConfig().mainActivityContext,0);
+        imageLoader.clearCache();
         exitSafeCounter++;
         if (exitSafeCounter == 1) {
             Toast.makeText(MainActivity.this, getResources().getString(R.string.sure_to_exit),
