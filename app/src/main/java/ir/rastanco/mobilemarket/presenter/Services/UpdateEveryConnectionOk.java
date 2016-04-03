@@ -22,8 +22,9 @@ public class UpdateEveryConnectionOk extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         ServerConnectionHandler sch = new ServerConnectionHandler(context);
         if (intent.getExtras() != null) {
-            NetworkInfo ni = (NetworkInfo) intent.getExtras().get(ConnectivityManager.EXTRA_NETWORK_INFO);
-            if (ni != null && ni.getState() == NetworkInfo.State.CONNECTING) {
+            ConnectivityManager cm =(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo netInfo = cm.getActiveNetworkInfo();
+            if (netInfo != null && netInfo.isConnectedOrConnecting()){
                 Configuration.getConfig().connectionStatus=true;
                 if (sch.checkNewVersion("http://decoriss.com/app/Version.txt")) {
                     if (Configuration.getConfig().upgradeButtonMenu != null && !Configuration.getConfig().existProductInformation) {
