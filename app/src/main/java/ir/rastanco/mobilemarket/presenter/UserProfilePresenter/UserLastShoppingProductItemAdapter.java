@@ -10,8 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.ProductShop;
@@ -34,30 +32,35 @@ public class UserLastShoppingProductItemAdapter extends ArrayAdapter<ProductShop
         allProductsShop=productsShop;
     }
 
+    static class ViewHolder{
+        private ImageLoader imgLoader;
+        private ImageView picInvoice;
+        private TextView invoiceNum;
+
+    }
+
     public View getView(final int position, View convertView, ViewGroup parent){
 
-        LayoutInflater inflater = myContext.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.last_shopping_item,parent,false);
+        ViewHolder holder;
+        if (convertView==null){
+            LayoutInflater inflater = myContext.getLayoutInflater();
+            convertView = inflater.inflate(R.layout.last_shopping_item,parent,false);
+            holder=new ViewHolder();
+            holder.imgLoader = new ImageLoader(Configuration.getConfig().userLastShoppingActivityContext,Configuration.getConfig().homeDisplaySizeForShow); // important
+            holder.picInvoice = (ImageView) convertView.findViewById(R.id.img_invoice);
+            holder.invoiceNum=(TextView) convertView.findViewById(R.id.txt_invoiceNum);
+            holder.invoiceNum = PriceUtility.getInstance().changeFontToYekan(holder.invoiceNum, myContext);
 
+            convertView.setTag(holder);
+        }
+        else
+            holder=(ViewHolder)convertView.getTag();
 
-        ImageLoader imgLoader = new ImageLoader(Configuration.getConfig().userLastShoppingActivityContext,Configuration.getConfig().homeDisplaySizeForShow); // important
-        ImageView picInvoice = (ImageView) rowView.findViewById(R.id.img_invoice);
         String imageURL = allProductsShop.get(position).getInvoiceImageLink();
-        imgLoader.DisplayImage(imageURL, picInvoice);
+        holder.imgLoader.DisplayImage(imageURL, holder.picInvoice);
+        holder.invoiceNum.setText(myContext.getResources().getString(R.string.invoice_number ,allProductsShop.get(position).getInvoiceNumber()));
 
-        TextView invoiceNum=(TextView) rowView.findViewById(R.id.txt_invoiceNum);
-        //TextView invoiceDate=(TextView)rowView.findViewById(R.id.txt_invoiceDate);
-        //TextView invoiceStatus=(TextView)rowView.findViewById(R.id.txt_invoiceStatus);
-        invoiceNum = PriceUtility.getInstance().changeFontToYekan(invoiceNum, myContext);
-        //invoiceDate = PriceUtility.getInstance().changeFontToYekan(invoiceDate, myContext);
-        //invoiceStatus = PriceUtility.getInstance().changeFontToYekan(invoiceStatus, myContext);
-
-        invoiceNum.setText(myContext.getResources().getString(R.string.invoice_number ,allProductsShop.get(position).getInvoiceNumber()));
-
-        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
-        cal.setTimeInMillis(Integer.parseInt(allProductsShop.get(position).getTimeStamp()));
-        //String date = DateFormat.format("yyyy-MM-dd", cal).toString();
-        return rowView;
+        return convertView;
     }
 }
 
