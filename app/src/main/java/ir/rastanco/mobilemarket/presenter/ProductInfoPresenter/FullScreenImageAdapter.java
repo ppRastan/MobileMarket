@@ -44,7 +44,6 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private final int  productsSize;
     private View viewLayout;
     private ToolbarHandler toolbarHandler;
-    private ImageButton btnLike;
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
         this.products=allProducts;
@@ -109,7 +108,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         sch.getAllProductOptionOfAProduct(aProduct.getId(),
                 aProduct.getGroupId());
 
-        btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
+         final ImageButton btnLike = (ImageButton)viewLayout.findViewById(R.id.add_to_favorite);
 
         if (sch.getAProduct(aProduct.getId()).getLike()==0){
             //this Product No Favorite
