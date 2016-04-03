@@ -22,8 +22,9 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJ
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonComments;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonKey;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonLastShop;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductAndAddDataBase;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductOption;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductWithoutAddDataBase;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.Utilities;
@@ -312,9 +313,20 @@ public class ServerConnectionHandler {
             updateTimeStamp(allProducts.get(0).getTimeStamp());
     }
 
+    public ArrayList<Product> getAllProductFromURL(String url){
+        GetFile jsonProductsFile = new GetFile();
+        String jsonProductString= null;
+        try {
+            jsonProductString = jsonProductsFile.execute(url).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return new ParseJsonProductWithoutAddDataBase().ParseJsonProducts(jsonProductString);
+    }
+
     public void getNewProducts(){
         String lastTimeStamp=getLastTimeStamp();
-        ParseJsonProduct pjp=new ParseJsonProduct(context);
+        ParseJsonProductAndAddDataBase pjp=new ParseJsonProductAndAddDataBase(context);
         String url= Link.getInstance().generateUrlForGetNewProduct(lastTimeStamp);
         try {
             pjp.execute(url).get();
@@ -325,7 +337,7 @@ public class ServerConnectionHandler {
 
     public void getEditProducts(){
         String lastUpdateTimeStamp=getLastUpdateTimeStamp();
-        ParseJsonProduct pjp=new ParseJsonProduct(context);
+        ParseJsonProductAndAddDataBase pjp=new ParseJsonProductAndAddDataBase(context);
         String url= Link.getInstance().generateURLForGetEditProduct(lastUpdateTimeStamp);
         try {
             pjp.execute(url).get();

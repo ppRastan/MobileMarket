@@ -53,7 +53,6 @@ import java.util.Map;
 import co.ronash.pushe.Pushe;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductFirstInstallApp;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
@@ -389,38 +388,7 @@ public class MainActivity extends AppCompatActivity {
                 timeStamp);
         Configuration.getConfig().existProductInformation = false;
         Configuration.getConfig().emptyProductTable=false;
-
     }
-
-    private void getInformationFromServerInFirstRun(){
-        final ParseJsonProductFirstInstallApp parseInformationProduct=new ParseJsonProductFirstInstallApp();
-        final String[] jsonString = {""};
-        Thread getProductInfoFromServerThread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    synchronized (this) {
-                        // Wait given period of time or exit on touch
-                        jsonString[0] = parseInformationProduct.getProductInfoFromServer(Link.getInstance().generateUrlForGetNewProduct(Configuration.getConfig().mainActivityContext.getString(R.string.firstTimeStamp)));
-                        wait(10);
-                    }
-                } catch (InterruptedException ex) {
-                    Log.v("can not check data base","!");
-                }
-                sch.addAllCategoryToTable(sch.getAllCategoryInfoURL(Link.getInstance().generateURLForGetAllCategories()));
-                ArrayList<Product> allProducts;
-                allProducts = parseInformationProduct.ParseJsonProducts(jsonString[0]);
-                ServerConnectionHandler.getInstance(Configuration.getConfig().mainActivityContext).setProducts(allProducts);
-                addProductInformationToDataBaseFirstInstall(allProducts);
-                Configuration.getConfig().emptyProductTable = false;
-                ObserverChangeFragment.setChangeFragmentParameter(true);
-
-
-            }
-        };
-        getProductInfoFromServerThread.start();
-    }
-
 
 
     @Override

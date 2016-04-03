@@ -8,11 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import java.util.ArrayList;
-
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductFirstInstallApp;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
@@ -25,8 +21,7 @@ public class SplashHandler extends AppCompatActivity {
 
     private ServerConnectionHandler sch;
     private Context splashContext;
-    private final Integer delay = 10;
-    private ParseJsonProductFirstInstallApp parseInformationProduct;
+    private final Integer delay = 3000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +29,6 @@ public class SplashHandler extends AppCompatActivity {
         final SplashHandler sPlashHandler = this;
         splashContext=this;
         sch=ServerConnectionHandler.getInstance(splashContext);
-        parseInformationProduct=new ParseJsonProductFirstInstallApp();
         Thread mSplashThread = new Thread() {
             @Override
             public void run() {
@@ -43,7 +37,7 @@ public class SplashHandler extends AppCompatActivity {
                         // Wait given period of time or exit on touch
                         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                         NetworkInfo ni = cm.getActiveNetworkInfo();
-                        if (ni != null && ni.isConnected()) {
+                        if (ni != null && ni.isConnectedOrConnecting()) {
                             Configuration.getConfig().connectionStatus = true;
                         }
                         if (sch.emptyUserInfo())
@@ -57,7 +51,7 @@ public class SplashHandler extends AppCompatActivity {
                         if (sch.emptyDBProduct()) {
                             Configuration.getConfig().emptyProductTable = true;
                             Configuration.getConfig().existProductInformation = false;
-                            sch.setProducts(getProductInfoFromServer());
+                            sch.setProducts(sch.getAllProductFromURL(Link.getInstance().generateUrlForGetNewProduct(splashContext.getString(R.string.firstTimeStamp))));
                             if (sch.getProducts().size() != 0)
                                 Configuration.getConfig().existProductInformation = true;
 
@@ -79,11 +73,5 @@ public class SplashHandler extends AppCompatActivity {
         };
 
         mSplashThread.start();
-    }
-
-    private ArrayList<Product> getProductInfoFromServer(){
-        String[] jsonString = {""};
-        jsonString[0] = parseInformationProduct.getProductInfoFromServer(Link.getInstance().generateUrlForGetNewProduct(splashContext.getString(R.string.firstTimeStamp)));
-        return parseInformationProduct.ParseJsonProducts(jsonString[0]);
     }
 }

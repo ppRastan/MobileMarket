@@ -1,5 +1,7 @@
 package ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -16,19 +18,28 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 
 /**
- * Created by ShaisteS on 03/28/2016.
+ * Created by ShaisteS on 1394/11/12.
+ * This Class Parse Product Information Json String
  */
-public class ParseJsonProductFirstInstallApp {
+public class ParseJsonProductAndAddDataBase extends AsyncTask<String, String, String> {
 
-    public String getProductInfoFromServer(String urlProduct) {
 
-        HttpURLConnection connection = null;
-        InputStream is = null;
-        String jsonString = "";
+    private final Context myContext;
+
+    private InputStream is = null;
+    private String jsonString = "";
+    private HttpURLConnection connection;
+    public ParseJsonProductAndAddDataBase(Context context){
+        myContext=context;
+    }
+    @Override
+    protected String doInBackground(String... jsonUrl) {
+
         try {
-            URL url = new URL(urlProduct);
+            URL url= new URL(jsonUrl[0]);
             connection = (HttpURLConnection) url.openConnection();
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,7 +48,7 @@ public class ParseJsonProductFirstInstallApp {
         connection.setDoOutput(true);
         connection.setUseCaches(false);
         Log.v("connect", "Connect to Internet");
-        int response = 0;
+        int response=0;
         try {
             connection.setRequestMethod("GET");
         } catch (ProtocolException e) {
@@ -48,7 +59,7 @@ public class ParseJsonProductFirstInstallApp {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.v("RequestGet", "Request Method Get");
+        Log.v("RequestGet","Request Method Get");
         Log.v("Response", Integer.toString(response));
         try {
             is = connection.getInputStream();
@@ -71,21 +82,20 @@ public class ParseJsonProductFirstInstallApp {
         return jsonString;
     }
 
-    public ArrayList<Product> ParseJsonProducts(String jsonString) {
+    public void onPostExecute(String jsonString) {
 
-        ArrayList<Product> allProduct;
         JSONArray dataJsonArr;
-        ArrayList<String> imagePath;
-        allProduct = new ArrayList<>();
+        ArrayList<Product>  allProduct=new ArrayList<>();
 
         try {
 
-            JSONObject json = new JSONObject(jsonString);
+            JSONObject json =new JSONObject(jsonString);
             dataJsonArr = json.getJSONArray("product");
-            for (int i = 0; i < dataJsonArr.length(); i++) {
+            for (int i = 0; i < dataJsonArr.length(); i++)
+            {
                 JSONObject c = dataJsonArr.getJSONObject(i);
-                imagePath = new ArrayList<>();
-                Product aProduct = new Product();
+                ArrayList<String> imagePath=new ArrayList<>();
+                Product aProduct=new Product();
                 aProduct.setTitle(c.getString("t"));
                 aProduct.setId(Integer.parseInt(c.getString("id")));
                 aProduct.setGroupId(Integer.parseInt(c.getString("gid")));
@@ -103,22 +113,22 @@ public class ParseJsonProductFirstInstallApp {
                 aProduct.setSellsCount(Integer.parseInt(c.getString("s")));
                 aProduct.setTimeStamp(c.getString("ts"));
                 aProduct.setUpdateTimeStamp(c.getString("update_ts"));
-
                 aProduct.setShowAtHomeScreen(Integer.parseInt(c.getString("h")));
                 aProduct.setWatermarkPath(c.getString("wm"));
                 aProduct.setImagesMainPath(c.getString("ipath"));
                 aProduct.setLinkInSite(c.getString("l"));
-                for (int j = 0; j < 10; j++) {
-                    String counter = "i" + j;
+                for (int j=0;j<10;j++){
+                    String counter="i"+j;
                     if (c.has(counter))
                         imagePath.add(c.getString(counter));
                 }
                 aProduct.setImagesPath(imagePath);
                 allProduct.add(aProduct);
             }
+            ServerConnectionHandler sch=new ServerConnectionHandler(myContext);
+            sch.addAllProductToTable(allProduct);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return allProduct;
     }
 }
