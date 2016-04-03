@@ -104,7 +104,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             holder.imgP=(ImageView) convertView.findViewById(R.id.imageButton_picProduct);
             holder.imgP.getLayoutParams().width= Configuration.getConfig().shopDisplaySizeForShow;
             holder.imgP.getLayoutParams().height=Configuration.getConfig().shopDisplaySizeForShow;
-            holder.imgP.setImageDrawable(defaultPicture);
             holder.offerRight = (ImageButton)convertView.findViewById(R.id.ic_offer_right);
             holder. basketToolbar = (ImageButton)convertView.findViewById(R.id.basket_toolbar);
             holder.shareToolBar = (ImageButton)convertView.findViewById(R.id.share_toolbar_in_main_page);
@@ -239,6 +238,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
             e.printStackTrace();
         }
         String imageURL = Link.getInstance().generateURLForGetImageProduct(eachProduct.getImagesMainPath(),imageNumberPath,Configuration.getConfig().shopDisplaySizeForURL,Configuration.getConfig().shopDisplaySizeForURL);
+        holder.imgP.setImageDrawable(defaultPicture);
         holder.imgLoader.DisplayImage(imageURL, holder.imgP);
         holder.infoP.setText(eachProduct.getTitle());
 
