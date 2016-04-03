@@ -27,12 +27,26 @@ public class ProductInfoItemAdapter extends ArrayAdapter<ProductOption> {
         myActivity = (Activity) context;
     }
 
+    static class ViewHolder{
+        TextView txtTitle;
+    }
+
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        LayoutInflater inflater = myActivity.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.product_info_item,parent,false);
-        TextView txtTitle=(TextView)rowView.findViewById(R.id.txt_title);
-        txtTitle.setText(myActivity.getString(R.string.titleOfCurrentProduct,options.get(position).getValue()));
-        return rowView;
+        ViewHolder holder;
+        if (convertView==null) {
+            LayoutInflater inflater = myActivity.getLayoutInflater();
+            convertView = inflater.inflate(R.layout.product_info_item, parent, false);
+            holder=new ViewHolder();
+            holder.txtTitle=(TextView)convertView.findViewById(R.id.txt_title);
+            convertView.setTag(holder);
+        }
+        else
+            holder = (ViewHolder) convertView.getTag();
+        //TODO Parisa
+        holder.txtTitle.setText(myActivity.getString(R.string.titleOfCurrentProduct,options.get(position).getValue()));
+        //holder.txtTitle.setText(options.get(position).getTitle()+" : "+options.get(position).getValue()));
+
+        return convertView;
     }
 }

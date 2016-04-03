@@ -23,11 +23,10 @@ public class ProductInfoActivity extends Activity {
         setContentView(R.layout.swip_product_gallery);
         Configuration.getConfig().productInfoActivityContext = this;
         Intent intent = this.getIntent();
-        Bundle productBundle = new Bundle();
-        productBundle = intent.getExtras();
-        ArrayList<Product> allProducts = productBundle.getParcelableArrayList("allProduct");
+        Bundle productBundle = intent.getExtras();
+        ArrayList<Product> allProducts=productBundle.getParcelableArrayList("allProduct");
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(new FullScreenImageAdapter(this, allProducts, allProducts.size()));
+        viewPager.setAdapter(new FullScreenImageAdapter(this, allProducts, allProducts != null ? allProducts.size() : 0));
         viewPager.setCurrentItem(intent.getIntExtra("position", 0));
         if (Configuration.getConfig().isTheFirstTimeOpeningThisPage)
             startActivity(new Intent(ProductInfoActivity.this, FullScreenPAgeUserGuider.class));
