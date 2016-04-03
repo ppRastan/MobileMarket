@@ -23,11 +23,10 @@ import ir.rastanco.mobilemarket.utility.Link;
  */
 public class SplashHandler extends AppCompatActivity {
 
-    private Thread mSplashThread;
     private ServerConnectionHandler sch;
     private Context splashContext;
     private final Integer delay = 10;
-    ParseJsonProductFirstInstallApp parseInformationProduct;
+    private ParseJsonProductFirstInstallApp parseInformationProduct;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,43 +35,41 @@ public class SplashHandler extends AppCompatActivity {
         splashContext=this;
         sch=ServerConnectionHandler.getInstance(splashContext);
         parseInformationProduct=new ParseJsonProductFirstInstallApp();
-        mSplashThread = new Thread(){
+        Thread mSplashThread = new Thread() {
             @Override
-            public void run(){
+            public void run() {
                 try {
-                    synchronized(this){
+                    synchronized (this) {
                         // Wait given period of time or exit on touch
                         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                         NetworkInfo ni = cm.getActiveNetworkInfo();
                         if (ni != null && ni.isConnected()) {
-                            Configuration.getConfig().connectionStatus=true;
+                            Configuration.getConfig().connectionStatus = true;
                         }
                         if (sch.emptyUserInfo())
-                            Configuration.getConfig().userLoginStatus=false; //please login
-                        else Configuration.getConfig().userLoginStatus=true;//
+                            Configuration.getConfig().userLoginStatus = false; //please login
+                        else Configuration.getConfig().userLoginStatus = true;//
 
                         if (sch.emptyDBCategory()) {
-                            Configuration.getConfig().emptyCategoryTable=true;
+                            Configuration.getConfig().emptyCategoryTable = true;
                             sch.setCategories(sch.getAllCategoryInfoURL(Link.getInstance().generateURLForGetAllCategories()));
                         }
                         if (sch.emptyDBProduct()) {
-                            Configuration.getConfig().emptyProductTable=true;
+                            Configuration.getConfig().emptyProductTable = true;
                             Configuration.getConfig().existProductInformation = false;
                             sch.setProducts(getProductInfoFromServer());
-                            if (sch.getProducts().size()!=0)
-                                Configuration.getConfig().existProductInformation=true;
+                            if (sch.getProducts().size() != 0)
+                                Configuration.getConfig().existProductInformation = true;
 
-                        }
-                        else {
+                        } else {
                             Configuration.getConfig().existProductInformation = false;
-                            Configuration.getConfig().emptyProductTable=false;
+                            Configuration.getConfig().emptyProductTable = false;
                         }
 
                         wait(delay);
                     }
-                }
-                catch(InterruptedException ex){
-                   Log.v("unable to open splash","!");
+                } catch (InterruptedException ex) {
+                    Log.v("unable to open splash", "!");
                 }
                 finish();
                 Intent intent = new Intent();
@@ -87,7 +84,6 @@ public class SplashHandler extends AppCompatActivity {
     private ArrayList<Product> getProductInfoFromServer(){
         String[] jsonString = {""};
         jsonString[0] = parseInformationProduct.getProductInfoFromServer(Link.getInstance().generateUrlForGetNewProduct(splashContext.getString(R.string.firstTimeStamp)));
-        ArrayList<Product> allProducts=parseInformationProduct.ParseJsonProducts(jsonString[0]);
-        return  allProducts;
+        return parseInformationProduct.ParseJsonProducts(jsonString[0]);
     }
 }

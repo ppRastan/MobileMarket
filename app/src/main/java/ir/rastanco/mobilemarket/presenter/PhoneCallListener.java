@@ -17,11 +17,10 @@ public class PhoneCallListener extends PhoneStateListener {
 
     private boolean isPhoneCalling = false;
 
-    private final String LOG_TAG = "LOGGING 123";
-
     @Override
     public void onCallStateChanged(int state, String incomingNumber) {
 
+        String LOG_TAG = "LOGGING 123";
         if (TelephonyManager.CALL_STATE_RINGING == state) {
             // phone ringing
             Log.i(LOG_TAG, "RINGING, number: " + incomingNumber);

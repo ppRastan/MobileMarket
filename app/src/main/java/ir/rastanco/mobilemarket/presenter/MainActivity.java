@@ -64,7 +64,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingBagClickListe
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManagerActivity;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginActivity;
-import ir.rastanco.mobilemarket.presenter.shopPresenter.ShoppFragment;
+import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragmentManagement;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     private Menu menu;
     private String version;
     private ProgressDialog pDialog;
-    public static final int progress_bar_type = 0;
+    private static final int progress_bar_type = 0;
 
 
 
@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (Configuration.getConfig().emptyProductTable &&
                 Configuration.getConfig().connectionStatus) {
-            addCategoryInformationAndProductInformationToDataBase(Configuration.getConfig().mainActivityContext);
+            addCategoryInformationAndProductInformationToDataBase();
             //Configuration.getConfig().emptyProductTable=false;
         }
         ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i=mainCategoryTitle.size()-1;i>=0;i--) {
             Bundle args=new Bundle();
             args.putInt("pageId", mapTitleToIdMainCategory.get(mainCategoryTitle.get(i)));
-             ShoppFragment shop=new ShoppFragment();
+             ShopFragment shop=new ShopFragment();
             shop.setArguments(args);
             adapter.addFragment(shop, mainCategoryTitle.get(i));
         }
@@ -360,7 +360,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void addCategoryInformationAndProductInformationToDataBase(Context context){
+    private void addCategoryInformationAndProductInformationToDataBase(){
         Thread getProductInfoFromServerThread = new Thread() {
             @Override
             public void run() {

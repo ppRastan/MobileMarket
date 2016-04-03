@@ -26,7 +26,6 @@ public class Configuration {
     public  Context userLoginActivityContext;
     public  Context userProfileActivityContext;
     public  Context ShopFragmentContext;
-    public  Context ShoppingBagActivityContext;
     public  Context userLastShoppingActivityContext;
     public  Context productOptionActivityContext;
     public  Context accountManagerContext;

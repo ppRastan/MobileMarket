@@ -107,9 +107,8 @@ public class Utilities {
 
         Matrix matrix = new Matrix();
         matrix.postScale(scaleWidth, scaleHeight);
-        Bitmap resizedBitmap;
 
-        return resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+        return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
     }
 
 
