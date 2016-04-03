@@ -70,7 +70,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder holder;
-        //View Holder Pattern
+        //View ViewHolder Pattern
         if (convertView==null){
             LayoutInflater inflater = shoppingBagActivityContext.getLayoutInflater();
             convertView = inflater.inflate(R.layout.shopping_bag_item, parent, false);
