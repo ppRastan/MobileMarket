@@ -51,34 +51,49 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
 
     }
 
-    public class Holder{
-        ImageButton shareBtn;
-        ImageButton basketToolbar;
-        Button btnSimilar;
+    static class ViewHolder{
+        private ImageButton shareBtn;
+        private ImageButton basketToolbar;
+        private Button btnSimilar;
+        private ImageButton offerRight;
+        private ImageLoader imgLoader;
+        private ImageView picProductImage;
     }
 
     public View getView(final int position, View convertView, ViewGroup parent){
 
-        LayoutInflater inflater = myContext.getLayoutInflater();
-        final View rowView = inflater.inflate(R.layout.picture_product_item_home,parent,false);
-        final Holder holder=new Holder();
-        holder.basketToolbar = (ImageButton)rowView.findViewById(R.id.basket_toolbar);
-        holder.btnSimilar=(Button) rowView.findViewById(R.id.btn_similar);
-        holder.shareBtn = (ImageButton) rowView.findViewById(R.id.imageButton_share);
+        final ViewHolder holder;
+        if (convertView==null){
+            LayoutInflater inflater = myContext.getLayoutInflater();
+            convertView = inflater.inflate(R.layout.picture_product_item_home, parent, false);
+            holder=new ViewHolder();
+
+            holder.basketToolbar = (ImageButton)convertView.findViewById(R.id.basket_toolbar);
+            holder.btnSimilar=(Button) convertView.findViewById(R.id.btn_similar);
+            holder.shareBtn = (ImageButton) convertView.findViewById(R.id.imageButton_share);
+            holder.offerRight = (ImageButton)convertView.findViewById(R.id.ic_offer_right);
+            holder.imgLoader = new ImageLoader(myContext,Configuration.getConfig().homeDisplaySizeForShow); // important
+            holder.picProductImage = (ImageView) convertView.findViewById(R.id.img_picProduct);
+            holder.picProductImage.getLayoutParams().width= Configuration.getConfig().homeDisplaySizeForShow;
+            holder.picProductImage.getLayoutParams().height=Configuration.getConfig().homeDisplaySizeForShow;
+
+            convertView.setTag(holder);
+        }
+        else
+            holder = (ViewHolder) convertView.getTag();
 
 
         //Special Icon
         //ImageButton offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
-        ImageButton offerRight = (ImageButton)rowView.findViewById(R.id.ic_offer_right);
         if(Configuration.getConfig().RTL)
         {
             //offerLeft.setVisibility(View.GONE);
             if(allProduct.get(position).getPriceOff() != 0)
             {
-                offerRight.setVisibility(View.VISIBLE);
+                holder.offerRight.setVisibility(View.VISIBLE);
             }
             else {
-                offerRight.setVisibility(View.GONE);
+                holder.offerRight.setVisibility(View.GONE);
             }
         }
         /*if (! Configuration.RTL)
@@ -146,11 +161,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
                 toolbarHandler.generalShare(myContext, allProduct.get(position).getLinkInSite());
             }
         });
-        ImageLoader imgLoader = new ImageLoader(myContext,Configuration.getConfig().homeDisplaySizeForShow); // important
-        final  ImageView PicProductImage = (ImageView) rowView.findViewById(R.id.img_picProduct);
-        PicProductImage.getLayoutParams().width= Configuration.getConfig().homeDisplaySizeForShow;
-        PicProductImage.getLayoutParams().height=Configuration.getConfig().homeDisplaySizeForShow;
-        PicProductImage.setImageDrawable(defaultPicture);
+        holder.picProductImage.setImageDrawable(defaultPicture);
         String imageNumberPath;
         if (allProduct.get(position).getImagesPath().size()==0)
             imageNumberPath="no_image_path";
@@ -162,17 +173,18 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
             e.printStackTrace();
         }
         String imageURL = Link.getInstance().generateURLForGetImageProduct(allProduct.get(position).getImagesMainPath(),imageNumberPath,Configuration.getConfig().homeDisplaySizeForURL,Configuration.getConfig().homeDisplaySizeForURL);
-        imgLoader.DisplayImage(imageURL, PicProductImage);
-        PicProductImage.setOnClickListener(new View.OnClickListener() {
+        holder.imgLoader.DisplayImage(imageURL, holder.picProductImage);
+        final View finalConvertView = convertView;
+        holder.picProductImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Product> newAllProduct= serverConnectionHandler.getSpecialProduct();
-                Intent intent = new Intent(rowView.getContext(), ProductInfoActivity.class);
-                intent.putParcelableArrayListExtra("allProduct",newAllProduct);
-                intent.putExtra("position",position);
-                rowView.getContext().startActivity(intent);
+                ArrayList<Product> newAllProduct = serverConnectionHandler.getSpecialProduct();
+                Intent intent = new Intent(finalConvertView.getContext(), ProductInfoActivity.class);
+                intent.putParcelableArrayListExtra("allProduct", newAllProduct);
+                intent.putExtra("position", position);
+                finalConvertView.getContext().startActivity(intent);
             }
         });
-        return rowView;
+        return convertView;
     }
 }
