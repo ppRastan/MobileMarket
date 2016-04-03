@@ -25,14 +25,12 @@ public class AccountManagerItemAdapter extends BaseAdapter{
     private final ArrayList <String> result;
     private final Context context;
     private final int [] imageId;
-    private static LayoutInflater inflater=null;
     private final ServerConnectionHandler sch;
     public AccountManagerItemAdapter(AccountManagerActivity mainActivity, ArrayList<String> programNameList, int[] programImages) {
 
         result=programNameList;
         context=mainActivity;
         imageId=programImages;
-        inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         sch=ServerConnectionHandler.getInstance(context);
     }
     @Override
@@ -50,21 +48,30 @@ public class AccountManagerItemAdapter extends BaseAdapter{
         return position;
     }
 
-    public class Holder
+    static class ViewHolder
     {
-        TextView tv;
-        ImageView img;
+        private TextView tv;
+        private ImageView img;
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        Holder holder=new Holder();
-        final View rowView;
-        rowView = inflater.inflate(R.layout.list_view_account_activity_items, parent , false);
-        holder.tv=(TextView) rowView.findViewById(R.id.text_of_list_view);
-        holder.img=(ImageView) rowView.findViewById(R.id.image_of_list_view);
+        ViewHolder holder;
+        if (convertView==null){
+            LayoutInflater inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.list_view_account_activity_items, parent , false);
+            holder=new ViewHolder();
+            holder.tv=(TextView) convertView.findViewById(R.id.text_of_list_view);
+            holder.img=(ImageView) convertView.findViewById(R.id.image_of_list_view);
+            convertView.setTag(holder);
+
+
+        }
+        else
+            holder=(ViewHolder)convertView.getTag();
+
         holder.tv.setText(result.get(position));
         holder.img.setImageResource(imageId[position]);
-        rowView.setOnClickListener(new OnClickListener() {
+        convertView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -91,7 +98,7 @@ public class AccountManagerItemAdapter extends BaseAdapter{
                 }
             }
         });
-        return rowView;
+        return convertView;
     }
 
 } 
