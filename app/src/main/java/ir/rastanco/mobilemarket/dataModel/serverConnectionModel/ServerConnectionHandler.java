@@ -39,6 +39,7 @@ public class ServerConnectionHandler {
     private final Context context;
     private ArrayList<Product> products;
     private ArrayList<Category> categories;
+    private String jsonProduct;
 
     public static ServerConnectionHandler getInstance(Context context) {
 
@@ -51,6 +52,7 @@ public class ServerConnectionHandler {
     public ServerConnectionHandler(Context myContext){
         context=myContext;
         products= new ArrayList<>();
+        jsonProduct="";
     }
 
     public ArrayList<Product> getProducts() {
@@ -329,14 +331,15 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<Product> getAllProductFromURL(String url){
-        GetFile jsonProductsFile = new GetFile();
-        String jsonProductString= null;
-        try {
-            jsonProductString = jsonProductsFile.execute(url).get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+        if (jsonProduct.equals("")){
+            GetFile jsonProductsFile = new GetFile();
+            try {
+                jsonProduct = jsonProductsFile.execute(url).get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
         }
-        return new ParseJsonProductWithoutAddDataBase().ParseJsonProducts(jsonProductString);
+        return new ParseJsonProductWithoutAddDataBase().ParseJsonProducts(jsonProduct);
     }
 
     public void getNewProducts(){

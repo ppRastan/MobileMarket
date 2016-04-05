@@ -16,7 +16,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,7 +40,7 @@ import ir.rastanco.mobilemarket.utility.ToolbarHandler;
 import ir.rastanco.mobilemarket.utility.Utilities;
 
 
-public class PictureProductShopItemAdapter extends BaseAdapter{
+public class PictureProductShopItemAdapter extends ArrayAdapter<Product>{
 
     private final ArrayList<Product> allProduct;
     private boolean isLikeButtonClicked = true;
@@ -51,6 +51,7 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     private final Drawable defaultPicture;
 
     public PictureProductShopItemAdapter(FragmentActivity mainActivity,ArrayList<Product> products) {
+        super(mainActivity, R.layout.article_item, products);
 
         myContext =mainActivity;
         allProduct =products;
@@ -62,11 +63,6 @@ public class PictureProductShopItemAdapter extends BaseAdapter{
     @Override
     public int getCount() {
         return allProduct.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return position;
     }
 
     @Override
