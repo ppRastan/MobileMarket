@@ -389,7 +389,9 @@ public class MainActivity extends AppCompatActivity {
         sch.setSetting(timeStamp,
                 Configuration.getConfig().mainActivityContext.getResources().getString(R.string.firstArticleNumber),
                 lastVersionInServer,
-                timeStamp);
+                timeStamp,
+                Configuration.getConfig().firstIndexGetProduct+Configuration.getConfig().numberOfProductMustBeTaken,
+                Configuration.getConfig().numberAllProducts);
         Configuration.getConfig().existProductInformation = false;
         Configuration.getConfig().emptyProductTable=false;
     }

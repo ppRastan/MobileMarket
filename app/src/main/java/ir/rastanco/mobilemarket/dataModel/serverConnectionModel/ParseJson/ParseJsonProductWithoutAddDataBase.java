@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
  * Created by ShaisteS on 03/28/2016.
@@ -19,12 +20,15 @@ public class ParseJsonProductWithoutAddDataBase {
         JSONArray dataJsonArr;
         ArrayList<String> imagePath;
         allProduct = new ArrayList<>();
+        int firstIndex=Configuration.getConfig().firstIndexGetProduct;
+        int lastIndex=Configuration.getConfig().firstIndexGetProduct+Configuration.getConfig().numberOfProductMustBeTaken;
 
         try {
 
             JSONObject json = new JSONObject(jsonString);
             dataJsonArr = json.getJSONArray("product");
-            for (int i = 0; i < dataJsonArr.length(); i++) {
+            Configuration.getConfig().numberAllProducts=dataJsonArr.length();
+            for (int i = firstIndex;i <lastIndex ; i++) {
                 JSONObject c = dataJsonArr.getJSONObject(i);
                 imagePath = new ArrayList<>();
                 Product aProduct = new Product();

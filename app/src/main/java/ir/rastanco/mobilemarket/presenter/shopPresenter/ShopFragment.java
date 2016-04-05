@@ -99,16 +99,34 @@ public class ShopFragment extends Fragment {
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
                 boolean enable = false;
+                boolean enableGetProductFromServer=false;
                 if (gridview.getChildCount() > 0) {
                     boolean firstItemVisible = gridview.getFirstVisiblePosition() == 0;
                     boolean topOfFirstItemVisible = gridview.getChildAt(0).getTop() == 0;
                     enable = firstItemVisible && topOfFirstItemVisible;
+                    if (firstVisibleItem==totalItemCount)
+                        enableGetProductFromServer=true;
                 }
                 mSwipeRefreshLayout.setEnabled(enable);
                 if (enable)
                     Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.VISIBLE);
                 else
                     Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.GONE);
+
+                if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
+                {
+                    int lastItemView=totalItemCount;
+                    Configuration.getConfig().firstIndexGetProduct=ServerConnectionHandler.getInstance(myContext).getFirstIndexForGetProductFromJson();
+                    int allNumberProducts=ServerConnectionHandler.getInstance(myContext).getNumberAllProduct();
+                    if ( Configuration.getConfig().firstIndexGetProduct<allNumberProducts){
+                        addProductInformationToDataBaseFirstInstall();
+                        ArrayList<Product> newProducts = sch.getProductsOfAParentCategory(pageId);
+                        PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
+                        gridview.setAdapter(newAdapter);
+                        newAdapter.notifyDataSetChanged();
+                    }
+
+                }
 
             }
         });
@@ -297,5 +315,16 @@ public class ShopFragment extends Fragment {
             }
         });
         return mainView;
+    }
+
+    private void addProductInformationToDataBaseFirstInstall(){
+        Configuration.getConfig().numberOfProductMustBeTaken=100;
+        ArrayList<Product> allProducts=sch.getAllProductFromURL(Link.getInstance().generateUrlForGetNewProduct(myContext.getString(R.string.firstTimeStamp)));
+        sch.addAllProductToTable(allProducts);
+        String timeStamp= allProducts.get(0).getTimeStamp();
+        sch.updatePropertyOfGetProduct(timeStamp,
+                timeStamp,
+                Configuration.getConfig().firstIndexGetProduct+Configuration.getConfig().numberOfProductMustBeTaken,
+                Configuration.getConfig().numberAllProducts);
     }
 }

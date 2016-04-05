@@ -45,6 +45,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     private final String SettingsTable_Column_Last_Update_TimeStamp ="lastUpdateTimeStamp";
     private final String SettingsTable_Column_Last_Articles_Number="lastArticlesNum";
     private final String SettingsTable_Column_Last_Version_Application="lastVersionOfApp";
+    private final String SettingsTable_Column_First_Index_Get_product="firstIndexGetProduct";
+    private final String SettingsTable_Column_Number_All_Product="numberAllProduct";
 
     private final String ShoppingTable_Column_Primary_Id="id";
     private final String ShoppingTable_Column_ForeignKey_ProductId="fkProductId";
@@ -128,7 +130,9 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 SettingsTable_Column_Last_TimeStamp + " String," +
                 SettingsTable_Column_Last_Update_TimeStamp + " String," +
                 SettingsTable_Column_Last_Articles_Number + " String," +
-                SettingsTable_Column_Last_Version_Application + " String)");
+                SettingsTable_Column_Last_Version_Application + " String," +
+                SettingsTable_Column_First_Index_Get_product+" Integer," +
+                SettingsTable_Column_Number_All_Product+" Integer)");
         Log.v("create", "Create Setting Table");
 
         db.execSQL("create table " + TABLE_SHOPPING +
@@ -317,18 +321,22 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     }
 
 
-    public void insertSettingApp(String lastTimeStamp,String articlesNum,String version,String lastUpdateTimeStamp) {
+    public void insertSettingApp(String lastTimeStamp,String articlesNum,String version,String lastUpdateTimeStamp,
+                                 int firstIndexGetProduct,int numberAllProducts) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.insert(TABLE_SETTINGS, null, addFieldToSettingsTable(lastTimeStamp, articlesNum, version, lastUpdateTimeStamp));
+        db.insert(TABLE_SETTINGS, null, addFieldToSettingsTable(lastTimeStamp, articlesNum, version, lastUpdateTimeStamp,firstIndexGetProduct,numberAllProducts));
         Log.v("insert", "insert Setting for App");
     }
 
-    private ContentValues addFieldToSettingsTable(String lastTimeStamp,String articlesNum,String version,String lastUpdateTimeStamp){
+    private ContentValues addFieldToSettingsTable(String lastTimeStamp,String articlesNum,String version,String lastUpdateTimeStamp,
+                                                  int firstIndexGetProduct,int numberAllProducts ) {
         ContentValues values=new ContentValues();
         values.put(SettingsTable_Column_Last_TimeStamp,lastTimeStamp);
         values.put(SettingsTable_Column_Last_Articles_Number,articlesNum);
         values.put(SettingsTable_Column_Last_Version_Application, version);
         values.put(SettingsTable_Column_Last_Update_TimeStamp, lastUpdateTimeStamp);
+        values.put(SettingsTable_Column_First_Index_Get_product, firstIndexGetProduct);
+        values.put(SettingsTable_Column_Number_All_Product, numberAllProducts);
         return values;
     }
 
@@ -475,6 +483,37 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return timeStamp;
     }
 
+    public int SelectFistIndexGetProduct() {
+        String query="select "+SettingsTable_Column_First_Index_Get_product+
+                " from "+TABLE_SETTINGS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery(query, null);
+        int firstIndex=0;
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                firstIndex = rs.getInt(rs.getColumnIndex(SettingsTable_Column_First_Index_Get_product));
+            }
+            rs.close();
+        }
+        Log.v("select", "Select Fist Index Get Product");
+        return firstIndex;
+    }
+
+    public int SelectNumberAllProducts() {
+        String query="select "+SettingsTable_Column_Number_All_Product+
+                " from "+TABLE_SETTINGS;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery(query, null);
+        int numberAllProduct=0;
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                numberAllProduct = rs.getInt(rs.getColumnIndex(SettingsTable_Column_Number_All_Product));
+            }
+            rs.close();
+        }
+        Log.v("select", "Select Fist Index Get Product");
+        return numberAllProduct;
+    }
     public String selectLastUpdateTimeStamp() {
         String query="select "+SettingsTable_Column_Last_Update_TimeStamp+
                 " from "+TABLE_SETTINGS;
@@ -1003,6 +1042,18 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         values.put(SettingsTable_Column_Last_Update_TimeStamp, updateTimeStamp);
         db.update(TABLE_SETTINGS, values, null, null);
         Log.v("update", "Update Last Update Time stamp");
+
+    }
+
+    public void updatePropertyOfGetProduct(String TimeStamp,String updateTimeStamp,int firstIndexGetProduct,int numberAllProducts) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(SettingsTable_Column_Last_TimeStamp, TimeStamp);
+        values.put(SettingsTable_Column_Last_Update_TimeStamp, updateTimeStamp);
+        values.put(SettingsTable_Column_First_Index_Get_product, firstIndexGetProduct);
+        values.put(SettingsTable_Column_Number_All_Product, numberAllProducts);
+        db.update(TABLE_SETTINGS, values, null, null);
+        Log.v("update", "Update Property of Get Product");
 
     }
 

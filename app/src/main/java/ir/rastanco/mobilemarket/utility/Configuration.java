@@ -53,6 +53,9 @@ public class Configuration {
     public  Integer articleDisplaySizeForShow;
     public  Integer progressBarSize;
     public  Integer mainTabCount;
+    public int firstIndexGetProduct;
+    public int numberAllProducts;
+    public int numberOfProductMustBeTaken;
     public  MenuItem upgradeButtonMenu;
     public  ViewPager mainPager;
     public  FloatingActionButton customerSupportFloatingActionButton;

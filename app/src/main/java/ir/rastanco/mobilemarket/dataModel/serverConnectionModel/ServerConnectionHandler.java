@@ -69,11 +69,14 @@ public class ServerConnectionHandler {
     }
 
     //Setting
-    public void setSetting(String firstTimeStamp,String firstArticleNumber,String version,String firstUpdateTimeStamp){
+    public void setSetting(String firstTimeStamp,String firstArticleNumber,String version,String firstUpdateTimeStamp,
+                           int firstIndexGetProduct,int numberAllProducts){
         DataBaseHandler.getInstance(context).insertSettingApp(firstTimeStamp,
                 firstArticleNumber,
                 version,
-                firstUpdateTimeStamp);
+                firstUpdateTimeStamp,
+                firstIndexGetProduct,
+                numberAllProducts);
     }
     public String getLastTimeStamp(){
         return DataBaseHandler.getInstance(context).selectLastTimeStamp();
@@ -93,6 +96,18 @@ public class ServerConnectionHandler {
 
     public void updateTimeStamp(String TimeStamp){
         DataBaseHandler.getInstance(context).updateTimeStamp(TimeStamp);
+    }
+
+    public int getFirstIndexForGetProductFromJson(){
+        return DataBaseHandler.getInstance(context).SelectFistIndexGetProduct();
+    }
+
+    public int getNumberAllProduct(){
+        return DataBaseHandler.getInstance(context).SelectNumberAllProducts();
+    }
+
+    public void updatePropertyOfGetProduct(String timeStamp,String updateTimeStamp,int firstIndexGetProduct,int numberAllProducts){
+        DataBaseHandler.getInstance(context).updatePropertyOfGetProduct(timeStamp,updateTimeStamp,firstIndexGetProduct,numberAllProducts);
     }
 
     //Category
