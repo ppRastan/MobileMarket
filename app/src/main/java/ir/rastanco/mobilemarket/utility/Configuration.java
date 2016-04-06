@@ -55,7 +55,7 @@ public class Configuration {
     public  Integer mainTabCount;
     public int firstIndexGetProduct;
     public int numberAllProducts;
-    public int numberOfProductMustBeTaken;
+    public int numberOfProductMustBeTaken=100;
     public  MenuItem upgradeButtonMenu;
     public  ViewPager mainPager;
     public  FloatingActionButton customerSupportFloatingActionButton;

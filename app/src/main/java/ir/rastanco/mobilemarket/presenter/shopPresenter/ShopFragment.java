@@ -115,7 +115,7 @@ public class ShopFragment extends Fragment {
                     Configuration.getConfig().firstIndexGetProduct=ServerConnectionHandler.getInstance(myContext).getFirstIndexForGetProductFromJson();
                     int allNumberProducts=ServerConnectionHandler.getInstance(myContext).getNumberAllProduct();
                     if ( Configuration.getConfig().firstIndexGetProduct<allNumberProducts){
-                        addProductInformationToDataBaseFirstInstall();
+                        sch.addProductInformationToDataBaseFirstInstall(Link.getInstance().generateUrlForGetNewProduct(myContext.getString(R.string.firstTimeStamp)));
                         ArrayList<Product> newProducts = sch.getProductsOfAParentCategory(pageId);
                         adapter.clear();
                         for (int i=0;i<newProducts.size();i++){
@@ -315,14 +315,5 @@ public class ShopFragment extends Fragment {
         return mainView;
     }
 
-    private void addProductInformationToDataBaseFirstInstall(){
-        Configuration.getConfig().numberOfProductMustBeTaken=100;
-        ArrayList<Product> allProducts = sch.getAllProductFromURL(Link.getInstance().generateUrlForGetNewProduct(myContext.getString(R.string.firstTimeStamp)));
-        sch.addAllProductToTable(allProducts);
-        String timeStamp= allProducts.get(0).getTimeStamp();
-        sch.updatePropertyOfGetProduct(timeStamp,
-                timeStamp,
-                Configuration.getConfig().firstIndexGetProduct+Configuration.getConfig().numberOfProductMustBeTaken,
-                Configuration.getConfig().numberAllProducts);
-    }
+
 }
