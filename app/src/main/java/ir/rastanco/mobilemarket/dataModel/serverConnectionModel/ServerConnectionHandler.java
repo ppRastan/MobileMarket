@@ -38,6 +38,7 @@ public class ServerConnectionHandler {
     private final Context context;
     private ArrayList<Product> products;
     private ArrayList<Category> categories;
+    private String jsonStringProduct;
 
     public static ServerConnectionHandler getInstance(Context context) {
 
@@ -50,6 +51,7 @@ public class ServerConnectionHandler {
     public ServerConnectionHandler(Context myContext){
         context=myContext;
         products= new ArrayList<>();
+        jsonStringProduct="";
     }
 
     public ArrayList<Product> getProducts() {
@@ -328,14 +330,15 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<Product> getAllProductFromURL(String url,int firstIndex,int lastIndex,Boolean lastIndexValidStatus ){
-        GetFile jsonProductsFile = new GetFile();
-        String jsonProductString= null;
-        try {
-            jsonProductString = jsonProductsFile.execute(url).get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+        if (jsonStringProduct.equals("")){
+            GetFile jsonProductsFile = new GetFile();
+            try {
+                jsonStringProduct = jsonProductsFile.execute(url).get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
         }
-        return new ParseJsonProduct().ParseJsonProducts(jsonProductString,firstIndex,lastIndex,lastIndexValidStatus);
+        return new ParseJsonProduct().ParseJsonProducts(jsonStringProduct,firstIndex,lastIndex,lastIndexValidStatus);
     }
 
     public void addProductInformationToDataBaseFirstInstall(String url){
