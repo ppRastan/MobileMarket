@@ -12,23 +12,26 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 /**
  * Created by ShaisteS on 03/28/2016.
  */
-public class ParseJsonProductWithoutAddDataBase {
+public class ParseJsonProduct {
 
-    public ArrayList<Product> ParseJsonProducts(String jsonString) {
+
+    public ArrayList<Product> ParseJsonProducts(String jsonString,int firstIndex,int lastIndex,Boolean lastIndexValidStatus) {
 
         ArrayList<Product> allProduct;
         JSONArray dataJsonArr;
         ArrayList<String> imagePath;
         allProduct = new ArrayList<>();
-        int firstIndex=Configuration.getConfig().firstIndexGetProduct;
-        int lastIndex=Configuration.getConfig().firstIndexGetProduct+Configuration.getConfig().numberOfProductMustBeTaken;
-
+        int lastIndexUse;
         try {
 
             JSONObject json = new JSONObject(jsonString);
             dataJsonArr = json.getJSONArray("product");
+            if (lastIndexValidStatus)
+                lastIndexUse=lastIndex;
+            else
+                lastIndexUse=dataJsonArr.length();
             Configuration.getConfig().numberAllProducts=dataJsonArr.length();
-            for (int i = firstIndex;i <lastIndex ; i++) {
+            for (int i = firstIndex;i <lastIndexUse ; i++) {
                 JSONObject c = dataJsonArr.getJSONObject(i);
                 imagePath = new ArrayList<>();
                 Product aProduct = new Product();

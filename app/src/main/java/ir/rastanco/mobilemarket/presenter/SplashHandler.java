@@ -51,7 +51,8 @@ public class SplashHandler extends AppCompatActivity {
                         if (sch.emptyDBProduct()) {
                             Configuration.getConfig().emptyProductTable = true;
                             Configuration.getConfig().existProductInformation = false;
-                            sch.setProducts(sch.getAllProductFromURL(Link.getInstance().generateUrlForGetNewProduct(splashContext.getString(R.string.firstTimeStamp))));
+                            String url=Link.getInstance().generateUrlForGetNewProduct(splashContext.getString(R.string.firstTimeStamp));
+                            sch.setProducts(sch.getAllProductFromURL(url,0,Configuration.getConfig().numberOfProductMustBeTaken,true));
                             if (sch.getProducts().size() != 0)
                                 Configuration.getConfig().existProductInformation = true;
 

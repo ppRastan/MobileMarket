@@ -46,7 +46,7 @@ public class Configuration {
     public Boolean emptyProductTable; //true is empty and false is full
     public Boolean emptyCategoryTable;//true is empty and false is full
     public  Boolean connectionStatus = false;
-    public  Integer filterCategoryId;
+    public  Integer filterCategoryId=0; //import =0
     public  Integer homeDisplaySizeForShow;
     public  Integer shopDisplaySizeForShow;
     public  Integer productInfoHeightForShow;

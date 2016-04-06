@@ -59,18 +59,11 @@ public class ShopFragment extends Fragment {
         pageId=getArguments().getInt("pageId");
         sch=ServerConnectionHandler.getInstance(getContext());
         ArrayList<Product> products=sch.getProductsOfAParentCategory(pageId);
+        txtFilterOptionProductSelected=(TextView)mainView.findViewById(R.id.filter_dialogue_text);
+        txtFilterCategorySelected=(TextView)mainView.findViewById(R.id.group_dialog_text);
         noThingToShow = (TextView)mainView.findViewById(R.id.no_thing_to_show1);
         noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow,myContext);
         final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
-        /*final RecyclerView gridview = (RecyclerView) mainView.findViewById(R.id.gv_infoProduct);
-        MyCustomLayoutManager mLayoutManager = new MyCustomLayoutManager(Configuration.ShopFragmentContext);
-        gridview.setLayoutManager(mLayoutManager);
-        gridview.smoothScrollToPosition(0);
-        gridview.setLayoutManager(new GridLayoutManager(Configuration.ShopFragmentContext, 2));
-        gridview.addItemDecoration(new RecyclerViewItemDecoration(6, 6));
-        final GridLayoutManager layoutManager = ((GridLayoutManager)gridview.getLayoutManager());
-        final boolean firstVisiblePosition = layoutManager.findFirstVisibleItemPosition()==0;*/
-
         if(products.size()==0){
             noThingToShow.setVisibility(View.VISIBLE);
             gridview.setVisibility(View.GONE);

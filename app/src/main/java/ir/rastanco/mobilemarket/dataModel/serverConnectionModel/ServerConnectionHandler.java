@@ -22,9 +22,8 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJ
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonComments;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonKey;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonLastShop;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductAndAddDataBase;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductOption;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductWithoutAddDataBase;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.Utilities;
@@ -328,7 +327,7 @@ public class ServerConnectionHandler {
             updateTimeStamp(allProducts.get(0).getTimeStamp());
     }
 
-    public ArrayList<Product> getAllProductFromURL(String url){
+    public ArrayList<Product> getAllProductFromURL(String url,int firstIndex,int lastIndex,Boolean lastIndexValidStatus ){
         GetFile jsonProductsFile = new GetFile();
         String jsonProductString= null;
         try {
@@ -336,12 +335,15 @@ public class ServerConnectionHandler {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        return new ParseJsonProductWithoutAddDataBase().ParseJsonProducts(jsonProductString);
+        return new ParseJsonProduct().ParseJsonProducts(jsonProductString,firstIndex,lastIndex,lastIndexValidStatus);
     }
 
     public void addProductInformationToDataBaseFirstInstall(String url){
         Configuration.getConfig().numberOfProductMustBeTaken=20;
-        ArrayList<Product> allProducts = getAllProductFromURL(url);
+        int firstIndex=Configuration.getConfig().firstIndexGetProduct;
+        int lastIndex=Configuration.getConfig().firstIndexGetProduct+Configuration.getConfig().numberOfProductMustBeTaken;
+
+        ArrayList<Product> allProducts = getAllProductFromURL(url,firstIndex,lastIndex,true);
         addAllProductToTable(allProducts);
         String timeStamp= allProducts.get(0).getTimeStamp();
         updatePropertyOfGetProduct(timeStamp,
@@ -352,25 +354,16 @@ public class ServerConnectionHandler {
 
     public void getNewProducts(){
         String lastTimeStamp=getLastTimeStamp();
-        ParseJsonProductAndAddDataBase pjp=new ParseJsonProductAndAddDataBase(context);
         String url= Link.getInstance().generateUrlForGetNewProduct(lastTimeStamp);
-        try {
-            pjp.execute(url).get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+        ArrayList<Product> allProducts = getAllProductFromURL(url,0,0,false);
+        addAllProductToTable(allProducts);
     }
 
     public void getEditProducts(){
         String lastUpdateTimeStamp=getLastUpdateTimeStamp();
-        ParseJsonProductAndAddDataBase pjp=new ParseJsonProductAndAddDataBase(context);
         String url= Link.getInstance().generateURLForGetEditProduct(lastUpdateTimeStamp);
-        try {
-            pjp.execute(url).get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
+        ArrayList<Product> allProducts = getAllProductFromURL(url,0,0,false);
+        addAllProductToTable(allProducts);
     }
 
     public ArrayList<Product> getProductsOfAParentCategory(int categoryId){
