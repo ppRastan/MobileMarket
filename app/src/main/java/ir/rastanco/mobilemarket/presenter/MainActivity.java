@@ -16,7 +16,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -63,8 +62,6 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKL
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingBagClickListener;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
-import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
-import ir.rastanco.mobilemarket.presenter.Services.DownloadService;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManagerActivity;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginActivity;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
@@ -76,7 +73,7 @@ import ir.rastanco.mobilemarket.utility.Link;
 
 /*created by parisa*/
 
-public class MainActivity extends AppCompatActivity implements DownloadResultReceiver.Receiver  {
+public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ServerConnectionHandler sch;
@@ -89,9 +86,6 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
     private ProgressDialog pDialog;
     private int exitSafeCounter = 0 ;
     private static final int progress_bar_type = 0;
-    private DownloadResultReceiver mReceiver;
-
-
 
 
     @Override
@@ -126,15 +120,6 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabTextColors(Color.BLACK, Color.RED);
         this.changeTabsFont();
-
-
-        mReceiver = new DownloadResultReceiver(new Handler());
-        mReceiver.setReceiver(this);
-        Intent intent = new Intent(Intent.ACTION_SYNC, null, this, DownloadService.class);
-        /* Send optional extras to Download IntentService */
-        intent.putExtra("receiver", mReceiver);
-        intent.putExtra("requestId", 101);
-        startService(intent);
 
         //DataBase empty in first install Application
         if (Configuration.getConfig().emptyCategoryTable)
@@ -275,7 +260,6 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         MenuItem upgradeItem=menu.findItem(R.id.update);
         Configuration.getConfig().upgradeButtonMenu =upgradeItem;
         if(!sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer())||
-                Configuration.getConfig().existProductInformation ||
                 !Configuration.getConfig().connectionStatus)
             upgradeItem.setVisible(false);
         else
@@ -388,12 +372,6 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
                 return null;
         }
     }
-
-    @Override
-    public void onReceiveResult(int resultCode, Bundle resultData) {
-
-    }
-
 
     class DownloadFileFromURL extends AsyncTask<String, String, String> {
 

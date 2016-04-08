@@ -17,6 +17,8 @@ import ir.rastanco.mobilemarket.utility.Link;
 public class DownloadService extends IntentService {
 
     public static final int STATUS_RUNNING = 0;
+    public static final int STATUS_FINISHED = 1;
+    public static final int STATUS_ERROR = 2;
 
     private static final String TAG = "DownloadService";
     private ServerConnectionHandler serverConnectionHandler;
@@ -30,6 +32,7 @@ public class DownloadService extends IntentService {
 
         Log.d(TAG, "Service Started!");
         serverConnectionHandler=ServerConnectionHandler.getInstance(this);
+
         final ResultReceiver receiver = intent.getParcelableExtra("receiver");
 
         if (Configuration.getConfig().connectionStatus) {
@@ -38,6 +41,12 @@ public class DownloadService extends IntentService {
 
             try {
                 //
+                if (Configuration.getConfig().emptyCategoryTable){
+                    String url= Link.getInstance().generateURLForGetAllCategories();
+                    serverConnectionHandler.setCategories(serverConnectionHandler.getAllCategoryInfoURL(url));
+                    serverConnectionHandler.addAllCategoryToTable(serverConnectionHandler.getCategories());
+                    Configuration.getConfig().emptyCategoryTable=false;
+                }
                 if (Configuration.getConfig().emptyProductTable){
                     String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
                     serverConnectionHandler.setProducts(serverConnectionHandler.getAllProductFromURL(url, 0, 0, false));

@@ -52,7 +52,7 @@ public class ShopFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View mainView=inflater.inflate(R.layout.fragment_shop, container , false);
+        final View mainView=inflater.inflate(R.layout.fragment_shop, container , false);
         Configuration.getConfig().ShopFragmentContext=getContext();
         myContext=(FragmentActivity)Configuration.getConfig().ShopFragmentContext;
         final int pageId;
@@ -109,7 +109,7 @@ public class ShopFragment extends Fragment {
                     /*Configuration.getConfig().firstIndexGetProduct=ServerConnectionHandler.getInstance(myContext).getFirstIndexForGetProductFromJson();
                     int allNumberProducts=ServerConnectionHandler.getInstance(myContext).getNumberAllProduct();
                     if ( Configuration.getConfig().firstIndexGetProduct<allNumberProducts){
-                        sch.addProductInformationToDataBaseFirstInstall(Link.getInstance().generateUrlForGetNewProduct(myContext.getString(R.string.firstTimeStamp)));
+
                         ArrayList<Product> newProducts = sch.getProductsOfAParentCategory(pageId);
                         adapter.clear();
                         for (int i=0;i<newProducts.size();i++){
@@ -117,7 +117,6 @@ public class ShopFragment extends Fragment {
                         }
                         adapter.notifyDataSetChanged();
                     }*/
-
                 }
 
             }
@@ -312,6 +311,4 @@ public class ShopFragment extends Fragment {
         });
         return mainView;
     }
-
-
 }
