@@ -203,9 +203,8 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setTabTextColors(Color.BLACK, Color.RED);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        viewPager.setCurrentItem(adapter.getCount()-1);
-
-
+        viewPager.setCurrentItem(adapter.getCount() - 1);
+        changeTabsFont();
     }
 
     private void addActionBar() {
