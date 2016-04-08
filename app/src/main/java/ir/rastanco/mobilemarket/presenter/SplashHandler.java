@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
@@ -45,14 +44,17 @@ public class SplashHandler extends AppCompatActivity {
                         else Configuration.getConfig().userLoginStatus = true;//
 
                         if (sch.emptyDBCategory()) {
-                            Configuration.getConfig().emptyCategoryTable = true;
-                            sch.setCategories(sch.getAllCategoryInfoURL(Link.getInstance().generateURLForGetAllCategories()));
+                            Configuration.getConfig().emptyCategoryTable=true;
+                            String url= Link.getInstance().generateURLForGetAllCategories();
+                            sch.setCategories(sch.getAllCategoryInfoURL(url));
+                            sch.addAllCategoryToTable(sch.getCategories());
+                            Configuration.getConfig().emptyCategoryTable=false;
                         }
+                        else
+                            Configuration.getConfig().emptyCategoryTable=false;
                         if (sch.emptyDBProduct()) {
                             Configuration.getConfig().emptyProductTable = true;
                             Configuration.getConfig().existProductInformation = false;
-                            String url=Link.getInstance().generateUrlForGetNewProduct(splashContext.getString(R.string.firstTimeStamp));
-                            sch.setProducts(sch.getAllProductFromURL(url,0,Configuration.getConfig().numberOfProductMustBeTaken,true));
                             if (sch.getProducts().size() != 0)
                                 Configuration.getConfig().existProductInformation = true;
 
