@@ -20,7 +20,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -114,6 +113,8 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             holder.priceForYou.setVisibility(View.INVISIBLE);
             holder.originalPrice.setTextColor(Color.BLACK);
             holder.originalPrice.setText(PriceUtility.getInstance().formatPriceCommaSeprated(eachProduct.getPrice()));
+            //TODO Parisa delete STRIKE
+            holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));;
             holder.basketToolbar.setVisibility(View.VISIBLE);
         } else if (eachProduct.getPrice() != 0) {
             int price = eachProduct.getPrice();
@@ -128,6 +129,8 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             holder.basketToolbar.setVisibility(View.VISIBLE);
         } else if (eachProduct.getPriceOff() == 0) {
             holder.basketToolbar.setVisibility(View.GONE);
+            //TODO Parisa delete STRIKE
+            holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
             holder.originalPrice.setText(myContext.getString(R.string.coming_soon));
         }
 
