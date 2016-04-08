@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private final ArrayList<String> spinnerList;
     private AlertDialog.Builder alertDialog;
     private final Map<Integer, Integer> selectedItem;
+    private final Drawable defaultPicture;
 
     public shoppingBagAdapter(Context context, ArrayList<Integer> productsId) {
         super(context, R.layout.activity_shopping_bag, productsId);
@@ -51,7 +53,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         spinnerList = new ArrayList<>();
         this.fillSpinnerItems();
         selectedItem = new HashMap<>();
-
+        defaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, context, Configuration.getConfig().articleDisplaySizeForShow);
     }
 
     static class ViewHolder {
@@ -80,6 +82,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
             holder.aProduct = new Product();
             holder.aProduct = serverConnectionHandler.getAProduct(selectedProducts.get(position));
             holder.imgProduct = (ImageView) convertView.findViewById(R.id.shopping__bag_img);
+            holder.imgProduct.setImageDrawable(defaultPicture);
             holder.nameOfEachProductTextView = (TextView) convertView.findViewById(R.id.shopping_bag_txt_productTitle);
             holder.eachProductPriceTextView = (TextView) convertView.findViewById(R.id.shopping_bag_price_Off_product);
             holder.shoppingBagTotalPriceTextView = (TextView) convertView.findViewById(R.id.shopping_bag_price_for_you);

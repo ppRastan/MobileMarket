@@ -8,6 +8,7 @@ package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,12 +44,20 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private final ServerConnectionHandler sch;
     private final int productsSize;
     private View viewLayout;
+    private Context myContext;
+    private final Drawable largeDefaultPicture;
+    private final Drawable smallDefaultPicture;
+
+
 
     public FullScreenImageAdapter(Activity activity, ArrayList<Product> allProducts, int allProductSize) {
         this.activity = activity;
         this.products = allProducts;
         this.productsSize = allProductSize;
-        sch = ServerConnectionHandler.getInstance(Configuration.getConfig().productInfoActivityContext);
+        myContext=Configuration.getConfig().productInfoActivityContext;
+        sch = ServerConnectionHandler.getInstance(myContext);
+        largeDefaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().homeDisplaySizeForShow);
+        smallDefaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().articleDisplaySizeForShow);
     }
 
     @Override
@@ -176,6 +185,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
         imgProduct.getLayoutParams().width = Configuration.getConfig().homeDisplaySizeForShow;
         imgProduct.getLayoutParams().height = Configuration.getConfig().productInfoHeightForShow;
+        imgProduct.setImageDrawable(largeDefaultPicture);
         final ImageLoader imgLoader = new ImageLoader(Configuration.getConfig().productInfoActivityContext); // important
 
         String imageNumberPath;
@@ -204,6 +214,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
             imageView.setLayoutParams(layoutParams);
             imageView.setId(i - 1);
             imageView.setPadding(1, 1, 1, 0);
+            imageView.setImageDrawable(smallDefaultPicture);
             layout.addView(imageView);
             imageNumberPath = aProduct.getImagesPath().get(i);
             try {
