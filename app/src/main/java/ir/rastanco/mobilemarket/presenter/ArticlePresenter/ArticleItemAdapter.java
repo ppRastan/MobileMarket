@@ -56,7 +56,7 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
             holder.articleImage.getLayoutParams().width=Configuration.getConfig().articleDisplaySizeForShow;
             holder.articleImage.getLayoutParams().height=Configuration.getConfig().articleDisplaySizeForShow;
             holder.articleTitle=(TextView)convertView.findViewById(R.id.txt_titleArticle);
-            holder.imgLoader = new ImageLoader(getContext(), Configuration.getConfig().articleDisplaySizeForShow); // important
+            holder.imgLoader = new ImageLoader(getContext()); // important
 
             convertView.setTag(holder);
         }

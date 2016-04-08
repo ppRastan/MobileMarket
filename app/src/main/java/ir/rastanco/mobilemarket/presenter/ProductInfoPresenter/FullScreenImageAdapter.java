@@ -176,7 +176,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
         imgProduct.getLayoutParams().width = Configuration.getConfig().homeDisplaySizeForShow;
         imgProduct.getLayoutParams().height = Configuration.getConfig().productInfoHeightForShow;
-        final ImageLoader imgLoader = new ImageLoader(Configuration.getConfig().productInfoActivityContext, Configuration.getConfig().homeDisplaySizeForShow); // important
+        final ImageLoader imgLoader = new ImageLoader(Configuration.getConfig().productInfoActivityContext); // important
 
         String imageNumberPath;
         if (aProduct.getImagesPath().size() == 0)

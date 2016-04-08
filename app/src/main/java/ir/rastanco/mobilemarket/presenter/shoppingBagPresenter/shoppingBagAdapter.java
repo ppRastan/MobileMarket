@@ -76,7 +76,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
             convertView = inflater.inflate(R.layout.shopping_bag_item, parent, false);
             holder = new ViewHolder();
 
-            holder.imgLoader = new ImageLoader(shoppingBagActivityContext, Configuration.getConfig().articleDisplaySizeForShow);
+            holder.imgLoader = new ImageLoader(shoppingBagActivityContext);
             holder.aProduct = new Product();
             holder.aProduct = serverConnectionHandler.getAProduct(selectedProducts.get(position));
             holder.imgProduct = (ImageView) convertView.findViewById(R.id.shopping__bag_img);

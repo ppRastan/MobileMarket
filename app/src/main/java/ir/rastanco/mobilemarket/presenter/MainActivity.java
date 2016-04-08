@@ -377,7 +377,7 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
     public void onBackPressed() {
 
         //Clear Cache
-        ImageLoader imageLoader = new ImageLoader(Configuration.getConfig().mainActivityContext, 0);
+        ImageLoader imageLoader = new ImageLoader(Configuration.getConfig().mainActivityContext);
         imageLoader.clearCache();
         exitSafeCounter++;
         if (exitSafeCounter == 1) {

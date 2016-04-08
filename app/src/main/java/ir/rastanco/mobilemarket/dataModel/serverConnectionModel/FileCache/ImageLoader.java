@@ -27,21 +27,15 @@ import java.util.concurrent.Executors;
  * This class Load image of product from server or memory and
  * when no find image in server or memory, show a default image
  */
-//test connection
 public class ImageLoader {
 
     private final MemoryCache memoryCache=new MemoryCache();
     private final FileCache fileCache;
     private final Map<ImageView, String> imageViews= Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
     private final ExecutorService executorService;
-    //private final int displayWidth;
-    //private final Context context;
-
-    public ImageLoader(Context context,int size){
+    public ImageLoader(Context context){
         fileCache=new FileCache(context);
         executorService= Executors.newFixedThreadPool(5);
-      //  displayWidth=size;
-        //this.context=context;
     }
 
 
