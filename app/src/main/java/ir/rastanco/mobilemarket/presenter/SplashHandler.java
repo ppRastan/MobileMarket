@@ -15,10 +15,10 @@ import ir.rastanco.mobilemarket.presenter.Services.DownloadService;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
- *  Created by ShaisteS on 1394/12/1.
- *  loading starts from here
+ * Created by ShaisteS on 1394/12/1.
+ * loading starts from here
  */
-public class SplashHandler extends AppCompatActivity implements DownloadResultReceiver.Receiver{
+public class SplashHandler extends AppCompatActivity implements DownloadResultReceiver.Receiver {
 
     private ServerConnectionHandler sch;
     private Context splashContext;
@@ -29,11 +29,11 @@ public class SplashHandler extends AppCompatActivity implements DownloadResultRe
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final SplashHandler sPlashHandler = this;
-        splashContext=this;
-        sch=ServerConnectionHandler.getInstance(splashContext);
-        if (sch.emptyDBCategory() && sch.emptyDBProduct() ){
-            Configuration.getConfig().emptyCategoryTable=true;
-            Configuration.getConfig().emptyProductTable=true;
+        splashContext = this;
+        sch = ServerConnectionHandler.getInstance(splashContext);
+        if (sch.emptyDBCategory() && sch.emptyDBProduct()) {
+            Configuration.getConfig().emptyCategoryTable = true;
+            Configuration.getConfig().emptyProductTable = true;
             mReceiver = new DownloadResultReceiver(new Handler());
             mReceiver.setReceiver(this);
             Intent intent = new Intent(Intent.ACTION_SYNC, null, this, DownloadService.class);
@@ -58,14 +58,12 @@ public class SplashHandler extends AppCompatActivity implements DownloadResultRe
                         else Configuration.getConfig().userLoginStatus = true;//
 
                         if (sch.emptyDBCategory()) {
-                            Configuration.getConfig().emptyCategoryTable=true;
-                        }
-                        else
-                            Configuration.getConfig().emptyCategoryTable=false;
+                            Configuration.getConfig().emptyCategoryTable = true;
+                        } else
+                            Configuration.getConfig().emptyCategoryTable = false;
                         if (sch.emptyDBProduct()) {
                             Configuration.getConfig().emptyProductTable = true;
-                        }
-                        else {
+                        } else {
                             Configuration.getConfig().emptyProductTable = false;
                         }
 

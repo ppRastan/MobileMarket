@@ -24,7 +24,7 @@ public class ProductInfoActivity extends Activity {
         Configuration.getConfig().productInfoActivityContext = this;
         Intent intent = this.getIntent();
         Bundle productBundle = intent.getExtras();
-        ArrayList<Product> allProducts=productBundle.getParcelableArrayList("allProduct");
+        ArrayList<Product> allProducts = productBundle.getParcelableArrayList("allProduct");
         ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new FullScreenImageAdapter(this, allProducts, allProducts != null ? allProducts.size() : 0));
         viewPager.setCurrentItem(intent.getIntExtra("position", 0));

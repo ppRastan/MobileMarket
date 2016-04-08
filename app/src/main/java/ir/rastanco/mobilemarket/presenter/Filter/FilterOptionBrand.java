@@ -24,11 +24,11 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  * Created by ShaisteS on 1394/11/28.
  * DialogFragment For Displaying Products Brand
  */
-public class FilterOptionBrand extends DialogFragment{
+public class FilterOptionBrand extends DialogFragment {
     private static FilterOptionBrand filterOptionBrand;
 
     public static FilterOptionBrand getInstance() {
-        if(filterOptionBrand == null){
+        if (filterOptionBrand == null) {
             filterOptionBrand = new FilterOptionBrand();
         }
         return filterOptionBrand;
@@ -39,13 +39,13 @@ public class FilterOptionBrand extends DialogFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         ServerConnectionHandler sch = ServerConnectionHandler.getInstance(Configuration.getConfig().ShopFragmentContext);
-        Integer pageId=getArguments().getInt("pageId");
+        Integer pageId = getArguments().getInt("pageId");
         ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
         btnCancelAlertDialog.setImageResource(R.mipmap.small_back_arrow);
-        TextView titleBrand = (TextView)dialogView.findViewById(R.id.title_alert_dialogue_group);
+        TextView titleBrand = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
         titleBrand.setText(Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.choose_brand));
         btnCancelAlertDialog.setOnClickListener(
                 new View.OnClickListener() {
@@ -56,7 +56,7 @@ public class FilterOptionBrand extends DialogFragment{
                     }
                 });
 
-        ArrayList<String>brandFilter=sch.getAllBrands(products);
+        ArrayList<String> brandFilter = sch.getAllBrands(products);
 
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
@@ -68,7 +68,7 @@ public class FilterOptionBrand extends DialogFragment{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent args = new Intent();
                 args.putExtra("brand", parent.getItemAtPosition(position).toString());
-                getTargetFragment().onActivityResult(getTargetRequestCode(),0,args);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), 0, args);
                 dismiss();
             }
         });

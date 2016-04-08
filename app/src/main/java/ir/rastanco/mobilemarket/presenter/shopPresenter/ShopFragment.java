@@ -52,33 +52,31 @@ public class ShopFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final View mainView=inflater.inflate(R.layout.fragment_shop, container , false);
-        Configuration.getConfig().ShopFragmentContext=getContext();
-        myContext=(FragmentActivity)Configuration.getConfig().ShopFragmentContext;
+        final View mainView = inflater.inflate(R.layout.fragment_shop, container, false);
+        Configuration.getConfig().ShopFragmentContext = getContext();
+        myContext = (FragmentActivity) Configuration.getConfig().ShopFragmentContext;
         final int pageId;
-        pageId=getArguments().getInt("pageId");
-        sch=ServerConnectionHandler.getInstance(getContext());
-        ArrayList<Product> products=sch.getProductsOfAParentCategory(pageId);
-        txtFilterOptionProductSelected=(TextView)mainView.findViewById(R.id.filter_dialogue_text);
-        txtFilterCategorySelected=(TextView)mainView.findViewById(R.id.group_dialog_text);
-        noThingToShow = (TextView)mainView.findViewById(R.id.no_thing_to_show1);
-        noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow,myContext);
+        pageId = getArguments().getInt("pageId");
+        sch = ServerConnectionHandler.getInstance(getContext());
+        ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
+        txtFilterOptionProductSelected = (TextView) mainView.findViewById(R.id.filter_dialogue_text);
+        txtFilterCategorySelected = (TextView) mainView.findViewById(R.id.group_dialog_text);
+        noThingToShow = (TextView) mainView.findViewById(R.id.no_thing_to_show1);
+        noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow, myContext);
         final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
-        if(products.size()==0){
+        if (products.size() == 0) {
             noThingToShow.setVisibility(View.VISIBLE);
             gridview.setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             noThingToShow.setVisibility(View.GONE);
             gridview.setVisibility(View.VISIBLE);
         }
 
-        final PictureProductShopItemAdapter adapter=new  PictureProductShopItemAdapter(getActivity(),products);
+        final PictureProductShopItemAdapter adapter = new PictureProductShopItemAdapter(getActivity(), products);
         gridview.setAdapter(adapter);
 
         //refresh grid view
-        final SwipeRefreshLayout mSwipeRefreshLayout= (SwipeRefreshLayout)
+        final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout)
                 mainView.findViewById(R.id.swipe_refresh_layout);
         //mSwipeRefreshLayout.setEnabled(true);
         mSwipeRefreshLayout.setEnabled(false);
@@ -103,8 +101,7 @@ public class ShopFragment extends Fragment {
                 else
                     Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.GONE);
 
-                if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
-                {
+                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0) {
                     //scroll receive button
                     /*Configuration.getConfig().firstIndexGetProduct=ServerConnectionHandler.getInstance(myContext).getFirstIndexForGetProductFromJson();
                     int allNumberProducts=ServerConnectionHandler.getInstance(myContext).getNumberAllProduct();
@@ -154,9 +151,9 @@ public class ShopFragment extends Fragment {
         ObserverSimilarProduct.SimilarProductListener(new ObserverSimilarProductListener() {
             @Override
             public void SimilarProductSet() {
-                Configuration.getConfig().filterCategoryId =ObserverSimilarProduct.getSimilarProduct();
-                Configuration.getConfig().filterPriceTitle =sch.getACategoryTitleWithCategoryId(Configuration.getConfig().filterCategoryId);
-                Configuration.getConfig().filterBrand =Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.all);
+                Configuration.getConfig().filterCategoryId = ObserverSimilarProduct.getSimilarProduct();
+                Configuration.getConfig().filterPriceTitle = sch.getACategoryTitleWithCategoryId(Configuration.getConfig().filterCategoryId);
+                Configuration.getConfig().filterBrand = Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.all);
                 txtFilterCategorySelected.setText(Configuration.getConfig().filterPriceTitle);
                 txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
                 txtFilterOptionProductSelected.setText(Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.all));
@@ -180,8 +177,8 @@ public class ShopFragment extends Fragment {
         });
         //Filter
         ///FilterSubCategory
-        Button btnFilterCategory =(Button)mainView.findViewById(R.id.group_dialog);
-        txtFilterCategorySelected =(TextView) mainView.findViewById(R.id.group_dialog_text);
+        Button btnFilterCategory = (Button) mainView.findViewById(R.id.group_dialog);
+        txtFilterCategorySelected = (TextView) mainView.findViewById(R.id.group_dialog_text);
         btnFilterCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -216,8 +213,8 @@ public class ShopFragment extends Fragment {
             }
         });
         ///Filter in Product Features
-        txtFilterOptionProductSelected = (TextView)mainView.findViewById(R.id.filter_dialogue_text);
-        Button btnFilterOptionProduct =(Button)mainView.findViewById(R.id.filter_dialogue);
+        txtFilterOptionProductSelected = (TextView) mainView.findViewById(R.id.filter_dialogue_text);
+        Button btnFilterOptionProduct = (Button) mainView.findViewById(R.id.filter_dialogue);
         btnFilterOptionProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -236,16 +233,14 @@ public class ShopFragment extends Fragment {
                     public void changeFilterPrice() {
                         txtFilterOptionProductSelected.setText(Configuration.getConfig().filterPriceTitle);
                         txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
-                        ArrayList<Product> newProducts=sch.getProductAfterFilter(pageId,
+                        ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 Configuration.getConfig().filterOption);
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
                             gridview.setVisibility(View.GONE);
-                        }
-                        else
-                        {
+                        } else {
 
                             noThingToShow.setVisibility(View.GONE);
                             gridview.setVisibility(View.VISIBLE);
@@ -261,7 +256,7 @@ public class ShopFragment extends Fragment {
                     public void changeFilterBrand() {
                         txtFilterOptionProductSelected.setText(Configuration.getConfig().filterBrand);
                         txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
-                        ArrayList<Product> newProducts=sch.getProductAfterFilter(pageId,
+                        ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 Configuration.getConfig().filterOption);
@@ -269,9 +264,7 @@ public class ShopFragment extends Fragment {
                             noThingToShow.setVisibility(View.VISIBLE);
                             gridview.setVisibility(View.GONE);
 
-                        }
-                        else
-                        {
+                        } else {
                             noThingToShow.setVisibility(View.GONE);
                             gridview.setVisibility(View.VISIBLE);
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
@@ -287,17 +280,15 @@ public class ShopFragment extends Fragment {
                     @Override
                     public void changeFilterAll() {
                         txtFilterOptionProductSelected.setText(Configuration.getConfig().filterAll);
-                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext,R.color.red));
-                        ArrayList<Product> newProducts=sch.getProductAfterFilter(pageId,
+                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
+                        ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 Configuration.getConfig().filterOption);
-                        if (newProducts.size()==0){
+                        if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
                             gridview.setVisibility(View.GONE);
-                        }
-                        else
-                        {
+                        } else {
                             noThingToShow.setVisibility(View.GONE);
                             gridview.setVisibility(View.VISIBLE);
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);

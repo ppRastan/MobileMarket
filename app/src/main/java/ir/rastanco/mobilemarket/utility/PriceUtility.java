@@ -16,6 +16,7 @@ public class PriceUtility {
     private static DecimalFormat formatter;
     private static PriceUtility priceUtility;
     private String defaultFont = "fonts/yekan.ttf";
+
     public static PriceUtility getInstance() {
         if (priceUtility == null) {
             priceUtility = new PriceUtility();
@@ -29,11 +30,11 @@ public class PriceUtility {
     public String formatPriceCommaSeprated(int price) {
         String priceInStringFormat = String.valueOf(price);
         double amountOfFinalPrice = Double.parseDouble(priceInStringFormat);
-        return  String.valueOf(formatter.format(amountOfFinalPrice));
+        return String.valueOf(formatter.format(amountOfFinalPrice));
     }
 
     public TextView changeFontToYekan(TextView textView, Context context) {
-        textView.setTypeface(FontHelper.get(context,defaultFont ));
+        textView.setTypeface(FontHelper.get(context, defaultFont));
         return textView;
     }
 

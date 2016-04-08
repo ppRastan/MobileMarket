@@ -29,23 +29,23 @@ public class UserLastShoppingProduct extends Activity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
-        Configuration.getConfig().userLastShoppingActivityContext =this;
-        ServerConnectionHandler sch=new ServerConnectionHandler(Configuration.getConfig().userLastShoppingActivityContext);
-        ArrayList<ProductShop> allProductsShop=new ArrayList<>();
+        Configuration.getConfig().userLastShoppingActivityContext = this;
+        ServerConnectionHandler sch = new ServerConnectionHandler(Configuration.getConfig().userLastShoppingActivityContext);
+        ArrayList<ProductShop> allProductsShop = new ArrayList<>();
 
-        UserInfo user=sch.getUserInfo();
-        if (user != null){
-            allProductsShop=sch.getLastProductShop(Link.getInstance().generateURLForGetUserLasShopping(user.getUserId()));
+        UserInfo user = sch.getUserInfo();
+        if (user != null) {
+            allProductsShop = sch.getLastProductShop(Link.getInstance().generateURLForGetUserLasShopping(user.getUserId()));
         }
-        ListView lvLastShopping=(ListView)findViewById(R.id.lv_lastShopping);
-        UserLastShoppingProductItemAdapter adapter=new UserLastShoppingProductItemAdapter(Configuration.getConfig().userLastShoppingActivityContext,allProductsShop);
+        ListView lvLastShopping = (ListView) findViewById(R.id.lv_lastShopping);
+        UserLastShoppingProductItemAdapter adapter = new UserLastShoppingProductItemAdapter(Configuration.getConfig().userLastShoppingActivityContext, allProductsShop);
         lvLastShopping.setAdapter(adapter);
     }
 
-        @Override
-        public void onBackPressed() {
-            Intent userPreviousShopping = new Intent(UserLastShoppingProduct.this,AccountManagerActivity.class);
-            startActivity(userPreviousShopping);
-            this.finish();
-        }
+    @Override
+    public void onBackPressed() {
+        Intent userPreviousShopping = new Intent(UserLastShoppingProduct.this, AccountManagerActivity.class);
+        startActivity(userPreviousShopping);
+        this.finish();
+    }
 }

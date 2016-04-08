@@ -15,8 +15,8 @@ public final class GlobalFontSetter {
 
     public static void setDefaultFont(Context context, String fontAssetName) {
         final String defaultFontStyle = "MONOSPACE";
-        final Typeface regular = Typeface.createFromAsset(context.getAssets(),fontAssetName);
-        replaceFont(defaultFontStyle , regular);
+        final Typeface regular = Typeface.createFromAsset(context.getAssets(), fontAssetName);
+        replaceFont(defaultFontStyle, regular);
     }
 
     private static void replaceFont(String staticTypefaceFieldName,

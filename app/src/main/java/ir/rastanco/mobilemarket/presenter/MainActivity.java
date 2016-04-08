@@ -78,13 +78,13 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ServerConnectionHandler sch;
     private ArrayList<String> mainCategoryTitle;
-    private Map<String,Integer> mapTitleToIdMainCategory;
+    private Map<String, Integer> mapTitleToIdMainCategory;
     private LinearLayout toolbarSearch;
     private int shopCounter;
     private Menu menu;
     private String version;
     private ProgressDialog pDialog;
-    private int exitSafeCounter = 0 ;
+    private int exitSafeCounter = 0;
     private static final int progress_bar_type = 0;
 
 
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        Configuration.getConfig().mainPager =viewPager;
+        Configuration.getConfig().mainPager = viewPager;
         setupViewPager(viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     private void changeTabsFont() {
 
         ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
@@ -153,13 +154,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ArticleFragment(), getResources().getString(R.string.fifth_page));
-        for (int i=mainCategoryTitle.size()-1;i>=0;i--) {
-            Bundle args=new Bundle();
+        for (int i = mainCategoryTitle.size() - 1; i >= 0; i--) {
+            Bundle args = new Bundle();
             args.putInt("pageId", mapTitleToIdMainCategory.get(mainCategoryTitle.get(i)));
-             ShopFragment shop=new ShopFragment();
+            ShopFragment shop = new ShopFragment();
             shop.setArguments(args);
             adapter.addFragment(shop, mainCategoryTitle.get(i));
         }
@@ -173,9 +175,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
-    private void setFAb(){
+    private void setFAb() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        Configuration.getConfig().customerSupportFloatingActionButton=fab;
+        Configuration.getConfig().customerSupportFloatingActionButton = fab;
         fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.fab_color)));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void phoneManager() {
         PhoneCallListener phoneListener = new PhoneCallListener();
-         TelephonyManager telephonyManager = (TelephonyManager) this
+        TelephonyManager telephonyManager = (TelephonyManager) this
                 .getSystemService(Context.TELEPHONY_SERVICE);
         telephonyManager.listen(phoneListener, PhoneStateListener.LISTEN_CALL_STATE);
 
@@ -204,62 +206,62 @@ public class MainActivity extends AppCompatActivity {
 
     private void InitializationParametersNecessary() {
         Configuration.getConfig().mainActivityContext = this;
-        Configuration.getConfig().applicationContext =getBaseContext();
-        sch=ServerConnectionHandler.getInstance(Configuration.getConfig().mainActivityContext);
+        Configuration.getConfig().applicationContext = getBaseContext();
+        sch = ServerConnectionHandler.getInstance(Configuration.getConfig().mainActivityContext);
         Configuration.getConfig().isTheFirstTimeOpeningThisPage = true;
-        mainCategoryTitle= new ArrayList<>();
-        mapTitleToIdMainCategory=new HashMap<>();
-        mainCategoryTitle=sch.getMainCategoryTitle();
-        mapTitleToIdMainCategory=sch.MapTitleToIDForMainCategory();
-        Configuration.getConfig().mainTabCount =mainCategoryTitle.size();
-        shopCounter=sch.getCountProductShop();
+        mainCategoryTitle = new ArrayList<>();
+        mapTitleToIdMainCategory = new HashMap<>();
+        mainCategoryTitle = sch.getMainCategoryTitle();
+        mapTitleToIdMainCategory = sch.MapTitleToIDForMainCategory();
+        Configuration.getConfig().mainTabCount = mainCategoryTitle.size();
+        shopCounter = sch.getCountProductShop();
     }
 
     private void displayWindow() {
         Display display = getWindowManager().getDefaultDisplay();
-         Point size = new Point();
+        Point size = new Point();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             display.getSize(size);
-            Configuration.getConfig().homeDisplaySizeForShow=size.x;
+            Configuration.getConfig().homeDisplaySizeForShow = size.x;
             Configuration.getConfig().homeDisplaySizeForURL = String.valueOf(size.x);
 
-            Configuration.getConfig().productInfoHeightForShow=size.x - 100;
+            Configuration.getConfig().productInfoHeightForShow = size.x - 100;
             Configuration.getConfig().productInfoHeightForURL = String.valueOf(size.x - 100);
 
-            Double s= ((size.x) * 0.5)-12;
-            Configuration.getConfig().shopDisplaySizeForShow=s.intValue();
+            Double s = ((size.x) * 0.5) - 12;
+            Configuration.getConfig().shopDisplaySizeForShow = s.intValue();
             Configuration.getConfig().shopDisplaySizeForURL = String.valueOf(((size.x) * 0.5) - 12);
 
-            Double a= (size.x) * 0.3;
-            Configuration.getConfig().articleDisplaySizeForShow=a.intValue();
-            Configuration.getConfig().articleDisplaySizeForURL =String.valueOf((size.x) * 0.3);
+            Double a = (size.x) * 0.3;
+            Configuration.getConfig().articleDisplaySizeForShow = a.intValue();
+            Configuration.getConfig().articleDisplaySizeForURL = String.valueOf((size.x) * 0.3);
 
-            Double p=(size.x)* 0.125;
-            Configuration.getConfig().progressBarSize=p.intValue();
+            Double p = (size.x) * 0.125;
+            Configuration.getConfig().progressBarSize = p.intValue();
 
         }
     }
 
     private void CreatePageRightToLeft() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-            Configuration.getConfig().RTL=true;
+            Configuration.getConfig().RTL = true;
         else
-            Configuration.getConfig().RTL=false;
+            Configuration.getConfig().RTL = false;
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        this.menu=menu;
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem item = menu.findItem(R.id.action_notifications);
         LayerDrawable icon = (LayerDrawable) item.getIcon();
         CounterIconCreator.setBadgeCount(icon, filBasketColor());
 
-        MenuItem upgradeItem=menu.findItem(R.id.update);
-        Configuration.getConfig().upgradeButtonMenu =upgradeItem;
-        if(!sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer())||
+        MenuItem upgradeItem = menu.findItem(R.id.update);
+        Configuration.getConfig().upgradeButtonMenu = upgradeItem;
+        if (!sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer()) ||
                 !Configuration.getConfig().connectionStatus)
             upgradeItem.setVisible(false);
         else
@@ -267,9 +269,9 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
-    private int filBasketColor()
-    {
-        return  shopCounter;
+
+    private int filBasketColor() {
+        return shopCounter;
     }
 
     @Override
@@ -277,23 +279,21 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_contact:
-                if (Configuration.getConfig().userLoginStatus){
+                if (Configuration.getConfig().userLoginStatus) {
 
-                    Intent userProfileIntent=new Intent(Configuration.getConfig().mainActivityContext,AccountManagerActivity.class);
+                    Intent userProfileIntent = new Intent(Configuration.getConfig().mainActivityContext, AccountManagerActivity.class);
                     this.startActivity(userProfileIntent);
-                }
-                else {
-                    Intent userProfileIntent=new Intent(Configuration.getConfig().mainActivityContext,LoginActivity.class);
+                } else {
+                    Intent userProfileIntent = new Intent(Configuration.getConfig().mainActivityContext, LoginActivity.class);
                     this.startActivity(userProfileIntent);
                 }
                 break;
 
-            case R.id.action_search:
-            {
-                final Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
-                ImageButton backButton = (ImageButton)findViewById(R.id.back_button);
-                AutoCompleteTextView textToSearch=(AutoCompleteTextView) findViewById(R.id.text_for_search);
-                toolbarSearch = (LinearLayout)findViewById(R.id.toolbar_search);
+            case R.id.action_search: {
+                final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+                ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
+                AutoCompleteTextView textToSearch = (AutoCompleteTextView) findViewById(R.id.text_for_search);
+                toolbarSearch = (LinearLayout) findViewById(R.id.toolbar_search);
                 toolbar.setVisibility(View.GONE);
                 toolbarSearch.setVisibility(View.VISIBLE);
                 ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
@@ -309,12 +309,12 @@ public class MainActivity extends AppCompatActivity {
                 textToSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        int productId=sch.getProductIdWithTitle((String) parent.getItemAtPosition(position));
-                        Product aProduct=sch.getAProduct(productId);
-                        ArrayList<Product> product=new ArrayList<>();
+                        int productId = sch.getProductIdWithTitle((String) parent.getItemAtPosition(position));
+                        Product aProduct = sch.getAProduct(productId);
+                        ArrayList<Product> product = new ArrayList<>();
                         product.add(aProduct);
                         Intent intent = new Intent(Configuration.getConfig().mainActivityContext, ProductInfoActivity.class);
-                        intent.putParcelableArrayListExtra("allProduct",product);
+                        intent.putParcelableArrayListExtra("allProduct", product);
                         intent.putExtra("position", 0);
                         startActivity(intent);
                     }
@@ -322,12 +322,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             }
 
-            case R.id.action_notifications :
+            case R.id.action_notifications:
                 Intent shoppingBagIntent = new Intent(this, ShoppingBagActivity.class);
                 this.startActivity(shoppingBagIntent);
                 break;
             case R.id.update:
-                version=sch.getLastVersionInServer(Link.getInstance().generateURLForGetLastVersionAppInServer());
+                version = sch.getLastVersionInServer(Link.getInstance().generateURLForGetLastVersionAppInServer());
                 new DownloadFileFromURL(this).execute(Link.getInstance().generateYRLForGetApplicationInServer());
                 break;
         }
@@ -339,13 +339,13 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
 
         //Clear Cache
-        ImageLoader imageLoader=new ImageLoader(Configuration.getConfig().mainActivityContext,0);
+        ImageLoader imageLoader = new ImageLoader(Configuration.getConfig().mainActivityContext, 0);
         imageLoader.clearCache();
         exitSafeCounter++;
         if (exitSafeCounter == 1) {
             Toast.makeText(MainActivity.this, getResources().getString(R.string.sure_to_exit),
                     Toast.LENGTH_SHORT).show();
-        } else if(exitSafeCounter >1) {
+        } else if (exitSafeCounter > 1) {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -376,14 +376,17 @@ public class MainActivity extends AppCompatActivity {
     class DownloadFileFromURL extends AsyncTask<String, String, String> {
 
         private final Context context;
-        public DownloadFileFromURL(Context mayContext){
-            context=mayContext;
+
+        public DownloadFileFromURL(Context mayContext) {
+            context = mayContext;
         }
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             showDialog(progress_bar_type);
         }
+
         @Override
         protected String doInBackground(String... f_url) {
             int count;
@@ -392,7 +395,7 @@ public class MainActivity extends AppCompatActivity {
                 URLConnection connection = url.openConnection();
                 connection.connect();
                 int fileSize = connection.getContentLength();
-                InputStream input = new BufferedInputStream(url.openStream(),8192);
+                InputStream input = new BufferedInputStream(url.openStream(), 8192);
                 OutputStream output = new FileOutputStream(Environment
                         .getExternalStorageDirectory().toString()
                         + Link.getInstance().generatePathAPKApplicationInMobile());

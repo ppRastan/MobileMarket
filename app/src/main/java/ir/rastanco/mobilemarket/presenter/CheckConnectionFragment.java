@@ -20,17 +20,17 @@ public class CheckConnectionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View checkConnection=inflater.inflate(R.layout.fragment_check_connectin_to_internet,container,false);
-        ImageButton reload=(ImageButton)checkConnection.findViewById(R.id.imageButtonReload);
+        View checkConnection = inflater.inflate(R.layout.fragment_check_connectin_to_internet, container, false);
+        ImageButton reload = (ImageButton) checkConnection.findViewById(R.id.imageButtonReload);
         reload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Configuration.getConfig().connectionStatus){
+                if (Configuration.getConfig().connectionStatus) {
                     if (Configuration.getConfig().emptyProductTable)
                         ObserverConnectionInternetOK.setChangeFragmentParameter(true);
                 }
             }
         });
-        return checkConnection ;
+        return checkConnection;
     }
 }

@@ -24,21 +24,22 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  */
 public class ProductOptionActivity extends Activity {
     private boolean onBackBtnPressed = false;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_option);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-        Configuration.getConfig().productOptionActivityContext =this;
-        ServerConnectionHandler sch=new ServerConnectionHandler(Configuration.getConfig().productOptionActivityContext);
+        Configuration.getConfig().productOptionActivityContext = this;
+        ServerConnectionHandler sch = new ServerConnectionHandler(Configuration.getConfig().productOptionActivityContext);
 
         Intent intent = this.getIntent();
-        int  productId=intent.getIntExtra("productId", 0);
-        int groupId=intent.getIntExtra("groupId",0);
-        Product aProduct=sch.getAProduct(productId);
-        TextView nameOfCurrentProduct = (TextView)findViewById(R.id.eachProductName);
+        int productId = intent.getIntExtra("productId", 0);
+        int groupId = intent.getIntExtra("groupId", 0);
+        Product aProduct = sch.getAProduct(productId);
+        TextView nameOfCurrentProduct = (TextView) findViewById(R.id.eachProductName);
         nameOfCurrentProduct.setText(aProduct.getTitle());
-        ImageButton btnBack = (ImageButton)findViewById(R.id.back_full_screen);
+        ImageButton btnBack = (ImageButton) findViewById(R.id.back_full_screen);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,25 +48,24 @@ public class ProductOptionActivity extends Activity {
                 checkBackButtonState();
             }
         });
-        sch=new ServerConnectionHandler(Configuration.getConfig().productOptionActivityContext);
-        ArrayList<ProductOption> options=sch.getAllProductOptionOfAProduct(productId, groupId);
-        ListView lvProductOption=(ListView)findViewById(R.id.lv_productOption);
-        ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.getConfig().productOptionActivityContext,options);
+        sch = new ServerConnectionHandler(Configuration.getConfig().productOptionActivityContext);
+        ArrayList<ProductOption> options = sch.getAllProductOptionOfAProduct(productId, groupId);
+        ListView lvProductOption = (ListView) findViewById(R.id.lv_productOption);
+        ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.getConfig().productOptionActivityContext, options);
         lvProductOption.setAdapter(adapter);
-        ListView lvComment=(ListView)findViewById(R.id.lv_comments);
-        ArrayList<String> commentsAProduct=sch.getContentCommentsAllProduct(productId);
+        ListView lvComment = (ListView) findViewById(R.id.lv_comments);
+        ArrayList<String> commentsAProduct = sch.getContentCommentsAllProduct(productId);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 Configuration.getConfig().productOptionActivityContext,
                 android.R.layout.simple_list_item_1,
-                commentsAProduct );
+                commentsAProduct);
 
         lvComment.setAdapter(arrayAdapter);
 
     }
 
     private void checkBackButtonState() {
-        if(onBackBtnPressed)
-        {
+        if (onBackBtnPressed) {
             super.onBackPressed();
         }
     }

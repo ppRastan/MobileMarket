@@ -25,13 +25,14 @@ public class ShoppingCounterIconCreator extends Drawable {
     private static ShoppingCounterIconCreator shoppingCounterIconCreator;
     private static Paint mBadgePaint;
     private static Paint mTextPaint;
+
     public static ShoppingCounterIconCreator getInstance() {
         if (shoppingCounterIconCreator == null) {
             mBadgePaint = new Paint();
             mTextPaint = new Paint();
             shoppingCounterIconCreator = new ShoppingCounterIconCreator();
         }
-            return shoppingCounterIconCreator;
+        return shoppingCounterIconCreator;
     }
 
     private ShoppingCounterIconCreator() {

@@ -30,8 +30,9 @@ public class FilterOptionProduct extends DialogFragment {
     private int pageId;
     private static FilterOptionProduct filterOptionProduct;
     private Context context;
+
     public static FilterOptionProduct getInstance() {
-        if(filterOptionProduct == null){
+        if (filterOptionProduct == null) {
             filterOptionProduct = new FilterOptionProduct();
         }
         return filterOptionProduct;
@@ -42,12 +43,12 @@ public class FilterOptionProduct extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        context=Configuration.getConfig().ShopFragmentContext;
+        context = Configuration.getConfig().ShopFragmentContext;
         pageId = getArguments().getInt("pageId");
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
-        TextView titleBrand = (TextView)dialogView.findViewById(R.id.title_alert_dialogue_group);
+        TextView titleBrand = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
         titleBrand.setText(Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.filter));
         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,15 +69,15 @@ public class FilterOptionProduct extends DialogFragment {
         listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(position==0){
+                if (position == 0) {
                     FilterOptionPrice.getInstance().setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"), 0);
                     FilterOptionPrice.getInstance().show(getFragmentManager(), "FilterOptionPrice");
-                } else if(position==1){
+                } else if (position == 1) {
                     Bundle args = new Bundle();
-                    args.putInt("pageId",pageId);
+                    args.putInt("pageId", pageId);
                     FilterOptionBrand.getInstance().setArguments(args);
                     FilterOptionBrand.getInstance().setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"), 1);
-                    FilterOptionBrand.getInstance().show(getFragmentManager(),"FilterOptionBrand");
+                    FilterOptionBrand.getInstance().show(getFragmentManager(), "FilterOptionBrand");
                 }
 
                 dismiss();
@@ -91,15 +92,15 @@ public class FilterOptionProduct extends DialogFragment {
             case 0:
                 //get price Selected from FilterOptionPrice Dialog
                 Bundle bundlePrice = data.getExtras();
-                Configuration.getConfig().filterPriceTitle =bundlePrice.getString("priceTitle");
-                Configuration.getConfig().filterOption =context.getResources().getString(R.string.price);
+                Configuration.getConfig().filterPriceTitle = bundlePrice.getString("priceTitle");
+                Configuration.getConfig().filterOption = context.getResources().getString(R.string.price);
                 ObserverFilterPrice.setAddFilterPrice(true);
                 break;
             case 1:
                 //get brand Selected from FilterOptionBrand Dialog
-                Bundle bundleBrand=data.getExtras();
-                Configuration.getConfig().filterBrand =bundleBrand.getString("brand");
-                Configuration.getConfig().filterOption =context.getResources().getString(R.string.brand);
+                Bundle bundleBrand = data.getExtras();
+                Configuration.getConfig().filterBrand = bundleBrand.getString("brand");
+                Configuration.getConfig().filterOption = context.getResources().getString(R.string.brand);
                 ObserverFilterBrand.setAddFilterBrand(true);
                 break;
         }

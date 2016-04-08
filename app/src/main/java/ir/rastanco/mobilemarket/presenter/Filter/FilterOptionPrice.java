@@ -28,8 +28,8 @@ public class FilterOptionPrice extends DialogFragment {
     private static FilterOptionPrice filterOptionPrice;
 
     public static FilterOptionPrice getInstance() {
-        if(filterOptionPrice == null){
-           filterOptionPrice = new FilterOptionPrice();
+        if (filterOptionPrice == null) {
+            filterOptionPrice = new FilterOptionPrice();
         }
         return filterOptionPrice;
         // Supply num input as an argument.
@@ -49,7 +49,7 @@ public class FilterOptionPrice extends DialogFragment {
             }
         });
         btnCancelAlertDialog.setImageResource(R.mipmap.small_back_arrow);
-        TextView titleBrand = (TextView)dialogView.findViewById(R.id.title_alert_dialogue_group);
+        TextView titleBrand = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
         titleBrand.setText(Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.choose_price));
         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +57,7 @@ public class FilterOptionPrice extends DialogFragment {
 
             }
         });
-        ArrayList<String> priceFilter= Utilities.getInstance().getPriceFilterTitle();
+        ArrayList<String> priceFilter = Utilities.getInstance().getPriceFilterTitle();
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, priceFilter);
@@ -68,7 +68,7 @@ public class FilterOptionPrice extends DialogFragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent args = new Intent();
-                args.putExtra("priceTitle",parent.getItemAtPosition(position).toString());
+                args.putExtra("priceTitle", parent.getItemAtPosition(position).toString());
                 getTargetFragment().onActivityResult(getTargetRequestCode(), 0, args);
                 dismiss();
             }

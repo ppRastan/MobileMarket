@@ -26,30 +26,30 @@ public class UserFavouriteProductItemAdapter extends ArrayAdapter<Product> {
 
     private final Activity myContext;
     private final ArrayList<Product> products;
+
     public UserFavouriteProductItemAdapter(Context context, ArrayList<Product> allProduct) {
         super(context, R.layout.user_profile_like_product_item, allProduct);
         myContext = (Activity) context;
         products = allProduct;
     }
 
-    static class ViewHolder{
+    static class ViewHolder {
         private TextView txtProductName;
 
     }
 
     public View getView(final int position, View convertView, final ViewGroup parent) {
         ViewHolder holder;
-        if (convertView==null){
+        if (convertView == null) {
             LayoutInflater inflater = myContext.getLayoutInflater();
-            convertView = inflater.inflate(R.layout.user_profile_like_product_item, parent , false);
-            holder=new ViewHolder();
-            holder.txtProductName=(TextView)convertView.findViewById(R.id.txt_likeProductTitle);
+            convertView = inflater.inflate(R.layout.user_profile_like_product_item, parent, false);
+            holder = new ViewHolder();
+            holder.txtProductName = (TextView) convertView.findViewById(R.id.txt_likeProductTitle);
 
             convertView.setTag(holder);
 
-        }
-        else
-            holder=(ViewHolder)convertView.getTag();
+        } else
+            holder = (ViewHolder) convertView.getTag();
 
         holder.txtProductName.setText(products.get(position).getTitle());
         convertView.setOnClickListener(new View.OnClickListener() {

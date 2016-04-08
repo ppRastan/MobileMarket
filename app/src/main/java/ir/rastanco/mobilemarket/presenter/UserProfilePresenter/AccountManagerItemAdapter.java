@@ -5,6 +5,7 @@ package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
  log off configuration handled
  previous shopped items handled
  */
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -21,18 +22,20 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 
-public class AccountManagerItemAdapter extends BaseAdapter{
-    private final ArrayList <String> result;
+public class AccountManagerItemAdapter extends BaseAdapter {
+    private final ArrayList<String> result;
     private final Context context;
-    private final int [] imageId;
+    private final int[] imageId;
     private final ServerConnectionHandler sch;
+
     public AccountManagerItemAdapter(AccountManagerActivity mainActivity, ArrayList<String> programNameList, int[] programImages) {
 
-        result=programNameList;
-        context=mainActivity;
-        imageId=programImages;
-        sch=ServerConnectionHandler.getInstance(context);
+        result = programNameList;
+        context = mainActivity;
+        imageId = programImages;
+        sch = ServerConnectionHandler.getInstance(context);
     }
+
     @Override
     public int getCount() {
         return result.size();
@@ -48,26 +51,25 @@ public class AccountManagerItemAdapter extends BaseAdapter{
         return position;
     }
 
-    static class ViewHolder
-    {
+    static class ViewHolder {
         private TextView tv;
         private ImageView img;
     }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        if (convertView==null){
-            LayoutInflater inflater = ( LayoutInflater )context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.list_view_account_activity_items, parent , false);
-            holder=new ViewHolder();
-            holder.tv=(TextView) convertView.findViewById(R.id.text_of_list_view);
-            holder.img=(ImageView) convertView.findViewById(R.id.image_of_list_view);
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.list_view_account_activity_items, parent, false);
+            holder = new ViewHolder();
+            holder.tv = (TextView) convertView.findViewById(R.id.text_of_list_view);
+            holder.img = (ImageView) convertView.findViewById(R.id.image_of_list_view);
             convertView.setTag(holder);
 
 
-        }
-        else
-            holder=(ViewHolder)convertView.getTag();
+        } else
+            holder = (ViewHolder) convertView.getTag();
 
         holder.tv.setText(result.get(position));
         holder.img.setImageResource(imageId[position]);
@@ -75,25 +77,25 @@ public class AccountManagerItemAdapter extends BaseAdapter{
             @Override
             public void onClick(View v) {
 
-                switch (position){
+                switch (position) {
                     case 0:
-                        Intent lastShoppingProduct=new Intent(context,UserLastShoppingProduct.class);
+                        Intent lastShoppingProduct = new Intent(context, UserLastShoppingProduct.class);
                         context.startActivity(lastShoppingProduct);
                         //open activity from down to top
-                        ((Activity)context).overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-                        ((Activity)context).finish();
+                        ((Activity) context).overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+                        ((Activity) context).finish();
                         break;
                     case 1:
-                        Intent favoritesProduct=new Intent(context,UserFavouriteProduct.class);
+                        Intent favoritesProduct = new Intent(context, UserFavouriteProduct.class);
                         context.startActivity(favoritesProduct);
-                        ((Activity)context).overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-                        ((Activity)context).finish();
+                        ((Activity) context).overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+                        ((Activity) context).finish();
                         break;
                     case 2:
                         sch.deleteUserInfo();
-                        Intent login=new Intent(context,LoginActivity.class);
+                        Intent login = new Intent(context, LoginActivity.class);
                         context.startActivity(login);
-                        ((Activity)context).finish();
+                        ((Activity) context).finish();
                         break;
                 }
             }

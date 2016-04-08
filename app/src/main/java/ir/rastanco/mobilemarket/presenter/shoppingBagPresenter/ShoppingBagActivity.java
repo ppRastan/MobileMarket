@@ -30,7 +30,7 @@ import ir.rastanco.mobilemarket.utility.PriceUtility;
 import ir.rastanco.mobilemarket.utility.Utilities;
 
 /**
- ** Created by ShaisteS on 1394/10/30.
+ * * Created by ShaisteS on 1394/10/30.
  * this class will display whole price and whole offer price in shopping bag
  */
 public class ShoppingBagActivity extends Activity {
@@ -40,31 +40,32 @@ public class ShoppingBagActivity extends Activity {
     private TextView totalPriceTextView;
     private ArrayList<Integer> productsId;
     private ListView lvShoppingBag;
+
     protected void onCreate(Bundle savedInstanceState) {
 
-        Configuration.getConfig().userLastShoppingActivityContext =this;
+        Configuration.getConfig().userLastShoppingActivityContext = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_bag);
         this.RTlizeShoppingBagXml();
         this.setYekanFont();
         this.closeShoppingBag();
-        sch=ServerConnectionHandler.getInstance(Configuration.getConfig().userLastShoppingActivityContext);
+        sch = ServerConnectionHandler.getInstance(Configuration.getConfig().userLastShoppingActivityContext);
         productsId = new ArrayList<>();
         productsId = sch.getProductShoppingID();
         this.shoppingListViewCreator();
-        int finalPrice= 0;
+        int finalPrice = 0;
         int price;
-        for(int i=0;i<productsId.size();i++){
-            Product product=sch.getAProduct(productsId.get(i));
-            if(product.getPriceOff()!=0)
-                price= Utilities.getInstance().calculatePriceOffProduct(product.getPrice(),product.getPriceOff());
+        for (int i = 0; i < productsId.size(); i++) {
+            Product product = sch.getAProduct(productsId.get(i));
+            if (product.getPriceOff() != 0)
+                price = Utilities.getInstance().calculatePriceOffProduct(product.getPrice(), product.getPriceOff());
             else
-                price=product.getPrice();
-            finalPrice=finalPrice+price;
+                price = product.getPrice();
+            finalPrice = finalPrice + price;
         }
 
         totalPriceTextView.setText(Configuration.getConfig().userLastShoppingActivityContext.getResources().getString(R.string.shoppingBagActivityFinalPrice, String.valueOf(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice))));
-        Button confirmShopping = (Button)findViewById(R.id.ok_shop);
+        Button confirmShopping = (Button) findViewById(R.id.ok_shop);
         confirmShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +79,7 @@ public class ShoppingBagActivity extends Activity {
                         Intent shoppingBagIntent = new Intent(Configuration.getConfig().userLastShoppingActivityContext, LoginActivity.class);
                         startActivity(shoppingBagIntent);
                     } else {
-                        String url = Link.getInstance().generateURLForSendShoppingProductsToServer(user.getUserEmail(),shopInfo);
+                        String url = Link.getInstance().generateURLForSendShoppingProductsToServer(user.getUserEmail(), shopInfo);
                         Intent intent = new Intent();
                         intent.setAction(Intent.ACTION_VIEW);
                         intent.addCategory(Intent.CATEGORY_BROWSABLE);
@@ -121,15 +122,15 @@ public class ShoppingBagActivity extends Activity {
     }
 
     private void shoppingListViewCreator() {
-        lvShoppingBag =(ListView)findViewById(R.id.lv_shoppingBag);
-        shoppingBagAdapter adapter= new shoppingBagAdapter(this,productsId);
+        lvShoppingBag = (ListView) findViewById(R.id.lv_shoppingBag);
+        shoppingBagAdapter adapter = new shoppingBagAdapter(this, productsId);
         lvShoppingBag.setAdapter(adapter);
 
     }
 
     private void closeShoppingBag() {
 
-        ImageButton closeShoppingPage = (ImageButton)findViewById(R.id.close_shopping_page);
+        ImageButton closeShoppingPage = (ImageButton) findViewById(R.id.close_shopping_page);
         closeShoppingPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +145,7 @@ public class ShoppingBagActivity extends Activity {
     }
 
     private void setYekanFont() {
-        totalPriceTextView = (TextView)findViewById(R.id.total_price);
+        totalPriceTextView = (TextView) findViewById(R.id.total_price);
         totalPriceTextView = PriceUtility.getInstance().changeFontToYekan(totalPriceTextView, this);
 
     }

@@ -30,14 +30,14 @@ public class SpecialProductFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch=ServerConnectionHandler.getInstance(getContext());
-        products=new ArrayList<>();
-        products=sch.getSpecialProduct();
-        View mainView = inflater.inflate(R.layout.fragment_home,container,false);
+        sch = ServerConnectionHandler.getInstance(getContext());
+        products = new ArrayList<>();
+        products = sch.getSpecialProduct();
+        View mainView = inflater.inflate(R.layout.fragment_home, container, false);
         final ListView productListView = (ListView) mainView.findViewById(R.id.listView_picProduct);
-        PictureSpecialProductItemAdapter adapter = new PictureSpecialProductItemAdapter(getActivity(),products);
+        PictureSpecialProductItemAdapter adapter = new PictureSpecialProductItemAdapter(getActivity(), products);
         productListView.setAdapter(adapter);
-        final SwipeRefreshLayout mSwipeRefreshLayout= (SwipeRefreshLayout)
+        final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout)
                 mainView.findViewById(R.id.swipe_refresh_layout);
         //refresh grid view
         mSwipeRefreshLayout.setEnabled(false);
@@ -46,6 +46,7 @@ public class SpecialProductFragment extends Fragment {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
 
             }
+
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
@@ -65,7 +66,6 @@ public class SpecialProductFragment extends Fragment {
                     Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.GONE);
 
 
-
             }
         });
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -78,7 +78,7 @@ public class SpecialProductFragment extends Fragment {
                         sch.getNewProducts();
                         sch.getEditProducts();
                         products = sch.getSpecialProduct();
-                        PictureSpecialProductItemAdapter newAdapter = new PictureSpecialProductItemAdapter(getActivity(),products);
+                        PictureSpecialProductItemAdapter newAdapter = new PictureSpecialProductItemAdapter(getActivity(), products);
                         productListView.setAdapter(newAdapter);
                         newAdapter.notifyDataSetChanged();
                         mSwipeRefreshLayout.setRefreshing(false);

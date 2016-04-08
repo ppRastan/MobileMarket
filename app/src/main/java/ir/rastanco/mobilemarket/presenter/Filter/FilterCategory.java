@@ -31,15 +31,17 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 public class FilterCategory extends DialogFragment {
 
     private ServerConnectionHandler sch;
-    private Map<String,Integer> mapCategoryTitleToId;
+    private Map<String, Integer> mapCategoryTitleToId;
     private static FilterCategory filterCategory;
+
     public static FilterCategory getInstance() {
-        if(filterCategory == null){
+        if (filterCategory == null) {
             filterCategory = new FilterCategory();
         }
         return filterCategory;
         // Supply num input as an argument.
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,10 +51,10 @@ public class FilterCategory extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch =ServerConnectionHandler.getInstance(Configuration.getConfig().ShopFragmentContext);
+        sch = ServerConnectionHandler.getInstance(Configuration.getConfig().ShopFragmentContext);
         Integer pageId = getArguments().getInt("pageId");
-        mapCategoryTitleToId=new HashMap<>();
-        mapCategoryTitleToId=sch.MapTitleToIDForAllCategory();
+        mapCategoryTitleToId = new HashMap<>();
+        mapCategoryTitleToId = sch.MapTitleToIDForAllCategory();
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
@@ -68,7 +70,7 @@ public class FilterCategory extends DialogFragment {
         ArrayList<String> subCategoryTitle = sch.getTitleOfChildOfACategory(pageId);
 
         //add filter=All
-        subCategoryTitle.add(0,dialogView.getResources().getString(R.string.all));
+        subCategoryTitle.add(0, dialogView.getResources().getString(R.string.all));
         final ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
@@ -78,24 +80,24 @@ public class FilterCategory extends DialogFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                 String itemSelectedContent = parent.getItemAtPosition(position).toString();
+                String itemSelectedContent = parent.getItemAtPosition(position).toString();
 
                 if (itemSelectedContent.equals(dialogView.getResources().getString(R.string.all))) {
                     Intent args = new Intent();
-                    args.putExtra("all",0);
+                    args.putExtra("all", 0);
                     setTargetFragment(getFragmentManager().findFragmentByTag("category"), 1);
                     onActivityResult(getTargetRequestCode(), 1, args);
                     dismiss();
                 } else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent)) > 0) {
 
-                    int catId=mapCategoryTitleToId.get(itemSelectedContent);
-                    ArrayList<String> subCategoryChildTitle=sch.getTitleOfChildOfACategory(catId);
+                    int catId = mapCategoryTitleToId.get(itemSelectedContent);
+                    ArrayList<String> subCategoryChildTitle = sch.getTitleOfChildOfACategory(catId);
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                             android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
                     listCategory.setAdapter(adapter);
-                    mapCategoryTitleToId =sch.MapTitleToIDForChildOfACategory(catId);
+                    mapCategoryTitleToId = sch.MapTitleToIDForChildOfACategory(catId);
 
-                } else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent))==0) {
+                } else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent)) == 0) {
                     Intent args = new Intent();
                     args.putExtra("noChild", mapCategoryTitleToId.get(itemSelectedContent));
                     setTargetFragment(getFragmentManager().findFragmentByTag("category"), 2);
@@ -118,20 +120,20 @@ public class FilterCategory extends DialogFragment {
                 int subCategorySelected = bundle.getInt("subCategorySelected");
                 //send subCategory selected to SuperAwesomeCardFragment for show
                 Configuration.getConfig().filterCategoryId = subCategorySelected;
-                Configuration.getConfig().filterCategoryTitle =sch.getACategoryTitleWithCategoryId(subCategorySelected);
+                Configuration.getConfig().filterCategoryTitle = sch.getACategoryTitleWithCategoryId(subCategorySelected);
                 ObserverFilterCategory.setAddFilter(true);
                 break;
             case 1:
                 Bundle bundleAll = data.getExtras();
                 int selectedAll = bundleAll.getInt("all");
-                Configuration.getConfig().filterCategoryTitle =Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.all) ;
-                Configuration.getConfig().filterCategoryId =selectedAll;
+                Configuration.getConfig().filterCategoryTitle = Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.all);
+                Configuration.getConfig().filterCategoryId = selectedAll;
                 ObserverFilterCategory.setAddFilter(true);
                 break;
             case 2:
                 Bundle bundleNoChild = data.getExtras();
                 int selectACategoryNoChild = bundleNoChild.getInt("noChild");
-                Configuration.getConfig().filterCategoryTitle =sch.getACategoryTitleWithCategoryId(selectACategoryNoChild);
+                Configuration.getConfig().filterCategoryTitle = sch.getACategoryTitleWithCategoryId(selectACategoryNoChild);
                 Configuration.getConfig().filterCategoryId = selectACategoryNoChild;
                 ObserverFilterCategory.setAddFilter(true);
                 break;

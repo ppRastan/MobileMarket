@@ -28,19 +28,19 @@ public class Link {
     }
 
     public String generateURLForGetEditProduct(String lastUpdateTimeStamp) {
-     return "http://decoriss.com/json/get,com=product&updatefromts=" +
-             lastUpdateTimeStamp + "&cache=false";
+        return "http://decoriss.com/json/get,com=product&updatefromts=" +
+                lastUpdateTimeStamp + "&cache=false";
     }
 
     public String generateURLForGetProductOptionsOfAProduct(int productId, int groupId) {
 
-                return "http://decoriss.com/json/get,com=options&pid=" +
+        return "http://decoriss.com/json/get,com=options&pid=" +
                 String.valueOf(productId) + "&pgid=" + String.valueOf(groupId) + "&cache=false";
     }
 
     public String generateURLForRefreshArticles(String lastArticlesNum) {
         int endArticle = Integer.parseInt(lastArticlesNum) + Utilities.getInstance().getArticleNumberWhenRefresh();
-        return  "http://decoriss.com/json/get,com=news&name=blog&order=desc&limit="
+        return "http://decoriss.com/json/get,com=news&name=blog&order=desc&limit="
                 + lastArticlesNum + "-" + String.valueOf(endArticle) + "&cache=false";
     }
 
@@ -50,7 +50,7 @@ public class Link {
     }
 
     public String generateURLGetAllCommentAProduct(int productId) {
-        return  "http://decoriss.com/json/get,com=comments&pid=" + productId + "&cache=false";
+        return "http://decoriss.com/json/get,com=comments&pid=" + productId + "&cache=false";
     }
 
     public String generateURLForGetArticle(int leastArticleNumber, int highestArticleNumber) {
@@ -59,7 +59,7 @@ public class Link {
     }
 
     public String generateURLForGetArticleImage(String articleImageLink) {
-        return  articleImageLink +
+        return articleImageLink +
                 "&size=" +
                 Configuration.getConfig().articleDisplaySizeForURL + "x" + Configuration.getConfig().articleDisplaySizeForURL +
                 Utilities.getInstance().getImageQuality();

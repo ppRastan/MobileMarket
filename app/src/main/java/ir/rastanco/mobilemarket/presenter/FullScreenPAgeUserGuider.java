@@ -16,7 +16,8 @@ means that it appears once when you run application
  */
 public class FullScreenPAgeUserGuider extends Activity {
 
-    float x1,x2,y1,y2;
+    float x1, x2, y1, y2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,45 +27,38 @@ public class FullScreenPAgeUserGuider extends Activity {
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 
     }
-    public boolean onTouchEvent(MotionEvent motionEvent)
-    {
-        switch (motionEvent.getAction())
-        {
+
+    public boolean onTouchEvent(MotionEvent motionEvent) {
+        switch (motionEvent.getAction()) {
             // when user first touches the screen we get x and y coordinate
-            case MotionEvent.ACTION_DOWN:
-            {
+            case MotionEvent.ACTION_DOWN: {
                 x1 = motionEvent.getX();
                 y1 = motionEvent.getY();
                 break;
             }
-            case MotionEvent.ACTION_UP:
-            {
+            case MotionEvent.ACTION_UP: {
                 x2 = motionEvent.getX();
                 y2 = motionEvent.getY();
 
-                if (x1 < x2)
-                {
+                if (x1 < x2) {
 
                     super.onBackPressed();
 
                 }
 
                 // if right to left sweep event on screen
-                if (x1 > x2)
-                {
+                if (x1 > x2) {
 
                     super.onBackPressed();
                 }
 
                 // if UP to Down sweep event on screen
-                if (y1 < y2)
-                {
+                if (y1 < y2) {
 
                     super.onBackPressed();
                 }
 
-                if (y1 > y2)
-                {
+                if (y1 > y2) {
 
                     super.onBackPressed();
                 }

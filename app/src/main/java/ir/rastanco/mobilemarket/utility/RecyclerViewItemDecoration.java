@@ -13,13 +13,13 @@ public class RecyclerViewItemDecoration extends RecyclerView.ItemDecoration {
     private final int verticalSpacing;
     private final int horizontalSpacing;
 
-    public RecyclerViewItemDecoration(int verticalSpacing,int horizontalSpacing) {
+    public RecyclerViewItemDecoration(int verticalSpacing, int horizontalSpacing) {
         this.verticalSpacing = verticalSpacing;
-        this.horizontalSpacing=horizontalSpacing;
+        this.horizontalSpacing = horizontalSpacing;
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view,RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         outRect.left = horizontalSpacing;
         outRect.right = horizontalSpacing;
         outRect.bottom = verticalSpacing;

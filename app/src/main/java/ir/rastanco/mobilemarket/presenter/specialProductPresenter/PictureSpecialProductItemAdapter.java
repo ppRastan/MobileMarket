@@ -34,26 +34,26 @@ import ir.rastanco.mobilemarket.utility.Utilities;
  * Created by ShaisteS on 1394/10/6.
  * A Customize Adapter For Home List view
  */
-public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
+public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
 
     private final Activity myContext;
     private final ArrayList<Product> allProduct;
     private final ServerConnectionHandler serverConnectionHandler;
-    private boolean isSelectedForShop=false;
+    private boolean isSelectedForShop = false;
     private final Drawable defaultPicture;
     private final ServerConnectionHandler sch;
     private boolean isLikeButtonClicked = true;
 
-    public PictureSpecialProductItemAdapter(Context context,ArrayList<Product> products) {
-        super(context,R.layout.picture_product_item_home,products);
-        myContext=(Activity)context;
-        allProduct=products;
-        serverConnectionHandler =ServerConnectionHandler.getInstance(context);
-        defaultPicture= Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().homeDisplaySizeForShow);
-        sch=ServerConnectionHandler.getInstance(myContext);
+    public PictureSpecialProductItemAdapter(Context context, ArrayList<Product> products) {
+        super(context, R.layout.picture_product_item_home, products);
+        myContext = (Activity) context;
+        allProduct = products;
+        serverConnectionHandler = ServerConnectionHandler.getInstance(context);
+        defaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().homeDisplaySizeForShow);
+        sch = ServerConnectionHandler.getInstance(myContext);
     }
 
-    static class ViewHolder{
+    static class ViewHolder {
         private ImageButton shareBtn;
         private ImageButton basketToolbar;
         private ImageButton btnAddThisProductToFavorites;
@@ -62,39 +62,35 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         private ImageView picProductImage;
     }
 
-    public View getView(final int position, View convertView, ViewGroup parent){
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         final ViewHolder holder;
-        if (convertView==null){
+        if (convertView == null) {
             LayoutInflater inflater = myContext.getLayoutInflater();
             convertView = inflater.inflate(R.layout.picture_product_item_home, parent, false);
-            holder=new ViewHolder();
+            holder = new ViewHolder();
 
-            holder.basketToolbar = (ImageButton)convertView.findViewById(R.id.basket_toolbar);
-            holder.btnAddThisProductToFavorites=(ImageButton) convertView.findViewById(R.id.imageButton_like_specialPage);
+            holder.basketToolbar = (ImageButton) convertView.findViewById(R.id.basket_toolbar);
+            holder.btnAddThisProductToFavorites = (ImageButton) convertView.findViewById(R.id.imageButton_like_specialPage);
             holder.shareBtn = (ImageButton) convertView.findViewById(R.id.imageButton_share);
-            holder.offerRight = (ImageButton)convertView.findViewById(R.id.ic_offer_right);
-            holder.imgLoader = new ImageLoader(myContext,Configuration.getConfig().homeDisplaySizeForShow); // important
+            holder.offerRight = (ImageButton) convertView.findViewById(R.id.ic_offer_right);
+            holder.imgLoader = new ImageLoader(myContext, Configuration.getConfig().homeDisplaySizeForShow); // important
             holder.picProductImage = (ImageView) convertView.findViewById(R.id.img_picProduct);
-            holder.picProductImage.getLayoutParams().width= Configuration.getConfig().homeDisplaySizeForShow;
-            holder.picProductImage.getLayoutParams().height=Configuration.getConfig().homeDisplaySizeForShow;
+            holder.picProductImage.getLayoutParams().width = Configuration.getConfig().homeDisplaySizeForShow;
+            holder.picProductImage.getLayoutParams().height = Configuration.getConfig().homeDisplaySizeForShow;
 
             convertView.setTag(holder);
-        }
-        else
+        } else
             holder = (ViewHolder) convertView.getTag();
 
 
         //Special Icon
         //ImageButton offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
-        if(Configuration.getConfig().RTL)
-        {
+        if (Configuration.getConfig().RTL) {
             //offerLeft.setVisibility(View.GONE);
-            if(allProduct.get(position).getPriceOff() != 0)
-            {
+            if (allProduct.get(position).getPriceOff() != 0) {
                 holder.offerRight.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 holder.offerRight.setVisibility(View.GONE);
             }
         }
@@ -120,37 +116,34 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
             @Override
             public void onClick(View v) {
 
-            if (!isSelectedForShop) {
-                holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
-                isSelectedForShop=true;
-                serverConnectionHandler.addProductToShoppingBag(allProduct.get(position).getId());
-                myContext.startActivity(new Intent(myContext,ShoppingBagActivity.class));
-                myContext.overridePendingTransition(R.anim.slide_in_up,R.anim.slide_out_up);
-                ObserverShopping.setMyBoolean(true);
-                isSelectedForShop = true;
+                if (!isSelectedForShop) {
+                    holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
+                    isSelectedForShop = true;
+                    serverConnectionHandler.addProductToShoppingBag(allProduct.get(position).getId());
+                    myContext.startActivity(new Intent(myContext, ShoppingBagActivity.class));
+                    myContext.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+                    ObserverShopping.setMyBoolean(true);
+                    isSelectedForShop = true;
 
-            }
+                } else if (isSelectedForShop) {
+                    holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
+                    isSelectedForShop = false;
+                    serverConnectionHandler.deleteAProductShopping(allProduct.get(position).getId());
+                    ObserverShopping.setMyBoolean(false);
+                    isSelectedForShop = false;
 
-            else if (isSelectedForShop){
-                holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
-                isSelectedForShop=false;
-                serverConnectionHandler.deleteAProductShopping(allProduct.get(position).getId());
-                ObserverShopping.setMyBoolean(false);
-                isSelectedForShop = false;
-
-            }
+                }
             }
         });
-        final Product eachProduct =allProduct.get(position);
-        if (sch.getAProduct(eachProduct.getId()).getLike()==0){
+        final Product eachProduct = allProduct.get(position);
+        if (sch.getAProduct(eachProduct.getId()).getLike() == 0) {
             //this Product No Favorite
             holder.btnAddThisProductToFavorites.setImageResource(R.mipmap.ic_like_toolbar);
-            isLikeButtonClicked=false;
-        }
-        else{
+            isLikeButtonClicked = false;
+        } else {
 
             holder.btnAddThisProductToFavorites.setImageResource(R.mipmap.ic_like_filled_toolbar);
-            isLikeButtonClicked=true;
+            isLikeButtonClicked = true;
         }
         holder.btnAddThisProductToFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,16 +160,16 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         });
         holder.picProductImage.setImageDrawable(defaultPicture);
         String imageNumberPath;
-        if (allProduct.get(position).getImagesPath().size()==0)
-            imageNumberPath="no_image_path";
+        if (allProduct.get(position).getImagesPath().size() == 0)
+            imageNumberPath = "no_image_path";
         else
-            imageNumberPath=allProduct.get(position).getImagesPath().get(0);
+            imageNumberPath = allProduct.get(position).getImagesPath().get(0);
         try {
-            imageNumberPath= URLEncoder.encode(imageNumberPath, "UTF-8");
+            imageNumberPath = URLEncoder.encode(imageNumberPath, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String imageURL = Link.getInstance().generateURLForGetImageProduct(allProduct.get(position).getImagesMainPath(),imageNumberPath,Configuration.getConfig().homeDisplaySizeForURL,Configuration.getConfig().homeDisplaySizeForURL);
+        String imageURL = Link.getInstance().generateURLForGetImageProduct(allProduct.get(position).getImagesMainPath(), imageNumberPath, Configuration.getConfig().homeDisplaySizeForURL, Configuration.getConfig().homeDisplaySizeForURL);
         holder.imgLoader.DisplayImage(imageURL, holder.picProductImage);
         final View finalConvertView = convertView;
         holder.picProductImage.setOnClickListener(new View.OnClickListener() {
