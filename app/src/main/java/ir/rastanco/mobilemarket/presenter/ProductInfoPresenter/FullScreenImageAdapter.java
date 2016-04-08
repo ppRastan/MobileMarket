@@ -48,13 +48,11 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private final Drawable largeDefaultPicture;
     private final Drawable smallDefaultPicture;
 
-
-
     public FullScreenImageAdapter(Activity activity, ArrayList<Product> allProducts, int allProductSize) {
         this.activity = activity;
         this.products = allProducts;
         this.productsSize = allProductSize;
-        myContext=Configuration.getConfig().productInfoActivityContext;
+        myContext = Configuration.getConfig().productInfoActivityContext;
         sch = ServerConnectionHandler.getInstance(myContext);
         largeDefaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().homeDisplaySizeForShow);
         smallDefaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().articleDisplaySizeForShow);
@@ -75,6 +73,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewLayout = inflater.inflate(R.layout.activity_product_info, container, false);
+        ImageButton offerImageButton = (ImageButton) viewLayout.findViewById(R.id.ic_offer_full_screen_right);
         final Product aProduct = products.get(position);
         Button addToBasketBtn = (Button) viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
         TextView nameOfCurrentProduct = (TextView) viewLayout.findViewById(R.id.name_of_photo);
@@ -87,7 +86,12 @@ public class FullScreenImageAdapter extends PagerAdapter {
             addToBasketBtn.setEnabled(false);
 
         }
+        if (aProduct.getPriceOff() != 0) {
 
+               offerImageButton.setVisibility(View.VISIBLE);
+        } else {
+             offerImageButton.setVisibility(View.GONE);
+        }
         if (aProduct.getPriceOff() == 0 && aProduct.getPrice() != 0) {
             int price = aProduct.getPrice();
             String numberOfFinalPrice = String.valueOf(price);
