@@ -44,7 +44,6 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
 
     private final ArrayList<Product> allProduct;
     private boolean isLikeButtonClicked = true;
-    private boolean isSelectedForShop = false;
     private final ServerConnectionHandler sch;
     private final Context myContext;
     private final Activity shopPresenterActivity;
@@ -149,23 +148,11 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         holder.basketToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (!isSelectedForShop) {
                     holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
-                    isSelectedForShop = true;
                     sch.addProductToShoppingBag(eachProduct.getId());
                     myContext.startActivity(new Intent(myContext, ShoppingBagActivity.class));
                     ObserverShopping.setMyBoolean(true);
-                    isSelectedForShop = true;
-
-                } else if (isSelectedForShop) {
-                    holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
-                    isSelectedForShop = false;
-                    sch.deleteAProductShopping(eachProduct.getId());
-                    ObserverShopping.setMyBoolean(false);
-                    isSelectedForShop = false;
                 }
-            }
         });
 
         holder.shareToolBar.setOnClickListener(new View.OnClickListener() {

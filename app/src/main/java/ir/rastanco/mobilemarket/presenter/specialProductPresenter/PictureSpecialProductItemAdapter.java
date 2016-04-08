@@ -39,7 +39,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
     private final Activity myContext;
     private final ArrayList<Product> allProduct;
     private final ServerConnectionHandler serverConnectionHandler;
-    private boolean isSelectedForShop = false;
+    //private boolean isSelectedForShop = false;
     private final Drawable defaultPicture;
     private final ServerConnectionHandler sch;
     private boolean isLikeButtonClicked = true;
@@ -85,28 +85,13 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
 
 
         //Special Icon
-        //ImageButton offerLeft = (ImageButton)rowView.findViewById(R.id.ic_offer_left);
         if (Configuration.getConfig().RTL) {
-            //offerLeft.setVisibility(View.GONE);
             if (allProduct.get(position).getPriceOff() != 0) {
                 holder.offerRight.setVisibility(View.VISIBLE);
             } else {
                 holder.offerRight.setVisibility(View.GONE);
             }
         }
-        /*if (! Configuration.RTL)
-        {
-            offerRight.setVisibility(View.GONE);
-            if(allProduct.get(position).getPriceOff() != 0) {
-
-                offerLeft.setVisibility(View.VISIBLE);
-            }
-            else
-            {
-                offerLeft.setVisibility(View.GONE);
-            }
-        }*/
-
         if (serverConnectionHandler.checkSelectProductForShop(allProduct.get(position).getId()))
             holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
         else
@@ -115,24 +100,11 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         holder.basketToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (!isSelectedForShop) {
                     holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
-                    isSelectedForShop = true;
                     serverConnectionHandler.addProductToShoppingBag(allProduct.get(position).getId());
                     myContext.startActivity(new Intent(myContext, ShoppingBagActivity.class));
                     myContext.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                     ObserverShopping.setMyBoolean(true);
-                    isSelectedForShop = true;
-
-                } else if (isSelectedForShop) {
-                    holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
-                    isSelectedForShop = false;
-                    serverConnectionHandler.deleteAProductShopping(allProduct.get(position).getId());
-                    ObserverShopping.setMyBoolean(false);
-                    isSelectedForShop = false;
-
-                }
             }
         });
         final Product eachProduct = allProduct.get(position);
