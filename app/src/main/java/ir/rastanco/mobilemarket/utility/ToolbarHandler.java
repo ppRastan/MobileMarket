@@ -2,14 +2,21 @@ package ir.rastanco.mobilemarket.utility;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import java.util.Map;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 
 /**
  * Created by ParisaRashidhi on 29/03/2016.
@@ -22,6 +29,14 @@ import ir.rastanco.mobilemarket.R;
     private ImageButton cancelShareDialog;
     private String textToSend;
     private Intent sendIntent;
+    private static  ToolbarHandler toolbarHandler ;
+        public static ToolbarHandler getInstance() {
+            if(toolbarHandler == null){
+                toolbarHandler = new ToolbarHandler();
+            }
+            return toolbarHandler;
+            // Supply num input as an argument.
+        }
 
     public void generalShare(final Activity activity, final String product) {
         shareDialog = new Dialog(activity);
@@ -97,4 +112,28 @@ import ir.rastanco.mobilemarket.R;
             shareDialog.show();
     }
 
+
+    public void addCurrentProductToFavorite(Context myContext , ImageButton likeThisProduct , Product eachProduct , Boolean isLikeButtonClicked ,ServerConnectionHandler sch){
+
+        if (sch.getAProduct(eachProduct.getId()).getLike() == 0) {
+
+            if(Configuration.getConfig().userLoginStatus)
+                Toast.makeText(myContext, myContext.getResources().getString(R.string.thanks), Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(myContext,myContext.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
+
+           likeThisProduct.setImageResource(R.mipmap.ic_like_filled_toolbar);
+            isLikeButtonClicked = true;
+            sch.changeProductLike(eachProduct.getId(), 1);
+        } else if (sch.getAProduct(eachProduct.getId()).getLike() == 1) {
+
+            if(!Configuration.getConfig().userLoginStatus)
+                Toast.makeText(myContext,myContext.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
+
+            likeThisProduct.setImageResource(R.mipmap.ic_like_toolbar);
+            isLikeButtonClicked = false;
+            sch.changeProductLike(eachProduct.getId(), 0);
+        }
+
+    }
 }

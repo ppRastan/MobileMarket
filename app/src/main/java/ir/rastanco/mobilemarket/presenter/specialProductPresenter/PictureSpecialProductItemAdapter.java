@@ -155,34 +155,14 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         holder.btnAddThisProductToFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (sch.getAProduct(eachProduct.getId()).getLike() == 0) {
-
-                    if(Configuration.getConfig().userLoginStatus)
-                        Toast.makeText(myContext, myContext.getResources().getString(R.string.thanks), Toast.LENGTH_SHORT).show();
-                    else
-                        Toast.makeText(myContext,myContext.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
-
-                    holder.btnAddThisProductToFavorites.setImageResource(R.mipmap.ic_like_filled_toolbar);
-                    isLikeButtonClicked = true;
-                    sch.changeProductLike(eachProduct.getId(), 1);
-                } else if (sch.getAProduct(eachProduct.getId()).getLike() == 1) {
-
-                    if(!Configuration.getConfig().userLoginStatus)
-                        Toast.makeText(myContext,myContext.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
-
-                    holder.btnAddThisProductToFavorites.setImageResource(R.mipmap.ic_like_toolbar);
-                    isLikeButtonClicked = false;
-                    sch.changeProductLike(eachProduct.getId(), 0);
-                }
+                ToolbarHandler.getInstance().addCurrentProductToFavorite(myContext, holder.btnAddThisProductToFavorites, eachProduct, isLikeButtonClicked, sch);
             }
         });
 
         holder.shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToolbarHandler toolbarHandler = new ToolbarHandler();
-                toolbarHandler.generalShare(myContext, allProduct.get(position).getLinkInSite());
+                ToolbarHandler.getInstance().generalShare(myContext, allProduct.get(position).getLinkInSite());
             }
         });
         holder.picProductImage.setImageDrawable(defaultPicture);

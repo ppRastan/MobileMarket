@@ -43,7 +43,6 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private final ServerConnectionHandler sch;
     private final int  productsSize;
     private View viewLayout;
-    private ToolbarHandler toolbarHandler;
     public FullScreenImageAdapter(Activity activity,ArrayList<Product>allProducts,int allProductSize) {
         this.activity = activity;
         this.products=allProducts;
@@ -69,7 +68,6 @@ public class FullScreenImageAdapter extends PagerAdapter {
         final Product aProduct=products.get(position);
         Button addToBasketBtn = (Button)viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
         TextView nameOfCurrentProduct = (TextView)viewLayout.findViewById(R.id.name_of_photo);
-        toolbarHandler = new ToolbarHandler();
         nameOfCurrentProduct.setText(aProduct.getTitle());
 
         setProductQuality(aProduct.getQualityRank());
@@ -166,7 +164,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toolbarHandler.generalShare(activity, aProduct.getLinkInSite());
+                ToolbarHandler.getInstance().generalShare(activity, aProduct.getLinkInSite());
              }
         });
 
@@ -175,7 +173,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         btnShareByTelegram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toolbarHandler.shareByTelegram(activity, aProduct.getLinkInSite());
+                ToolbarHandler.getInstance().shareByTelegram(activity, aProduct.getLinkInSite());
             }
         });
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
