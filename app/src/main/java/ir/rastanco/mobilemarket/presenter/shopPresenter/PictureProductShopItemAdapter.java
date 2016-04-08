@@ -103,7 +103,7 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             holder.basketToolbar = (ImageButton) convertView.findViewById(R.id.basket_toolbar);
             holder.shareToolBar = (ImageButton) convertView.findViewById(R.id.share_toolbar_in_main_page);
             holder.likeToolBar = (ImageButton) convertView.findViewById(R.id.empty_like_toolbar);
-            holder.imgLoader = new ImageLoader(myContext, Configuration.getConfig().shopDisplaySizeForShow);
+            holder.imgLoader = new ImageLoader(myContext);
             convertView.setTag(holder);
         } else
             holder = (ViewHolder) convertView.getTag();

@@ -74,7 +74,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
             holder.btnAddThisProductToFavorites = (ImageButton) convertView.findViewById(R.id.imageButton_like_specialPage);
             holder.shareBtn = (ImageButton) convertView.findViewById(R.id.imageButton_share);
             holder.offerRight = (ImageButton) convertView.findViewById(R.id.ic_offer_right);
-            holder.imgLoader = new ImageLoader(myContext, Configuration.getConfig().homeDisplaySizeForShow); // important
+            holder.imgLoader = new ImageLoader(myContext); // important
             holder.picProductImage = (ImageView) convertView.findViewById(R.id.img_picProduct);
             holder.picProductImage.getLayoutParams().width = Configuration.getConfig().homeDisplaySizeForShow;
             holder.picProductImage.getLayoutParams().height = Configuration.getConfig().homeDisplaySizeForShow;

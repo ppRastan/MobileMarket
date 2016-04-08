@@ -47,7 +47,7 @@ public class UserLastShoppingProductItemAdapter extends ArrayAdapter<ProductShop
             LayoutInflater inflater = myContext.getLayoutInflater();
             convertView = inflater.inflate(R.layout.last_shopping_item, parent, false);
             holder = new ViewHolder();
-            holder.imgLoader = new ImageLoader(Configuration.getConfig().userLastShoppingActivityContext, Configuration.getConfig().homeDisplaySizeForShow); // important
+            holder.imgLoader = new ImageLoader(Configuration.getConfig().userLastShoppingActivityContext); // important
             holder.picInvoice = (ImageView) convertView.findViewById(R.id.img_invoice);
             holder.invoiceNum = (TextView) convertView.findViewById(R.id.txt_invoiceNum);
             holder.invoiceNum = PriceUtility.getInstance().changeFontToYekan(holder.invoiceNum, myContext);
