@@ -11,6 +11,7 @@ import java.util.List;
  * Created by ShaisteS on 1395/1/9
  * This Class a View Pager Adapter for tabs
  */
+//test connection
 public class ViewPagerAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
