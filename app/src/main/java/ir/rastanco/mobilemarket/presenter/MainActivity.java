@@ -76,7 +76,6 @@ import ir.rastanco.mobilemarket.utility.Link;
 public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
-    private int exitSafeCounter = 0;
     private ServerConnectionHandler sch;
     private ArrayList<String> mainCategoryTitle;
     private Map<String,Integer> mapTitleToIdMainCategory;
@@ -345,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        int exitSafeCounter = 0 ;
         //Clear Cache
         ImageLoader imageLoader=new ImageLoader(Configuration.getConfig().mainActivityContext,0);
         imageLoader.clearCache();

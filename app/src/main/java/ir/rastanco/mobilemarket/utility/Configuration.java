@@ -30,6 +30,8 @@ public class Configuration {
     public  Context productOptionActivityContext;
     public  Context accountManagerContext;
     public  Context specialProductManagementContext;
+
+
     public  String filterOption;
     public  String filterPriceTitle;
     public  String filterBrand;
@@ -39,13 +41,17 @@ public class Configuration {
     public  String shopDisplaySizeForURL;
     public  String articleDisplaySizeForURL;
     public  String filterCategoryTitle;
+
+
     public  Boolean userLoginStatus;
     public  Boolean isTheFirstTimeOpeningThisPage;
     public  Boolean RTL;
     public  Boolean existProductInformation; //true is exist and false is not exist
-    public Boolean emptyProductTable; //true is empty and false is full
-    public Boolean emptyCategoryTable;//true is empty and false is full
+    public  Boolean emptyProductTable; //true is empty and false is full
+    public  Boolean emptyCategoryTable;//true is empty and false is full
     public  Boolean connectionStatus = false;
+
+
     public  Integer filterCategoryId=0; //It is important that filterCategoryId=0
     public  Integer homeDisplaySizeForShow;
     public  Integer shopDisplaySizeForShow;
@@ -53,9 +59,11 @@ public class Configuration {
     public  Integer articleDisplaySizeForShow;
     public  Integer progressBarSize;
     public  Integer mainTabCount;
-    public int firstIndexGetProduct;
-    public int numberAllProducts;
-    public int numberOfProductMustBeTaken=100;
+    public  Integer firstIndexGetProduct;
+    public  Integer numberAllProducts;
+    public  Integer numberOfProductMustBeTaken=100;
+
+
     public  MenuItem upgradeButtonMenu;
     public  ViewPager mainPager;
     public  FloatingActionButton customerSupportFloatingActionButton;

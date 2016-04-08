@@ -34,14 +34,14 @@ public class ImageLoader {
     private final FileCache fileCache;
     private final Map<ImageView, String> imageViews= Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
     private final ExecutorService executorService;
-    private final int displayWidth;
-    private final Context context;
+    //private final int displayWidth;
+    //private final Context context;
 
     public ImageLoader(Context context,int size){
         fileCache=new FileCache(context);
         executorService= Executors.newFixedThreadPool(5);
-        displayWidth=size;
-        this.context=context;
+      //  displayWidth=size;
+        //this.context=context;
     }
 
 
@@ -77,7 +77,7 @@ public class ImageLoader {
 
         //from web
         try {
-            Bitmap bitmap=null;
+            Bitmap bitmap;
             URL imageUrl = new URL(url);
             HttpURLConnection conn = (HttpURLConnection)imageUrl.openConnection();
             conn.setConnectTimeout(30000);
@@ -161,15 +161,16 @@ public class ImageLoader {
         public void run() {
             if (imageViewReused(photoToLoad))
                 return;
-            if (bitmap != null) {
+            if (bitmap != null)// {
 
                 photoToLoad.imageView.setImageBitmap(bitmap);
-            } else {
-                //show default image when get image from url with error
-                //Drawable drawable = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, context, displayWidth);
-                //photoToLoad.imageView.setImageDrawable(drawable);
-
-            }
+          //  }
+//            else {
+//                //show default image when get image from url with error
+//                //Drawable drawable = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, context, displayWidth);
+//                //photoToLoad.imageView.setImageDrawable(drawable);
+//
+//            }
         }
     }
 

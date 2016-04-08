@@ -1,6 +1,5 @@
 package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
 
-import android.accounts.AccountManager;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
