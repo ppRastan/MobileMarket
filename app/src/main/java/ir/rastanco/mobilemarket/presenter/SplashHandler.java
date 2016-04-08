@@ -5,22 +5,24 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
+import ir.rastanco.mobilemarket.presenter.Services.DownloadService;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.Link;
 
 /**
  *  Created by ShaisteS on 1394/12/1.
  *  loading starts from here
  */
-public class SplashHandler extends AppCompatActivity {
+public class SplashHandler extends AppCompatActivity implements DownloadResultReceiver.Receiver{
 
     private ServerConnectionHandler sch;
     private Context splashContext;
+    private DownloadResultReceiver mReceiver;
     private final Integer delay = 3000;
 
     @Override
@@ -29,6 +31,17 @@ public class SplashHandler extends AppCompatActivity {
         final SplashHandler sPlashHandler = this;
         splashContext=this;
         sch=ServerConnectionHandler.getInstance(splashContext);
+        if (sch.emptyDBCategory() && sch.emptyDBProduct() ){
+            Configuration.getConfig().emptyCategoryTable=true;
+            Configuration.getConfig().emptyProductTable=true;
+            mReceiver = new DownloadResultReceiver(new Handler());
+            mReceiver.setReceiver(this);
+            Intent intent = new Intent(Intent.ACTION_SYNC, null, this, DownloadService.class);
+            /* Send optional extras to Download IntentService */
+            intent.putExtra("receiver", mReceiver);
+            intent.putExtra("requestId", 101);
+            startService(intent);
+        }
         Thread mSplashThread = new Thread() {
             @Override
             public void run() {
@@ -45,19 +58,14 @@ public class SplashHandler extends AppCompatActivity {
                         else Configuration.getConfig().userLoginStatus = true;//
 
                         if (sch.emptyDBCategory()) {
-                            Configuration.getConfig().emptyCategoryTable = true;
-                            sch.setCategories(sch.getAllCategoryInfoURL(Link.getInstance().generateURLForGetAllCategories()));
+                            Configuration.getConfig().emptyCategoryTable=true;
                         }
+                        else
+                            Configuration.getConfig().emptyCategoryTable=false;
                         if (sch.emptyDBProduct()) {
                             Configuration.getConfig().emptyProductTable = true;
-                            Configuration.getConfig().existProductInformation = false;
-                            String url=Link.getInstance().generateUrlForGetNewProduct(splashContext.getString(R.string.firstTimeStamp));
-                            sch.setProducts(sch.getAllProductFromURL(url,0,Configuration.getConfig().numberOfProductMustBeTaken,true));
-                            if (sch.getProducts().size() != 0)
-                                Configuration.getConfig().existProductInformation = true;
-
-                        } else {
-                            Configuration.getConfig().existProductInformation = false;
+                        }
+                        else {
                             Configuration.getConfig().emptyProductTable = false;
                         }
 
@@ -74,5 +82,10 @@ public class SplashHandler extends AppCompatActivity {
         };
 
         mSplashThread.start();
+    }
+
+    @Override
+    public void onReceiveResult(int resultCode, Bundle resultData) {
+
     }
 }

@@ -28,7 +28,7 @@ public class UpdateEveryConnectionOk extends BroadcastReceiver {
             if (netInfo != null && netInfo.isConnectedOrConnecting()){
                 Configuration.getConfig().connectionStatus=true;
                 if (sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer())) {
-                    if (Configuration.getConfig().upgradeButtonMenu != null && !Configuration.getConfig().existProductInformation) {
+                    if (Configuration.getConfig().upgradeButtonMenu != null ) {
                         Configuration.getConfig().upgradeButtonMenu.setVisible(true);
                     }
                     Intent notificationService = new Intent(context, NotificationService.class);

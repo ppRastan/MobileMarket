@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int progress_bar_type = 0;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,16 +121,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setTabTextColors(Color.BLACK, Color.RED);
         this.changeTabsFont();
 
-
         //DataBase empty in first install Application
-        if (!Configuration.getConfig().existProductInformation && Configuration.getConfig().emptyProductTable)
+        if (Configuration.getConfig().emptyCategoryTable)
             tabLayout.setTabMode(TabLayout.MODE_FIXED);
 
-        if (Configuration.getConfig().emptyProductTable &&
-                Configuration.getConfig().connectionStatus) {
-            addCategoryInformationAndProductInformationToDataBase();
-            //Configuration.getConfig().emptyProductTable=false;
-        }
         ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
             @Override
             public void connectionOK() {
@@ -267,7 +260,6 @@ public class MainActivity extends AppCompatActivity {
         MenuItem upgradeItem=menu.findItem(R.id.update);
         Configuration.getConfig().upgradeButtonMenu =upgradeItem;
         if(!sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer())||
-                Configuration.getConfig().existProductInformation ||
                 !Configuration.getConfig().connectionStatus)
             upgradeItem.setVisible(false);
         else
@@ -363,39 +355,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void addCategoryInformationAndProductInformationToDataBase(){
-        Thread getProductInfoFromServerThread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    synchronized (this) {
-                        sch.addAllCategoryToTable(sch.getCategories());
-                        addProductInformationToDataBaseFirstInstall(sch.getProducts());
-                        wait(10);
-                    }
-                } catch (InterruptedException ex) {
-                    Log.v("can not check data base","!");
-                }
-
-            }
-        };
-        getProductInfoFromServerThread.start();
-    }
-
-    private void addProductInformationToDataBaseFirstInstall(ArrayList<Product> allProducts){
-        sch.addAllProductToTable(allProducts);
-        String timeStamp= allProducts.get(0).getTimeStamp();
-        String lastVersionInServer=sch.getLastVersionInServer(Link.getInstance().generateURLForGetLastVersionAppInServer());
-        sch.setSetting(timeStamp,
-                Configuration.getConfig().mainActivityContext.getResources().getString(R.string.firstArticleNumber),
-                lastVersionInServer,
-                timeStamp,
-                Configuration.getConfig().firstIndexGetProduct+Configuration.getConfig().numberOfProductMustBeTaken,
-                Configuration.getConfig().numberAllProducts);
-        Configuration.getConfig().existProductInformation = false;
-        Configuration.getConfig().emptyProductTable=false;
-    }
-
 
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -413,7 +372,6 @@ public class MainActivity extends AppCompatActivity {
                 return null;
         }
     }
-
 
     class DownloadFileFromURL extends AsyncTask<String, String, String> {
 

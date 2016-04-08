@@ -50,6 +50,7 @@
         <activity android:name=".presenter.UserProfilePresenter.UserLastShoppingProduct" android:screenOrientation="portrait"/>
 
         <service android:name=".presenter.Services.NotificationService" />
+        <service android:name=".presenter.Services.DownloadService"/>
 
         <receiver android:name=".presenter.Services.UpdateEveryConnectionOk">
             <intent-filter>

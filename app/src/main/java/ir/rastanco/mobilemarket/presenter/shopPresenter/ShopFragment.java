@@ -52,7 +52,7 @@ public class ShopFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View mainView=inflater.inflate(R.layout.fragment_shop, container , false);
+        final View mainView=inflater.inflate(R.layout.fragment_shop, container , false);
         Configuration.getConfig().ShopFragmentContext=getContext();
         myContext=(FragmentActivity)Configuration.getConfig().ShopFragmentContext;
         final int pageId;
@@ -105,18 +105,18 @@ public class ShopFragment extends Fragment {
 
                 if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
                 {
-                    Configuration.getConfig().firstIndexGetProduct=ServerConnectionHandler.getInstance(myContext).getFirstIndexForGetProductFromJson();
+                    //scroll receive button
+                    /*Configuration.getConfig().firstIndexGetProduct=ServerConnectionHandler.getInstance(myContext).getFirstIndexForGetProductFromJson();
                     int allNumberProducts=ServerConnectionHandler.getInstance(myContext).getNumberAllProduct();
                     if ( Configuration.getConfig().firstIndexGetProduct<allNumberProducts){
-                        sch.addProductInformationToDataBaseFirstInstall(Link.getInstance().generateUrlForGetNewProduct(myContext.getString(R.string.firstTimeStamp)));
+
                         ArrayList<Product> newProducts = sch.getProductsOfAParentCategory(pageId);
                         adapter.clear();
                         for (int i=0;i<newProducts.size();i++){
                             adapter.add(newProducts.get(i));
                         }
                         adapter.notifyDataSetChanged();
-                    }
-
+                    }*/
                 }
 
             }
@@ -203,9 +203,7 @@ public class ShopFragment extends Fragment {
                         if (newProducts.size() == 0) {
                             noThingToShow.setVisibility(View.VISIBLE);
                             gridview.setVisibility(View.GONE);
-                        }
-                        else
-                        {
+                        } else {
                             noThingToShow.setVisibility(View.GONE);
                             gridview.setVisibility(View.VISIBLE);
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
@@ -220,6 +218,12 @@ public class ShopFragment extends Fragment {
         ///Filter in Product Features
         txtFilterOptionProductSelected = (TextView)mainView.findViewById(R.id.filter_dialogue_text);
         Button btnFilterOptionProduct =(Button)mainView.findViewById(R.id.filter_dialogue);
+        btnFilterOptionProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         btnFilterOptionProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -307,6 +311,4 @@ public class ShopFragment extends Fragment {
         });
         return mainView;
     }
-
-
 }

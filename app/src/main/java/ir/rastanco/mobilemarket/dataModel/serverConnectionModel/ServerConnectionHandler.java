@@ -202,12 +202,12 @@ public class ServerConnectionHandler {
 
     public Map<String,Integer> MapTitleToIDForMainCategory(){
         Map<String,Integer> mapTitleToIDMainCategory=DataBaseHandler.getInstance(context).selectMainCategories();
-        if (emptyDBCategory() && categories.size()!=0){
+        /*if (emptyDBCategory() && categories.size()!=0){
             for (int i=0;i<categories.size();i++){
                 if (categories.get(i).getParentId()==0)
                     mapTitleToIDMainCategory.put(categories.get(i).getTitle(), categories.get(i).getId());
             }
-        }
+        }*/
         return mapTitleToIDMainCategory;
     }
 
@@ -234,12 +234,12 @@ public class ServerConnectionHandler {
 
     public ArrayList<String> getMainCategoryTitle(){
         ArrayList<String> mainCategoryTitle=DataBaseHandler.getInstance(context).selectMainCategoriesTitle();
-        if(emptyDBCategory() && categories.size()!=0){
+        /*if(emptyDBCategory() /*&& categories.size()!=0){
             for (int i=0;i<categories.size();i++){
                 if (categories.get(i).getParentId()==0)
                     mainCategoryTitle.add(categories.get(i).getTitle());
             }
-        }
+        }*/
         return mainCategoryTitle;
     }
 
@@ -342,7 +342,7 @@ public class ServerConnectionHandler {
     }
 
     public void addProductInformationToDataBaseFirstInstall(String url){
-        Configuration.getConfig().numberOfProductMustBeTaken=20;
+        Configuration.getConfig().numberOfProductMustBeTaken=2;
         int firstIndex=Configuration.getConfig().firstIndexGetProduct;
         int lastIndex=Configuration.getConfig().firstIndexGetProduct+Configuration.getConfig().numberOfProductMustBeTaken;
 
