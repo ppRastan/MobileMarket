@@ -38,7 +38,7 @@ public class FilterOptionBrand extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        ServerConnectionHandler sch = ServerConnectionHandler.getInstance(Configuration.getConfig().ShopFragmentContext);
+        ServerConnectionHandler sch = ServerConnectionHandler.getInstance(Configuration.getConfig().shopFragmentContext);
         Integer pageId = getArguments().getInt("pageId");
         ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
@@ -46,7 +46,7 @@ public class FilterOptionBrand extends DialogFragment {
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
         btnCancelAlertDialog.setImageResource(R.mipmap.small_back_arrow);
         TextView titleBrand = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
-        titleBrand.setText(Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.choose_brand));
+        titleBrand.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.choose_brand));
         btnCancelAlertDialog.setOnClickListener(
                 new View.OnClickListener() {
                     @Override

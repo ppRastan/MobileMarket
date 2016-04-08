@@ -25,7 +25,7 @@ public class Configuration {
     public Context applicationContext;
     public Context userLoginActivityContext;
     public Context userProfileActivityContext;
-    public Context ShopFragmentContext;
+    public Context shopFragmentContext;
     public Context userLastShoppingActivityContext;
     public Context productOptionActivityContext;
     public Context accountManagerContext;
@@ -44,7 +44,6 @@ public class Configuration {
 
 
     public Boolean userLoginStatus;
-    public Boolean isTheFirstTimeOpeningThisPage;
     public Boolean RTL;
     public Boolean emptyProductTable; //true is empty and false is full
     public Boolean emptyCategoryTable;//true is empty and false is full

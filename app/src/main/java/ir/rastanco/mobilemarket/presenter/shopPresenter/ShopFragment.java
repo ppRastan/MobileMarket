@@ -53,8 +53,8 @@ public class ShopFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View mainView = inflater.inflate(R.layout.fragment_shop, container, false);
-        Configuration.getConfig().ShopFragmentContext = getContext();
-        myContext = (FragmentActivity) Configuration.getConfig().ShopFragmentContext;
+        Configuration.getConfig().shopFragmentContext = getContext();
+        myContext = (FragmentActivity) Configuration.getConfig().shopFragmentContext;
         final int pageId;
         pageId = getArguments().getInt("pageId");
         sch = ServerConnectionHandler.getInstance(getContext());
@@ -153,10 +153,10 @@ public class ShopFragment extends Fragment {
             public void SimilarProductSet() {
                 Configuration.getConfig().filterCategoryId = ObserverSimilarProduct.getSimilarProduct();
                 Configuration.getConfig().filterPriceTitle = sch.getACategoryTitleWithCategoryId(Configuration.getConfig().filterCategoryId);
-                Configuration.getConfig().filterBrand = Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.all);
+                Configuration.getConfig().filterBrand = Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all);
                 txtFilterCategorySelected.setText(Configuration.getConfig().filterPriceTitle);
                 txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
-                txtFilterOptionProductSelected.setText(Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.all));
+                txtFilterOptionProductSelected.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all));
                 txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.black));
                 ArrayList<Product> newProducts = sch.getProductsOfAParentCategory(ObserverSimilarProduct.getSimilarProduct());
                 PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);

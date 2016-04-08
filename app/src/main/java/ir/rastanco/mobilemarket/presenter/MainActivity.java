@@ -246,7 +246,6 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         Configuration.getConfig().mainActivityContext = this;
         Configuration.getConfig().applicationContext = getBaseContext();
         sch = ServerConnectionHandler.getInstance(Configuration.getConfig().mainActivityContext);
-        Configuration.getConfig().isTheFirstTimeOpeningThisPage = true;
         mainCategoryTitle = new ArrayList<>();
         mapTitleToIdMainCategory = new HashMap<>();
         mainCategoryTitle = sch.getMainCategoryTitle();

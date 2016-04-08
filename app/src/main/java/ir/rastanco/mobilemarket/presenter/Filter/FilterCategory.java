@@ -51,7 +51,7 @@ public class FilterCategory extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch = ServerConnectionHandler.getInstance(Configuration.getConfig().ShopFragmentContext);
+        sch = ServerConnectionHandler.getInstance(Configuration.getConfig().shopFragmentContext);
         Integer pageId = getArguments().getInt("pageId");
         mapCategoryTitleToId = new HashMap<>();
         mapCategoryTitleToId = sch.MapTitleToIDForAllCategory();
@@ -65,7 +65,7 @@ public class FilterCategory extends DialogFragment {
             }
         });
         TextView titleOfAlertDialog = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
-        titleOfAlertDialog.setText(Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.choose_group));
+        titleOfAlertDialog.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.choose_group));
         btnCancelAlertDialog.setImageResource(R.mipmap.ic_cancel_dialog);
         ArrayList<String> subCategoryTitle = sch.getTitleOfChildOfACategory(pageId);
 
@@ -126,7 +126,7 @@ public class FilterCategory extends DialogFragment {
             case 1:
                 Bundle bundleAll = data.getExtras();
                 int selectedAll = bundleAll.getInt("all");
-                Configuration.getConfig().filterCategoryTitle = Configuration.getConfig().ShopFragmentContext.getResources().getString(R.string.all);
+                Configuration.getConfig().filterCategoryTitle = Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all);
                 Configuration.getConfig().filterCategoryId = selectedAll;
                 ObserverFilterCategory.setAddFilter(true);
                 break;
