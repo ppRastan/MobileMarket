@@ -46,6 +46,7 @@ public class DownloadService extends IntentService {
                     serverConnectionHandler.setCategories(serverConnectionHandler.getAllCategoryInfoURL(url));
                     serverConnectionHandler.addAllCategoryToTable(serverConnectionHandler.getCategories());
                     Configuration.getConfig().emptyCategoryTable=false;
+                    receiver.send(STATUS_FINISHED,null);
                 }
                 if (Configuration.getConfig().emptyProductTable){
                     String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));

@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
@@ -62,6 +63,8 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKL
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingBagClickListener;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
+import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
+import ir.rastanco.mobilemarket.presenter.Services.DownloadService;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManagerActivity;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginActivity;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
@@ -73,7 +76,7 @@ import ir.rastanco.mobilemarket.utility.Link;
 
 /*created by parisa*/
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DownloadResultReceiver.Receiver {
 
     private TabLayout tabLayout;
     private ServerConnectionHandler sch;
@@ -86,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     private int exitSafeCounter = 0;
     private static final int progress_bar_type = 0;
+    private DownloadResultReceiver mReceiver;
+
 
 
     @Override
@@ -122,8 +127,16 @@ public class MainActivity extends AppCompatActivity {
         this.changeTabsFont();
 
         //DataBase empty in first install Application
-        if (Configuration.getConfig().emptyCategoryTable)
+        if (Configuration.getConfig().emptyCategoryTable && Configuration.getConfig().emptyProductTable) {
             tabLayout.setTabMode(TabLayout.MODE_FIXED);
+            mReceiver = new DownloadResultReceiver(new Handler());
+            mReceiver.setReceiver(this);
+            Intent intent = new Intent(Intent.ACTION_SYNC, null, this, DownloadService.class);
+            /* Send optional extras to Download IntentService */
+            intent.putExtra("receiver", mReceiver);
+            intent.putExtra("requestId", 101);
+            startService(intent);
+        }
 
         ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
             @Override
@@ -168,6 +181,31 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new SpecialProductFragmentManagement(), getResources().getString(R.string.first_page));
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(adapter.getCount() - 1);
+    }
+
+    private void updateViewPager(ViewPager viewPager){
+        mainCategoryTitle=sch.getMainCategoryTitle();
+        mapTitleToIdMainCategory=sch.MapTitleToIDForMainCategory();
+        Configuration.getConfig().mainTabCount =mainCategoryTitle.size();
+        ViewPagerAdapter adapter= (ViewPagerAdapter) viewPager.getAdapter();
+        adapter.clearAllTab();
+        adapter.addFragment(new ArticleFragment(), getResources().getString(R.string.fifth_page));
+        for (int i=mainCategoryTitle.size()-1;i>=0;i--) {
+            Bundle args=new Bundle();
+            args.putInt("pageId", mapTitleToIdMainCategory.get(mainCategoryTitle.get(i)));
+            ShopFragment shop=new ShopFragment();
+            shop.setArguments(args);
+            adapter.addFragment(shop, mainCategoryTitle.get(i));
+        }
+        adapter.addFragment(new SpecialProductFragmentManagement(), getResources().getString(R.string.first_page));
+        viewPager.setAdapter(adapter);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabTextColors(Color.BLACK, Color.RED);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        viewPager.setCurrentItem(adapter.getCount()-1);
+
+
     }
 
     private void addActionBar() {
@@ -353,6 +391,19 @@ public class MainActivity extends AppCompatActivity {
             finish();
             System.exit(0);
         }
+    }
+
+    @Override
+    public void onReceiveResult(int resultCode, Bundle resultData) {
+
+        switch (resultCode) {
+
+            case DownloadService.STATUS_FINISHED:
+                updateViewPager(Configuration.getConfig().mainPager);
+                break;
+
+        }
+
     }
 
 
