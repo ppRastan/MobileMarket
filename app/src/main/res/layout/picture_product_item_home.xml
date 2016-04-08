@@ -76,34 +76,35 @@
                     android:background="@color/white"
                     android:orientation="horizontal"
                     android:paddingBottom="16dp"
-                    android:weightSum="8">
+                    android:weightSum="3">
 
+
+
+                    <ImageButton
+                        tools:ignore="NestedWeights"
+                        android:id="@+id/imageButton_like_specialPage"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:src="@mipmap/ic_like_toolbar"
+                        android:background="@null"
+                        android:contentDescription="@string/liked"
+                        />
                     <ImageButton
                         tools:ignore="NestedWeights"
                         android:id="@+id/imageButton_share"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:background="@null"
                         android:contentDescription="@string/share"
                         android:src="@mipmap/ic_share_toolbar" />
-
-                    <Button
-                        android:id="@+id/btn_similar"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="4"
-                        android:background="@drawable/button_background_similar"
-                        android:text="@string/same_goods"
-                        android:textColor="@color/black" />
-
                     <ImageButton
                         android:id="@+id/basket_toolbar"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
                         android:background="@null"
                         android:contentDescription="@string/bye"
                         android:src="@mipmap/bye_toolbar" />

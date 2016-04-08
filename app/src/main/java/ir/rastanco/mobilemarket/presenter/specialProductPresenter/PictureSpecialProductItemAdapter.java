@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -40,7 +41,8 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
     private final ServerConnectionHandler serverConnectionHandler;
     private boolean isSelectedForShop=false;
     private final Drawable defaultPicture;
-
+    private final ServerConnectionHandler sch;
+    private boolean isLikeButtonClicked = true;
 
     public PictureSpecialProductItemAdapter(Context context,ArrayList<Product> products) {
         super(context,R.layout.picture_product_item_home,products);
@@ -48,13 +50,13 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
         allProduct=products;
         serverConnectionHandler =ServerConnectionHandler.getInstance(context);
         defaultPicture= Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().homeDisplaySizeForShow);
-
+        sch=ServerConnectionHandler.getInstance(myContext);
     }
 
     static class ViewHolder{
         private ImageButton shareBtn;
         private ImageButton basketToolbar;
-        private Button btnSimilar;
+        private ImageButton btnAddThisProductToFavorites;
         private ImageButton offerRight;
         private ImageLoader imgLoader;
         private ImageView picProductImage;
@@ -69,7 +71,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
             holder=new ViewHolder();
 
             holder.basketToolbar = (ImageButton)convertView.findViewById(R.id.basket_toolbar);
-            holder.btnSimilar=(Button) convertView.findViewById(R.id.btn_similar);
+            holder.btnAddThisProductToFavorites=(ImageButton) convertView.findViewById(R.id.imageButton_like_specialPage);
             holder.shareBtn = (ImageButton) convertView.findViewById(R.id.imageButton_share);
             holder.offerRight = (ImageButton)convertView.findViewById(R.id.ic_offer_right);
             holder.imgLoader = new ImageLoader(myContext,Configuration.getConfig().homeDisplaySizeForShow); // important
@@ -139,20 +141,42 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product>  {
             }
             }
         });
-        holder.btnSimilar.setOnClickListener(new View.OnClickListener() {
+        final Product eachProduct =allProduct.get(position);
+        if (sch.getAProduct(eachProduct.getId()).getLike()==0){
+            //this Product No Favorite
+            holder.btnAddThisProductToFavorites.setImageResource(R.mipmap.ic_like_toolbar);
+            isLikeButtonClicked=false;
+        }
+        else{
+
+            holder.btnAddThisProductToFavorites.setImageResource(R.mipmap.ic_like_filled_toolbar);
+            isLikeButtonClicked=true;
+        }
+        holder.btnAddThisProductToFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pageTitle= serverConnectionHandler.getTabTitleForSimilarProduct(allProduct.get(position).getGroupId());
-                int switchToPage=Configuration.getConfig().mainPager.getCurrentItem();
-                for (int i=0;i<Configuration.getConfig().mainPager.getAdapter().getCount();i++){
-                    if (Configuration.getConfig().mainPager.getAdapter().getPageTitle(i).toString().equals(pageTitle))
-                        switchToPage=i;
+
+                if (sch.getAProduct(eachProduct.getId()).getLike() == 0) {
+
+                    if(Configuration.getConfig().userLoginStatus)
+                        Toast.makeText(myContext, myContext.getResources().getString(R.string.thanks), Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(myContext,myContext.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
+
+                    holder.btnAddThisProductToFavorites.setImageResource(R.mipmap.ic_like_filled_toolbar);
+                    isLikeButtonClicked = true;
+                    sch.changeProductLike(eachProduct.getId(), 1);
+                } else if (sch.getAProduct(eachProduct.getId()).getLike() == 1) {
+
+                    if(!Configuration.getConfig().userLoginStatus)
+                        Toast.makeText(myContext,myContext.getResources().getString(R.string.pleaseLogin),Toast.LENGTH_LONG).show();
+
+                    holder.btnAddThisProductToFavorites.setImageResource(R.mipmap.ic_like_toolbar);
+                    isLikeButtonClicked = false;
+                    sch.changeProductLike(eachProduct.getId(), 0);
                 }
-                Configuration.getConfig().mainPager.setCurrentItem(switchToPage);
-                int parentId= serverConnectionHandler.getACategoryWithId(allProduct.get(position).getGroupId()).getParentId();
-                ObserverSimilarProduct.setSimilarProduct(parentId);
-           }
-       });
+            }
+        });
 
         holder.shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override

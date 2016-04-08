@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
     private Menu menu;
     private String version;
     private ProgressDialog pDialog;
+    private int exitSafeCounter = 0 ;
     private static final int progress_bar_type = 0;
 
 
@@ -344,7 +345,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        int exitSafeCounter = 0 ;
+
         //Clear Cache
         ImageLoader imageLoader=new ImageLoader(Configuration.getConfig().mainActivityContext,0);
         imageLoader.clearCache();
