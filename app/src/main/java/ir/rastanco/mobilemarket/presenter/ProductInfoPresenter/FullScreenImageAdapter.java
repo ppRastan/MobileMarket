@@ -121,39 +121,12 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
         final ImageButton btnLike = (ImageButton) viewLayout.findViewById(R.id.add_to_favorite);
 
-        if (sch.getAProduct(aProduct.getId()).getLike() == 0) {
-            //this Product No Favorite
-            btnLike.setImageResource(R.mipmap.ic_like_toolbar);
-        } else {
-
-            btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
-        }
+        ToolbarHandler.getInstance().LikeButtonDisplayer(sch,aProduct,btnLike);
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (sch.getAProduct(aProduct.getId()).getLike() == 0) {
 
-                    if (Configuration.getConfig().userLoginStatus)
-                        Toast.makeText(activity, activity.getResources().getString(R.string.thanks), Toast.LENGTH_LONG).show();
-                    else
-                        Toast.makeText(activity, activity.getResources().getString(R.string.pleaseLogin), Toast.LENGTH_LONG).show();
-
-                    btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
-                    aProduct.setLike(1);
-                    sch.changeProductLike(aProduct.getId(), 1);
-                    ObserverLike.setLikeStatus(position);
-
-
-                } else if (sch.getAProduct(aProduct.getId()).getLike() == 1) {
-
-                    if (!Configuration.getConfig().userLoginStatus)
-                        Toast.makeText(activity, activity.getResources().getString(R.string.pleaseLogin), Toast.LENGTH_LONG).show();
-
-                    btnLike.setImageResource(R.mipmap.ic_like_toolbar);
-                    aProduct.setLike(0);
-                    sch.changeProductLike(aProduct.getId(), 0);
-                    ObserverLike.setLikeStatus(position);
-                }
+                ToolbarHandler.getInstance().addToFavoriteInProductPage(sch,aProduct,btnLike , activity ,position);
             }
         });
 
@@ -162,11 +135,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentProductInfo = new Intent(viewLayout.getContext(), ProductOptionActivity.class);
-                intentProductInfo.putExtra("productId", aProduct.getId());
-                intentProductInfo.putExtra("groupId", aProduct.getGroupId());
-                viewLayout.getContext().startActivity(intentProductInfo);
-                activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+               ToolbarHandler.getInstance().displayInformationOfCurrentProduct(aProduct ,activity ,viewLayout.getContext());
 
             }
         });

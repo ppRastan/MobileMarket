@@ -2,9 +2,9 @@ package ir.rastanco.mobilemarket.utility;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.text.Layout;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -12,11 +12,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import java.util.Map;
-
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverLike;
+import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductOptionActivity;
 
 /**
  * Created by ParisaRashidhi on 29/03/2016.
@@ -124,7 +124,6 @@ public class ToolbarHandler {
                 Toast.makeText(myContext, myContext.getResources().getString(R.string.pleaseLogin), Toast.LENGTH_LONG).show();
 
             likeThisProduct.setImageResource(R.mipmap.ic_like_filled_toolbar);
-            isLikeButtonClicked = true;
             sch.changeProductLike(eachProduct.getId(), 1);
         } else if (sch.getAProduct(eachProduct.getId()).getLike() == 1) {
 
@@ -132,9 +131,54 @@ public class ToolbarHandler {
                 Toast.makeText(myContext, myContext.getResources().getString(R.string.pleaseLogin), Toast.LENGTH_LONG).show();
 
             likeThisProduct.setImageResource(R.mipmap.ic_like_toolbar);
-            isLikeButtonClicked = false;
             sch.changeProductLike(eachProduct.getId(), 0);
         }
 
+    }
+
+    public void addToFavoriteInProductPage(ServerConnectionHandler sch, Product aProduct, ImageButton btnLike, Activity activity, int position) {
+
+        if (sch.getAProduct(aProduct.getId()).getLike() == 0) {
+
+            if (Configuration.getConfig().userLoginStatus)
+                Toast.makeText(activity, activity.getResources().getString(R.string.thanks), Toast.LENGTH_LONG).show();
+            else
+                Toast.makeText(activity, activity.getResources().getString(R.string.pleaseLogin), Toast.LENGTH_LONG).show();
+
+            btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
+            aProduct.setLike(1);
+            sch.changeProductLike(aProduct.getId(), 1);
+            ObserverLike.setLikeStatus(position);
+
+
+        } else if (sch.getAProduct(aProduct.getId()).getLike() == 1) {
+
+            if (!Configuration.getConfig().userLoginStatus)
+                Toast.makeText(activity, activity.getResources().getString(R.string.pleaseLogin), Toast.LENGTH_LONG).show();
+
+            btnLike.setImageResource(R.mipmap.ic_like_toolbar);
+            aProduct.setLike(0);
+            sch.changeProductLike(aProduct.getId(), 0);
+            ObserverLike.setLikeStatus(position);
+        }
+}
+
+    public void displayInformationOfCurrentProduct(Product aProduct , Activity activity ,Context context) {
+
+        Intent intentProductInfo = new Intent(context, ProductOptionActivity.class);
+        intentProductInfo.putExtra("productId", aProduct.getId());
+        intentProductInfo.putExtra("groupId", aProduct.getGroupId());
+        context.startActivity(intentProductInfo);
+        activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+    }
+
+    public void LikeButtonDisplayer(ServerConnectionHandler sch , Product aProduct , ImageButton btnLike) {
+        if (sch.getAProduct(aProduct.getId()).getLike() == 0) {
+            //this Product No Favorite
+            btnLike.setImageResource(R.mipmap.ic_like_toolbar);
+        } else {
+
+            btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
+        }
     }
 }
