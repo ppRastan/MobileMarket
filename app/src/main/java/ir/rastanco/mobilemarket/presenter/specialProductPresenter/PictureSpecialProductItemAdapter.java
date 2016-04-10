@@ -1,13 +1,17 @@
 package ir.rastanco.mobilemarket.presenter.specialProductPresenter;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -125,7 +129,41 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         holder.shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToolbarHandler.getInstance().generalShare(myContext, allProduct.get(position).getLinkInSite());
+                //ToolbarHandler.getInstance().generalShare(myContext, allProduct.get(position).getLinkInSite());
+                final Dialog shareDialog = new Dialog(myContext);
+                shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                shareDialog.setContentView(R.layout.share_alert_dialog);
+                Button sendBtn = (Button) shareDialog.findViewById(R.id.send_my_pm);
+                final EditText editTextToShare = (EditText) shareDialog.findViewById(R.id.text_to_send);
+                ImageButton cancelShareDialog = (ImageButton)shareDialog.findViewById(R.id.close_pm_to_friend);
+                cancelShareDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        shareDialog.dismiss();
+                    }
+                });
+
+                sendBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String textToSend = editTextToShare.getText().toString();
+                        String Share = textToSend + "\n\n" +
+                                allProduct.get(position) + "\n\n" +
+                                myContext.getResources().getString(R.string.text_to_advertise) + "\n\n"
+                                + myContext.getResources().getString(R.string.LinkDownloadApp);
+
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_SUBJECT, textToSend);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
+                        sendIntent.setType("text/plain");
+                        myContext.startActivity(sendIntent);
+                        shareDialog.cancel();
+
+                    }
+                });
+                shareDialog.setCancelable(true);
+                shareDialog.show();
             }
         });
         holder.picProductImage.setImageDrawable(defaultPicture);
