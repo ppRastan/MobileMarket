@@ -313,6 +313,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                 if (newProducts.size() == 0) {
                     noThingToShow.setVisibility(View.VISIBLE);
                     gridview.setVisibility(View.GONE);
+                    mSwipeRefreshLayout.setRefreshing(false);
                 } else {
                     noThingToShow.setVisibility(View.GONE);
                     gridview.setVisibility(View.VISIBLE);
