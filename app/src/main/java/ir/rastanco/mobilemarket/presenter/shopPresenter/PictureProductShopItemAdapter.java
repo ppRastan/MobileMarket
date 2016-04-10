@@ -113,7 +113,7 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         if (eachProduct.getPriceOff() == 0 && eachProduct.getPrice() != 0) {
             holder.priceForYou.setVisibility(View.INVISIBLE);
             holder.originalPrice.setTextColor(Color.BLACK);
-            holder.originalPrice.setText(PriceUtility.getInstance().formatPriceCommaSeprated(eachProduct.getPrice()));
+            holder.originalPrice.setText(myContext.getResources().getString(R.string.eachPrice,PriceUtility.getInstance().formatPriceCommaSeprated(eachProduct.getPrice())));
             holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));;
             holder.basketToolbar.setVisibility(View.VISIBLE);
         } else if (eachProduct.getPrice() != 0) {
@@ -122,9 +122,9 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             int finalPrice = Utilities.getInstance().calculatePriceOffProduct(price, discountPercent);
             holder.originalPrice.setTextColor(Color.RED);
             holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            holder.originalPrice.setText(PriceUtility.getInstance().formatPriceCommaSeprated(price));
+            holder.originalPrice.setText(myContext.getResources().getString(R.string.eachPrice ,PriceUtility.getInstance().formatPriceCommaSeprated(price)));
             holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou, shopPresenterActivity);
-            holder.priceForYou.setText(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice));
+            holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice)));
             holder.priceForYou.setVisibility(View.VISIBLE);
             holder.basketToolbar.setVisibility(View.VISIBLE);
         } else if (eachProduct.getPriceOff() == 0) {
