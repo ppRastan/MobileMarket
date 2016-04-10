@@ -46,7 +46,7 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
     private final ServerConnectionHandler sch;
     private final Context myContext;
     private final Activity shopPresenterActivity;
-    private final Drawable defaultPicture;
+    private Drawable defaultPicture=null;
 
     public PictureProductShopItemAdapter(FragmentActivity mainActivity, ArrayList<Product> products) {
         super(mainActivity, R.layout.article_item, products);
@@ -55,7 +55,8 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         allProduct = products;
         sch = ServerConnectionHandler.getInstance(myContext);
         shopPresenterActivity = (Activity) myContext;
-        defaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().shopDisplaySizeForShow);
+        if (defaultPicture==null)
+            defaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().shopDisplaySizeForShow);
     }
 
     @Override

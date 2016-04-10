@@ -29,14 +29,15 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
 
     private final Activity myContext;
     private final ArrayList<Article> articles ;
-    private final Drawable defaultPicture;
+    private Drawable defaultPicture=null;
     private String articleImageURL;
 
     public ArticleItemAdapter(Context context, ArrayList<Article> allArticles) {
         super(context, R.layout.article_item, allArticles);
         myContext=(Activity)context;
         articles=allArticles;
-        defaultPicture= Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().articleDisplaySizeForShow);
+        if (defaultPicture==null)
+            defaultPicture= Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().articleDisplaySizeForShow);
     }
 
     static class ViewHolder{
