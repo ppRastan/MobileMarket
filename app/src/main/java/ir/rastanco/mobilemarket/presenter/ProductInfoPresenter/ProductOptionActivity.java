@@ -48,7 +48,6 @@ public class ProductOptionActivity extends Activity {
                 checkBackButtonState();
             }
         });
-        sch = new ServerConnectionHandler(Configuration.getConfig().productOptionActivityContext);
         ArrayList<ProductOption> options = sch.getAllProductOptionOfAProduct(productId, groupId);
         ListView lvProductOption = (ListView) findViewById(R.id.lv_productOption);
         ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.getConfig().productOptionActivityContext, options);
