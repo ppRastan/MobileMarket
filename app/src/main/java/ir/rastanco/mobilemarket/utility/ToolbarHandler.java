@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.text.Layout;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -23,14 +22,8 @@ import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductOptionActi
  * this class will handel toolbar icons listener
  */
 public class ToolbarHandler {
-    private Dialog shareDialog;
-    private Button sendBtn;
-    private EditText editTextToShare;
-    private ImageButton cancelShareDialog;
-    private String textToSend;
-    private Intent sendIntent;
     private static ToolbarHandler toolbarHandler;
-
+    private ImageButton cancelShareDialog;
     public static ToolbarHandler getInstance() {
         if (toolbarHandler == null) {
             toolbarHandler = new ToolbarHandler();
@@ -40,12 +33,12 @@ public class ToolbarHandler {
     }
 
     public void generalShare(final Activity activity, final String product) {
-        shareDialog = new Dialog(activity);
+        final Dialog shareDialog = new Dialog(activity);
         shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         shareDialog.setContentView(R.layout.share_alert_dialog);
-        sendBtn = (Button) shareDialog.findViewById(R.id.send_my_pm);
-        editTextToShare = (EditText) shareDialog.findViewById(R.id.text_to_send);
-        cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
+        Button sendBtn = (Button) shareDialog.findViewById(R.id.send_my_pm);
+        final EditText editTextToShare = (EditText) shareDialog.findViewById(R.id.text_to_send);
+        cancelShareDialog = (ImageButton)shareDialog.findViewById(R.id.close_pm_to_friend);
         cancelShareDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,13 +49,13 @@ public class ToolbarHandler {
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textToSend = editTextToShare.getText().toString();
+                String textToSend = editTextToShare.getText().toString();
                 String Share = textToSend + "\n\n" +
                         product + "\n\n" +
                         activity.getResources().getString(R.string.text_to_advertise) + "\n\n"
                         + activity.getResources().getString(R.string.LinkDownloadApp);
 
-                sendIntent = new Intent();
+                Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_SUBJECT, textToSend);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
@@ -79,38 +72,38 @@ public class ToolbarHandler {
     public void shareByTelegram(final Activity activity, String eachProduct) {
         final String appName = "org.telegram.messenger";
         final String visitProductLinkInSite = eachProduct;
-        shareDialog = new Dialog(activity);
-        shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        shareDialog.setContentView(R.layout.share_alert_dialog);
-        cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
-        sendBtn = (Button) shareDialog.findViewById(R.id.send_my_pm);
-        editTextToShare = (EditText) shareDialog.findViewById(R.id.text_to_send);
+        final Dialog shareByTelegram = new Dialog(activity);
+        shareByTelegram.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        shareByTelegram.setContentView(R.layout.share_alert_dialog);
+        cancelShareDialog = (ImageButton) shareByTelegram.findViewById(R.id.close_pm_to_friend);
+        Button sendBtn = (Button) shareByTelegram.findViewById(R.id.send_my_pm);
+        final EditText editTextToShare = (EditText) shareByTelegram.findViewById(R.id.text_to_send);
         cancelShareDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                shareDialog.dismiss();
+                shareByTelegram.dismiss();
             }
         });
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textToSend = editTextToShare.getText().toString();
-                String Share = textToSend + "\n\n" +
+                String telegramTextToSend = editTextToShare.getText().toString();
+                String Share = telegramTextToSend + "\n\n" +
                         visitProductLinkInSite + "\n\n" +
                         activity.getResources().getString(R.string.text_to_advertise) + "\n\n"
                         + activity.getResources().getString(R.string.LinkDownloadApp);
-                sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_SUBJECT, textToSend);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
-                sendIntent.setType("text/plain");
-                sendIntent.setPackage(appName);
-                activity.startActivity(sendIntent);
-                shareDialog.cancel();
+                Intent telegramSendIntent = new Intent();
+                telegramSendIntent.setAction(Intent.ACTION_SEND);
+                telegramSendIntent.putExtra(Intent.EXTRA_SUBJECT, telegramTextToSend);
+                telegramSendIntent.putExtra(Intent.EXTRA_TEXT, Share);
+                telegramSendIntent.setType("text/plain");
+                telegramSendIntent.setPackage(appName);
+                activity.startActivity(telegramSendIntent);
+                shareByTelegram.cancel();
             }
         });
-        shareDialog.setCancelable(true);
-        shareDialog.show();
+        shareByTelegram.setCancelable(true);
+        shareByTelegram.show();
     }
 
 
@@ -161,9 +154,9 @@ public class ToolbarHandler {
             sch.changeProductLike(aProduct.getId(), 0);
             ObserverLike.setLikeStatus(position);
         }
-}
+    }
 
-    public void displayInformationOfCurrentProduct(Product aProduct , Activity activity ,Context context) {
+    public void displayInformationOfCurrentProduct(Product aProduct, Activity activity, Context context) {
 
         Intent intentProductInfo = new Intent(context, ProductOptionActivity.class);
         intentProductInfo.putExtra("productId", aProduct.getId());
