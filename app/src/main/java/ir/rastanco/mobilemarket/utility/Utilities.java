@@ -57,7 +57,7 @@ public class Utilities {
     }
 
     public int getAtLeastHighestPrice() {
-        return oneMillion;
+        return overOneMillion;
     }
 
     public int getStartArticleNumber() {
