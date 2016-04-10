@@ -1,5 +1,6 @@
 package ir.rastanco.mobilemarket.presenter.specialProductPresenter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -15,17 +16,22 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
+import ir.rastanco.mobilemarket.presenter.Services.UpdateService;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.Link;
 
 /**
  * Created by ShaisteS on 1394/12/09.
  * This Fragment show specialProduct(specialProduct is a product that discount or showAtHomeProduct=1)
  */
-public class SpecialProductFragment extends Fragment {
+public class SpecialProductFragment extends Fragment implements DownloadResultReceiver.Receiver {
 
     private ServerConnectionHandler sch;
     private ArrayList<Product> products;
+    private DownloadResultReceiver mReceiver;
+    private ListView productListView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,11 +40,10 @@ public class SpecialProductFragment extends Fragment {
         products = new ArrayList<>();
         products = sch.getSpecialProduct();
         View mainView = inflater.inflate(R.layout.fragment_home, container, false);
-        final ListView productListView = (ListView) mainView.findViewById(R.id.listView_picProduct);
+        productListView = (ListView) mainView.findViewById(R.id.listView_picProduct);
         PictureSpecialProductItemAdapter adapter = new PictureSpecialProductItemAdapter(getActivity(), products);
         productListView.setAdapter(adapter);
-        final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout)
-                mainView.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout = (SwipeRefreshLayout)mainView.findViewById(R.id.swipe_refresh_layout);
         //refresh grid view
         mSwipeRefreshLayout.setEnabled(false);
         productListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -64,24 +69,24 @@ public class SpecialProductFragment extends Fragment {
                     Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.VISIBLE);
                 else
                     Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.GONE);
-
-
             }
         });
+        mReceiver = new DownloadResultReceiver(new Handler());
+        mReceiver.setReceiver(this);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        sch.refreshCategories(Link.getInstance().generateURLForGetAllCategories());
+                        /*sch.refreshCategories(Link.getInstance().generateURLForGetAllCategories());
                         sch.getNewProducts();
-                        sch.getEditProducts();
-                        products = sch.getSpecialProduct();
-                        PictureSpecialProductItemAdapter newAdapter = new PictureSpecialProductItemAdapter(getActivity(), products);
-                        productListView.setAdapter(newAdapter);
-                        newAdapter.notifyDataSetChanged();
-                        mSwipeRefreshLayout.setRefreshing(false);
+                        sch.getEditProducts();*/
+                        Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), UpdateService.class);
+                        intent.putExtra("receiver", mReceiver);
+                        intent.putExtra("requestId", 101);
+                        getActivity().startService(intent);
+
                     }
                 }, 5000);
             }
@@ -90,5 +95,20 @@ public class SpecialProductFragment extends Fragment {
         return mainView;
 
 
+    }
+
+    @Override
+    public void onReceiveResult(int resultCode, Bundle resultData) {
+        switch (resultCode) {
+
+            case UpdateService.STATUS_FINISHED:
+                products = sch.getSpecialProduct();
+                PictureSpecialProductItemAdapter newAdapter = new PictureSpecialProductItemAdapter(getActivity(), products);
+                productListView.setAdapter(newAdapter);
+                newAdapter.notifyDataSetChanged();
+                mSwipeRefreshLayout.setRefreshing(false);
+                break;
+
+        }
     }
 }

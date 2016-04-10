@@ -1,5 +1,6 @@
 package ir.rastanco.mobilemarket.presenter.shopPresenter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -33,14 +34,15 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverLike;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverLikeListener;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProductListener;
+import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
+import ir.rastanco.mobilemarket.presenter.Services.UpdateService;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 /**
  * Created by ShaisteS on 1394/12/09.
  */
-public class ShopFragment extends Fragment {
+public class ShopFragment extends Fragment implements DownloadResultReceiver.Receiver  {
 
 
     private ServerConnectionHandler sch;
@@ -48,6 +50,12 @@ public class ShopFragment extends Fragment {
     private TextView txtFilterCategorySelected;
     private FragmentActivity myContext;
     private TextView noThingToShow;
+    private DownloadResultReceiver mReceiver;
+    private int pageId;
+    private GridView gridview;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,7 +63,6 @@ public class ShopFragment extends Fragment {
         final View mainView = inflater.inflate(R.layout.fragment_shop, container, false);
         Configuration.getConfig().shopFragmentContext = getContext();
         myContext = (FragmentActivity) Configuration.getConfig().shopFragmentContext;
-        final int pageId;
         pageId = getArguments().getInt("pageId");
         sch = ServerConnectionHandler.getInstance(getContext());
         ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
@@ -63,7 +70,7 @@ public class ShopFragment extends Fragment {
         txtFilterCategorySelected = (TextView) mainView.findViewById(R.id.group_dialog_text);
         noThingToShow = (TextView) mainView.findViewById(R.id.no_thing_to_show1);
         noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow, myContext);
-        final GridView gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
+        gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
         if (products.size() == 0) {
             noThingToShow.setVisibility(View.VISIBLE);
             gridview.setVisibility(View.GONE);
@@ -76,8 +83,7 @@ public class ShopFragment extends Fragment {
         gridview.setAdapter(adapter);
 
         //refresh grid view
-        final SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout)
-                mainView.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout = (SwipeRefreshLayout)mainView.findViewById(R.id.swipe_refresh_layout);
         //mSwipeRefreshLayout.setEnabled(true);
         mSwipeRefreshLayout.setEnabled(false);
         gridview.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -119,30 +125,21 @@ public class ShopFragment extends Fragment {
             }
         });
 
+        mReceiver = new DownloadResultReceiver(new Handler());
+        mReceiver.setReceiver(this);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        sch.refreshCategories(Link.getInstance().generateURLForGetAllCategories());
+                        /*sch.refreshCategories(Link.getInstance().generateURLForGetAllCategories());
                         sch.getNewProducts();
-                        sch.getEditProducts();
-                        ArrayList<Product> newProducts = sch.getProductAfterRefresh(pageId,
-                                Configuration.getConfig().filterCategoryId,
-                                txtFilterOptionProductSelected.getText().toString(),
-                                Configuration.getConfig().filterOption);
-                        if (newProducts.size() == 0) {
-                            noThingToShow.setVisibility(View.VISIBLE);
-                            gridview.setVisibility(View.GONE);
-                        } else {
-                            noThingToShow.setVisibility(View.GONE);
-                            gridview.setVisibility(View.VISIBLE);
-                            PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
-                            gridview.setAdapter(newAdapter);
-                            newAdapter.notifyDataSetChanged();
-                            mSwipeRefreshLayout.setRefreshing(false);
-                        }
+                        sch.getEditProducts();*/
+                        Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), UpdateService.class);
+                        intent.putExtra("receiver", mReceiver);
+                        intent.putExtra("requestId", 101);
+                        getActivity().startService(intent);
                     }
                 }, 5000);
             }
@@ -301,5 +298,34 @@ public class ShopFragment extends Fragment {
             }
         });
         return mainView;
+    }
+
+    @Override
+    public void onReceiveResult(int resultCode, Bundle resultData) {
+
+        switch (resultCode) {
+
+            case UpdateService.STATUS_FINISHED:
+                ArrayList<Product> newProducts = sch.getProductAfterRefresh(pageId,
+                        Configuration.getConfig().filterCategoryId,
+                        txtFilterOptionProductSelected.getText().toString(),
+                        Configuration.getConfig().filterOption);
+                if (newProducts.size() == 0) {
+                    noThingToShow.setVisibility(View.VISIBLE);
+                    gridview.setVisibility(View.GONE);
+                } else {
+                    noThingToShow.setVisibility(View.GONE);
+                    gridview.setVisibility(View.VISIBLE);
+                    PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
+                    gridview.setAdapter(newAdapter);
+                    newAdapter.notifyDataSetChanged();
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+
+               break;
+
+        }
+
+
     }
 }

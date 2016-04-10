@@ -51,6 +51,7 @@
 
         <service android:name=".presenter.Services.NotificationService" />
         <service android:name=".presenter.Services.DownloadService"/>
+        <service android:name=".presenter.Services.UpdateService"/>
 
         <receiver android:name=".presenter.Services.UpdateEveryConnectionOk">
             <intent-filter>

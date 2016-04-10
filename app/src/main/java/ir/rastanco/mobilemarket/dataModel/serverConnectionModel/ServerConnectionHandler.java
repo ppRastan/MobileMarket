@@ -16,6 +16,7 @@ import ir.rastanco.mobilemarket.dataModel.ProductShop;
 import ir.rastanco.mobilemarket.dataModel.UserInfo;
 import ir.rastanco.mobilemarket.dataModel.dataBaseConnectionModel.DataBaseHandler;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.GetFile;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.GetFileNoAsync;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonArticles;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonAuthorize;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonCategory;
@@ -114,13 +115,15 @@ public class ServerConnectionHandler {
     //Category
 
     public ArrayList<Category> getAllCategoryInfoURL(String url){
-        GetFile jParserCategory = new GetFile();
+        GetFileNoAsync getJsonCategory=new GetFileNoAsync();
+        String jsonCategory=getJsonCategory.getFile(url);
+        /*GetFile jParserCategory = new GetFile();
         String jsonCategory= null;
         try {
             jsonCategory = jParserCategory.execute(url).get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-        }
+        }*/
         return new ParseJsonCategory().getAllCategory(jsonCategory);
     }
 
@@ -330,14 +333,18 @@ public class ServerConnectionHandler {
     }
 
     public ArrayList<Product> getAllProductFromURL(String url,int firstIndex,int lastIndex,Boolean lastIndexValidStatus ){
-        if (jsonStringProduct.equals("")){
+       if (jsonStringProduct.equals("")){
+           GetFileNoAsync getJsonProductFile=new GetFileNoAsync();
+           jsonStringProduct=getJsonProductFile.getFile(url);
+       }
+        /*if (jsonStringProduct.equals("")){
             GetFile jsonProductsFile = new GetFile();
             try {
                 jsonStringProduct = jsonProductsFile.execute(url).get();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
         return new ParseJsonProduct().ParseJsonProducts(jsonStringProduct,firstIndex,lastIndex,lastIndexValidStatus);
     }
 
