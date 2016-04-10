@@ -76,8 +76,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
         ImageButton offerImageButton = (ImageButton) viewLayout.findViewById(R.id.ic_offer_full_screen_right);
         final Product aProduct = products.get(position);
         Button addToBasketBtn = (Button) viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
-        TextView nameOfCurrentProduct = (TextView) viewLayout.findViewById(R.id.name_of_photo);
-        nameOfCurrentProduct.setText(aProduct.getTitle());
+        //TextView nameOfCurrentProduct = (TextView) viewLayout.findViewById(R.id.name_of_photo);
+        //nameOfCurrentProduct.setText(aProduct.getTitle());
 
         setProductQuality(aProduct.getQualityRank());
         if (aProduct.getPrice() == 0) {
