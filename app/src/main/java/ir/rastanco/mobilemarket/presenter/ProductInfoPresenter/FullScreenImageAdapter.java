@@ -79,7 +79,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         //TextView nameOfCurrentProduct = (TextView) viewLayout.findViewById(R.id.name_of_photo);
         //nameOfCurrentProduct.setText(aProduct.getTitle());
 
-        setProductQuality(aProduct.getQualityRank());
+        //setProductQuality(aProduct.getQualityRank());
         if (aProduct.getPrice() == 0) {
             addToBasketBtn.setText(activity.getString(R.string.coming_soon));
             addToBasketBtn.setCompoundDrawables(null, null, null, null);
@@ -232,29 +232,29 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
     }
 
-    private void setProductQuality(String quality) {
-        ImageView imgProductQuality = (ImageView) viewLayout.findViewById(R.id.img_ProductQuality);
-        switch (quality) {
-            case "a":
-                imgProductQuality.setImageResource(R.drawable.darajeha);
-                break;
-            case "b":
-                imgProductQuality.setImageResource(R.drawable.darajehb);
-                break;
-            case "c":
-                imgProductQuality.setImageResource(R.drawable.darajehc);
-                break;
-            case "d":
-                imgProductQuality.setImageResource(R.drawable.darajehd);
-                break;
-            case "e":
-                imgProductQuality.setImageResource(R.drawable.darajehe);
-                break;
-            case "f":
-                imgProductQuality.setImageResource(R.drawable.darajehf);
-                break;
-        }
-
-
-    }
+//    private void setProductQuality(String quality) {
+//        ImageView imgProductQuality = (ImageView) viewLayout.findViewById(R.id.img_ProductQuality);
+//        switch (quality) {
+//            case "a":
+//                imgProductQuality.setImageResource(R.drawable.darajeha);
+//                break;
+//            case "b":
+//                imgProductQuality.setImageResource(R.drawable.darajehb);
+//                break;
+//            case "c":
+//                imgProductQuality.setImageResource(R.drawable.darajehc);
+//                break;
+//            case "d":
+//                imgProductQuality.setImageResource(R.drawable.darajehd);
+//                break;
+//            case "e":
+//                imgProductQuality.setImageResource(R.drawable.darajehe);
+//                break;
+//            case "f":
+//                imgProductQuality.setImageResource(R.drawable.darajehf);
+//                break;
+//        }
+//
+//
+//    }
 }
