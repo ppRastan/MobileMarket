@@ -8,10 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -22,7 +20,6 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
-import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -40,7 +37,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
     private final ArrayList<Product> allProduct;
     private final ServerConnectionHandler serverConnectionHandler;
     //private boolean isSelectedForShop = false;
-    private final Drawable defaultPicture;
+    private Drawable defaultPicture=null;
     private final ServerConnectionHandler sch;
     private boolean isLikeButtonClicked = true;
 
@@ -49,7 +46,8 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         myContext = (Activity) context;
         allProduct = products;
         serverConnectionHandler = ServerConnectionHandler.getInstance(context);
-        defaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().homeDisplaySizeForShow);
+        if(defaultPicture==null)
+            defaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().homeDisplaySizeForShow);
         sch = ServerConnectionHandler.getInstance(myContext);
     }
 

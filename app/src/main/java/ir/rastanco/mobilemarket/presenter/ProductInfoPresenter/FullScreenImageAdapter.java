@@ -18,7 +18,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -28,7 +27,6 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-import ir.rastanco.mobilemarket.presenter.Observer.ObserverLike;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -45,8 +43,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private final int productsSize;
     private View viewLayout;
     private Context myContext;
-    private final Drawable largeDefaultPicture;
-    private final Drawable smallDefaultPicture;
+    private Drawable largeDefaultPicture=null;
+    private Drawable smallDefaultPicture=null;
 
     public FullScreenImageAdapter(Activity activity, ArrayList<Product> allProducts, int allProductSize) {
         this.activity = activity;
@@ -54,8 +52,10 @@ public class FullScreenImageAdapter extends PagerAdapter {
         this.productsSize = allProductSize;
         myContext = Configuration.getConfig().productInfoActivityContext;
         sch = ServerConnectionHandler.getInstance(myContext);
-        largeDefaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().homeDisplaySizeForShow);
-        smallDefaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().articleDisplaySizeForShow);
+        if (largeDefaultPicture==null)
+            largeDefaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().homeDisplaySizeForShow);
+        if (smallDefaultPicture==null)
+            smallDefaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().articleDisplaySizeForShow);
     }
 
     @Override
