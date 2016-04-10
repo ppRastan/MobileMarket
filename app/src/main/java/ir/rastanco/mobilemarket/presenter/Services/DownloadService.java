@@ -51,6 +51,8 @@ public class DownloadService extends IntentService {
                 if (Configuration.getConfig().emptyProductTable){
                     String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
                     serverConnectionHandler.setProducts(serverConnectionHandler.getAllProductFromURL(url, 0, 0, false));
+                    //Test 7000 product
+                    //serverConnectionHandler.setProducts(serverConnectionHandler.get7000ProductFromURL(url, 0, 0, false));
                     serverConnectionHandler.addAllProductToTable(serverConnectionHandler.getProducts());
                     Configuration.getConfig().emptyProductTable=false;
                 }

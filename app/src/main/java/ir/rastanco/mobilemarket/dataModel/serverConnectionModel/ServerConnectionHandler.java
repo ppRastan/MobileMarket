@@ -23,6 +23,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJ
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonComments;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonKey;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonLastShop;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct7000;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProductOption;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ParseJson.ParseJsonProduct;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -346,6 +347,22 @@ public class ServerConnectionHandler {
             }
         }*/
         return new ParseJsonProduct().ParseJsonProducts(jsonStringProduct,firstIndex,lastIndex,lastIndexValidStatus);
+    }
+
+    public ArrayList<Product> get7000ProductFromURL(String url,int firstIndex,int lastIndex,Boolean lastIndexValidStatus ){
+        if (jsonStringProduct.equals("")){
+            GetFileNoAsync getJsonProductFile=new GetFileNoAsync();
+            jsonStringProduct=getJsonProductFile.getFile(url);
+        }
+        /*if (jsonStringProduct.equals("")){
+            GetFile jsonProductsFile = new GetFile();
+            try {
+                jsonStringProduct = jsonProductsFile.execute(url).get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }*/
+        return new ParseJsonProduct7000().ParseJsonProducts(jsonStringProduct,firstIndex,lastIndex,lastIndexValidStatus);
     }
 
     public void addProductInformationToDataBaseFirstInstall(String url){
