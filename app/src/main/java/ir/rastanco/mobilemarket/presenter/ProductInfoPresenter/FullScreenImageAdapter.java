@@ -162,8 +162,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
             }
         });
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
-        imgProduct.getLayoutParams().width = Configuration.getConfig().homeDisplaySizeForShow;
-        imgProduct.getLayoutParams().height = Configuration.getConfig().productInfoHeightForShow;
+        //imgProduct.getLayoutParams().width = Configuration.getConfig().homeDisplaySizeForShow;
+        //imgProduct.getLayoutParams().height = Configuration.getConfig().productInfoHeightForShow;
         imgProduct.setImageDrawable(largeDefaultPicture);
         final ImageLoader imgLoader = new ImageLoader(Configuration.getConfig().productInfoActivityContext); // important
 
