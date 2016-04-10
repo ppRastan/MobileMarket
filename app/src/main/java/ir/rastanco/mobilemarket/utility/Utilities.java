@@ -16,6 +16,7 @@ import ir.rastanco.mobilemarket.R;
  * Created by ShaisteS on 1395/1/8.
  * This class include utility Method
  */
+//test
 public class Utilities {
 
     private final int oneMillion = 1000000;
