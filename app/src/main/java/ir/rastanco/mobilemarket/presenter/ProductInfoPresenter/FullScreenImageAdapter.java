@@ -43,8 +43,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private final int productsSize;
     private View viewLayout;
     private Context myContext;
-    private Drawable largeDefaultPicture=null;
-    private Drawable smallDefaultPicture=null;
+    private Drawable largeDefaultPicture = null;
+    private Drawable smallDefaultPicture = null;
 
     public FullScreenImageAdapter(Activity activity, ArrayList<Product> allProducts, int allProductSize) {
         this.activity = activity;
@@ -52,9 +52,9 @@ public class FullScreenImageAdapter extends PagerAdapter {
         this.productsSize = allProductSize;
         myContext = Configuration.getConfig().productInfoActivityContext;
         sch = ServerConnectionHandler.getInstance(myContext);
-        if (largeDefaultPicture==null)
+        if (largeDefaultPicture == null)
             largeDefaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().homeDisplaySizeForShow);
-        if (smallDefaultPicture==null)
+        if (smallDefaultPicture == null)
             smallDefaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, myContext, Configuration.getConfig().articleDisplaySizeForShow);
     }
 
@@ -76,10 +76,9 @@ public class FullScreenImageAdapter extends PagerAdapter {
         ImageButton offerImageButton = (ImageButton) viewLayout.findViewById(R.id.ic_offer_full_screen_right);
         final Product aProduct = products.get(position);
         Button addToBasketBtn = (Button) viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
-        //TextView nameOfCurrentProduct = (TextView) viewLayout.findViewById(R.id.name_of_photo);
-        //nameOfCurrentProduct.setText(aProduct.getTitle());
-
-        //setProductQuality(aProduct.getQualityRank());
+        TextView nameOfCurrentProduct = (TextView) viewLayout.findViewById(R.id.name_of_photo);
+        nameOfCurrentProduct.setText(aProduct.getTitle());
+        setProductQuality(aProduct.getQualityRank());
         if (aProduct.getPrice() == 0) {
             addToBasketBtn.setText(activity.getString(R.string.coming_soon));
             addToBasketBtn.setCompoundDrawables(null, null, null, null);
@@ -88,9 +87,9 @@ public class FullScreenImageAdapter extends PagerAdapter {
         }
         if (aProduct.getPriceOff() != 0) {
 
-               offerImageButton.setVisibility(View.VISIBLE);
+            offerImageButton.setVisibility(View.VISIBLE);
         } else {
-             offerImageButton.setVisibility(View.GONE);
+            offerImageButton.setVisibility(View.GONE);
         }
         if (aProduct.getPriceOff() == 0 && aProduct.getPrice() != 0) {
             int price = aProduct.getPrice();
@@ -121,18 +120,18 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
         final ImageButton btnLike = (ImageButton) viewLayout.findViewById(R.id.add_to_favorite);
 
-            if (sch.getAProduct(aProduct.getId()).getLike() == 0) {
-                //this Product No Favorite
-                btnLike.setImageResource(R.mipmap.ic_like_toolbar);
-            } else {
+        if (sch.getAProduct(aProduct.getId()).getLike() == 0) {
+            //this Product No Favorite
+            btnLike.setImageResource(R.mipmap.ic_like_toolbar);
+        } else {
 
-                btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
-            }
+            btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
+        }
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                ToolbarHandler.getInstance().addToFavoriteInProductPage(sch,aProduct,btnLike , activity ,position);
+                ToolbarHandler.getInstance().addToFavoriteInProductPage(sch, aProduct, btnLike, activity, position);
             }
         });
 
@@ -141,7 +140,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         btnInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               ToolbarHandler.getInstance().displayInformationOfCurrentProduct(aProduct ,activity ,viewLayout.getContext());
+                ToolbarHandler.getInstance().displayInformationOfCurrentProduct(aProduct, activity, viewLayout.getContext());
 
             }
         });
@@ -162,8 +161,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
             }
         });
         final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
-        //imgProduct.getLayoutParams().width = Configuration.getConfig().homeDisplaySizeForShow;
-        //imgProduct.getLayoutParams().height = Configuration.getConfig().productInfoHeightForShow;
+        imgProduct.getLayoutParams().width = Configuration.getConfig().homeDisplaySizeForShow;
+        imgProduct.getLayoutParams().height = Configuration.getConfig().productInfoHeightForShow;
         imgProduct.setImageDrawable(largeDefaultPicture);
         final ImageLoader imgLoader = new ImageLoader(Configuration.getConfig().productInfoActivityContext); // important
 
@@ -232,29 +231,29 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
     }
 
-//    private void setProductQuality(String quality) {
-//        ImageView imgProductQuality = (ImageView) viewLayout.findViewById(R.id.img_ProductQuality);
-//        switch (quality) {
-//            case "a":
-//                imgProductQuality.setImageResource(R.drawable.darajeha);
-//                break;
-//            case "b":
-//                imgProductQuality.setImageResource(R.drawable.darajehb);
-//                break;
-//            case "c":
-//                imgProductQuality.setImageResource(R.drawable.darajehc);
-//                break;
-//            case "d":
-//                imgProductQuality.setImageResource(R.drawable.darajehd);
-//                break;
-//            case "e":
-//                imgProductQuality.setImageResource(R.drawable.darajehe);
-//                break;
-//            case "f":
-//                imgProductQuality.setImageResource(R.drawable.darajehf);
-//                break;
-//        }
-//
-//
-//    }
+    private void setProductQuality(String quality) {
+        ImageView imgProductQuality = (ImageView) viewLayout.findViewById(R.id.img_ProductQuality);
+        switch (quality) {
+            case "a":
+                imgProductQuality.setImageResource(R.drawable.darajeha);
+                break;
+            case "b":
+                imgProductQuality.setImageResource(R.drawable.darajehb);
+                break;
+            case "c":
+                imgProductQuality.setImageResource(R.drawable.darajehc);
+                break;
+            case "d":
+                imgProductQuality.setImageResource(R.drawable.darajehd);
+                break;
+            case "e":
+                imgProductQuality.setImageResource(R.drawable.darajehe);
+                break;
+            case "f":
+                imgProductQuality.setImageResource(R.drawable.darajehf);
+                break;
+        }
+
+
+    }
 }
