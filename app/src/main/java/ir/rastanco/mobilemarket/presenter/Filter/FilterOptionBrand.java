@@ -61,8 +61,8 @@ public class FilterOptionBrand extends DialogFragment {
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, brandFilter);
+        brandFilter.add(0,Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all));
         listCategory.setAdapter(adapter);
-
         listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -94,6 +94,7 @@ public class FilterCategory extends DialogFragment {
                     ArrayList<String> subCategoryChildTitle = sch.getTitleOfChildOfACategory(catId);
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                             android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
+                    subCategoryChildTitle.add(0,dialogView.getResources().getString(R.string.all));
                     listCategory.setAdapter(adapter);
                     mapCategoryTitleToId = sch.MapTitleToIDForChildOfACategory(catId);
 
