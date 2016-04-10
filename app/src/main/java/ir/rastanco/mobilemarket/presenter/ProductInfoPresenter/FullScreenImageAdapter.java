@@ -121,7 +121,13 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
         final ImageButton btnLike = (ImageButton) viewLayout.findViewById(R.id.add_to_favorite);
 
-        ToolbarHandler.getInstance().LikeButtonDisplayer(sch,aProduct,btnLike);
+            if (sch.getAProduct(aProduct.getId()).getLike() == 0) {
+                //this Product No Favorite
+                btnLike.setImageResource(R.mipmap.ic_like_toolbar);
+            } else {
+
+                btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
+            }
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

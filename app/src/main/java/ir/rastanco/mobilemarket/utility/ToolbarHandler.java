@@ -172,13 +172,4 @@ public class ToolbarHandler {
         activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
     }
 
-    public void LikeButtonDisplayer(ServerConnectionHandler sch , Product aProduct , ImageButton btnLike) {
-        if (sch.getAProduct(aProduct.getId()).getLike() == 0) {
-            //this Product No Favorite
-            btnLike.setImageResource(R.mipmap.ic_like_toolbar);
-        } else {
-
-            btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
-        }
-    }
 }
