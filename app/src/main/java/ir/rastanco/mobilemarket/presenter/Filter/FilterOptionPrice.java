@@ -62,16 +62,24 @@ public class FilterOptionPrice extends DialogFragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, priceFilter);
         priceFilter.add(0,Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all));
+        if (priceFilter.equals(dialogView.getResources().getString(R.string.all))) {
+            Intent args = new Intent();
+            args.putExtra("all", 0);
+            setTargetFragment(getFragmentManager().findFragmentByTag("category"), 1);
+            onActivityResult(getTargetRequestCode(), 1, args);
+            dismiss();
+        }
         listCategory.setAdapter(adapter);
 
         listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent args = new Intent();
-                args.putExtra("priceTitle", parent.getItemAtPosition(position).toString());
-                getTargetFragment().onActivityResult(getTargetRequestCode(), 0, args);
-                dismiss();
+//                Intent args = new Intent();
+//                args.putExtra("priceTitle", parent.getItemAtPosition(position).toString());
+//                getTargetFragment().onActivityResult(getTargetRequestCode(), 0, args);
+//                dismiss();
+                //TODO for shayeste please add all button actionlistener
             }
         });
         return dialogView;
