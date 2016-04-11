@@ -33,10 +33,10 @@ public class ToolbarHandler {
         return toolbarHandler;
     }
 
-    public void generalShare(final Activity activity,String product) {
+    public void generalShare(Activity activity,String product) {
         this.toolbarHandlerActivity = activity;
         this.currentProductToShare = product;
-        final Dialog shareDialog = new Dialog(activity);
+        final Dialog shareDialog = new Dialog(toolbarHandlerActivity);
         shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         shareDialog.setContentView(R.layout.share_alert_dialog);
         Button sendBtn = (Button) shareDialog.findViewById(R.id.send_my_pm);
