@@ -33,6 +33,10 @@
             android:id="@+id/img_productInfo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
             android:background="@color/white"
             android:contentDescription="@string/productFullScreenPhoto"
             android:scaleType="centerInside" />
@@ -58,7 +62,6 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:padding="2dp"
-        android:layout_above="@+id/footer"
         android:layout_weight="4"
         android:scrollbars="none">
 
