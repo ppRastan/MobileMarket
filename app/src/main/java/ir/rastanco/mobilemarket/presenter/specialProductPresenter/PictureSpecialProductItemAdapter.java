@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -46,6 +47,9 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
     private Drawable defaultPicture=null;
     private final ServerConnectionHandler sch;
     private boolean isLikeButtonClicked = true;
+    private String textToSend = null;
+    private Dialog shareDialog;
+    private Intent sendIntent;
 
     public PictureSpecialProductItemAdapter(Context context, ArrayList<Product> products) {
         super(context, R.layout.picture_product_item_home, products);
@@ -66,6 +70,9 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         private ImageView picProductImage;
         private TextView priceOff;
         private TextView priceForYou;
+        ImageButton cancelShareDialog;
+        Button sendBtn;
+        EditText editTextToShare;
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -141,7 +148,41 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         holder.shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToolbarHandler.getInstance().generalShare(myContext, allProduct.get(position).getLinkInSite());
+               // ToolbarHandler.getInstance().generalShare(myContext, allProduct.get(position).getLinkInSite());
+                shareDialog = new Dialog(myContext);
+                shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                shareDialog.setContentView(R.layout.share_alert_dialog);
+                holder.cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
+                holder.sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
+                holder.editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
+                holder.cancelShareDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        shareDialog.dismiss();
+                    }
+                });
+                holder.sendBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        holder.sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
+                        textToSend = holder.editTextToShare.getText().toString();
+                        String Share = textToSend + "\n\n" +
+                                allProduct.get(position).getLinkInSite() + "\n\n" +
+                                myContext.getResources().getString(R.string.text_to_advertise) + "\n\n"
+                                + myContext.getResources().getString(R.string.LinkDownloadApp);
+
+                        sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_SUBJECT, textToSend);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
+                        sendIntent.setType("text/plain");
+                        myContext.startActivity(sendIntent);
+                        shareDialog.cancel();
+                    }
+                });
+
+                shareDialog.setCancelable(true);
+                shareDialog.show();
             }
         });
         holder.picProductImage.setImageDrawable(defaultPicture);

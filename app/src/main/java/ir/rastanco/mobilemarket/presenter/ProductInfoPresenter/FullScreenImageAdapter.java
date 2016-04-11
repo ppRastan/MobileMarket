@@ -6,14 +6,18 @@ package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
  */
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,6 +50,12 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private Context myContext;
     private Drawable largeDefaultPicture = null;
     private Drawable smallDefaultPicture = null;
+    private String textToSend = null;
+    private Dialog shareDialog;
+    private ImageButton cancelShareDialog;
+    private Button sendBtn;
+    private EditText editTextToShare;
+    private Intent sendIntent;
 
     public FullScreenImageAdapter(Activity activity, ArrayList<Product> allProducts, int allProductSize) {
         this.activity = activity;
@@ -146,124 +156,162 @@ public class FullScreenImageAdapter extends PagerAdapter {
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToolbarHandler.getInstance().generalShare(activity, aProduct.getLinkInSite());
+                //ToolbarHandler.getInstance().generalShare(activity, aProduct.getLinkInSite());
+                shareDialog = new Dialog(activity);
+                shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                shareDialog.setContentView(R.layout.share_alert_dialog);
+                cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
+                sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
+                editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
+                cancelShareDialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        shareDialog.dismiss();
+                    }
+                });
+
+                sendBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
+                        textToSend = editTextToShare.getText().toString();
+                        String Share=textToSend+"\n\n"+
+                                products.get(position).getLinkInSite()+ "\n\n"+
+                                Configuration.getConfig().productInfoActivityContext.getResources().getString(R.string.text_to_advertise)+"\n\n"
+                                +Configuration.getConfig().productInfoActivityContext.getResources().getString(R.string.LinkDownloadApp);
+
+                        sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
+                        sendIntent.setType("text/plain");
+                        activity.startActivity(sendIntent);
+                        shareDialog.cancel();
+
+                    }
+                });
+                shareDialog.setCancelable(true);
+                shareDialog.show();
             }
         });
+
+
 
 
         ImageButton btnShareByTelegram = (ImageButton) viewLayout.findViewById(R.id.telegram_share);
-        btnShareByTelegram.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToolbarHandler.getInstance().shareByTelegram(activity, aProduct.getLinkInSite());
-            }
-        });
-        final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
-        imgProduct.getLayoutParams().width = Configuration.getConfig().homeDisplaySizeForShow;
-        imgProduct.getLayoutParams().height = Configuration.getConfig().productInfoHeightForShow;
-        imgProduct.setImageDrawable(largeDefaultPicture);
-        final ImageLoader imgLoader = new ImageLoader(Configuration.getConfig().productInfoActivityContext); // important
+                btnShareByTelegram.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ToolbarHandler.getInstance().shareByTelegram(activity, aProduct.getLinkInSite());
+                    }
+                });
+                final ImageView imgProduct = (ImageView) viewLayout.findViewById(R.id.img_productInfo);
+                imgProduct.getLayoutParams().width = Configuration.getConfig().homeDisplaySizeForShow;
+                imgProduct.getLayoutParams().height = Configuration.getConfig().productInfoHeightForShow;
+                imgProduct.setImageDrawable(largeDefaultPicture);
+                final ImageLoader imgLoader = new ImageLoader(Configuration.getConfig().productInfoActivityContext); // important
 
-        String imageNumberPath;
-        if (aProduct.getImagesPath().size() == 0)
-            imageNumberPath = "no_image_path";
-        else
-            imageNumberPath = aProduct.getImagesPath().get(0);
+                String imageNumberPath;
+                if (aProduct.getImagesPath().size() == 0)
+                    imageNumberPath = "no_image_path";
+                else
+                    imageNumberPath = aProduct.getImagesPath().get(0);
 
-        try {
-            imageNumberPath = URLEncoder.encode(imageNumberPath, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        String image_url_Main = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(), imageNumberPath, Configuration.getConfig().homeDisplaySizeForURL, Configuration.getConfig().productInfoHeightForURL);
-        imgLoader.DisplayImage(image_url_Main, imgProduct);
-        LinearLayout layout = (LinearLayout) viewLayout.findViewById(R.id.linear);
-        int counter;
-        if (aProduct.getImagesPath().size() > 1)
-            counter = 0;
-        else
-            counter = 1;
+                try {
+                    imageNumberPath = URLEncoder.encode(imageNumberPath, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                String image_url_Main = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(), imageNumberPath, Configuration.getConfig().homeDisplaySizeForURL, Configuration.getConfig().productInfoHeightForURL);
+                imgLoader.DisplayImage(image_url_Main, imgProduct);
+                LinearLayout layout = (LinearLayout) viewLayout.findViewById(R.id.linear);
+                int counter;
+                if (aProduct.getImagesPath().size() > 1)
+                    counter = 0;
+                else
+                    counter = 1;
 
-        for (int i = counter; i < aProduct.getImagesPath().size(); i++) {
-            final ImageView imageView = new ImageView(Configuration.getConfig().productInfoActivityContext);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Configuration.getConfig().articleDisplaySizeForShow, Configuration.getConfig().articleDisplaySizeForShow);
-            imageView.setLayoutParams(layoutParams);
-            imageView.setId(i - 1);
-            imageView.setPadding(1, 1, 1, 0);
-            imageView.setImageDrawable(smallDefaultPicture);
-            layout.addView(imageView);
-            imageNumberPath = aProduct.getImagesPath().get(i);
-            try {
-                imageNumberPath = URLEncoder.encode(imageNumberPath, "UTF-8");
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            String image_url_otherPic = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(), imageNumberPath, Configuration.getConfig().articleDisplaySizeForURL, Configuration.getConfig().articleDisplaySizeForURL);
-            imgLoader.DisplayImage(image_url_otherPic, imageView);
-
-            final int clickImageNum = i;
-            imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    String imageNumberPath = aProduct.getImagesPath().get(clickImageNum);
+                for (int i = counter; i < aProduct.getImagesPath().size(); i++) {
+                    final ImageView imageView = new ImageView(Configuration.getConfig().productInfoActivityContext);
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(Configuration.getConfig().articleDisplaySizeForShow, Configuration.getConfig().articleDisplaySizeForShow);
+                    imageView.setLayoutParams(layoutParams);
+                    imageView.setId(i - 1);
+                    imageView.setPadding(1, 1, 1, 0);
+                    imageView.setImageDrawable(smallDefaultPicture);
+                    layout.addView(imageView);
+                    imageNumberPath = aProduct.getImagesPath().get(i);
                     try {
                         imageNumberPath = URLEncoder.encode(imageNumberPath, "UTF-8");
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-                    String image_url_otherPic = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(), imageNumberPath, Configuration.getConfig().homeDisplaySizeForURL, Configuration.getConfig().productInfoHeightForURL);
-                    imgLoader.DisplayImage(image_url_otherPic, imgProduct);
+                    String image_url_otherPic = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(), imageNumberPath, Configuration.getConfig().articleDisplaySizeForURL, Configuration.getConfig().articleDisplaySizeForURL);
+                    imgLoader.DisplayImage(image_url_otherPic, imageView);
+
+                    final int clickImageNum = i;
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            String imageNumberPath = aProduct.getImagesPath().get(clickImageNum);
+                            try {
+                                imageNumberPath = URLEncoder.encode(imageNumberPath, "UTF-8");
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            }
+                            String image_url_otherPic = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(), imageNumberPath, Configuration.getConfig().homeDisplaySizeForURL, Configuration.getConfig().productInfoHeightForURL);
+                            imgLoader.DisplayImage(image_url_otherPic, imgProduct);
+
+                        }
+                    });
+
+                    getProductOption(aProduct.getId(), aProduct.getGroupId());
 
                 }
-            });
+                container.addView(viewLayout);
+                return viewLayout;
+            }
 
-            getProductOption(aProduct.getId(),aProduct.getGroupId());
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
+                container.removeView((LinearLayout) object);
 
+            }
+
+            public void getProductOption(int productId, int groupId) {
+
+                if (!sch.existOptionsForAProduct(productId)) {
+                    Intent productOptionService = new Intent(Intent.ACTION_SYNC, null, myContext, DownloadProductOption.class);
+                    productOptionService.putExtra("productId", productId);
+                    productOptionService.putExtra("groupId", groupId);
+                    myContext.startService(productOptionService);
+                }
+            }
+
+            private void setProductQuality(String quality) {
+                ImageView imgProductQuality = (ImageView) viewLayout.findViewById(R.id.img_ProductQuality);
+                switch (quality) {
+                    case "a":
+                        imgProductQuality.setImageResource(R.drawable.darajeha);
+                        break;
+                    case "b":
+                        imgProductQuality.setImageResource(R.drawable.darajehb);
+                        break;
+                    case "c":
+                        imgProductQuality.setImageResource(R.drawable.darajehc);
+                        break;
+                    case "d":
+                        imgProductQuality.setImageResource(R.drawable.darajehd);
+                        break;
+                    case "e":
+                        imgProductQuality.setImageResource(R.drawable.darajehe);
+                        break;
+                    case "f":
+                        imgProductQuality.setImageResource(R.drawable.darajehf);
+                        break;
+                }
+
+
+            }
         }
-        container.addView(viewLayout);
-        return viewLayout;
-    }
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((LinearLayout) object);
-
-    }
-
-    public void getProductOption(int productId, int groupId){
-
-        if (!sch.existOptionsForAProduct(productId)){
-            Intent productOptionService = new Intent(Intent.ACTION_SYNC, null, myContext, DownloadProductOption.class);
-            productOptionService.putExtra("productId", productId);
-            productOptionService.putExtra("groupId",groupId);
-            myContext.startService(productOptionService);
-        }
-    }
-
-    private void setProductQuality(String quality) {
-        ImageView imgProductQuality = (ImageView) viewLayout.findViewById(R.id.img_ProductQuality);
-        switch (quality) {
-            case "a":
-                imgProductQuality.setImageResource(R.drawable.darajeha);
-                break;
-            case "b":
-                imgProductQuality.setImageResource(R.drawable.darajehb);
-                break;
-            case "c":
-                imgProductQuality.setImageResource(R.drawable.darajehc);
-                break;
-            case "d":
-                imgProductQuality.setImageResource(R.drawable.darajehd);
-                break;
-            case "e":
-                imgProductQuality.setImageResource(R.drawable.darajehe);
-                break;
-            case "f":
-                imgProductQuality.setImageResource(R.drawable.darajehf);
-                break;
-        }
-
-
-    }
-}
