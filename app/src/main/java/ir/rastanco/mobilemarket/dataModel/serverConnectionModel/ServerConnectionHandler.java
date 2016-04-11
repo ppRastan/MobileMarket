@@ -395,7 +395,7 @@ public class ServerConnectionHandler {
     public void getNewProducts(){
         String lastTimeStamp=getLastTimeStamp();
         String url= Link.getInstance().generateUrlForGetNewProduct(lastTimeStamp);
-        ArrayList<Product> allProducts = getAllProductFromURL(url,0,0,false);
+        ArrayList<Product> allProducts = getAllProductFromURL(url, 0, 0, false);
         addAllProductToTable(allProducts);
     }
 
@@ -437,15 +437,26 @@ public class ServerConnectionHandler {
         return aProduct;
     }
     public ArrayList<ProductOption> getOptionsOfAProductFromURL(String url){
-        GetFile optionJson= new GetFile();
+        GetFileNoAsync jsonProductOptionFile=new GetFileNoAsync();
+        String productInfoJson=jsonProductOptionFile.getFile(url);
+        /*GetFile optionJson= new GetFile();
         String productInfoJson=null;
         try {
             productInfoJson=optionJson.execute(url).get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-        }
+        }*/
         ParseJsonProductOption p=new  ParseJsonProductOption();
         return p.getAllProductOptions(productInfoJson);
+    }
+
+
+    public ArrayList<ProductOption> getProductOptionFromDataBase(int productId){
+        return  DataBaseHandler.getInstance(context).selectAllOptionProduct(productId);
+    }
+
+    public Boolean existOptionsForAProduct(int productId){
+        return DataBaseHandler.getInstance(context).existOptionsForAProduct(productId);
     }
 
     public ArrayList<Product> getSpecialProduct(){

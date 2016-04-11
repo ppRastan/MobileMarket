@@ -286,6 +286,23 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         }
     }
 
+    public Boolean existOptionsForAProduct(int productId) {
+        String query="select * "+
+                " from " +TABLE_PRODUCT_OPTION +
+                " where " +ProductOptionTable_ForeignKey_ProductId +"="+ productId;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery(query, null);
+        if (rs.moveToFirst()) {
+            //Exist Product
+            rs.close();
+            return true;
+        } else {
+            //Not Exist
+            rs.close();
+            return false;
+        }
+    }
+
     public Boolean ExistAProductImagePath(int productId,String imagePath) {
         String query="select * from "+TABLE_IMAGES_PATH_PRODUCT+
                 " where "+ImagePathProductTable_ForeignKey_ProductId+ " = " + productId +
