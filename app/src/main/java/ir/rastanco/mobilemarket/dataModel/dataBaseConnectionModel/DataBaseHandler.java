@@ -483,8 +483,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return timeStamp;
     }
 
-    public int SelectFistIndexGetProduct() {
-        String query="select "+SettingsTable_Column_First_Index_Get_product+
+    public int SelectFirstIndexGetProduct() {
+        String query="select *"+//SettingsTable_Column_First_Index_Get_product+
                 " from "+TABLE_SETTINGS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
@@ -499,8 +499,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return firstIndex;
     }
 
-    public int SelectNumberAllProducts() {
-        String query="select "+SettingsTable_Column_Number_All_Product+
+    public int selectNumberAllProducts() {
+        String query="select * "+//SettingsTable_Column_Number_All_Product+
                 " from "+TABLE_SETTINGS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
@@ -608,7 +608,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Cursor rs = db.rawQuery(query, null);
         if (rs.moveToFirst()) {
             rs.close();
-           return true;
+            return true;
         }
         else {
             rs.close();
@@ -679,8 +679,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         if (rs != null) {
             if (rs.moveToFirst()) {
                 do {
-                   allCategory.put(rs.getString(rs.getColumnIndex(CategoryTable_Column_Title)),
-                           rs.getInt(rs.getColumnIndex(CategoryTable_Column_Category_Id)));
+                    allCategory.put(rs.getString(rs.getColumnIndex(CategoryTable_Column_Title)),
+                            rs.getInt(rs.getColumnIndex(CategoryTable_Column_Category_Id)));
                 }
                 while (rs.moveToNext());
             }
@@ -938,7 +938,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Product aProduct= new Product();
         if (rs != null) {
             if (rs.moveToFirst()) {
-                    aProduct= createAProductFromCursor(rs);
+                aProduct= createAProductFromCursor(rs);
             }
             rs.close();
         }
@@ -1042,6 +1042,15 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         values.put(SettingsTable_Column_Last_Update_TimeStamp, updateTimeStamp);
         db.update(TABLE_SETTINGS, values, null, null);
         Log.v("update", "Update Last Update Time stamp");
+
+    }
+
+    public void updateFirstIndexGetProduct(int firstIndex) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(SettingsTable_Column_First_Index_Get_product, firstIndex);
+        db.update(TABLE_SETTINGS, values, null, null);
+        Log.v("update", "Update First Index For Get Product");
 
     }
 

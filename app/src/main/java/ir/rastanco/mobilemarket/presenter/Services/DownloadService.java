@@ -40,7 +40,7 @@ public class DownloadService extends IntentService {
             receiver.send(STATUS_RUNNING, Bundle.EMPTY);
 
             try {
-                //
+
                 if (Configuration.getConfig().emptyCategoryTable){
                     String url= Link.getInstance().generateURLForGetAllCategories();
                     serverConnectionHandler.setCategories(serverConnectionHandler.getAllCategoryInfoURL(url));
@@ -49,11 +49,17 @@ public class DownloadService extends IntentService {
                     receiver.send(STATUS_FINISHED,null);
                 }
                 if (Configuration.getConfig().emptyProductTable){
-                    String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
+                    //get all product
+                    /*String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
                     serverConnectionHandler.setProducts(serverConnectionHandler.getAllProductFromURL(url, 0, 0, false));
-                    //Test 7000 product
+                    serverConnectionHandler.addAllProductToTable(serverConnectionHandler.getProducts());*/
+
+                    //Test getting 7000 product
                     //serverConnectionHandler.setProducts(serverConnectionHandler.get7000ProductFromURL(url, 0, 0, false));
-                    serverConnectionHandler.addAllProductToTable(serverConnectionHandler.getProducts());
+
+                    //get 100 product in first install
+                    String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
+                    serverConnectionHandler.addProductInformationToDataBaseFirstInstall(url);
                     Configuration.getConfig().emptyProductTable=false;
                 }
 
