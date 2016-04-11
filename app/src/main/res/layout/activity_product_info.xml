@@ -39,7 +39,7 @@
             android:paddingRight="0dp"
             android:background="@color/white"
             android:contentDescription="@string/productFullScreenPhoto"
-            android:scaleType="centerInside" />
+            android:scaleType="fitXY" />
 
         <ImageButton
             android:id="@+id/ic_offer_full_screen_right"

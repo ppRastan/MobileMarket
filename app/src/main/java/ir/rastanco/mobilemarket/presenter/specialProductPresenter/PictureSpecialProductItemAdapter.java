@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -28,6 +30,7 @@ import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivi
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
+import ir.rastanco.mobilemarket.utility.PriceUtility;
 import ir.rastanco.mobilemarket.utility.ToolbarHandler;
 import ir.rastanco.mobilemarket.utility.Utilities;
 
@@ -40,7 +43,6 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
     private final Activity myContext;
     private final ArrayList<Product> allProduct;
     private final ServerConnectionHandler serverConnectionHandler;
-    //private boolean isSelectedForShop = false;
     private Drawable defaultPicture=null;
     private final ServerConnectionHandler sch;
     private boolean isLikeButtonClicked = true;
@@ -62,15 +64,28 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         private ImageButton offerRight;
         private ImageLoader imgLoader;
         private ImageView picProductImage;
+        private TextView priceOff;
+        private TextView priceForYou;
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         final ViewHolder holder;
+        final Product eachProduct = allProduct.get(position);
         if (convertView == null) {
             LayoutInflater inflater = myContext.getLayoutInflater();
             convertView = inflater.inflate(R.layout.picture_product_item_home, parent, false);
             holder = new ViewHolder();
+            int price = eachProduct.getPrice();
+            int discountPercent = eachProduct.getPriceOff();
+            int finalPrice = Utilities.getInstance().calculatePriceOffProduct(price, discountPercent);
+            holder.priceOff = (TextView)convertView.findViewById(R.id.priceOff_specialPage);
+            holder.priceForYou = (TextView)convertView.findViewById(R.id.priceForYou_specialPage);
+            holder.priceOff = PriceUtility.getInstance().changeFontToYekan(holder.priceOff, myContext);
+            holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou , myContext);
+            holder.priceOff.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeprated(price)));
+            holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice)));
+            holder.priceOff.setPaintFlags(holder.priceOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
             holder.basketToolbar = (ImageButton) convertView.findViewById(R.id.basket_toolbar);
             holder.btnAddThisProductToFavorites = (ImageButton) convertView.findViewById(R.id.imageButton_like_specialPage);
@@ -109,7 +124,6 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
                     ObserverShopping.setMyBoolean(true);
             }
         });
-        final Product eachProduct = allProduct.get(position);
         if (sch.getAProduct(eachProduct.getId()).getLike() == 0) {
             //this Product No Favorite
             holder.btnAddThisProductToFavorites.setImageResource(R.mipmap.ic_like_toolbar);
@@ -129,41 +143,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         holder.shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ToolbarHandler.getInstance().generalShare(myContext, allProduct.get(position).getLinkInSite());
-                final Dialog shareDialog = new Dialog(myContext);
-                shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                shareDialog.setContentView(R.layout.share_alert_dialog);
-                Button sendBtn = (Button) shareDialog.findViewById(R.id.send_my_pm);
-                final EditText editTextToShare = (EditText) shareDialog.findViewById(R.id.text_to_send);
-                ImageButton cancelShareDialog = (ImageButton)shareDialog.findViewById(R.id.close_pm_to_friend);
-                cancelShareDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        shareDialog.dismiss();
-                    }
-                });
-
-                sendBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String textToSend = editTextToShare.getText().toString();
-                        String Share = textToSend + "\n\n" +
-                                allProduct.get(position) + "\n\n" +
-                                myContext.getResources().getString(R.string.text_to_advertise) + "\n\n"
-                                + myContext.getResources().getString(R.string.LinkDownloadApp);
-
-                        Intent sendIntent = new Intent();
-                        sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.putExtra(Intent.EXTRA_SUBJECT, textToSend);
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
-                        sendIntent.setType("text/plain");
-                        myContext.startActivity(sendIntent);
-                        shareDialog.cancel();
-
-                    }
-                });
-                shareDialog.setCancelable(true);
-                shareDialog.show();
+                ToolbarHandler.getInstance().generalShare(myContext, allProduct.get(position).getLinkInSite());
             }
         });
         holder.picProductImage.setImageDrawable(defaultPicture);

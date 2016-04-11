@@ -114,7 +114,7 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             holder.priceForYou.setVisibility(View.INVISIBLE);
             holder.originalPrice.setTextColor(Color.BLACK);
             holder.originalPrice.setText(myContext.getResources().getString(R.string.eachPrice,PriceUtility.getInstance().formatPriceCommaSeprated(eachProduct.getPrice())));
-            holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));;
+            holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
             holder.basketToolbar.setVisibility(View.VISIBLE);
         } else if (eachProduct.getPrice() != 0) {
             int price = eachProduct.getPrice();

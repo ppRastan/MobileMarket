@@ -24,12 +24,12 @@ import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductOptionActi
 public class ToolbarHandler {
     private static ToolbarHandler toolbarHandler;
     private ImageButton cancelShareDialog;
+
     public static ToolbarHandler getInstance() {
         if (toolbarHandler == null) {
             toolbarHandler = new ToolbarHandler();
         }
         return toolbarHandler;
-        // Supply num input as an argument.
     }
 
     public void generalShare(final Activity activity, final String product) {
@@ -38,7 +38,7 @@ public class ToolbarHandler {
         shareDialog.setContentView(R.layout.share_alert_dialog);
         Button sendBtn = (Button) shareDialog.findViewById(R.id.send_my_pm);
         final EditText editTextToShare = (EditText) shareDialog.findViewById(R.id.text_to_send);
-        cancelShareDialog = (ImageButton)shareDialog.findViewById(R.id.close_pm_to_friend);
+        cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
         cancelShareDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

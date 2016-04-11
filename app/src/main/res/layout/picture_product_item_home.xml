@@ -29,21 +29,22 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:weightSum="10">
+                android:weightSum="15">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="7"
+                    android:layout_weight="8"
                     android:background="@color/white">
 
 
                     <ImageView
                         android:id="@+id/img_picProduct"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
+                        android:background="@color/white"
                         android:contentDescription="@string/productPicture"
-                        android:background="@color/white" />
+                        android:scaleType="fitXY" />
 
                     <ImageButton
                         android:id="@+id/ic_offer_right"
@@ -72,33 +73,60 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_weight="4"
+                    android:orientation="vertical"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/priceOff_specialPage"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/red"
+                        android:gravity="center"
+                        android:textSize="@dimen/textSize" />
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/priceForYou_specialPage"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/textSize" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="3"
-                    android:background="@color/white"
                     android:orientation="horizontal"
-                    android:paddingBottom="16dp"
                     android:weightSum="3">
 
 
-
                     <ImageButton
-                        tools:ignore="NestedWeights"
                         android:id="@+id/imageButton_like_specialPage"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@mipmap/ic_like_toolbar"
                         android:background="@null"
+                        android:layout_gravity="center_vertical|center_horizontal"
                         android:contentDescription="@string/liked"
-                        />
+                        android:src="@mipmap/ic_like_toolbar"
+                        tools:ignore="NestedWeights" />
+
                     <ImageButton
-                        tools:ignore="NestedWeights"
                         android:id="@+id/imageButton_share"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@null"
+                        android:layout_gravity="center_horizontal|center_vertical"
                         android:contentDescription="@string/share"
-                        android:src="@mipmap/ic_share_toolbar" />
+                        android:src="@mipmap/ic_share_toolbar"
+                        tools:ignore="NestedWeights" />
+
                     <ImageButton
                         android:id="@+id/basket_toolbar"
                         android:layout_width="0dp"
