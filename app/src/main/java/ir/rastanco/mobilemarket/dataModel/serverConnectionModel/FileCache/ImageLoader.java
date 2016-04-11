@@ -106,6 +106,9 @@ public class ImageLoader {
             return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
         } catch (FileNotFoundException e) {
             Log.v("can not load image" , "!");}
+        catch (OutOfMemoryError e) {
+                memoryCache.clear();
+        }
         return null;
     }
     //Task for the queue
