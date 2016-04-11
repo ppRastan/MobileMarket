@@ -102,11 +102,11 @@ public class ServerConnectionHandler {
     }
 
     public int getFirstIndexForGetProductFromJson(){
-        return DataBaseHandler.getInstance(context).SelectFistIndexGetProduct();
+        return DataBaseHandler.getInstance(context).SelectFirstIndexGetProduct();
     }
 
     public int getNumberAllProduct(){
-        return DataBaseHandler.getInstance(context).SelectNumberAllProducts();
+        return DataBaseHandler.getInstance(context).selectNumberAllProducts();
     }
 
     public void updatePropertyOfGetProduct(String timeStamp,String updateTimeStamp,int firstIndexGetProduct,int numberAllProducts){
@@ -302,7 +302,7 @@ public class ServerConnectionHandler {
     }
 
     public Boolean existAProductImagePath(int productId,String imagePath){
-        return DataBaseHandler.getInstance(context).ExistAProductImagePath(productId,imagePath);
+        return DataBaseHandler.getInstance(context).ExistAProductImagePath(productId, imagePath);
     }
 
     public void addAImagePathForAProduct(int productId,String imagePath){
@@ -333,11 +333,25 @@ public class ServerConnectionHandler {
             updateTimeStamp(allProducts.get(0).getTimeStamp());
     }
 
+    public void completeProductInformationInTable(ArrayList<Product> allProducts){
+        int firstIndex=getFirstIndexForGetProductFromJson();
+        for (int i=0;i<allProducts.size();i++){
+            if(existAProductInDataBase(allProducts.get(i).getId())) {
+                updateAProductInfo(allProducts.get(i));
+            }
+            else {
+                addAProductInDataBase(allProducts.get(i));
+                DataBaseHandler.getInstance(context).updateFirstIndexGetProduct(++firstIndex);
+            }
+        }
+    }
+
+
     public ArrayList<Product> getAllProductFromURL(String url,int firstIndex,int lastIndex,Boolean lastIndexValidStatus ){
-       if (jsonStringProduct.equals("")){
-           GetFileNoAsync getJsonProductFile=new GetFileNoAsync();
-           jsonStringProduct=getJsonProductFile.getFile(url);
-       }
+        if (jsonStringProduct.equals("")){
+            GetFileNoAsync getJsonProductFile=new GetFileNoAsync();
+            jsonStringProduct=getJsonProductFile.getFile(url);
+        }
         /*if (jsonStringProduct.equals("")){
             GetFile jsonProductsFile = new GetFile();
             try {
@@ -366,16 +380,14 @@ public class ServerConnectionHandler {
     }
 
     public void addProductInformationToDataBaseFirstInstall(String url){
-        Configuration.getConfig().numberOfProductMustBeTaken=2;
-        int firstIndex=Configuration.getConfig().firstIndexGetProduct;
-        int lastIndex=Configuration.getConfig().firstIndexGetProduct+Configuration.getConfig().numberOfProductMustBeTaken;
-
-        ArrayList<Product> allProducts = getAllProductFromURL(url,firstIndex,lastIndex,true);
+        ArrayList<Product> allProducts = getAllProductFromURL(url,0,Configuration.getConfig().numberOfProductMustBeTaken,true);
         addAllProductToTable(allProducts);
         String timeStamp= allProducts.get(0).getTimeStamp();
-        updatePropertyOfGetProduct(timeStamp,
+        setSetting(timeStamp,
+                context.getString(R.string.firstArticleNumber),
+                getLastVersionInServer(Link.getInstance().generateURLForGetLastVersionAppInServer()),
                 timeStamp,
-                Configuration.getConfig().firstIndexGetProduct + Configuration.getConfig().numberOfProductMustBeTaken,
+                Configuration.getConfig().numberOfProductMustBeTaken,
                 Configuration.getConfig().numberAllProducts);
     }
 

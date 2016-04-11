@@ -63,6 +63,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKL
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingBagClickListener;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
+import ir.rastanco.mobilemarket.presenter.Services.CompleteDataAfterInstall;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadService;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManagerActivity;
@@ -138,7 +139,22 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
             startService(intent);
         }
 
-        ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
+        //check get all product.if don't get all product start service get .
+        int firstIndexGetProduct=sch.getFirstIndexForGetProductFromJson();
+        int allNumberProducts=sch.getNumberAllProduct();
+        if (firstIndexGetProduct<allNumberProducts){
+            mReceiver = new DownloadResultReceiver(new Handler());
+            mReceiver.setReceiver(this);
+            Intent intent = new Intent(Intent.ACTION_SYNC, null, this, CompleteDataAfterInstall.class);
+            /* Send optional extras to Download IntentService */
+            intent.putExtra("receiver", mReceiver);
+            intent.putExtra("requestId", 101);
+            startService(intent);
+
+        }
+
+
+            ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
             @Override
             public void connectionOK() {
                 if (Configuration.getConfig().emptyProductTable &&
