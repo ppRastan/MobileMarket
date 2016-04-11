@@ -85,8 +85,6 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
             holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou , myContext);
             holder.priceOff.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeprated(price)));
             holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice)));
-            holder.priceOff.setPaintFlags(holder.priceOff.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-
             holder.basketToolbar = (ImageButton) convertView.findViewById(R.id.basket_toolbar);
             holder.btnAddThisProductToFavorites = (ImageButton) convertView.findViewById(R.id.imageButton_like_specialPage);
             holder.shareBtn = (ImageButton) convertView.findViewById(R.id.imageButton_share);
