@@ -32,7 +32,7 @@ public class ParseJsonProduct7000  {
             Configuration.getConfig().numberAllProducts=dataJsonArr.length();
             for (int i = firstIndex;i <lastIndexUse ; i++) {
                 JSONObject c = dataJsonArr.getJSONObject(i);
-                for(int k=0;k<20;k++){
+                for(int k=0;k<15;k++){
                     imagePath = new ArrayList<>();
                     Product aProduct = new Product();
                     aProduct.setTitle(c.getString("t"));

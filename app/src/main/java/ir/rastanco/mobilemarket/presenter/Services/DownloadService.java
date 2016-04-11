@@ -49,17 +49,13 @@ public class DownloadService extends IntentService {
                     receiver.send(STATUS_FINISHED,null);
                 }
                 if (Configuration.getConfig().emptyProductTable){
-                    //get all product
-                    /*String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
-                    serverConnectionHandler.setProducts(serverConnectionHandler.getAllProductFromURL(url, 0, 0, false));
-                    serverConnectionHandler.addAllProductToTable(serverConnectionHandler.getProducts());*/
-
                     //Test getting 7000 product
-                    //serverConnectionHandler.setProducts(serverConnectionHandler.get7000ProductFromURL(url, 0, 0, false));
-
-                    //get 100 product in first install
                     String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
-                    serverConnectionHandler.addProductInformationToDataBaseFirstInstall(url);
+                    serverConnectionHandler.addProductInformationToDataBaseFirstInstall7000(url);
+
+                    //get all product in first install
+                    /*String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
+                    serverConnectionHandler.addProductInformationToDataBaseFirstInstall(url);*/
                     Configuration.getConfig().emptyProductTable=false;
                 }
 

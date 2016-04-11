@@ -346,6 +346,20 @@ public class ServerConnectionHandler {
         }
     }
 
+    public void completeProductInformationInTable7000(ArrayList<Product> allProducts){
+        int firstIndex=getFirstIndexForGetProductFromJson();
+        for (int i=0;i<allProducts.size();i++){
+            if(existAProductInDataBase(allProducts.get(i).getId())) {
+                updateAProductInfo(allProducts.get(i));
+            }
+            else {
+                addAProductInDataBase(allProducts.get(i));
+            }
+            DataBaseHandler.getInstance(context).updateFirstIndexGetProduct(++firstIndex);
+        }
+    }
+
+
 
     public ArrayList<Product> getAllProductFromURL(String url,int firstIndex,int lastIndex,Boolean lastIndexValidStatus ){
         if (jsonStringProduct.equals("")){
@@ -377,6 +391,19 @@ public class ServerConnectionHandler {
             }
         }*/
         return new ParseJsonProduct7000().ParseJsonProducts(jsonStringProduct,firstIndex,lastIndex,lastIndexValidStatus);
+    }
+
+    public void addProductInformationToDataBaseFirstInstall7000(String url){
+        ArrayList<Product> allProducts = get7000ProductFromURL(url, 0, 0, false);
+        String timeStamp= allProducts.get(0).getTimeStamp();
+        int numberOfProductExist=allProducts.size();
+        setSetting(timeStamp,
+                context.getString(R.string.firstArticleNumber),
+                getLastVersionInServer(Link.getInstance().generateURLForGetLastVersionAppInServer()),
+                timeStamp,
+                0,
+                numberOfProductExist);
+        completeProductInformationInTable(allProducts);
     }
 
     public void addProductInformationToDataBaseFirstInstall(String url){

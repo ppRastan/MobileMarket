@@ -28,8 +28,12 @@ public class CompleteDataAfterInstall extends IntentService {
         serverConnectionHandler=ServerConnectionHandler.getInstance(this);
         int firstIndexGetProduct=serverConnectionHandler.getFirstIndexForGetProductFromJson();
         String url = Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
-        serverConnectionHandler.setProducts(serverConnectionHandler.getAllProductFromURL(url, firstIndexGetProduct, 0, false));
-        serverConnectionHandler.completeProductInformationInTable(serverConnectionHandler.getProducts());
+        //serverConnectionHandler.setProducts(serverConnectionHandler.getAllProductFromURL(url, firstIndexGetProduct, 0, false));
+        //serverConnectionHandler.completeProductInformationInTable(serverConnectionHandler.getProducts());
+
+        //Test get 7000 product
+        serverConnectionHandler.setProducts(serverConnectionHandler.get7000ProductFromURL(url, firstIndexGetProduct, 0, false));
+        serverConnectionHandler.completeProductInformationInTable7000(serverConnectionHandler.getProducts());
         receiver.send(STATUS_FINISHED, null);
 
     }
