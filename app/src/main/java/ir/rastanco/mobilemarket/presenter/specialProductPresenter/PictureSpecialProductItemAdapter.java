@@ -148,41 +148,41 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         holder.shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // ToolbarHandler.getInstance().generalShare(myContext, allProduct.get(position).getLinkInSite());
-                shareDialog = new Dialog(myContext);
-                shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                shareDialog.setContentView(R.layout.share_alert_dialog);
-                holder.cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
-                holder.sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
-                holder.editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
-                holder.cancelShareDialog.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        shareDialog.dismiss();
-                    }
-                });
-                holder.sendBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        holder.sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
-                        textToSend = holder.editTextToShare.getText().toString();
-                        String Share = textToSend + "\n\n" +
-                                allProduct.get(position).getLinkInSite() + "\n\n" +
-                                myContext.getResources().getString(R.string.text_to_advertise) + "\n\n"
-                                + myContext.getResources().getString(R.string.LinkDownloadApp);
-
-                        sendIntent = new Intent();
-                        sendIntent.setAction(Intent.ACTION_SEND);
-                        sendIntent.putExtra(Intent.EXTRA_SUBJECT, textToSend);
-                        sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
-                        sendIntent.setType("text/plain");
-                        myContext.startActivity(sendIntent);
-                        shareDialog.cancel();
-                    }
-                });
-
-                shareDialog.setCancelable(true);
-                shareDialog.show();
+               ToolbarHandler.getInstance().generalShare(myContext, allProduct.get(position).getLinkInSite());
+//                shareDialog = new Dialog(myContext);
+//                shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//                shareDialog.setContentView(R.layout.share_alert_dialog);
+//                holder.cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
+//                holder.sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
+//                holder.editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
+//                holder.cancelShareDialog.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        shareDialog.dismiss();
+//                    }
+//                });
+//                holder.sendBtn.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        holder.sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
+//                        textToSend = holder.editTextToShare.getText().toString();
+//                        String Share = textToSend + "\n\n" +
+//                                allProduct.get(position).getLinkInSite() + "\n\n" +
+//                                myContext.getResources().getString(R.string.text_to_advertise) + "\n\n"
+//                                + myContext.getResources().getString(R.string.LinkDownloadApp);
+//
+//                        sendIntent = new Intent();
+//                        sendIntent.setAction(Intent.ACTION_SEND);
+//                        sendIntent.putExtra(Intent.EXTRA_SUBJECT, textToSend);
+//                        sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
+//                        sendIntent.setType("text/plain");
+//                        myContext.startActivity(sendIntent);
+//                        shareDialog.cancel();
+//                    }
+//                });
+//
+//                shareDialog.setCancelable(true);
+//                shareDialog.show();
             }
         });
         holder.picProductImage.setImageDrawable(defaultPicture);
