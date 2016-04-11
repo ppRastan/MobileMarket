@@ -24,7 +24,8 @@ import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductOptionActi
 public class ToolbarHandler {
     private static ToolbarHandler toolbarHandler;
     private ImageButton cancelShareDialog;
-
+    private Activity toolbarHandlerActivity;
+    private String currentProductToShare;
     public static ToolbarHandler getInstance() {
         if (toolbarHandler == null) {
             toolbarHandler = new ToolbarHandler();
@@ -32,7 +33,9 @@ public class ToolbarHandler {
         return toolbarHandler;
     }
 
-    public void generalShare(final Activity activity, final String product) {
+    public void generalShare(final Activity activity,String product) {
+        this.toolbarHandlerActivity = activity;
+        this.currentProductToShare = product;
         final Dialog shareDialog = new Dialog(activity);
         shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         shareDialog.setContentView(R.layout.share_alert_dialog);
@@ -51,16 +54,16 @@ public class ToolbarHandler {
             public void onClick(View v) {
                 String textToSend = editTextToShare.getText().toString();
                 String Share = textToSend + "\n\n" +
-                        product + "\n\n" +
-                        activity.getResources().getString(R.string.text_to_advertise) + "\n\n"
-                        + activity.getResources().getString(R.string.LinkDownloadApp);
+                        currentProductToShare + "\n\n" +
+                        toolbarHandlerActivity.getResources().getString(R.string.text_to_advertise) + "\n\n"
+                        +toolbarHandlerActivity.getResources().getString(R.string.LinkDownloadApp);
 
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_SUBJECT, textToSend);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, Share);
                 sendIntent.setType("text/plain");
-                activity.startActivity(sendIntent);
+                toolbarHandlerActivity.startActivity(sendIntent);
                 shareDialog.cancel();
 
             }
