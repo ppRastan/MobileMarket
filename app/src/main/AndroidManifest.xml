@@ -53,6 +53,7 @@
         <service android:name=".presenter.Services.DownloadService"/>
         <service android:name=".presenter.Services.UpdateService"/>
         <service android:name=".presenter.Services.CompleteDataAfterInstall"/>
+        <service android:name=".presenter.Services.DownloadProductOption"/>
 
         <receiver android:name=".presenter.Services.UpdateEveryConnectionOk">
             <intent-filter>

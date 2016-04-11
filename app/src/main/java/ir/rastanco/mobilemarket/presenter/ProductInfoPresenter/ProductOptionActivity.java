@@ -22,8 +22,10 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  * Created by ShaisteS on 1394/11/05
  * this activity show product option and product comment and product description
  */
-public class ProductOptionActivity extends Activity {
+public class ProductOptionActivity extends Activity{
     private boolean onBackBtnPressed = false;
+    private ListView lvProductOption;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,10 +34,10 @@ public class ProductOptionActivity extends Activity {
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         Configuration.getConfig().productOptionActivityContext = this;
         ServerConnectionHandler sch = new ServerConnectionHandler(Configuration.getConfig().productOptionActivityContext);
+        lvProductOption = (ListView) findViewById(R.id.lv_productOption);
 
         Intent intent = this.getIntent();
         int productId = intent.getIntExtra("productId", 0);
-        int groupId = intent.getIntExtra("groupId", 0);
         Product aProduct = sch.getAProduct(productId);
         TextView nameOfCurrentProduct = (TextView) findViewById(R.id.eachProductName);
         nameOfCurrentProduct.setText(aProduct.getTitle());
@@ -48,8 +50,7 @@ public class ProductOptionActivity extends Activity {
                 checkBackButtonState();
             }
         });
-        ArrayList<ProductOption> options = sch.getAllProductOptionOfAProduct(productId, groupId);
-        ListView lvProductOption = (ListView) findViewById(R.id.lv_productOption);
+        ArrayList<ProductOption> options = sch.getProductOptionFromDataBase(productId);
         ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.getConfig().productOptionActivityContext, options);
         lvProductOption.setAdapter(adapter);
         ListView lvComment = (ListView) findViewById(R.id.lv_comments);

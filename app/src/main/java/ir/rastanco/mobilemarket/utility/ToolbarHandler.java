@@ -160,7 +160,6 @@ public class ToolbarHandler {
     }
 
     public void displayInformationOfCurrentProduct(Product aProduct, Activity activity, Context context) {
-
         Intent intentProductInfo = new Intent(context, ProductOptionActivity.class);
         intentProductInfo.putExtra("productId", aProduct.getId());
         intentProductInfo.putExtra("groupId", aProduct.getGroupId());

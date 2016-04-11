@@ -28,6 +28,7 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
+import ir.rastanco.mobilemarket.presenter.Services.DownloadProductOption;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
@@ -114,9 +115,6 @@ public class FullScreenImageAdapter extends PagerAdapter {
                 ObserverShopping.setMyBoolean(true);
             }
         });
-
-        sch.getAllProductOptionOfAProduct(aProduct.getId(),
-                aProduct.getGroupId());
 
         final ImageButton btnLike = (ImageButton) viewLayout.findViewById(R.id.add_to_favorite);
 
@@ -220,6 +218,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
                 }
             });
 
+            getProductOption(aProduct.getId(),aProduct.getGroupId());
+
         }
         container.addView(viewLayout);
         return viewLayout;
@@ -229,6 +229,16 @@ public class FullScreenImageAdapter extends PagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((LinearLayout) object);
 
+    }
+
+    public void getProductOption(int productId, int groupId){
+
+        if (!sch.existOptionsForAProduct(productId)){
+            Intent productOptionService = new Intent(Intent.ACTION_SYNC, null, myContext, DownloadProductOption.class);
+            productOptionService.putExtra("productId", productId);
+            productOptionService.putExtra("groupId",groupId);
+            myContext.startService(productOptionService);
+        }
     }
 
     private void setProductQuality(String quality) {
