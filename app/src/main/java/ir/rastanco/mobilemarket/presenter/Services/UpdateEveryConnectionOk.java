@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 
@@ -34,7 +35,8 @@ public class UpdateEveryConnectionOk extends BroadcastReceiver {
                     Intent notificationService = new Intent(context, NotificationService.class);
                     context.startService(notificationService);
                 }
-
+                if (!Configuration.getConfig().emptyProductTable)
+                    ObserverConnectionInternetOK.setChangeFragmentParameter(true);
             }
             if (intent.getExtras().getBoolean(ConnectivityManager.EXTRA_NO_CONNECTIVITY, Boolean.FALSE)) {
                 Configuration.getConfig().connectionStatus=false;

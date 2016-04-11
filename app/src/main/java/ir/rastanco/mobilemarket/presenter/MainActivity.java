@@ -140,11 +140,11 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         }
 
         //check get all product.if don't get all product start service get .
+        mReceiver = new DownloadResultReceiver(new Handler());
+        mReceiver.setReceiver(this);
         int firstIndexGetProduct=sch.getFirstIndexForGetProductFromJson();
         int allNumberProducts=sch.getNumberAllProduct();
         if (firstIndexGetProduct<allNumberProducts){
-            mReceiver = new DownloadResultReceiver(new Handler());
-            mReceiver.setReceiver(this);
             Intent intent = new Intent(Intent.ACTION_SYNC, null, this, CompleteDataAfterInstall.class);
             /* Send optional extras to Download IntentService */
             intent.putExtra("receiver", mReceiver);
@@ -153,8 +153,7 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
 
         }
 
-
-            ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
+        ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
             @Override
             public void connectionOK() {
                 if (Configuration.getConfig().emptyProductTable &&
@@ -162,6 +161,14 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
                     //getInformationFromServerInFirstRun(Configuration.getConfig().mainActivityContext);
                     ObserverChangeFragment.setChangeFragmentParameter(true);
 
+                }
+                int firstIndexGetProduct=sch.getFirstIndexForGetProductFromJson();
+                int allNumberProducts=sch.getNumberAllProduct();
+                if (firstIndexGetProduct<allNumberProducts){
+                    Intent intent = new Intent(Intent.ACTION_SYNC, null, Configuration.getConfig().mainActivityContext, CompleteDataAfterInstall.class);
+                    intent.putExtra("receiver", mReceiver);
+                    intent.putExtra("requestId", 101);
+                    startService(intent);
                 }
             }
         });
