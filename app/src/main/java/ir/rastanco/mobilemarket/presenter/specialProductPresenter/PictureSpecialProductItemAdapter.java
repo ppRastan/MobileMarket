@@ -47,10 +47,6 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
     private Drawable defaultPicture=null;
     private final ServerConnectionHandler sch;
     private boolean isLikeButtonClicked = true;
-    private String textToSend = null;
-    private Dialog shareDialog;
-    private Intent sendIntent;
-
     public PictureSpecialProductItemAdapter(Context context, ArrayList<Product> products) {
         super(context, R.layout.picture_product_item_home, products);
         myContext = (Activity) context;
@@ -70,28 +66,17 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         private ImageView picProductImage;
         private TextView priceOff;
         private TextView priceForYou;
-        ImageButton cancelShareDialog;
-        Button sendBtn;
-        EditText editTextToShare;
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
 
         final ViewHolder holder;
-        final Product eachProduct = allProduct.get(position);
         if (convertView == null) {
             LayoutInflater inflater = myContext.getLayoutInflater();
             convertView = inflater.inflate(R.layout.picture_product_item_home, parent, false);
             holder = new ViewHolder();
-            int price = eachProduct.getPrice();
-            int discountPercent = eachProduct.getPriceOff();
-            int finalPrice = Utilities.getInstance().calculatePriceOffProduct(price, discountPercent);
             holder.priceOff = (TextView)convertView.findViewById(R.id.priceOff_specialPage);
             holder.priceForYou = (TextView)convertView.findViewById(R.id.priceForYou_specialPage);
-            holder.priceOff = PriceUtility.getInstance().changeFontToYekan(holder.priceOff, myContext);
-            holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou , myContext);
-            holder.priceOff.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeprated(price)));
-            holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice)));
             holder.basketToolbar = (ImageButton) convertView.findViewById(R.id.basket_toolbar);
             holder.btnAddThisProductToFavorites = (ImageButton) convertView.findViewById(R.id.imageButton_like_specialPage);
             holder.shareBtn = (ImageButton) convertView.findViewById(R.id.imageButton_share);
@@ -105,6 +90,14 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         } else
             holder = (ViewHolder) convertView.getTag();
 
+        final Product eachProduct = allProduct.get(position);
+        int price = eachProduct.getPrice();
+        int discountPercent = eachProduct.getPriceOff();
+        int finalPrice = Utilities.getInstance().calculatePriceOffProduct(price, discountPercent);
+        holder.priceOff = PriceUtility.getInstance().changeFontToYekan(holder.priceOff, myContext);
+        holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou , myContext);
+        holder.priceOff.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeprated(price)));
+        holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice)));
 
         //Special Icon
         if (Configuration.getConfig().RTL) {
