@@ -54,6 +54,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
     private int pageId;
     private GridView gridview;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private PictureProductShopItemAdapter adapter;
 
 
 
@@ -71,6 +72,8 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         noThingToShow = (TextView) mainView.findViewById(R.id.no_thing_to_show1);
         noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow, myContext);
         gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
+        mReceiver = new DownloadResultReceiver(new Handler());
+        mReceiver.setReceiver(this);
         if (products.size() == 0) {
             noThingToShow.setVisibility(View.VISIBLE);
             gridview.setVisibility(View.GONE);
@@ -79,7 +82,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
             gridview.setVisibility(View.VISIBLE);
         }
 
-        final PictureProductShopItemAdapter adapter = new PictureProductShopItemAdapter(getActivity(), products);
+        adapter = new PictureProductShopItemAdapter(getActivity(), products);
         gridview.setAdapter(adapter);
 
         //refresh grid view
@@ -109,24 +112,22 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
 
                 if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0) {
                     //scroll receive button
-                    /*Configuration.getConfig().firstIndexGetProduct=ServerConnectionHandler.getInstance(myContext).getFirstIndexForGetProductFromJson();
-                    int allNumberProducts=ServerConnectionHandler.getInstance(myContext).getNumberAllProduct();
-                    if ( Configuration.getConfig().firstIndexGetProduct<allNumberProducts){
-
+                    /*int firstIndexGetProduct = ServerConnectionHandler.getInstance(myContext).getFirstIndexForGetProductFromJson();
+                    int allNumberProducts = ServerConnectionHandler.getInstance(myContext).getNumberAllProduct();
+                    if (firstIndexGetProduct < allNumberProducts) {
                         ArrayList<Product> newProducts = sch.getProductsOfAParentCategory(pageId);
                         adapter.clear();
-                        for (int i=0;i<newProducts.size();i++){
+                        for (int i = 0; i < newProducts.size(); i++) {
                             adapter.add(newProducts.get(i));
                         }
                         adapter.notifyDataSetChanged();
+
                     }*/
                 }
 
             }
         });
 
-        mReceiver = new DownloadResultReceiver(new Handler());
-        mReceiver.setReceiver(this);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
