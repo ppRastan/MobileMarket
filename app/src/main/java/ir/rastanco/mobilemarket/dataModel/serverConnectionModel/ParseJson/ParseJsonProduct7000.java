@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -20,6 +21,7 @@ public class ParseJsonProduct7000  {
         JSONArray dataJsonArr;
         ArrayList<String> imagePath;
         allProduct = new ArrayList<>();
+        int randomNumber;
         int lastIndexUse;
         try {
 
@@ -36,7 +38,9 @@ public class ParseJsonProduct7000  {
                     imagePath = new ArrayList<>();
                     Product aProduct = new Product();
                     aProduct.setTitle(c.getString("t"));
-                    aProduct.setId(Integer.parseInt(c.getString("id")));
+                    Random r = new Random();
+                    randomNumber= r.nextInt(8000 - 1) + 1000;
+                    aProduct.setId(Integer.parseInt(c.getString("id"))+randomNumber);
                     aProduct.setGroupId(Integer.parseInt(c.getString("gid")));
                     aProduct.setPrice(Integer.parseInt(c.getString("p")));
                     aProduct.setPriceOff(Integer.parseInt(c.getString("po")));
