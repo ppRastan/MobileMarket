@@ -380,15 +380,16 @@ public class ServerConnectionHandler {
     }
 
     public void addProductInformationToDataBaseFirstInstall(String url){
-        ArrayList<Product> allProducts = getAllProductFromURL(url,0,Configuration.getConfig().numberOfProductMustBeTaken,true);
-        addAllProductToTable(allProducts);
+        ArrayList<Product> allProducts = getAllProductFromURL(url,0,0,false);
         String timeStamp= allProducts.get(0).getTimeStamp();
+        int numberOfProductExist=allProducts.size();
         setSetting(timeStamp,
                 context.getString(R.string.firstArticleNumber),
                 getLastVersionInServer(Link.getInstance().generateURLForGetLastVersionAppInServer()),
                 timeStamp,
-                Configuration.getConfig().numberOfProductMustBeTaken,
-                Configuration.getConfig().numberAllProducts);
+                0,
+                numberOfProductExist);
+        completeProductInformationInTable(allProducts);
     }
 
     public void getNewProducts(){
