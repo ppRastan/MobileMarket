@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.MemoryCache;
 
 /**
  * Created by ShaisteS on 1395/1/8.
@@ -84,21 +85,26 @@ public class Utilities {
 
 
     public Drawable ResizeImage(int imageID, Context context, int deviceWidth) {
+        MemoryCache memoryCache = new MemoryCache();
+        try{
+            BitmapDrawable bd = (BitmapDrawable) ContextCompat.getDrawable(context, imageID);
+            double imageHeight = bd.getBitmap().getHeight();
+            double imageWidth = bd.getBitmap().getWidth();
 
-        BitmapDrawable bd = (BitmapDrawable) ContextCompat.getDrawable(context, imageID);
-        double imageHeight = bd.getBitmap().getHeight();
-        double imageWidth = bd.getBitmap().getWidth();
+            double ratio = deviceWidth / imageWidth;
+            int newImageHeight = (int) (imageHeight * ratio);
 
-        double ratio = deviceWidth / imageWidth;
-        int newImageHeight = (int) (imageHeight * ratio);
+            Bitmap bMap = BitmapFactory.decodeResource(context.getResources(), imageID);
+            return new BitmapDrawable(context.getResources(), getResizedBitmap(bMap, newImageHeight, deviceWidth));
 
-        Bitmap bMap = BitmapFactory.decodeResource(context.getResources(), imageID);
-        return new BitmapDrawable(context.getResources(), getResizedBitmap(bMap, newImageHeight, deviceWidth));
+        }catch (OutOfMemoryError e){
+                memoryCache.clear();
+            return null;
+        }
     }
 
     //Resize Bitmap
     private Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
-
         int width = bm.getWidth();
         int height = bm.getHeight();
 
