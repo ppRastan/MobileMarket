@@ -50,12 +50,13 @@ public class DownloadService extends IntentService {
                 }
                 if (Configuration.getConfig().emptyProductTable){
                     //Test getting 7000 product
-                    String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
-                    serverConnectionHandler.addProductInformationToDataBaseFirstInstall7000(url);
+                    //String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
+                    //serverConnectionHandler.addProductInformationToDataBaseFirstInstall7000(url);
 
                     //get all product in first install
-                    /*String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
-                    serverConnectionHandler.addProductInformationToDataBaseFirstInstall(url);*/
+                    String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
+                    serverConnectionHandler.addProductInformationToDataBaseFirstInstall(url);
+
                     Configuration.getConfig().emptyProductTable=false;
                 }
 
