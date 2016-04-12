@@ -53,19 +53,13 @@ public class FilterCategory extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         sch = ServerConnectionHandler.getInstance(Configuration.getConfig().shopFragmentContext);
-        Integer pageId = getArguments().getInt("pageId");
+        final Integer pageId = getArguments().getInt("pageId");
         selectCategoryId=pageId;
         mapCategoryTitleToId = new HashMap<>();
         mapCategoryTitleToId = sch.MapTitleToIDForAllCategory();
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         final ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
-        btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
         final TextView titleOfAlertDialog = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
         titleOfAlertDialog.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.choose_group));
         btnCancelAlertDialog.setImageResource(R.mipmap.ic_cancel_dialog);
@@ -90,20 +84,18 @@ public class FilterCategory extends DialogFragment {
                     setTargetFragment(getFragmentManager().findFragmentByTag("category"), 1);
                     onActivityResult(getTargetRequestCode(), 1, args);
                     dismiss();
-                }
-                else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent)) > 0) {
-                    selectCategoryId= mapCategoryTitleToId.get(itemSelectedContent);
+                } else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent)) > 0) {
+                    selectCategoryId = mapCategoryTitleToId.get(itemSelectedContent);
                     titleOfAlertDialog.setText(itemSelectedContent);
                     btnCancelAlertDialog.setImageResource(R.mipmap.small_back_arrow);
                     ArrayList<String> subCategoryChildTitle = sch.getTitleOfChildOfACategory(selectCategoryId);
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
-                    android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
+                            android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
                     subCategoryChildTitle.add(0, dialogView.getResources().getString(R.string.all));
                     listCategory.setAdapter(adapter);
                     mapCategoryTitleToId = sch.MapTitleToIDForChildOfACategory(selectCategoryId);
 
-                }
-                 else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent)) == 0) {
+                } else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent)) == 0) {
                     Intent args = new Intent();
                     args.putExtra("noChild", mapCategoryTitleToId.get(itemSelectedContent));
                     setTargetFragment(getFragmentManager().findFragmentByTag("category"), 2);
@@ -113,7 +105,41 @@ public class FilterCategory extends DialogFragment {
             }
         });
 
-        //TODO back arrow click handle
+        btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int parentIdACategory=sch.getParentIdACategoryWithCategoryId(selectCategoryId);
+                if (parentIdACategory==0){
+                    dismiss();
+                }
+                if (parentIdACategory==pageId){
+                    btnCancelAlertDialog.setImageResource(R.mipmap.ic_cancel_dialog);
+                    titleOfAlertDialog.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.choose_group));
+                    selectCategoryId=parentIdACategory;
+                    mapCategoryTitleToId = sch.MapTitleToIDForChildOfACategory(selectCategoryId);
+                    ArrayList<String> subCategoryChildTitle = sch.getTitleOfChildOfACategory(selectCategoryId);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
+                            android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
+                    subCategoryChildTitle.add(0, dialogView.getResources().getString(R.string.all));
+                    listCategory.setAdapter(adapter);
+                }
+                else {
+                    selectCategoryId=parentIdACategory;
+                    btnCancelAlertDialog.setImageResource(R.mipmap.small_back_arrow);
+                    titleOfAlertDialog.setText(sch.getACategoryTitleWithCategoryId(selectCategoryId));
+                    mapCategoryTitleToId = sch.MapTitleToIDForChildOfACategory(selectCategoryId);
+                    ArrayList<String> subCategoryChildTitle = sch.getTitleOfChildOfACategory(selectCategoryId);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
+                            android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
+                    subCategoryChildTitle.add(0, dialogView.getResources().getString(R.string.all));
+                    listCategory.setAdapter(adapter);
+
+
+                }
+            }
+        });
+
+
 
         return dialogView;
     }
