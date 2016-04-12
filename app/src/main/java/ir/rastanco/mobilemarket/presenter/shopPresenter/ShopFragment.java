@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -50,11 +51,14 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
     private TextView txtFilterCategorySelected;
     private FragmentActivity myContext;
     private TextView noThingToShow;
+    private ProgressBar progressBar;
     private DownloadResultReceiver mReceiver;
     private int pageId;
     private GridView gridview;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private PictureProductShopItemAdapter adapter;
+    private int existProductNumber;
+    private int allProductNumber;
 
 
 
@@ -71,19 +75,17 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         txtFilterCategorySelected = (TextView) mainView.findViewById(R.id.group_dialog_text);
         noThingToShow = (TextView) mainView.findViewById(R.id.no_thing_to_show1);
         noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow, myContext);
+        progressBar=(ProgressBar)mainView.findViewById(R.id.progressBar_Loading);
         gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
+        existProductNumber=sch.getFirstIndexForGetProductFromJson();
+        allProductNumber=sch.getNumberAllProduct();
         mReceiver = new DownloadResultReceiver(new Handler());
         mReceiver.setReceiver(this);
-        if (products.size() == 0) {
-            noThingToShow.setVisibility(View.VISIBLE);
-            gridview.setVisibility(View.GONE);
-        } else {
-            noThingToShow.setVisibility(View.GONE);
-            gridview.setVisibility(View.VISIBLE);
-        }
 
-        adapter = new PictureProductShopItemAdapter(getActivity(), products);
-        gridview.setAdapter(adapter);
+        if(showMessage(products.size())){
+            adapter = new PictureProductShopItemAdapter(getActivity(), products);
+            gridview.setAdapter(adapter);
+        }
 
         //refresh grid view
         mSwipeRefreshLayout = (SwipeRefreshLayout)mainView.findViewById(R.id.swipe_refresh_layout);
@@ -195,12 +197,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 Configuration.getConfig().filterOption);
-                        if (newProducts.size() == 0) {
-                            noThingToShow.setVisibility(View.VISIBLE);
-                            gridview.setVisibility(View.GONE);
-                        } else {
-                            noThingToShow.setVisibility(View.GONE);
-                            gridview.setVisibility(View.VISIBLE);
+                        if (showMessage(newProducts.size())){
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -238,18 +235,11 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 Configuration.getConfig().filterOption);
-                        if (newProducts.size() == 0) {
-                            noThingToShow.setVisibility(View.VISIBLE);
-                            gridview.setVisibility(View.GONE);
-                        } else {
-
-                            noThingToShow.setVisibility(View.GONE);
-                            gridview.setVisibility(View.VISIBLE);
+                        if (showMessage(newProducts.size())) {
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
                         }
-
                     }
                 });
                 ObserverFilterBrand.changeFilterBrandListener(new ObserverFilterBrandListener() {
@@ -261,17 +251,10 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 Configuration.getConfig().filterOption);
-                        if (newProducts.size() == 0) {
-                            noThingToShow.setVisibility(View.VISIBLE);
-                            gridview.setVisibility(View.GONE);
-
-                        } else {
-                            noThingToShow.setVisibility(View.GONE);
-                            gridview.setVisibility(View.VISIBLE);
+                        if (showMessage(newProducts.size())){
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
-
                         }
 
                     }
@@ -286,12 +269,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 Configuration.getConfig().filterOption);
-                        if (newProducts.size() == 0) {
-                            noThingToShow.setVisibility(View.VISIBLE);
-                            gridview.setVisibility(View.GONE);
-                        } else {
-                            noThingToShow.setVisibility(View.GONE);
-                            gridview.setVisibility(View.VISIBLE);
+                        if(showMessage(newProducts.size())){
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -303,6 +281,40 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         });
         return mainView;
     }
+
+    private Boolean showMessage(int productSize){
+        if (productSize == 0) {
+            if (existProductNumber<allProductNumber || existProductNumber==0){
+                //Loading bar and please wait... text and grid view gone
+                progressBar.setVisibility(View.VISIBLE);
+                noThingToShow.setText(getString(R.string.please_wait_message));
+                noThingToShow.setTextColor(ContextCompat.getColor(myContext, R.color.black));
+                noThingToShow.setVisibility(View.VISIBLE);
+                gridview.setVisibility(View.GONE);
+                return false;
+            }
+            else{
+                //Loading bar gone and no product text and grid view gone
+                progressBar.setVisibility(View.INVISIBLE);
+                noThingToShow.setText(getString(R.string.no_product_to_show));
+                noThingToShow.setTextColor(ContextCompat.getColor(myContext, R.color.red));
+                noThingToShow.setVisibility(View.VISIBLE);
+                gridview.setVisibility(View.GONE);
+                return false;
+            }
+
+
+        }
+        else {
+            //Loading bar gone text view gone grid view visible
+            progressBar.setVisibility(View.GONE);
+            noThingToShow.setVisibility(View.GONE);
+            gridview.setVisibility(View.VISIBLE);
+            return true;
+        }
+
+    }
+
 
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
