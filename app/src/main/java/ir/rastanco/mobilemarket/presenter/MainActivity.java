@@ -211,6 +211,11 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         mapTitleToIdMainCategory=sch.MapTitleToIDForMainCategory();
         Configuration.getConfig().mainTabCount =mainCategoryTitle.size();
         ViewPagerAdapter adapter= (ViewPagerAdapter) viewPager.getAdapter();
+
+        getSupportFragmentManager().beginTransaction().remove(adapter.getItem(0)).commit();
+        getSupportFragmentManager().beginTransaction().remove(adapter.getItem(1)).commit();
+
+
         adapter.clearAllTab();
         adapter.addFragment(new ArticleFragment(), getResources().getString(R.string.fifth_page));
         for (int i=mainCategoryTitle.size()-1;i>=0;i--) {
