@@ -223,7 +223,10 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
             @Override
             public void onClick(View v) {
                 Bundle args = new Bundle();
-                args.putInt("pageId", pageId);
+                if(Configuration.getConfig().filterCategoryId==0)
+                    args.putInt("pageId", pageId);
+                else
+                    args.putInt("pageId",Configuration.getConfig().filterCategoryId);
                 FilterOptionProduct.getInstance().setArguments(args);
                 FilterOptionProduct.getInstance().show(myContext.getFragmentManager(), "FilterProductOption");
                 ObserverFilterPrice.changeFilterPriceListener(new ObserverFilterPriceListener() {
