@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCancel;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Utilities;
 
@@ -54,7 +55,8 @@ public class FilterOptionPrice extends DialogFragment {
         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                dismiss();
+                ObserverFilterCancel.setFilterCancel(true);
             }
         });
         ArrayList<String> priceFilter = Utilities.getInstance().getPriceFilterTitle();
@@ -69,6 +71,7 @@ public class FilterOptionPrice extends DialogFragment {
                 Intent args = new Intent();
                 args.putExtra("priceTitle", parent.getItemAtPosition(position).toString());
                 getTargetFragment().onActivityResult(getTargetRequestCode(), 0, args);
+                ObserverFilterCancel.setFilterCancel(false);
                 dismiss();
             }
         });

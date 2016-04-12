@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterBrand;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCancel;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCancelListener;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterPrice;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
@@ -79,10 +81,20 @@ public class FilterOptionProduct extends DialogFragment {
                     FilterOptionBrand.getInstance().setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"), 1);
                     FilterOptionBrand.getInstance().show(getFragmentManager(), "FilterOptionBrand");
                 }
-
-                dismiss();
+                getDialog().hide();
             }
         });
+
+        ObserverFilterCancel.changeFilterCancel(new ObserverFilterCancelListener() {
+            @Override
+            public void filterCancel() {
+                if (ObserverFilterCancel.getFilterCancel()==true)
+                    getDialog().show();
+                else
+                    dismiss();
+            }
+        });
+
         return dialogView;
     }
 

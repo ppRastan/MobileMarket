@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCancel;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
@@ -48,13 +49,13 @@ public class FilterOptionBrand extends DialogFragment {
         TextView titleBrand = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
         titleBrand.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.choose_brand));
         btnCancelAlertDialog.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        FilterOptionProduct.getInstance();
-                    }
-                });
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ObserverFilterCancel.setFilterCancel(true);
+                    dismiss();
+                }
+            });
 
         ArrayList<String> brandFilter = sch.getAllBrands(products);
 
@@ -68,6 +69,7 @@ public class FilterOptionBrand extends DialogFragment {
                 Intent args = new Intent();
                 args.putExtra("brand", parent.getItemAtPosition(position).toString());
                 getTargetFragment().onActivityResult(getTargetRequestCode(), 0, args);
+                ObserverFilterCancel.setFilterCancel(false);
                 dismiss();
             }
         });

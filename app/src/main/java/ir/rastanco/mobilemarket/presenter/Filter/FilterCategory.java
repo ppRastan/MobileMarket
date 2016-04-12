@@ -82,19 +82,14 @@ public class FilterCategory extends DialogFragment {
 
                 String itemSelectedContent = parent.getItemAtPosition(position).toString();
 
-                if (itemSelectedContent.equals(dialogView.getResources().getString(R.string.all))) {
-                    Intent args = new Intent();
-                    args.putExtra("all", 0);
-                    setTargetFragment(getFragmentManager().findFragmentByTag("category"), 1);
-                    onActivityResult(getTargetRequestCode(), 1, args);
-                    dismiss();
-                } else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent)) > 0) {
+                 if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent)) > 0) {
 
                     int catId = mapCategoryTitleToId.get(itemSelectedContent);
                     ArrayList<String> subCategoryChildTitle = sch.getTitleOfChildOfACategory(catId);
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                             android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
                     subCategoryChildTitle.add(0, dialogView.getResources().getString(R.string.all));
+
                     if (subCategoryChildTitle.equals(dialogView.getResources().getString(R.string.all))) {
                         Intent args = new Intent();
                         args.putExtra("all", 0);
