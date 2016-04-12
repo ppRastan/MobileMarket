@@ -59,7 +59,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
     static class ViewHolder {
         private ImageLoader imgLoader;
-        private Product aProduct;
         private Spinner spinnerCounter;
         private ImageView imgProduct;
         private TextView nameOfEachProductTextView;
@@ -80,8 +79,6 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
             holder = new ViewHolder();
 
             holder.imgLoader = new ImageLoader(shoppingBagActivityContext);
-            holder.aProduct = new Product();
-            holder.aProduct = serverConnectionHandler.getAProduct(selectedProducts.get(position));
             holder.imgProduct = (ImageView) convertView.findViewById(R.id.shopping__bag_img);
             holder.imgProduct.setImageDrawable(defaultPicture);
             holder.nameOfEachProductTextView = (TextView) convertView.findViewById(R.id.shopping_bag_txt_productTitle);
@@ -95,45 +92,47 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         } else
             holder = (ViewHolder) convertView.getTag();
 
+        final Product aProduct = serverConnectionHandler.getAProduct(selectedProducts.get(position));
+
         //Create each cartView
-        holder.nameOfEachProductTextView.setText(holder.aProduct.getTitle());
+        holder.nameOfEachProductTextView.setText(aProduct.getTitle());
         holder.shoppingBagTotalPriceTextView = PriceUtility.getInstance().changeFontToYekan(holder.shoppingBagTotalPriceTextView, shoppingBagActivityContext);
         holder.eachProductPriceTextView = PriceUtility.getInstance().changeFontToYekan(holder.eachProductPriceTextView, shoppingBagActivityContext);
         holder.shoppingOffer = PriceUtility.getInstance().changeFontToYekan(holder.shoppingOffer, shoppingBagActivityContext);
 
-        if (holder.aProduct.getPriceOff() != 0) {
-            int finalPrice = Utilities.getInstance().calculatePriceOffProduct(holder.aProduct.getPrice(), holder.aProduct.getPriceOff());
-            Integer eachProductOfferPrice = holder.aProduct.getPrice() - finalPrice;
+        if (aProduct.getPriceOff() != 0) {
+            int finalPrice = Utilities.getInstance().calculatePriceOffProduct(aProduct.getPrice(), aProduct.getPriceOff());
+            Integer eachProductOfferPrice = aProduct.getPrice() - finalPrice;
             holder.priceOffLinear.setVisibility(View.VISIBLE);
             holder.shoppingOffer.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeprated(eachProductOfferPrice)));
-            holder.eachProductPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeprated(holder.aProduct.getPrice())));
+            holder.eachProductPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice())));
             holder.shoppingBagTotalPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice)));
 
         } else {
-            int finalPrice = holder.aProduct.getPrice();
-            holder.eachProductPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeprated(holder.aProduct.getPrice())));
+            int finalPrice = aProduct.getPrice();
+            holder.eachProductPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice())));
             holder.shoppingBagTotalPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice)));
         }
 
         String imageNumberPath;
-        if (holder.aProduct.getImagesPath().size() == 0)
+        if (aProduct.getImagesPath().size() == 0)
             imageNumberPath = "no_image_path";
         else
-            imageNumberPath = holder.aProduct.getImagesPath().get(0);
+            imageNumberPath = aProduct.getImagesPath().get(0);
 
         try {
             imageNumberPath = URLEncoder.encode(imageNumberPath, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String imageURL = Link.getInstance().generateURLForGetImageProduct(holder.aProduct.getImagesMainPath(), imageNumberPath, Configuration.getConfig().articleDisplaySizeForURL, Configuration.getConfig().articleDisplaySizeForURL);
+        String imageURL = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(), imageNumberPath, Configuration.getConfig().articleDisplaySizeForURL, Configuration.getConfig().articleDisplaySizeForURL);
         holder.imgLoader.DisplayImage(imageURL, holder.imgProduct);
 
         //Set Spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(shoppingBagActivityContext, R.layout.spinner_item, spinnerList);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(shoppingBagActivityContext, R.layout.spinner_item, spinnerList);
         holder.spinnerCounter.setAdapter(adapter);
 
-        int selectedProductCounterInDB = serverConnectionHandler.getNumberProductShop(holder.aProduct.getId());
+        int selectedProductCounterInDB = serverConnectionHandler.getNumberProductShop(aProduct.getId());
         if (selectedItem.containsKey(position))
             holder.spinnerCounter.setSelection(selectedItem.get(position));
         else {
@@ -151,9 +150,9 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
                     public void onClick(DialogInterface dialog, int which) {
 
                         for (int i = 0; i < selectedProducts.size(); i++) {
-                            if (holder.aProduct.getId() == selectedProducts.get(i)) {
+                            if (aProduct.getId() == selectedProducts.get(i)) {
                                 selectedProducts.remove(i);
-                                serverConnectionHandler.deleteAProductShopping(holder.aProduct.getId());
+                                serverConnectionHandler.deleteAProductShopping(aProduct.getId());
                             }
                         }
                         updateList(selectedProducts);
@@ -179,7 +178,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
             public void onItemSelected(AdapterView<?> parent, View view, int selectedIndex, long id) {
 
                 selectedItem.put(position, selectedIndex);
-                serverConnectionHandler.changeShoppingNumber(holder.aProduct.getId(), selectedItem.get(position) + 1);
+                serverConnectionHandler.changeShoppingNumber(aProduct.getId(), selectedItem.get(position) + 1);
                 ObserverShoppingCancel.setShoppingCancel(true);
             }
 
@@ -200,5 +199,4 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         selectedProducts = results;
         notifyDataSetChanged();
     }
-
 }
