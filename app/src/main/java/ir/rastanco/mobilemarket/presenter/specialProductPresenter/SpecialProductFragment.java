@@ -1,15 +1,19 @@
 package ir.rastanco.mobilemarket.presenter.specialProductPresenter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -19,6 +23,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.UpdateService;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 /**
  * Created by ShaisteS on 1394/12/09.
@@ -31,18 +36,35 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
     private DownloadResultReceiver mReceiver;
     private ListView productListView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private TextView noThingToShow;
+    private ProgressBar progressBar;
+    private Context context;
+    private int existProductNumber;
+    private int allProductNumber;
+
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch = ServerConnectionHandler.getInstance(getContext());
-        products = new ArrayList<>();
-        products = sch.getSpecialProduct();
+        context=getContext();
+        sch = ServerConnectionHandler.getInstance(context);
         View mainView = inflater.inflate(R.layout.fragment_home, container, false);
         productListView = (ListView) mainView.findViewById(R.id.listView_picProduct);
-        PictureSpecialProductItemAdapter adapter = new PictureSpecialProductItemAdapter(getActivity(), products);
-        productListView.setAdapter(adapter);
+        noThingToShow = (TextView) mainView.findViewById(R.id.no_thing_to_show1);
+        noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow, context);
+        progressBar=(ProgressBar)mainView.findViewById(R.id.progressBar_Loading);
+        existProductNumber=sch.getFirstIndexForGetProductFromJson();
+        allProductNumber=sch.getNumberAllProduct();
+        products = new ArrayList<>();
+        products = sch.getSpecialProduct();
+
+        if(showMessage(products.size())){
+            PictureSpecialProductItemAdapter adapter = new PictureSpecialProductItemAdapter(getActivity(), products);
+            productListView.setAdapter(adapter);
+        }
+
         mSwipeRefreshLayout = (SwipeRefreshLayout)mainView.findViewById(R.id.swipe_refresh_layout);
         //refresh grid view
         mSwipeRefreshLayout.setEnabled(false);
@@ -96,6 +118,38 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
 
 
     }
+
+    private Boolean showMessage(int productSize){
+        if (productSize == 0) {
+            if (existProductNumber<allProductNumber || existProductNumber==0){
+                //Loading bar and please wait... text and grid view gone
+                progressBar.setVisibility(View.VISIBLE);
+                noThingToShow.setText(getString(R.string.please_wait_message));
+                noThingToShow.setTextColor(ContextCompat.getColor(context, R.color.black));
+                noThingToShow.setVisibility(View.VISIBLE);
+                productListView.setVisibility(View.GONE);
+                return false;
+            }
+            else{
+                //Loading bar gone and no product text and grid view gone
+                progressBar.setVisibility(View.INVISIBLE);
+                noThingToShow.setText(getString(R.string.no_product_to_show));
+                noThingToShow.setTextColor(ContextCompat.getColor(context, R.color.red));
+                noThingToShow.setVisibility(View.VISIBLE);
+                productListView.setVisibility(View.GONE);
+                return false;
+            }
+        }
+        else {
+            //Loading bar gone text view gone grid view visible
+            progressBar.setVisibility(View.GONE);
+            noThingToShow.setVisibility(View.GONE);
+            productListView.setVisibility(View.VISIBLE);
+            return true;
+        }
+
+    }
+
 
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {

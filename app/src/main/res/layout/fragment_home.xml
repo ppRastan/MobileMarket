@@ -10,16 +10,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <ListView
-            android:id="@+id/listView_picProduct"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="center_horizontal|top"
-            android:divider="@color/background_window"
-            android:dividerHeight="0dp"
-            android:scrollbars="none" />
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar_Loading"
+                android:layout_above="@+id/no_thing_to_show1"
+                android:layout_centerInParent="true"
+                android:visibility="invisible"
+                android:paddingBottom="5dp" />
 
+            <TextView
+                android:id="@+id/no_thing_to_show1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/orange"
+                android:textSize="@dimen/textSize"
+                android:visibility="invisible" />
+
+            <ListView
+                android:id="@+id/listView_picProduct"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center_horizontal|top"
+                android:divider="@color/background_window"
+                android:dividerHeight="0dp"
+                android:scrollbars="none" />
+
+        </RelativeLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

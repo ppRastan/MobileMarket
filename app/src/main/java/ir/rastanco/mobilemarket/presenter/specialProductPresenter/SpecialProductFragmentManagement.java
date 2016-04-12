@@ -10,11 +10,8 @@ import android.view.ViewGroup;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.presenter.CheckConnectionFragment;
-import ir.rastanco.mobilemarket.presenter.LoadingFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragmentListener;
-import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
-import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
 import ir.rastanco.mobilemarket.utility.Configuration;
 
 /**
@@ -28,7 +25,8 @@ public class SpecialProductFragmentManagement extends Fragment {
 
         View specialProductView = inflater.inflate(R.layout.fragment_special_product_manager, container, false);
         Configuration.getConfig().specialProductManagementContext = getContext();
-        if (Configuration.getConfig().emptyProductTable && !Configuration.getConfig().connectionStatus && Configuration.getConfig().emptyProductTable) {
+        if (Configuration.getConfig().emptyProductTable &&
+                !Configuration.getConfig().connectionStatus ){
 
             CheckConnectionFragment check = new CheckConnectionFragment();
             FragmentTransaction setCheck = getFragmentManager().beginTransaction();
@@ -45,7 +43,14 @@ public class SpecialProductFragmentManagement extends Fragment {
 
         }*/
 
-        else if (!Configuration.getConfig().emptyProductTable) {
+        else if(Configuration.getConfig().emptyProductTable && Configuration.getConfig().connectionStatus){
+            SpecialProductFragment specialProductFragment = new SpecialProductFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.specialProductManagement, specialProductFragment);
+            transaction.commit();
+        }
+
+        else if (!Configuration.getConfig().emptyProductTable ) {
             SpecialProductFragment specialProductFragment = new SpecialProductFragment();
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.specialProductManagement, specialProductFragment);
@@ -67,7 +72,7 @@ public class SpecialProductFragmentManagement extends Fragment {
             }
         });
 
-        ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
+        /*ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
             @Override
             public void connectionOK() {
 
@@ -77,7 +82,7 @@ public class SpecialProductFragmentManagement extends Fragment {
                 transaction0.commit();
 
             }
-        });
+        });*/
         return specialProductView;
     }
 
