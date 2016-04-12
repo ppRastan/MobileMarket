@@ -613,7 +613,7 @@ public class ServerConnectionHandler {
         ArrayList<Product> allProduct;
         allProduct= getProductsOfAParentCategory(pageId);
         if(filterCategoryId!=0)
-            allProduct=getProductsAfterFilterCategory(pageId, filterCategoryId);
+            allProduct=getProductsOfAParentCategory(filterCategoryId);
         else if (!filterOptionContent.equals(context.getResources().getString(R.string.all))){
             if(filterOptionStatus.equals(context.getResources().getString(R.string.price)))
                 allProduct=getProductAsPriceFilter(allProduct, filterOptionContent);
@@ -631,7 +631,7 @@ public class ServerConnectionHandler {
         ArrayList<Product> allProduct;
         allProduct= getProductsOfAParentCategory(pageID);
         if(filterCategoryId != 0)
-            allProduct=getProductsAfterFilterCategory(pageID, filterCategoryId);
+            allProduct=getProductsOfAParentCategory(filterCategoryId);
         if (!filterOptionContent.equals(context.getResources().getString(R.string.all))){
             if(filterOptionStatus.equals(context.getResources().getString(R.string.price)))
                 allProduct=getProductAsPriceFilter(allProduct, filterOptionContent);

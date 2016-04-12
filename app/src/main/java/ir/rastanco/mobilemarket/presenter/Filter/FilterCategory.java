@@ -33,6 +33,7 @@ public class FilterCategory extends DialogFragment {
     private ServerConnectionHandler sch;
     private Map<String, Integer> mapCategoryTitleToId;
     private static FilterCategory filterCategory;
+    private int selectCategoryId;
 
     public static FilterCategory getInstance() {
         if (filterCategory == null) {
@@ -53,18 +54,19 @@ public class FilterCategory extends DialogFragment {
 
         sch = ServerConnectionHandler.getInstance(Configuration.getConfig().shopFragmentContext);
         Integer pageId = getArguments().getInt("pageId");
+        selectCategoryId=pageId;
         mapCategoryTitleToId = new HashMap<>();
         mapCategoryTitleToId = sch.MapTitleToIDForAllCategory();
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
+        final ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
             }
         });
-        TextView titleOfAlertDialog = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
+        final TextView titleOfAlertDialog = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
         titleOfAlertDialog.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.choose_group));
         btnCancelAlertDialog.setImageResource(R.mipmap.ic_cancel_dialog);
         ArrayList<String> subCategoryTitle = sch.getTitleOfChildOfACategory(pageId);
@@ -82,36 +84,37 @@ public class FilterCategory extends DialogFragment {
 
                 String itemSelectedContent = parent.getItemAtPosition(position).toString();
 
-                 if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent)) > 0) {
-
-                    int catId = mapCategoryTitleToId.get(itemSelectedContent);
-                    ArrayList<String> subCategoryChildTitle = sch.getTitleOfChildOfACategory(catId);
+                if (itemSelectedContent.equals(getString(R.string.all))) {
+                    Intent args = new Intent();
+                    args.putExtra("all", selectCategoryId);
+                    setTargetFragment(getFragmentManager().findFragmentByTag("category"), 1);
+                    onActivityResult(getTargetRequestCode(), 1, args);
+                    dismiss();
+                }
+                else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent)) > 0) {
+                    selectCategoryId= mapCategoryTitleToId.get(itemSelectedContent);
+                    titleOfAlertDialog.setText(itemSelectedContent);
+                    btnCancelAlertDialog.setImageResource(R.mipmap.small_back_arrow);
+                    ArrayList<String> subCategoryChildTitle = sch.getTitleOfChildOfACategory(selectCategoryId);
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
-                            android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
+                    android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
                     subCategoryChildTitle.add(0, dialogView.getResources().getString(R.string.all));
-
-                    if (subCategoryChildTitle.equals(dialogView.getResources().getString(R.string.all))) {
-                        Intent args = new Intent();
-                        args.putExtra("all", 0);
-                        setTargetFragment(getFragmentManager().findFragmentByTag("category"), 1);
-                        onActivityResult(getTargetRequestCode(), 1, args);
-                        dismiss();
-
-                    }
                     listCategory.setAdapter(adapter);
-                    mapCategoryTitleToId = sch.MapTitleToIDForChildOfACategory(catId);
+                    mapCategoryTitleToId = sch.MapTitleToIDForChildOfACategory(selectCategoryId);
 
-                } else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent)) == 0) {
+                }
+                 else if (sch.getHasChildACategoryWithId(mapCategoryTitleToId.get(itemSelectedContent)) == 0) {
                     Intent args = new Intent();
                     args.putExtra("noChild", mapCategoryTitleToId.get(itemSelectedContent));
                     setTargetFragment(getFragmentManager().findFragmentByTag("category"), 2);
                     onActivityResult(getTargetRequestCode(), 2, args);
                     dismiss();
                 }
-
-
             }
         });
+
+        //TODO back arrow click handle
+
         return dialogView;
     }
 
@@ -130,7 +133,7 @@ public class FilterCategory extends DialogFragment {
             case 1:
                 Bundle bundleAll = data.getExtras();
                 int selectedAll = bundleAll.getInt("all");
-                Configuration.getConfig().filterCategoryTitle = Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all);
+                Configuration.getConfig().filterCategoryTitle =sch.getACategoryTitleWithCategoryId(selectedAll) ;
                 Configuration.getConfig().filterCategoryId = selectedAll;
                 ObserverFilterCategory.setAddFilter(true);
                 break;
