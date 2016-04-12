@@ -573,7 +573,7 @@ public class ServerConnectionHandler {
     }
     public ArrayList<Product> getProductAsPriceFilter(ArrayList<Product> allProduct,String priceTitle){
         int price= Utilities.getInstance().convertPriceTitleToInt(priceTitle);
-        if(price<=Utilities.getInstance().getAtLeastHighestPrice())
+        if(price<Utilities.getInstance().getAtLeastHighestPrice())
             return getProductSmallerThanAPrice(allProduct,price);
         else
             return getProductAboveAsAPrice(allProduct,price);

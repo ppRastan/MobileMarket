@@ -22,7 +22,8 @@ public class Utilities {
 
     private final int oneMillion = 1000000;
     private final int fiveMillion = 5000000;
-    private final int overOneMillion = 10000001;
+    private final int tenMillion=10000000;
+    private final int overTenMillion = 10000001;
     private final int numberOfArticlesAfterRefresh = 100;
     private final int atLeastArticleInFirstTime = 25;
     private final int calculatePercent = 100;
@@ -52,14 +53,14 @@ public class Utilities {
         else if (priceTitle.equals(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.up_to5million)))
             price = fiveMillion;
         else if (priceTitle.equals(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.up_to10million)))
-            price = getAtLeastHighestPrice();
+            price = tenMillion;
         else
-            price = overOneMillion; //1 is sign for price is above
+            price = overTenMillion; //1 is sign for price is above
         return price;
     }
 
     public int getAtLeastHighestPrice() {
-        return overOneMillion;
+        return overTenMillion;
     }
 
     public int getStartArticleNumber() {
