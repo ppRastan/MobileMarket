@@ -28,5 +28,10 @@ public class Utils {
         catch(Exception ex){
             Log.v("error happened in Utils","!");
         }
+        catch (OutOfMemoryError e){
+            MemoryCache memoryCache=new MemoryCache();
+            memoryCache.clear();
+
+        }
     }
 }
