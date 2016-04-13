@@ -394,7 +394,8 @@ public class ServerConnectionHandler {
     }
 
     public void addProductInformationToDataBaseFirstInstall7000(String url){
-        ArrayList<Product> allProducts = get7000ProductFromURL(url, 0, 0, false);
+        products=get7000ProductFromURL(url, 0, 0, false);
+        ArrayList<Product> allProducts=products;
         String timeStamp= allProducts.get(0).getTimeStamp();
         int numberOfProductExist=allProducts.size();
         setSetting(timeStamp,
