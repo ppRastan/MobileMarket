@@ -46,7 +46,7 @@ public class Configuration {
     public Boolean userLoginStatus;
     public Boolean RTL;
     public Boolean emptyProductTable=true; //true is empty and false is full
-    public Boolean emptyCategoryTable;//true is empty and false is full
+    public Boolean emptyCategoryTable=true;//true is empty and false is full
     public Boolean connectionStatus = false;
 
 

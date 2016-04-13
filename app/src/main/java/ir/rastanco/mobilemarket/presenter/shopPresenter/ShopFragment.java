@@ -47,38 +47,47 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
 
 
     private ServerConnectionHandler sch;
-    private TextView txtFilterOptionProductSelected;
-    private TextView txtFilterCategorySelected;
     private FragmentActivity myContext;
     private TextView noThingToShow;
     private ProgressBar progressBar;
     private DownloadResultReceiver mReceiver;
-    private int pageId;
     private GridView gridview;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private PictureProductShopItemAdapter adapter;
     private int existProductNumber;
     private int allProductNumber;
+    private int pageIdForRefresh;
+    private String txtFilterOptionForRefresh;
 
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final View mainView = inflater.inflate(R.layout.fragment_shop, container, false);
+        View mainView = inflater.inflate(R.layout.fragment_shop, container, false);
         Configuration.getConfig().shopFragmentContext = getContext();
         myContext = (FragmentActivity) Configuration.getConfig().shopFragmentContext;
-        pageId = getArguments().getInt("pageId");
         sch = ServerConnectionHandler.getInstance(getContext());
-        ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
-        txtFilterOptionProductSelected = (TextView) mainView.findViewById(R.id.filter_dialogue_text);
-        txtFilterCategorySelected = (TextView) mainView.findViewById(R.id.group_dialog_text);
+        final int pageId = getArguments().getInt("pageId");
+        final TextView txtFilterOptionProductSelected = (TextView) mainView.findViewById(R.id.filter_dialogue_text);
+        final TextView txtFilterCategorySelected = (TextView) mainView.findViewById(R.id.group_dialog_text);
         noThingToShow = (TextView) mainView.findViewById(R.id.no_thing_to_show1);
         noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow, myContext);
         progressBar=(ProgressBar)mainView.findViewById(R.id.progressBar_Loading);
         gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
+
+        ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
         existProductNumber=sch.getFirstIndexForGetProductFromJson();
         allProductNumber=sch.getNumberAllProduct();
+
+        Configuration.getConfig().filterCategoryId=0;
+        Configuration.getConfig().filterCategoryTitle=getString(R.string.all);
+        Configuration.getConfig().filterOption=getString(R.string.all);
+        txtFilterCategorySelected.setText(getString(R.string.all));
+        txtFilterOptionProductSelected.setText(getString(R.string.all));
+        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.black));
+
+
         mReceiver = new DownloadResultReceiver(new Handler());
         mReceiver.setReceiver(this);
 
@@ -139,6 +148,8 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                         /*sch.refreshCategories(Link.getInstance().generateURLForGetAllCategories());
                         sch.getNewProducts();
                         sch.getEditProducts();*/
+                        pageIdForRefresh = pageId;
+                        txtFilterOptionForRefresh= (String) txtFilterOptionProductSelected.getText();
                         Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), UpdateService.class);
                         intent.putExtra("receiver", mReceiver);
                         intent.putExtra("requestId", 101);
@@ -178,7 +189,6 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         //Filter
         ///FilterSubCategory
         Button btnFilterCategory = (Button) mainView.findViewById(R.id.group_dialog);
-        txtFilterCategorySelected = (TextView) mainView.findViewById(R.id.group_dialog_text);
         btnFilterCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,7 +218,6 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
             }
         });
         ///Filter in Product Features
-        txtFilterOptionProductSelected = (TextView) mainView.findViewById(R.id.filter_dialogue_text);
         Button btnFilterOptionProduct = (Button) mainView.findViewById(R.id.filter_dialogue);
         btnFilterOptionProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,8 +229,9 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
             @Override
             public void onClick(View v) {
                 Bundle args = new Bundle();
-                if(Configuration.getConfig().filterCategoryId==0)
+                if(Configuration.getConfig().filterCategoryId==0) {
                     args.putInt("pageId", pageId);
+                }
                 else
                     args.putInt("pageId",Configuration.getConfig().filterCategoryId);
                 FilterOptionProduct.getInstance().setArguments(args);
@@ -322,9 +332,9 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         switch (resultCode) {
 
             case UpdateService.STATUS_FINISHED:
-                ArrayList<Product> newProducts = sch.getProductAfterRefresh(pageId,
+                ArrayList<Product> newProducts = sch.getProductAfterRefresh(pageIdForRefresh,
                         Configuration.getConfig().filterCategoryId,
-                        txtFilterOptionProductSelected.getText().toString(),
+                        txtFilterOptionForRefresh,
                         Configuration.getConfig().filterOption);
                 if (newProducts.size() == 0) {
                     noThingToShow.setVisibility(View.VISIBLE);
@@ -342,7 +352,5 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                break;
 
         }
-
-
     }
 }
