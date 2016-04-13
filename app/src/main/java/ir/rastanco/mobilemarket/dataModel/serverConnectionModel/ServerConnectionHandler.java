@@ -407,7 +407,8 @@ public class ServerConnectionHandler {
     }
 
     public void addProductInformationToDataBaseFirstInstall(String url){
-        ArrayList<Product> allProducts = getAllProductFromURL(url,0,0,false);
+        products=getAllProductFromURL(url,0,0,false);
+        ArrayList<Product> allProducts = products;
         String timeStamp= allProducts.get(0).getTimeStamp();
         int numberOfProductExist=allProducts.size();
         setSetting(timeStamp,
