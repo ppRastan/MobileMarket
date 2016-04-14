@@ -120,7 +120,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
 
     private Boolean showMessage(int productSize){
         if (productSize == 0) {
-            if (existProductNumber==0){
+            if (existProductNumber<allProductNumber || existProductNumber==0){
                 //Loading bar and please wait... text and grid view gone
                 //progressBar.setVisibility(View.VISIBLE);
                 noThingToShow.setText(getString(R.string.please_wait_message));
@@ -129,14 +129,16 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                 productListView.setVisibility(View.GONE);
                 return false;
             }
-            else {
+            else if(existProductNumber!=0){
+                //Loading bar gone and no product text and grid view gone
+                //progressBar.setVisibility(View.INVISIBLE);
                 noThingToShow.setText(getString(R.string.no_product_to_show));
                 noThingToShow.setTextColor(ContextCompat.getColor(context, R.color.red));
                 noThingToShow.setVisibility(View.VISIBLE);
                 productListView.setVisibility(View.GONE);
                 return false;
             }
-
+            return false;
         }
         else {
             //Loading bar gone text view gone grid view visible
