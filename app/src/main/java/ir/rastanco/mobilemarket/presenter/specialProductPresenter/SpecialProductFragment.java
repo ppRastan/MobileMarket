@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
     private ListView productListView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private TextView noThingToShow;
-    private ProgressBar progressBar;
+    //private ProgressBar progressBar;
     private Context context;
     private int existProductNumber;
     private int allProductNumber;
@@ -54,7 +53,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
         productListView = (ListView) mainView.findViewById(R.id.listView_picProduct);
         noThingToShow = (TextView) mainView.findViewById(R.id.no_thing_to_show1);
         noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow, context);
-        progressBar=(ProgressBar)mainView.findViewById(R.id.progressBar_Loading);
+        //progressBar=(ProgressBar)mainView.findViewById(R.id.progressBar_Loading);
         existProductNumber=sch.getFirstIndexForGetProductFromJson();
         allProductNumber=sch.getNumberAllProduct();
         products = new ArrayList<>();
@@ -121,7 +120,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
 
     private Boolean showMessage(int productSize){
         if (productSize == 0) {
-            if (existProductNumber<allProductNumber || existProductNumber==0){
+           /* if (existProductNumber<allProductNumber || existProductNumber==0){
                 //Loading bar and please wait... text and grid view gone
                 progressBar.setVisibility(View.VISIBLE);
                 noThingToShow.setText(getString(R.string.please_wait_message));
@@ -130,19 +129,19 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                 productListView.setVisibility(View.GONE);
                 return false;
             }
-            else{
+            else{*/
                 //Loading bar gone and no product text and grid view gone
-                progressBar.setVisibility(View.INVISIBLE);
+                //progressBar.setVisibility(View.INVISIBLE);
                 noThingToShow.setText(getString(R.string.no_product_to_show));
                 noThingToShow.setTextColor(ContextCompat.getColor(context, R.color.red));
                 noThingToShow.setVisibility(View.VISIBLE);
                 productListView.setVisibility(View.GONE);
                 return false;
             }
-        }
+        //}
         else {
             //Loading bar gone text view gone grid view visible
-            progressBar.setVisibility(View.GONE);
+            //progressBar.setVisibility(View.GONE);
             noThingToShow.setVisibility(View.GONE);
             productListView.setVisibility(View.VISIBLE);
             return true;

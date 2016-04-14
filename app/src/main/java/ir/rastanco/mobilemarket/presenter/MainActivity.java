@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -137,6 +138,15 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
             intent.putExtra("receiver", mReceiver);
             intent.putExtra("requestId", 101);
             startService(intent);
+            Snackbar.make(findViewById(R.id.main), "در حال بارگذاری اطلاعات ...", Snackbar.LENGTH_LONG)
+                    .setAction("CLOSE", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    })
+                    .setActionTextColor(getResources().getColor(android.R.color.holo_red_light ))
+                    .show();
         }
 
         //check get all product.if don't get all product start service get .
