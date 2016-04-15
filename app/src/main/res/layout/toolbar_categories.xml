@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/toolbar_categories"
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:weightSum="2">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:weightSum="2"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,11 +60,11 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginBottom="3dp"
                 android:layout_weight="1"
-                android:background="@color/white"
+                android:background="@null"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="@string/all"
                 android:textColor="@color/black"
-                android:textSize="@dimen/textSize" />
+                android:textSize="@dimen/smallerTextSize" />
 
 
             <TextView
@@ -81,11 +77,8 @@
                 android:gravity="center_horizontal|center_vertical"
                 android:text="@string/all"
                 android:textColor="@color/black"
-                android:textSize="@dimen/textSize" />
+                android:textSize="@dimen/smallerTextSize" />
 
         </LinearLayout>
 
     </LinearLayout>
-
-
-</android.support.v7.widget.Toolbar>
