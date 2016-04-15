@@ -45,7 +45,7 @@
                         android:layout_weight="4"
                         android:contentDescription="@string/productPicture"
                         android:background="@color/white"
-                        android:scaleType="fitXY" />
+                        android:scaleType="centerInside" />
 
                     <TextView
                         android:id="@+id/shopping_bag_txt_productTitle"

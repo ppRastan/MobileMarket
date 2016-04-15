@@ -29,7 +29,7 @@
         android:layout_marginTop="85dp"
         android:background="@color/white"
         android:divider="@color/background_window"
-        android:dividerHeight="20dp">
+        android:dividerHeight="2dp">
 
     </ListView>
 

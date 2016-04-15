@@ -43,7 +43,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private final ArrayList<String> spinnerList;
     private AlertDialog.Builder alertDialog;
     private final Map<Integer, Integer> selectedItem;
-    private Drawable defaultPicture=null;
+    private Drawable defaultPicture = null;
 
     public shoppingBagAdapter(Context context, ArrayList<Integer> productsId) {
         super(context, R.layout.activity_shopping_bag, productsId);
@@ -53,7 +53,7 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
         spinnerList = new ArrayList<>();
         this.fillSpinnerItems();
         selectedItem = new HashMap<>();
-        if (defaultPicture==null)
+        if (defaultPicture == null)
             defaultPicture = Utilities.getInstance().ResizeImage(R.drawable.loadingholder, context, Configuration.getConfig().articleDisplaySizeForShow);
     }
 
