@@ -37,19 +37,19 @@ public class UserFavouriteProduct extends Activity {
         UserFavouriteProductItemAdapter adapter = new UserFavouriteProductItemAdapter(Configuration.getConfig().userProfileActivityContext, allProductLike);
         lsvFavourite.setAdapter(adapter);
         lsvFavourite.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                                @Override
-                                                public void onItemClick(AdapterView<?> parent, View view,
-                                                                        int position, long id) {
-                                                    int productId = sch.getProductIdWithTitle((String) parent.getItemAtPosition(position));
-                                                    Product aProduct = sch.getAProduct(productId);
-                                                    ArrayList<Product> product = new ArrayList<>();
-                                                    product.add(aProduct);
-                                                    Intent intent = new Intent(Configuration.getConfig().mainActivityContext, ProductInfoActivity.class);
-                                                    intent.putParcelableArrayListExtra("allProduct", product);
-                                                    intent.putExtra("position", 0);
-                                                    startActivity(intent);
-                                                }
-                                            }
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
+                    int productId = sch.getProductIdWithTitle((String) parent.getItemAtPosition(position));
+                    Product aProduct = sch.getAProduct(productId);
+                    ArrayList<Product> product = new ArrayList<>();
+                    product.add(aProduct);
+                    Intent intent = new Intent(Configuration.getConfig().mainActivityContext, ProductInfoActivity.class);
+                    intent.putParcelableArrayListExtra("allProduct", product);
+                    intent.putExtra("position", 0);
+                    startActivity(intent);
+                }
+            }
         );
 
     }

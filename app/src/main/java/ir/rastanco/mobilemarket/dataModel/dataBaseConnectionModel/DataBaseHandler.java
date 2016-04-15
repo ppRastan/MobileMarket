@@ -836,6 +836,27 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select All Child of A Category Title ");
         return categoryTitles;
     }
+
+    public ArrayList<Integer> selectIdChildesOfACategory(int categoryId){
+        String query="select * from "+TABLE_CATEGORY+
+                " where "+CategoryTable_Column_Parent_Id+"=" + categoryId +
+                " order by "+CategoryTable_Column_SortOrder+","+CategoryTable_Column_Category_Id+" ASC";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery(query, null);
+        ArrayList<Integer> categoriesId= new ArrayList<>();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    categoriesId.add(rs.getInt(rs.getColumnIndex(CategoryTable_Column_Category_Id)));
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select All category Id Of Child of A Category ");
+        return categoriesId;
+    }
+
     public Map<Integer,String> selectAllProductTitle(){
         String query="select "+ProductTable_Column_Product_Id+","+ProductTable_Column_Title+
                 " from "+TABLE_PRODUCT;
