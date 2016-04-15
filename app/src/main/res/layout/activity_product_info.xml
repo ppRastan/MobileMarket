@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     android:weightSum="25">
 
     <LinearLayout
@@ -35,26 +35,22 @@
             android:id="@+id/img_productInfo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:paddingLeft="0dp"
-            android:paddingRight="0dp"
+            android:layout_marginRight="19dp"
+            android:layout_marginLeft="19dp"
             android:background="@color/white"
             android:contentDescription="@string/productFullScreenPhoto"
-            android:scaleType="fitXY" />
+            android:scaleType="fitStart" />
 
         <ImageButton
             android:id="@+id/ic_offer_full_screen_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="false"
-            android:layout_alignParentStart="false"
-            android:layout_alignParentTop="true"
             android:background="@null"
+            android:layout_marginLeft="19dp"
+            android:layout_alignTop="@+id/img_productInfo"
             android:contentDescription="@string/thisProductHasOffer"
-            android:src="@mipmap/offer_icon_right_special_full_screen_page" />
+            android:src="@mipmap/offer_icon_right_special_full_screen_page"
+             />
 
 
     </RelativeLayout>
@@ -63,16 +59,16 @@
         android:id="@+id/horizontal_scroll"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:padding="2dp"
-        android:background="@color/white"
         android:layout_weight="4"
+        android:background="@color/white"
+        android:padding="2dp"
         android:scrollbars="none">
 
         <LinearLayout
-            android:background="@color/white"
             android:id="@+id/linear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="horizontal" />
     </HorizontalScrollView>
 
