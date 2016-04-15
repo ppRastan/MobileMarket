@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
             for (int i = 0; i < tabChildCount; i++) {
                 View tabViewChild = vgTab.getChildAt(i);
                 if (tabViewChild instanceof TextView) {
-                    ((TextView) tabViewChild).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf"));
+                    ((TextView) tabViewChild).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/iransans_regular.ttf"));
                 }
             }
         }

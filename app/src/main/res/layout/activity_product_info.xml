@@ -35,8 +35,8 @@
             android:id="@+id/img_productInfo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginRight="19dp"
             android:layout_marginLeft="19dp"
+            android:layout_marginRight="19dp"
             android:background="@color/white"
             android:contentDescription="@string/productFullScreenPhoto"
             android:scaleType="fitStart" />
@@ -45,12 +45,11 @@
             android:id="@+id/ic_offer_full_screen_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:layout_marginLeft="19dp"
             android:layout_alignTop="@+id/img_productInfo"
+            android:layout_marginLeft="19dp"
+            android:background="@null"
             android:contentDescription="@string/thisProductHasOffer"
-            android:src="@mipmap/offer_icon_right_special_full_screen_page"
-             />
+            android:src="@mipmap/offer_icon_right_special_full_screen_page" />
 
 
     </RelativeLayout>
@@ -157,19 +156,48 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:background="@color/green"
-        android:gravity="center">
+        android:weightSum="4"
+        android:background="@color/green">
 
-        <Button
-            android:id="@+id/full_screen_add_to_basket_btn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/green"
-            android:drawablePadding="8dp"
-            android:drawableRight="@mipmap/basket_white"
-            android:gravity="center"
-            android:textColor="@color/white" />
+            android:layout_weight="2.5"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/full_screen_add_to_basket_btn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableRight="@mipmap/basket_white"
+                android:gravity="center"
+                android:textSize="@dimen/smallerTextSize"
+                android:textColor="@color/white" />
+            <!--android:drawablePadding="8dp"-->
+        </LinearLayout>
+<LinearLayout
+    android:layout_width="1dp"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:layout_marginTop="7dp"
+    android:layout_marginBottom="7dp"
+    android:background="@color/white"/>
+
+
+            <Button
+                android:id="@+id/displayCurrentImageInSite"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="@dimen/smallerTextSize"
+                android:text="@string/visitInSite"
+                android:textColor="@color/white" />
+        <!--android:drawablePadding="8dp"-->
+        <!--android:drawableRight="@mipmap/basket_white"-->
+
 
     </LinearLayout>
 </LinearLayout>

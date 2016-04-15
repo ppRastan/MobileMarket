@@ -142,7 +142,13 @@ public class FullScreenImageAdapter extends PagerAdapter {
                 ToolbarHandler.getInstance().addToFavoriteInProductPage(sch, aProduct, btnLike, activity, position);
             }
         });
-
+    Button displayCurrentProductInSite = (Button)viewLayout.findViewById(R.id.displayCurrentImageInSite);
+        displayCurrentProductInSite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToolbarHandler.getInstance().productDisplayer(aProduct.getLinkInSite(),activity);
+            }
+        });
 
         ImageButton btnInfo = (ImageButton) viewLayout.findViewById(R.id.img_info);
         btnInfo.setOnClickListener(new View.OnClickListener() {

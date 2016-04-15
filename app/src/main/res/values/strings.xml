@@ -98,4 +98,5 @@
     <string name="FullScreenImageAdapterproductOriginalPrice">قیمت : %1$s  تومان</string>
     <string name="shoppingBagActivityFinalPrice">%1$s  تومان</string>
     <string name="eachPrice">%1$s تومان</string>
+    <string name="visitInSite">مشاهده در سایت</string>
 </resources>

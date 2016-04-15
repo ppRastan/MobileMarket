@@ -2,6 +2,7 @@ package ir.rastanco.mobilemarket.presenter.specialProductPresenter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.UpdateService;
+import ir.rastanco.mobilemarket.utility.ColorUtility;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 
@@ -94,6 +96,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
         });
         mReceiver = new DownloadResultReceiver(new Handler());
         mReceiver.setReceiver(this);
+        ColorUtility.getConfig().setColorOfSwipeRefresh(mSwipeRefreshLayout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -161,6 +164,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                 productListView.setAdapter(newAdapter);
                 newAdapter.notifyDataSetChanged();
                 mSwipeRefreshLayout.setRefreshing(false);
+
                 break;
 
         }

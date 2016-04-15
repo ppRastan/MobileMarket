@@ -1,6 +1,7 @@
 package ir.rastanco.mobilemarket.presenter.shopPresenter;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.Utils;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Filter.FilterCategory;
 import ir.rastanco.mobilemarket.presenter.Filter.FilterOptionProduct;
@@ -36,6 +38,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProductListener;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.UpdateService;
+import ir.rastanco.mobilemarket.utility.ColorUtility;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 
@@ -99,6 +102,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         mSwipeRefreshLayout = (SwipeRefreshLayout)mainView.findViewById(R.id.swipe_refresh_layout);
         //mSwipeRefreshLayout.setEnabled(true);
         mSwipeRefreshLayout.setEnabled(false);
+        ColorUtility.getConfig().setColorOfSwipeRefresh(mSwipeRefreshLayout);
         gridview.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -355,7 +359,6 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                     PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                     gridview.setAdapter(newAdapter);
                     newAdapter.notifyDataSetChanged();
-                    mSwipeRefreshLayout.setRefreshing(false);
                 }
 
                break;

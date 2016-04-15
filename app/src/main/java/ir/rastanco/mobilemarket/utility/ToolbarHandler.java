@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -167,4 +168,7 @@ public class ToolbarHandler {
         activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
     }
 
+    public void productDisplayer(String linkOfProduct , Activity activity) {
+        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(linkOfProduct)));
+    }
 }

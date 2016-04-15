@@ -1,6 +1,7 @@
 package ir.rastanco.mobilemarket.presenter.ArticlePresenter;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +21,7 @@ import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
+import ir.rastanco.mobilemarket.utility.ColorUtility;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.Utilities;
@@ -35,19 +37,20 @@ public class ArticleFragment extends Fragment {
     private ArrayList<Article> articles;
     private int leastArticleNumberInFirstTime;
     private int startArticleNumber;
+    private SwipeRefreshLayout srlArticles;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch=ServerConnectionHandler.getInstance(getContext());
-        leastArticleNumberInFirstTime= Utilities.getInstance().getAtLeastArticleInFirstTime();
-        startArticleNumber=Utilities.getInstance().getStartArticleNumber();
+        sch = ServerConnectionHandler.getInstance(getContext());
+        leastArticleNumberInFirstTime = Utilities.getInstance().getAtLeastArticleInFirstTime();
+        startArticleNumber = Utilities.getInstance().getStartArticleNumber();
 
-        articles=new ArrayList<>();
+        articles = new ArrayList<>();
 
-        if (sch.emptyDBArticle()){
-            String url= Link.getInstance().generateURLForGetArticle(startArticleNumber,leastArticleNumberInFirstTime);
-            articles=sch.getAllArticlesAndNewsURL(url);
+        if (sch.emptyDBArticle()) {
+            String url = Link.getInstance().generateURLForGetArticle(startArticleNumber, leastArticleNumberInFirstTime);
+            articles = sch.getAllArticlesAndNewsURL(url);
             sch.addAllArticlesToTable(articles);
         }
 
@@ -55,31 +58,31 @@ public class ArticleFragment extends Fragment {
             @Override
             public void connectionOK() {
 
-                if (sch.emptyDBArticle()){
-                    String url= Link.getInstance().generateURLForGetArticle(startArticleNumber,leastArticleNumberInFirstTime);
-                    articles=sch.getAllArticlesAndNewsURL(url);
+                if (sch.emptyDBArticle()) {
+                    String url = Link.getInstance().generateURLForGetArticle(startArticleNumber, leastArticleNumberInFirstTime);
+                    articles = sch.getAllArticlesAndNewsURL(url);
                     sch.addAllArticlesToTable(articles);
                 }
 
             }
         });
 
-       View  mainView = inflater.inflate(R.layout.fragment_article,container, false);
-        articles=sch.getAllArticlesFromTable();
+        View mainView = inflater.inflate(R.layout.fragment_article, container, false);
+        articles = sch.getAllArticlesFromTable();
         final ListView articleList = (ListView) mainView.findViewById(R.id.lv_article);
         final int[] startItem = {0};
         final int[] endItem = new int[1];
-        if (articles.size()>leastArticleNumberInFirstTime)
-            endItem[0] =leastArticleNumberInFirstTime;
+        if (articles.size() > leastArticleNumberInFirstTime)
+            endItem[0] = leastArticleNumberInFirstTime;
         else
-            endItem[0] =articles.size();
-        ArrayList<Article> customArticles=new ArrayList<>();
-        for(int i= startItem[0];i< endItem[0];i++){
+            endItem[0] = articles.size();
+        ArrayList<Article> customArticles = new ArrayList<>();
+        for (int i = startItem[0]; i < endItem[0]; i++) {
             customArticles.add(articles.get(i));
 
         }
         final ArticleItemAdapter adapter = new ArticleItemAdapter(getActivity(),
-                 customArticles);
+                customArticles);
         articleList.setAdapter(adapter);
         final View finalMainView = mainView;
         articleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -94,7 +97,8 @@ public class ArticleFragment extends Fragment {
             }
         });
 
-        final SwipeRefreshLayout srlArticles=(SwipeRefreshLayout)mainView.findViewById(R.id.swipe_refresh_layout);
+        srlArticles = (SwipeRefreshLayout) mainView.findViewById(R.id.swipe_refresh_layout);
+        ColorUtility.getConfig().setColorOfSwipeRefresh(srlArticles);
         srlArticles.setEnabled(false);
         srlArticles.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -104,7 +108,7 @@ public class ArticleFragment extends Fragment {
                     public void run() {
                         sch.refreshArticles();
                         articles = sch.getAllArticlesFromTable();
-                        ArrayList<Article> helpArticlesShow=new ArrayList<>();
+                        ArrayList<Article> helpArticlesShow = new ArrayList<>();
                         for (int i = 0; i < leastArticleNumberInFirstTime; i++) {
                             helpArticlesShow.add(articles.get(i));
 
