@@ -1,6 +1,7 @@
 package ir.rastanco.mobilemarket.presenter.Filter;
 
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCategory;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -29,6 +30,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  */
 public class FilterCategory extends DialogFragment {
 
+    private Context context;
     private ServerConnectionHandler sch;
     private Map<String, Integer> mapCategoryTitleToId;
     private static FilterCategory filterCategory;
@@ -51,7 +53,8 @@ public class FilterCategory extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        sch = ServerConnectionHandler.getInstance(Configuration.getConfig().shopFragmentContext);
+        context=Configuration.getConfig().shopFragmentContext;
+        sch = ServerConnectionHandler.getInstance(context);
         final Integer pageId = getArguments().getInt("pageId");
         selectCategoryId=pageId;
         mapCategoryTitleToId = new HashMap<>();
@@ -62,20 +65,55 @@ public class FilterCategory extends DialogFragment {
         final TextView titleOfAlertDialog = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
         titleOfAlertDialog.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.choose_group));
         btnCancelAlertDialog.setImageResource(R.mipmap.ic_cancel_dialog);
-        ArrayList<String> subCategoryTitle = sch.getTitleOfChildOfACategory(pageId);
-
-        //add filter=All
+        /*ArrayList<String> subCategoryTitle = sch.getTitleOfChildOfACategory(pageId);
         subCategoryTitle.add(0, dialogView.getResources().getString(R.string.all));
         final ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                 android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryTitle);
+        listCategory.setAdapter(adapter);*/
+
+        ArrayList<Integer> subCategoryId=sch.getCategoryIdOfChildesOfACategory(pageId);
+        subCategoryId.add(0,0);//for add "all" in first item
+        final ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
+        FilterCategoryItemAdapter adapter=new FilterCategoryItemAdapter(context,R.layout.title_alertdialog_for_group,subCategoryId);
         listCategory.setAdapter(adapter);
+
+
 
         listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String itemSelectedContent = parent.getItemAtPosition(position).toString();
+                int itemSelected= (int) parent.getItemAtPosition(position);
+                Category aCategory=sch.getACategoryWithId(itemSelected);
+                if (itemSelected==0){
+                    Intent args = new Intent();
+                    args.putExtra("all", selectCategoryId);
+                    setTargetFragment(getFragmentManager().findFragmentByTag("category"), 1);
+                    onActivityResult(getTargetRequestCode(), 1, args);
+                    dismiss();
+                }
+                else if(aCategory.getHasChild()>0){
+                    selectCategoryId=itemSelected;
+                    titleOfAlertDialog.setText(aCategory.getTitle());
+                    btnCancelAlertDialog.setImageResource(R.mipmap.small_back_arrow);
+                    ArrayList<Integer> subCategoryId=sch.getCategoryIdOfChildesOfACategory(aCategory.getId());
+                    subCategoryId.add(0,0);//for add "all" in first item
+                    FilterCategoryItemAdapter adapter=new FilterCategoryItemAdapter(context,R.layout.title_alertdialog_for_group,subCategoryId);
+                    listCategory.setAdapter(adapter);
+                    //adapter.notifyDataSetChanged();
+                }
+                else if(aCategory.getHasChild()==0){
+                    selectCategoryId=itemSelected;
+                    Intent args = new Intent();
+                    args.putExtra("noChild",aCategory.getId());
+                    setTargetFragment(getFragmentManager().findFragmentByTag("category"), 2);
+                    onActivityResult(getTargetRequestCode(), 2, args);
+                    dismiss();
+
+                }
+
+                /*String itemSelectedContent = parent.getItemAtPosition(position).toString();
 
                 if (itemSelectedContent.equals(getString(R.string.all))) {
                     Intent args = new Intent();
@@ -87,10 +125,15 @@ public class FilterCategory extends DialogFragment {
                     selectCategoryId = mapCategoryTitleToId.get(itemSelectedContent);
                     titleOfAlertDialog.setText(itemSelectedContent);
                     btnCancelAlertDialog.setImageResource(R.mipmap.small_back_arrow);
-                    ArrayList<String> subCategoryChildTitle = sch.getTitleOfChildOfACategory(selectCategoryId);
+                    /*ArrayList<String> subCategoryChildTitle = sch.getTitleOfChildOfACategory(selectCategoryId);
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                             android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
                     subCategoryChildTitle.add(0, dialogView.getResources().getString(R.string.all));
+                    listCategory.setAdapter(adapter);
+                    ArrayList<Integer> subCategoryId=sch.getCategoryIdOfChildesOfACategory(pageId);
+                    subCategoryId.add(0,0);//for add "all" in first item
+                    final ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
+                    FilterCategoryItemAdapter adapter=new FilterCategoryItemAdapter(context,R.layout.title_alertdialog_for_group,subCategoryId);
                     listCategory.setAdapter(adapter);
                     mapCategoryTitleToId = sch.MapTitleToIDForChildOfACategory(selectCategoryId);
 
@@ -100,39 +143,48 @@ public class FilterCategory extends DialogFragment {
                     setTargetFragment(getFragmentManager().findFragmentByTag("category"), 2);
                     onActivityResult(getTargetRequestCode(), 2, args);
                     dismiss();
-                }
+                }*/
             }
         });
 
         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int parentIdACategory=sch.getParentIdACategoryWithCategoryId(selectCategoryId);
-                if (parentIdACategory==0){
+                int parentIdACategory = sch.getParentIdACategoryWithCategoryId(selectCategoryId);
+                if (parentIdACategory == 0) {
                     dismiss();
                 }
-                if (parentIdACategory==pageId){
+                if (parentIdACategory == pageId) {
                     btnCancelAlertDialog.setImageResource(R.mipmap.ic_cancel_dialog);
                     titleOfAlertDialog.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.choose_group));
-                    selectCategoryId=parentIdACategory;
+                    selectCategoryId = parentIdACategory;
                     mapCategoryTitleToId = sch.MapTitleToIDForChildOfACategory(selectCategoryId);
-                    ArrayList<String> subCategoryChildTitle = sch.getTitleOfChildOfACategory(selectCategoryId);
+                    /*ArrayList<String> subCategoryChildTitle = sch.getTitleOfChildOfACategory(selectCategoryId);
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                             android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
                     subCategoryChildTitle.add(0, dialogView.getResources().getString(R.string.all));
+                    listCategory.setAdapter(adapter);*/
+                    ArrayList<Integer> subCategoryId = sch.getCategoryIdOfChildesOfACategory(pageId);
+                    subCategoryId.add(0, 0);//for add "all" in first item
+                    final ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
+                    FilterCategoryItemAdapter adapter = new FilterCategoryItemAdapter(context, R.layout.title_alertdialog_for_group, subCategoryId);
                     listCategory.setAdapter(adapter);
-                }
-                else {
-                    selectCategoryId=parentIdACategory;
+
+                } else {
+                    selectCategoryId = parentIdACategory;
                     btnCancelAlertDialog.setImageResource(R.mipmap.small_back_arrow);
                     titleOfAlertDialog.setText(sch.getACategoryTitleWithCategoryId(selectCategoryId));
                     mapCategoryTitleToId = sch.MapTitleToIDForChildOfACategory(selectCategoryId);
-                    ArrayList<String> subCategoryChildTitle = sch.getTitleOfChildOfACategory(selectCategoryId);
+                    /*ArrayList<String> subCategoryChildTitle = sch.getTitleOfChildOfACategory(selectCategoryId);
                     ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                             android.R.layout.simple_list_item_1, android.R.id.text1, subCategoryChildTitle);
                     subCategoryChildTitle.add(0, dialogView.getResources().getString(R.string.all));
+                    listCategory.setAdapter(adapter);*/
+                    ArrayList<Integer> subCategoryId = sch.getCategoryIdOfChildesOfACategory(pageId);
+                    subCategoryId.add(0, 0);//for add "all" in first item
+                    final ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
+                    FilterCategoryItemAdapter adapter = new FilterCategoryItemAdapter(context, R.layout.title_alertdialog_for_group, subCategoryId);
                     listCategory.setAdapter(adapter);
-
 
                 }
             }

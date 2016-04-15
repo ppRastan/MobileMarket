@@ -165,6 +165,17 @@ public class ServerConnectionHandler {
         return aCategory.getTitle();
     }
 
+    public ArrayList<Integer> getCategoryIdOfChildesOfACategory(int categoryId){
+        ArrayList<Integer> CategoryIdOfChildOfACategory=DataBaseHandler.getInstance(context).selectIdChildesOfACategory(categoryId);
+        if (emptyDBCategory() && categories.size()!=0){
+            for (int i=0;i<categories.size();i++){
+                if (categories.get(i).getParentId()==categoryId)
+                    CategoryIdOfChildOfACategory.add(categories.get(i).getId());
+            }
+        }
+        return CategoryIdOfChildOfACategory;
+    }
+
     public ArrayList<String> getTitleOfChildOfACategory(int catID){
         ArrayList<String> titleOfChildOfACategory=DataBaseHandler.getInstance(context).selectChildOfACategoryTitle(catID);
         if (emptyDBCategory() && categories.size()!=0){
