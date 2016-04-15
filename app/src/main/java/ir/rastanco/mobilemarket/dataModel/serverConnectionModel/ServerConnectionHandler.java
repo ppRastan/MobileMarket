@@ -535,7 +535,7 @@ public class ServerConnectionHandler {
         for (int i=0;i<products.size();i++){
             if(brandsTitle.size()==0 && !products.get(i).getBrandName().equals(""))
                 brandsTitle.add(products.get(i).getBrandName());
-            else{
+            else if(!products.get(i).getBrandName().equals("")){
                 boolean statusExist=false;
                 boolean statusNotExist=true;
                 for (int j=0;j<brandsTitle.size();j++){
