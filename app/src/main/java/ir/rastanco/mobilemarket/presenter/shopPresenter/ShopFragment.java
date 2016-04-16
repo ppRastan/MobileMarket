@@ -1,7 +1,6 @@
 package ir.rastanco.mobilemarket.presenter.shopPresenter;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -20,7 +19,6 @@ import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.Utils;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Filter.FilterCategory;
 import ir.rastanco.mobilemarket.presenter.Filter.FilterOptionProduct;
@@ -206,6 +204,8 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                     public void changeFilterCategory() {
                         txtFilterCategorySelected.setText(Configuration.getConfig().filterCategoryTitle);
                         txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
+                        txtFilterOptionProductSelected.setText(getString(R.string.all));
+                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext,R.color.black));
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
