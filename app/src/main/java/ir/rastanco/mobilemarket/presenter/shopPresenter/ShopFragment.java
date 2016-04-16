@@ -1,7 +1,6 @@
 package ir.rastanco.mobilemarket.presenter.shopPresenter;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -20,7 +19,6 @@ import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.Utils;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Filter.FilterCategory;
 import ir.rastanco.mobilemarket.presenter.Filter.FilterOptionProduct;
@@ -60,7 +58,6 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
     private int allProductNumber;
     private int pageIdForRefresh;
     private String txtFilterOptionForRefresh;
-
 
 
     @Override
@@ -195,17 +192,25 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         btnFilterCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //show Dialog Filter category
                 Bundle args = new Bundle();
                 args.putInt("pageId", pageId);
-                FilterCategory.getInstance().setArguments(args);
-                FilterCategory.getInstance().show(myContext.getFragmentManager(), "Category");
+                if (FilterCategory.getInstance().isAdded()&& Configuration.getConfig().filterCategoryDialogShowStatus) {
+                }
+                else if(!FilterCategory.getInstance().isAdded() && !Configuration.getConfig().filterCategoryDialogShowStatus) {
+                    FilterCategory.getInstance().setArguments(args);
+                    FilterCategory.getInstance().show(myContext.getFragmentManager(), "Category");
+                    Configuration.getConfig().filterCategoryDialogShowStatus=true;//when category filter dialog open
+                }
+                //show Dialog Filter category
                 //Change grid view data after set filter
                 ObserverFilterCategory.changeFilterCategoryListener(new ObserverFilterCategoryListener() {
                     @Override
                     public void changeFilterCategory() {
+                        Configuration.getConfig().filterCategoryDialogShowStatus=false;//when category filter dialog close
                         txtFilterCategorySelected.setText(Configuration.getConfig().filterCategoryTitle);
                         txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
+                        txtFilterOptionProductSelected.setText(getString(R.string.all));
+                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext,R.color.black));
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),

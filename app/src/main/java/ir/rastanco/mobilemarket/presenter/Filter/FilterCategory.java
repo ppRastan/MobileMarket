@@ -152,6 +152,7 @@ public class FilterCategory extends DialogFragment {
             public void onClick(View v) {
                 int parentIdACategory = sch.getParentIdACategoryWithCategoryId(selectCategoryId);
                 if (parentIdACategory == 0) {
+                    Configuration.getConfig().filterCategoryDialogShowStatus=false;//when category filter dialog close
                     dismiss();
                 }
                 if (parentIdACategory == pageId) {

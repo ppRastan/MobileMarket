@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
             intent.putExtra("receiver", mReceiver);
             intent.putExtra("requestId", 101);
             startService(intent);
-            Snackbar.make(findViewById(R.id.main), "در حال بارگذاری اطلاعات ...", Snackbar.LENGTH_LONG)
+            Snackbar.make(Configuration.getConfig().mainActivityView, "در حال بارگذاری اطلاعات ...", Snackbar.LENGTH_LONG)
                     .setAction("CLOSE", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -289,6 +289,8 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         mapTitleToIdMainCategory = sch.MapTitleToIDForMainCategory();
         Configuration.getConfig().mainTabCount = mainCategoryTitle.size();
         shopCounter = sch.getCountProductShop();
+        Configuration.getConfig().mainActivityView=findViewById(R.id.main);
+
     }
 
     private void displayWindow() {

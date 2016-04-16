@@ -16,7 +16,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCancel;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -40,7 +39,8 @@ public class FilterOptionBrand extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         ServerConnectionHandler sch = ServerConnectionHandler.getInstance(Configuration.getConfig().shopFragmentContext);
-        Integer pageId = getArguments().getInt("pageId");
+        //Integer pageId = getArguments().getInt("pageId");
+        ArrayList<String> brandFilter = getArguments().getStringArrayList("brandsTitle");
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
@@ -55,9 +55,6 @@ public class FilterOptionBrand extends DialogFragment {
                     dismiss();
                 }
             });
-
-        ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
-        ArrayList<String> brandFilter = sch.getAllBrands(products);
 
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),

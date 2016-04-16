@@ -4,6 +4,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.Product;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterBrand;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCancel;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCancelListener;
@@ -32,6 +35,7 @@ public class FilterOptionProduct extends DialogFragment {
     private int pageId;
     private static FilterOptionProduct filterOptionProduct;
     private Context context;
+    private ServerConnectionHandler serverConnectionHandler;
 
     public static FilterOptionProduct getInstance() {
         if (filterOptionProduct == null) {
@@ -45,9 +49,10 @@ public class FilterOptionProduct extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         context = Configuration.getConfig().shopFragmentContext;
         pageId = getArguments().getInt("pageId");
-        final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
+        serverConnectionHandler=ServerConnectionHandler.getInstance(context);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
         TextView titleBrand = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
@@ -75,11 +80,24 @@ public class FilterOptionProduct extends DialogFragment {
                     FilterOptionPrice.getInstance().setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"), 0);
                     FilterOptionPrice.getInstance().show(getFragmentManager(), "FilterOptionPrice");
                 } else if (position == 1) {
-                    Bundle args = new Bundle();
-                    args.putInt("pageId", pageId);
-                    FilterOptionBrand.getInstance().setArguments(args);
-                    FilterOptionBrand.getInstance().setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"), 1);
-                    FilterOptionBrand.getInstance().show(getFragmentManager(), "FilterOptionBrand");
+                    ArrayList<Product> products = serverConnectionHandler.getProductsOfAParentCategory(pageId);
+                    ArrayList<String> brandTitle = serverConnectionHandler.getAllBrands(products);
+                    if (brandTitle.size()==0) {
+                        String categorySelectedTitle=serverConnectionHandler.getACategoryTitleWithCategoryId(pageId);
+                        String message="دسته ی "+categorySelectedTitle+" فاقد برند می باشد";
+                        Snackbar.make(Configuration.getConfig().mainActivityView,message,Snackbar.LENGTH_LONG)
+                                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light ))
+                                .show();
+                        getDialog().dismiss();
+                    }
+                    else{
+                        Bundle args = new Bundle();
+                        args.putStringArrayList("brandsTitle",brandTitle);
+                        FilterOptionBrand.getInstance().setArguments(args);
+                        FilterOptionBrand.getInstance().setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"), 1);
+                        FilterOptionBrand.getInstance().show(getFragmentManager(), "FilterOptionBrand");
+                    }
+
                 }
                 getDialog().hide();
             }
