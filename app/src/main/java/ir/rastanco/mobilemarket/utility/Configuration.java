@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
+import android.view.View;
 
 /**
  * Created by ShaisteS on 1394/10/14.
@@ -66,6 +67,7 @@ public class Configuration {
     public MenuItem upgradeButtonMenu;
     public ViewPager mainPager;
     public FloatingActionButton customerSupportFloatingActionButton;
+    public View mainActivityView;
 
 
 }
