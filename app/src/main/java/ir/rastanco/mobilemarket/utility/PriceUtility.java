@@ -15,7 +15,7 @@ import java.text.DecimalFormat;
 public class PriceUtility {
     private static DecimalFormat formatter;
     private static PriceUtility priceUtility;
-    private String defaultFont = "fonts/iransans_regular.ttf";
+    private String defaultFont = "fonts/decoriss_iransans.ttf";
 
     public static PriceUtility getInstance() {
         if (priceUtility == null) {
