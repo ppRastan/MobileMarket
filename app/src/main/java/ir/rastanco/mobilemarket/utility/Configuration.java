@@ -48,6 +48,7 @@ public class Configuration {
     public Boolean emptyProductTable=true; //true is empty and false is full
     public Boolean emptyCategoryTable=true;//true is empty and false is full
     public Boolean connectionStatus = false;
+    public Boolean filterCategoryDialogShowStatus=false; //false= no show dialog and true= show dialog
 
 
     public Integer filterCategoryId = 0; //It is important that filterCategoryId=0

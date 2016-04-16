@@ -60,7 +60,6 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
     private String txtFilterOptionForRefresh;
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -193,15 +192,21 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         btnFilterCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //show Dialog Filter category
                 Bundle args = new Bundle();
                 args.putInt("pageId", pageId);
-                FilterCategory.getInstance().setArguments(args);
-                FilterCategory.getInstance().show(myContext.getFragmentManager(), "Category");
+                if (FilterCategory.getInstance().isAdded()&& Configuration.getConfig().filterCategoryDialogShowStatus) {
+                }
+                else if(!FilterCategory.getInstance().isAdded() && !Configuration.getConfig().filterCategoryDialogShowStatus) {
+                    FilterCategory.getInstance().setArguments(args);
+                    FilterCategory.getInstance().show(myContext.getFragmentManager(), "Category");
+                    Configuration.getConfig().filterCategoryDialogShowStatus=true;//when category filter dialog open
+                }
+                //show Dialog Filter category
                 //Change grid view data after set filter
                 ObserverFilterCategory.changeFilterCategoryListener(new ObserverFilterCategoryListener() {
                     @Override
                     public void changeFilterCategory() {
+                        Configuration.getConfig().filterCategoryDialogShowStatus=false;//when category filter dialog close
                         txtFilterCategorySelected.setText(Configuration.getConfig().filterCategoryTitle);
                         txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
                         txtFilterOptionProductSelected.setText(getString(R.string.all));
