@@ -83,7 +83,7 @@ public class FilterCategory extends DialogFragment {
         listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                view.setSelected(true);
                 int itemSelected= (int) parent.getItemAtPosition(position);
                 Category aCategory=sch.getACategoryWithId(itemSelected);
                 if (itemSelected==0){

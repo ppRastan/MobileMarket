@@ -10,4 +10,6 @@
     <color name="green">#31a140</color>
     <color name="red">#EB4D2A</color>
     <color name="transparent">#10f7f7f7</color>
+    <color name="selected_item_listView_color">#FF97BEFE</color>
+    <color name="default_item_listView_color">#ffffff</color>
 </resources>
