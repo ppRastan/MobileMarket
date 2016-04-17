@@ -2,7 +2,6 @@ package ir.rastanco.mobilemarket.presenter.specialProductPresenter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;

@@ -19,7 +19,7 @@
         android:layout_gravity="center_vertical|center_horizontal"
         android:src="@drawable/previous" />
 
-    <TextView
+    <ir.rastanco.mobilemarket.utility.FontTextView
         android:id="@+id/txt_Name"
         android:layout_width="0dp"
         android:layout_height="match_parent"

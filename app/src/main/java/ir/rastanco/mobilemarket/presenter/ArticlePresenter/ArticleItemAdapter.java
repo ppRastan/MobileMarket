@@ -30,7 +30,6 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
     private final Activity myContext;
     private final ArrayList<Article> articles ;
     private Drawable defaultPicture=null;
-    private String articleImageURL;
 
     public ArticleItemAdapter(Context context, ArrayList<Article> allArticles) {
         super(context, R.layout.article_item, allArticles);
@@ -64,7 +63,7 @@ public class ArticleItemAdapter extends ArrayAdapter<Article>{
         else
             holder = (ViewHolder) convertView.getTag();
         holder.articleImage.setImageDrawable(defaultPicture);
-        articleImageURL= Link.getInstance().generateURLForGetArticleImage(articles.get(position).getImageLink());
+        String articleImageURL= Link.getInstance().generateURLForGetArticleImage(articles.get(position).getImageLink());
         holder.imgLoader.DisplayImage(articleImageURL, holder.articleImage);
         holder.articleTitle.setText(articles.get(position).getTitle());
         return convertView;

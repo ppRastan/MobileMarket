@@ -33,7 +33,7 @@
             android:background="@color/decoriss"
             android:src="@mipmap/ic_back" />
 
-        <TextView
+        <ir.rastanco.mobilemarket.utility.FontTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="1dp"
@@ -53,7 +53,7 @@
         android:orientation="horizontal"
         android:weightSum="8">
 
-        <TextView
+        <ir.rastanco.mobilemarket.utility.FontTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="right"
@@ -67,7 +67,7 @@
             android:textColor="@color/green"
             android:textSize="@dimen/textSize" />
 
-        <TextView
+        <ir.rastanco.mobilemarket.utility.FontTextView
             android:id="@+id/total_price"
             android:layout_width="0dp"
             android:layout_height="match_parent"

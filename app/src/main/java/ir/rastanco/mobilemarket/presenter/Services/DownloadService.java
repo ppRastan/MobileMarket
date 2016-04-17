@@ -21,7 +21,6 @@ public class DownloadService extends IntentService {
     public static final int STATUS_ERROR = 2;
 
     private static final String TAG = "DownloadService";
-    private ServerConnectionHandler serverConnectionHandler;
 
     public DownloadService() {
         super(DownloadService.class.getName());
@@ -31,7 +30,7 @@ public class DownloadService extends IntentService {
     protected void onHandleIntent(Intent intent) {
 
         Log.d(TAG, "Service Started!");
-        serverConnectionHandler=ServerConnectionHandler.getInstance(this);
+        ServerConnectionHandler serverConnectionHandler=ServerConnectionHandler.getInstance(this);
 
         final ResultReceiver receiver = intent.getParcelableExtra("receiver");
 
@@ -62,6 +61,7 @@ public class DownloadService extends IntentService {
 
             } catch (Exception e) {
 
+                Log.v("unable to set this font ","!");
             }
         }
         Log.d(TAG, "Service Stopping!");

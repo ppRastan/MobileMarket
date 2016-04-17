@@ -6,18 +6,14 @@ package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
  */
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -50,12 +46,12 @@ public class FullScreenImageAdapter extends PagerAdapter {
     private Context myContext;
     private Drawable largeDefaultPicture = null;
     private Drawable smallDefaultPicture = null;
-    private String textToSend = null;
-    private Dialog shareDialog;
-    private ImageButton cancelShareDialog;
-    private Button sendBtn;
-    private EditText editTextToShare;
-    private Intent sendIntent;
+//    private String textToSend = null;
+//    private Dialog shareDialog;
+//    private ImageButton cancelShareDialog;
+//    private Button sendBtn;
+//    private EditText editTextToShare;
+//    private Intent sendIntent;
 
     public FullScreenImageAdapter(Activity activity, ArrayList<Product> allProducts, int allProductSize) {
         this.activity = activity;

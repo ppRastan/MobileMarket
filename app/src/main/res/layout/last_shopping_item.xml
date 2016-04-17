@@ -11,7 +11,7 @@
         android:layout_height="300dp"
         android:padding="4dp" />
 
-    <TextView
+    <ir.rastanco.mobilemarket.utility.FontTextView
         android:id="@+id/txt_invoiceNum"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
         android:padding="3dp"
         android:textColor="@color/black" />
 
-    <TextView
+    <ir.rastanco.mobilemarket.utility.FontTextView
         android:id="@+id/txt_invoiceDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         android:padding="3dp"
         android:textColor="@color/black" />
 
-    <TextView
+    <ir.rastanco.mobilemarket.utility.FontTextView
         android:id="@+id/txt_invoiceStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

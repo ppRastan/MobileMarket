@@ -18,14 +18,13 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 public class SplashHandler extends AppCompatActivity{
 
     private ServerConnectionHandler sch;
-    private Context splashContext;
     private final Integer delay = 3000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final SplashHandler sPlashHandler = this;
-        splashContext=this;
+        Context splashContext=this;
         sch=ServerConnectionHandler.getInstance(splashContext);
         Thread mSplashThread = new Thread() {
             @Override

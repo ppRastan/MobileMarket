@@ -55,7 +55,6 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private PictureProductShopItemAdapter adapter;
     private int existProductNumber;
-    private int allProductNumber;
     private int pageIdForRefresh;
     private String txtFilterOptionForRefresh;
 
@@ -77,7 +76,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
 
         ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
         existProductNumber=sch.getFirstIndexForGetProductFromJson();
-        allProductNumber=sch.getNumberAllProduct();
+        int allProductNumber=sch.getNumberAllProduct();
 
         Configuration.getConfig().filterCategoryId=0;
         Configuration.getConfig().filterCategoryTitle=getString(R.string.all);

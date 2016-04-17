@@ -53,7 +53,7 @@ public class ProductOptionActivity extends Activity{
         ArrayList<ProductOption> options = sch.getProductOptionFromDataBase(productId);
         ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.getConfig().productOptionActivityContext, options);
         lvProductOption.setAdapter(adapter);
-        ListView lvComment = (ListView) findViewById(R.id.lv_comments);
+        ListView lvComment = (ListView) findViewById(R.id.lv_comment);
         ArrayList<String> commentsAProduct = sch.getContentCommentsAllProduct(productId);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 Configuration.getConfig().productOptionActivityContext,

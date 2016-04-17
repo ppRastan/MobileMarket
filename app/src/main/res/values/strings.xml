@@ -7,7 +7,7 @@
     <string name="search_in_decoriss">جستجو در محصولات</string>
     <string name="group">دسته</string>
     <string name="all">همه</string>
-    <string name="add_filter">نمایش بر اساس</string>
+    <string name="add_filter">نمایش براساس</string>
     <string name="user_name">نام کاربری :</string>
     <string name="enter_email_address">آدرس ایمیل خود را وارد کنید</string>
     <string name="enter_password">پسورد خود را وارد کنید</string>
@@ -42,7 +42,7 @@
     <string name="your_account">حساب کاربری شما</string>
     <string name="thanks">سپاسگزار</string>
     <string name="pleaseLogin">لطفا با حساب کاربری خود وارد شوید</string>
-    <string name="sure_to_exit">برای خروج کلید بازگشت را مجددا فشار دهید</string>
+    <string name="sure_to_exit">برای خروج کلیدبازگشت را مجددا فشار دهید</string>
     <string name="welcome_to_decoriss">کاربر گرامی خوش آمدید</string>
     <string name="please_wait_message">بارگذاری اولیه ممکن است چند دقیقه طول بکشد</string>
     <string name="please_wait">لطفا منتظر بمانید . . .</string>
@@ -99,4 +99,5 @@
     <string name="shoppingBagActivityFinalPrice">%1$s  تومان</string>
     <string name="eachPrice">%1$s تومان</string>
     <string name="visitInSite">مشاهده در سایت</string>
+    <string name="info">%1$s تومان</string>
 </resources>

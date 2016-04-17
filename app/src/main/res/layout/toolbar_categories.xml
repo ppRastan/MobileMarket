@@ -25,6 +25,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/button_background"
                 android:text="@string/add_filter"
+                android:textStyle="bold"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize" />
@@ -37,6 +38,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/button_background"
                 android:text="@string/group"
+                android:textStyle="bold"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:textColor="@color/black"
                 android:textSize="@dimen/textSize" />
@@ -52,7 +54,7 @@
             android:orientation="horizontal"
             android:weightSum="2">
 
-            <TextView
+            <ir.rastanco.mobilemarket.utility.FontTextView
                 tools:ignore="NestedWeights"
                 android:id="@+id/filter_dialogue_text"
                 android:layout_width="0dp"
@@ -67,7 +69,7 @@
                 android:textSize="@dimen/smallerTextSize" />
 
 
-            <TextView
+            <ir.rastanco.mobilemarket.utility.FontTextView
                 android:id="@+id/group_dialog_text"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

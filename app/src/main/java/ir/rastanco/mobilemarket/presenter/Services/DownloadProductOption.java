@@ -13,12 +13,6 @@ import ir.rastanco.mobilemarket.utility.Link;
  * Created by ShaisteS on 1395/1/23.
  */
 public class DownloadProductOption extends IntentService {
-
-    private ServerConnectionHandler serverConnectionHandler;
-    private int productId;
-    private int groupId;
-    private ArrayList<ProductOption> options;
-
     public DownloadProductOption() {
         super(DownloadProductOption.class.getName());
     }
@@ -26,13 +20,12 @@ public class DownloadProductOption extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        serverConnectionHandler=ServerConnectionHandler.getInstance(this);
-        productId=intent.getIntExtra("productId",0);
-        groupId=intent.getIntExtra("groupId", 0);
-        String url= Link.getInstance().generateURLForGetProductOptionsOfAProduct(productId, groupId);
-        options= new ArrayList<ProductOption>();
-        options=serverConnectionHandler.getOptionsOfAProductFromURL(url);
-        serverConnectionHandler.addProductOptionsToTable(productId,options);
+        ServerConnectionHandler serverConnectionHandler = ServerConnectionHandler.getInstance(this);
+        int productId = intent.getIntExtra("productId", 0);
+        int groupId = intent.getIntExtra("groupId", 0);
+        String url = Link.getInstance().generateURLForGetProductOptionsOfAProduct(productId, groupId);
+        ArrayList<ProductOption> options =serverConnectionHandler.getOptionsOfAProductFromURL(url);
+        serverConnectionHandler.addProductOptionsToTable(productId, options);
 
 
     }

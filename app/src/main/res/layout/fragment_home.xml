@@ -23,7 +23,7 @@
                 android:visibility="invisible"
                 android:paddingBottom="5dp" />-->
 
-            <TextView
+            <ir.rastanco.mobilemarket.utility.FontTextView
                 android:id="@+id/no_thing_to_show1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

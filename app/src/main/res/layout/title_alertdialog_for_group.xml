@@ -13,7 +13,7 @@
         android:weightSum="4">
 
 
-        <TextView
+        <ir.rastanco.mobilemarket.utility.FontTextView
             android:id="@+id/title_alert_dialogue_group"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

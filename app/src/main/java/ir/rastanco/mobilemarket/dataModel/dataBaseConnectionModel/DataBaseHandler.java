@@ -52,7 +52,6 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     private final String ShoppingTable_Column_ForeignKey_ProductId="fkProductId";
     private final String ShoppingTable_Column_Number_Purchased="numberPurchased";
 
-    private final String CategoryTable_Column_Primary_Id="id";
     private final String CategoryTable_Column_Title="title";
     private final String CategoryTable_Column_Category_Id="catId";
     private final String CategoryTable_Column_Parent_Id="parentId";
@@ -82,16 +81,14 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     private final String ProductTable_Column_WaterMark_Path="watermarkPath";
     private final String ProductTable_Column_Images_Main_Path="imagesMainPath";
 
-    private final String ImagePathProductTable_Primary_Key="id";
     private final String ImagePathProductTable_ForeignKey_ProductId="fkProductId";
     private final String ImagePathProductTable_Image_Path="imagePath";
 
-    private final String ProductOptionTable_Primary_Key="id";
     private final String ProductOptionTable_ForeignKey_ProductId="fkProductId";
     private final String ProductOptionTable_Title_Option="titleOption";
     private final String ProductOptionTable_Value_Option="valueOption";
 
-    private final String ArticleTable_Primary_Key="id";
+
     private final String ArticleTable_Title="title";
     private final String ArticleTable_Brief="brief";
     private final String ArticleTable_Date="date";
@@ -131,8 +128,8 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 SettingsTable_Column_Last_Update_TimeStamp + " String," +
                 SettingsTable_Column_Last_Articles_Number + " String," +
                 SettingsTable_Column_Last_Version_Application + " String," +
-                SettingsTable_Column_First_Index_Get_product+" Integer," +
-                SettingsTable_Column_Number_All_Product+" Integer)");
+                SettingsTable_Column_First_Index_Get_product + " Integer," +
+                SettingsTable_Column_Number_All_Product + " Integer)");
         Log.v("create", "Create Setting Table");
 
         db.execSQL("create table " + TABLE_SHOPPING +
@@ -143,7 +140,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 "foreign key (" + ShoppingTable_Column_ForeignKey_ProductId + ") references " +
                 TABLE_PRODUCT + "(" + ProductTable_Column_Product_Id + "))");
         Log.v("create", "Create Shopping Table");
-
+        String CategoryTable_Column_Primary_Id="id";
         db.execSQL("create table " + TABLE_CATEGORY +
                 "(" +
                 CategoryTable_Column_Primary_Id + " Integer primary key AUTOINCREMENT," +
@@ -179,7 +176,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 ProductTable_Column_WaterMark_Path + " text," +
                 ProductTable_Column_Images_Main_Path + " text)");
         Log.v("create", "Create Table Product");
-
+        String ImagePathProductTable_Primary_Key="id";
         db.execSQL("create table " + TABLE_IMAGES_PATH_PRODUCT +
                 "(" +
                 ImagePathProductTable_Primary_Key + " Integer primary key AUTOINCREMENT," +
@@ -188,7 +185,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 "foreign key (" + ImagePathProductTable_ForeignKey_ProductId + ") references " +
                 TABLE_PRODUCT + "(" + ProductTable_Column_Product_Id + "))");
         Log.v("create", "Create Table Images Path For Product");
-
+        String ProductOptionTable_Primary_Key="id";
         db.execSQL("create table " + TABLE_PRODUCT_OPTION +
                 "(" +
                 ProductOptionTable_Primary_Key + " Integer primary key AUTOINCREMENT," +
@@ -198,7 +195,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
                 "foreign key (" + ProductOptionTable_ForeignKey_ProductId + ") references " +
                 TABLE_PRODUCT + "(" + ProductTable_Column_Product_Id + "))");
         Log.v("create", "Create Table Options For Product");
-
+        String ArticleTable_Primary_Key="id";
         db.execSQL("create table "+TABLE_ARTICLE +
                 "("+
                 ArticleTable_Primary_Key +" Integer primary key AUTOINCREMENT," +

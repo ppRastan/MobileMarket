@@ -13,7 +13,6 @@ import ir.rastanco.mobilemarket.utility.Link;
 public class UpdateService extends IntentService {
 
     public static final int STATUS_FINISHED = 1;
-    private ServerConnectionHandler serverConnectionHandler;
 
     public UpdateService() {
         super(UpdateService.class.getName());
@@ -24,7 +23,7 @@ public class UpdateService extends IntentService {
 
         final ResultReceiver receiver = intent.getParcelableExtra("receiver");
 
-        serverConnectionHandler=ServerConnectionHandler.getInstance(this);
+        ServerConnectionHandler serverConnectionHandler=ServerConnectionHandler.getInstance(this);
         serverConnectionHandler.refreshCategories(Link.getInstance().generateURLForGetAllCategories());
         serverConnectionHandler.getNewProducts();
         serverConnectionHandler.getEditProducts();

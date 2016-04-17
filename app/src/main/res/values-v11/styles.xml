@@ -2,6 +2,7 @@
 <resources>
 
     <style name="DialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:typeface">normal</item>
         <item name="android:textColorPrimary">@color/decoriss</item>
     </style>
 </resources>

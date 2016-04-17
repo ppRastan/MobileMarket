@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:layout_weight="2" />
 
-    <TextView
+    <ir.rastanco.mobilemarket.utility.FontTextView
         android:id="@+id/text_of_list_view"
         android:layout_width="0dp"
         android:layout_height="match_parent"

@@ -4,10 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
@@ -17,10 +19,8 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.Memory
  * Created by ShaisteS on 1395/1/8.
  * This class include utility Method
  */
-//test
 public class Utilities {
 
-    private final int oneMillion = 1000000;
     private final int fiveMillion = 5000000;
     private final int tenMillion=10000000;
     private final int overTenMillion = 10000001;
@@ -48,6 +48,7 @@ public class Utilities {
 
     public int convertPriceTitleToInt(String priceTitle) {
         int price;
+        int oneMillion = 1000000;
         if (priceTitle.equals(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.up_to1million)))
             price = oneMillion;
         else if (priceTitle.equals(Configuration.getConfig().mainActivityContext.getResources().getString(R.string.up_to5million)))
@@ -118,5 +119,15 @@ public class Utilities {
         return Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
     }
 
+    public  void overrideFont(Context context, String defaultFontNameToOverride, String customFontFileNameInAssets) {
+        try {
+            final Typeface customFontTypeface = Typeface.createFromAsset(context.getAssets(), customFontFileNameInAssets);
 
+            final Field defaultFontTypefaceField = Typeface.class.getDeclaredField(defaultFontNameToOverride);
+            defaultFontTypefaceField.setAccessible(true);
+            defaultFontTypefaceField.set(null, customFontTypeface);
+        } catch (Exception e) {
+            //Log.e(MainActivity.TAG, "Can not set custom font " + customFontFileNameInAssets + " instead of " + defaultFontNameToOverride);
+        }
+    }
 }

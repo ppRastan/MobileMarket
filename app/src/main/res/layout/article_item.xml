@@ -11,7 +11,7 @@
         <!--android:layout_height="wrap_content">-->
 
 
-        <TextView
+        <ir.rastanco.mobilemarket.utility.FontTextView
             android:id="@+id/txt_titleArticle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

@@ -20,4 +20,5 @@ public class FontHelper {
         }
         return typeface;
     }
+
 }

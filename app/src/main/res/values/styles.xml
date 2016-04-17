@@ -1,15 +1,16 @@
 <resources>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="android:typeface">normal</item>
+        <item name="android:typeface">serif</item>
     </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"><item name="android:typeface">serif</item></style>
 
-    <style name="CodeFont" parent="@android:style/TextAppearance.Medium"/>
+    <style name="CodeFont" parent="@android:style/TextAppearance.Medium"><item name="android:typeface">serif</item></style>
 
     <style name="Transparent" parent="@android:style/Theme.NoTitleBar">
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:typeface">serif</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
@@ -18,6 +19,7 @@
 
     <style name="Theme.Transparent" parent="android:Theme">
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:typeface">serif</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>

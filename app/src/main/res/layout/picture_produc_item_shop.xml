@@ -40,7 +40,7 @@
 
     </RelativeLayout>
 
-    <TextView
+    <ir.rastanco.mobilemarket.utility.FontTextView
         android:id="@+id/txt_infoProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
     <!--
     price of product
     -->
-    <TextView
+    <ir.rastanco.mobilemarket.utility.FontTextView
         android:id="@+id/txt_priceProduct"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
     <!--
     price of product for you
     -->
-    <TextView
+    <ir.rastanco.mobilemarket.utility.FontTextView
         android:id="@+id/txt_price_for_you"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

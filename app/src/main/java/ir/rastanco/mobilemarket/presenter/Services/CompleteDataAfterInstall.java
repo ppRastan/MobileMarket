@@ -14,7 +14,6 @@ import ir.rastanco.mobilemarket.utility.Link;
 public class CompleteDataAfterInstall extends IntentService {
 
     public static final int STATUS_FINISHED = 1;
-    private ServerConnectionHandler serverConnectionHandler;
 
     public CompleteDataAfterInstall() {
         super(CompleteDataAfterInstall.class.getName());
@@ -25,7 +24,7 @@ public class CompleteDataAfterInstall extends IntentService {
 
         final ResultReceiver receiver = intent.getParcelableExtra("receiver");
 
-        serverConnectionHandler=ServerConnectionHandler.getInstance(this);
+        ServerConnectionHandler serverConnectionHandler=ServerConnectionHandler.getInstance(this);
         int firstIndexGetProduct=serverConnectionHandler.getFirstIndexForGetProductFromJson();
         String url = Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
         serverConnectionHandler.setProducts(serverConnectionHandler.getAllProductFromURL(url, firstIndexGetProduct, 0, false));

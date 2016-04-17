@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
 
-    <TextView
+    <ir.rastanco.mobilemarket.utility.FontTextView
         android:id="@+id/txtCheckConnection"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -39,7 +39,7 @@ public class ProductInfoItemAdapter extends ArrayAdapter<ProductOption> {
             LayoutInflater inflater = myActivity.getLayoutInflater();
             convertView = inflater.inflate(R.layout.product_info_item, parent, false);
             holder = new ViewHolder();
-            holder.txtTitle = (TextView) convertView.findViewById(R.id.txt_title);
+            holder.txtTitle = (TextView) convertView.findViewById(R.id.text_title);
             convertView.setTag(holder);
         } else
             holder = (ViewHolder) convertView.getTag();

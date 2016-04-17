@@ -17,7 +17,7 @@
         android:paddingRight="10dp"
         android:src="@mipmap/ic_like_filled_toolbar" />
 
-    <TextView
+    <ir.rastanco.mobilemarket.utility.FontTextView
         android:id="@+id/txt_likeProductTitle"
         android:layout_width="0dp"
         android:layout_height="match_parent"
