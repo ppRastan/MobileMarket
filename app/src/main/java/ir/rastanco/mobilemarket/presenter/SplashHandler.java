@@ -26,6 +26,27 @@ public class SplashHandler extends AppCompatActivity{
         final SplashHandler sPlashHandler = this;
         Context splashContext=this;
         sch=ServerConnectionHandler.getInstance(splashContext);
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        if (ni != null && ni.isConnectedOrConnecting()) {
+            Configuration.getConfig().connectionStatus = true;
+        }
+        if (sch.emptyUserInfo())
+            Configuration.getConfig().userLoginStatus = false; //please login
+        else Configuration.getConfig().userLoginStatus = true;//
+
+        if (sch.emptyDBCategory()) {
+            Configuration.getConfig().emptyCategoryTable=true;
+        }
+        else
+            Configuration.getConfig().emptyCategoryTable=false;
+        if (sch.emptyDBProduct()) {
+            Configuration.getConfig().emptyProductTable = true;
+        }
+        else {
+            Configuration.getConfig().emptyProductTable = false;
+        }
+
         Thread mSplashThread = new Thread() {
             @Override
             public void run() {
@@ -35,26 +56,6 @@ public class SplashHandler extends AppCompatActivity{
                     }
                 } catch (InterruptedException ex) {
                     Log.v("unable to open splash", "!");
-                }
-                ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo ni = cm.getActiveNetworkInfo();
-                if (ni != null && ni.isConnectedOrConnecting()) {
-                    Configuration.getConfig().connectionStatus = true;
-                }
-                if (sch.emptyUserInfo())
-                    Configuration.getConfig().userLoginStatus = false; //please login
-                else Configuration.getConfig().userLoginStatus = true;//
-
-                if (sch.emptyDBCategory()) {
-                    Configuration.getConfig().emptyCategoryTable=true;
-                }
-                else
-                    Configuration.getConfig().emptyCategoryTable=false;
-                if (sch.emptyDBProduct()) {
-                    Configuration.getConfig().emptyProductTable = true;
-                }
-                else {
-                    Configuration.getConfig().emptyProductTable = false;
                 }
                 finish();
                 Intent intent = new Intent();

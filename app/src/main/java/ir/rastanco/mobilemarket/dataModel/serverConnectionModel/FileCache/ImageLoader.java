@@ -74,8 +74,8 @@ public class ImageLoader {
             Bitmap bitmap;
             URL imageUrl = new URL(url);
             HttpURLConnection conn = (HttpURLConnection)imageUrl.openConnection();
-            conn.setConnectTimeout(30000);
-            conn.setReadTimeout(30000);
+            conn.setConnectTimeout(70000);//before 30000,after see java.net.SocketTimeoutException change 70000
+            conn.setReadTimeout(70000);//before 30000,after see java.net.SocketTimeoutException change 70000
             conn.setInstanceFollowRedirects(true);
             InputStream is=conn.getInputStream();
             OutputStream os = new FileOutputStream(f);
