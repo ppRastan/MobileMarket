@@ -53,10 +53,10 @@ public class Configuration {
 
 
     public Integer filterCategoryId = 0; //It is important that filterCategoryId=0
-    public Integer homeDisplaySizeForShow;
-    public Integer shopDisplaySizeForShow;
-    public Integer productInfoHeightForShow;
-    public Integer articleDisplaySizeForShow;
+    public Integer homeDisplaySizeForShow=0;//solve exception java.lang.RuntimeException: Unable to start activity
+    public Integer shopDisplaySizeForShow=0;//solve exception java.lang.RuntimeException: Unable to start activity
+    public Integer productInfoHeightForShow=0;//solve exception java.lang.RuntimeException: Unable to start activity
+    public Integer articleDisplaySizeForShow=0;//solve exception java.lang.RuntimeException: Unable to start activity
     public Integer progressBarSize;
     public Integer mainTabCount;
     public Integer firstIndexGetProduct;
