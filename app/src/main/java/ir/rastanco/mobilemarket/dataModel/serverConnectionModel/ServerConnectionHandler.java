@@ -283,8 +283,10 @@ public class ServerConnectionHandler {
             else
                 addACategoryToDataBase(allCategories.get(i));
         }
-        for (int j=0;j<allCategoriesIdInDataBase.size();j++)
-            deleteACategory(allCategoriesIdInDataBase.get(j));
+        if (allCategories.size()!=0) {
+            for (int j = 0; j < allCategoriesIdInDataBase.size(); j++)
+                deleteACategory(allCategoriesIdInDataBase.get(j));
+        }
     }
 
     public void deleteACategory(int categoryId){
