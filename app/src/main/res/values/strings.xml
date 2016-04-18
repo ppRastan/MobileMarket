@@ -100,4 +100,6 @@
     <string name="eachPrice">%1$s تومان</string>
     <string name="visitInSite">مشاهده در سایت</string>
     <string name="info">%1$s تومان</string>
+    <string name="user_comments">نظرات کاربران</string>
+    <string name="information_of_this_product">اطلاعات محصول</string>
 </resources>

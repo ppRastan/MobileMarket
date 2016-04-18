@@ -28,7 +28,8 @@
                     android:id="@+id/vision_cart_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:divider="@color/white" />
+                    android:divider="@color/white"
+                    android:text="@string/information_of_this_product"/>
 
             </LinearLayout>
 
