@@ -143,13 +143,6 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
             intent.putExtra("requestId", 101);
             startService(intent);
             Snackbar.make(Configuration.getConfig().mainActivityView, "در حال بارگذاری اطلاعات ...", Snackbar.LENGTH_LONG)
-                    .setAction("CLOSE", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    })
-                    .setActionTextColor(ContextCompat.getColor(this, R.color.red))
                     .show();
         }
 
