@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.utility.Configuration;
 
 public class AccountManagerItemAdapter extends BaseAdapter {
     private final ArrayList<String> result;
@@ -93,6 +94,7 @@ public class AccountManagerItemAdapter extends BaseAdapter {
                         break;
                     case 2:
                         sch.deleteUserInfo();
+                        Configuration.getConfig().userLoginStatus=false;
                         Intent login = new Intent(context, LoginActivity.class);
                         context.startActivity(login);
                         ((Activity) context).finish();
