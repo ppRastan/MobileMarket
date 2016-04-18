@@ -26,7 +26,7 @@ public class ProductOptionActivity extends Activity {
     private boolean onBackBtnPressed = false;
     private TextView informationCartView;
     ArrayList<ProductOption> options;
-
+   int sizeofOption;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_option);
@@ -65,7 +65,7 @@ public class ProductOptionActivity extends Activity {
 
     public String convertArrayListToString(ArrayList<ProductOption> informationCartView) {
         int i;
-        String informationCartViewContent = Configuration.getConfig().productInfoActivityContext.getResources().getString(R.string.features) + "\nn" + informationCartView.get(0).getTitle() + " : " + informationCartView.get(0).getValue() + "\n";
+        String informationCartViewContent = Configuration.getConfig().productInfoActivityContext.getResources().getString(R.string.features) + "\n" + informationCartView.get(0).getTitle() + " : " + informationCartView.get(0).getValue() + "\n";
         for (i = 1; i < 11; i++) {
             informationCartViewContent += informationCartView.get(i).getTitle() + " : " + informationCartView.get(i).getValue() + "\n";
         }
