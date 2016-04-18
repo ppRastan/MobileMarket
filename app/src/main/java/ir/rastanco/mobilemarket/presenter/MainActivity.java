@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.setWholeApplicationFonts();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.action_bar_title));
         toolbar.setTitleTextColor(Color.BLACK);
@@ -188,20 +187,7 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         });
     }
 
-    private void setWholeApplicationFonts() {
-        overrideFont(getApplicationContext(), "SERIF", "fonts/decoriss_iransans.ttf");
-    }
-    public static void overrideFont(Context context, String defaultFontNameToOverride, String customFontFileNameInAssets) {
-        try {
-            final Typeface customFontTypeface = Typeface.createFromAsset(context.getAssets(), customFontFileNameInAssets);
 
-            final Field defaultFontTypefaceField = Typeface.class.getDeclaredField(defaultFontNameToOverride);
-            defaultFontTypefaceField.setAccessible(true);
-            defaultFontTypefaceField.set(null, customFontTypeface);
-        } catch (Exception e) {
-            //Log.e(MainActivity.TAG, "Can not set custom font " + customFontFileNameInAssets + " instead of " + defaultFontNameToOverride);
-        }
-    }
     private void changeTabsFont() {
 
         ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);

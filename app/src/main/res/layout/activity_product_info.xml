@@ -156,8 +156,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:weightSum="4"
-        android:background="@color/green">
+        android:background="@color/green"
+        android:weightSum="4">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -172,29 +172,29 @@
                 android:layout_height="match_parent"
                 android:drawableRight="@mipmap/basket_white"
                 android:gravity="center"
-                android:textSize="@dimen/smallerTextSize"
-                android:textColor="@color/white" />
-            <!--android:drawablePadding="8dp"-->
+                android:textColor="@color/white"
+                android:textSize="@dimen/smallerTextSize" />
         </LinearLayout>
-<LinearLayout
-    android:layout_width="1dp"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:layout_marginTop="7dp"
-    android:layout_marginBottom="7dp"
-    android:background="@color/white"/>
+
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/white"
+            android:orientation="horizontal" />
 
 
-            <Button
-                android:id="@+id/displayCurrentImageInSite"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="0dp"
-                android:layout_weight="1.5"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:textSize="@dimen/smallerTextSize"
-                android:text="@string/visitInSite"
-                android:textColor="@color/white" />
+        <Button
+            android:id="@+id/displayCurrentImageInSite"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:text="@string/visitInSite"
+            android:textColor="@color/white"
+            android:textSize="@dimen/smallerTextSize" />
         <!--android:drawablePadding="8dp"-->
         <!--android:drawableRight="@mipmap/basket_white"-->
 

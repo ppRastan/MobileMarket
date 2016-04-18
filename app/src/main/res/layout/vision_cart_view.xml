@@ -24,15 +24,6 @@
                 android:orientation="vertical"
                 >
 
-                <!--<ir.rastanco.mobilemarket.utility.FontTextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="0dp"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:text="@string/features"-->
-                    <!--android:textColor="@color/orange"-->
-                    <!--android:textSize="@dimen/textSize" />-->
-
                 <ListView
                     android:id="@+id/vision_cartView"
                     android:layout_width="match_parent"
