@@ -24,8 +24,8 @@
                 android:orientation="vertical"
                 >
 
-                <ListView
-                    android:id="@+id/vision_cartView"
+                <TextView
+                    android:id="@+id/vision_cart_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:divider="@color/white" />

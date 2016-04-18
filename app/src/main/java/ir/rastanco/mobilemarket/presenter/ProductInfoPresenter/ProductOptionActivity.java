@@ -26,7 +26,6 @@ public class ProductOptionActivity extends Activity {
     private boolean onBackBtnPressed = false;
     private TextView informationCartView;
     ArrayList<ProductOption> options;
-   int sizeofOption;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_option);
