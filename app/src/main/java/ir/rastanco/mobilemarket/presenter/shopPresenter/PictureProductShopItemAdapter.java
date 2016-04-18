@@ -48,9 +48,9 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
     private final Context myContext;
     private final Activity shopPresenterActivity;
     private Drawable defaultPicture=null;
-    private String textToSend = null;
-    private Dialog shareDialog;
-    private Intent sendIntent;
+//    private String textToSend = null;
+//    private Dialog shareDialog;
+//    private Intent sendIntent;
 
     public PictureProductShopItemAdapter(FragmentActivity mainActivity, ArrayList<Product> products) {
         super(mainActivity, R.layout.article_item, products);
@@ -95,11 +95,11 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             holder = new ViewHolder();
 
             holder.infoP = (TextView) convertView.findViewById(R.id.txt_infoProduct);
-            holder.infoP = PriceUtility.getInstance().changeFontToYekan(holder.infoP, myContext);
+            //holder.infoP = PriceUtility.getInstance().changeFontToYekan(holder.infoP, myContext);
             holder.originalPrice = (TextView) convertView.findViewById(R.id.txt_priceProduct);
-            holder.originalPrice = PriceUtility.getInstance().changeFontToYekan(holder.originalPrice, myContext);
+            //holder.originalPrice = PriceUtility.getInstance().changeFontToYekan(holder.originalPrice, myContext);
             holder.priceForYou = (TextView) convertView.findViewById(R.id.txt_price_for_you);
-            holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou, myContext);
+            //holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou, myContext);
             holder.imgP = (ImageView) convertView.findViewById(R.id.imageButton_picProduct);
             holder.imgP.getLayoutParams().width = Configuration.getConfig().shopDisplaySizeForShow;
             holder.imgP.getLayoutParams().height = Configuration.getConfig().shopDisplaySizeForShow;
@@ -127,7 +127,7 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             holder.originalPrice.setTextColor(Color.RED);
             holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             holder.originalPrice.setText(myContext.getResources().getString(R.string.eachPrice ,PriceUtility.getInstance().formatPriceCommaSeprated(price)));
-            holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou, shopPresenterActivity);
+            //holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou, shopPresenterActivity);
             holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice)));
             holder.priceForYou.setVisibility(View.VISIBLE);
             holder.basketToolbar.setVisibility(View.VISIBLE);

@@ -139,6 +139,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
             }
         });
     Button displayCurrentProductInSite = (Button)viewLayout.findViewById(R.id.displayCurrentImageInSite);
+        displayCurrentProductInSite = PriceUtility.getInstance().ChangeButtonFont(displayCurrentProductInSite,myContext);
         displayCurrentProductInSite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

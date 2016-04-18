@@ -19,6 +19,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.Security;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
+import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 public class LoginActivity
         extends AppCompatActivity {
@@ -47,6 +48,8 @@ public class LoginActivity
         username = (EditText) findViewById(R.id.et_username);
         password = (EditText) findViewById(R.id.et_password);
         sec = new Security();
+        btnSignUp = PriceUtility.getInstance().ChangeButtonFont(btnSignUp,getApplicationContext());
+        btnLogin = PriceUtility.getInstance().ChangeButtonFont(btnLogin,getApplicationContext());
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +96,7 @@ public class LoginActivity
                 startActivity(intent);
             }
         });
-
+        btnForgotPass = PriceUtility.getInstance().ChangeButtonFont(btnForgotPass,getApplicationContext());
         btnForgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

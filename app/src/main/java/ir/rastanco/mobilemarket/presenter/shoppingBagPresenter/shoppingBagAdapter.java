@@ -96,9 +96,9 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
 
         //Create each cartView
         holder.nameOfEachProductTextView.setText(aProduct.getTitle());
-        holder.shoppingBagTotalPriceTextView = PriceUtility.getInstance().changeFontToYekan(holder.shoppingBagTotalPriceTextView, shoppingBagActivityContext);
-        holder.eachProductPriceTextView = PriceUtility.getInstance().changeFontToYekan(holder.eachProductPriceTextView, shoppingBagActivityContext);
-        holder.shoppingOffer = PriceUtility.getInstance().changeFontToYekan(holder.shoppingOffer, shoppingBagActivityContext);
+        //holder.shoppingBagTotalPriceTextView = PriceUtility.getInstance().changeFontToYekan(holder.shoppingBagTotalPriceTextView, shoppingBagActivityContext);
+        //holder.eachProductPriceTextView = PriceUtility.getInstance().changeFontToYekan(holder.eachProductPriceTextView, shoppingBagActivityContext);
+        //holder.shoppingOffer = PriceUtility.getInstance().changeFontToYekan(holder.shoppingOffer, shoppingBagActivityContext);
 
         if (aProduct.getPriceOff() != 0) {
             int finalPrice = Utilities.getInstance().calculatePriceOffProduct(aProduct.getPrice(), aProduct.getPriceOff());

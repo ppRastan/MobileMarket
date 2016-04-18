@@ -54,7 +54,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
         View mainView = inflater.inflate(R.layout.fragment_home, container, false);
         productListView = (ListView) mainView.findViewById(R.id.listView_picProduct);
         noThingToShow = (TextView) mainView.findViewById(R.id.no_thing_to_show1);
-        noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow, context);
+        //noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow, context);
         //progressBar=(ProgressBar)mainView.findViewById(R.id.progressBar_Loading);
         existProductNumber=sch.getFirstIndexForGetProductFromJson();
         allProductNumber=sch.getNumberAllProduct();

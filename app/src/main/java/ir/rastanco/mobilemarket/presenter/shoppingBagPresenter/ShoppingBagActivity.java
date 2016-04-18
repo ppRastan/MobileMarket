@@ -66,6 +66,7 @@ public class ShoppingBagActivity extends Activity {
 
         totalPriceTextView.setText(Configuration.getConfig().userLastShoppingActivityContext.getResources().getString(R.string.shoppingBagActivityFinalPrice, String.valueOf(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice))));
         Button confirmShopping = (Button) findViewById(R.id.ok_shop);
+        confirmShopping = PriceUtility.getInstance().ChangeButtonFont(confirmShopping,getApplicationContext());
         confirmShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

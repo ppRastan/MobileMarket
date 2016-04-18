@@ -15,7 +15,7 @@
         android:background="@color/decoriss"
         android:orientation="horizontal">
 
-        <TextView
+        <ir.rastanco.mobilemarket.utility.FontTextView
             android:id="@+id/name_of_photo"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -87,7 +87,7 @@
             android:contentDescription="@string/imageQuality"
             tools:ignore="NestedWeights" />
 
-        <TextView
+        <ir.rastanco.mobilemarket.utility.FontTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4.5"
@@ -95,7 +95,7 @@
             android:padding="7dp"
             android:text="@string/rank_of_product"
             android:textColor="@color/black"
-            android:textSize="@dimen/textSize" />
+            android:textSize="@dimen/smallerTextSize" />
 
 
     </LinearLayout>
@@ -195,8 +195,6 @@
             android:text="@string/visitInSite"
             android:textColor="@color/white"
             android:textSize="@dimen/smallerTextSize" />
-        <!--android:drawablePadding="8dp"-->
-        <!--android:drawableRight="@mipmap/basket_white"-->
 
 
     </LinearLayout>
