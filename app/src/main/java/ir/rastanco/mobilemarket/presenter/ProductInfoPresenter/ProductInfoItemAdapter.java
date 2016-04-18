@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.ProductOption;
 
 /**
@@ -34,16 +35,19 @@ public class ProductInfoItemAdapter extends ArrayAdapter<ProductOption> {
 
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder;
+        final ViewHolder holder;
         if (convertView == null) {
             LayoutInflater inflater = myActivity.getLayoutInflater();
             convertView = inflater.inflate(R.layout.product_info_item, parent, false);
             holder = new ViewHolder();
             holder.txtTitle = (TextView) convertView.findViewById(R.id.text_title);
             convertView.setTag(holder);
+
         } else
             holder = (ViewHolder) convertView.getTag();
-        holder.txtTitle.setText(options.get(position).getTitle() + " : " + options.get(position).getValue());
+            holder.txtTitle.setText(options.get(position).getTitle() + " : " + options.get(position).getValue());
+
+        //holder.txtTitle.setText("hello parisa");
         return convertView;
     }
 }

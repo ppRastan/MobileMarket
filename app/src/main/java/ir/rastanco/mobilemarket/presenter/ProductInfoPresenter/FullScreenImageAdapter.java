@@ -142,7 +142,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         displayCurrentProductInSite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToolbarHandler.getInstance().productDisplayer(aProduct.getLinkInSite(),activity);
+                ToolbarHandler.getInstance().productIndicative(aProduct.getLinkInSite(), activity);
             }
         });
 

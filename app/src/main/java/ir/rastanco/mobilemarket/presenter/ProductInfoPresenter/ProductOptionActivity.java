@@ -22,10 +22,10 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  * Created by ShaisteS on 1394/11/05
  * this activity show product option and product comment and product description
  */
-public class ProductOptionActivity extends Activity{
+public class ProductOptionActivity extends Activity {
     private boolean onBackBtnPressed = false;
-    private ListView lvProductOption;
-
+    private TextView informationCartView;
+    ArrayList<ProductOption> options;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +34,7 @@ public class ProductOptionActivity extends Activity{
             getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         Configuration.getConfig().productOptionActivityContext = this;
         ServerConnectionHandler sch = new ServerConnectionHandler(Configuration.getConfig().productOptionActivityContext);
-        lvProductOption = (ListView) findViewById(R.id.lv_productOption);
+        informationCartView = (TextView) findViewById(R.id.information_cartView);
 
         Intent intent = this.getIntent();
         int productId = intent.getIntExtra("productId", 0);
@@ -50,18 +50,26 @@ public class ProductOptionActivity extends Activity{
                 checkBackButtonState();
             }
         });
-        ArrayList<ProductOption> options = sch.getProductOptionFromDataBase(productId);
-        ProductInfoItemAdapter adapter = new ProductInfoItemAdapter(Configuration.getConfig().productOptionActivityContext, options);
-        lvProductOption.setAdapter(adapter);
-        ListView lvComment = (ListView) findViewById(R.id.lv_comment);
+        options = sch.getProductOptionFromDataBase(productId);
+        informationCartView.setText(this.convertArrayListToString(options));
+        ListView listOfAllListViews = (ListView) findViewById(R.id.listOfAllListViews);
         ArrayList<String> commentsAProduct = sch.getContentCommentsAllProduct(productId);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 Configuration.getConfig().productOptionActivityContext,
                 android.R.layout.simple_list_item_1,
                 commentsAProduct);
 
-        lvComment.setAdapter(arrayAdapter);
+        listOfAllListViews.setAdapter(arrayAdapter);
 
+    }
+
+    public String convertArrayListToString(ArrayList<ProductOption> informationCartView) {
+        int i;
+        String informationCartViewContent = Configuration.getConfig().productInfoActivityContext.getResources().getString(R.string.features) + "\nn" + informationCartView.get(0).getTitle() + " : " + informationCartView.get(0).getValue() + "\n";
+        for (i = 1; i < 11; i++) {
+            informationCartViewContent += informationCartView.get(i).getTitle() + " : " + informationCartView.get(i).getValue() + "\n";
+        }
+        return informationCartViewContent;
     }
 
     private void checkBackButtonState() {

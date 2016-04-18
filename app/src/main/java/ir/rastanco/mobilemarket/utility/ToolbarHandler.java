@@ -168,7 +168,7 @@ public class ToolbarHandler {
         activity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
     }
 
-    public void productDisplayer(String linkOfProduct , Activity activity) {
+    public void productIndicative(String linkOfProduct, Activity activity) {
         activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(linkOfProduct)));
     }
 }
