@@ -110,7 +110,7 @@ public class ServerConnectionHandler {
     }
 
     public void updatePropertyOfGetProduct(String timeStamp,String updateTimeStamp,int firstIndexGetProduct,int numberAllProducts){
-        DataBaseHandler.getInstance(context).updatePropertyOfGetProduct(timeStamp,updateTimeStamp,firstIndexGetProduct,numberAllProducts);
+        DataBaseHandler.getInstance(context).updatePropertyOfGetProduct(timeStamp, updateTimeStamp, firstIndexGetProduct, numberAllProducts);
     }
 
     //Category
@@ -535,8 +535,24 @@ public class ServerConnectionHandler {
     }
 
     public void addProductOptionsToTable(int productId,ArrayList<ProductOption> options){
-        for (int i=0;i<options.size();i++)
-            addAProductOptionToTable(productId, options.get(i));
+        ArrayList<ProductOption> optionsOfAProduct=getProductOptionFromDataBase(productId);
+        if (optionsOfAProduct.size()==0){
+            for (int i=0;i<options.size();i++)
+                addAProductOptionToTable(productId, options.get(i));
+        }
+        /*else {
+            boolean exist=true;
+            for (int i=0;i<options.size();i++){
+                for (int j=0;j<optionsOfAProduct.size();j++){
+                    if (optionsOfAProduct.get(i).getTitle().equals(options.get(j).getValue()))
+                        exist=false;
+
+                }
+                if (exist)
+                    addAProductOptionToTable(productId, options.get(i));
+            }
+
+        }*/
     }
 
     public ArrayList<ProductOption> getAllProductOptionOfAProduct(int productId, int groupId){
