@@ -433,8 +433,13 @@ public class ServerConnectionHandler {
         completeProductInformationInTable(allProducts);
     }
 
-    public void addProductInformationToDataBaseFirstInstall(String url){
-        products=getAllProductFromURL(url,0,0,false);
+    public ArrayList<Product> getProductFromUrlInFirstInstall(String url){
+        ArrayList<Product> allProductGetFromURL=getAllProductFromURL(url,0,0,false);
+        return allProductGetFromURL;
+
+    }
+
+    public void addProductInformationToDataBaseFirstInstall(){
         ArrayList<Product> allProducts = products;
         String timeStamp= allProducts.get(0).getTimeStamp();
         int numberOfProductExist=allProducts.size();

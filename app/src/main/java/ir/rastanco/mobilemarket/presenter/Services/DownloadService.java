@@ -40,24 +40,22 @@ public class DownloadService extends IntentService {
 
             try {
 
-                if (Configuration.getConfig().emptyCategoryTable){
-                    String url= Link.getInstance().generateURLForGetAllCategories();
-                    serverConnectionHandler.setCategories(serverConnectionHandler.getAllCategoryInfoURL(url));
-                    serverConnectionHandler.addAllCategoryToTable(serverConnectionHandler.getCategories());
-                    Configuration.getConfig().emptyCategoryTable=false;
-                    receiver.send(STATUS_FINISHED,null);
-                }
-                if (Configuration.getConfig().emptyProductTable){
-                    //Test getting 7000 product
-                    //String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
-                    //serverConnectionHandler.addProductInformationToDataBaseFirstInstall7000(url);
+                String urlGetCategories= Link.getInstance().generateURLForGetAllCategories();
+                serverConnectionHandler.setCategories(serverConnectionHandler.getAllCategoryInfoURL(urlGetCategories));
 
-                    //get all product in first install
-                    String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
-                    serverConnectionHandler.addProductInformationToDataBaseFirstInstall(url);
+                String UrlGetProducts=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
+                serverConnectionHandler.setProducts(serverConnectionHandler.getProductFromUrlInFirstInstall(UrlGetProducts));
 
-                    Configuration.getConfig().emptyProductTable=false;
-                }
+                serverConnectionHandler.addAllCategoryToTable(serverConnectionHandler.getCategories());
+                Configuration.getConfig().emptyCategoryTable=false;
+                receiver.send(STATUS_FINISHED, null);
+
+                serverConnectionHandler.addProductInformationToDataBaseFirstInstall();
+                Configuration.getConfig().emptyProductTable=false;
+                //Test getting 7000 product
+               //String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
+               //serverConnectionHandler.addProductInformationToDataBaseFirstInstall7000(url);
+               //get all product in first install
 
             } catch (Exception e) {
 
