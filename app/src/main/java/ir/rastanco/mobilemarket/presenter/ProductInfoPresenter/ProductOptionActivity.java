@@ -51,7 +51,10 @@ public class ProductOptionActivity extends Activity {
             }
         });
         options = sch.getProductOptionFromDataBase(productId);
-        informationCartView.setText(this.convertArrayListToString(options));
+        if (options.size()>0)
+            informationCartView.setText(convertArrayListToString(options));
+        else
+            informationCartView.setText("");
         ListView listOfAllListViews = (ListView) findViewById(R.id.listOfAllListViews);
         ArrayList<String> commentsAProduct = sch.getContentCommentsAllProduct(productId);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
@@ -66,7 +69,7 @@ public class ProductOptionActivity extends Activity {
     public String convertArrayListToString(ArrayList<ProductOption> informationCartView) {
         int i;
         String informationCartViewContent = Configuration.getConfig().productInfoActivityContext.getResources().getString(R.string.features) + "\n" + informationCartView.get(0).getTitle() + " : " + informationCartView.get(0).getValue() + "\n";
-        for (i = 1; i < 11; i++) {
+        for (i = 1; i < informationCartView.size(); i++) {
             informationCartViewContent += informationCartView.get(i).getTitle() + " : " + informationCartView.get(i).getValue() + "\n";
         }
         return informationCartViewContent;
