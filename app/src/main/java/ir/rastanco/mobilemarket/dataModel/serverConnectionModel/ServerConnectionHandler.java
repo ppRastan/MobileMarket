@@ -268,14 +268,27 @@ public class ServerConnectionHandler {
         return getACategoryTitleWithCategoryId(catId);
     }
 
+    public ArrayList<Integer> getAllCategoriesID(){
+        return DataBaseHandler.getInstance(context).selectAllCategoriesId();
+    }
+
     public void refreshCategories(String url){
         ArrayList<Category> allCategories=getAllCategoryInfoURL(url);
+        ArrayList<Integer> allCategoriesIdInDataBase=getAllCategoriesID();
         for (int i=0;i<allCategories.size();i++){
-            if (existACategoryInDataBase(allCategories.get(i).getId()))
+            if (existACategoryInDataBase(allCategories.get(i).getId())) {
                 updateACategory(allCategories.get(i));
+                allCategoriesIdInDataBase.remove(allCategoriesIdInDataBase.indexOf(allCategories.get(i).getId()));
+            }
             else
                 addACategoryToDataBase(allCategories.get(i));
         }
+        for (int j=0;j<allCategoriesIdInDataBase.size();j++)
+            deleteACategory(allCategoriesIdInDataBase.get(j));
+    }
+
+    public void deleteACategory(int categoryId){
+        DataBaseHandler.getInstance(context).deleteACategory(categoryId);
     }
 
     //product

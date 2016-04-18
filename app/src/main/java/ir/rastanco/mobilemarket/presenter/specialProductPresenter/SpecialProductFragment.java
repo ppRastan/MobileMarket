@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverUpdateCategories;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.UpdateService;
 import ir.rastanco.mobilemarket.utility.ColorUtility;
@@ -156,14 +157,13 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
         switch (resultCode) {
-
             case UpdateService.STATUS_FINISHED:
                 products = sch.getSpecialProduct();
                 PictureSpecialProductItemAdapter newAdapter = new PictureSpecialProductItemAdapter(getActivity(), products);
                 productListView.setAdapter(newAdapter);
                 newAdapter.notifyDataSetChanged();
                 mSwipeRefreshLayout.setRefreshing(false);
-
+                ObserverUpdateCategories.setUpdateCategoriesStatus(true);
                 break;
 
         }

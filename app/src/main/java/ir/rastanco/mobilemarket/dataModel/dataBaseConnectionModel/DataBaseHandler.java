@@ -664,6 +664,25 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         return aCategory;
     }
 
+    public ArrayList<Integer> selectAllCategoriesId(){
+        String query="select * from "+TABLE_CATEGORY;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery(query, null);
+        ArrayList<Integer> allCategoryId = new ArrayList<Integer>();
+        if (rs != null) {
+            if (rs.moveToFirst()) {
+                do {
+                    allCategoryId.add(createACategoryFromCursor(rs).getId());
+                }
+                while (rs.moveToNext());
+            }
+            rs.close();
+        }
+        Log.v("select", "Select All Category Id");
+        return allCategoryId;
+
+    }
+
     public Category selectACategoryWithId(int catId){
         String query="select * from "+TABLE_CATEGORY+
                 " where "+CategoryTable_Column_Category_Id+"=" + catId;
@@ -1136,7 +1155,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
 
     public void deleteAProductShopping(int productId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_SHOPPING,ShoppingTable_Column_ForeignKey_ProductId + "=" + productId, null);
+        db.delete(TABLE_SHOPPING, ShoppingTable_Column_ForeignKey_ProductId + "=" + productId, null);
         Log.v("delete", "Delete A Product from Shopping Table");
     }
 
@@ -1150,5 +1169,11 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_SHOPPING,null, null);
         Log.v("delete", "Delete All Record From Shopping Table");
+    }
+
+    public void deleteACategory(int categoryId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CATEGORY,CategoryTable_Column_Category_Id+"="+categoryId,null);
+        Log.v("delete", "Delete A Category from Category Table");
     }
 }

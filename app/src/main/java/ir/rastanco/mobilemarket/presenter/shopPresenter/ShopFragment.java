@@ -34,6 +34,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverLike;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverLikeListener;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProductListener;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverUpdateCategories;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.UpdateService;
 import ir.rastanco.mobilemarket.utility.ColorUtility;
@@ -362,9 +363,9 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                     PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                     gridview.setAdapter(newAdapter);
                     newAdapter.notifyDataSetChanged();
-
                 }
                 mSwipeRefreshLayout.setRefreshing(false);
+                ObserverUpdateCategories.setUpdateCategoriesStatus(true);
                break;
 
         }

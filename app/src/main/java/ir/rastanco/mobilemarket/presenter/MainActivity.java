@@ -64,6 +64,8 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingBagClickListener;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverUpdateCategories;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverUpdateCategoriesListener;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.Services.CompleteDataAfterInstall;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
@@ -184,6 +186,13 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
                 }
             }
         });
+
+        ObserverUpdateCategories.updateCategoriesListener(new ObserverUpdateCategoriesListener() {
+            @Override
+            public void updateCategories() {
+                updateViewPager(Configuration.getConfig().mainPager);
+            }
+        });
     }
 
     private void setWholeApplicationFonts() {
@@ -237,11 +246,7 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         mapTitleToIdMainCategory=sch.MapTitleToIDForMainCategory();
         Configuration.getConfig().mainTabCount =mainCategoryTitle.size();
         ViewPagerAdapter adapter= (ViewPagerAdapter) viewPager.getAdapter();
-
-        getSupportFragmentManager().beginTransaction().remove(adapter.getItem(0)).commit();
-        getSupportFragmentManager().beginTransaction().remove(adapter.getItem(1)).commit();
-
-
+        deleteAllFragmentPage(adapter);
         adapter.clearAllTab();
         adapter.addFragment(new ArticleFragment(), getResources().getString(R.string.fifth_page));
         for (int i=mainCategoryTitle.size()-1;i>=0;i--) {
@@ -259,6 +264,11 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         viewPager.setCurrentItem(adapter.getCount() - 1);
         changeTabsFont();
+    }
+
+    private void deleteAllFragmentPage(ViewPagerAdapter adapter){
+        for(int i=0;i<adapter.getCount();i++)
+            getSupportFragmentManager().beginTransaction().remove(adapter.getItem(i)).commit();
     }
 
     private void addActionBar() {
