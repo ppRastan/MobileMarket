@@ -40,6 +40,7 @@ import ir.rastanco.mobilemarket.presenter.Services.UpdateService;
 import ir.rastanco.mobilemarket.utility.ColorUtility;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
+import ir.rastanco.mobilemarket.utility.Utilities;
 
 /**
  * Created by ShaisteS on 1394/12/09.
@@ -188,7 +189,8 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         });
         //Filter
         ///FilterSubCategory
-        final Button btnFilterCategory = (Button) mainView.findViewById(R.id.group_dialog);
+        Button btnFilterCategory = (Button) mainView.findViewById(R.id.group_dialog);
+                btnFilterCategory = PriceUtility.getInstance().ChangeButtonFont(btnFilterCategory,myContext);
         btnFilterCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -227,6 +229,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         });
         ///Filter in Product Features
         Button btnFilterOptionProduct = (Button) mainView.findViewById(R.id.filter_dialogue);
+        btnFilterOptionProduct = PriceUtility.getInstance().ChangeButtonFont(btnFilterOptionProduct,myContext);
         btnFilterOptionProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
