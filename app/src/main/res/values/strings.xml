@@ -37,7 +37,7 @@
     <string name="LinkDownloadApp">http://decoriss.com/app/Decoriss.apk</string>
     <string name="information">توضیحات:</string>
     <string name="visions">نظرات:</string>
-    <string name="features">ویژگی ها:</string>
+    <string name="features">ویژگی های محصول</string>
     <string name="rank_of_product">درجه کیفی محصول:</string>
     <string name="your_account">حساب کاربری شما</string>
     <string name="thanks">سپاسگزار</string>
@@ -100,6 +100,6 @@
     <string name="eachPrice">%1$s تومان</string>
     <string name="visitInSite">مشاهده در سایت</string>
     <string name="info">%1$s تومان</string>
-    <string name="user_comments">نظرات کاربران</string>
-    <string name="information_of_this_product">اطلاعات محصول</string>
+    <string name="user_comments">توضیحات محصول</string>
+    <string name="information_of_this_product">نظرات کاربران</string>
 </resources>

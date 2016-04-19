@@ -53,7 +53,7 @@ public class ProductOptionActivity extends Activity {
         if (options.size()>0)
             informationCartView.setText(convertArrayListToString(options));
         else
-            informationCartView.setText("");
+            informationCartView.setText(Configuration.getConfig().productInfoActivityContext.getResources().getString(R.string.features));
         ListView listOfAllListViews = (ListView) findViewById(R.id.listOfAllListViews);
         ArrayList<String> commentsAProduct = sch.getContentCommentsAllProduct(productId);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
