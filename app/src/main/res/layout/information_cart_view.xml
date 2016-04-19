@@ -33,7 +33,7 @@
                     <!--android:textColor="@color/orange"-->
                     <!--android:textSize="@dimen/textSize" />-->
 
-                <TextView
+                <ir.rastanco.mobilemarket.utility.FontTextView
                     android:id="@+id/information_cartView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

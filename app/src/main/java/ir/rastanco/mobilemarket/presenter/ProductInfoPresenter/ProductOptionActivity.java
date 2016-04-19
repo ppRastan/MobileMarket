@@ -67,8 +67,8 @@ public class ProductOptionActivity extends Activity {
 
     public String convertArrayListToString(ArrayList<ProductOption> informationCartView) {
         int i;
-        String informationCartViewContent = Configuration.getConfig().productInfoActivityContext.getResources().getString(R.string.features) + "\n" + informationCartView.get(0).getTitle() + " : " + informationCartView.get(0).getValue() + "\n";
-        for (i = 1; i < informationCartView.size(); i++) {
+        String informationCartViewContent = Configuration.getConfig().productInfoActivityContext.getResources().getString(R.string.features) + "\n";
+        for (i = 0; i < informationCartView.size(); i++) {
             informationCartViewContent += informationCartView.get(i).getTitle() + " : " + informationCartView.get(i).getValue() + "\n";
         }
         return informationCartViewContent;
