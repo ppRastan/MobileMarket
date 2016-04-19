@@ -40,7 +40,6 @@ import ir.rastanco.mobilemarket.presenter.Services.UpdateService;
 import ir.rastanco.mobilemarket.utility.ColorUtility;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
-import ir.rastanco.mobilemarket.utility.Utilities;
 
 /**
  * Created by ShaisteS on 1394/12/09.
@@ -368,7 +367,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                     newAdapter.notifyDataSetChanged();
                 }
                 mSwipeRefreshLayout.setRefreshing(false);
-                ObserverUpdateCategories.setUpdateCategoriesStatus(true);
+                //ObserverUpdateCategories.setUpdateCategoriesStatus(true);
                break;
 
         }
