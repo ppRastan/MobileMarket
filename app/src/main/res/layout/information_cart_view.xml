@@ -39,6 +39,13 @@
                     android:layout_height="wrap_content"
                     android:divider="@color/white" />
 
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressBar_loading_information"
+                    android:layout_gravity="center" />
+
+
             </LinearLayout>
 
         </RelativeLayout>
