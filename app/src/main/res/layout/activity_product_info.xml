@@ -26,6 +26,9 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="12"
@@ -39,7 +42,7 @@
             android:layout_marginRight="19dp"
             android:background="@color/white"
             android:contentDescription="@string/productFullScreenPhoto"
-            android:scaleType="fitStart" />
+            android:scaleType="centerInside" />
 
         <ImageButton
             android:id="@+id/ic_offer_full_screen_right"
