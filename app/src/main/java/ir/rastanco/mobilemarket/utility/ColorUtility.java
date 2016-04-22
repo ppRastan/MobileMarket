@@ -17,6 +17,6 @@ public class ColorUtility {
     }
 
     public  void setColorOfSwipeRefresh(SwipeRefreshLayout mSwipeRefreshLayout){
-        mSwipeRefreshLayout.setColorSchemeColors(Color.RED, Color.YELLOW, Color.RED);
+        mSwipeRefreshLayout.setColorSchemeColors(Color.RED, Color.RED, Color.RED);
     }
 }
