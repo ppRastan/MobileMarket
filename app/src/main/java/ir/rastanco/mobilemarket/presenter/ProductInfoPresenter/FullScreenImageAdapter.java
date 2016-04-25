@@ -291,6 +291,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
     private void setProductQuality(String quality) {
         //image product icon declared by numbers
+        //test
         ImageView imgProductQuality = (ImageView) viewLayout.findViewById(R.id.img_ProductQuality);
         TextView rankOfProduct = (TextView) viewLayout.findViewById(R.id.product_guality);
         switch (quality) {
