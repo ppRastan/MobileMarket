@@ -26,13 +26,13 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:foregroundGravity="center"
-        android:gravity="center"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_gravity="center"
         android:layout_weight="12"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:foregroundGravity="center"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/img_productInfo"
@@ -96,7 +96,7 @@
             android:layout_weight="4.5"
             android:gravity="center_vertical|center_horizontal"
             android:padding="7dp"
-            android:text="@string/rank_of_product"
+            android:id="@+id/product_guality"
             android:textColor="@color/black"
             android:textSize="@dimen/smallerTextSize" />
 
