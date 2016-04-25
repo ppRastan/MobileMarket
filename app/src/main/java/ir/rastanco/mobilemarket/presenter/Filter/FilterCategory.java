@@ -2,8 +2,10 @@ package ir.rastanco.mobilemarket.presenter.Filter;
 
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,29 +86,27 @@ public class FilterCategory extends DialogFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 view.setSelected(true);
-                int itemSelected= (int) parent.getItemAtPosition(position);
-                Category aCategory=sch.getACategoryWithId(itemSelected);
-                if (itemSelected==0){
+                int itemSelected = (int) parent.getItemAtPosition(position);
+                Category aCategory = sch.getACategoryWithId(itemSelected);
+                if (itemSelected == 0) {
                     Intent args = new Intent();
                     args.putExtra("all", selectCategoryId);
                     setTargetFragment(getFragmentManager().findFragmentByTag("category"), 1);
                     onActivityResult(getTargetRequestCode(), 1, args);
                     dismiss();
-                }
-                else if(aCategory.getHasChild()>0){
-                    selectCategoryId=itemSelected;
+                } else if (aCategory.getHasChild() > 0) {
+                    selectCategoryId = itemSelected;
                     titleOfAlertDialog.setText(aCategory.getTitle());
                     btnCancelAlertDialog.setImageResource(R.mipmap.small_back_arrow);
-                    ArrayList<Integer> subCategoryId=sch.getCategoryIdOfChildesOfACategory(aCategory.getId());
-                    subCategoryId.add(0,0);//for add "all" in first item
-                    FilterCategoryItemAdapter adapter=new FilterCategoryItemAdapter(context,R.layout.title_alertdialog_for_group,subCategoryId);
+                    ArrayList<Integer> subCategoryId = sch.getCategoryIdOfChildesOfACategory(aCategory.getId());
+                    subCategoryId.add(0, 0);//for add "all" in first item
+                    FilterCategoryItemAdapter adapter = new FilterCategoryItemAdapter(context, R.layout.title_alertdialog_for_group, subCategoryId);
                     listCategory.setAdapter(adapter);
                     //adapter.notifyDataSetChanged();
-                }
-                else if(aCategory.getHasChild()==0){
-                    selectCategoryId=itemSelected;
+                } else if (aCategory.getHasChild() == 0) {
+                    selectCategoryId = itemSelected;
                     Intent args = new Intent();
-                    args.putExtra("noChild",aCategory.getId());
+                    args.putExtra("noChild", aCategory.getId());
                     setTargetFragment(getFragmentManager().findFragmentByTag("category"), 2);
                     onActivityResult(getTargetRequestCode(), 2, args);
                     dismiss();
@@ -152,7 +152,7 @@ public class FilterCategory extends DialogFragment {
             public void onClick(View v) {
                 int parentIdACategory = sch.getParentIdACategoryWithCategoryId(selectCategoryId);
                 if (parentIdACategory == 0) {
-                    Configuration.getConfig().filterCategoryDialogShowStatus=false;//when category filter dialog close
+                    Configuration.getConfig().filterCategoryDialogShowStatus = false;//when category filter dialog close
                     dismiss();
                 }
                 if (parentIdACategory == pageId) {
@@ -188,6 +188,19 @@ public class FilterCategory extends DialogFragment {
                     listCategory.setAdapter(adapter);
 
                 }
+            }
+        });
+
+        getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if ((keyCode == android.view.KeyEvent.KEYCODE_BACK)) {
+                    //Hide your keyboard here!!!
+                    Configuration.getConfig().filterCategoryDialogShowStatus = false;//when category filter dialog close
+                    dismiss();
+                    return true; // pretend we've processed it
+                } else
+                    return false; // pass on to be processed as normal
             }
         });
 
