@@ -82,17 +82,16 @@ public class FilterOptionProduct extends DialogFragment {
                 } else if (position == 1) {
                     ArrayList<Product> products = serverConnectionHandler.getProductsOfAParentCategory(pageId);
                     ArrayList<String> brandTitle = serverConnectionHandler.getAllBrands(products);
-                    if (brandTitle.size()==0) {
-                        String categorySelectedTitle=serverConnectionHandler.getACategoryTitleWithCategoryId(pageId);
-                        String message="دسته ی "+categorySelectedTitle+" فاقد برند می باشد";
-                        Snackbar.make(Configuration.getConfig().mainActivityView,message,Snackbar.LENGTH_LONG)
-                                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light ))
+                    if (brandTitle.size() == 0) {
+                        String categorySelectedTitle = serverConnectionHandler.getACategoryTitleWithCategoryId(pageId);
+                        String message = "دسته ی " + categorySelectedTitle + " فاقد برند می باشد";
+                        Snackbar.make(Configuration.getConfig().mainActivityView, message, Snackbar.LENGTH_LONG)
+                                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
                                 .show();
                         getDialog().dismiss();
-                    }
-                    else{
+                    } else {
                         Bundle args = new Bundle();
-                        args.putStringArrayList("brandsTitle",brandTitle);
+                        args.putStringArrayList("brandsTitle", brandTitle);
                         FilterOptionBrand.getInstance().setArguments(args);
                         FilterOptionBrand.getInstance().setTargetFragment(getFragmentManager().findFragmentByTag("FilterProductOption"), 1);
                         FilterOptionBrand.getInstance().show(getFragmentManager(), "FilterOptionBrand");
@@ -106,7 +105,7 @@ public class FilterOptionProduct extends DialogFragment {
         ObserverFilterCancel.changeFilterCancel(new ObserverFilterCancelListener() {
             @Override
             public void filterCancel() {
-                if (ObserverFilterCancel.getFilterCancel()==true)
+                if (ObserverFilterCancel.getFilterCancel() == true)
                     getDialog().show();
                 else
                     dismiss();

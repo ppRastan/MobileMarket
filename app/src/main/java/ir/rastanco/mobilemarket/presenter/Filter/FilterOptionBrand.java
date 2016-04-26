@@ -1,8 +1,10 @@
 package ir.rastanco.mobilemarket.presenter.Filter;
 
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +72,22 @@ public class FilterOptionBrand extends DialogFragment {
                 dismiss();
             }
         });
+
+
+        getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if ((keyCode == android.view.KeyEvent.KEYCODE_BACK)) {
+                    //Hide your keyboard here!!!
+                    ObserverFilterCancel.setFilterCancel(true);
+                    dismiss();
+                    return true; // pretend we've processed it
+                } else
+                    return false; // pass on to be processed as normal
+            }
+        });
+
+
         return dialogView;
     }
 }
