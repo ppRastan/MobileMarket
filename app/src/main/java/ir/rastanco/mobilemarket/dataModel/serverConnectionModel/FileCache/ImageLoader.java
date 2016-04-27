@@ -95,14 +95,14 @@ public class ImageLoader {
     private Bitmap decodeFile(File f){
         try {
             //decode image size
-            BitmapFactory.Options o = new BitmapFactory.Options();
-            o.inJustDecodeBounds = true;
-            BitmapFactory.decodeStream(new FileInputStream(f),null,o);
+            //BitmapFactory.Options o = new BitmapFactory.Options();
+            //o.inJustDecodeBounds = true;
+            //BitmapFactory.decodeStream(new FileInputStream(f),null,o);
             //Find the correct scale value. It should be the power of 2.
-            int scale=1;
+            //int scale=1;
             //decode with inSampleSize
             BitmapFactory.Options o2 = new BitmapFactory.Options();
-            o2.inSampleSize=scale;
+            //o2.inSampleSize=scale;
             return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
         } catch (FileNotFoundException e) {
             Log.v("can not load image" , "!");}
