@@ -104,14 +104,14 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
             int finalPrice = Utilities.getInstance().calculatePriceOffProduct(aProduct.getPrice(), aProduct.getPriceOff());
             Integer eachProductOfferPrice = aProduct.getPrice() - finalPrice;
             holder.priceOffLinear.setVisibility(View.VISIBLE);
-            holder.shoppingOffer.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeprated(eachProductOfferPrice)));
-            holder.eachProductPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice())));
-            holder.shoppingBagTotalPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice)));
+            holder.shoppingOffer.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeparated(eachProductOfferPrice)));
+            holder.eachProductPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeparated(aProduct.getPrice())));
+            holder.shoppingBagTotalPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeparated(finalPrice)));
 
         } else {
             int finalPrice = aProduct.getPrice();
-            holder.eachProductPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeprated(aProduct.getPrice())));
-            holder.shoppingBagTotalPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice)));
+            holder.eachProductPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeparated(aProduct.getPrice())));
+            holder.shoppingBagTotalPriceTextView.setText(shoppingBagActivityContext.getResources().getString(R.string.shoppingBagAdapterPriceForYou, PriceUtility.getInstance().formatPriceCommaSeparated(finalPrice)));
         }
 
         String imageNumberPath;

@@ -46,7 +46,9 @@ public class LoginActivity
         Button btnSignUp = (Button) findViewById(R.id.btn_enter);
         Button btnForgotPass = (Button) findViewById(R.id.btn_forgot);
         username = (EditText) findViewById(R.id.et_username);
+        username = PriceUtility.getInstance().changeEditTextFont(username,getApplicationContext());
         password = (EditText) findViewById(R.id.et_password);
+        password = PriceUtility.getInstance().changeEditTextFont(password,getApplicationContext());
         sec = new Security();
         btnSignUp = PriceUtility.getInstance().ChangeButtonFont(btnSignUp,getApplicationContext());
         btnLogin = PriceUtility.getInstance().ChangeButtonFont(btnLogin,getApplicationContext());

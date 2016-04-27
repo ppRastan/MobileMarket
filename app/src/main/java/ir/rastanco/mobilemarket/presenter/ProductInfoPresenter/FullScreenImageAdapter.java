@@ -100,14 +100,14 @@ public class FullScreenImageAdapter extends PagerAdapter {
         if (aProduct.getPriceOff() == 0 && aProduct.getPrice() != 0) {
             int price = aProduct.getPrice();
             String numberOfFinalPrice = String.valueOf(price);
-            addToBasketBtn.setText(activity.getString(R.string.FullScreenImageAdapterproductOriginalPrice, PriceUtility.getInstance().formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice))));
+            addToBasketBtn.setText(activity.getString(R.string.FullScreenImageAdapterproductOriginalPrice, PriceUtility.getInstance().formatPriceCommaSeparated(Integer.valueOf(numberOfFinalPrice))));
         }
         if (aProduct.getPriceOff() != 0 && aProduct.getPrice() != 0) {
             int price = aProduct.getPrice();
             int priceOff = aProduct.getPriceOff();
             int priceForYou = Utilities.getInstance().calculatePriceOffProduct(price, priceOff);
             String numberOfFinalPrice = String.valueOf(priceForYou);
-            addToBasketBtn.setText(activity.getString(R.string.FullScreenImageAdapterproductPrice, PriceUtility.getInstance().formatPriceCommaSeprated(Integer.valueOf(numberOfFinalPrice))));
+            addToBasketBtn.setText(activity.getString(R.string.FullScreenImageAdapterproductPrice, PriceUtility.getInstance().formatPriceCommaSeparated(Integer.valueOf(numberOfFinalPrice))));
 
         }
 
@@ -134,7 +134,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
             @Override
             public void onClick(View v) {
 
-                ToolbarHandler.getInstance().addToFavoriteInProductPage(sch, aProduct, btnLike, activity, position);
+                ToolbarHandler.getInstance().addToFavoriteInProductPage(activity,sch, aProduct, btnLike, activity, position);
             }
         });
         Button displayCurrentProductInSite = (Button) viewLayout.findViewById(R.id.displayCurrentImageInSite);

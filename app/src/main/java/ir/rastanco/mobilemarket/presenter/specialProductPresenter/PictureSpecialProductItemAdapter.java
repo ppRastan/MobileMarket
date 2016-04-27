@@ -90,8 +90,8 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         int finalPrice = Utilities.getInstance().calculatePriceOffProduct(price, discountPercent);
         //holder.priceOff = PriceUtility.getInstance().changeFontToYekan(holder.priceOff, myContext);
         //holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou , myContext);
-        holder.priceOff.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeprated(price)));
-        holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice)));
+        holder.priceOff.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(price)));
+        holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(finalPrice)));
 
         //Special Icon
         if (Configuration.getConfig().RTL) {
@@ -128,7 +128,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         holder.btnAddThisProductToFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToolbarHandler.getInstance().addCurrentProductToFavorite(myContext, holder.btnAddThisProductToFavorites, eachProduct, isLikeButtonClicked, sch);
+                ToolbarHandler.getInstance().addCurrentProductToFavorite(myContext,myContext, holder.btnAddThisProductToFavorites, eachProduct, sch);
             }
         });
 

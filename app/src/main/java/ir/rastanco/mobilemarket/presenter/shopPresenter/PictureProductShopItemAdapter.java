@@ -7,7 +7,6 @@ package ir.rastanco.mobilemarket.presenter.shopPresenter;
 
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -117,7 +116,7 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         if (eachProduct.getPriceOff() == 0 && eachProduct.getPrice() != 0) {
             holder.priceForYou.setVisibility(View.INVISIBLE);
             holder.originalPrice.setTextColor(Color.BLACK);
-            holder.originalPrice.setText(myContext.getResources().getString(R.string.eachPrice,PriceUtility.getInstance().formatPriceCommaSeprated(eachProduct.getPrice())));
+            holder.originalPrice.setText(myContext.getResources().getString(R.string.eachPrice,PriceUtility.getInstance().formatPriceCommaSeparated(eachProduct.getPrice())));
             holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
             holder.basketToolbar.setVisibility(View.VISIBLE);
         } else if (eachProduct.getPrice() != 0) {
@@ -126,9 +125,9 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             int finalPrice = Utilities.getInstance().calculatePriceOffProduct(price, discountPercent);
             holder.originalPrice.setTextColor(Color.RED);
             holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            holder.originalPrice.setText(myContext.getResources().getString(R.string.eachPrice ,PriceUtility.getInstance().formatPriceCommaSeprated(price)));
+            holder.originalPrice.setText(myContext.getResources().getString(R.string.eachPrice ,PriceUtility.getInstance().formatPriceCommaSeparated(price)));
             //holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou, shopPresenterActivity);
-            holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice)));
+            holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(finalPrice)));
             holder.priceForYou.setVisibility(View.VISIBLE);
             holder.basketToolbar.setVisibility(View.VISIBLE);
         } else if (eachProduct.getPriceOff() == 0) {
@@ -216,7 +215,7 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             @Override
             public void onClick(View v) {
 
-                ToolbarHandler.getInstance().addCurrentProductToFavorite(myContext, holder.likeToolBar, eachProduct, isLikeButtonClicked, sch);
+                ToolbarHandler.getInstance().addCurrentProductToFavorite(shopPresenterActivity,myContext, holder.likeToolBar, eachProduct, sch);
             }
         });
 

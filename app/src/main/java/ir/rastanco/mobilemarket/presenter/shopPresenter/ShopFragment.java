@@ -71,7 +71,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         final TextView txtFilterOptionProductSelected = (TextView) mainView.findViewById(R.id.filter_dialogue_text);
         final TextView txtFilterCategorySelected = (TextView) mainView.findViewById(R.id.group_dialog_text);
         noThingToShow = (TextView) mainView.findViewById(R.id.no_thing_to_show1);
-        noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow, myContext);
+        noThingToShow = PriceUtility.getInstance().changeTextViewFont(noThingToShow, myContext);
         //progressBar=(ProgressBar)mainView.findViewById(R.id.progressBar_Loading);
         gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
 

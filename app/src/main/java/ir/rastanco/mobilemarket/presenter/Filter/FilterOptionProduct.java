@@ -70,7 +70,7 @@ public class FilterOptionProduct extends DialogFragment {
 
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, optionProductFilter);
+                R.layout.listview_layout, R.id.list_viewText, optionProductFilter);
         listCategory.setAdapter(adapter);
 
         listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {

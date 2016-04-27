@@ -27,6 +27,7 @@ public class ToolbarHandler {
     private ImageButton cancelShareDialog;
     private Activity toolbarHandlerActivity;
     private String currentProductToShare;
+    private EditText editTextToShare;
     public static ToolbarHandler getInstance() {
         if (toolbarHandler == null) {
             toolbarHandler = new ToolbarHandler();
@@ -41,7 +42,9 @@ public class ToolbarHandler {
         shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         shareDialog.setContentView(R.layout.share_alert_dialog);
         Button sendBtn = (Button) shareDialog.findViewById(R.id.send_my_pm);
-        final EditText editTextToShare = (EditText) shareDialog.findViewById(R.id.text_to_send);
+        sendBtn = PriceUtility.getInstance().ChangeButtonFont(sendBtn,activity);
+        editTextToShare = (EditText) shareDialog.findViewById(R.id.text_to_send);
+        editTextToShare = PriceUtility.getInstance().changeEditTextFont(editTextToShare,activity);
         cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
         cancelShareDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +84,9 @@ public class ToolbarHandler {
         shareByTelegram.setContentView(R.layout.share_alert_dialog);
         cancelShareDialog = (ImageButton) shareByTelegram.findViewById(R.id.close_pm_to_friend);
         Button sendBtn = (Button) shareByTelegram.findViewById(R.id.send_my_pm);
-        final EditText editTextToShare = (EditText) shareByTelegram.findViewById(R.id.text_to_send);
+        sendBtn = PriceUtility.getInstance().ChangeButtonFont(sendBtn,activity);
+        editTextToShare = (EditText) shareByTelegram.findViewById(R.id.text_to_send);
+        editTextToShare = PriceUtility.getInstance().changeEditTextFont(editTextToShare,activity);
         cancelShareDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,37 +116,37 @@ public class ToolbarHandler {
     }
 
 
-    public void addCurrentProductToFavorite(Context myContext, ImageButton likeThisProduct, Product eachProduct, Boolean isLikeButtonClicked, ServerConnectionHandler sch) {
+    public void addCurrentProductToFavorite(Activity activity ,Context myContext, ImageButton likeThisProduct, Product eachProduct, ServerConnectionHandler sch) {
 
         if (sch.getAProduct(eachProduct.getId()).getLike() == 0) {
 
             if (Configuration.getConfig().userLoginStatus)
-                Toast.makeText(myContext, myContext.getResources().getString(R.string.thanks), Toast.LENGTH_SHORT).show();
+                ToastUtility.getConfig().displayToast(myContext.getResources().getString(R.string.thanks),activity);
             else
-                Toast.makeText(myContext, myContext.getResources().getString(R.string.pleaseLogin), Toast.LENGTH_LONG).show();
 
+            ToastUtility.getConfig().displayToast(myContext.getResources().getString(R.string.pleaseLogin),activity);
             likeThisProduct.setImageResource(R.mipmap.ic_like_filled_toolbar);
             sch.changeProductLike(eachProduct.getId(), 1);
         } else if (sch.getAProduct(eachProduct.getId()).getLike() == 1) {
 
             if (!Configuration.getConfig().userLoginStatus)
-                Toast.makeText(myContext, myContext.getResources().getString(R.string.pleaseLogin), Toast.LENGTH_LONG).show();
 
+                ToastUtility.getConfig().displayToast(myContext.getResources().getString(R.string.pleaseLogin),activity);
             likeThisProduct.setImageResource(R.mipmap.ic_like_toolbar);
             sch.changeProductLike(eachProduct.getId(), 0);
         }
 
     }
 
-    public void addToFavoriteInProductPage(ServerConnectionHandler sch, Product aProduct, ImageButton btnLike, Activity activity, int position) {
+    public void addToFavoriteInProductPage(Activity productPageActivity ,ServerConnectionHandler sch, Product aProduct, ImageButton btnLike, Activity activity, int position) {
 
         if (sch.getAProduct(aProduct.getId()).getLike() == 0) {
 
             if (Configuration.getConfig().userLoginStatus)
-                Toast.makeText(activity, activity.getResources().getString(R.string.thanks), Toast.LENGTH_LONG).show();
+               ToastUtility.getConfig().displayToast(activity.getResources().getString(R.string.thanks),productPageActivity);
             else
-                Toast.makeText(activity, activity.getResources().getString(R.string.pleaseLogin), Toast.LENGTH_LONG).show();
 
+            ToastUtility.getConfig().displayToast(activity.getResources().getString(R.string.pleaseLogin),productPageActivity);
             btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
             aProduct.setLike(1);
             sch.changeProductLike(aProduct.getId(), 1);
@@ -151,8 +156,8 @@ public class ToolbarHandler {
         } else if (sch.getAProduct(aProduct.getId()).getLike() == 1) {
 
             if (!Configuration.getConfig().userLoginStatus)
-                Toast.makeText(activity, activity.getResources().getString(R.string.pleaseLogin), Toast.LENGTH_LONG).show();
 
+                ToastUtility.getConfig().displayToast(activity.getResources().getString(R.string.pleaseLogin),productPageActivity);
             btnLike.setImageResource(R.mipmap.ic_like_toolbar);
             aProduct.setLike(0);
             sch.changeProductLike(aProduct.getId(), 0);

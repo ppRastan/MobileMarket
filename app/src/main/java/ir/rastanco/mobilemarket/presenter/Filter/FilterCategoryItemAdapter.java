@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 /**
  * Created by ShaisteS on 1395/1/27.

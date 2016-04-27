@@ -33,8 +33,6 @@ public class FontTextView extends TextView {
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
-
     }
 
 }

@@ -39,14 +39,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Field;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -78,6 +76,7 @@ import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProduct
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconCreator;
 import ir.rastanco.mobilemarket.utility.Link;
+import ir.rastanco.mobilemarket.utility.ToastUtility;
 
 /*created by parisa*/
 
@@ -95,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
     private int exitSafeCounter = 0;
     private static final int progress_bar_type = 0;
     private DownloadResultReceiver mReceiver;
-
 
 
     @Override
@@ -148,9 +146,9 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         //check get all product.if don't get all product start service get .
         mReceiver = new DownloadResultReceiver(new Handler());
         mReceiver.setReceiver(this);
-        int firstIndexGetProduct=sch.getFirstIndexForGetProductFromJson();
-        int allNumberProducts=sch.getNumberAllProduct();
-        if (firstIndexGetProduct<allNumberProducts){
+        int firstIndexGetProduct = sch.getFirstIndexForGetProductFromJson();
+        int allNumberProducts = sch.getNumberAllProduct();
+        if (firstIndexGetProduct < allNumberProducts) {
             Intent intent = new Intent(Intent.ACTION_SYNC, null, this, CompleteDataAfterInstall.class);
             /* Send optional extras to Download IntentService */
             intent.putExtra("receiver", mReceiver);
@@ -168,9 +166,9 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
                     ObserverChangeFragment.setChangeFragmentParameter(true);
 
                 }
-                int firstIndexGetProduct=sch.getFirstIndexForGetProductFromJson();
-                int allNumberProducts=sch.getNumberAllProduct();
-                if (firstIndexGetProduct<allNumberProducts){
+                int firstIndexGetProduct = sch.getFirstIndexForGetProductFromJson();
+                int allNumberProducts = sch.getNumberAllProduct();
+                if (firstIndexGetProduct < allNumberProducts) {
                     Intent intent = new Intent(Intent.ACTION_SYNC, null, Configuration.getConfig().mainActivityContext, CompleteDataAfterInstall.class);
                     intent.putExtra("receiver", mReceiver);
                     intent.putExtra("requestId", 101);
@@ -220,18 +218,18 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         viewPager.setCurrentItem(adapter.getCount() - 1);
     }
 
-    private void updateViewPager(ViewPager viewPager){
-        mainCategoryTitle=sch.getMainCategoryTitle();
-        mapTitleToIdMainCategory=sch.MapTitleToIDForMainCategory();
-        Configuration.getConfig().mainTabCount =mainCategoryTitle.size();
-        ViewPagerAdapter adapter= (ViewPagerAdapter) viewPager.getAdapter();
+    private void updateViewPager(ViewPager viewPager) {
+        mainCategoryTitle = sch.getMainCategoryTitle();
+        mapTitleToIdMainCategory = sch.MapTitleToIDForMainCategory();
+        Configuration.getConfig().mainTabCount = mainCategoryTitle.size();
+        ViewPagerAdapter adapter = (ViewPagerAdapter) viewPager.getAdapter();
         deleteAllFragmentPage(adapter);
         adapter.clearAllTab();
         adapter.addFragment(new ArticleFragment(), getResources().getString(R.string.fifth_page));
-        for (int i=mainCategoryTitle.size()-1;i>=0;i--) {
-            Bundle args=new Bundle();
+        for (int i = mainCategoryTitle.size() - 1; i >= 0; i--) {
+            Bundle args = new Bundle();
             args.putInt("pageId", mapTitleToIdMainCategory.get(mainCategoryTitle.get(i)));
-            ShopFragment shop=new ShopFragment();
+            ShopFragment shop = new ShopFragment();
             shop.setArguments(args);
             adapter.addFragment(shop, mainCategoryTitle.get(i));
         }
@@ -245,8 +243,8 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         changeTabsFont();
     }
 
-    private void deleteAllFragmentPage(ViewPagerAdapter adapter){
-        for(int i=0;i<adapter.getCount();i++)
+    private void deleteAllFragmentPage(ViewPagerAdapter adapter) {
+        for (int i = 0; i < adapter.getCount(); i++)
             getSupportFragmentManager().beginTransaction().remove(adapter.getItem(i)).commit();
     }
 
@@ -294,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         mapTitleToIdMainCategory = sch.MapTitleToIDForMainCategory();
         Configuration.getConfig().mainTabCount = mainCategoryTitle.size();
         shopCounter = sch.getCountProductShop();
-        Configuration.getConfig().mainActivityView=findViewById(R.id.main);
+        Configuration.getConfig().mainActivityView = findViewById(R.id.main);
 
     }
 
@@ -424,8 +422,7 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         imageLoader.clearCache();
         exitSafeCounter++;
         if (exitSafeCounter == 1) {
-            Toast.makeText(MainActivity.this, getResources().getString(R.string.sure_to_exit),
-                    Toast.LENGTH_SHORT).show();
+            ToastUtility.getConfig().displayToast(getResources().getString(R.string.sure_to_exit,this),this);
         } else if (exitSafeCounter > 1) {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);

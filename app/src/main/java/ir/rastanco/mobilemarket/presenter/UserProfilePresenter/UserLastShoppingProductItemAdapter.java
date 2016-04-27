@@ -50,7 +50,7 @@ public class UserLastShoppingProductItemAdapter extends ArrayAdapter<ProductShop
             holder.imgLoader = new ImageLoader(Configuration.getConfig().userLastShoppingActivityContext); // important
             holder.picInvoice = (ImageView) convertView.findViewById(R.id.img_invoice);
             holder.invoiceNum = (TextView) convertView.findViewById(R.id.txt_invoiceNum);
-            holder.invoiceNum = PriceUtility.getInstance().changeFontToYekan(holder.invoiceNum, myContext);
+            holder.invoiceNum = PriceUtility.getInstance().changeTextViewFont(holder.invoiceNum, myContext);
 
             convertView.setTag(holder);
         } else

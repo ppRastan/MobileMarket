@@ -64,7 +64,7 @@ public class ShoppingBagActivity extends Activity {
             finalPrice = finalPrice + price;
         }
 
-        totalPriceTextView.setText(Configuration.getConfig().userLastShoppingActivityContext.getResources().getString(R.string.shoppingBagActivityFinalPrice, String.valueOf(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice))));
+        totalPriceTextView.setText(Configuration.getConfig().userLastShoppingActivityContext.getResources().getString(R.string.shoppingBagActivityFinalPrice, String.valueOf(PriceUtility.getInstance().formatPriceCommaSeparated(finalPrice))));
         Button confirmShopping = (Button) findViewById(R.id.ok_shop);
         confirmShopping = PriceUtility.getInstance().ChangeButtonFont(confirmShopping,getApplicationContext());
         confirmShopping.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +117,7 @@ public class ShoppingBagActivity extends Activity {
                     }
                     finalPrice = finalPrice + price;
                 }
-                totalPriceTextView.setText(PriceUtility.getInstance().formatPriceCommaSeprated(finalPrice));
+                totalPriceTextView.setText(PriceUtility.getInstance().formatPriceCommaSeparated(finalPrice));
             }
         });
     }
@@ -147,7 +147,7 @@ public class ShoppingBagActivity extends Activity {
 
     private void setYekanFont() {
         totalPriceTextView = (TextView) findViewById(R.id.total_price);
-        totalPriceTextView = PriceUtility.getInstance().changeFontToYekan(totalPriceTextView, this);
+        totalPriceTextView = PriceUtility.getInstance().changeTextViewFont(totalPriceTextView, this);
 
     }
 
