@@ -22,8 +22,22 @@ public class ParseJsonCategory {
 
         try {
 
+            //for parse url : "http://decoriss.com/json/get,com=allcatNoLimits&cache=false";
             JSONObject json =new JSONObject(params);
+            dataJsonArr = json.getJSONArray("allcatsNoLimits");
+            for (int i = 0; i < dataJsonArr.length(); i++) {
+                JSONObject c = dataJsonArr.getJSONObject(i);
+                Category aCategory = new Category();
+                aCategory.setTitle(c.getString("t"));
+                aCategory.setId(c.getInt("id"));
+                aCategory.setParentId(c.getInt("pid"));
+                aCategory.setHasChild(c.getInt("c"));
+                aCategory.setSortOrder(c.getInt("so"));
+                allCategory.add(aCategory);
+            }
 
+            //for parse url : "http://decoriss.com/json/get,com=allcats&cache=false";
+            /*JSONObject json =new JSONObject(params);
             dataJsonArr = json.getJSONArray("allcats");
             for (int i = 0; i < dataJsonArr.length(); i++)
             {
@@ -73,8 +87,7 @@ public class ParseJsonCategory {
                             }
                         }
                     }
-                }
-            }
+                }*/
 
         } catch (JSONException e) {
             e.printStackTrace();

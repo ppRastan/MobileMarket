@@ -19,7 +19,8 @@ public class Link {
     }
 
     public String generateURLForGetAllCategories() {
-        return "http://decoriss.com/json/get,com=allcats&cache=false";
+        //return "http://decoriss.com/json/get,com=allcats&cache=false";
+        return "http://decoriss.com/json/get,com=allcatNoLimits&cache=false";
     }
 
     public String generateUrlForGetNewProduct(String lastTimeStamp) {
