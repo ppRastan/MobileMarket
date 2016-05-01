@@ -24,8 +24,8 @@ public class FilterCategoryItemAdapter extends ArrayAdapter<Integer> {
     private ArrayList<Integer> categoriesId;
     private ServerConnectionHandler serverConnectionHandler;
 
-    public FilterCategoryItemAdapter(Context context, int resource, ArrayList<Integer> categoriesId) {
-        super(context, resource, categoriesId);
+    public FilterCategoryItemAdapter(Context context , ArrayList<Integer> categoriesId) {
+        super(context, R.layout.dialog_filter_item, categoriesId);
         this.context = (Activity) context;
         this.categoriesId = categoriesId;
         serverConnectionHandler = ServerConnectionHandler.getInstance(context);

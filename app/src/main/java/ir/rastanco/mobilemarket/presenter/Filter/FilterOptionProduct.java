@@ -3,6 +3,7 @@ package ir.rastanco.mobilemarket.presenter.Filter;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +27,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCancel;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCancelListener;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterPrice;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 /**
  * Created by ShaisteS on 1394/11/27.
@@ -34,6 +37,7 @@ public class FilterOptionProduct extends DialogFragment {
 
     private int pageId;
     private static FilterOptionProduct filterOptionProduct;
+    private LinearLayout customizeDialogue;
     private Context context;
     private ServerConnectionHandler serverConnectionHandler;
 
@@ -48,11 +52,11 @@ public class FilterOptionProduct extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         context = Configuration.getConfig().shopFragmentContext;
+        customizeDialogue = (LinearLayout) dialogView.findViewById(R.id.customized_dialog);
         pageId = getArguments().getInt("pageId");
-        serverConnectionHandler=ServerConnectionHandler.getInstance(context);
+        serverConnectionHandler = ServerConnectionHandler.getInstance(context);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
         TextView titleBrand = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
@@ -85,9 +89,18 @@ public class FilterOptionProduct extends DialogFragment {
                     if (brandTitle.size() == 0) {
                         String categorySelectedTitle = serverConnectionHandler.getACategoryTitleWithCategoryId(pageId);
                         String message = "دسته ی " + categorySelectedTitle + " فاقد برند می باشد";
-                        Snackbar.make(Configuration.getConfig().mainActivityView, message, Snackbar.LENGTH_LONG)
-                                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
-                                .show();
+                        //Snackbar.make(Configuration.getConfig().mainActivityView, message, Snackbar.LENGTH_LONG)
+                        //      .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
+                        //    .show();
+
+                        Snackbar snackbar = Snackbar
+                                .make(customizeDialogue, message, Snackbar.LENGTH_LONG);
+                        View sbView = snackbar.getView();
+                        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                        textView.setTextColor(Color.RED);
+                        PriceUtility.getInstance().changeTextViewFont(textView, Configuration.getConfig().shopFragmentContext);
+                        snackbar.show();
+
                         getDialog().dismiss();
                     } else {
                         Bundle args = new Bundle();

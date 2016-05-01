@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="18dp"
             android:background="?attr/colorPrimary"
             android:layoutDirection="rtl"
             app:layout_scrollFlags="scroll|enterAlways"
@@ -69,6 +69,7 @@
 
     <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
+        android:id="@+id/coordinateLayout"
         android:layout_height="match_parent">
 
         <android.support.v4.view.ViewPager

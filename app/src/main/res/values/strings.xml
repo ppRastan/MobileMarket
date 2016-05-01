@@ -102,4 +102,6 @@
     <string name="info">%1$s تومان</string>
     <string name="user_comments">توضیحات محصول</string>
     <string name="information_of_this_product">نظرات کاربران</string>
+    <string name="loading">درحال بارگزاری اطلاعات</string>
+    <string name="noBrandMatches">دسته ی "%1$s" فاقد برند میباشد!</string>
 </resources>

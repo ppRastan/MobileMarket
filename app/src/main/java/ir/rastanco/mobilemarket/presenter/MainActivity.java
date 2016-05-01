@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -76,6 +77,7 @@ import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProduct
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.CounterIconCreator;
 import ir.rastanco.mobilemarket.utility.Link;
+import ir.rastanco.mobilemarket.utility.PriceUtility;
 import ir.rastanco.mobilemarket.utility.ToastUtility;
 
 /*created by parisa*/
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
     private int exitSafeCounter = 0;
     private static final int progress_bar_type = 0;
     private DownloadResultReceiver mReceiver;
+    private CoordinatorLayout coordinatorLayout;
 
 
     @Override
@@ -101,8 +104,9 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(getString(R.string.action_bar_title));
-        toolbar.setTitleTextColor(Color.BLACK);
+        toolbar.setNavigationIcon(R.mipmap.persion_logo);
+
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinateLayout);
         setSupportActionBar(toolbar);
         Pushe.initialize(this, true);//pushe Alert For Install Google Play
         this.addActionBar();
@@ -139,8 +143,13 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
             intent.putExtra("receiver", mReceiver);
             intent.putExtra("requestId", 101);
             startService(intent);
-            Snackbar.make(Configuration.getConfig().mainActivityView, "در حال بارگذاری اطلاعات ...", Snackbar.LENGTH_LONG)
-                    .show();
+            Snackbar snackbar = Snackbar
+            .make(coordinatorLayout,getResources().getString(R.string.loading), Snackbar.LENGTH_LONG);
+            View sbView = snackbar.getView();
+            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(Color.RED);
+            PriceUtility.getInstance().changeTextViewFont(textView,this);
+            snackbar.show();
         }
 
         //check get all product.if don't get all product start service get .

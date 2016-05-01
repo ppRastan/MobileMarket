@@ -77,7 +77,7 @@ public class FilterCategory extends DialogFragment {
         ArrayList<Integer> subCategoryId=sch.getCategoryIdOfChildesOfACategory(pageId);
         subCategoryId.add(0,0);//for add "all" in first item
         final ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
-        FilterCategoryItemAdapter adapter=new FilterCategoryItemAdapter(context,R.layout.title_alertdialog_for_group,subCategoryId);
+        FilterCategoryItemAdapter adapter=new FilterCategoryItemAdapter(context,subCategoryId);
         listCategory.setAdapter(adapter);
 
 
@@ -100,7 +100,7 @@ public class FilterCategory extends DialogFragment {
                     btnCancelAlertDialog.setImageResource(R.mipmap.small_back_arrow);
                     ArrayList<Integer> subCategoryId = sch.getCategoryIdOfChildesOfACategory(aCategory.getId());
                     subCategoryId.add(0, 0);//for add "all" in first item
-                    FilterCategoryItemAdapter adapter = new FilterCategoryItemAdapter(context, R.layout.title_alertdialog_for_group, subCategoryId);
+                    FilterCategoryItemAdapter adapter = new FilterCategoryItemAdapter(context, subCategoryId);
                     listCategory.setAdapter(adapter);
                     //adapter.notifyDataSetChanged();
                 } else if (aCategory.getHasChild() == 0) {
@@ -168,7 +168,7 @@ public class FilterCategory extends DialogFragment {
                     ArrayList<Integer> subCategoryId = sch.getCategoryIdOfChildesOfACategory(pageId);
                     subCategoryId.add(0, 0);//for add "all" in first item
                     final ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
-                    FilterCategoryItemAdapter adapter = new FilterCategoryItemAdapter(context, R.layout.title_alertdialog_for_group, subCategoryId);
+                    FilterCategoryItemAdapter adapter = new FilterCategoryItemAdapter(context, subCategoryId);
                     listCategory.setAdapter(adapter);
 
                 } else {
@@ -184,7 +184,7 @@ public class FilterCategory extends DialogFragment {
                     ArrayList<Integer> subCategoryId = sch.getCategoryIdOfChildesOfACategory(pageId);
                     subCategoryId.add(0, 0);//for add "all" in first item
                     final ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
-                    FilterCategoryItemAdapter adapter = new FilterCategoryItemAdapter(context, R.layout.title_alertdialog_for_group, subCategoryId);
+                    FilterCategoryItemAdapter adapter = new FilterCategoryItemAdapter(context,subCategoryId);
                     listCategory.setAdapter(adapter);
 
                 }
