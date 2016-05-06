@@ -30,7 +30,7 @@
     <string name="pm_to_friend">پیام به دوست</string>
     <string name="share">ارسال</string>
     <string name="text_to_send">متن مورد نظر خود را وارد کنید سپس کلید ارسال را فشار دهید</string>
-    <string name="text_to_advertise"> برای مشاهده ی تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار \" دکوریس \" را دانلود کنید:</string>
+    <string name="text_to_advertise">برای مشاهده تنوع بی نظیری از محصولات مبلمان و تزئینات , نرم افزار \" دکوریس \" را دانلود کنید:</string>
     <string name="empty_basket">سبد خرید شما خالی است!</string>
     <string name="invoice_number">شماره ی فاکتور : %1$s </string>
     <string name="same_goods">محصولات مشابه</string>
@@ -47,7 +47,7 @@
     <string name="please_wait_message">بارگذاری اولیه ممکن است چند دقیقه طول بکشد</string>
     <string name="please_wait">لطفا منتظر بمانید . . .</string>
     <string name="downloadFile">در حال دانلود فایل . . .</string>
-    <string name="similar_photos">مشاهده ی سایر محصولات</string>
+    <string name="similar_photos">مشاهده سایر محصولات</string>
     <string name="filterBrandTitle">برند</string>
     <string name="filterPriceTitle">قیمت</string>
     <string name="checkConnection">لطفا اتصال اینترنت خود را بررسی کنید</string>
@@ -59,11 +59,11 @@
     <string name="choose_brand">انتخاب برند</string>
     <string name="choose_price">انتخاب محدوده قیمت</string>
     <string name="price_for_you">قیمت برای شما :</string>
-    <string name="previous_shopped_items">خریدهای گذشته ی من</string>
+    <string name="previous_shopped_items">خریدهای گذشته من</string>
     <string name="liked">علاقه مندی ها</string>
     <string name="exit">خروج از حساب کاربری</string>
     <string name="try_more">دوباره تلاش کنید</string>
-    <string name="not_correct">نام کاربری یا رمزعبور صحیح نمی باشد</string>
+    <string name="not_correct">نام کاربری یا رمز عبور صحیح نمی باشد</string>
     <string name="coming_soon">به زودی</string>
     <string name="brand">brand</string>
     <string name="over10million">بالاتر از 10 ملیون تومان</string>
@@ -76,7 +76,7 @@
     <string name="shoppingBag">سبد خرید</string>
     <string name="userProfile">پروفایل کاربری</string>
     <string name="cancel_search_dialuge">cancel_search_dialuge</string>
-    <string name="productFullScreenPhoto">تصویرکامل محصول</string>
+    <string name="productFullScreenPhoto">تصویر کامل محصول</string>
     <string name="thisProductHasOffer">تخفیف</string>
     <string name="imageQuality">درجه کیفی محصول</string>
     <string name="shareCurrentProduct">اشتراک گذاری این محصول</string>
@@ -102,8 +102,8 @@
     <string name="info">%1$s تومان</string>
     <string name="user_comments">توضیحات محصول</string>
     <string name="information_of_this_product">نظرات کاربران</string>
-    <string name="loading">درحال بارگزاری اطلاعات</string>
+    <string name="loading">در حال بارگزاری اطلاعات</string>
     <string name="noBrandMatches">دسته ی "%1$s" فاقد برند میباشد!</string>
     <string name="nobrand">فاقد برند می باشد</string>
-    <string name="this_group">دسته ی</string>
+    <string name="this_group">دسته </string>
 </resources>
