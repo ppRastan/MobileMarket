@@ -253,6 +253,21 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
             return true;
         }
     }
+
+    public Boolean emptyProductShopping() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery("select * from "+TABLE_SHOPPING, null);
+        if (rs.moveToFirst()) {
+            //Not empty
+            rs.close();
+            return false;
+        } else {
+            //Is Empty
+            rs.close();
+            return true;
+        }
+    }
+
     public Boolean emptyArticleTable() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery("select * from "+TABLE_ARTICLE, null);

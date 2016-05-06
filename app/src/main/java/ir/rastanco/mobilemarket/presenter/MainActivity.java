@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinateLayout);
+        text_count = (TextView) findViewById(R.id.txt_count);
         Pushe.initialize(this, true);//pushe Alert For Install Google Play
         this.InitializationParametersNecessary();
         this.setActionBar();
@@ -113,8 +114,14 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         ObserverShopping.addMyBooleanListener(new ObserverShoppingBagClickListener() {
             @Override
             public void OnMyBooleanChanged() {
-                text_count = (TextView) findViewById(R.id.txt_count);
-                text_count.setText(String.valueOf(sch.getCountProductShop()));
+                int shopCounter=sch.getCountProductShop();
+                if (shopCounter==0)
+                    text_count.setVisibility(View.GONE);
+                else {
+                    text_count.setVisibility(View.VISIBLE);
+                    text_count.setText(String.valueOf(shopCounter));
+
+                }
             }
         });
 
@@ -203,9 +210,12 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         ImageButton updateIcon = (ImageButton) findViewById(R.id.actionbarUpdate);
         ImageButton searchIcon = (ImageButton) findViewById(R.id.actionbar_search);
 
-//        if(sch.getCountProductShop() == null ){
-//            text_count.setVisibility(View.GONE);
-//        }
+        if(sch.checkEmptyProductShop() ){
+            text_count.setVisibility(View.GONE);
+        }
+        else{
+            text_count.setText(String.valueOf(sch.getCountProductShop()));
+        }
         Configuration.getConfig().upgradeButtonMenu = updateIcon;
         if (!sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer()) ||
                 !Configuration.getConfig().connectionStatus)

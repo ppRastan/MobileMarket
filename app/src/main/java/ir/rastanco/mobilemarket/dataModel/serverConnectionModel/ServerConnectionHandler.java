@@ -746,6 +746,11 @@ public class ServerConnectionHandler {
     }
 
     //Product Shopping
+
+    public boolean checkEmptyProductShop(){
+        return DataBaseHandler.getInstance(context).emptyProductShopping();
+    }
+
     public boolean checkSelectProductForShop(int productId){
         return DataBaseHandler.getInstance(context).ExistAProductShopping(productId);
     }
