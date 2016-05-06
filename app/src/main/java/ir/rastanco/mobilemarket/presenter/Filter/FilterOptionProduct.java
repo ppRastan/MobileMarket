@@ -3,7 +3,6 @@ package ir.rastanco.mobilemarket.presenter.Filter;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
@@ -27,7 +26,6 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCancel;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterCancelListener;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverFilterPrice;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 /**
  * Created by ShaisteS on 1394/11/27.
@@ -89,18 +87,7 @@ public class FilterOptionProduct extends DialogFragment {
                     if (brandTitle.size() == 0) {
                         String categorySelectedTitle = serverConnectionHandler.getACategoryTitleWithCategoryId(pageId);
                         String message = "دسته ی " + categorySelectedTitle + " فاقد برند می باشد";
-                        //Snackbar.make(Configuration.getConfig().mainActivityView, message, Snackbar.LENGTH_LONG)
-                        //      .setActionTextColor(getResources().getColor(android.R.color.holo_red_light))
-                        //    .show();
-
-                        Snackbar snackbar = Snackbar
-                                .make(customizeDialogue, message, Snackbar.LENGTH_LONG);
-                        View sbView = snackbar.getView();
-                        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-                        textView.setTextColor(Color.RED);
-                        PriceUtility.getInstance().changeTextViewFont(textView, Configuration.getConfig().shopFragmentContext);
-                        snackbar.show();
-
+                        Snackbar.make(Configuration.getConfig().mainActivityView, message, Snackbar.LENGTH_LONG).show();
                         getDialog().dismiss();
                     } else {
                         Bundle args = new Bundle();

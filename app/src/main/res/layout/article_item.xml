@@ -36,6 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:contentDescription="@string/articles"
-        android:background="@color/transparent"
+        android:background="@null"
        android:padding="3dp" />
 </LinearLayout>

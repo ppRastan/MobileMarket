@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.View;
 
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
@@ -30,7 +31,7 @@ public class UpdateEveryConnectionOk extends BroadcastReceiver {
                 Configuration.getConfig().connectionStatus=true;
                 if (sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer())) {
                     if (Configuration.getConfig().upgradeButtonMenu != null ) {
-                        Configuration.getConfig().upgradeButtonMenu.setVisible(true);
+                        Configuration.getConfig().upgradeButtonMenu.setImageResource(View.VISIBLE);
                     }
                     Intent notificationService = new Intent(context, NotificationService.class);
                     context.startService(notificationService);

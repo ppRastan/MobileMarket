@@ -136,7 +136,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                 //Loading bar gone and no product text and grid view gone
                 //progressBar.setVisibility(View.INVISIBLE);
                 noThingToShow.setText(getString(R.string.no_product_to_show));
-                noThingToShow.setTextColor(ContextCompat.getColor(context, R.color.red));
+                noThingToShow.setTextColor(ContextCompat.getColor(context, R.color.orange));
                 noThingToShow.setVisibility(View.VISIBLE);
                 productListView.setVisibility(View.GONE);
                 return false;

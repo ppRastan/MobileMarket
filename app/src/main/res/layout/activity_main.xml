@@ -1,33 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/main">
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <include layout="@layout/customize_actionbar_mainactivity"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:layout_marginTop="18dp"
-            android:background="?attr/colorPrimary"
-            android:layoutDirection="rtl"
-            app:layout_scrollFlags="scroll|enterAlways"
-
-            />
-
+            android:layout_height="match_parent"/>
 
         <LinearLayout
             android:id="@+id/toolbar_search"
             android:layout_width="match_parent"
+            android:fitsSystemWindows="true"
             android:layout_height="?actionBarSize"
-            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:visibility="gone"
             android:weightSum="10">
@@ -45,17 +37,16 @@
                 android:layoutDirection="rtl"
                 android:padding="4dp"
                 android:singleLine="true"
-                android:textColor="@color/orange"
-                 />
+                android:textColor="@color/orange" />
 
             <ImageButton
                 android:id="@+id/back_button"
                 android:layout_width="0dp"
-                android:contentDescription="@string/cancel_search_dialuge"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_weight="2"
-                android:background="@color/background_window"
+                android:background="@null"
+                android:contentDescription="@string/cancel_search_dialuge"
                 android:src="@mipmap/ic_back" />
         </LinearLayout>
 
@@ -68,14 +59,14 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
         android:id="@+id/coordinateLayout"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
@@ -83,7 +74,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@mipmap/customer_support"
-           />
+            android:src="@mipmap/customer_support" />
     </android.support.design.widget.CoordinatorLayout>
 </LinearLayout>

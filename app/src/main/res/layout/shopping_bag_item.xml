@@ -163,7 +163,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:text="@string/price_off"
-                                android:textColor="@color/red"
+                                android:textColor="@color/orange"
                                 android:textSize="@dimen/textSize" />
 
                             <ir.rastanco.mobilemarket.utility.FontTextView
@@ -172,7 +172,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:gravity="center_horizontal|left"
-                                android:textColor="@color/red"
+                                android:textColor="@color/orange"
                                 android:textSize="@dimen/textSize" />
                         </LinearLayout>
 

@@ -10,7 +10,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
-import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -30,8 +29,6 @@ import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Display;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -75,7 +72,6 @@ import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragmentManagement;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.CounterIconCreator;
 import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 import ir.rastanco.mobilemarket.utility.ToastUtility;
@@ -90,38 +86,35 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
     private Map<String, Integer> mapTitleToIdMainCategory;
     private LinearLayout toolbarSearch;
     private int shopCounter;
-    private Menu menu;
     private String version;
     private ProgressDialog pDialog;
     private int exitSafeCounter = 0;
     private static final int progress_bar_type = 0;
     private DownloadResultReceiver mReceiver;
     private CoordinatorLayout coordinatorLayout;
-
+    private TextView text_count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //this.setStatusBarColor();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.mipmap.persion_logo);
-
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinateLayout);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinateLayout);
         Pushe.initialize(this, true);//pushe Alert For Install Google Play
-        this.addActionBar();
+        this.InitializationParametersNecessary();
+        this.setActionBar();
         this.setFAb();
         this.phoneManager();
-        this.InitializationParametersNecessary();
         this.CreatePageRightToLeft();
         this.displayWindow();
         ObserverShopping.addMyBooleanListener(new ObserverShoppingBagClickListener() {
             @Override
             public void OnMyBooleanChanged() {
-                MenuItem item = menu.findItem(R.id.action_notifications);
-                LayerDrawable icon = (LayerDrawable) item.getIcon();
-                CounterIconCreator.setBadgeCount(icon, sch.getCountProductShop());
-
+                text_count = (TextView) findViewById(R.id.txt_count);
+                text_count.setText(String.valueOf(sch.getCountProductShop()));
             }
         });
 
@@ -144,11 +137,11 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
             intent.putExtra("requestId", 101);
             startService(intent);
             Snackbar snackbar = Snackbar
-            .make(coordinatorLayout,getResources().getString(R.string.loading), Snackbar.LENGTH_LONG);
+                    .make(coordinatorLayout, getResources().getString(R.string.loading), Snackbar.LENGTH_LONG);
             View sbView = snackbar.getView();
             TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
-            textView.setTextColor(Color.RED);
-            PriceUtility.getInstance().changeTextViewFont(textView,this);
+            textView.setTextColor(Color.WHITE);
+            PriceUtility.getInstance().changeTextViewFont(textView, this);
             snackbar.show();
         }
 
@@ -190,6 +183,101 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
             @Override
             public void updateCategories() {
                 updateViewPager(Configuration.getConfig().mainPager);
+            }
+        });
+    }
+
+//    public void setStatusBarColor() {
+//        Window window = this.getWindow();
+//        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            window.setStatusBarColor(this.getResources().getColor(R.color.background_window));
+//        }
+//    }
+
+    private void setActionBar() {
+
+        ImageButton userLogin = (ImageButton) findViewById(R.id.actionbar_userLogin);
+        ImageButton shoppingCounter = (ImageButton) findViewById(R.id.actionbar_shoppingBag);
+        ImageButton updateIcon = (ImageButton) findViewById(R.id.actionbarUpdate);
+        ImageButton searchIcon = (ImageButton) findViewById(R.id.actionbar_search);
+
+//        if(sch.getCountProductShop() == null ){
+//            text_count.setVisibility(View.GONE);
+//        }
+        Configuration.getConfig().upgradeButtonMenu = updateIcon;
+        if (!sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer()) ||
+                !Configuration.getConfig().connectionStatus)
+            updateIcon.setVisibility(View.GONE);
+        else
+            updateIcon.setVisibility(View.VISIBLE);
+
+        userLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (Configuration.getConfig().userLoginStatus) {
+
+                    Intent userProfileIntent = new Intent(Configuration.getConfig().mainActivityContext, AccountManagerActivity.class);
+                    startActivity(userProfileIntent);
+                } else {
+                    Intent userProfileIntent = new Intent(Configuration.getConfig().mainActivityContext, LoginActivity.class);
+                    startActivity(userProfileIntent);
+                }
+            }
+        });
+
+        shoppingCounter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent shoppingBagIntent = new Intent(MainActivity.this, ShoppingBagActivity.class);
+                startActivity(shoppingBagIntent);
+
+            }
+        });
+        updateIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                version = sch.getLastVersionInServer(Link.getInstance().generateURLForGetLastVersionAppInServer());
+                new DownloadFileFromURL(MainActivity.this).execute(Link.getInstance().generateYRLForGetApplicationInServer());
+            }
+        });
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+                ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
+                AutoCompleteTextView textToSearch = (AutoCompleteTextView) findViewById(R.id.text_for_search);
+                toolbarSearch = (LinearLayout) findViewById(R.id.toolbar_search);
+                toolbar.setVisibility(View.GONE);
+                toolbarSearch.setVisibility(View.VISIBLE);
+                ArrayAdapter<String> listAdapter = new ArrayAdapter<>(MainActivity.this,
+                        R.layout.customized_list_for_search, sch.searchInProductTitle());
+                textToSearch.setAdapter(listAdapter);
+                backButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        toolbarSearch.setVisibility(View.GONE);
+                        toolbar.setVisibility(View.VISIBLE);
+                    }
+                });
+                textToSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        int productId = sch.getProductIdWithTitle((String) parent.getItemAtPosition(position));
+                        Product aProduct = sch.getAProduct(productId);
+                        ArrayList<Product> product = new ArrayList<>();
+                        product.add(aProduct);
+                        Intent intent = new Intent(Configuration.getConfig().mainActivityContext, ProductInfoActivity.class);
+                        intent.putParcelableArrayListExtra("allProduct", product);
+                        intent.putExtra("position", 0);
+                        startActivity(intent);
+                    }
+                });
+
             }
         });
     }
@@ -257,15 +345,11 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
             getSupportFragmentManager().beginTransaction().remove(adapter.getItem(i)).commit();
     }
 
-    private void addActionBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-    }
 
     private void setFAb() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         Configuration.getConfig().customerSupportFloatingActionButton = fab;
-        fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.fab_color)));
+        fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white)));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -338,90 +422,21 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+//        LayerDrawable icon = (LayerDrawable) item.getIcon();
+//        CounterIconCreator.setBadgeCount(icon, filBasketColor());
+//
+//        MenuItem upgradeItem = menu.findItem(R.id.update);
 
-        this.menu = menu;
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        MenuItem item = menu.findItem(R.id.action_notifications);
-        LayerDrawable icon = (LayerDrawable) item.getIcon();
-        CounterIconCreator.setBadgeCount(icon, filBasketColor());
+//        else
+//            upgradeItem.setVisible(true);
+//
+//        return true;
+//    }
+//
+//    private int filBasketColor() {
+//        return shopCounter;
+//    }
 
-        MenuItem upgradeItem = menu.findItem(R.id.update);
-        Configuration.getConfig().upgradeButtonMenu = upgradeItem;
-        if (!sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer()) ||
-                !Configuration.getConfig().connectionStatus)
-            upgradeItem.setVisible(false);
-        else
-            upgradeItem.setVisible(true);
-
-        return true;
-    }
-
-    private int filBasketColor() {
-        return shopCounter;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.action_contact:
-                if (Configuration.getConfig().userLoginStatus) {
-
-                    Intent userProfileIntent = new Intent(Configuration.getConfig().mainActivityContext, AccountManagerActivity.class);
-                    this.startActivity(userProfileIntent);
-                } else {
-                    Intent userProfileIntent = new Intent(Configuration.getConfig().mainActivityContext, LoginActivity.class);
-                    this.startActivity(userProfileIntent);
-                }
-                break;
-
-            case R.id.action_search: {
-                final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-                ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
-                AutoCompleteTextView textToSearch = (AutoCompleteTextView) findViewById(R.id.text_for_search);
-                toolbarSearch = (LinearLayout) findViewById(R.id.toolbar_search);
-                toolbar.setVisibility(View.GONE);
-                toolbarSearch.setVisibility(View.VISIBLE);
-                ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
-                        R.layout.customized_list_for_search, sch.searchInProductTitle());
-                textToSearch.setAdapter(listAdapter);
-                backButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        toolbarSearch.setVisibility(View.GONE);
-                        toolbar.setVisibility(View.VISIBLE);
-                    }
-                });
-                textToSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        int productId = sch.getProductIdWithTitle((String) parent.getItemAtPosition(position));
-                        Product aProduct = sch.getAProduct(productId);
-                        ArrayList<Product> product = new ArrayList<>();
-                        product.add(aProduct);
-                        Intent intent = new Intent(Configuration.getConfig().mainActivityContext, ProductInfoActivity.class);
-                        intent.putParcelableArrayListExtra("allProduct", product);
-                        intent.putExtra("position", 0);
-                        startActivity(intent);
-                    }
-                });
-                break;
-            }
-
-            case R.id.action_notifications:
-                Intent shoppingBagIntent = new Intent(this, ShoppingBagActivity.class);
-                this.startActivity(shoppingBagIntent);
-                break;
-            case R.id.update:
-                version = sch.getLastVersionInServer(Link.getInstance().generateURLForGetLastVersionAppInServer());
-                new DownloadFileFromURL(this).execute(Link.getInstance().generateYRLForGetApplicationInServer());
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onBackPressed() {
@@ -431,7 +446,7 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         imageLoader.clearCache();
         exitSafeCounter++;
         if (exitSafeCounter == 1) {
-            ToastUtility.getConfig().displayToast(getResources().getString(R.string.sure_to_exit,this),this);
+            ToastUtility.getConfig().displayToast(getResources().getString(R.string.sure_to_exit, this), this);
         } else if (exitSafeCounter > 1) {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);

@@ -34,7 +34,6 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverLike;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverLikeListener;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProductListener;
-import ir.rastanco.mobilemarket.presenter.Observer.ObserverUpdateCategories;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.UpdateService;
 import ir.rastanco.mobilemarket.utility.ColorUtility;
@@ -44,7 +43,7 @@ import ir.rastanco.mobilemarket.utility.PriceUtility;
 /**
  * Created by ShaisteS on 1394/12/09.
  */
-public class ShopFragment extends Fragment implements DownloadResultReceiver.Receiver  {
+public class ShopFragment extends Fragment implements DownloadResultReceiver.Receiver {
 
 
     private ServerConnectionHandler sch;
@@ -76,12 +75,12 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
 
         ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
-        existProductNumber=sch.getFirstIndexForGetProductFromJson();
-        int allProductNumber=sch.getNumberAllProduct();
+        existProductNumber = sch.getFirstIndexForGetProductFromJson();
+        int allProductNumber = sch.getNumberAllProduct();
 
-        Configuration.getConfig().filterCategoryId=0;
-        Configuration.getConfig().filterCategoryTitle=getString(R.string.all);
-        Configuration.getConfig().filterOption=getString(R.string.all);
+        Configuration.getConfig().filterCategoryId = 0;
+        Configuration.getConfig().filterCategoryTitle = getString(R.string.all);
+        Configuration.getConfig().filterOption = getString(R.string.all);
         txtFilterCategorySelected.setText(getString(R.string.all));
         txtFilterOptionProductSelected.setText(getString(R.string.all));
         txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.black));
@@ -90,13 +89,13 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         mReceiver = new DownloadResultReceiver(new Handler());
         mReceiver.setReceiver(this);
 
-        if(showMessage(products.size())){
+        if (showMessage(products.size())) {
             adapter = new PictureProductShopItemAdapter(getActivity(), products);
             gridview.setAdapter(adapter);
         }
 
         //refresh grid view
-        mSwipeRefreshLayout = (SwipeRefreshLayout)mainView.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) mainView.findViewById(R.id.swipe_refresh_layout);
         //mSwipeRefreshLayout.setEnabled(true);
         mSwipeRefreshLayout.setEnabled(false);
         ColorUtility.getConfig().setColorOfSwipeRefresh(mSwipeRefreshLayout);
@@ -149,7 +148,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                         sch.getNewProducts();
                         sch.getEditProducts();*/
                         pageIdForRefresh = pageId;
-                        txtFilterOptionForRefresh= (String) txtFilterOptionProductSelected.getText();
+                        txtFilterOptionForRefresh = (String) txtFilterOptionProductSelected.getText();
                         Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), UpdateService.class);
                         intent.putExtra("receiver", mReceiver);
                         intent.putExtra("requestId", 101);
@@ -166,7 +165,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                 Configuration.getConfig().filterPriceTitle = sch.getACategoryTitleWithCategoryId(Configuration.getConfig().filterCategoryId);
                 Configuration.getConfig().filterBrand = Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all);
                 txtFilterCategorySelected.setText(Configuration.getConfig().filterPriceTitle);
-                txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
+                txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.orange));
                 txtFilterOptionProductSelected.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all));
                 txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.black));
                 ArrayList<Product> newProducts = sch.getProductsOfAParentCategory(ObserverSimilarProduct.getSimilarProduct());
@@ -189,34 +188,33 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         //Filter
         ///FilterSubCategory
         Button btnFilterCategory = (Button) mainView.findViewById(R.id.group_dialog);
-                btnFilterCategory = PriceUtility.getInstance().ChangeButtonFont(btnFilterCategory,myContext);
+        btnFilterCategory = PriceUtility.getInstance().ChangeButtonFont(btnFilterCategory, myContext);
         btnFilterCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle args = new Bundle();
                 args.putInt("pageId", pageId);
-                if (FilterCategory.getInstance().isAdded()&& Configuration.getConfig().filterCategoryDialogShowStatus) {
-                }
-                else if(!FilterCategory.getInstance().isAdded() && !Configuration.getConfig().filterCategoryDialogShowStatus) {
+                if (FilterCategory.getInstance().isAdded() && Configuration.getConfig().filterCategoryDialogShowStatus) {
+                } else if (!FilterCategory.getInstance().isAdded() && !Configuration.getConfig().filterCategoryDialogShowStatus) {
                     FilterCategory.getInstance().setArguments(args);
                     FilterCategory.getInstance().show(myContext.getFragmentManager(), "Category");
-                    Configuration.getConfig().filterCategoryDialogShowStatus=true;//when category filter dialog open
+                    Configuration.getConfig().filterCategoryDialogShowStatus = true;//when category filter dialog open
                 }
                 //show Dialog Filter category
                 //Change grid view data after set filter
                 ObserverFilterCategory.changeFilterCategoryListener(new ObserverFilterCategoryListener() {
                     @Override
                     public void changeFilterCategory() {
-                        Configuration.getConfig().filterCategoryDialogShowStatus=false;//when category filter dialog close
+                        Configuration.getConfig().filterCategoryDialogShowStatus = false;//when category filter dialog close
                         txtFilterCategorySelected.setText(Configuration.getConfig().filterCategoryTitle);
-                        txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
+                        txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.orange));
                         txtFilterOptionProductSelected.setText(getString(R.string.all));
-                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext,R.color.black));
+                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.black));
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 Configuration.getConfig().filterOption);
-                        if (showMessage(newProducts.size())){
+                        if (showMessage(newProducts.size())) {
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -228,7 +226,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         });
         ///Filter in Product Features
         Button btnFilterOptionProduct = (Button) mainView.findViewById(R.id.filter_dialogue);
-        btnFilterOptionProduct = PriceUtility.getInstance().ChangeButtonFont(btnFilterOptionProduct,myContext);
+        btnFilterOptionProduct = PriceUtility.getInstance().ChangeButtonFont(btnFilterOptionProduct, myContext);
         btnFilterOptionProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,18 +237,17 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
             @Override
             public void onClick(View v) {
                 Bundle args = new Bundle();
-                if(Configuration.getConfig().filterCategoryId==0) {
+                if (Configuration.getConfig().filterCategoryId == 0) {
                     args.putInt("pageId", pageId);
-                }
-                else
-                    args.putInt("pageId",Configuration.getConfig().filterCategoryId);
+                } else
+                    args.putInt("pageId", Configuration.getConfig().filterCategoryId);
                 FilterOptionProduct.getInstance().setArguments(args);
                 FilterOptionProduct.getInstance().show(myContext.getFragmentManager(), "FilterProductOption");
                 ObserverFilterPrice.changeFilterPriceListener(new ObserverFilterPriceListener() {
                     @Override
                     public void changeFilterPrice() {
                         txtFilterOptionProductSelected.setText(Configuration.getConfig().filterPriceTitle);
-                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
+                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.orange));
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
@@ -266,12 +263,12 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                     @Override
                     public void changeFilterBrand() {
                         txtFilterOptionProductSelected.setText(Configuration.getConfig().filterBrand);
-                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
+                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.orange));
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 Configuration.getConfig().filterOption);
-                        if (showMessage(newProducts.size())){
+                        if (showMessage(newProducts.size())) {
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -284,12 +281,12 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                     @Override
                     public void changeFilterAll() {
                         txtFilterOptionProductSelected.setText(Configuration.getConfig().filterAll);
-                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.red));
+                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.orange));
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 Configuration.getConfig().filterOption);
-                        if(showMessage(newProducts.size())){
+                        if (showMessage(newProducts.size())) {
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -302,9 +299,9 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         return mainView;
     }
 
-    private Boolean showMessage(int productSize){
+    private Boolean showMessage(int productSize) {
         if (productSize == 0) {
-            if (existProductNumber==0){
+            if (existProductNumber == 0) {
                 //Loading bar and please wait... text and grid view gone
                 //progressBar.setVisibility(View.VISIBLE);
                 noThingToShow.setText(getString(R.string.please_wait_message));
@@ -312,10 +309,9 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                 noThingToShow.setVisibility(View.VISIBLE);
                 gridview.setVisibility(View.GONE);
                 return false;
-            }
-            else {
+            } else {
                 noThingToShow.setText(getString(R.string.no_product_to_show));
-                noThingToShow.setTextColor(ContextCompat.getColor(myContext, R.color.red));
+                noThingToShow.setTextColor(ContextCompat.getColor(myContext, R.color.orange));
                 noThingToShow.setVisibility(View.VISIBLE);
                 gridview.setVisibility(View.GONE);
                 return false;
@@ -334,8 +330,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
             }
             return false;*/
 
-        }
-        else {
+        } else {
             //Loading bar gone text view gone grid view visible
             //progressBar.setVisibility(View.GONE);
             noThingToShow.setVisibility(View.GONE);
@@ -368,7 +363,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                 }
                 mSwipeRefreshLayout.setRefreshing(false);
                 //ObserverUpdateCategories.setUpdateCategoriesStatus(true);
-               break;
+                break;
 
         }
     }
