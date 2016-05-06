@@ -209,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         Configuration.getConfig().upgradeButtonMenu = updateIcon;
         if (!sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer()) ||
                 !Configuration.getConfig().connectionStatus)
-            updateIcon.setVisibility(View.GONE);
+            updateIcon.setVisibility(View.INVISIBLE);
         else
             updateIcon.setVisibility(View.VISIBLE);
 
