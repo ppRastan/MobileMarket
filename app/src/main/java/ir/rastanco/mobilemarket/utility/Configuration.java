@@ -4,7 +4,6 @@ package ir.rastanco.mobilemarket.utility;
 import android.content.Context;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -47,17 +46,17 @@ public class Configuration {
 
     public Boolean userLoginStatus;
     public Boolean RTL;
-    public Boolean emptyProductTable=false; //true is empty and false is full
-    public Boolean emptyCategoryTable=false;//true is empty and false is full
+    public Boolean emptyProductTable = false; //true is empty and false is full
+    public Boolean emptyCategoryTable = false;//true is empty and false is full
     public Boolean connectionStatus = false;
-    public Boolean filterCategoryDialogShowStatus=false; //false= no show dialog and true= show dialog
+    public Boolean filterCategoryDialogShowStatus = false; //false= no show dialog and true= show dialog
 
 
     public Integer filterCategoryId = 0; //It is important that filterCategoryId=0
-    public Integer homeDisplaySizeForShow=0;//solve exception java.lang.RuntimeException: Unable to start activity
-    public Integer shopDisplaySizeForShow=0;//solve exception java.lang.RuntimeException: Unable to start activity
-    public Integer productInfoHeightForShow=0;//solve exception java.lang.RuntimeException: Unable to start activity
-    public Integer articleDisplaySizeForShow=0;//solve exception java.lang.RuntimeException: Unable to start activity
+    public Integer homeDisplaySizeForShow = 0;//solve exception java.lang.RuntimeException: Unable to start activity
+    public Integer shopDisplaySizeForShow = 0;//solve exception java.lang.RuntimeException: Unable to start activity
+    public Integer productInfoHeightForShow = 0;//solve exception java.lang.RuntimeException: Unable to start activity
+    public Integer articleDisplaySizeForShow = 0;//solve exception java.lang.RuntimeException: Unable to start activity
     public Integer progressBarSize;
     public Integer mainTabCount;
     public Integer firstIndexGetProduct;

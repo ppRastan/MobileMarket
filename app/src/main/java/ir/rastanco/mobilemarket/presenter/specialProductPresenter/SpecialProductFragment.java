@@ -24,7 +24,6 @@ import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.UpdateService;
 import ir.rastanco.mobilemarket.utility.ColorUtility;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 /**
  * Created by ShaisteS on 1394/12/09.
@@ -44,29 +43,27 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
     private int allProductNumber;
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        context=getContext();
+        context = getContext();
         sch = ServerConnectionHandler.getInstance(context);
         View mainView = inflater.inflate(R.layout.fragment_home, container, false);
         productListView = (ListView) mainView.findViewById(R.id.listView_picProduct);
         noThingToShow = (TextView) mainView.findViewById(R.id.no_thing_to_show1);
         //noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow, context);
         //progressBar=(ProgressBar)mainView.findViewById(R.id.progressBar_Loading);
-        existProductNumber=sch.getFirstIndexForGetProductFromJson();
-        allProductNumber=sch.getNumberAllProduct();
+        existProductNumber = sch.getFirstIndexForGetProductFromJson();
+        allProductNumber = sch.getNumberAllProduct();
         products = new ArrayList<>();
         products = sch.getSpecialProduct();
 
-        if(showMessage(products.size())){
+        if (showMessage(products.size())) {
             PictureSpecialProductItemAdapter adapter = new PictureSpecialProductItemAdapter(getActivity(), products);
             productListView.setAdapter(adapter);
         }
 
-        mSwipeRefreshLayout = (SwipeRefreshLayout)mainView.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) mainView.findViewById(R.id.swipe_refresh_layout);
         //refresh grid view
         mSwipeRefreshLayout.setEnabled(false);
         productListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -121,9 +118,9 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
 
     }
 
-    private Boolean showMessage(int productSize){
+    private Boolean showMessage(int productSize) {
         if (productSize == 0) {
-            if (existProductNumber<allProductNumber || existProductNumber==0){
+            if (existProductNumber < allProductNumber || existProductNumber == 0) {
                 //Loading bar and please wait... text and grid view gone
                 //progressBar.setVisibility(View.VISIBLE);
                 noThingToShow.setText(getString(R.string.please_wait_message));
@@ -131,8 +128,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                 noThingToShow.setVisibility(View.VISIBLE);
                 productListView.setVisibility(View.GONE);
                 return false;
-            }
-            else if(existProductNumber!=0){
+            } else if (existProductNumber != 0) {
                 //Loading bar gone and no product text and grid view gone
                 //progressBar.setVisibility(View.INVISIBLE);
                 noThingToShow.setText(getString(R.string.no_product_to_show));
@@ -142,8 +138,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                 return false;
             }
             return false;
-        }
-        else {
+        } else {
             //Loading bar gone text view gone grid view visible
             //progressBar.setVisibility(View.GONE);
             noThingToShow.setVisibility(View.GONE);

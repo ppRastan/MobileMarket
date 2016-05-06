@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Category;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 /**
  * Created by ShaisteS on 1395/1/27.
@@ -24,7 +23,7 @@ public class FilterCategoryItemAdapter extends ArrayAdapter<Integer> {
     private ArrayList<Integer> categoriesId;
     private ServerConnectionHandler serverConnectionHandler;
 
-    public FilterCategoryItemAdapter(Context context , ArrayList<Integer> categoriesId) {
+    public FilterCategoryItemAdapter(Context context, ArrayList<Integer> categoriesId) {
         super(context, R.layout.dialog_filter_item, categoriesId);
         this.context = (Activity) context;
         this.categoriesId = categoriesId;
@@ -45,7 +44,7 @@ public class FilterCategoryItemAdapter extends ArrayAdapter<Integer> {
             convertView = inflater.inflate(R.layout.dialog_filter_item, parent, false);
             holder = new ViewHolder();
             convertView.setTag(holder);
-            holder.txtCategoryName=(TextView)convertView.findViewById(R.id.txt_Name);
+            holder.txtCategoryName = (TextView) convertView.findViewById(R.id.txt_Name);
             //holder.txtCategoryName= PriceUtility.getInstance().changeFontToYekan(holder.txtCategoryName,context);
             holder.imgNextIcon = (ImageButton) convertView.findViewById(R.id.imb_next);
         } else

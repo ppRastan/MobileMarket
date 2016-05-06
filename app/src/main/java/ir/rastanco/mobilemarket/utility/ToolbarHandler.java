@@ -10,7 +10,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
@@ -28,6 +27,7 @@ public class ToolbarHandler {
     private Activity toolbarHandlerActivity;
     private String currentProductToShare;
     private EditText editTextToShare;
+
     public static ToolbarHandler getInstance() {
         if (toolbarHandler == null) {
             toolbarHandler = new ToolbarHandler();
@@ -35,16 +35,16 @@ public class ToolbarHandler {
         return toolbarHandler;
     }
 
-    public void generalShare(Activity activity,String product) {
+    public void generalShare(Activity activity, String product) {
         this.toolbarHandlerActivity = activity;
         this.currentProductToShare = product;
         final Dialog shareDialog = new Dialog(toolbarHandlerActivity);
         shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         shareDialog.setContentView(R.layout.share_alert_dialog);
         Button sendBtn = (Button) shareDialog.findViewById(R.id.send_my_pm);
-        sendBtn = PriceUtility.getInstance().ChangeButtonFont(sendBtn,activity);
+        sendBtn = PriceUtility.getInstance().ChangeButtonFont(sendBtn, activity);
         editTextToShare = (EditText) shareDialog.findViewById(R.id.text_to_send);
-        editTextToShare = PriceUtility.getInstance().changeEditTextFont(editTextToShare,activity);
+        editTextToShare = PriceUtility.getInstance().changeEditTextFont(editTextToShare, activity);
         cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
         cancelShareDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +60,7 @@ public class ToolbarHandler {
                 String Share = textToSend + "\n\n" +
                         currentProductToShare + "\n\n" +
                         toolbarHandlerActivity.getResources().getString(R.string.text_to_advertise) + "\n\n"
-                        +toolbarHandlerActivity.getResources().getString(R.string.LinkDownloadApp);
+                        + toolbarHandlerActivity.getResources().getString(R.string.LinkDownloadApp);
 
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
@@ -84,9 +84,9 @@ public class ToolbarHandler {
         shareByTelegram.setContentView(R.layout.share_alert_dialog);
         cancelShareDialog = (ImageButton) shareByTelegram.findViewById(R.id.close_pm_to_friend);
         Button sendBtn = (Button) shareByTelegram.findViewById(R.id.send_my_pm);
-        sendBtn = PriceUtility.getInstance().ChangeButtonFont(sendBtn,activity);
+        sendBtn = PriceUtility.getInstance().ChangeButtonFont(sendBtn, activity);
         editTextToShare = (EditText) shareByTelegram.findViewById(R.id.text_to_send);
-        editTextToShare = PriceUtility.getInstance().changeEditTextFont(editTextToShare,activity);
+        editTextToShare = PriceUtility.getInstance().changeEditTextFont(editTextToShare, activity);
         cancelShareDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,37 +116,37 @@ public class ToolbarHandler {
     }
 
 
-    public void addCurrentProductToFavorite(Activity activity ,Context myContext, ImageButton likeThisProduct, Product eachProduct, ServerConnectionHandler sch) {
+    public void addCurrentProductToFavorite(Activity activity, Context myContext, ImageButton likeThisProduct, Product eachProduct, ServerConnectionHandler sch) {
 
         if (sch.getAProduct(eachProduct.getId()).getLike() == 0) {
 
             if (Configuration.getConfig().userLoginStatus)
-                ToastUtility.getConfig().displayToast(myContext.getResources().getString(R.string.thanks),activity);
+                ToastUtility.getConfig().displayToast(myContext.getResources().getString(R.string.thanks), activity);
             else
 
-            ToastUtility.getConfig().displayToast(myContext.getResources().getString(R.string.pleaseLogin),activity);
+                ToastUtility.getConfig().displayToast(myContext.getResources().getString(R.string.pleaseLogin), activity);
             likeThisProduct.setImageResource(R.mipmap.ic_like_filled_toolbar);
             sch.changeProductLike(eachProduct.getId(), 1);
         } else if (sch.getAProduct(eachProduct.getId()).getLike() == 1) {
 
             if (!Configuration.getConfig().userLoginStatus)
 
-                ToastUtility.getConfig().displayToast(myContext.getResources().getString(R.string.pleaseLogin),activity);
+                ToastUtility.getConfig().displayToast(myContext.getResources().getString(R.string.pleaseLogin), activity);
             likeThisProduct.setImageResource(R.mipmap.ic_like_toolbar);
             sch.changeProductLike(eachProduct.getId(), 0);
         }
 
     }
 
-    public void addToFavoriteInProductPage(Activity productPageActivity ,ServerConnectionHandler sch, Product aProduct, ImageButton btnLike, Activity activity, int position) {
+    public void addToFavoriteInProductPage(Activity productPageActivity, ServerConnectionHandler sch, Product aProduct, ImageButton btnLike, Activity activity, int position) {
 
         if (sch.getAProduct(aProduct.getId()).getLike() == 0) {
 
             if (Configuration.getConfig().userLoginStatus)
-               ToastUtility.getConfig().displayToast(activity.getResources().getString(R.string.thanks),productPageActivity);
+                ToastUtility.getConfig().displayToast(activity.getResources().getString(R.string.thanks), productPageActivity);
             else
 
-            ToastUtility.getConfig().displayToast(activity.getResources().getString(R.string.pleaseLogin),productPageActivity);
+                ToastUtility.getConfig().displayToast(activity.getResources().getString(R.string.pleaseLogin), productPageActivity);
             btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
             aProduct.setLike(1);
             sch.changeProductLike(aProduct.getId(), 1);
@@ -157,7 +157,7 @@ public class ToolbarHandler {
 
             if (!Configuration.getConfig().userLoginStatus)
 
-                ToastUtility.getConfig().displayToast(activity.getResources().getString(R.string.pleaseLogin),productPageActivity);
+                ToastUtility.getConfig().displayToast(activity.getResources().getString(R.string.pleaseLogin), productPageActivity);
             btnLike.setImageResource(R.mipmap.ic_like_toolbar);
             aProduct.setLike(0);
             sch.changeProductLike(aProduct.getId(), 0);
