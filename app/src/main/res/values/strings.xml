@@ -104,4 +104,6 @@
     <string name="information_of_this_product">نظرات کاربران</string>
     <string name="loading">درحال بارگزاری اطلاعات</string>
     <string name="noBrandMatches">دسته ی "%1$s" فاقد برند میباشد!</string>
+    <string name="nobrand">فاقد برند می باشد</string>
+    <string name="this_group">دسته ی</string>
 </resources>

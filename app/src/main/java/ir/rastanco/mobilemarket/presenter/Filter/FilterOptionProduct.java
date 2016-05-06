@@ -35,7 +35,7 @@ public class FilterOptionProduct extends DialogFragment {
 
     private int pageId;
     private static FilterOptionProduct filterOptionProduct;
-    private LinearLayout customizeDialogue;
+//    private LinearLayout customizeDialogue;
     private Context context;
     private ServerConnectionHandler serverConnectionHandler;
 
@@ -52,7 +52,7 @@ public class FilterOptionProduct extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         context = Configuration.getConfig().shopFragmentContext;
-        customizeDialogue = (LinearLayout) dialogView.findViewById(R.id.customized_dialog);
+  //      customizeDialogue = (LinearLayout) dialogView.findViewById(R.id.customized_dialog);
         pageId = getArguments().getInt("pageId");
         serverConnectionHandler = ServerConnectionHandler.getInstance(context);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -86,7 +86,7 @@ public class FilterOptionProduct extends DialogFragment {
                     ArrayList<String> brandTitle = serverConnectionHandler.getAllBrands(products);
                     if (brandTitle.size() == 0) {
                         String categorySelectedTitle = serverConnectionHandler.getACategoryTitleWithCategoryId(pageId);
-                        String message = "دسته ی " + categorySelectedTitle + " فاقد برند می باشد";
+                        String message = Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.this_group)+" "+ categorySelectedTitle +" "+Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.nobrand);
                         Snackbar.make(Configuration.getConfig().mainActivityView, message, Snackbar.LENGTH_LONG).show();
                         getDialog().dismiss();
                     } else {
