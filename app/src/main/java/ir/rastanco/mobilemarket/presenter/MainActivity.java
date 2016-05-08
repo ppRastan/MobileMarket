@@ -77,7 +77,7 @@ import ir.rastanco.mobilemarket.utility.PriceUtility;
 import ir.rastanco.mobilemarket.utility.ToastUtility;
 
 /*created by parisa*/
-
+//test
 public class MainActivity extends AppCompatActivity implements DownloadResultReceiver.Receiver {
 
     private TabLayout tabLayout;
