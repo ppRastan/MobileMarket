@@ -3,7 +3,7 @@
     package="ir.rastanco.mobilemarket"
     android:installLocation="auto"
     android:supportsRtl="true"
-    android:versionCode="2">
+    android:versionCode="1">
 
     <!-- Start  Pushe Permission -->
     <permission
