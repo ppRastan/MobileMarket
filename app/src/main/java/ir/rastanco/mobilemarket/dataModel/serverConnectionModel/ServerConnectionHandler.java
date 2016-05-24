@@ -400,7 +400,9 @@ public class ServerConnectionHandler {
                 e.printStackTrace();
             }
         }*/
-        return new ParseJsonProduct().ParseJsonProducts(jsonStringProduct,firstIndex,lastIndex,lastIndexValidStatus);
+        ArrayList<Product> newAllProduct=new ParseJsonProduct().ParseJsonProducts(jsonStringProduct,firstIndex,lastIndex,lastIndexValidStatus);
+        jsonStringProduct="";
+        return newAllProduct;
     }
 
     public ArrayList<Product> get7000ProductFromURL(String url,int firstIndex,int lastIndex,Boolean lastIndexValidStatus ){
@@ -416,7 +418,9 @@ public class ServerConnectionHandler {
                 e.printStackTrace();
             }
         }*/
-        return new ParseJsonProduct7000().ParseJsonProducts(jsonStringProduct,firstIndex,lastIndex,lastIndexValidStatus);
+        ArrayList<Product> newAllProduct=new ParseJsonProduct7000().ParseJsonProducts(jsonStringProduct,firstIndex,lastIndex,lastIndexValidStatus);
+        jsonStringProduct="";
+        return newAllProduct;
     }
 
     public void addProductInformationToDataBaseFirstInstall7000(String url){
