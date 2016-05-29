@@ -981,7 +981,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         String query="select * from "+TABLE_PRODUCT+
                 " where "+ProductTable_Column_Price_Off+" !=0"+
                 " or "+ProductTable_Column_Show_AtHome_Screen+"=1"+
-                " order by "+ProductTable_Column_Primary_Key+" ASC ";
+                " order by "+ProductTable_Column_Update_TimeStamp+" DESC ";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
         allProducts = new ArrayList<>();
