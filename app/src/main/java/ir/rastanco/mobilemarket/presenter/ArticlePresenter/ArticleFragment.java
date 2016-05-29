@@ -1,7 +1,6 @@
 package ir.rastanco.mobilemarket.presenter.ArticlePresenter;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -20,6 +19,7 @@ import ir.rastanco.mobilemarket.dataModel.Article;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
+import ir.rastanco.mobilemarket.presenter.WebView;
 import ir.rastanco.mobilemarket.utility.ColorUtility;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
@@ -30,7 +30,6 @@ import ir.rastanco.mobilemarket.utility.Utilities;
  * This Class is for Displaying Articles Information
  */
 public class ArticleFragment extends Fragment {
-
 
     private ServerConnectionHandler sch;
     private ArrayList<Article> articles;
@@ -62,7 +61,6 @@ public class ArticleFragment extends Fragment {
                     articles = sch.getAllArticlesAndNewsURL(url);
                     sch.addAllArticlesToTable(articles);
                 }
-
             }
         });
 
@@ -87,11 +85,8 @@ public class ArticleFragment extends Fragment {
         articleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse(articles.get(position).getLinkInWebsite()));
+                Intent intent = new Intent(getContext(), WebView.class);
+                intent.putExtra("url",articles.get(position).getLinkInWebsite());
                 finalMainView.getContext().startActivity(intent);
             }
         });

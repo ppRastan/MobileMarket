@@ -17,6 +17,7 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.UserInfo;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.Security;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.WebView;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
@@ -91,10 +92,8 @@ public class LoginActivity
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse(Link.getInstance().generateURLSignUp()));
+                Intent intent = new Intent(getBaseContext(), WebView.class);
+                intent.putExtra("url",Link.getInstance().generateURLSignUp());
                 startActivity(intent);
             }
         });
@@ -102,11 +101,10 @@ public class LoginActivity
         btnForgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse(Link.getInstance().generateURLForForgotPassword()));
+                Intent intent = new Intent(getBaseContext(), WebView.class);
+                intent.putExtra("url",Link.getInstance().generateURLForForgotPassword());
                 startActivity(intent);
+
             }
         });
     }

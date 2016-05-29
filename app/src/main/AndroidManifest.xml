@@ -47,6 +47,7 @@
         <activity android:name=".presenter.UserProfilePresenter.AccountManagerActivity" android:screenOrientation="portrait"/>
         <activity android:name=".presenter.UserProfilePresenter.UserFavouriteProduct" android:screenOrientation="portrait"/>
         <activity android:name=".presenter.UserProfilePresenter.UserLastShoppingProduct" android:screenOrientation="portrait"/>
+        <activity android:name=".presenter.WebView" android:screenOrientation="portrait"/>
 
         <service android:name=".presenter.Services.NotificationService" />
         <service android:name=".presenter.Services.DownloadService"/>
@@ -67,7 +68,7 @@
             android:theme="@style/Transparent"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="ir.rastanco.mobilemarket.presenter.UserHelper" android:screenOrientation="portrait"/>
+                action android:name="ir.rastanco.mobilemarket.presenter.UserHelper" android:screenOrientation="portrait"/>
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
