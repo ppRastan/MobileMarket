@@ -385,14 +385,8 @@ public class MainActivity extends AppCompatActivity implements DownloadResultRec
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
                 callIntent.setData(Uri.parse(Link.getInstance().telephoneNumber()));
-                if (ActivityCompat.checkSelfPermission(Configuration.getConfig().mainActivityContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
-                if (ActivityCompat.checkSelfPermission(Configuration.getConfig().mainActivityContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
                 startActivity(callIntent);
 
             }
