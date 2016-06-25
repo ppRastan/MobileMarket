@@ -41,5 +41,5 @@
         android:layout_marginTop="125dp"
         android:background="@color/white"
         android:divider="@color/white"
-        android:dividerHeight="20dp"/>
+        android:dividerHeight="20dp" />
 </RelativeLayout>

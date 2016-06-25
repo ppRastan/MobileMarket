@@ -21,6 +21,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -233,9 +235,17 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         }
         String imageURL = Link.getInstance().generateURLForGetImageProduct(eachProduct.getImagesMainPath(), imageNumberPath, Configuration.getConfig().shopDisplaySizeForURL, Configuration.getConfig().shopDisplaySizeForURL);
         holder.imgP.setImageDrawable(defaultPicture);
-        holder.imgLoader.DisplayImage(imageURL, holder.imgP);
-        holder.infoP.setText(eachProduct.getTitle());
-
+        //holder.imgLoader.DisplayImage(imageURL, holder.imgP);
+        /*Glide.with(myContext)
+                .load(imageURL)
+                .placeholder(R.drawable.loadingholder)
+                .crossFade()
+                .into(holder.imgP);
+        holder.infoP.setText(eachProduct.getTitle());*/
+        Picasso.with(myContext)
+                .load(imageURL)
+                .placeholder(R.drawable.loadingholder)
+                .into(holder.imgP);
         final View finalConvertView = convertView;
         final View finalConvertView1 = convertView;
         holder.imgP.setOnClickListener(new View.OnClickListener() {
