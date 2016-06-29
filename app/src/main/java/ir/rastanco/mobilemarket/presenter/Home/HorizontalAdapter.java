@@ -1,6 +1,7 @@
 package ir.rastanco.mobilemarket.presenter.Home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.presenter.TabbedActivity;
 
 /**
  * Created by ShaisteS on 6/29/2016.
@@ -46,14 +48,25 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.My
 
         @Override
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
+
             holder.txtView.setText(horizontalList.get(position));
+            /*holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(context, TabbedActivity.class);
+                    context.startActivity(intent);
+                }
+            });*/
 
             holder.txtView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(context,holder.txtView.getText().toString(),Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(context, TabbedActivity.class);
+                    context.startActivity(intent);
                 }
             });
+
         }
 
         @Override
