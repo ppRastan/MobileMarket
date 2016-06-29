@@ -2,8 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrollview"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/first_sliding_linear"
@@ -85,7 +84,19 @@
 
             </LinearLayout>
         </HorizontalScrollView>
-
+        <!--specialRecyclerView-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/horizontal_recycler_view_special_product"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@color/bg_screen4" />
+        <!--sellerRecyclerVeiw-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/horizontal_recycler_view_seller"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@color/bg_screen4" />
+        <!--second slider-->
 
         <HorizontalScrollView
             android:id="@+id/second_horizontal_sliding_scrollView"
@@ -161,6 +172,21 @@
 
             </LinearLayout>
         </HorizontalScrollView>
+        <!--most shopped recyclerView-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/horizontal_recycler_view_most_shopped"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@color/bg_screen4" />
 
+        <!--articles recyclerView-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/horizontal_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@color/bg_screen4" />
     </LinearLayout>
+
+
 </ScrollView>
