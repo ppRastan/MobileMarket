@@ -44,8 +44,8 @@ public class Configuration {
     public String filterCategoryTitle;
 
 
-    public Boolean userLoginStatus;
-    public Boolean RTL;
+    public Boolean userLoginStatus=false;
+    public Boolean RTL=false;
     public Boolean emptyProductTable = false; //true is empty and false is full
     public Boolean emptyCategoryTable = false;//true is empty and false is full
     public Boolean connectionStatus = false;

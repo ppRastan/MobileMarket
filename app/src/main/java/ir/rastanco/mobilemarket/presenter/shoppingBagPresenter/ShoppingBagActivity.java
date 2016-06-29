@@ -2,7 +2,6 @@ package ir.rastanco.mobilemarket.presenter.shoppingBagPresenter;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +18,7 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.UserInfo;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-import ir.rastanco.mobilemarket.presenter.MainActivity;
+import ir.rastanco.mobilemarket.presenter.TabbedActivity;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancel;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingCancelListener;
@@ -135,7 +134,7 @@ public class ShoppingBagActivity extends Activity {
         closeShoppingPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ShoppingBagActivity.this, MainActivity.class));
+                startActivity(new Intent(ShoppingBagActivity.this, TabbedActivity.class));
             }
         });
     }

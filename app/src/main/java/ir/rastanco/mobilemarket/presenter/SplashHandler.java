@@ -59,7 +59,7 @@ public class SplashHandler extends AppCompatActivity{
                 }
                 finish();
                 Intent intent = new Intent();
-                intent.setClass(sPlashHandler, MainActivity.class);
+                intent.setClass(sPlashHandler, TabbedActivity.class);
                 startActivity(intent);
             }
         };

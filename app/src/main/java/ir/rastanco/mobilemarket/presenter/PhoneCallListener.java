@@ -46,7 +46,7 @@ public class PhoneCallListener extends PhoneStateListener {
                         .getLaunchIntentForPackage(
                                 Configuration.getConfig().applicationContext.getPackageName());
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                i.setClass(Configuration.getConfig().applicationContext, MainActivity.class);
+                i.setClass(Configuration.getConfig().applicationContext, TabbedActivity.class);
                 Configuration.getConfig().applicationContext.startActivity(i);
                 isPhoneCalling = false;
             }
