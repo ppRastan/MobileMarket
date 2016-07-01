@@ -15,7 +15,7 @@
         android:contentDescription="@string/liked"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:src="@mipmap/ic_like_filled_toolbar" />
+        android:src="@drawable/toolbar_add_to_favorit_fill_like" />
 
     <ir.rastanco.mobilemarket.utility.FontTextView
         android:id="@+id/txt_likeProductTitle"

@@ -77,9 +77,9 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
 
                 boolean enable = false;
                 if (productListView.getChildCount() > 0) {
-                    // check if the first item of the list is visible
+                    // check if the first slider_items of the list is visible
                     boolean firstItemVisible = productListView.getFirstVisiblePosition() == 0;
-                    // check if the top of the first item is visible
+                    // check if the top of the first slider_items is visible
                     boolean topOfFirstItemVisible = productListView.getChildAt(0).getTop() == 0;
                     // enabling or disabling the refresh layout
                     enable = firstItemVisible && topOfFirstItemVisible;

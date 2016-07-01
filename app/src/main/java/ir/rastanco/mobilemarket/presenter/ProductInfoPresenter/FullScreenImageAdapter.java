@@ -125,10 +125,10 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
         if (sch.getAProduct(aProduct.getId()).getLike() == 0) {
             //this Product No Favorite
-            btnLike.setImageResource(R.mipmap.ic_like_toolbar);
+            btnLike.setImageResource(R.drawable.toolbar_add_to_favorite_border);
         } else {
 
-            btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
+            btnLike.setImageResource(R.drawable.toolbar_add_to_favorit_fill_like);
         }
         btnLike.setOnClickListener(new View.OnClickListener() {
             @Override

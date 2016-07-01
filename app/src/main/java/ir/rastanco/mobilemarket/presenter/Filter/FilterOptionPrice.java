@@ -51,7 +51,7 @@ public class FilterOptionPrice extends DialogFragment {
                 dismiss();
             }
         });
-        btnCancelAlertDialog.setImageResource(R.mipmap.small_back_arrow);
+        btnCancelAlertDialog.setImageResource(R.drawable.small_back_arrow);
         TextView titleBrand = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
         titleBrand.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.choose_price));
         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {

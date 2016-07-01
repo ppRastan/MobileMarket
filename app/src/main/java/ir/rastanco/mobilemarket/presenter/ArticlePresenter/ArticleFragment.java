@@ -125,9 +125,9 @@ public class ArticleFragment extends Fragment {
 
                 boolean enable = false;
                 if (articleList.getChildCount() > 0) {
-                    // check if the first item of the list is visible
+                    // check if the first slider_items of the list is visible
                     boolean firstItemVisible = articleList.getFirstVisiblePosition() == 0;
-                    // check if the top of the first item is visible
+                    // check if the top of the first slider_items is visible
                     boolean topOfFirstItemVisible = articleList.getChildAt(0).getTop() == 0;
                     // enabling or disabling the refresh layout
                     enable = firstItemVisible && topOfFirstItemVisible;

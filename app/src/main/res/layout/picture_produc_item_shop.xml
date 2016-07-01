@@ -94,7 +94,7 @@
             android:contentDescription="@string/bye"
             android:background="@null"
             android:padding="3dp"
-            android:src="@mipmap/bye_toolbar" />
+            android:src="@drawable/toolbar_add_product_to_basket" />
 
         <ImageButton
             android:id="@+id/share_toolbar_in_main_page"
@@ -105,7 +105,7 @@
             android:background="@null"
             android:contentDescription="@string/shareCurrentProduct"
             android:padding="3dp"
-            android:src="@mipmap/ic_share_toolbar" />
+            android:src="@drawable/ic_share_toolbar" />
 
         <ImageButton
             android:id="@+id/empty_like_toolbar"
@@ -116,6 +116,6 @@
             android:background="@null"
             android:padding="3dp"
             android:contentDescription="@string/liked"
-            android:src="@mipmap/ic_like_toolbar" />
+            android:src="@drawable/toolbar_add_to_favorite_border" />
     </LinearLayout>
 </LinearLayout>

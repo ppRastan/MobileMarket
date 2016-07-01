@@ -120,7 +120,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:contentDescription="@string/shareCurrentProduct"
-            android:src="@mipmap/ic_share_toolbar"
+            android:src="@drawable/ic_share_toolbar"
             tools:ignore="NestedWeights" />
 
         <ImageButton
@@ -141,7 +141,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:contentDescription="@string/addProductToFavorits"
-            android:src="@mipmap/ic_like_toolbar" />
+            android:src="@drawable/toolbar_add_to_favorite_border" />
 
         <ImageButton
             android:id="@+id/img_info"
@@ -151,7 +151,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:contentDescription="@string/informationOfCurrentProduct"
-            android:src="@mipmap/information" />
+            android:src="@drawable/toolbar_information" />
 
 
     </LinearLayout>

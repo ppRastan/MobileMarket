@@ -30,7 +30,7 @@
             android:background="@null"
             android:padding="5dp"
             android:contentDescription="@string/cancel_search_dialuge"
-            android:src="@mipmap/ic_cancel_dialog" />
+            android:src="@drawable/ic_cancel" />
 
     </LinearLayout>
 

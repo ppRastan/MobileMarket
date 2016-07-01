@@ -118,6 +118,7 @@ public class WelcomeActivity extends AppCompatActivity {
     private int getItem(int i) {
         return viewPager.getCurrentItem() + i;
     }
+    //TODO for parisa
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);

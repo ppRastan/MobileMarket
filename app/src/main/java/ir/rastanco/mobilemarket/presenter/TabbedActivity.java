@@ -49,7 +49,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import co.ronash.pushe.Pushe;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
@@ -74,7 +73,6 @@ import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProduct
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
-import ir.rastanco.mobilemarket.utility.ToastUtility;
 
 /*created by parisa*/
 //test
@@ -105,6 +103,7 @@ public class TabbedActivity extends AppCompatActivity implements DownloadResultR
         getSupportActionBar().setTitle("");
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinateLayout);
         text_count = (TextView) findViewById(R.id.txt_count);
+        //// TODO: 01/07/2016  
         Pushe.initialize(this, true);//pushe Alert For Install Google Play
         this.InitializationParametersNecessary();
         this.setActionBar();
@@ -229,7 +228,7 @@ public class TabbedActivity extends AppCompatActivity implements DownloadResultR
 
         ImageButton userLogin = (ImageButton) findViewById(R.id.actionbar_userLogin);
         ImageButton shoppingCounter = (ImageButton) findViewById(R.id.actionbar_shoppingBag);
-        ImageButton updateIcon = (ImageButton) findViewById(R.id.actionbarUpdate);
+       // ImageButton updateIcon = (ImageButton) findViewById(R.id.actionbarUpdate);
         ImageButton searchIcon = (ImageButton) findViewById(R.id.actionbar_search);
 
         if(sch.checkEmptyProductShop() ){
@@ -238,12 +237,12 @@ public class TabbedActivity extends AppCompatActivity implements DownloadResultR
         else{
             text_count.setText(String.valueOf(sch.getCountProductShop()));
         }
-        Configuration.getConfig().upgradeButtonMenu = updateIcon;
-        if (!sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer()) ||
-                !Configuration.getConfig().connectionStatus)
-            updateIcon.setVisibility(View.INVISIBLE);
-        else
-            updateIcon.setVisibility(View.VISIBLE);
+//        Configuration.getConfig().upgradeButtonMenu = updateIcon;
+//        if (!sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer()) ||
+//                !Configuration.getConfig().connectionStatus)
+//            updateIcon.setVisibility(View.INVISIBLE);
+//        else
+//            updateIcon.setVisibility(View.VISIBLE);
 
         userLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -268,14 +267,14 @@ public class TabbedActivity extends AppCompatActivity implements DownloadResultR
 
             }
         });
-        updateIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                version = sch.getLastVersionInServer(Link.getInstance().generateURLForGetLastVersionAppInServer());
-                new DownloadFileFromURL(TabbedActivity.this).execute(Link.getInstance().generateYRLForGetApplicationInServer());
-            }
-        });
+//        updateIcon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                version = sch.getLastVersionInServer(Link.getInstance().generateURLForGetLastVersionAppInServer());
+//                new DownloadFileFromURL(TabbedActivity.this).execute(Link.getInstance().generateYRLForGetApplicationInServer());
+//            }
+//        });
         searchIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -448,7 +447,7 @@ public class TabbedActivity extends AppCompatActivity implements DownloadResultR
     }
 
 
-//        LayerDrawable icon = (LayerDrawable) item.getIcon();
+//        LayerDrawable icon = (LayerDrawable) slider_items.getIcon();
 //        CounterIconCreator.setBadgeCount(icon, filBasketColor());
 //
 //        MenuItem upgradeItem = menu.findItem(R.id.update);
@@ -472,7 +471,8 @@ public class TabbedActivity extends AppCompatActivity implements DownloadResultR
         imageLoader.clearCache();
         exitSafeCounter++;
         if (exitSafeCounter == 1) {
-            ToastUtility.getConfig().displayToast(getResources().getString(R.string.sure_to_exit, this), this);
+            //// TODO: 01/07/2016  
+           // ToastUtility.getConfig().displayToast(getResources().getString(R.string.sure_to_exit, this), this);
         } else if (exitSafeCounter > 1) {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);

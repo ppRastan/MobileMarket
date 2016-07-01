@@ -46,7 +46,7 @@ public class FilterOptionBrand extends DialogFragment {
         final View dialogView = inflater.inflate(R.layout.title_alertdialog_for_group, container, false);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
-        btnCancelAlertDialog.setImageResource(R.mipmap.small_back_arrow);
+        btnCancelAlertDialog.setImageResource(R.drawable.small_back_arrow);
         TextView titleBrand = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
         titleBrand.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.choose_brand));
         btnCancelAlertDialog.setOnClickListener(

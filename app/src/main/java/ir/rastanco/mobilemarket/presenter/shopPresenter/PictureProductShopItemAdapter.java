@@ -21,7 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -39,6 +39,8 @@ import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 import ir.rastanco.mobilemarket.utility.ToolbarHandler;
 import ir.rastanco.mobilemarket.utility.Utilities;
+
+//import com.bumptech.glide.Glide;
 
 
 public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
@@ -148,14 +150,14 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         }
 
         if (sch.checkSelectProductForShop(eachProduct.getId()))
-            holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
+            holder.basketToolbar.setImageResource(R.drawable.green_bye_toolbar);
         else
-            holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
+            holder.basketToolbar.setImageResource(R.drawable.toolbar_add_product_to_basket);
 
         holder.basketToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
+                    holder.basketToolbar.setImageResource(R.drawable.green_bye_toolbar);
                     sch.addProductToShoppingBag(eachProduct.getId());
                     myContext.startActivity(new Intent(myContext, ShoppingBagActivity.class));
                     ObserverShopping.setMyBoolean(true);
@@ -205,11 +207,11 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
 
         if (sch.getAProduct(eachProduct.getId()).getLike() == 0) {
             //this Product No Favorite
-            holder.likeToolBar.setImageResource(R.mipmap.ic_like_toolbar);
+            holder.likeToolBar.setImageResource(R.drawable.toolbar_add_to_favorite_border);
             isLikeButtonClicked = false;
         } else {
 
-            holder.likeToolBar.setImageResource(R.mipmap.ic_like_filled_toolbar);
+            holder.likeToolBar.setImageResource(R.drawable.toolbar_add_to_favorit_fill_like);
             isLikeButtonClicked = true;
         }
 
@@ -236,16 +238,17 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         String imageURL = Link.getInstance().generateURLForGetImageProduct(eachProduct.getImagesMainPath(), imageNumberPath, Configuration.getConfig().shopDisplaySizeForURL, Configuration.getConfig().shopDisplaySizeForURL);
         holder.imgP.setImageDrawable(defaultPicture);
         //holder.imgLoader.DisplayImage(imageURL, holder.imgP);
+
         Glide.with(myContext)
                 .load(imageURL)
                 .placeholder(R.drawable.loadingholder)
                 .crossFade()
                 .into(holder.imgP);
         holder.infoP.setText(eachProduct.getTitle());
-       /* Picasso.with(myContext)
-                .load(imageURL)
-                .placeholder(R.drawable.loadingholder)
-                .into(holder.imgP);*/
+//       Picasso.with(myContext)
+//                .load(imageURL)
+//                .placeholder(R.drawable.loadingholder)
+//                .into(holder.imgP);
         final View finalConvertView = convertView;
         final View finalConvertView1 = convertView;
         holder.imgP.setOnClickListener(new View.OnClickListener() {

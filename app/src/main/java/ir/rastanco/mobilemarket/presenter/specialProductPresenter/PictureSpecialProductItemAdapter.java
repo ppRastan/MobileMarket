@@ -104,7 +104,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         if (serverConnectionHandler.checkSelectProductForShop(allProduct.get(position).getId()))
             holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
         else
-            holder.basketToolbar.setImageResource(R.mipmap.bye_toolbar);
+            holder.basketToolbar.setImageResource(R.drawable.toolbar_add_product_to_basket);
 
         holder.basketToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,11 +118,11 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         });
         if (sch.getAProduct(eachProduct.getId()).getLike() == 0) {
             //this Product No Favorite
-            holder.btnAddThisProductToFavorites.setImageResource(R.mipmap.ic_like_toolbar);
+            holder.btnAddThisProductToFavorites.setImageResource(R.drawable.toolbar_add_to_favorite_border);
             isLikeButtonClicked = false;
         } else {
 
-            holder.btnAddThisProductToFavorites.setImageResource(R.mipmap.ic_like_filled_toolbar);
+            holder.btnAddThisProductToFavorites.setImageResource(R.drawable.toolbar_add_to_favorit_fill_like);
             isLikeButtonClicked = true;
         }
         holder.btnAddThisProductToFavorites.setOnClickListener(new View.OnClickListener() {

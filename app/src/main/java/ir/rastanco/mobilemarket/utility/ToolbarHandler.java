@@ -125,14 +125,14 @@ public class ToolbarHandler {
             else
 
                 ToastUtility.getConfig().displayToast(myContext.getResources().getString(R.string.pleaseLogin), activity);
-            likeThisProduct.setImageResource(R.mipmap.ic_like_filled_toolbar);
+            likeThisProduct.setImageResource(R.drawable.toolbar_add_to_favorite_border);
             sch.changeProductLike(eachProduct.getId(), 1);
         } else if (sch.getAProduct(eachProduct.getId()).getLike() == 1) {
 
             if (!Configuration.getConfig().userLoginStatus)
 
                 ToastUtility.getConfig().displayToast(myContext.getResources().getString(R.string.pleaseLogin), activity);
-            likeThisProduct.setImageResource(R.mipmap.ic_like_toolbar);
+            likeThisProduct.setImageResource(R.drawable.toolbar_add_to_favorit_fill_like);
             sch.changeProductLike(eachProduct.getId(), 0);
         }
 
@@ -147,7 +147,7 @@ public class ToolbarHandler {
             else
 
                 ToastUtility.getConfig().displayToast(activity.getResources().getString(R.string.pleaseLogin), productPageActivity);
-            btnLike.setImageResource(R.mipmap.ic_like_filled_toolbar);
+            btnLike.setImageResource(R.drawable.toolbar_add_to_favorit_fill_like);
             aProduct.setLike(1);
             sch.changeProductLike(aProduct.getId(), 1);
             ObserverLike.setLikeStatus(position);
@@ -158,7 +158,7 @@ public class ToolbarHandler {
             if (!Configuration.getConfig().userLoginStatus)
 
                 ToastUtility.getConfig().displayToast(activity.getResources().getString(R.string.pleaseLogin), productPageActivity);
-            btnLike.setImageResource(R.mipmap.ic_like_toolbar);
+            btnLike.setImageResource(R.drawable.toolbar_add_to_favorit_fill_like);
             aProduct.setLike(0);
             sch.changeProductLike(aProduct.getId(), 0);
             ObserverLike.setLikeStatus(position);

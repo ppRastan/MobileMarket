@@ -143,7 +143,7 @@
                         android:background="@null"
                         android:layout_gravity="center_vertical|center_horizontal"
                         android:contentDescription="@string/liked"
-                        android:src="@mipmap/ic_like_toolbar"
+                        android:src="@drawable/toolbar_add_to_favorite_border"
                         tools:ignore="NestedWeights" />
 
                     <ImageButton
@@ -154,7 +154,7 @@
                         android:background="@null"
                         android:layout_gravity="center_horizontal|center_vertical"
                         android:contentDescription="@string/share"
-                        android:src="@mipmap/ic_share_toolbar"
+                        android:src="@drawable/ic_share_toolbar"
                         tools:ignore="NestedWeights" />
 
                     <ImageButton
@@ -165,7 +165,7 @@
                         android:layout_weight="1"
                         android:background="@null"
                         android:contentDescription="@string/bye"
-                        android:src="@mipmap/bye_toolbar" />
+                        android:src="@drawable/toolbar_add_product_to_basket" />
 
                 </LinearLayout>
             </LinearLayout>

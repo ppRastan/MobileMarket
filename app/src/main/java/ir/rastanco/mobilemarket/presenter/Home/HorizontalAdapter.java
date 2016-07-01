@@ -6,8 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import java.util.List;
 
@@ -23,11 +22,11 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.My
     private Context context;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView txtView;
+        public ImageView imageView;
 
         public MyViewHolder(View view) {
             super(view);
-            txtView = (TextView) view.findViewById(R.id.txtView);
+            imageView = (ImageView) view.findViewById(R.id.recyclerViewItems);
 
         }
     }
@@ -49,7 +48,8 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.My
         @Override
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
-            holder.txtView.setText(horizontalList.get(position));
+//            holder.imageView.setText(horizontalList.get(position));
+            holder.imageView.setImageResource(R.mipmap.ic_launcher);
             /*holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -58,10 +58,10 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.My
                 }
             });*/
 
-            holder.txtView.setOnClickListener(new View.OnClickListener() {
+            holder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context,holder.txtView.getText().toString(),Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context,holder.imageView.getText().toString(),Toast.LENGTH_SHORT).show();
                     Intent intent=new Intent(context, TabbedActivity.class);
                     context.startActivity(intent);
                 }
