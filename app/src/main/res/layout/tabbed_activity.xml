@@ -47,7 +47,7 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:contentDescription="@string/cancel_search_dialuge"
-                android:src="@mipmap/ic_back" />
+                android:src="@drawable/small_back_arrow" />
         </LinearLayout>
 
         <android.support.design.widget.TabLayout

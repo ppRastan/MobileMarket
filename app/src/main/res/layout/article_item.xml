@@ -1,41 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lyt_container"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:background="@color/white"
-    android:orientation="horizontal"
-    android:weightSum="7">
+    android:layout_height="wrap_content"
+    android:background="@color/common_plus_signin_btn_text_light_disabled">
 
-
-        <ir.rastanco.mobilemarket.utility.FontTextView
-            android:id="@+id/txt_titleArticle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginRight="9dp"
-            android:layout_weight="7"
-            android:padding="5dp"
-            android:singleLine="true"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textSize" />
-
-        <!--<ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/prograssBar"
-            android:background="@color/transparent"
-            android:layout_gravity="center" />-->
-
-
-    <!--</RelativeLayout>-->
-
-
-    <ImageView
-        android:id="@+id/img_article"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:layout_gravity="center"
-        android:contentDescription="@string/articles"
-        android:background="@null"
-       android:padding="3dp" />
-</LinearLayout>
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="4dp"
+        card_view:contentPadding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+
+            <ir.rastanco.mobilemarket.utility.FontTextView
+                android:id="@+id/txt_titleArticle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="9"
+                android:background="@null"
+                android:singleLine="true"
+                android:textSize="@dimen/textSize" />
+
+            <ImageView
+                android:id="@+id/img_article"
+                android:layout_width="0dp"
+                android:scaleType="centerInside"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:padding="2dp" />
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</FrameLayout>
+

@@ -12,7 +12,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/background_window"/>
+            android:background="@color/common_plus_signin_btn_text_light_disabled"/>
 
         <ListView
             android:id="@+id/lv_article"
@@ -20,6 +20,7 @@
             android:layout_height="0dp"
             android:layout_gravity="center_horizontal|top"
             android:layout_weight="1"
+            android:background="@color/common_plus_signin_btn_text_light_disabled"
             android:dividerHeight="1dp"
             android:scrollbars="none" />
 

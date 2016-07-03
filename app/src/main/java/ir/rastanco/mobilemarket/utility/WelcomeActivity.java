@@ -19,7 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.presenter.MainActivity;
+import ir.rastanco.mobilemarket.presenter.TabbedActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -60,8 +60,9 @@ public class WelcomeActivity extends AppCompatActivity {
         layouts = new int[]{
                 R.layout.welcome_slide1,
                 R.layout.welcome_slide2,
-                R.layout.welcome_slide3,
-                R.layout.welcome_slide4};
+//                R.layout.welcome_slide3,
+//                R.layout.welcome_slide4
+        };
 
         // adding bottom dots
         addBottomDots(0);
@@ -122,7 +123,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+        startActivity(new Intent(WelcomeActivity.this, TabbedActivity.class));
         finish();
     }
 

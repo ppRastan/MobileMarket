@@ -1,4 +1,4 @@
-package ir.rastanco.mobilemarket.presenter;
+package ir.rastanco.mobilemarket.presenter.Home;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +23,6 @@ import java.util.HashMap;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-import ir.rastanco.mobilemarket.presenter.Home.HorizontalAdapter;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadService;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -144,6 +143,7 @@ public class MainActivity extends ActionBarActivity implements BaseSliderView.On
 
             downPageSlider.addSlider(textSliderView);
         }
+        //// TODO: 01/07/2016 we can hide animation here
 //        downPageSlider.clearAnimation();
         downPageSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
         downPageSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);

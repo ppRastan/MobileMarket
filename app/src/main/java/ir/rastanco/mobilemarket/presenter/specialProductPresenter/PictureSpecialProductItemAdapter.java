@@ -102,14 +102,14 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
             }
         }
         if (serverConnectionHandler.checkSelectProductForShop(allProduct.get(position).getId()))
-            holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
+            holder.basketToolbar.setImageResource(R.drawable.green_bye_toolbar);
         else
             holder.basketToolbar.setImageResource(R.drawable.toolbar_add_product_to_basket);
 
         holder.basketToolbar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    holder.basketToolbar.setImageResource(R.mipmap.green_bye_toolbar);
+                    holder.basketToolbar.setImageResource(R.drawable.green_bye_toolbar);
                     serverConnectionHandler.addProductToShoppingBag(allProduct.get(position).getId());
                     myContext.startActivity(new Intent(myContext, ShoppingBagActivity.class));
                     myContext.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);

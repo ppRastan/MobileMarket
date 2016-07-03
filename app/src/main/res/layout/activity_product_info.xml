@@ -174,7 +174,6 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:drawableRight="@mipmap/basket_white"
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/smallerTextSize" />

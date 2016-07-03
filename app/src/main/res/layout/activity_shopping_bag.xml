@@ -31,7 +31,7 @@
             android:layout_weight="2"
             tools:ignore="NestedWeights"
             android:background="@color/decoriss"
-            android:src="@mipmap/ic_back" />
+            android:src="@drawable/small_back_arrow" />
 
         <ir.rastanco.mobilemarket.utility.FontTextView
             android:layout_width="0dp"
