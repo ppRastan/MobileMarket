@@ -21,7 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -238,17 +238,12 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         String imageURL = Link.getInstance().generateURLForGetImageProduct(eachProduct.getImagesMainPath(), imageNumberPath, Configuration.getConfig().shopDisplaySizeForURL, Configuration.getConfig().shopDisplaySizeForURL);
         holder.imgP.setImageDrawable(defaultPicture);
         //holder.imgLoader.DisplayImage(imageURL, holder.imgP);
-//// TODO: 01/07/2016
-//        Glide.with(myContext)
-//                .load(imageURL)
-//                .placeholder(R.drawable.loadingholder)
-//                .crossFade()
-//                .into(holder.imgP);
-        holder.infoP.setText(eachProduct.getTitle());
-       Picasso.with(myContext)
+        Glide.with(myContext)
                 .load(imageURL)
                 .placeholder(R.drawable.loadingholder)
+                .crossFade()
                 .into(holder.imgP);
+        holder.infoP.setText(eachProduct.getTitle());
         final View finalConvertView = convertView;
         final View finalConvertView1 = convertView;
         holder.imgP.setOnClickListener(new View.OnClickListener() {
