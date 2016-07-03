@@ -36,9 +36,14 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
 
     private SliderLayout topPageSlider;
     private SliderLayout downPageSlider;
-    private RecyclerView horizontal_recycler_view;
-    private ArrayList<String> horizontalList;
+    private RecyclerView special_product_recycler_view;
+    private RecyclerView seller_recycler_view;
+    private RecyclerView most_shopped_recycler_view;
+    private RecyclerView articles_recycler_view;
+    private ArrayList<String> special_product_arraylist;
+    private ArrayList<String>secondArraylist;
     private HorizontalAdapter horizontalAdapter;
+    private HorizontalAdapter secondAdapter;
     private ServerConnectionHandler serverConnectionHandler;
     private DownloadResultReceiver mReceiver;
     private FragmentActivity myContext;
@@ -163,23 +168,49 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
         //por forosh tarin ha
         //maghalat
 
-        horizontal_recycler_view = (RecyclerView) homeView.findViewById(R.id.horizontal_recycler_view_special_product);
-        horizontalList = new ArrayList<>();
-        horizontalList.add("horizontal 1");
-        horizontalList.add("horizontal 2");
-        horizontalList.add("horizontal 3");
-        horizontalList.add("horizontal 4");
-        horizontalList.add("horizontal 5");
-        horizontalList.add("horizontal 6");
-        horizontalList.add("horizontal 7");
-        horizontalList.add("horizontal 8");
-        horizontalList.add("horizontal 9");
-        horizontalList.add("horizontal 10");
-        horizontalAdapter = new HorizontalAdapter(horizontalList,getContext());
+        special_product_recycler_view = (RecyclerView) homeView.findViewById(R.id.horizontal_recycler_view_special_product);
+        seller_recycler_view = (RecyclerView)homeView.findViewById(R.id.horizontal_recycler_view_seller);
+        articles_recycler_view = (RecyclerView)homeView.findViewById(R.id.horizontal_recycler_view_articles);
+        most_shopped_recycler_view=(RecyclerView)homeView.findViewById(R.id.horizontal_recycler_view_most_shopped);
 
-        LinearLayoutManager horizontalLayoutManager= new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        horizontal_recycler_view.setLayoutManager(horizontalLayoutManager);
-        horizontal_recycler_view.setAdapter(horizontalAdapter);
+        special_product_arraylist = new ArrayList<>();
+        secondArraylist = new ArrayList<>();
+        special_product_arraylist.add("horizontal 1");
+        special_product_arraylist.add("horizontal 2");
+        special_product_arraylist.add("horizontal 3");
+        special_product_arraylist.add("horizontal 4");
+        special_product_arraylist.add("horizontal 5");
+        special_product_arraylist.add("horizontal 6");
+        special_product_arraylist.add("horizontal 7");
+        special_product_arraylist.add("horizontal 8");
+        special_product_arraylist.add("horizontal 9");
+        special_product_arraylist.add("horizontal 10");
+        horizontalAdapter = new HorizontalAdapter(special_product_arraylist,getContext());
+        secondAdapter = new HorizontalAdapter(secondArraylist,getContext());
+        LinearLayoutManager horizontalLayoutManager= new LinearLayoutManager(getContext());
+        horizontalLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        //in recyclerview makhsose mahsulate vizhe ast
+        special_product_recycler_view.setLayoutManager(horizontalLayoutManager);
+        special_product_recycler_view.setAdapter(horizontalAdapter);
+
+        //in recyclerview makhsose mahsulate por forosh hast
+        LinearLayoutManager specialProductRecyclerViewLayoutManager= new LinearLayoutManager(getContext());
+        specialProductRecyclerViewLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        most_shopped_recycler_view.setLayoutManager(specialProductRecyclerViewLayoutManager);
+        most_shopped_recycler_view.setAdapter(horizontalAdapter);
+
+        //in recyclerview makhsose maghale hast
+        LinearLayoutManager articlesRecyclerViewLayoutManager= new LinearLayoutManager(getContext());
+        articlesRecyclerViewLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        articles_recycler_view.setLayoutManager(articlesRecyclerViewLayoutManager);
+        articles_recycler_view.setAdapter(horizontalAdapter);
+
+        //in recyclerview makhsose tamin konande hast
+        LinearLayoutManager sellerRecyclerViewLayoutManager= new LinearLayoutManager(getContext());
+        sellerRecyclerViewLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        seller_recycler_view.setLayoutManager(sellerRecyclerViewLayoutManager);
+        seller_recycler_view.setAdapter(horizontalAdapter);
+
         return homeView;
 
     }

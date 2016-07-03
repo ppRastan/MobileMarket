@@ -127,4 +127,8 @@
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
     <string name="home">خانه</string>
+    <string name="specials">محصولات ویژه</string>
+    <string name="visitAllProduct">همه ی محصولات</string>
+    <string name="sellers">تامین کننده ها</string>
+    <string name="mostSelled">پرفروش ترین ها</string>
 </resources>

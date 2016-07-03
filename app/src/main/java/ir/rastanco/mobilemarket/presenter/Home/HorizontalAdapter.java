@@ -72,5 +72,6 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.My
         @Override
         public int getItemCount() {
             return horizontalList.size();
+//            return 20;
         }
 }

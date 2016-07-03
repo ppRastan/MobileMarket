@@ -9,10 +9,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-
         <!--aur first slider is beginning-->
-
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:custom="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
@@ -37,8 +34,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
-                custom:selected_color="#0095BF"
-                custom:selected_drawable="@mipmap/ic_launcher"
+                custom:selected_color="@color/white"
+                custom:selected_drawable="@mipmap/splash"
                 custom:selected_height="6dp"
                 custom:selected_padding_left="5dp"
                 custom:selected_padding_right="5dp"
@@ -60,22 +57,56 @@
 
         <!--our second slider end here-->
         <!--specialRecyclerView-->
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="30dp"
+               android:weightSum="10"
+               android:orientation="horizontal">
+               <ir.rastanco.mobilemarket.utility.FontTextView
+                   android:layout_width="0dp"
+                   android:layout_weight="7"
+                   android:layout_height="wrap_content"
+                   android:textSize="@dimen/textSize"
+                   android:text="@string/specials"/>
+               <Button
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="3"
+                   android:background="@color/orange"
+                   android:textColor="@color/white"
+                   android:text="@string/visitAllProduct"/>
+           </LinearLayout>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/horizontal_recycler_view_special_product"
                 android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:background="@color/bg_screen4" />
-        </FrameLayout>
-
+                android:orientation="horizontal"
+                android:layout_height="120dp"
+                android:background="@color/green" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:weightSum="10"
+        android:orientation="horizontal">
+        <ir.rastanco.mobilemarket.utility.FontTextView
+            android:layout_width="0dp"
+            android:layout_weight="7"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textSize"
+            android:text="@string/sellers"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@color/orange"
+            android:textColor="@color/white"
+            android:text="@string/visitAllProduct"/>
+    </LinearLayout>
         <!--sellerRecyclerVeiw-->
         <android.support.v7.widget.RecyclerView
+            android:orientation="horizontal"
             android:id="@+id/horizontal_recycler_view_seller"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="120dp"
             android:background="@color/bg_screen4" />
         <!--our second slider beggine here -->
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -103,8 +134,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
-                custom:selected_color="#0095BF"
-                custom:selected_drawable="@mipmap/ic_launcher"
+                custom:selected_color="@color/white"
+                custom:selected_drawable="@mipmap/splash"
                 custom:selected_height="6dp"
                 custom:selected_padding_left="5dp"
                 custom:selected_padding_right="5dp"
@@ -123,20 +154,40 @@
                 android:layout_marginBottom="20dp" />
         </RelativeLayout>
         <!--second slider end here-->
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:weightSum="10"
+        android:orientation="horizontal">
+        <ir.rastanco.mobilemarket.utility.FontTextView
+            android:layout_width="0dp"
+            android:layout_weight="7"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textSize"
+            android:text="@string/mostSelled"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@color/orange"
+            android:textColor="@color/white"
+            android:text="@string/visitAllProduct"/>
+    </LinearLayout>
         <!--most shopped recyclerView-->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/horizontal_recycler_view_most_shopped"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:background="@color/bg_screen4" />
+            android:layout_height="120dp"
+            android:orientation="horizontal"
+            android:background="@color/green" />
 
         <!--articles recyclerView-->
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/horizontal_recycler_view"
+            android:id="@+id/horizontal_recycler_view_articles"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="120dp"
+            android:orientation="horizontal"
             android:background="@color/bg_screen4" />
 
     </LinearLayout>
