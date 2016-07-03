@@ -59,7 +59,7 @@ public class DownloadService extends IntentService {
 
             } catch (Exception e) {
 
-                Log.v("unable to set this font ","!");
+                Log.v("unable to set this font","!");
             }
         }
         Log.d(TAG, "Service Stopping!");
