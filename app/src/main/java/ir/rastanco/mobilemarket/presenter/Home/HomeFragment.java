@@ -120,7 +120,7 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
         topPageSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
         topPageSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         topPageSlider.setCustomAnimation(new DescriptionAnimation());
-        topPageSlider.setDuration(4000);
+        topPageSlider.setDuration(7000);
         topPageSlider.addOnPageChangeListener((ViewPagerEx.OnPageChangeListener) getContext());
 
         //in code ha ax haye slider dovom ra modiriat mikonnd
