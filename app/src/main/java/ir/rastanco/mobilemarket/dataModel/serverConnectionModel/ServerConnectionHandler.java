@@ -53,6 +53,7 @@ public class ServerConnectionHandler {
     public ServerConnectionHandler(Context myContext){
         context=myContext;
         products= new ArrayList<>();
+        categories=new ArrayList<>();
         jsonStringProduct="";
     }
 
@@ -217,12 +218,12 @@ public class ServerConnectionHandler {
 
     public Map<String,Integer> MapTitleToIDForMainCategory(){
         Map<String,Integer> mapTitleToIDMainCategory=DataBaseHandler.getInstance(context).selectMainCategories();
-        /*if (emptyDBCategory() && categories.size()!=0){
+        if (mapTitleToIDMainCategory.size()==0 && categories.size()!=0){
             for (int i=0;i<categories.size();i++){
                 if (categories.get(i).getParentId()==0)
                     mapTitleToIDMainCategory.put(categories.get(i).getTitle(), categories.get(i).getId());
             }
-        }*/
+        }
         return mapTitleToIDMainCategory;
     }
 
@@ -249,12 +250,12 @@ public class ServerConnectionHandler {
 
     public ArrayList<String> getMainCategoryTitle(){
         ArrayList<String> mainCategoryTitle=DataBaseHandler.getInstance(context).selectMainCategoriesTitle();
-        /*if(emptyDBCategory() /*&& categories.size()!=0){
+        if(mainCategoryTitle.size()==0 && categories.size()!=0){
             for (int i=0;i<categories.size();i++){
                 if (categories.get(i).getParentId()==0)
                     mainCategoryTitle.add(categories.get(i).getTitle());
             }
-        }*/
+        }
         return mainCategoryTitle;
     }
 

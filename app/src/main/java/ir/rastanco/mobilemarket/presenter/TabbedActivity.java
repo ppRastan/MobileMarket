@@ -60,7 +60,6 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleFragment;
-import ir.rastanco.mobilemarket.presenter.Home.HomeFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
@@ -347,7 +346,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
                 adapter.addFragment(shop, mainCategoryTitle.get(i));
             }
             adapter.addFragment(new SpecialProductFragmentManagement(), getResources().getString(R.string.first_page));
-            adapter.addFragment(new HomeFragment(), getResources().getString(R.string.home));
+            //adapter.addFragment(new HomeFragment(), getResources().getString(R.string.home));
             viewPager.setAdapter(adapter);
             viewPager.setCurrentItem(adapter.getCount() - 1);
         }
@@ -368,7 +367,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
                 adapter.addFragment(shop, mainCategoryTitle.get(i));
             }
             adapter.addFragment(new SpecialProductFragmentManagement(), getResources().getString(R.string.first_page));
-            adapter.addFragment(new HomeFragment(), getResources().getString(R.string.home));
+            //adapter.addFragment(new HomeFragment(), getResources().getString(R.string.home));
             viewPager.setAdapter(adapter);
             tabLayout = (TabLayout) findViewById(R.id.tabs);
             tabLayout.setupWithViewPager(viewPager);

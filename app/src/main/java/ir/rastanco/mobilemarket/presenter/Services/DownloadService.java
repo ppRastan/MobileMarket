@@ -42,16 +42,19 @@ public class DownloadService extends IntentService {
 
                 String urlGetCategories= Link.getInstance().generateURLForGetAllCategories();
                 serverConnectionHandler.setCategories(serverConnectionHandler.getAllCategoryInfoURL(urlGetCategories));
+                receiver.send(STATUS_FINISHED, null);
+
 
                 String UrlGetProducts=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
                 serverConnectionHandler.setProducts(serverConnectionHandler.getProductFromUrlInFirstInstall(UrlGetProducts));
+                receiver.send(STATUS_FINISHED, null);
 
                 serverConnectionHandler.addAllCategoryToTable(serverConnectionHandler.getCategories());
                 Configuration.getConfig().emptyCategoryTable=false;
-                receiver.send(STATUS_FINISHED, null);
 
                 serverConnectionHandler.addProductInformationToDataBaseFirstInstall();
                 Configuration.getConfig().emptyProductTable=false;
+
                 //Test getting 7000 product
                //String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
                //serverConnectionHandler.addProductInformationToDataBaseFirstInstall7000(url);
