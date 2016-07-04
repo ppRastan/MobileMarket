@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scrollview"
+    android:background="@color/white"
+    android:scrollbars="none"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 
@@ -14,6 +16,7 @@
             xmlns:custom="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
+            android:padding="6dp"
             android:layout_height="match_parent"
             tools:context="com.example.parisan.testimagesliderlibrary.MainActivity">
 
@@ -23,7 +26,7 @@
                 android:layout_height="200dp"
                 custom:auto_cycle="true"
                 custom:indicator_visibility="visible"
-                custom:pager_animation="Accordion"
+                custom:pager_animation="Fade"
                 custom:pager_animation_span="1100" />
 
             <com.daimajia.slider.library.Indicators.PagerIndicator
@@ -34,13 +37,13 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
-                custom:selected_color="@color/white"
+                custom:selected_color="@color/orange"
                 custom:selected_drawable="@mipmap/splash"
                 custom:selected_height="6dp"
                 custom:selected_padding_left="5dp"
                 custom:selected_padding_right="5dp"
                 custom:selected_width="6dp"
-                custom:shape="oval"
+                custom:shape="rect"
                 custom:unselected_color="@color/orange"
                 custom:unselected_height="6dp"
                 custom:unselected_padding_left="5dp"
@@ -59,22 +62,25 @@
         <!--specialRecyclerView-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:orientation="horizontal"
-            android:weightSum="10">
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_marginLeft="8dp"
+                android:id="@+id/visitAllSpecialProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
                 android:background="@drawable/corner_round_button"
                 android:text="@string/visitAllProduct"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/smallerTextSize" />
 
             <ir.rastanco.mobilemarket.utility.FontTextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="7"
+                android:layout_weight="1"
+                android:layout_marginRight="6dp"
                 android:text="@string/specials"
                 android:textSize="@dimen/textSize" />
         </LinearLayout>
@@ -88,22 +94,25 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:orientation="horizontal"
-            android:weightSum="10">
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_marginLeft="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
                 android:background="@drawable/corner_round_button"
-                android:text="@string/visitAllProduct"
-                android:textColor="@color/white" />
+                android:id="@+id/visitAllSellersLogo"
+                android:text="@string/sellers"
+                android:textColor="@color/white"
+                android:textSize="@dimen/smallerTextSize" />
 
             <ir.rastanco.mobilemarket.utility.FontTextView
+                android:layout_marginRight="6dp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="7"
+                android:layout_weight="1"
                 android:text="@string/sellers"
                 android:textSize="@dimen/textSize" />
 
@@ -120,6 +129,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="6dp"
             tools:context="com.example.parisan.testimagesliderlibrary.MainActivity">
 
             <com.daimajia.slider.library.SliderLayout
@@ -162,22 +172,24 @@
         <!--second slider end here-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:orientation="horizontal"
-            android:weightSum="10">
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_marginLeft="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
                 android:background="@drawable/corner_round_button"
                 android:text="@string/visitAllProduct"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/smallerTextSize" />
 
             <ir.rastanco.mobilemarket.utility.FontTextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="7"
+                android:layout_weight="1"
+                android:layout_marginRight="6dp"
                 android:text="@string/mostSelled"
                 android:textSize="@dimen/textSize" />
         </LinearLayout>
@@ -190,7 +202,30 @@
             android:orientation="horizontal" />
 
         <!--articles recyclerView-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
+            <Button
+                android:layout_marginLeft="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/corner_round_button"
+                android:text="@string/articles"
+                android:textColor="@color/white"
+                android:textSize="@dimen/smallerTextSize" />
+
+            <ir.rastanco.mobilemarket.utility.FontTextView
+                android:layout_marginRight="6dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/articles"
+                android:textSize="@dimen/textSize" />
+
+        </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/horizontal_recycler_view_articles"
             android:layout_width="match_parent"

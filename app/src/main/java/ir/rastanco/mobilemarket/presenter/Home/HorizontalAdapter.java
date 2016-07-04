@@ -49,7 +49,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.My
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
 //            holder.imageView.setText(horizontalList.get(position));
-            holder.imageView.setImageResource(R.mipmap.ic_launcher);
+            holder.imageView.setImageResource(R.mipmap.persion_logo);
             /*holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

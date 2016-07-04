@@ -7,12 +7,12 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
@@ -28,6 +28,7 @@ import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnection
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadService;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 /**
  * Created by parisan on 02/07/2016.
@@ -46,22 +47,23 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
     private HorizontalAdapter secondAdapter;
     private ServerConnectionHandler serverConnectionHandler;
     private DownloadResultReceiver mReceiver;
-    private FragmentActivity myContext;
-    private Context context;
+    private Button visitAllSpecialProduct;
+    private Button visitAllSellersLogo;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View homeView = inflater.inflate(R.layout.fragment_main_home, container, false);
-        myContext = (FragmentActivity) Configuration.getConfig().shopFragmentContext;
         topPageSlider = (SliderLayout)homeView.findViewById(R.id.slider);
         downPageSlider = (SliderLayout)homeView.findViewById(R.id.second_slider);
-//        context=this;
-        serverConnectionHandler = ServerConnectionHandler.getInstance(context);
+        visitAllSellersLogo=(Button)homeView.findViewById(R.id.visitAllSellersLogo);
+        visitAllSpecialProduct=(Button)homeView.findViewById(R.id.visitAllSpecialProduct);
+        serverConnectionHandler = ServerConnectionHandler.getInstance(getContext());
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
         //code haye ertebat ba server vase namayeshe ax ha
-        serverConnectionHandler = ServerConnectionHandler.getInstance(context);
+        serverConnectionHandler = ServerConnectionHandler.getInstance(getContext());
         if (ni != null && ni.isConnectedOrConnecting()) {
             Configuration.getConfig().connectionStatus = true;
         }
@@ -96,10 +98,10 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
          url_maps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
 
         HashMap<String,Integer> file_maps = new HashMap<String, Integer>();
-        file_maps.put("Hannibal",R.mipmap.ic_launcher);
-        file_maps.put("Big Bang Theory",R.mipmap.ic_launcher);
-        file_maps.put("House of Cards",R.mipmap.ic_launcher);
-        file_maps.put("Game of Thrones", R.mipmap.ic_launcher);
+        file_maps.put("Hannibal",R.mipmap.splash);
+        file_maps.put("Big Bang Theory",R.mipmap.splash);
+        file_maps.put("House of Cards",R.mipmap.splash);
+        file_maps.put("Game of Thrones", R.mipmap.splash);
 
         for(String name : file_maps.keySet()){
             TextSliderView textSliderView = new TextSliderView(getContext());
@@ -132,10 +134,10 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
         secod_slider_url_maps.put("Game of Thrones", "http://images.boomsbeat.com/data/images/full/19640/game-of-thrones-season-4-jpg.jpg");
 
         HashMap<String,Integer> second_slider_file_maps = new HashMap<String, Integer>();
-        second_slider_file_maps.put("Hannibal",R.mipmap.ic_launcher);
-        second_slider_file_maps.put("Big Bang Theory",R.mipmap.ic_launcher);
-        second_slider_file_maps.put("House of Cards",R.mipmap.ic_launcher);
-        second_slider_file_maps.put("Game of Thrones", R.mipmap.ic_launcher);
+        second_slider_file_maps.put("Hannibal",R.mipmap.splash);
+        second_slider_file_maps.put("Big Bang Theory",R.mipmap.splash);
+        second_slider_file_maps.put("House of Cards",R.mipmap.splash);
+        second_slider_file_maps.put("Game of Thrones", R.mipmap.splash);
 
         for(String name : second_slider_file_maps.keySet()){
             TextSliderView textSliderView = new TextSliderView(getContext());
@@ -211,9 +213,14 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
         sellerRecyclerViewLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         seller_recycler_view.setLayoutManager(sellerRecyclerViewLayoutManager);
         seller_recycler_view.setAdapter(horizontalAdapter);
-
+        this.setFont();
         return homeView;
 
+    }
+
+    private void setFont() {
+        visitAllSpecialProduct= PriceUtility.getInstance().ChangeButtonFont(visitAllSpecialProduct,getContext());
+        visitAllSellersLogo= PriceUtility.getInstance().ChangeButtonFont(visitAllSellersLogo,getContext());
     }
 
     @Override

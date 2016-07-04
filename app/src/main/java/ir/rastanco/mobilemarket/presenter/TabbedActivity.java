@@ -54,6 +54,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import ir.rastanco.mobilemarket.LoginPageActivity;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
@@ -72,7 +73,6 @@ import ir.rastanco.mobilemarket.presenter.Services.CompleteDataAfterInstall;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadService;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManagerActivity;
-import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginActivity;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragmentManagement;
@@ -258,7 +258,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
                         Intent userProfileIntent = new Intent(Configuration.getConfig().mainActivityContext, AccountManagerActivity.class);
                         startActivity(userProfileIntent);
                     } else {
-                        Intent userProfileIntent = new Intent(Configuration.getConfig().mainActivityContext, LoginActivity.class);
+                        Intent userProfileIntent = new Intent(Configuration.getConfig().mainActivityContext, LoginPageActivity.class);
                         startActivity(userProfileIntent);
                     }
                 }

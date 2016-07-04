@@ -31,7 +31,6 @@
         android:largeHeap="true"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-
         <activity android:name=".utility.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,16 +38,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity-->
-            <!--android:name=".presenter.SplashHandler"-->
-            <!--android:screenOrientation="portrait"-->
-            <!--android:theme="@style/SplashTheme">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+        <!-- <activity -->
+        <!-- android:name=".presenter.SplashHandler" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:theme="@style/SplashTheme"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name=".presenter.TabbedActivity"
             android:screenOrientation="portrait" />
@@ -133,7 +133,7 @@
             android:value="f7-157d-4f_39109906948" />
         <!-- End Pushe Information -->
 
-        <activity android:name=".presenter.Home.MainActivity"></activity>
+        <activity android:name=".LoginPageActivity"></activity>
     </application>
 
 </manifest>
