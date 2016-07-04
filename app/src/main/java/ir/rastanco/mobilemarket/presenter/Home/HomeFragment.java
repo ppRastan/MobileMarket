@@ -154,7 +154,7 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
             downPageSlider.addSlider(textSliderView);
         }
         //// TODO: 01/07/2016 we can hide animation here
-//        downPageSlider.clearAnimation();
+        downPageSlider.clearAnimation();
         downPageSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
         downPageSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         downPageSlider.setCustomAnimation(new DescriptionAnimation());
@@ -189,6 +189,7 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
         secondAdapter = new HorizontalAdapter(secondArraylist,getContext());
         LinearLayoutManager horizontalLayoutManager= new LinearLayoutManager(getContext());
         horizontalLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+
         //in recyclerview makhsose mahsulate vizhe ast
         special_product_recycler_view.setLayoutManager(horizontalLayoutManager);
         special_product_recycler_view.setAdapter(horizontalAdapter);

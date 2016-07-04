@@ -4,11 +4,11 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
 
-<LinearLayout android:id="@+id/global_linear"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/global_linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <!--aur first slider is beginning-->
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:custom="http://schemas.android.com/apk/res-auto"
@@ -57,57 +57,63 @@
 
         <!--our second slider end here-->
         <!--specialRecyclerView-->
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="30dp"
-               android:weightSum="10"
-               android:orientation="horizontal">
-               <ir.rastanco.mobilemarket.utility.FontTextView
-                   android:layout_width="0dp"
-                   android:layout_weight="7"
-                   android:layout_height="wrap_content"
-                   android:textSize="@dimen/textSize"
-                   android:text="@string/specials"/>
-               <Button
-                   android:layout_width="0dp"
-                   android:layout_height="wrap_content"
-                   android:layout_weight="3"
-                   android:background="@color/orange"
-                   android:textColor="@color/white"
-                   android:text="@string/visitAllProduct"/>
-           </LinearLayout>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/horizontal_recycler_view_special_product"
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="120dp"
-                android:background="@null" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:weightSum="10"
-        android:orientation="horizontal">
-        <ir.rastanco.mobilemarket.utility.FontTextView
-            android:layout_width="0dp"
-            android:layout_weight="7"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textSize"
-            android:text="@string/sellers"/>
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:background="@color/orange"
-            android:textColor="@color/white"
-            android:text="@string/visitAllProduct"/>
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@drawable/corner_round_button"
+                android:text="@string/visitAllProduct"
+                android:textColor="@color/white" />
+
+            <ir.rastanco.mobilemarket.utility.FontTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:text="@string/specials"
+                android:textSize="@dimen/textSize" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/horizontal_recycler_view_special_product"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@null"
+            android:orientation="horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@drawable/corner_round_button"
+                android:text="@string/visitAllProduct"
+                android:textColor="@color/white" />
+
+            <ir.rastanco.mobilemarket.utility.FontTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:text="@string/sellers"
+                android:textSize="@dimen/textSize" />
+
+        </LinearLayout>
         <!--sellerRecyclerVeiw-->
         <android.support.v7.widget.RecyclerView
-            android:orientation="horizontal"
             android:id="@+id/horizontal_recycler_view_seller"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:background="@color/bg_screen4" />
+            android:orientation="horizontal" />
         <!--our second slider beggine here -->
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:custom="http://schemas.android.com/apk/res-auto"
@@ -120,8 +126,8 @@
                 android:id="@+id/second_slider"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                custom:auto_cycle="true"
                 android:background="@null"
+                custom:auto_cycle="true"
                 custom:indicator_visibility="visible"
                 custom:pager_animation="Accordion"
                 custom:pager_animation_span="1100" />
@@ -154,32 +160,34 @@
                 android:layout_marginBottom="20dp" />
         </RelativeLayout>
         <!--second slider end here-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:weightSum="10"
-        android:orientation="horizontal">
-        <ir.rastanco.mobilemarket.utility.FontTextView
-            android:layout_width="0dp"
-            android:layout_weight="7"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/textSize"
-            android:text="@string/mostSelled"/>
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:background="@color/orange"
-            android:textColor="@color/white"
-            android:text="@string/visitAllProduct"/>
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:background="@drawable/corner_round_button"
+                android:text="@string/visitAllProduct"
+                android:textColor="@color/white" />
+
+            <ir.rastanco.mobilemarket.utility.FontTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:text="@string/mostSelled"
+                android:textSize="@dimen/textSize" />
+        </LinearLayout>
         <!--most shopped recyclerView-->
         <android.support.v7.widget.RecyclerView
             android:id="@+id/horizontal_recycler_view_most_shopped"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:orientation="horizontal"
-            android:background="@null" />
+            android:background="@null"
+            android:orientation="horizontal" />
 
         <!--articles recyclerView-->
 
@@ -187,8 +195,8 @@
             android:id="@+id/horizontal_recycler_view_articles"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:orientation="horizontal"
-            android:background="@null" />
+            android:background="@null"
+            android:orientation="horizontal" />
 
     </LinearLayout>
 </ScrollView>
