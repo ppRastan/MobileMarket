@@ -26,7 +26,7 @@ import java.util.HashMap;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
-import ir.rastanco.mobilemarket.presenter.Services.DownloadService;
+import ir.rastanco.mobilemarket.presenter.Services.DownloadCategoryInformationService;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 
@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
             Configuration.getConfig().emptyCategoryTable=true;
             mReceiver = new DownloadResultReceiver(new Handler());
             mReceiver.setReceiver((DownloadResultReceiver.Receiver) getContext());
-            Intent intent = new Intent(Intent.ACTION_SYNC, null, getContext(), DownloadService.class);
+            Intent intent = new Intent(Intent.ACTION_SYNC, null, getContext(), DownloadCategoryInformationService.class);
             /* Send optional extras to Download IntentService */
             intent.putExtra("receiver", mReceiver);
             intent.putExtra("requestId", 101);

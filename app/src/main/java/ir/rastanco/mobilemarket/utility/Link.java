@@ -28,6 +28,11 @@ public class Link {
                 lastTimeStamp + "&cache=false";
     }
 
+    public String generateForGetLimitedProductOfAMainCategory(int categoryId,int minLimit,int maxLimit){
+        return "http://decoriss.com/json/p.php?catid="+categoryId+"&order_by_field=hits&limit="+
+                minLimit+"-"+maxLimit+"&order=desc";
+    }
+
     public String generateURLForGetEditProduct(String lastUpdateTimeStamp) {
         return "http://decoriss.com/json/get,com=product&updatefromts=" +
                 lastUpdateTimeStamp + "&cache=false";

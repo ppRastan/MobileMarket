@@ -70,7 +70,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverUpdateCategoriesListe
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.Services.CompleteDataAfterInstall;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
-import ir.rastanco.mobilemarket.presenter.Services.DownloadService;
+import ir.rastanco.mobilemarket.presenter.Services.DownloadCategoryInformationService;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManagerActivity;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
@@ -144,7 +144,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
                 tabLayout.setTabMode(TabLayout.MODE_FIXED);
                 mReceiver = new DownloadResultReceiver(new Handler());
                 mReceiver.setReceiver(this);
-                Intent intent = new Intent(Intent.ACTION_SYNC, null, this, DownloadService.class);
+                Intent intent = new Intent(Intent.ACTION_SYNC, null, this, DownloadCategoryInformationService.class);
             /* Send optional extras to Download IntentService */
                 intent.putExtra("receiver", mReceiver);
                 intent.putExtra("requestId", 101);
@@ -513,7 +513,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
 
             switch (resultCode) {
 
-                case DownloadService.STATUS_FINISHED:
+                case DownloadCategoryInformationService.STATUS_FINISHED:
                     updateViewPager(Configuration.getConfig().mainPager);
                     break;
 

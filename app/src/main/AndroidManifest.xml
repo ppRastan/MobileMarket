@@ -75,10 +75,11 @@
             android:screenOrientation="portrait" />
 
         <service android:name=".presenter.Services.NotificationService" />
-        <service android:name=".presenter.Services.DownloadService" />
+        <service android:name=".presenter.Services.DownloadCategoryInformationService" />
         <service android:name=".presenter.Services.UpdateService" />
         <service android:name=".presenter.Services.CompleteDataAfterInstall" />
         <service android:name=".presenter.Services.DownloadProductOption" />
+        <service android:name=".presenter.Services.DownloadProductInformationService"/>
 
         <receiver android:name=".presenter.Services.UpdateEveryConnectionOk">
             <intent-filter>

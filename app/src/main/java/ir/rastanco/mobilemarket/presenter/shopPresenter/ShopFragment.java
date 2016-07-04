@@ -34,6 +34,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverLike;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverLikeListener;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProduct;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProductListener;
+import ir.rastanco.mobilemarket.presenter.Services.DownloadProductInformationService;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.UpdateService;
 import ir.rastanco.mobilemarket.utility.ColorUtility;
@@ -57,6 +58,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
     private int existProductNumber;
     private int pageIdForRefresh;
     private String txtFilterOptionForRefresh;
+    private int categoryId;
 
 
     @Override
@@ -67,6 +69,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         myContext = (FragmentActivity) Configuration.getConfig().shopFragmentContext;
         sch = ServerConnectionHandler.getInstance(getContext());
         final int pageId = getArguments().getInt("pageId");
+        categoryId=pageId;
         final TextView txtFilterOptionProductSelected = (TextView) mainView.findViewById(R.id.filter_dialogue_text);
         final TextView txtFilterCategorySelected = (TextView) mainView.findViewById(R.id.group_dialog_text);
         noThingToShow = (TextView) mainView.findViewById(R.id.no_thing_to_show1);
@@ -75,6 +78,21 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
 
         ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
+        if (products.size()==0) {
+            //TODO: 7/4/2016 No Product Information in data Base SO Start Services
+            DownloadResultReceiver resultReceiver = new DownloadResultReceiver(new Handler());
+            resultReceiver.setReceiver(this);
+            Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
+            intent.putExtra("receiver", resultReceiver);
+            intent.putExtra("requestId", 108);
+            intent.putExtra("categoryId",pageId);
+            intent.putExtra("minLimited",0);
+            intent.putExtra("maxLimited",10);
+            myContext.startService(intent);
+        }
+
+
+
         existProductNumber = sch.getFirstIndexForGetProductFromJson();
         int allProductNumber = sch.getNumberAllProduct();
 
@@ -343,28 +361,30 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
 
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
-
+        ArrayList<Product> newProducts = new ArrayList<>();
         switch (resultCode) {
 
             case UpdateService.STATUS_FINISHED:
-                ArrayList<Product> newProducts = sch.getProductAfterRefresh(pageIdForRefresh,
+                newProducts = sch.getProductAfterRefresh(pageIdForRefresh,
                         Configuration.getConfig().filterCategoryId,
                         txtFilterOptionForRefresh,
                         Configuration.getConfig().filterOption);
-                if (newProducts.size() == 0) {
-                    noThingToShow.setVisibility(View.VISIBLE);
-                    gridview.setVisibility(View.GONE);
-                } else {
-                    noThingToShow.setVisibility(View.GONE);
-                    gridview.setVisibility(View.VISIBLE);
-                    PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
-                    gridview.setAdapter(newAdapter);
-                    newAdapter.notifyDataSetChanged();
-                }
                 mSwipeRefreshLayout.setRefreshing(false);
                 //ObserverUpdateCategories.setUpdateCategoriesStatus(true);
                 break;
-
+            case DownloadProductInformationService.STATUS_FINISHED:
+                newProducts = sch.getProductsOfAParentCategory(categoryId);
+                break;
+        }
+        if (newProducts.size() == 0) {
+            noThingToShow.setVisibility(View.VISIBLE);
+            gridview.setVisibility(View.GONE);
+        } else {
+            noThingToShow.setVisibility(View.GONE);
+            gridview.setVisibility(View.VISIBLE);
+            PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
+            gridview.setAdapter(newAdapter);
+            newAdapter.notifyDataSetChanged();
         }
     }
 }
