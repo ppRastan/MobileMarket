@@ -78,7 +78,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
 
         ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
-        if (products.size()==0) {
+        if (products.size()<Configuration.getConfig().someOfFewProductNumberForGetEveryTab) {
             String UrlGetProducts= Link.getInstance().generateForGetLimitedProductOfAMainCategory(pageId,
                     0,Configuration.getConfig().someOfFewProductNumberForGetEveryTab);
             DownloadResultReceiver resultReceiver = new DownloadResultReceiver(new Handler());
