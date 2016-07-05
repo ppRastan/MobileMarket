@@ -240,7 +240,6 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         //holder.imgLoader.DisplayImage(imageURL, holder.imgP);
         Glide.with(myContext)
                 .load(imageURL)
-                .override(Configuration.getConfig().shopDisplaySizeForShow,Configuration.getConfig().shopDisplaySizeForShow)
                 .placeholder(R.drawable.loadingholder)
                 .crossFade()
                 .into(holder.imgP);
