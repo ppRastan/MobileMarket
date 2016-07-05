@@ -65,6 +65,8 @@ public class Configuration {
     public Integer someOfFewProductNumberForGetEveryTab =10;
     public Integer someOfFewSpecialProductNumber=30;
 
+    public int requestIdForGetCategoryInformationInFirstInstall=101;
+
 
     public ImageButton upgradeButtonMenu;
     public ViewPager mainPager;

@@ -145,9 +145,8 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
                 mReceiver = new DownloadResultReceiver(new Handler());
                 mReceiver.setReceiver(this);
                 Intent intent = new Intent(Intent.ACTION_SYNC, null, this, DownloadCategoryInformationService.class);
-            /* Send optional extras to Download IntentService */
                 intent.putExtra("receiver", mReceiver);
-                intent.putExtra("requestId", 101);
+                intent.putExtra("requestId", Configuration.getConfig().requestIdForGetCategoryInformationInFirstInstall);
                 startService(intent);
                 Snackbar snackbar = Snackbar
                         .make(coordinatorLayout, getResources().getString(R.string.loading), Snackbar.LENGTH_LONG);
