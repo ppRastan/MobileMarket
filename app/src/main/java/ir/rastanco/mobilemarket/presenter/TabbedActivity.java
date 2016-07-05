@@ -68,8 +68,8 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverUpdateCategories;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverUpdateCategoriesListener;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.Services.CompleteDataAfterInstall;
-import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadCategoryInformationService;
+import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManagerActivity;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginActivity;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
@@ -78,6 +78,7 @@ import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProduct
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
+import ir.rastanco.mobilemarket.utility.ToastUtility;
 
 /*created by parisa*/
 //test
@@ -499,7 +500,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
             exitSafeCounter++;
             if (exitSafeCounter == 1) {
                 //// TODO: 01/07/2016
-                // ToastUtility.getConfig().displayToast(getResources().getString(R.string.sure_to_exit, this), this);
+                 ToastUtility.getConfig().displayToast(getResources().getString(R.string.sure_to_exit, this),this);
             } else if (exitSafeCounter > 1) {
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
