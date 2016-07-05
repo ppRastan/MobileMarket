@@ -26,6 +26,7 @@ import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PrefManager;
+import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 public class WelcomeActivity extends AppCompatActivity implements DownloadResultReceiver.Receiver {
 
@@ -73,7 +74,7 @@ public class WelcomeActivity extends AppCompatActivity implements DownloadResult
         btnSkip = (Button) findViewById(R.id.btn_skip);
         btnNext = (Button) findViewById(R.id.btn_next);
         btnNext=PriceUtility.getInstance().ChangeButtonFont(btnNext,this);
-        btnSkip=PriceUtility.getInstance().ChangeButtonFont(btnSkip,this);
+        btnSkip= PriceUtility.getInstance().ChangeButtonFont(btnSkip,this);
 
 
         // layouts of all welcome sliders
