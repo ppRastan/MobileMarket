@@ -11,10 +11,10 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="@dimen/img_width_height"
-            android:layout_height="@dimen/img_width_height"
-            android:src="@drawable/sliding_3" />
+        <!--<ImageView-->
+            <!--android:layout_width="@dimen/img_width_height"-->
+            <!--android:layout_height="@dimen/img_width_height"-->
+            <!--android:src="@drawable/sliding_3" />-->
 
         <ir.rastanco.mobilemarket.utility.FontTextView
             android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
             android:text="@string/slide_3_desc"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/slide_desc" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 </RelativeLayout>
