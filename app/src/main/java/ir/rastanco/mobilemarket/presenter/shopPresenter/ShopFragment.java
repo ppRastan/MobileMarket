@@ -385,7 +385,11 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                     noThingToShow.setVisibility(View.VISIBLE);
                     gridview.setVisibility(View.GONE);
                 } else {
-                    int lastProductNumber=gridview.getAdapter().getCount();
+                    int lastProductNumber;
+                    if (gridview.getAdapter()==null)
+                        lastProductNumber=0;
+                    else
+                        lastProductNumber=gridview.getAdapter().getCount();
                     noThingToShow.setVisibility(View.GONE);
                     gridview.setVisibility(View.VISIBLE);
                     PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
