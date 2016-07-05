@@ -59,6 +59,8 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
     private int pageIdForRefresh;
     private String txtFilterOptionForRefresh;
     private int categoryId;
+    private DownloadResultReceiver resultReceiver;
+    private boolean lock=false;
 
 
     @Override
@@ -76,13 +78,14 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         noThingToShow = PriceUtility.getInstance().changeTextViewFont(noThingToShow, myContext);
         //progressBar=(ProgressBar)mainView.findViewById(R.id.progressBar_Loading);
         gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
+        resultReceiver = new DownloadResultReceiver(new Handler());
+        resultReceiver.setReceiver(this);
 
-        ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
+
+        final ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
         if (products.size()<Configuration.getConfig().someOfFewProductNumberForGetEveryTab) {
             String UrlGetProducts= Link.getInstance().generateForGetLimitedProductOfAMainCategory(pageId,
                     0,Configuration.getConfig().someOfFewProductNumberForGetEveryTab);
-            DownloadResultReceiver resultReceiver = new DownloadResultReceiver(new Handler());
-            resultReceiver.setReceiver(this);
             Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
             intent.putExtra("receiver", resultReceiver);
             intent.putExtra("Link",UrlGetProducts);
@@ -136,19 +139,17 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                 else
                     Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.GONE);
 
-                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0) {
+                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0 && !lock) {
                     //scroll receive button
-                    /*int firstIndexGetProduct = ServerConnectionHandler.getInstance(myContext).getFirstIndexForGetProductFromJson();
-                    int allNumberProducts = ServerConnectionHandler.getInstance(myContext).getNumberAllProduct();
-                    if (firstIndexGetProduct < allNumberProducts) {
-                        ArrayList<Product> newProducts = sch.getProductsOfAParentCategory(pageId);
-                        adapter.clear();
-                        for (int i = 0; i < newProducts.size(); i++) {
-                            adapter.add(newProducts.get(i));
-                        }
-                        adapter.notifyDataSetChanged();
-
-                    }*/
+                    lock=true;
+                    int minLimited=gridview.getAdapter().getCount();
+                    int maxLimited=minLimited+Configuration.getConfig().someOfFewProductNumberWhenScrollIsButton;
+                    String UrlGetProducts= Link.getInstance().generateForGetLimitedProductOfAMainCategory(pageId,
+                            minLimited,maxLimited);
+                    Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
+                    intent.putExtra("receiver", resultReceiver);
+                    intent.putExtra("Link",UrlGetProducts);
+                    myContext.startService(intent);
                 }
 
             }
@@ -334,7 +335,6 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
 
             }
 
-
            /* else if(existProductNumber!=0){
                 //Loading bar gone and no product text and grid view gone
                 //progressBar.setVisibility(View.INVISIBLE);
@@ -356,7 +356,6 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
 
     }
 
-
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
         ArrayList<Product> newProducts = new ArrayList<>();
@@ -368,21 +367,33 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                         txtFilterOptionForRefresh,
                         Configuration.getConfig().filterOption);
                 mSwipeRefreshLayout.setRefreshing(false);
+                if (newProducts.size() == 0) {
+                    noThingToShow.setVisibility(View.VISIBLE);
+                    gridview.setVisibility(View.GONE);
+                } else {
+                    noThingToShow.setVisibility(View.GONE);
+                    gridview.setVisibility(View.VISIBLE);
+                    PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
+                    gridview.setAdapter(newAdapter);
+                    newAdapter.notifyDataSetChanged();
+                }
                 //ObserverUpdateCategories.setUpdateCategoriesStatus(true);
                 break;
             case DownloadProductInformationService.STATUS_FINISHED:
                 newProducts = sch.getProductsOfAParentCategory(categoryId);
+                if (newProducts.size() == 0) {
+                    noThingToShow.setVisibility(View.VISIBLE);
+                    gridview.setVisibility(View.GONE);
+                } else {
+                    noThingToShow.setVisibility(View.GONE);
+                    gridview.setVisibility(View.VISIBLE);
+                    PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
+                    gridview.setAdapter(newAdapter);
+                    newAdapter.notifyDataSetChanged();
+                }
+                lock=false;
                 break;
         }
-        if (newProducts.size() == 0) {
-            noThingToShow.setVisibility(View.VISIBLE);
-            gridview.setVisibility(View.GONE);
-        } else {
-            noThingToShow.setVisibility(View.GONE);
-            gridview.setVisibility(View.VISIBLE);
-            PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
-            gridview.setAdapter(newAdapter);
-            newAdapter.notifyDataSetChanged();
-        }
+
     }
 }

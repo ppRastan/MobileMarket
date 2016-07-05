@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ir.rastanco.mobilemarket.R;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadProductInformationService;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -55,13 +56,17 @@ public class WelcomeActivity extends AppCompatActivity implements DownloadResult
         setContentView(R.layout.activity_welcome);
 
         //Start Get Special Product In First install and connect internet
-        String UrlGetProducts= Link.getInstance().generateUrlForGetSpecialProduct(0,Configuration.getConfig().someOfFewSpecialProductNumber);
-        DownloadResultReceiver resultReceiver = new DownloadResultReceiver(new Handler());
-        resultReceiver.setReceiver(this);
-        Intent intent = new Intent(Intent.ACTION_SYNC, null,this, DownloadProductInformationService.class);
-        intent.putExtra("receiver", resultReceiver);
-        intent.putExtra("Link",UrlGetProducts);
-        startService(intent);
+        if(ServerConnectionHandler.getInstance(this).emptyDBProduct()){
+            String UrlGetProducts= Link.getInstance().generateUrlForGetSpecialProduct(0, Configuration.getConfig().someOfFewSpecialProductNumber);
+            DownloadResultReceiver resultReceiver = new DownloadResultReceiver(new Handler());
+            resultReceiver.setReceiver(this);
+            Intent intent = new Intent(Intent.ACTION_SYNC, null,this, DownloadProductInformationService.class);
+            intent.putExtra("receiver", resultReceiver);
+            intent.putExtra("Link",UrlGetProducts);
+            startService(intent);
+
+        }
+
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);

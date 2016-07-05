@@ -76,6 +76,9 @@ public class Link {
     }
 
     public String generateURLForGetImageProduct(String mainImageURL, String imageNumberPath, String imageWidth, String imageHeight) {
+        /*String url=Utilities.getInstance().deleteSpaceFromUrl( mainImageURL + imageNumberPath);
+        return url;
+        */
         return mainImageURL + imageNumberPath +
                 "&size=" + imageWidth + "x" + imageHeight +
                 "&q=" + Utilities.getInstance().getImageQuality();

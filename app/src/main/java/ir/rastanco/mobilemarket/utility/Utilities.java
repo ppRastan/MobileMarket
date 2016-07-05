@@ -130,4 +130,10 @@ public class Utilities {
             //Log.e(TabbedActivity.TAG, "Can not set custom font " + customFontFileNameInAssets + " instead of " + defaultFontNameToOverride);
         }
     }
+
+    public String deleteSpaceFromUrl(String url){
+        url=url.replace("roots/cube.php?code=","")
+        .replace("+%28","%20(").replace("%29",")").replace("%2F","/");
+        return url;
+    }
 }

@@ -63,6 +63,7 @@ public class Configuration {
     public Integer numberAllProducts;
     public Integer numberOfProductMustBeTaken =100;
     public Integer someOfFewProductNumberForGetEveryTab =10;
+    public Integer someOfFewProductNumberWhenScrollIsButton=20;
     public Integer someOfFewSpecialProductNumber=30;
 
     public int requestIdForGetCategoryInformationInFirstInstall=101;
