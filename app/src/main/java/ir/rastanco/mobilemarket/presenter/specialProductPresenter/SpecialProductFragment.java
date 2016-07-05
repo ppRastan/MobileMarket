@@ -128,10 +128,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                 }, 5000);
             }
         });
-
         return mainView;
-
-
     }
 
     private Boolean showMessage(int productSize) {
