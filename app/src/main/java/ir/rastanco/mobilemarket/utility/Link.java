@@ -33,6 +33,10 @@ public class Link {
                 minLimit+"-"+maxLimit+"&order=desc";
     }
 
+    public String generateUrlForGetSpecialProduct(int minLimit,int maxLimit){
+        return "http://decoriss.com/json/special.php?limit="+minLimit+"-"+maxLimit+"&order=desc";
+    }
+
     public String generateURLForGetEditProduct(String lastUpdateTimeStamp) {
         return "http://decoriss.com/json/get,com=product&updatefromts=" +
                 lastUpdateTimeStamp + "&cache=false";

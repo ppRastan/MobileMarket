@@ -140,7 +140,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
             this.changeTabsFont();
 
             //DataBase empty in first install Application
-            if (Configuration.getConfig().emptyCategoryTable && Configuration.getConfig().emptyProductTable) {
+            if (Configuration.getConfig().emptyCategoryTable) {
                 tabLayout.setTabMode(TabLayout.MODE_FIXED);
                 mReceiver = new DownloadResultReceiver(new Handler());
                 mReceiver.setReceiver(this);

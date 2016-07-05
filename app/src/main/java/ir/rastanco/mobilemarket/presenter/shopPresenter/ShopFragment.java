@@ -39,13 +39,13 @@ import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.UpdateService;
 import ir.rastanco.mobilemarket.utility.ColorUtility;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 /**
  * Created by ShaisteS on 1394/12/09.
  */
 public class ShopFragment extends Fragment implements DownloadResultReceiver.Receiver {
-
 
     private ServerConnectionHandler sch;
     private FragmentActivity myContext;
@@ -79,14 +79,13 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
 
         ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
         if (products.size()==0) {
+            String UrlGetProducts= Link.getInstance().generateForGetLimitedProductOfAMainCategory(pageId,
+                    0,Configuration.getConfig().someOfFewProductNumberForGetEveryTab);
             DownloadResultReceiver resultReceiver = new DownloadResultReceiver(new Handler());
             resultReceiver.setReceiver(this);
             Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
             intent.putExtra("receiver", resultReceiver);
-            intent.putExtra("requestId", 108);
-            intent.putExtra("categoryId",pageId);
-            intent.putExtra("minLimited",0);
-            intent.putExtra("maxLimited",10);
+            intent.putExtra("Link",UrlGetProducts);
             myContext.startService(intent);
         }
 
