@@ -53,6 +53,8 @@ public class WelcomeActivity extends AppCompatActivity {
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnSkip = (Button) findViewById(R.id.btn_skip);
         btnNext = (Button) findViewById(R.id.btn_next);
+        btnNext=PriceUtility.getInstance().ChangeButtonFont(btnNext,this);
+        btnSkip=PriceUtility.getInstance().ChangeButtonFont(btnSkip,this);
 
 
         // layouts of all welcome sliders
@@ -60,8 +62,8 @@ public class WelcomeActivity extends AppCompatActivity {
         layouts = new int[]{
                 R.layout.welcome_slide1,
                 R.layout.welcome_slide2,
-//                R.layout.welcome_slide3,
-//                R.layout.welcome_slide4
+                R.layout.welcome_slide3,
+                R.layout.welcome_slide4
         };
 
         // adding bottom dots
@@ -119,8 +121,6 @@ public class WelcomeActivity extends AppCompatActivity {
     private int getItem(int i) {
         return viewPager.getCurrentItem() + i;
     }
-    //TODO for parisa
-
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
         startActivity(new Intent(WelcomeActivity.this, TabbedActivity.class));

@@ -1,9 +1,13 @@
 package ir.rastanco.mobilemarket;
 
+import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.EditText;
+
+
+import shem.com.materiallogin.MaterialLoginView;
+import shem.com.materiallogin.MaterialLoginViewListener;
 
 public class LoginPageActivity extends AppCompatActivity {
 
@@ -12,23 +16,52 @@ public class LoginPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-        //Displaying TextInputLayout Error
-        TextInputLayout lNameLayout = (TextInputLayout) findViewById(R.id
-                .lNameLayout);
-        lNameLayout.setErrorEnabled(true);
-        lNameLayout.setError("Min 2 chars required");
+        final MaterialLoginView login = (MaterialLoginView) findViewById(R.id.login);
+        login.setListener(new MaterialLoginViewListener() {
+            @Override
+            public void onRegister(TextInputLayout registerUser, TextInputLayout registerPass, TextInputLayout registerPassRep) {
+                String user = registerUser.getEditText().getText().toString();
+                if (user.isEmpty()) {
+                    registerUser.setError("User name can't be empty");
+                    return;
+                }
+                registerUser.setError("");
 
-        //Displaying EditText Error
-        EditText age = (EditText) findViewById(R.id.age);
-        age.setError("Required");
+                String pass = registerPass.getEditText().getText().toString();
+                if (pass.isEmpty()) {
+                    registerPass.setError("Password can't be empty");
+                    return;
+                }
+                registerPass.setError("");
 
-        //Displaying both TextInputLayout and EditText Errors
-        TextInputLayout phoneLayout = (TextInputLayout) findViewById(R.id
-                .phoneLayout);
-        phoneLayout.setErrorEnabled(true);
-        phoneLayout.setError("Please enter a phone number");
-        EditText phone = (EditText) findViewById(R.id.phone);
-        phone.setError("Required");
+                String passRep = registerPassRep.getEditText().getText().toString();
+                if (!pass.equals(passRep)) {
+                    registerPassRep.setError("Passwords are different");
+                    return;
+                }
+                registerPassRep.setError("");
+
+                Snackbar.make(login, "Register success!", Snackbar.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onLogin(TextInputLayout loginUser, TextInputLayout loginPass) {
+                String user = loginUser.getEditText().getText().toString();
+                if (user.isEmpty()) {
+                    loginUser.setError("User name can't be empty");
+                    return;
+                }
+                loginUser.setError("");
+
+                String pass = loginPass.getEditText().getText().toString();
+                if (!pass.equals(user)) {
+                    loginPass.setError("Wrong password");
+                    return;
+                }
+                loginPass.setError("");
+
+                Snackbar.make(login, "Login success!", Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
-
 }

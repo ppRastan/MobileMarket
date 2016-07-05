@@ -1,0 +1,14 @@
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/info_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/decoriss">
+
+    <ir.rastanco.mobilemarket.utility.FontTextView
+        android:id="@+id/name_of_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize" />
+</android.support.v7.widget.Toolbar>

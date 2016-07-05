@@ -108,21 +108,25 @@
     <string name="this_group">دسته </string>
 
     <!--intro sliding strings-->
-    <string name="skip">بستن</string>
-    <string name="next">بعدی</string>
-    <string name="start">GOT IT</string>
+    <string name="skip">بی خیال</string>
+    <string name="next">موافقم</string>
+    <string name="start">چه خوب</string>
 
-    <string name="slide_1_title">Hello Food!</string>
-    <string name="slide_1_desc">The easiest way to order food from your favourite restaurant!</string>
+    <string name="slide_1_title">سلام به دکوریس خوش اومدی !</string>
+    <string name="slide_1_desc">اگه موافقی در ابتدای آشنایی مون چند تا نکته رو با هم مرور کنیم؟
+</string>
 
-    <string name="slide_2_title">Movie Tickets</string>
-    <string name="slide_2_desc">Book movie tickets for your family and friends!</string>
+    <string name="slide_2_title">بررسی آسان</string>
+    <string name="slide_2_desc">در دکوریس شما می تونی به آسانی محصولات تولیدکنندگان مبلمان رو بررسی کنی و همه اطلاعات لازم برای یه انتخاب درست رو به دست بیاری
 
-    <string name="slide_3_title">Great Discounts</string>
-    <string name="slide_3_desc">Best discounts on every single service we offer!</string>
+</string>
 
-    <string name="slide_4_title">World Travel</string>
-    <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
+    <string name="slide_3_title">ارتباط با تولیدکننده</string>
+    <string name="slide_3_desc"> میتونی به طور مستقیم با تولیدکننده در ارتباط باشی و سفارشت رو آنلاین یا حضوری تکمیل کنی</string>
+
+    <string name="slide_4_title"></string>
+    <string name="slide_4_desc">هرسوالی داشتی میتونی از کارشناس دکوریس بپرسی
+کافیه دکمه راهنما رو  لمس کنی</string>
 
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>

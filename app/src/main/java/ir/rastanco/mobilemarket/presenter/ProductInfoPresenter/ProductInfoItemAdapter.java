@@ -24,6 +24,7 @@ public class ProductInfoItemAdapter extends ArrayAdapter<ProductOption> {
 
     public ProductInfoItemAdapter(Context context, ArrayList<ProductOption> allProductOptions) {
         super(context, R.layout.activity_product_info, allProductOptions);
+
         options = allProductOptions;
         myActivity = (Activity) context;
     }
@@ -38,6 +39,7 @@ public class ProductInfoItemAdapter extends ArrayAdapter<ProductOption> {
         if (convertView == null) {
             LayoutInflater inflater = myActivity.getLayoutInflater();
             convertView = inflater.inflate(R.layout.product_info_item, parent, false);
+//            Toolbar infoToolbar = (Toolbar)convertView.findViewById(R.id.info_toolbar);
             holder = new ViewHolder();
             holder.txtTitle = (TextView) convertView.findViewById(R.id.text_title);
             convertView.setTag(holder);
