@@ -188,7 +188,6 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         //holder.imgLoader.DisplayImage(imageURL, holder.picProductImage);
         Glide.with(myContext)
                 .load(imageURL)
-                .placeholder(R.drawable.loadingholder)
                 .crossFade()
                 .into(holder.picProductImage);
         final View finalConvertView = convertView;

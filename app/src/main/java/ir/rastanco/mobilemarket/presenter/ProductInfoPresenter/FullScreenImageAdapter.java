@@ -228,7 +228,6 @@ public class FullScreenImageAdapter extends PagerAdapter {
         //imgLoader.DisplayImage(image_url_Main, imgProduct);
         Glide.with(myContext)
                 .load(image_url_Main)
-                .placeholder(R.drawable.loadingholder)
                 .crossFade()
                 .into(imgProduct);
         LinearLayout layout = (LinearLayout) viewLayout.findViewById(R.id.linear);
@@ -256,7 +255,6 @@ public class FullScreenImageAdapter extends PagerAdapter {
             //imgLoader.DisplayImage(image_url_otherPic, imageView);
             Glide.with(myContext)
                     .load(image_url_otherPic)
-                    .placeholder(R.drawable.loadingholder)
                     .crossFade()
                     .into(imageView);
 
@@ -275,8 +273,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
                     //imgLoader.DisplayImage(image_url_otherPic, imgProduct);
                     Glide.with(myContext)
                             .load(image_url_otherPic)
-                            .placeholder(R.drawable.loadingholder)
-                            .crossFade()
+                             .crossFade()
                             .into(imgProduct);
 
 
