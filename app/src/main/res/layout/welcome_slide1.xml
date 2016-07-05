@@ -11,10 +11,10 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
-        <!--<ImageView-->
-            <!--android:layout_width="@dimen/img_width_height"-->
-            <!--android:layout_height="@dimen/img_width_height"-->
-            <!--android:src="@drawable/wellcome_to_decoriss" />-->
+        <ImageView
+            android:layout_width="@dimen/img_width_height"
+            android:layout_height="@dimen/img_width_height"
+            android:src="@drawable/wellcome_to_decoriss" />
 
         <ir.rastanco.mobilemarket.utility.FontTextView
             android:layout_width="wrap_content"
