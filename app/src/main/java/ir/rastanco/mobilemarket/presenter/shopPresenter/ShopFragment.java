@@ -79,7 +79,6 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
 
         ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
         if (products.size()==0) {
-            //TODO: 7/4/2016 No Product Information in data Base SO Start Services
             DownloadResultReceiver resultReceiver = new DownloadResultReceiver(new Handler());
             resultReceiver.setReceiver(this);
             Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);

@@ -346,6 +346,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
                 adapter.addFragment(shop, mainCategoryTitle.get(i));
             }
             adapter.addFragment(new SpecialProductFragmentManagement(), getResources().getString(R.string.first_page));
+            //ToDO Parisa For show Home Tab
             //adapter.addFragment(new HomeFragment(), getResources().getString(R.string.home));
             viewPager.setAdapter(adapter);
             viewPager.setCurrentItem(adapter.getCount() - 1);
@@ -367,6 +368,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
                 adapter.addFragment(shop, mainCategoryTitle.get(i));
             }
             adapter.addFragment(new SpecialProductFragmentManagement(), getResources().getString(R.string.first_page));
+            //ToDO Parisa For Show Home Tab
             //adapter.addFragment(new HomeFragment(), getResources().getString(R.string.home));
             viewPager.setAdapter(adapter);
             tabLayout = (TabLayout) findViewById(R.id.tabs);
