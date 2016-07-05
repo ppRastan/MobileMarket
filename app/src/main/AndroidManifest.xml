@@ -31,7 +31,7 @@
         android:largeHeap="true"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".presenter.WebView$WelcomeActivity">
+        <activity android:name=".presenter.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
