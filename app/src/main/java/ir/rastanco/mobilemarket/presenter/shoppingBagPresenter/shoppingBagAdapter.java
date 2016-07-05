@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -44,11 +46,13 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
     private AlertDialog.Builder alertDialog;
     private final Map<Integer, Integer> selectedItem;
     private Drawable defaultPicture = null;
+    private Context myContext;
 
     public shoppingBagAdapter(Context context, ArrayList<Integer> productsId) {
         super(context, R.layout.activity_shopping_bag, productsId);
         selectedProducts = productsId;
         shoppingBagActivityContext = (Activity) context;
+        myContext=context;
         serverConnectionHandler = ServerConnectionHandler.getInstance(context);
         spinnerList = new ArrayList<>();
         this.fillSpinnerItems();
@@ -126,7 +130,11 @@ public class shoppingBagAdapter extends ArrayAdapter<Integer> {
             e.printStackTrace();
         }
         String imageURL = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(), imageNumberPath, Configuration.getConfig().articleDisplaySizeForURL, Configuration.getConfig().articleDisplaySizeForURL);
-        holder.imgLoader.DisplayImage(imageURL, holder.imgProduct);
+        //holder.imgLoader.DisplayImage(imageURL, holder.imgProduct);
+        Glide.with(myContext)
+                .load(imageURL)
+                .crossFade()
+                .into(holder.imgProduct);
 
         //Set Spinner
         final ArrayAdapter<String> adapter = new ArrayAdapter<>(shoppingBagActivityContext, R.layout.spinner_item, spinnerList);
