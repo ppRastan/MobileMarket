@@ -48,7 +48,7 @@ public class ParseJsonProduct {
                 aProduct.setQualityRank(c.getString("qr"));
                 aProduct.setCommentsCount(Integer.parseInt(c.getString("cc")));
                 aProduct.setCodeProduct(c.getString("n"));
-                aProduct.setDescription(c.getString("d"));
+                //aProduct.setDescription(c.getString("d"));
                 aProduct.setSellsCount(Integer.parseInt(c.getString("s")));
                 aProduct.setTimeStamp(c.getString("ts"));
                 aProduct.setUpdateTimeStamp(c.getString("update_ts"));

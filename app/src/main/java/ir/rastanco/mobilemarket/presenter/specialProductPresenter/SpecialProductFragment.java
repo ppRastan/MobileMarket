@@ -20,10 +20,12 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverUpdateCategories;
+import ir.rastanco.mobilemarket.presenter.Services.DownloadProductInformationService;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.UpdateService;
 import ir.rastanco.mobilemarket.utility.ColorUtility;
 import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.Link;
 
 /**
  * Created by ShaisteS on 1394/12/09.
@@ -41,6 +43,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
     private Context context;
     private int existProductNumber;
     private int allProductNumber;
+    private boolean lock=false;
 
 
     @Override
@@ -57,6 +60,9 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
         allProductNumber = sch.getNumberAllProduct();
         products = new ArrayList<>();
         products = sch.getSpecialProduct();
+        mReceiver = new DownloadResultReceiver(new Handler());
+        mReceiver.setReceiver(this);
+
 
         if (showMessage(products.size())) {
             PictureSpecialProductItemAdapter adapter = new PictureSpecialProductItemAdapter(getActivity(), products);
@@ -89,10 +95,20 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                     Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.VISIBLE);
                 else
                     Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.GONE);
+
+                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0 && !lock) {
+                    //scroll receive button
+                    lock=true;
+                    int minLimited=productListView.getAdapter().getCount();
+                    int maxLimited=minLimited+Configuration.getConfig().someOfFewProductNumberWhenScrollIsButton;
+                    String UrlGetProducts= Link.getInstance().generateUrlForGetSpecialProduct(minLimited,maxLimited);
+                    Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
+                    intent.putExtra("receiver", mReceiver);
+                    intent.putExtra("Link",UrlGetProducts);
+                    context.startService(intent);
+                }
             }
         });
-        mReceiver = new DownloadResultReceiver(new Handler());
-        mReceiver.setReceiver(this);
         ColorUtility.getConfig().setColorOfSwipeRefresh(mSwipeRefreshLayout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -112,10 +128,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                 }, 5000);
             }
         });
-
         return mainView;
-
-
     }
 
     private Boolean showMessage(int productSize) {
@@ -151,16 +164,28 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
 
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
+        PictureSpecialProductItemAdapter newAdapter;
         switch (resultCode) {
             case UpdateService.STATUS_FINISHED:
                 products = sch.getSpecialProduct();
-                PictureSpecialProductItemAdapter newAdapter = new PictureSpecialProductItemAdapter(getActivity(), products);
+                newAdapter = new PictureSpecialProductItemAdapter(getActivity(), products);
                 productListView.setAdapter(newAdapter);
                 newAdapter.notifyDataSetChanged();
                 mSwipeRefreshLayout.setRefreshing(false);
                 ObserverUpdateCategories.setUpdateCategoriesStatus(true);
                 break;
-
+            case DownloadProductInformationService.STATUS_FINISHED:
+                int lastSpecialProductNumber=products.size();
+                products = sch.getSpecialProduct();
+                newAdapter = new PictureSpecialProductItemAdapter(getActivity(), products);
+                productListView.setAdapter(newAdapter);
+                newAdapter.notifyDataSetChanged();
+                productListView.setSelection(lastSpecialProductNumber);
+                if (products.size()==lastSpecialProductNumber)
+                    lock=true;
+                else
+                    lock=false;
+                break;
         }
     }
 }

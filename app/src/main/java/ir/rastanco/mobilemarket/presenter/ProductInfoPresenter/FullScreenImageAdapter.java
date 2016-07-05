@@ -20,13 +20,14 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
@@ -211,7 +212,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
         imgProduct.getLayoutParams().width = Configuration.getConfig().homeDisplaySizeForShow;
         imgProduct.getLayoutParams().height = Configuration.getConfig().productInfoHeightForShow;
         imgProduct.setImageDrawable(largeDefaultPicture);
-        final ImageLoader imgLoader = new ImageLoader(Configuration.getConfig().productInfoActivityContext); // important
+        //final ImageLoader imgLoader = new ImageLoader(Configuration.getConfig().productInfoActivityContext); // important
 
         String imageNumberPath;
         if (aProduct.getImagesPath().size() == 0)
@@ -225,7 +226,12 @@ public class FullScreenImageAdapter extends PagerAdapter {
             e.printStackTrace();
         }
         String image_url_Main = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(), imageNumberPath, Configuration.getConfig().homeDisplaySizeForURL, Configuration.getConfig().productInfoHeightForURL);
-        imgLoader.DisplayImage(image_url_Main, imgProduct);
+        //imgLoader.DisplayImage(image_url_Main, imgProduct);
+        Glide.with(myContext)
+                .load(image_url_Main)
+                .placeholder(R.drawable.loadingholder)
+                .crossFade()
+                .into(imgProduct);
         LinearLayout layout = (LinearLayout) viewLayout.findViewById(R.id.linear);
         int counter;
         if (aProduct.getImagesPath().size() > 1)
@@ -248,7 +254,12 @@ public class FullScreenImageAdapter extends PagerAdapter {
                 e.printStackTrace();
             }
             String image_url_otherPic = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(), imageNumberPath, Configuration.getConfig().articleDisplaySizeForURL, Configuration.getConfig().articleDisplaySizeForURL);
-            imgLoader.DisplayImage(image_url_otherPic, imageView);
+            //imgLoader.DisplayImage(image_url_otherPic, imageView);
+            Glide.with(myContext)
+                    .load(image_url_otherPic)
+                    .placeholder(R.drawable.loadingholder)
+                    .crossFade()
+                    .into(imageView);
 
             final int clickImageNum = i;
             imageView.setOnClickListener(new View.OnClickListener() {
@@ -262,7 +273,13 @@ public class FullScreenImageAdapter extends PagerAdapter {
                         e.printStackTrace();
                     }
                     String image_url_otherPic = Link.getInstance().generateURLForGetImageProduct(aProduct.getImagesMainPath(), imageNumberPath, Configuration.getConfig().homeDisplaySizeForURL, Configuration.getConfig().productInfoHeightForURL);
-                    imgLoader.DisplayImage(image_url_otherPic, imgProduct);
+                    //imgLoader.DisplayImage(image_url_otherPic, imgProduct);
+                    Glide.with(myContext)
+                            .load(image_url_otherPic)
+                            .placeholder(R.drawable.loadingholder)
+                            .crossFade()
+                            .into(imgProduct);
+
 
                 }
             });

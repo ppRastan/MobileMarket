@@ -12,13 +12,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
@@ -56,7 +57,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         private ImageButton basketToolbar;
         private ImageButton btnAddThisProductToFavorites;
         private ImageButton offerRight;
-        private ImageLoader imgLoader;
+        //private ImageLoader imgLoader;
         private ImageView picProductImage;
         private TextView priceOff;
         private TextView priceForYou;
@@ -75,7 +76,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
             holder.btnAddThisProductToFavorites = (ImageButton) convertView.findViewById(R.id.imageButton_like_specialPage);
             holder.shareBtn = (ImageButton) convertView.findViewById(R.id.imageButton_share);
             holder.offerRight = (ImageButton) convertView.findViewById(R.id.ic_offer_right);
-            holder.imgLoader = new ImageLoader(myContext); // important
+            //holder.imgLoader = new ImageLoader(myContext); // important
             holder.picProductImage = (ImageView) convertView.findViewById(R.id.img_picProduct);
             holder.picProductImage.getLayoutParams().width = Configuration.getConfig().homeDisplaySizeForShow;
             holder.picProductImage.getLayoutParams().height = Configuration.getConfig().homeDisplaySizeForShow;
@@ -184,7 +185,12 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
             e.printStackTrace();
         }
         String imageURL = Link.getInstance().generateURLForGetImageProduct(allProduct.get(position).getImagesMainPath(), imageNumberPath, Configuration.getConfig().homeDisplaySizeForURL, Configuration.getConfig().homeDisplaySizeForURL);
-        holder.imgLoader.DisplayImage(imageURL, holder.picProductImage);
+        //holder.imgLoader.DisplayImage(imageURL, holder.picProductImage);
+        Glide.with(myContext)
+                .load(imageURL)
+                .placeholder(R.drawable.loadingholder)
+                .crossFade()
+                .into(holder.picProductImage);
         final View finalConvertView = convertView;
         holder.picProductImage.setOnClickListener(new View.OnClickListener() {
             @Override

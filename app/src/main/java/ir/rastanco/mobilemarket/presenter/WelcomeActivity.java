@@ -1,10 +1,11 @@
-package ir.rastanco.mobilemarket.utility;
+package ir.rastanco.mobilemarket.presenter;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -19,9 +20,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.presenter.TabbedActivity;
+import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Services.DownloadProductInformationService;
+import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
+import ir.rastanco.mobilemarket.utility.Configuration;
+import ir.rastanco.mobilemarket.utility.Link;
+import ir.rastanco.mobilemarket.utility.PrefManager;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity implements DownloadResultReceiver.Receiver {
 
     private ViewPager viewPager;
     private MyViewPagerAdapter myViewPagerAdapter;
@@ -48,6 +54,19 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_welcome);
+
+        //Start Get Special Product In First install and connect internet
+        if(ServerConnectionHandler.getInstance(this).emptyDBProduct()){
+            String UrlGetProducts= Link.getInstance().generateUrlForGetSpecialProduct(0, Configuration.getConfig().someOfFewSpecialProductNumber);
+            DownloadResultReceiver resultReceiver = new DownloadResultReceiver(new Handler());
+            resultReceiver.setReceiver(this);
+            Intent intent = new Intent(Intent.ACTION_SYNC, null,this, DownloadProductInformationService.class);
+            intent.putExtra("receiver", resultReceiver);
+            intent.putExtra("Link",UrlGetProducts);
+            startService(intent);
+
+        }
+
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
@@ -166,6 +185,11 @@ public class WelcomeActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         }
+    }
+
+    @Override
+    public void onReceiveResult(int resultCode, Bundle resultData) {
+
     }
 
     /**

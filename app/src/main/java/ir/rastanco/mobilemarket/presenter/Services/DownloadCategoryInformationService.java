@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.ResultReceiver;
 import android.util.Log;
 
-import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
@@ -14,16 +13,16 @@ import ir.rastanco.mobilemarket.utility.Link;
 /**
  * Created by ShaisteS on 1395/1/20.
  */
-public class DownloadService extends IntentService {
+public class DownloadCategoryInformationService extends IntentService {
 
     public static final int STATUS_RUNNING = 0;
     public static final int STATUS_FINISHED = 1;
     public static final int STATUS_ERROR = 2;
 
-    private static final String TAG = "DownloadService";
+    private static final String TAG = "CategoryInfoService";
 
-    public DownloadService() {
-        super(DownloadService.class.getName());
+    public DownloadCategoryInformationService() {
+        super(DownloadCategoryInformationService.class.getName());
     }
 
     @Override
@@ -43,15 +42,18 @@ public class DownloadService extends IntentService {
                 String urlGetCategories= Link.getInstance().generateURLForGetAllCategories();
                 serverConnectionHandler.setCategories(serverConnectionHandler.getAllCategoryInfoURL(urlGetCategories));
 
-                String UrlGetProducts=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
+                /*String UrlGetProducts=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
                 serverConnectionHandler.setProducts(serverConnectionHandler.getProductFromUrlInFirstInstall(UrlGetProducts));
+                receiver.send(STATUS_FINISHED, null);*/
 
                 serverConnectionHandler.addAllCategoryToTable(serverConnectionHandler.getCategories());
                 Configuration.getConfig().emptyCategoryTable=false;
                 receiver.send(STATUS_FINISHED, null);
 
-                serverConnectionHandler.addProductInformationToDataBaseFirstInstall();
-                Configuration.getConfig().emptyProductTable=false;
+
+                /*serverConnectionHandler.addProductInformationToDataBaseFirstInstall();
+                Configuration.getConfig().emptyProductTable=false;*/
+
                 //Test getting 7000 product
                //String url=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
                //serverConnectionHandler.addProductInformationToDataBaseFirstInstall7000(url);
@@ -62,7 +64,7 @@ public class DownloadService extends IntentService {
                 Log.v("unable to set this font","!");
             }
         }
-        Log.d(TAG, "Service Stopping!");
+        Log.d(TAG,"ServiceStopping!");
         this.stopSelf();
     }
 

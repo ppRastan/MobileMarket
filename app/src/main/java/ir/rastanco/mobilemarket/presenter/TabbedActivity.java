@@ -59,7 +59,6 @@ import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleFragment;
-import ir.rastanco.mobilemarket.presenter.Home.HomeFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
@@ -70,7 +69,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverUpdateCategoriesListe
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.Services.CompleteDataAfterInstall;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
-import ir.rastanco.mobilemarket.presenter.Services.DownloadService;
+import ir.rastanco.mobilemarket.presenter.Services.DownloadCategoryInformationService;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManagerActivity;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginActivity;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
@@ -141,14 +140,13 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
             this.changeTabsFont();
 
             //DataBase empty in first install Application
-            if (Configuration.getConfig().emptyCategoryTable && Configuration.getConfig().emptyProductTable) {
+            if (Configuration.getConfig().emptyCategoryTable) {
                 tabLayout.setTabMode(TabLayout.MODE_FIXED);
                 mReceiver = new DownloadResultReceiver(new Handler());
                 mReceiver.setReceiver(this);
-                Intent intent = new Intent(Intent.ACTION_SYNC, null, this, DownloadService.class);
-            /* Send optional extras to Download IntentService */
+                Intent intent = new Intent(Intent.ACTION_SYNC, null, this, DownloadCategoryInformationService.class);
                 intent.putExtra("receiver", mReceiver);
-                intent.putExtra("requestId", 101);
+                intent.putExtra("requestId", Configuration.getConfig().requestIdForGetCategoryInformationInFirstInstall);
                 startService(intent);
                 Snackbar snackbar = Snackbar
                         .make(coordinatorLayout, getResources().getString(R.string.loading), Snackbar.LENGTH_LONG);
@@ -348,7 +346,8 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
                 adapter.addFragment(shop, mainCategoryTitle.get(i));
             }
             adapter.addFragment(new SpecialProductFragmentManagement(), getResources().getString(R.string.first_page));
-            adapter.addFragment(new HomeFragment(), getResources().getString(R.string.home));
+            //ToDO Parisa For show Home Tab
+            //adapter.addFragment(new HomeFragment(), getResources().getString(R.string.home));
             viewPager.setAdapter(adapter);
             viewPager.setCurrentItem(adapter.getCount() - 1);
         }
@@ -369,7 +368,8 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
                 adapter.addFragment(shop, mainCategoryTitle.get(i));
             }
             adapter.addFragment(new SpecialProductFragmentManagement(), getResources().getString(R.string.first_page));
-            adapter.addFragment(new HomeFragment(), getResources().getString(R.string.home));
+            //ToDO Parisa For Show Home Tab
+            //adapter.addFragment(new HomeFragment(), getResources().getString(R.string.home));
             viewPager.setAdapter(adapter);
             tabLayout = (TabLayout) findViewById(R.id.tabs);
             tabLayout.setupWithViewPager(viewPager);
@@ -515,7 +515,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
 
             switch (resultCode) {
 
-                case DownloadService.STATUS_FINISHED:
+                case DownloadCategoryInformationService.STATUS_FINISHED:
                     updateViewPager(Configuration.getConfig().mainPager);
                     break;
 
