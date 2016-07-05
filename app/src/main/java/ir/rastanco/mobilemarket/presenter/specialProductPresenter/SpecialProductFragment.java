@@ -175,11 +175,16 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                 ObserverUpdateCategories.setUpdateCategoriesStatus(true);
                 break;
             case DownloadProductInformationService.STATUS_FINISHED:
+                int lastSpecialProductNumber=products.size();
                 products = sch.getSpecialProduct();
                 newAdapter = new PictureSpecialProductItemAdapter(getActivity(), products);
                 productListView.setAdapter(newAdapter);
                 newAdapter.notifyDataSetChanged();
-                lock=false;
+                productListView.setSelection(lastSpecialProductNumber);
+                if (products.size()==lastSpecialProductNumber)
+                    lock=true;
+                else
+                    lock=false;
                 break;
         }
     }
