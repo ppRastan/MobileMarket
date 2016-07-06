@@ -499,12 +499,12 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
 //                //// TODO: 01/07/2016
 //                 ToastUtility.getConfig().displayToast(getResources().getString(R.string.sure_to_exit, this),this);
 //            } else if (exitSafeCounter > 1) {
-//                Intent intent = new Intent(Intent.ACTION_MAIN);
-//                intent.addCategory(Intent.CATEGORY_HOME);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(intent);
-//                finish();
-//                System.exit(0);
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                System.exit(0);
 //            }
 
 
