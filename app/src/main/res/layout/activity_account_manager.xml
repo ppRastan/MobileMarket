@@ -29,7 +29,7 @@
             android:layout_weight="1"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/welcome_to_decoriss"
-            android:textColor="@color/orange"
+            android:textColor="@color/white"
             android:textSize="@dimen/textSize" />
 
     </LinearLayout>

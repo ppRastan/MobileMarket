@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_window">#d7d5d5</color>
-    <color name="orange">#EB4D2A</color>
-    <color name="decoriss">#FAFAFA</color>
+    <color name="background_window">#ededed</color>
+    <color name="orange">#FFFFFF</color>
+    <color name="decoriss">#f7353d</color>
+    <!--<color name="light_gray">#d7d5d5</color>-->
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
-    <color name="fab_color">#FAFAFA</color>
     <color name="green">#31a140</color>
-    <color name="transparent">#10f7f7f7</color>
+    <color name="toolbar_color">#e4b7ac</color>
+    <!--<color name="transparent">#10f7f7f7</color>-->
     <!--intro sliding colors-->
     <!-- Screens background color-->
     <color name="bg_screen1">#f64c73</color>

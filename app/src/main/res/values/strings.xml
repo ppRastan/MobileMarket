@@ -5,8 +5,8 @@
     <string name="action_bar_title">دکوریس</string>
     <string name="fifth_page">مقاله</string>
     <string name="search_in_decoriss">جستجو در محصولات</string>
-    <string name="group">دسته</string>
-    <string name="all">همه</string>
+    <string name="group">انتخاب دسته</string>
+    <string name="all">همه ی دسته ها</string>
     <string name="add_filter">نمایش براساس</string>
     <string name="user_name">نام کاربری :</string>
     <string name="enter_email_address">آدرس ایمیل خود را وارد کنید</string>
@@ -135,4 +135,8 @@
     <string name="visitAllProduct">همه ی محصولات</string>
     <string name="sellers">تامین کننده ها</string>
     <string name="mostSelled">پرفروش ترین ها</string>
+    <string name="agree">بله</string>
+    <string name="content">آیا مایل به خروج از دکوریس هستید؟</string>
+    <string name="disagree">خیر</string>
+    <string name="rate_us">حمایت از برنامه</string>
 </resources>

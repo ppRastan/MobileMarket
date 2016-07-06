@@ -9,8 +9,6 @@ package ir.rastanco.mobilemarket.presenter.shopPresenter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -31,18 +29,12 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
-import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 import ir.rastanco.mobilemarket.utility.ToolbarHandler;
 import ir.rastanco.mobilemarket.utility.Utilities;
-
-//import com.bumptech.glide.Glide;
-
-
 public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
 
     private final ArrayList<Product> allProduct;
@@ -51,10 +43,6 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
     private final Context myContext;
     private final Activity shopPresenterActivity;
     private Drawable defaultPicture=null;
-//    private String textToSend = null;
-//    private Dialog shareDialog;
-//    private Intent sendIntent;
-
     public PictureProductShopItemAdapter(FragmentActivity mainActivity, ArrayList<Product> products) {
         super(mainActivity, R.layout.article_item, products);
 
@@ -77,12 +65,12 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
     }
 
     static class ViewHolder {
-        private TextView infoP;
-        private TextView originalPrice;
+        //private TextView infoP;
+        //private TextView originalPrice;
         private TextView priceForYou;
         private ImageView imgP;
-        private ImageButton shareToolBar;
-        private ImageButton basketToolbar;
+        //private ImageButton shareToolBar;
+        //private ImageButton basketToolbar;
         private ImageButton likeToolBar;
         private ImageButton offerRight;
         private ImageLoader imgLoader;
@@ -97,18 +85,18 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             convertView = inflater.inflate(R.layout.picture_produc_item_shop, parent, false);
             holder = new ViewHolder();
 
-            holder.infoP = (TextView) convertView.findViewById(R.id.txt_infoProduct);
+      //      holder.infoP = (TextView) convertView.findViewById(R.id.txt_infoProduct);
             //holder.infoP = PriceUtility.getInstance().changeFontToYekan(holder.infoP, myContext);
-            holder.originalPrice = (TextView) convertView.findViewById(R.id.txt_priceProduct);
+    //        holder.originalPrice = (TextView) convertView.findViewById(R.id.txt_priceProduct);
             //holder.originalPrice = PriceUtility.getInstance().changeFontToYekan(holder.originalPrice, myContext);
             holder.priceForYou = (TextView) convertView.findViewById(R.id.txt_price_for_you);
-            //holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou, myContext);
+            holder.priceForYou = PriceUtility.getInstance().changeTextViewFont(holder.priceForYou, myContext);
             holder.imgP = (ImageView) convertView.findViewById(R.id.imageButton_picProduct);
             holder.imgP.getLayoutParams().width = Configuration.getConfig().shopDisplaySizeForShow;
             holder.imgP.getLayoutParams().height = Configuration.getConfig().shopDisplaySizeForShow;
             holder.offerRight = (ImageButton) convertView.findViewById(R.id.ic_offer_right);
-            holder.basketToolbar = (ImageButton) convertView.findViewById(R.id.basket_toolbar);
-            holder.shareToolBar = (ImageButton) convertView.findViewById(R.id.share_toolbar_in_main_page);
+//            holder.basketToolbar = (ImageButton) convertView.findViewById(R.id.basket_toolbar);
+//            holder.shareToolBar = (ImageButton) convertView.findViewById(R.id.share_toolbar_in_main_page);
             holder.likeToolBar = (ImageButton) convertView.findViewById(R.id.empty_like_toolbar);
             holder.imgLoader = new ImageLoader(myContext);
             convertView.setTag(holder);
@@ -119,55 +107,55 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         final Product eachProduct = allProduct.get(position);
         if (eachProduct.getPriceOff() == 0 && eachProduct.getPrice() != 0) {
             holder.priceForYou.setVisibility(View.INVISIBLE);
-            holder.originalPrice.setTextColor(Color.BLACK);
-            holder.originalPrice.setText(myContext.getResources().getString(R.string.eachPrice,PriceUtility.getInstance().formatPriceCommaSeparated(eachProduct.getPrice())));
-            holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-            holder.basketToolbar.setVisibility(View.VISIBLE);
+            //holder.originalPrice.setTextColor(Color.BLACK);
+            //holder.originalPrice.setText(myContext.getResources().getString(R.string.eachPrice,PriceUtility.getInstance().formatPriceCommaSeparated(eachProduct.getPrice())));
+            //holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            //holder.basketToolbar.setVisibility(View.VISIBLE);
         } else if (eachProduct.getPrice() != 0) {
             int price = eachProduct.getPrice();
             int discountPercent = eachProduct.getPriceOff();
             int finalPrice = Utilities.getInstance().calculatePriceOffProduct(price, discountPercent);
-            holder.originalPrice.setTextColor(Color.RED);
-            holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            holder.originalPrice.setText(myContext.getResources().getString(R.string.eachPrice ,PriceUtility.getInstance().formatPriceCommaSeparated(price)));
-            //holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou, shopPresenterActivity);
+            //holder.originalPrice.setTextColor(Color.RED);
+            //holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            //holder.originalPrice.setText(myContext.getResources().getString(R.string.eachPrice ,PriceUtility.getInstance().formatPriceCommaSeparated(price)));
+            holder.priceForYou = PriceUtility.getInstance().changeTextViewFont(holder.priceForYou, shopPresenterActivity);
             holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(finalPrice)));
             holder.priceForYou.setVisibility(View.VISIBLE);
-            holder.basketToolbar.setVisibility(View.VISIBLE);
+            //holder.basketToolbar.setVisibility(View.VISIBLE);
         } else if (eachProduct.getPriceOff() == 0) {
-            holder.basketToolbar.setVisibility(View.GONE);
-            holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-            holder.originalPrice.setText(myContext.getString(R.string.coming_soon));
+            //holder.basketToolbar.setVisibility(View.GONE);
+            //holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            //holder.originalPrice.setText(myContext.getString(R.string.coming_soon));
         }
 
-        if (Configuration.getConfig().RTL) {
+//        if (Configuration.getConfig().RTL) {
+//
+//            if (eachProduct.getPriceOff() != 0) {
+//                holder.offerRight.setVisibility(View.VISIBLE);
+//            } else {
+//                holder.offerRight.setVisibility(View.GONE);
+//            }
+//        }
+//
+//        if (sch.checkSelectProductForShop(eachProduct.getId()))
+//            holder.basketToolbar.setImageResource(R.drawable.green_bye_toolbar);
+//        else
+//            holder.basketToolbar.setImageResource(R.drawable.toolbar_add_product_to_basket);
+//
+//        holder.basketToolbar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                    holder.basketToolbar.setImageResource(R.drawable.green_bye_toolbar);
+//                    sch.addProductToShoppingBag(eachProduct.getId());
+//                    myContext.startActivity(new Intent(myContext, ShoppingBagActivity.class));
+//                    ObserverShopping.setMyBoolean(true);
+//                }
+//        });
 
-            if (eachProduct.getPriceOff() != 0) {
-                holder.offerRight.setVisibility(View.VISIBLE);
-            } else {
-                holder.offerRight.setVisibility(View.GONE);
-            }
-        }
-
-        if (sch.checkSelectProductForShop(eachProduct.getId()))
-            holder.basketToolbar.setImageResource(R.drawable.green_bye_toolbar);
-        else
-            holder.basketToolbar.setImageResource(R.drawable.toolbar_add_product_to_basket);
-
-        holder.basketToolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    holder.basketToolbar.setImageResource(R.drawable.green_bye_toolbar);
-                    sch.addProductToShoppingBag(eachProduct.getId());
-                    myContext.startActivity(new Intent(myContext, ShoppingBagActivity.class));
-                    ObserverShopping.setMyBoolean(true);
-                }
-        });
-
-        holder.shareToolBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToolbarHandler.getInstance().generalShare(shopPresenterActivity, eachProduct.getLinkInSite());
+//        holder.shareToolBar.setOnClickListener(new View.OnClickListener() {
+  //          @Override
+    //        public void onClick(View v) {
+      //          ToolbarHandler.getInstance().generalShare(shopPresenterActivity, eachProduct.getLinkInSite());
 //                shareDialog = new Dialog(myContext);
 //                shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 //                shareDialog.setContentView(R.layout.share_alert_dialog);
@@ -202,8 +190,8 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
 //                shareDialog.setCancelable(true);
 //                shareDialog.show();
 
-            }
-        });
+        //    }
+        //});
 
         if (sch.getAProduct(eachProduct.getId()).getLike() == 0) {
             //this Product No Favorite
@@ -236,13 +224,13 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             e.printStackTrace();
         }
         String imageURL = Link.getInstance().generateURLForGetImageProduct(eachProduct.getImagesMainPath(), imageNumberPath, Configuration.getConfig().shopDisplaySizeForURL, Configuration.getConfig().shopDisplaySizeForURL);
-        holder.imgP.setImageDrawable(defaultPicture);
+        //holder.imgP.setImageDrawable(defaultPicture);
         //holder.imgLoader.DisplayImage(imageURL, holder.imgP);
         Glide.with(myContext)
                 .load(imageURL)
                 .crossFade()
                 .into(holder.imgP);
-        holder.infoP.setText(eachProduct.getTitle());
+        //holder.infoP.setText(eachProduct.getTitle());
         final View finalConvertView = convertView;
         final View finalConvertView1 = convertView;
         holder.imgP.setOnClickListener(new View.OnClickListener() {

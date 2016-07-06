@@ -37,7 +37,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp"
                 android:gravity="center"
-                custom:selected_color="@color/orange"
+                custom:selected_color="@color/white"
                 custom:selected_drawable="@mipmap/splash"
                 custom:selected_height="6dp"
                 custom:selected_padding_left="5dp"
