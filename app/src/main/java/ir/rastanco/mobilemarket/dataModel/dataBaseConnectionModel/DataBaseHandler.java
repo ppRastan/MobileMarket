@@ -1098,7 +1098,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     public void updateTimeStamp(String TimeStamp) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(SettingsTable_Column_Last_TimeStamp, TimeStamp);
+        values.put(SettingsTable_Column_Last_TimeStamp,TimeStamp);
         db.update(TABLE_SETTINGS, values, null, null);
         Log.v("update", "Update Last time stamp");
 
