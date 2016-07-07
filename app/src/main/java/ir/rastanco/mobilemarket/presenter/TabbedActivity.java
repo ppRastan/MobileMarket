@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
@@ -40,6 +41,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
@@ -327,7 +329,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
             for (int i = 0; i < tabChildCount; i++) {
                 View tabViewChild = vgTab.getChildAt(i);
                 if (tabViewChild instanceof TextView) {
-                    ((TextView) tabViewChild).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/decoriss_iransans.ttf"));
+                    ((TextView) tabViewChild).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/yekan.ttf"));
                 }
             }
         }
@@ -499,17 +501,15 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
 //                //// TODO: 01/07/2016
 //                 ToastUtility.getConfig().displayToast(getResources().getString(R.string.sure_to_exit, this),this);
 //            } else if (exitSafeCounter > 1) {
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-                System.exit(0);
-//            }
-
-
-//        new AlertDialogWrapper.Builder(this)
-//                .setMessage(R.string.content)
+//                Intent intent = new Intent(Intent.ACTION_MAIN);
+//                intent.addCategory(Intent.CATEGORY_HOME);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                startActivity(intent);
+//                finish();
+//                System.exit(0);
+        //new AlertDialogWrapper.Builder(this)
+//                .setTitle(R.string.title)
+        //      .setMessage(R.string.content)
 //                .setNegativeButton(R.string.agree, new DialogInterface.OnClickListener() {
 //                            @Override
 //                            public void onClick(DialogInterface dialog, int which) {
@@ -530,13 +530,41 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
 //                            public void onClick(DialogInterface dialog, int which) {
 //                                dialog.dismiss();
 //                                Intent rateIntent = new Intent(Intent.ACTION_VIEW);
-//                                rateIntent.setData(Uri.parse("market://details?id=" + TabbedActivity.this.getPackageName()));
-//                                startActivity(rateIntent);
-//                            }
+//                                rateIntent.setData(Uri.parse("market://details?id="+TabbedActivity.this.getPackageName()));
+//                                startActivity(rateIntent);}
 //                        }
 //                )
 //
 //                .show();
+        new AlertDialogWrapper.Builder(this)
+                .setMessage(R.string.sure_to_exit)
+                .setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        }
+                )
+                .setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }
+                )
+
+                .setNeutralButton(R.string.rate_us, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                Intent rateIntent = new Intent(Intent.ACTION_VIEW);
+                                rateIntent.setData(Uri.parse("market://details?id=" + TabbedActivity.this.getPackageName()));
+                                startActivity(rateIntent);
+                            }
+                        }
+                )
+
+                .show();
 
 
     }
@@ -603,7 +631,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            showDialog(progress_bar_type);
+            //showDialog(progress_bar_type);
         }
 
         @Override
@@ -634,7 +662,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
                 intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + Link.getInstance().generatePathAPKApplicationInMobile())), "application/vnd.android.package-archive");
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
-                sch.updateVersionApp(version);
+                //sch.updateVersionApp(version);
 
             } catch (Exception e) {
                 Log.e("Error: ", e.getMessage());
@@ -645,14 +673,14 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
 
         protected void onProgressUpdate(String... progress) {
             // setting progress percentage
-            pDialog.setProgress(Integer.parseInt(progress[0]));
+         //   pDialog.setProgress(Integer.parseInt(progress[0]));
         }
 
         @Override
         protected void onPostExecute(String file_url) {
             // dismiss the dialog after the file was downloaded
-            dismissDialog(progress_bar_type);
-
+            //   dismissDialog(progress_bar_type);
         }
+
     }
 }

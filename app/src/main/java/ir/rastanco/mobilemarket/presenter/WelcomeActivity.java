@@ -153,17 +153,28 @@ public class WelcomeActivity extends AppCompatActivity implements DownloadResult
         @Override
         public void onPageSelected(int position) {
             addBottomDots(position);
-
-            // changing the next button text 'NEXT' / 'GOT IT'
+            if(position == layouts.length-4) {
+                btnNext.setText(R.string.agree);
+                btnSkip.setText(R.string.skip);
+                btnSkip.setVisibility(View.VISIBLE);
+            }
             if (position == layouts.length - 1) {
                 // last page. make button text to GOT IT
                 btnNext.setText(getString(R.string.start));
                 btnSkip.setVisibility(View.GONE);
-            } else {
-                // still pages are left
-                btnNext.setText(getString(R.string.next));
-                btnSkip.setVisibility(View.VISIBLE);
+                btnSkip.setEnabled(true);
             }
+            if(position == layouts.length-2){
+                btnNext.setText(getString(R.string.next));
+                btnSkip.setVisibility(View.INVISIBLE);
+                btnSkip.setEnabled(true);
+            }
+            if (position == layouts.length-3){
+                btnSkip.setVisibility(View.INVISIBLE);
+                btnNext.setText(R.string.next);
+                btnSkip.setEnabled(true);
+            }
+
         }
 
         @Override

@@ -67,6 +67,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:background="@null"
+            android:scaleType="fitEnd"
             android:src="@mipmap/persion_logo" />
 
 

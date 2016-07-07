@@ -35,6 +35,8 @@ import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 import ir.rastanco.mobilemarket.utility.ToolbarHandler;
 import ir.rastanco.mobilemarket.utility.Utilities;
+import jp.shts.android.library.TriangleLabelView;
+
 public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
 
     private final ArrayList<Product> allProduct;
@@ -65,14 +67,10 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
     }
 
     static class ViewHolder {
-        //private TextView infoP;
-        //private TextView originalPrice;
         private TextView priceForYou;
         private ImageView imgP;
-        //private ImageButton shareToolBar;
-        //private ImageButton basketToolbar;
         private ImageButton likeToolBar;
-        private ImageButton offerRight;
+        private TriangleLabelView offerRight;
         private ImageLoader imgLoader;
     }
 
@@ -84,19 +82,12 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             LayoutInflater inflater = (LayoutInflater) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.picture_produc_item_shop, parent, false);
             holder = new ViewHolder();
-
-      //      holder.infoP = (TextView) convertView.findViewById(R.id.txt_infoProduct);
-            //holder.infoP = PriceUtility.getInstance().changeFontToYekan(holder.infoP, myContext);
-    //        holder.originalPrice = (TextView) convertView.findViewById(R.id.txt_priceProduct);
-            //holder.originalPrice = PriceUtility.getInstance().changeFontToYekan(holder.originalPrice, myContext);
             holder.priceForYou = (TextView) convertView.findViewById(R.id.txt_price_for_you);
             holder.priceForYou = PriceUtility.getInstance().changeTextViewFont(holder.priceForYou, myContext);
             holder.imgP = (ImageView) convertView.findViewById(R.id.imageButton_picProduct);
             holder.imgP.getLayoutParams().width = Configuration.getConfig().shopDisplaySizeForShow;
             holder.imgP.getLayoutParams().height = Configuration.getConfig().shopDisplaySizeForShow;
-            holder.offerRight = (ImageButton) convertView.findViewById(R.id.ic_offer_right);
-//            holder.basketToolbar = (ImageButton) convertView.findViewById(R.id.basket_toolbar);
-//            holder.shareToolBar = (ImageButton) convertView.findViewById(R.id.share_toolbar_in_main_page);
+            holder.offerRight = (TriangleLabelView) convertView.findViewById(R.id.ic_offer_right);
             holder.likeToolBar = (ImageButton) convertView.findViewById(R.id.empty_like_toolbar);
             holder.imgLoader = new ImageLoader(myContext);
             convertView.setTag(holder);
@@ -107,35 +98,24 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         final Product eachProduct = allProduct.get(position);
         if (eachProduct.getPriceOff() == 0 && eachProduct.getPrice() != 0) {
             holder.priceForYou.setVisibility(View.INVISIBLE);
-            //holder.originalPrice.setTextColor(Color.BLACK);
-            //holder.originalPrice.setText(myContext.getResources().getString(R.string.eachPrice,PriceUtility.getInstance().formatPriceCommaSeparated(eachProduct.getPrice())));
-            //holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-            //holder.basketToolbar.setVisibility(View.VISIBLE);
         } else if (eachProduct.getPrice() != 0) {
             int price = eachProduct.getPrice();
             int discountPercent = eachProduct.getPriceOff();
             int finalPrice = Utilities.getInstance().calculatePriceOffProduct(price, discountPercent);
-            //holder.originalPrice.setTextColor(Color.RED);
-            //holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            //holder.originalPrice.setText(myContext.getResources().getString(R.string.eachPrice ,PriceUtility.getInstance().formatPriceCommaSeparated(price)));
             holder.priceForYou = PriceUtility.getInstance().changeTextViewFont(holder.priceForYou, shopPresenterActivity);
             holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(finalPrice)));
             holder.priceForYou.setVisibility(View.VISIBLE);
-            //holder.basketToolbar.setVisibility(View.VISIBLE);
         } else if (eachProduct.getPriceOff() == 0) {
-            //holder.basketToolbar.setVisibility(View.GONE);
-            //holder.originalPrice.setPaintFlags(holder.originalPrice.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-            //holder.originalPrice.setText(myContext.getString(R.string.coming_soon));
         }
 
-//        if (Configuration.getConfig().RTL) {
-//
-//            if (eachProduct.getPriceOff() != 0) {
-//                holder.offerRight.setVisibility(View.VISIBLE);
-//            } else {
-//                holder.offerRight.setVisibility(View.GONE);
-//            }
-//        }
+        if (Configuration.getConfig().RTL) {
+
+            if (eachProduct.getPriceOff() != 0) {
+                holder.offerRight.setVisibility(View.VISIBLE);
+            } else {
+                holder.offerRight.setVisibility(View.GONE);
+            }
+        }
 //
 //        if (sch.checkSelectProductForShop(eachProduct.getId()))
 //            holder.basketToolbar.setImageResource(R.drawable.green_bye_toolbar);

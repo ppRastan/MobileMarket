@@ -3,54 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="10.5">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/customactionbar_shpppingbag_activity"
+        android:layout_width="match_parent"
+        android:layout_height="59dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:background="@color/decoriss">
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/main_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/decoriss"
-        android:orientation="horizontal"
-        android:weightSum="10">
-
-        <ImageButton
-            android:id="@+id/close_shopping_page"
-            android:layout_width="0dp"
-            android:contentDescription="@string/exitInfoPage"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            tools:ignore="NestedWeights"
-            android:background="@color/decoriss"
-            android:src="@drawable/small_back_arrow" />
-
-        <ir.rastanco.mobilemarket.utility.FontTextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="8"
-            android:gravity="center_vertical|right"
-            android:text="@string/your_basket"
-            android:textColor="@color/white"
-            android:textSize="@dimen/textSize" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="59dp"
         android:background="@color/white"
-        android:orientation="horizontal"
         android:weightSum="8">
 
         <ir.rastanco.mobilemarket.utility.FontTextView
@@ -59,13 +23,13 @@
             android:layout_gravity="right"
             android:layout_marginRight="2dp"
             android:layout_weight="3"
-            tools:ignore="NestedWeights"
             android:gravity="right|center_vertical"
             android:paddingRight="9dp"
             android:singleLine="true"
             android:text="@string/total_price"
             android:textColor="@color/green"
-            android:textSize="@dimen/textSize" />
+            android:textSize="@dimen/textSize"
+            tools:ignore="NestedWeights" />
 
         <ir.rastanco.mobilemarket.utility.FontTextView
             android:id="@+id/total_price"
@@ -73,9 +37,10 @@
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:gravity="center_vertical|left"
-            android:padding="3dp"
+            android:padding="7dp"
             android:textColor="@color/green"
             android:textSize="@dimen/textSize" />
+
 
     </LinearLayout>
 
@@ -85,15 +50,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="right"
-        android:layout_weight="7"
+        android:layout_weight="1"
         android:background="@color/background_window"
         android:divider="@color/background_window"
         android:scrollbars="none" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="59dp"
         android:background="@color/green"
         android:gravity="center_vertical|center_horizontal">
 
@@ -103,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/green"
-            android:drawableLeft="@mipmap/finish_shopping"
+            android:drawableLeft="@drawable/finish_your_shop"
             android:drawablePadding="5dp"
             android:text="@string/finish_shopping"
             android:textColor="@color/white"

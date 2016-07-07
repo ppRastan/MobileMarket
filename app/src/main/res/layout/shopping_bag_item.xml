@@ -16,7 +16,7 @@
         android:layout_gravity="center"
         android:layout_margin="5dp"
         card_view:cardCornerRadius="4dp"
-        card_view:contentPadding="10dp">
+        card_view:contentPadding="4dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -81,6 +81,7 @@
                         android:layout_gravity="center_vertical|left"
                         android:gravity="center"
                         android:text="@string/number_of_shopping_items"
+                        android:layout_marginRight="7dp"
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
@@ -122,12 +123,14 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="@string/price"
+                            android:layout_marginRight="7dp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/textSize" />
 
                         <ir.rastanco.mobilemarket.utility.FontTextView
                             android:id="@+id/shopping_bag_price_Off_product"
                             android:layout_width="0dp"
+                            android:layout_marginLeft="7dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_horizontal|left"
@@ -163,6 +166,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:text="@string/price_off"
+                                android:layout_marginRight="7dp"
                                 android:textColor="@color/decoriss"
                                 android:textSize="@dimen/textSize" />
 
@@ -171,6 +175,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:layout_marginLeft="7dp"
                                 android:gravity="center_horizontal|left"
                                 android:textColor="@color/decoriss"
                                 android:textSize="@dimen/textSize" />
@@ -195,6 +200,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:layout_marginRight="7dp"
                             android:text="@string/price_for_you"
                             android:textColor="@color/green"
                             android:textSize="@dimen/textSize" />
@@ -204,6 +210,7 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:layout_marginLeft="7dp"
                             android:gravity="center_horizontal|left"
                             android:textColor="@color/green"
                             android:textSize="@dimen/textSize" />

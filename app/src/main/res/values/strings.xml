@@ -42,7 +42,7 @@
     <string name="your_account">حساب کاربری شما</string>
     <string name="thanks">سپاسگزار</string>
     <string name="pleaseLogin">لطفا با حساب کاربری خود وارد شوید</string>
-    <string name="sure_to_exit">برای خروج کلید بازگشت را مجددا فشار دهید</string>
+    <string name="sure_to_exit">مطمعنی ؟</string>
     <string name="welcome_to_decoriss">کاربر گرامی خوش آمدید</string>
     <string name="please_wait_message">بارگذاری اولیه ممکن است چند دقیقه طول بکشد</string>
     <string name="please_wait">لطفا منتظر بمانید . . .</string>
@@ -109,8 +109,8 @@
 
     <!--intro sliding strings-->
     <string name="skip">بی خیال</string>
-    <string name="next">موافقم</string>
-    <string name="start">چه خوب</string>
+    <string name="next">چه خوب</string>
+    <string name="start">بزن بریم</string>
 
     <string name="slide_1_title">سلام به دکوریس خوش اومدی !</string>
     <string name="slide_1_desc">اگه موافقی در ابتدای آشنایی مون چند تا نکته رو با هم مرور کنیم؟
@@ -127,16 +127,12 @@
     <string name="slide_4_title"></string>
     <string name="slide_4_desc">هرسوالی داشتی میتونی از کارشناس دکوریس بپرسی
 کافیه دکمه راهنما رو  لمس کنی</string>
-
-    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
-    <string name="play_again">Play Again</string>
     <string name="home">خانه</string>
     <string name="specials">محصولات ویژه</string>
     <string name="visitAllProduct">همه ی محصولات</string>
     <string name="sellers">تامین کننده ها</string>
     <string name="mostSelled">پرفروش ترین ها</string>
-    <string name="agree">بله</string>
-    <string name="content">آیا مایل به خروج از دکوریس هستید؟</string>
-    <string name="disagree">خیر</string>
-    <string name="rate_us">حمایت از برنامه</string>
+    <string name="rate_us">رای می دهم</string>
+    <string name="offer">فروش ویژه</string>
+    <string name="agree">موافقم</string>
 </resources>
