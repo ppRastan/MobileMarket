@@ -346,18 +346,36 @@ public class ServerConnectionHandler {
 
     public void addAllProductToTable(ArrayList<Product> allProducts){
         Boolean isUpdate=false;
+        int lastUpdateTimeStamp;
+        int lastTimeStamp;
+        if(!getLastUpdateTimeStamp().equals(""))
+            lastUpdateTimeStamp=Integer.valueOf(getLastUpdateTimeStamp());
+        else
+            lastUpdateTimeStamp=0;
+
+        if (!getLastTimeStamp().equals(""))
+            lastTimeStamp=Integer.valueOf(getLastTimeStamp());
+        else
+            lastTimeStamp=0;
+
         for (int i=0;i<allProducts.size();i++){
             if(existAProductInDataBase(allProducts.get(i).getId())) {
                 updateAProductInfo(allProducts.get(i));
-                isUpdate=true;
+                if(lastUpdateTimeStamp<Integer.valueOf(allProducts.get(i).getUpdateTimeStamp())){
+                    lastUpdateTimeStamp=Integer.valueOf(allProducts.get(i).getUpdateTimeStamp());
+                    isUpdate=true;
+                }
             }
-            else
+            else {
                 addAProductInDataBase(allProducts.get(i));
+                if (lastTimeStamp<Integer.valueOf(allProducts.get(i).getTimeStamp()))
+                    lastTimeStamp=Integer.valueOf(allProducts.get(i).getTimeStamp());
+            }
         }
         if (isUpdate && allProducts.size()>0)
-            updateLastUpdateTimeStamp(allProducts.get(0).getUpdateTimeStamp());
+            updateLastUpdateTimeStamp(Integer.toString(lastUpdateTimeStamp));
         else if( !isUpdate && allProducts.size()>0)
-            updateTimeStamp(allProducts.get(0).getTimeStamp());
+            updateTimeStamp(Integer.toString(lastTimeStamp));
     }
 
     public void completeProductInformationInTable(ArrayList<Product> allProducts){

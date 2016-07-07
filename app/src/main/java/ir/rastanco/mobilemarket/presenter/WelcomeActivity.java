@@ -58,6 +58,7 @@ public class WelcomeActivity extends AppCompatActivity implements DownloadResult
 
         //Start Get Special Product In First install and connect internet
         if(ServerConnectionHandler.getInstance(this).emptyDBProduct()){
+            ServerConnectionHandler.getInstance(this).setSetting("0","0","1.0.6","0",0,0);
             String UrlGetProducts= Link.getInstance().generateUrlForGetSpecialProduct(0, Configuration.getConfig().someOfFewSpecialProductNumber);
             DownloadResultReceiver resultReceiver = new DownloadResultReceiver(new Handler());
             resultReceiver.setReceiver(this);
