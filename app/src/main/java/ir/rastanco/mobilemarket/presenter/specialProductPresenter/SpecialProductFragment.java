@@ -63,6 +63,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
         mReceiver = new DownloadResultReceiver(new Handler());
         mReceiver.setReceiver(this);
 
+        getProductInformationFromServer(0);
 
         if (showMessage(products.size())) {
             PictureSpecialProductItemAdapter adapter = new PictureSpecialProductItemAdapter(getActivity(), products);
@@ -161,6 +162,14 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
 
     }
 
+    private void getProductInformationFromServer(int minStarLimited){
+        String UrlGetProducts= Link.getInstance().generateUrlForGetSpecialProduct(minStarLimited,Configuration.getConfig().someOfFewSpecialProductNumber);
+        Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
+        intent.putExtra("receiver", mReceiver);
+        intent.putExtra("Link",UrlGetProducts);
+        context.startService(intent);
+    }
+
 
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
@@ -180,7 +189,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                 newAdapter = new PictureSpecialProductItemAdapter(getActivity(), products);
                 productListView.setAdapter(newAdapter);
                 newAdapter.notifyDataSetChanged();
-                productListView.setSelection(lastSpecialProductNumber);
+                //productListView.setSelection(lastSpecialProductNumber);
                 if (products.size()==lastSpecialProductNumber)
                     lock=true;
                 else
