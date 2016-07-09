@@ -53,7 +53,7 @@
             android:layout_marginLeft="19dp"
             android:background="@null"
             android:contentDescription="@string/thisProductHasOffer"
-            android:src="@mipmap/offer_icon_right_special_full_screen_page" />
+            />
 
 
     </RelativeLayout>

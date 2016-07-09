@@ -84,7 +84,7 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             holder = new ViewHolder();
             holder.priceForYou = (TextView) convertView.findViewById(R.id.txt_price_for_you);
             holder.priceForYou = PriceUtility.getInstance().changeTextViewFont(holder.priceForYou, myContext);
-            holder.imgP = (ImageView) convertView.findViewById(R.id.imageButton_picProduct);
+            holder.imgP = (ImageView) convertView.findViewById(R.id.imageProductshoppage);
             holder.imgP.getLayoutParams().width = Configuration.getConfig().shopDisplaySizeForShow;
             holder.imgP.getLayoutParams().height = Configuration.getConfig().shopDisplaySizeForShow;
             holder.offerRight = (TriangleLabelView) convertView.findViewById(R.id.ic_offer_right);

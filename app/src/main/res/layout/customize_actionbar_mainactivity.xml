@@ -44,13 +44,14 @@
         </RelativeLayout>
 
         <ImageButton
+            app:srcCompat="@drawable/login"
             android:padding="5dp"
             android:id="@+id/actionbar_userLogin"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/login" />
+            />
 
         <ImageButton
             android:padding="5dp"

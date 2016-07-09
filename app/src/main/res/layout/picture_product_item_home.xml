@@ -55,7 +55,6 @@
                         android:background="@null"
                         android:contentDescription="@string/thisProductHasOffer"
                         android:foregroundGravity="top|left"
-                        android:src="@mipmap/offer_icon_right_special_full_screen_page"
                         android:visibility="visible" />
 
                 </RelativeLayout>
