@@ -108,7 +108,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
             int priceOff = aProduct.getPriceOff();
             int priceForYou = Utilities.getInstance().calculatePriceOffProduct(price, priceOff);
             String numberOfFinalPrice = String.valueOf(priceForYou);
-            addToBasketBtn.setText(activity.getString(R.string.FullScreenImageAdapterproductPrice, PriceUtility.getInstance().formatPriceCommaSeparated(Integer.valueOf(numberOfFinalPrice))));
+            addToBasketBtn.setText(PriceUtility.getInstance().formatPriceCommaSeparated(Integer.valueOf(numberOfFinalPrice)));
 
         }
 
@@ -138,8 +138,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
                 ToolbarHandler.getInstance().addToFavoriteInProductPage(activity,sch, aProduct, btnLike, activity, position);
             }
         });
-        Button displayCurrentProductInSite = (Button) viewLayout.findViewById(R.id.displayCurrentImageInSite);
-        displayCurrentProductInSite = PriceUtility.getInstance().ChangeButtonFont(displayCurrentProductInSite, myContext);
+        ImageButton displayCurrentProductInSite = (ImageButton) viewLayout.findViewById(R.id.displayCurrentImageInSite);
+        //displayCurrentProductInSite = PriceUtility.getInstance().ChangeButtonFont(displayCurrentProductInSite, myContext);
         displayCurrentProductInSite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

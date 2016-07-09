@@ -10,7 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 6
         versionName "1.0.6"
-        vectorDrawables.useSupportLibrary = true
+
     }
 
     buildTypes {
