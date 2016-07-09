@@ -50,7 +50,6 @@ public class DownloadCategoryInformationService extends IntentService {
                 Configuration.getConfig().emptyCategoryTable=false;
                 receiver.send(STATUS_FINISHED, null);
 
-
                 /*serverConnectionHandler.addProductInformationToDataBaseFirstInstall();
                 Configuration.getConfig().emptyProductTable=false;*/
 

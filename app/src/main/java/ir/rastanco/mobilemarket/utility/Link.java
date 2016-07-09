@@ -29,7 +29,8 @@ public class Link {
     }
 
     public String generateForGetLimitedProductOfAMainCategory(int categoryId,int minLimit,int maxLimit){
-        return "http://decoriss.com/json/p.php?catid="+categoryId+"&order_by_field=hits&limit="+
+        //order_by_field=hits
+        return "http://decoriss.com/json/p.php?catid="+categoryId+"&order_by_field=id&limit="+
                 minLimit+"-"+maxLimit+"&order=desc";
     }
 

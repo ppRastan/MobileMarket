@@ -97,8 +97,11 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
 
         final Product eachProduct = allProduct.get(position);
         if (eachProduct.getPriceOff() == 0 && eachProduct.getPrice() != 0) {
+            holder.offerRight.setVisibility(View.GONE);
             holder.priceForYou.setVisibility(View.INVISIBLE);
-        } else if (eachProduct.getPrice() != 0) {
+        }
+        else if (eachProduct.getPriceOff() !=0 && eachProduct.getPrice() != 0) {
+            holder.offerRight.setVisibility(View.INVISIBLE);
             int price = eachProduct.getPrice();
             int discountPercent = eachProduct.getPriceOff();
             int finalPrice = Utilities.getInstance().calculatePriceOffProduct(price, discountPercent);
@@ -106,16 +109,10 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(finalPrice)));
             holder.priceForYou.setVisibility(View.VISIBLE);
         } else if (eachProduct.getPriceOff() == 0) {
+            holder.offerRight.setVisibility(View.GONE);
         }
 
-        if (Configuration.getConfig().RTL) {
 
-            if (eachProduct.getPriceOff() != 0) {
-                holder.offerRight.setVisibility(View.VISIBLE);
-            } else {
-                holder.offerRight.setVisibility(View.GONE);
-            }
-        }
 //
 //        if (sch.checkSelectProductForShop(eachProduct.getId()))
 //            holder.basketToolbar.setImageResource(R.drawable.green_bye_toolbar);

@@ -83,15 +83,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
 
 
         final ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
-        if (products.size()<Configuration.getConfig().someOfFewProductNumberForGetEveryTab) {
-            String UrlGetProducts= Link.getInstance().generateForGetLimitedProductOfAMainCategory(pageId,
-                    0,Configuration.getConfig().someOfFewProductNumberForGetEveryTab);
-            Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
-            intent.putExtra("receiver", resultReceiver);
-            intent.putExtra("Link",UrlGetProducts);
-            myContext.startService(intent);
-        }
-
+        getProductInformationFromServer(0);
 
 
         existProductNumber = sch.getFirstIndexForGetProductFromJson();
@@ -314,6 +306,15 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
             }
         });
         return mainView;
+    }
+
+    private void getProductInformationFromServer(int minStarLimited){
+        String UrlGetProducts= Link.getInstance().generateForGetLimitedProductOfAMainCategory(categoryId,
+                minStarLimited,Configuration.getConfig().someOfFewProductNumberForGetEveryTab);
+        Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
+        intent.putExtra("receiver", resultReceiver);
+        intent.putExtra("Link",UrlGetProducts);
+        myContext.startService(intent);
     }
 
     private Boolean showMessage(int productSize) {

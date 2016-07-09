@@ -56,6 +56,15 @@ public class WelcomeActivity extends AppCompatActivity implements DownloadResult
 
         setContentView(R.layout.activity_welcome);
 
+        /*if (ServerConnectionHandler.getInstance(this).emptyDBCategory()) {
+            DownloadResultReceiver mReceiver = new DownloadResultReceiver(new Handler());
+            mReceiver.setReceiver(this);
+            Intent intent = new Intent(Intent.ACTION_SYNC, null, this, DownloadCategoryInformationService.class);
+            intent.putExtra("receiver", mReceiver);
+            intent.putExtra("requestId", Configuration.getConfig().requestIdForGetCategoryInformationInFirstInstall);
+            startService(intent);
+        }*/
+
         //Start Get Special Product In First install and connect internet
         if(ServerConnectionHandler.getInstance(this).emptyDBProduct()){
             ServerConnectionHandler.getInstance(this).setSetting("0","0","1.0.6","0",0,0);

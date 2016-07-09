@@ -66,7 +66,7 @@ import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManagerAct
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.LoginActivity;
 import ir.rastanco.mobilemarket.presenter.shopPresenter.ShopFragment;
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
-import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragmentManagement;
+import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragment;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
@@ -130,7 +130,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
         this.changeTabsFont();
 
         //DataBase empty in first install Application
-        if (Configuration.getConfig().emptyCategoryTable) {
+       if (Configuration.getConfig().emptyCategoryTable) {
             tabLayout.setTabMode(TabLayout.MODE_FIXED);
             mReceiver = new DownloadResultReceiver(new Handler());
             mReceiver.setReceiver(this);
@@ -335,7 +335,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
             shop.setArguments(args);
             adapter.addFragment(shop, mainCategoryTitle.get(i));
         }
-        adapter.addFragment(new SpecialProductFragmentManagement(), getResources().getString(R.string.first_page));
+        adapter.addFragment(new SpecialProductFragment(), getResources().getString(R.string.first_page));
         //ToDO Parisa For show Home Tab
         //adapter.addFragment(new HomeFragment(), getResources().getString(R.string.home));
         viewPager.setAdapter(adapter);
@@ -357,7 +357,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
             shop.setArguments(args);
             adapter.addFragment(shop, mainCategoryTitle.get(i));
         }
-        adapter.addFragment(new SpecialProductFragmentManagement(), getResources().getString(R.string.first_page));
+        adapter.addFragment(new SpecialProductFragment(), getResources().getString(R.string.first_page));
         //ToDO Parisa For Show Home Tab
         //adapter.addFragment(new HomeFragment(), getResources().getString(R.string.home));
         viewPager.setAdapter(adapter);
@@ -526,6 +526,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
 //                )
 //
 //                .show();
+
 //        new AlertDialogWrapper.Builder(this)
 //                .setMessage(R.string.sure_to_exit)
 //                .setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -556,6 +557,36 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
 //
 //                .show();
                  finish();
+        /*new AlertDialogWrapper.Builder(this)
+                .setMessage(R.string.sure_to_exit)
+                .setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                            }
+                        }
+                )
+                .setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }
+                )
+
+                .setNeutralButton(R.string.rate_us, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                Intent rateIntent = new Intent(Intent.ACTION_VIEW);
+                                rateIntent.setData(Uri.parse("market://details?id=" + TabbedActivity.this.getPackageName()));
+                                startActivity(rateIntent);
+                            }
+                        }
+                )
+
+                .show();*/
+        finish();
 
     }
 
