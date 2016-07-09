@@ -21,10 +21,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical|center_horizontal"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="@dimen/textSize" />
 
     </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -166,7 +167,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2.5"
+            android:layout_weight="3."
             android:gravity="center">
 
             <Button
@@ -175,8 +176,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:padding="4dp"
+                android:textStyle="bold"
+                android:drawableRight="@drawable/fullscreenpage_basket"
                 android:textColor="@color/white"
-                android:textSize="@dimen/smallerTextSize" />
+                android:textSize="@dimen/textSize" />
         </LinearLayout>
 
         <LinearLayout
@@ -188,14 +192,14 @@
             android:orientation="horizontal" />
 
 
-        <Button
+        <ImageButton
             android:id="@+id/displayCurrentImageInSite"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/visitInSite"
+            android:src="@mipmap/visit"
             android:textColor="@color/white"
             android:textSize="@dimen/smallerTextSize" />
 
