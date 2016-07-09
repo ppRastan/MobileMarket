@@ -21,7 +21,6 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
 import ir.rastanco.mobilemarket.presenter.WebView;
 import ir.rastanco.mobilemarket.utility.ColorUtility;
-import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.Utilities;
 
@@ -131,10 +130,10 @@ public class ArticleFragment extends Fragment {
                     boolean topOfFirstItemVisible = articleList.getChildAt(0).getTop() == 0;
                     // enabling or disabling the refresh layout
                     enable = firstItemVisible && topOfFirstItemVisible;
-                    if (enable)
-                        Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.VISIBLE);
-                    else
-                        Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.GONE);
+                   // if (enable)
+                     //   Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.VISIBLE);
+                    //else
+                      //  Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.GONE);
 
                 }
                 srlArticles.setEnabled(enable);

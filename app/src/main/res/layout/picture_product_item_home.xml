@@ -4,12 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center"
     android:background="@color/background_window"
-    android:padding="16dp">
+    android:padding="5dp">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_margin="1dp"
         android:background="@color/white"
@@ -18,30 +19,26 @@
 
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:padding="7dp">
+            android:layout_marginTop="0dp"
+            android:padding="4dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:weightSum="13">
+                android:orientation="vertical">
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_weight="9"
-                    >
+                    android:layout_weight="1">
 
 
                     <ImageView
                         android:id="@+id/img_picProduct"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:background="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:contentDescription="@string/productPicture"
                         android:scaleType="fitXY" />
 
@@ -58,71 +55,73 @@
                         android:visibility="visible" />
 
                 </RelativeLayout>
+
+                <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:layout_gravity="bottom"-->
+                <!--android:layout_weight="1"-->
+                <!--android:weightSum="2">-->
+
+                <!--<ir.rastanco.mobilemarket.utility.FontTextView-->
+                <!--android:id="@+id/priceOff_specialPage"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_gravity="bottom"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="@dimen/textSize" />-->
+
+
+                <!--<ir.rastanco.mobilemarket.utility.FontTextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:padding="3dp"-->
+                <!--android:text="@string/price"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:textSize="@dimen/textSize" />-->
+
+                <!--</LinearLayout>-->
+
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:paddingTop="10dp"-->
+                    <!--android:weightSum="2">-->
+
+
+                    <!--<ir.rastanco.mobilemarket.utility.FontTextView-->
+                        <!--android:id="@+id/priceForYou_specialPage"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:gravity="center"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textSize="@dimen/textSize" />-->
+
+                    <!--<ir.rastanco.mobilemarket.utility.FontTextView-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:gravity="center"-->
+                        <!--android:padding="3dp"-->
+                        <!--android:text="@string/price_for_you"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textSize="@dimen/textSize" />-->
+
+                <!--</LinearLayout>-->
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:weightSum="2"
-                    android:layout_gravity="bottom">
-
-                    <ir.rastanco.mobilemarket.utility.FontTextView
-                        android:id="@+id/priceOff_specialPage"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_gravity="bottom"
-                        android:textColor="@color/black"
-                        android:gravity="center"
-                        android:textSize="@dimen/textSize" />
-
-
-                    <ir.rastanco.mobilemarket.utility.FontTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="@string/price"
-                        android:textColor="@color/black"
-                        android:padding="3dp"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:textSize="@dimen/textSize" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:weightSum="2">
-
-
-                    <ir.rastanco.mobilemarket.utility.FontTextView
-                        android:id="@+id/priceForYou_specialPage"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:textColor="@color/green"
-                        android:textSize="@dimen/textSize" />
-                    <ir.rastanco.mobilemarket.utility.FontTextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:padding="3dp"
-                        android:gravity="center"
-                        android:text="@string/price_for_you"
-                        android:textColor="@color/green"
-                        android:textSize="@dimen/textSize" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:background="@color/toolbar_color"
-                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
                     android:orientation="horizontal"
+                    android:paddingTop="4dp"
                     android:weightSum="3">
 
 
@@ -130,10 +129,11 @@
                         android:id="@+id/imageButton_like_specialPage"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical|center_horizontal"
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:layout_gravity="center_vertical|center_horizontal"
                         android:contentDescription="@string/liked"
+                        android:padding="4dp"
                         android:src="@drawable/toolbar_add_to_favorite_border"
                         tools:ignore="NestedWeights" />
 
@@ -141,10 +141,11 @@
                         android:id="@+id/imageButton_share"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal|center_vertical"
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackgroundBorderless"
-                        android:layout_gravity="center_horizontal|center_vertical"
                         android:contentDescription="@string/share"
+                        android:padding="4dp"
                         android:src="@drawable/ic_share_toolbar"
                         tools:ignore="NestedWeights" />
 
@@ -156,6 +157,7 @@
                         android:layout_weight="1"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:contentDescription="@string/bye"
+                        android:padding="4dp"
                         android:src="@drawable/toolbar_add_product_to_basket" />
 
                 </LinearLayout>

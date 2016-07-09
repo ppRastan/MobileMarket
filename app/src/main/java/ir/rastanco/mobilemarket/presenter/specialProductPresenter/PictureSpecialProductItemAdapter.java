@@ -26,7 +26,6 @@ import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivi
 import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
-import ir.rastanco.mobilemarket.utility.PriceUtility;
 import ir.rastanco.mobilemarket.utility.ToolbarHandler;
 import ir.rastanco.mobilemarket.utility.Utilities;
 
@@ -70,8 +69,8 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
             LayoutInflater inflater = myContext.getLayoutInflater();
             convertView = inflater.inflate(R.layout.picture_product_item_home, parent, false);
             holder = new ViewHolder();
-            holder.priceOff = (TextView)convertView.findViewById(R.id.priceOff_specialPage);
-            holder.priceForYou = (TextView)convertView.findViewById(R.id.priceForYou_specialPage);
+            //holder.priceOff = (TextView)convertView.findViewById(R.id.priceOff_specialPage);
+            //holder.priceForYou = (TextView)convertView.findViewById(R.id.priceForYou_specialPage);
             holder.basketToolbar = (ImageButton) convertView.findViewById(R.id.basket_toolbar);
             holder.btnAddThisProductToFavorites = (ImageButton) convertView.findViewById(R.id.imageButton_like_specialPage);
             holder.shareBtn = (ImageButton) convertView.findViewById(R.id.imageButton_share);
@@ -91,8 +90,8 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         int finalPrice = Utilities.getInstance().calculatePriceOffProduct(price, discountPercent);
         //holder.priceOff = PriceUtility.getInstance().changeFontToYekan(holder.priceOff, myContext);
         //holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou , myContext);
-        holder.priceOff.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(price)));
-        holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(finalPrice)));
+        //holder.priceOff.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(price)));
+        //holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(finalPrice)));
 
         //Special Icon
         if (Configuration.getConfig().RTL) {

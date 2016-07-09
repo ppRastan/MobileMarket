@@ -134,10 +134,10 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                     enable = firstItemVisible && topOfFirstItemVisible;
                 }
                 mSwipeRefreshLayout.setEnabled(enable);
-                if (enable)
-                    Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.VISIBLE);
-                else
-                    Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.GONE);
+//                if (enable)
+  //                  Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.VISIBLE);
+    //            else
+      //              Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.GONE);
 
                 if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0 && !lock) {
                     //scroll receive button

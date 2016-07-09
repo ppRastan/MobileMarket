@@ -21,7 +21,7 @@
             android:gravity="center">
 
             <ImageButton
-                android:padding="5dp"
+                android:padding="4dp"
                 android:id="@+id/actionbar_shoppingBag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,8 +44,8 @@
         </RelativeLayout>
 
         <ImageButton
-            app:srcCompat="@drawable/login"
-            android:padding="5dp"
+            android:src="@drawable/login"
+            android:padding="4dp"
             android:id="@+id/actionbar_userLogin"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -53,14 +53,14 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             />
 
-        <ImageButton
-            android:padding="5dp"
-            android:id="@+id/actionbar_search"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/search" />
+        <!--<ImageButton-->
+            <!--android:padding="5dp"-->
+            <!--android:id="@+id/actionbar_search"-->
+            <!--android:layout_width="48dp"-->
+            <!--android:layout_height="48dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:background="?attr/selectableItemBackgroundBorderless"-->
+            <!--android:src="@drawable/search" />-->
 
 
         <ImageButton

@@ -4,10 +4,8 @@ import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
@@ -20,11 +18,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -34,14 +30,10 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 
@@ -57,7 +49,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ir.rastanco.mobilemarket.R;
-import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleFragment;
@@ -68,7 +59,6 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingBagClickListener;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverUpdateCategories;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverUpdateCategoriesListener;
-import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.presenter.Services.CompleteDataAfterInstall;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadCategoryInformationService;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
@@ -111,7 +101,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
         //Pushe.initialize(this, true);//pushe Alert For Install Google Play
         this.InitializationParametersNecessary();
         this.setActionBar();
-        this.setFAb();
+        //this.setFAb();
         this.phoneManager();
         this.CreatePageRightToLeft();
         this.displayWindow();
@@ -233,7 +223,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
         ImageButton userLogin = (ImageButton) findViewById(R.id.actionbar_userLogin);
         ImageButton shoppingCounter = (ImageButton) findViewById(R.id.actionbar_shoppingBag);
         // ImageButton updateIcon = (ImageButton) findViewById(R.id.actionbarUpdate);
-        ImageButton searchIcon = (ImageButton) findViewById(R.id.actionbar_search);
+        //ImageButton searchIcon = (ImageButton) findViewById(R.id.actionbar_search);
 
         if (sch.checkEmptyProductShop()) {
             text_count.setVisibility(View.GONE);
@@ -279,42 +269,42 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
 //                new DownloadFileFromURL(TabbedActivity.this).execute(Link.getInstance().generateYRLForGetApplicationInServer());
 //            }
 //        });
-        searchIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        searchIcon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//                ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
+//                AutoCompleteTextView textToSearch = (AutoCompleteTextView) findViewById(R.id.text_for_search);
+//                toolbarSearch = (LinearLayout) findViewById(R.id.toolbar_search);
+//                toolbar.setVisibility(View.GONE);
+//                toolbarSearch.setVisibility(View.VISIBLE);
+//                ArrayAdapter<String> listAdapter = new ArrayAdapter<>(TabbedActivity.this,
+//                        R.layout.customized_list_for_search, sch.searchInProductTitle());
+//                textToSearch.setAdapter(listAdapter);
+//                backButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        toolbarSearch.setVisibility(View.GONE);
+//                        toolbar.setVisibility(View.VISIBLE);
+//                    }
+//                });
+//                textToSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                        int productId = sch.getProductIdWithTitle((String) parent.getItemAtPosition(position));
+//                        Product aProduct = sch.getAProduct(productId);
+//                        ArrayList<Product> product = new ArrayList<>();
+//                        product.add(aProduct);
+//                        Intent intent = new Intent(Configuration.getConfig().mainActivityContext, ProductInfoActivity.class);
+//                        intent.putParcelableArrayListExtra("allProduct", product);
+//                        intent.putExtra("position", 0);
+//                        startActivity(intent);
+//                    }
+//                });
 
-                final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-                ImageButton backButton = (ImageButton) findViewById(R.id.back_button);
-                AutoCompleteTextView textToSearch = (AutoCompleteTextView) findViewById(R.id.text_for_search);
-                toolbarSearch = (LinearLayout) findViewById(R.id.toolbar_search);
-                toolbar.setVisibility(View.GONE);
-                toolbarSearch.setVisibility(View.VISIBLE);
-                ArrayAdapter<String> listAdapter = new ArrayAdapter<>(TabbedActivity.this,
-                        R.layout.customized_list_for_search, sch.searchInProductTitle());
-                textToSearch.setAdapter(listAdapter);
-                backButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        toolbarSearch.setVisibility(View.GONE);
-                        toolbar.setVisibility(View.VISIBLE);
-                    }
-                });
-                textToSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        int productId = sch.getProductIdWithTitle((String) parent.getItemAtPosition(position));
-                        Product aProduct = sch.getAProduct(productId);
-                        ArrayList<Product> product = new ArrayList<>();
-                        product.add(aProduct);
-                        Intent intent = new Intent(Configuration.getConfig().mainActivityContext, ProductInfoActivity.class);
-                        intent.putParcelableArrayListExtra("allProduct", product);
-                        intent.putExtra("position", 0);
-                        startActivity(intent);
-                    }
-                });
-
-            }
-        });
+//            }
+//        });
     }
 
 
@@ -385,20 +375,20 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
     }
 
 
-    private void setFAb() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        Configuration.getConfig().customerSupportFloatingActionButton = fab;
-        fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.decoriss)));
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                callIntent.setData(Uri.parse(Link.getInstance().telephoneNumber()));
-                startActivity(callIntent);
-
-            }
-        });
-    }
+//    private void setFAb() {
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        Configuration.getConfig().customerSupportFloatingActionButton = fab;
+//        fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.decoriss)));
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+//                callIntent.setData(Uri.parse(Link.getInstance().telephoneNumber()));
+//                startActivity(callIntent);
+//
+//            }
+//        });
+//    }
 
     private void phoneManager() {
         PhoneCallListener phoneListener = new PhoneCallListener();
@@ -536,36 +526,36 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
 //                )
 //
 //                .show();
-        new AlertDialogWrapper.Builder(this)
-                .setMessage(R.string.sure_to_exit)
-                .setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        }
-                )
-                .setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }
-                )
-
-                .setNeutralButton(R.string.rate_us, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                Intent rateIntent = new Intent(Intent.ACTION_VIEW);
-                                rateIntent.setData(Uri.parse("market://details?id=" + TabbedActivity.this.getPackageName()));
-                                startActivity(rateIntent);
-                            }
-                        }
-                )
-
-                .show();
-
+//        new AlertDialogWrapper.Builder(this)
+//                .setMessage(R.string.sure_to_exit)
+//                .setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                finish();
+//                            }
+//                        }
+//                )
+//                .setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                            }
+//                        }
+//                )
+//
+//                .setNeutralButton(R.string.rate_us, new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                                Intent rateIntent = new Intent(Intent.ACTION_VIEW);
+//                                rateIntent.setData(Uri.parse("market://details?id=" + TabbedActivity.this.getPackageName()));
+//                                startActivity(rateIntent);
+//                            }
+//                        }
+//                )
+//
+//                .show();
+                 finish();
 
     }
 

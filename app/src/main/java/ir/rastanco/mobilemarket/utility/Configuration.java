@@ -2,7 +2,6 @@ package ir.rastanco.mobilemarket.utility;
 
 
 import android.content.Context;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageButton;
@@ -71,7 +70,7 @@ public class Configuration {
 
     public ImageButton upgradeButtonMenu;
     public ViewPager mainPager;
-    public FloatingActionButton customerSupportFloatingActionButton;
+    //public FloatingActionButton customerSupportFloatingActionButton;
     public View mainActivityView;
 
 
