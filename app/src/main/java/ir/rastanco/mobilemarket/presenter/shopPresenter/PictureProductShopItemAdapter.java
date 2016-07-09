@@ -9,6 +9,7 @@ package ir.rastanco.mobilemarket.presenter.shopPresenter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -98,10 +99,11 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         final Product eachProduct = allProduct.get(position);
         if (eachProduct.getPriceOff() == 0 && eachProduct.getPrice() != 0) {
             holder.offerRight.setVisibility(View.GONE);
-            holder.priceForYou.setVisibility(View.INVISIBLE);
+            holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(eachProduct.getPrice())));
+            holder.priceForYou.setTextColor(Color.BLACK);
         }
         else if (eachProduct.getPriceOff() !=0 && eachProduct.getPrice() != 0) {
-            holder.offerRight.setVisibility(View.INVISIBLE);
+            holder.offerRight.setVisibility(View.VISIBLE);
             int price = eachProduct.getPrice();
             int discountPercent = eachProduct.getPriceOff();
             int finalPrice = Utilities.getInstance().calculatePriceOffProduct(price, discountPercent);
