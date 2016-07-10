@@ -959,7 +959,7 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
     public ArrayList<Product> selectAllProductOfACategory(int categoryId){
         String query="select * from "+TABLE_PRODUCT+
                 " where "+ProductTable_Column_Group_Id+"="+categoryId+
-                " order by "+ProductTable_Column_Primary_Key+" ASC ";
+                " order by "+ProductTable_Column_Product_Id+" DESC ";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor rs = db.rawQuery(query, null);
         allProducts = new ArrayList<>();

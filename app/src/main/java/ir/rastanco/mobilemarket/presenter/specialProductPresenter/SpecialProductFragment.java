@@ -1,5 +1,6 @@
 package ir.rastanco.mobilemarket.presenter.specialProductPresenter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
     private TextView noThingToShow;
     //private ProgressBar progressBar;
     private Context context;
+    private Activity activity;
     private int existProductNumber;
     private int allProductNumber;
     private boolean lock=false;
@@ -50,6 +52,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         context = getContext();
+        activity=getActivity();
         sch = ServerConnectionHandler.getInstance(context);
         View mainView = inflater.inflate(R.layout.fragment_home, container, false);
         productListView = (ListView) mainView.findViewById(R.id.listView_picProduct);
@@ -186,7 +189,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
             case DownloadProductInformationService.STATUS_FINISHED:
                 int lastSpecialProductNumber=products.size();
                 products = sch.getSpecialProduct();
-                newAdapter = new PictureSpecialProductItemAdapter(getActivity(), products);
+                newAdapter = new PictureSpecialProductItemAdapter(activity, products);
                 productListView.setAdapter(newAdapter);
                 newAdapter.notifyDataSetChanged();
                 //productListView.setSelection(lastSpecialProductNumber);
