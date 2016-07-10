@@ -86,9 +86,11 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
 
 
         final ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
-        getProductInformationFromServer(0);
         adapter = new PictureProductShopItemAdapter(activity, products);
         gridview.setAdapter(adapter);
+
+        if (gridview.getAdapter().getCount()==0)
+            getProductInformationFromServer(0);
 
 
         existProductNumber = sch.getFirstIndexForGetProductFromJson();

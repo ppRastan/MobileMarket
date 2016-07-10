@@ -45,7 +45,8 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
     private Activity activity;
     private int existProductNumber;
     private int allProductNumber;
-    private boolean lock=false;
+    private boolean lockScroll =false;
+    private Boolean lockFirstVisitTab=true;
 
 
     @Override
@@ -66,11 +67,15 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
         mReceiver = new DownloadResultReceiver(new Handler());
         mReceiver.setReceiver(this);
 
-        getProductInformationFromServer(0);
+
 
         if (showMessage(products.size())) {
             PictureSpecialProductItemAdapter adapter = new PictureSpecialProductItemAdapter(getActivity(), products);
             productListView.setAdapter(adapter);
+        }
+
+        if (productListView.getAdapter().getCount()==0){
+            getProductInformationFromServer(0);
         }
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) mainView.findViewById(R.id.swipe_refresh_layout);
@@ -100,9 +105,9 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                 //else
                   //  Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.GONE);
 
-                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0 && !lock) {
+                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0 && !lockScroll) {
                     //scroll receive button
-                    lock=true;
+                    lockScroll =true;
                     int minLimited=productListView.getAdapter().getCount();
                     int maxLimited=minLimited+Configuration.getConfig().someOfFewProductNumberWhenScrollIsButton;
                     String UrlGetProducts= Link.getInstance().generateUrlForGetSpecialProduct(minLimited,maxLimited);
@@ -188,15 +193,21 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                 break;
             case DownloadProductInformationService.STATUS_FINISHED:
                 int lastSpecialProductNumber=products.size();
-                products = sch.getSpecialProduct();
-                newAdapter = new PictureSpecialProductItemAdapter(activity, products);
-                productListView.setAdapter(newAdapter);
-                newAdapter.notifyDataSetChanged();
+                ArrayList<Product> newProducts = (ArrayList<Product>) resultData.getSerializable("newProduct");
+
+                if (newProducts.size()>0){
+                    for(int i=0;i<newProducts.size();i++)
+                        ((PictureSpecialProductItemAdapter) productListView.getAdapter()).add(newProducts.get(i));
+                    if(lockScroll && lastSpecialProductNumber<newProducts.size())
+                        lockScroll=!lockScroll;
+                    if (lockFirstVisitTab)
+                        lockFirstVisitTab=!lockFirstVisitTab;
+                }
+                //products = sch.getSpecialProduct();
+                //productListView.setAdapter(newAdapter)
+                //newAdapter.notifyDataSetChanged();;
                 //productListView.setSelection(lastSpecialProductNumber);
-                if (products.size()==lastSpecialProductNumber)
-                    lock=true;
-                else
-                    lock=false;
+
                 break;
         }
     }
