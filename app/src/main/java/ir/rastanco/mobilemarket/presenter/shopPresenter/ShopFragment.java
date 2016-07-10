@@ -258,7 +258,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                     @Override
                     public void changeFilterPrice() {
                         txtFilterOptionProductSelected.setText(Configuration.getConfig().filterPriceTitle);
-                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.orange));
+                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.colorFilterText));
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
@@ -274,7 +274,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                     @Override
                     public void changeFilterBrand() {
                         txtFilterOptionProductSelected.setText(Configuration.getConfig().filterBrand);
-                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.orange));
+                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.colorFilterText));
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
@@ -292,7 +292,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                     @Override
                     public void changeFilterAll() {
                         txtFilterOptionProductSelected.setText(Configuration.getConfig().filterAll);
-                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.orange));
+                        txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.colorFilterText));
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
@@ -331,7 +331,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                 return false;
             } else {
                 noThingToShow.setText(getString(R.string.no_product_to_show));
-                noThingToShow.setTextColor(ContextCompat.getColor(myContext, R.color.orange));
+                noThingToShow.setTextColor(ContextCompat.getColor(myContext, R.color.colorFilterText));
                 noThingToShow.setVisibility(View.VISIBLE);
                 gridview.setVisibility(View.GONE);
                 return false;

@@ -3,6 +3,7 @@
     <color name="background_window">#ededed</color>
     <color name="orange">#FCFCFC</color>
     <color name="decoriss">#f7353d</color>
+    <color name="colorFilterText">#f7353d</color>
     <!--<color name="light_gray">#d7d5d5</color>-->
     <color name="black">#000000</color>
     <color name="white">#FCFCFC</color>
