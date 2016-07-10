@@ -176,7 +176,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                 Configuration.getConfig().filterPriceTitle = sch.getACategoryTitleWithCategoryId(Configuration.getConfig().filterCategoryId);
                 Configuration.getConfig().filterBrand = Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all);
                 txtFilterCategorySelected.setText(Configuration.getConfig().filterPriceTitle);
-                txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.orange));
+                txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.colorFilterText));
                 txtFilterOptionProductSelected.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all));
                 txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.black));
                 ArrayList<Product> newProducts = sch.getProductsOfAParentCategory(ObserverSimilarProduct.getSimilarProduct());
@@ -218,7 +218,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                     public void changeFilterCategory() {
                         Configuration.getConfig().filterCategoryDialogShowStatus = false;//when category filter dialog close
                         txtFilterCategorySelected.setText(Configuration.getConfig().filterCategoryTitle);
-                        txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.orange));
+                        txtFilterCategorySelected.setTextColor(ContextCompat.getColor(myContext, R.color.colorFilterText));
                         txtFilterOptionProductSelected.setText(getString(R.string.all));
                         txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.black));
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
