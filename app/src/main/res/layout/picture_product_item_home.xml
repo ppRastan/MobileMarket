@@ -49,11 +49,12 @@
                         android:layout_alignParentTop="true"
                         app:backgroundColor="@color/offer_icon_color"
                         app:corner="leftTop"
-                        app:labelBottomPadding="15dp"
-                        app:labelCenterPadding="6dp"
+                        app:labelBottomPadding="10dp"
+                        app:labelCenterPadding="10dp"
+                        card_view:primaryTextStyle="bold"
                         app:labelTopPadding="10dp"
                         app:primaryTextColor="@color/white"
-                        app:primaryTextSize="@dimen/textSize" />
+                        app:primaryTextSize="16sp" />
 
                 </RelativeLayout>
 

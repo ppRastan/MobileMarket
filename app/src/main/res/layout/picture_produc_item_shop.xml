@@ -38,11 +38,12 @@
                     android:layout_alignParentTop="true"
                     app:backgroundColor="@color/offer_icon_color"
                     app:corner="leftTop"
-                    app:labelBottomPadding="15dp"
-                    app:labelCenterPadding="6dp"
+                    app:labelBottomPadding="10dp"
+                    app:labelCenterPadding="10dp"
                     app:labelTopPadding="10dp"
+                    app:primaryTextStyle="bold"
                     app:primaryTextColor="@color/white"
-                    app:primaryTextSize="@dimen/textSize" />
+                    app:primaryTextSize="16sp" />
             </RelativeLayout>
 
             <LinearLayout
