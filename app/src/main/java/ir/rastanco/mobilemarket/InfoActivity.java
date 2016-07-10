@@ -58,7 +58,7 @@ public class InfoActivity extends AppCompatActivity  implements DownloadResultRe
         floatingActionButton2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //TODO handle telegram
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/karafarini10"));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/my_decoriss"));
                 startActivity(browserIntent);
             }
         });

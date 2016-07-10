@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,7 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         private ImageButton likeToolBar;
         private TriangleLabelView offerRight;
         private ImageLoader imgLoader;
+        private CardView cardView;
     }
 
     @Override
@@ -83,6 +85,7 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             LayoutInflater inflater = (LayoutInflater) myContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.picture_produc_item_shop, parent, false);
             holder = new ViewHolder();
+            holder.cardView = (CardView)convertView.findViewById(R.id.shopping_page_cart_view);
             holder.priceForYou = (TextView) convertView.findViewById(R.id.txt_price_for_you);
             holder.priceForYou = PriceUtility.getInstance().changeTextViewFont(holder.priceForYou, myContext);
             holder.imgP = (ImageView) convertView.findViewById(R.id.imageProductshoppage);
@@ -214,7 +217,7 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         //holder.infoP.setText(eachProduct.getTitle());
         final View finalConvertView = convertView;
         final View finalConvertView1 = convertView;
-        holder.imgP.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(finalConvertView.getContext(), ProductInfoActivity.class);

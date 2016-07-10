@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="5dp"
+        android:id="@+id/shopping_page_cart_view"
         android:padding="2dp">
 
 
@@ -21,13 +21,15 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="@null">
 
                 <ImageView
                     android:id="@+id/imageProductshoppage"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop" />
+                    android:background="@drawable/ripple_effect_android_image"
+                    android:scaleType="fitXY" />
 
                 <jp.shts.android.library.TriangleLabelView
                     android:id="@+id/ic_offer_right"
@@ -47,6 +49,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@null"
                 android:orientation="horizontal">
 
                 <ir.rastanco.mobilemarket.utility.FontTextView
@@ -55,7 +58,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:layout_weight="1"
-                    android:background="@color/white"
                     android:gravity="center"
                     android:textColor="@color/green"
                     android:textSize="@dimen/textSize" />
@@ -65,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|center_horizontal"
-                    android:background="@null"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/liked"
                     android:padding="3dp"
                     android:src="@drawable/toolbar_add_to_favorite_border" />
