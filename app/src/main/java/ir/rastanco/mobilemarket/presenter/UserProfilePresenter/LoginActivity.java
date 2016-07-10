@@ -1,8 +1,6 @@
 package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -39,8 +37,8 @@ public class LoginActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);*/
         Configuration.getConfig().userLoginActivityContext = this;
         sch = ServerConnectionHandler.getInstance(Configuration.getConfig().userLoginActivityContext);
         Button btnLogin = (Button) findViewById(R.id.btn_login);

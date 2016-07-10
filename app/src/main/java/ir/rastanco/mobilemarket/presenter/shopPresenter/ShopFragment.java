@@ -60,7 +60,9 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
     private String txtFilterOptionForRefresh;
     private int categoryId;
     private DownloadResultReceiver resultReceiver;
-    private boolean lock=false;
+    private Boolean lockScroll=false;
+    private Boolean lockFirstVisitTab=true;
+    private FragmentActivity activity;
 
 
     @Override
@@ -69,6 +71,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         View mainView = inflater.inflate(R.layout.fragment_shop, container, false);
         Configuration.getConfig().shopFragmentContext = getContext();
         myContext = (FragmentActivity) Configuration.getConfig().shopFragmentContext;
+        activity=getActivity();
         sch = ServerConnectionHandler.getInstance(getContext());
         final int pageId = getArguments().getInt("pageId");
         categoryId=pageId;
@@ -84,6 +87,8 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
 
         final ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
         getProductInformationFromServer(0);
+        adapter = new PictureProductShopItemAdapter(activity, products);
+        gridview.setAdapter(adapter);
 
 
         existProductNumber = sch.getFirstIndexForGetProductFromJson();
@@ -99,11 +104,6 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
 
         mReceiver = new DownloadResultReceiver(new Handler());
         mReceiver.setReceiver(this);
-
-        if (showMessage(products.size())) {
-            adapter = new PictureProductShopItemAdapter(getActivity(), products);
-            gridview.setAdapter(adapter);
-        }
 
         //refresh grid view
         mSwipeRefreshLayout = (SwipeRefreshLayout) mainView.findViewById(R.id.swipe_refresh_layout);
@@ -131,9 +131,9 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
     //            else
       //              Configuration.getConfig().customerSupportFloatingActionButton.setVisibility(View.GONE);
 
-                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0 && !lock) {
+                if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0 && !lockScroll) {
                     //scroll receive button
-                    lock=true;
+                    lockScroll=true;
                     int minLimited=gridview.getAdapter().getCount();
                     int maxLimited=minLimited+Configuration.getConfig().someOfFewProductNumberWhenScrollIsButton;
                     String UrlGetProducts= Link.getInstance().generateForGetLimitedProductOfAMainCategory(pageId,
@@ -381,11 +381,12 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                 //ObserverUpdateCategories.setUpdateCategoriesStatus(true);
                 break;
             case DownloadProductInformationService.STATUS_FINISHED:
-                newProducts = sch.getProductsOfAParentCategory(categoryId);
-                if (newProducts.size() == 0) {
+               newProducts = (ArrayList<Product>) resultData.getSerializable("newProduct");
+                if (newProducts.size() == 0 && gridview.getAdapter().getCount()==0) {
                     noThingToShow.setVisibility(View.VISIBLE);
                     gridview.setVisibility(View.GONE);
-                } else {
+                }
+                else {
                     int lastProductNumber;
                     if (gridview.getAdapter()==null)
                         lastProductNumber=0;
@@ -393,14 +394,14 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                         lastProductNumber=gridview.getAdapter().getCount();
                     noThingToShow.setVisibility(View.GONE);
                     gridview.setVisibility(View.VISIBLE);
-                    PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
-                    gridview.setAdapter(newAdapter);
-                    newAdapter.notifyDataSetChanged();
-                    gridview.setSelection(lastProductNumber);
-                    if (lastProductNumber==newProducts.size())
-                        lock=true;
-                    else
-                        lock=false;
+                    if (newProducts.size()>0){
+                        for(int i=0;i<newProducts.size();i++)
+                            ((PictureProductShopItemAdapter) gridview.getAdapter()).add(newProducts.get(i));
+                        if(lockScroll && lastProductNumber<newProducts.size())
+                            lockScroll=!lockScroll;
+                        if (lockFirstVisitTab)
+                            lockFirstVisitTab=!lockFirstVisitTab;
+                    }
                 }
                 break;
         }
