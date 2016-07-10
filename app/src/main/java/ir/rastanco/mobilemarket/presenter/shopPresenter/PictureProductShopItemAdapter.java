@@ -89,6 +89,7 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             holder.imgP.getLayoutParams().width = Configuration.getConfig().shopDisplaySizeForShow;
             holder.imgP.getLayoutParams().height = Configuration.getConfig().shopDisplaySizeForShow;
             holder.offerRight = (TriangleLabelView) convertView.findViewById(R.id.ic_offer_right);
+
             holder.likeToolBar = (ImageButton) convertView.findViewById(R.id.empty_like_toolbar);
             holder.imgLoader = new ImageLoader(myContext);
             convertView.setTag(holder);
@@ -97,6 +98,7 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
 
 
         final Product eachProduct = allProduct.get(position);
+        holder.offerRight.setPrimaryText(String.valueOf("%"+eachProduct.getPriceOff()));
         if (eachProduct.getPriceOff() == 0 && eachProduct.getPrice() != 0) {
             holder.offerRight.setVisibility(View.GONE);
             holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(eachProduct.getPrice())));

@@ -28,6 +28,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.ToolbarHandler;
 import ir.rastanco.mobilemarket.utility.Utilities;
+import jp.shts.android.library.TriangleLabelView;
 
 /**
  * Created by ShaisteS on 1394/10/6.
@@ -55,7 +56,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         private ImageButton shareBtn;
         private ImageButton basketToolbar;
         private ImageButton btnAddThisProductToFavorites;
-       //private ImageButton offerRight;
+       private TriangleLabelView offerRight;
         //private ImageLoader imgLoader;
         private ImageView picProductImage;
         private TextView priceOff;
@@ -74,7 +75,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
             holder.basketToolbar = (ImageButton) convertView.findViewById(R.id.basket_toolbar);
             holder.btnAddThisProductToFavorites = (ImageButton) convertView.findViewById(R.id.imageButton_like_specialPage);
             holder.shareBtn = (ImageButton) convertView.findViewById(R.id.imageButton_share);
-            //holder.offerRight = (ImageButton) convertView.findViewById(R.id.ic_offer_right);
+            holder.offerRight = (TriangleLabelView) convertView.findViewById(R.id.ic_offer_right);
             //holder.imgLoader = new ImageLoader(myContext); // important
             holder.picProductImage = (ImageView) convertView.findViewById(R.id.img_picProduct);
             holder.picProductImage.getLayoutParams().width = Configuration.getConfig().homeDisplaySizeForShow;
@@ -92,15 +93,16 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         //holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou , myContext);
         //holder.priceOff.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(price)));
         //holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(finalPrice)));
-
+         holder.offerRight.setPrimaryText("%"+eachProduct.getPriceOff());
         //Special Icon
-        /*if (Configuration.getConfig().RTL) {
-            if (allProduct.get(position).getPriceOff() != 0) {
-                holder.offerRight.setVisibility(View.VISIBLE);
-            } else {
-                holder.offerRight.setVisibility(View.GONE);
-            }
-        }*/
+        //if (Configuration.getConfig().RTL) {
+          //  if (allProduct.get(position).getPriceOff() != 0) {
+        //        holder.offerRight.setVisibility(View.VISIBLE);
+
+            //} else {
+              //  holder.offerRight.setVisibility(View.GONE);
+            //}
+        //}
         if (serverConnectionHandler.checkSelectProductForShop(allProduct.get(position).getId()))
             holder.basketToolbar.setImageResource(R.drawable.green_bye_toolbar);
         else

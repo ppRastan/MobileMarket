@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:background="@color/background_window"
     android:padding="5dp">
@@ -33,26 +34,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1">
-
-
                     <ImageView
+                        android:contentDescription="@string/productPicture"
                         android:id="@+id/img_picProduct"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:contentDescription="@string/productPicture"
                         android:scaleType="fitXY" />
 
-                    <ImageButton
+                    <jp.shts.android.library.TriangleLabelView
                         android:id="@+id/ic_offer_right"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="false"
                         android:layout_alignParentTop="true"
-                        android:background="@null"
-                        android:contentDescription="@string/thisProductHasOffer"
-                        android:foregroundGravity="top|left"
-                        android:visibility="visible" />
+                        app:backgroundColor="@color/offer_icon_color"
+                        app:corner="leftTop"
+                        app:labelBottomPadding="15dp"
+                        app:labelCenterPadding="6dp"
+                        app:labelTopPadding="10dp"
+                        app:primaryTextColor="@color/white"
+                        app:primaryTextSize="@dimen/textSize" />
 
                 </RelativeLayout>
 

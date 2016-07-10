@@ -39,11 +39,9 @@
                     app:corner="leftTop"
                     app:labelBottomPadding="15dp"
                     app:labelCenterPadding="6dp"
-                    app:labelTopPadding="15dp"
-                    app:primaryText="@string/offer"
+                    app:labelTopPadding="10dp"
                     app:primaryTextColor="@color/white"
-                    app:primaryTextSize="@dimen/textSize"
-                    app:secondaryTextSize="11sp" />
+                    app:primaryTextSize="@dimen/textSize" />
             </RelativeLayout>
 
             <LinearLayout
