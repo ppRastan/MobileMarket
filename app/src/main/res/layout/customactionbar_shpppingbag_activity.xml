@@ -1,8 +1,8 @@
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/customize_actionbar"
+    android:layout_width="match_parent"
     android:layout_height="56dp"
     android:background="@color/decoriss"
     android:fitsSystemWindows="true"
@@ -14,25 +14,27 @@
         android:layout_height="56dp"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/close_shopping_page"
-            android:layout_width="wrap_content"
-            android:contentDescription="@string/exitInfoPage"
-            android:layout_height="match_parent"
-            tools:ignore="NestedWeights"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_back" />
-
         <ir.rastanco.mobilemarket.utility.FontTextView
+            android:id="@+id/actionbar_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:gravity="center_vertical|right"
-            android:text="@string/your_basket"
+            android:padding="2dp"
+            android:text="@string/decoriss"
             android:textColor="@color/white"
             android:textSize="@dimen/textSize" />
 
+        <ImageButton
+            android:id="@+id/actionbar_back_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/exitInfoPage"
+            android:padding="7dp"
+            android:src="@drawable/ic_back"
+            tools:ignore="NestedWeights" />
 
 
     </LinearLayout>

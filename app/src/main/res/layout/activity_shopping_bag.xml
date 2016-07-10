@@ -17,6 +17,17 @@
         android:background="@color/white"
         android:weightSum="8">
 
+
+        <ir.rastanco.mobilemarket.utility.FontTextView
+            android:id="@+id/total_price"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:gravity="center_vertical|left"
+            android:padding="7dp"
+            android:textColor="@color/green"
+            android:textSize="@dimen/textSize" />
+
         <ir.rastanco.mobilemarket.utility.FontTextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -30,17 +41,6 @@
             android:textColor="@color/green"
             android:textSize="@dimen/textSize"
             tools:ignore="NestedWeights" />
-
-        <ir.rastanco.mobilemarket.utility.FontTextView
-            android:id="@+id/total_price"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:gravity="center_vertical|left"
-            android:padding="7dp"
-            android:textColor="@color/green"
-            android:textSize="@dimen/textSize" />
-
 
     </LinearLayout>
 

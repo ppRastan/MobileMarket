@@ -43,6 +43,7 @@ public class ShoppingBagActivity extends Activity {
     private TextView totalPriceTextView;
     private ArrayList<Integer> productsId;
     private ListView lvShoppingBag;
+    private TextView textviewForActionBar;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,9 @@ public class ShoppingBagActivity extends Activity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(this.getResources().getColor(R.color.statusbar_color));
         setContentView(R.layout.activity_shopping_bag);
-        this.RTlizeShoppingBagXml();
+        textviewForActionBar = (TextView)findViewById(R.id.actionbar_text);
+        textviewForActionBar.setText(getResources().getString(R.string.your_basket));
+        //this.RTlizeShoppingBagXml();
         this.setYekanFont();
         this.closeShoppingBag();
         sch = ServerConnectionHandler.getInstance(Configuration.getConfig().userLastShoppingActivityContext);
@@ -138,7 +141,7 @@ public class ShoppingBagActivity extends Activity {
 
     private void closeShoppingBag() {
 
-        ImageButton closeShoppingPage = (ImageButton) findViewById(R.id.close_shopping_page);
+        ImageButton closeShoppingPage = (ImageButton) findViewById(R.id.actionbar_back_icon);
         closeShoppingPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,10 +150,10 @@ public class ShoppingBagActivity extends Activity {
         });
     }
 
-    private void RTlizeShoppingBagXml() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-    }
+//    private void RTlizeShoppingBagXml() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
+//            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+//    }
 
     private void setYekanFont() {
         totalPriceTextView = (TextView) findViewById(R.id.total_price);

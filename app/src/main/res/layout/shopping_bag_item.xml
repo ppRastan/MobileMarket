@@ -37,15 +37,6 @@
                     android:orientation="horizontal"
                     android:weightSum="10">
 
-                    <ImageView
-                        tools:ignore="NestedWeights"
-                        android:id="@+id/shopping__bag_img"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="4"
-                        android:contentDescription="@string/productPicture"
-                        android:background="@color/white"
-                        android:scaleType="centerInside" />
 
                     <ir.rastanco.mobilemarket.utility.FontTextView
                         android:id="@+id/shopping_bag_txt_productTitle"
@@ -59,12 +50,22 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/textSize" />
 
+                    <ImageView
+                        android:id="@+id/shopping__bag_img"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:background="@color/white"
+                        android:contentDescription="@string/productPicture"
+                        android:scaleType="centerInside"
+                        tools:ignore="NestedWeights" />
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="2"/>
+                    android:layout_weight="2" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -75,15 +76,6 @@
                     android:orientation="horizontal"
                     android:weightSum="10">
 
-                    <ir.rastanco.mobilemarket.utility.FontTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|left"
-                        android:gravity="center"
-                        android:text="@string/number_of_shopping_items"
-                        android:layout_marginRight="7dp"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
 
                     <Spinner
                         android:id="@+id/spinner"
@@ -94,6 +86,17 @@
                         android:gravity="center"
                         android:padding="8dp"
                         android:textColor="@color/black" />
+
+                    <ir.rastanco.mobilemarket.utility.FontTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|left"
+                        android:layout_marginRight="7dp"
+                        android:gravity="center"
+                        android:text="@string/number_of_shopping_items"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
+
 
                 </LinearLayout>
 
@@ -108,41 +111,42 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/background_window"/>
+                        android:background="@color/background_window" />
 
                     <LinearLayout
-                        tools:ignore="NestedWeights"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:weightSum="2">
+                        android:weightSum="2"
+                        tools:ignore="NestedWeights">
 
-                        <ir.rastanco.mobilemarket.utility.FontTextView
-                            tools:ignore="NestedWeights"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="@string/price"
-                            android:layout_marginRight="7dp"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/textSize" />
 
                         <ir.rastanco.mobilemarket.utility.FontTextView
                             android:id="@+id/shopping_bag_price_Off_product"
                             android:layout_width="0dp"
-                            android:layout_marginLeft="7dp"
                             android:layout_height="match_parent"
+                            android:layout_marginLeft="7dp"
                             android:layout_weight="1"
                             android:gravity="center_horizontal|left"
                             android:textColor="@color/black"
                             android:textSize="@dimen/textSize" />
+
+                        <ir.rastanco.mobilemarket.utility.FontTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="7dp"
+                            android:layout_weight="1"
+                            android:text="@string/price"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/textSize"
+                            tools:ignore="NestedWeights" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/background_window"/>
+                        android:background="@color/background_window" />
 
                     <LinearLayout
                         android:id="@+id/priceOffLinear"
@@ -160,32 +164,34 @@
                             android:orientation="horizontal"
                             android:weightSum="2">
 
-                            <ir.rastanco.mobilemarket.utility.FontTextView
-                                android:layout_width="0dp"
-                                tools:ignore="NestedWeights"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="@string/price_off"
-                                android:layout_marginRight="7dp"
-                                android:textColor="@color/decoriss"
-                                android:textSize="@dimen/textSize" />
 
                             <ir.rastanco.mobilemarket.utility.FontTextView
                                 android:id="@+id/shoppingBag_offer"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
                                 android:layout_marginLeft="7dp"
+                                android:layout_weight="1"
                                 android:gravity="center_horizontal|left"
                                 android:textColor="@color/decoriss"
                                 android:textSize="@dimen/textSize" />
+
+                            <ir.rastanco.mobilemarket.utility.FontTextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="7dp"
+                                android:layout_weight="1"
+                                android:text="@string/price_off"
+                                android:textColor="@color/decoriss"
+                                android:textSize="@dimen/textSize"
+                                tools:ignore="NestedWeights" />
+
                         </LinearLayout>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:background="@color/background_window"
-                            android:orientation="horizontal"/>
+                            android:orientation="horizontal" />
 
                     </LinearLayout>
 
@@ -196,22 +202,23 @@
                         android:layout_weight="1"
                         android:weightSum="2">
 
-                        <ir.rastanco.mobilemarket.utility.FontTextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_marginRight="7dp"
-                            android:text="@string/price_for_you"
-                            android:textColor="@color/green"
-                            android:textSize="@dimen/textSize" />
 
                         <ir.rastanco.mobilemarket.utility.FontTextView
                             android:id="@+id/shopping_bag_price_for_you"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:layout_marginLeft="7dp"
+                            android:layout_weight="1"
                             android:gravity="center_horizontal|left"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/textSize" />
+
+                        <ir.rastanco.mobilemarket.utility.FontTextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="7dp"
+                            android:layout_weight="1"
+                            android:text="@string/price_for_you"
                             android:textColor="@color/green"
                             android:textSize="@dimen/textSize" />
 
@@ -220,7 +227,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@color/background_window"/>
+                        android:background="@color/background_window" />
                 </LinearLayout>
 
                 <ImageButton
@@ -230,8 +237,8 @@
                     android:layout_gravity="left"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:padding="4dp"
                     android:contentDescription="@string/delete"
+                    android:padding="4dp"
                     android:src="@drawable/ic_cancel" />
             </LinearLayout>
         </RelativeLayout>
