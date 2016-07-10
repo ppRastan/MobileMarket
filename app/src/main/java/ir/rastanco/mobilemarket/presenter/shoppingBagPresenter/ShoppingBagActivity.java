@@ -52,7 +52,7 @@ public class ShoppingBagActivity extends Activity {
         Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        //window.setStatusBarColor(this.getResources().getColor(R.color.statusbar_color));
+        window.setStatusBarColor(this.getResources().getColor(R.color.statusbar_color));
         setContentView(R.layout.activity_shopping_bag);
         this.RTlizeShoppingBagXml();
         this.setYekanFont();

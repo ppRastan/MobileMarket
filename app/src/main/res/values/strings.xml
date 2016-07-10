@@ -134,4 +134,6 @@
     <string name="rate_us">رای می دهم</string>
     <string name="offer">فروش ویژه</string>
     <string name="agree">موافقم</string>
+    <string name="title_activity_product_info">ProductInfoActivity</string>
+    <string name="title_activity_info">InfoActivity</string>
 </resources>

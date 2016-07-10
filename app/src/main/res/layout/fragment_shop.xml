@@ -14,7 +14,9 @@
             android:layout_height="1dp"
             android:background="@color/background_window"/>
 
-        <include layout="@layout/toolbar_categories" />
+        <include layout="@layout/toolbar_categories"
+            android:layout_height="70dp"
+            android:layout_width="match_parent"/>
 
         <LinearLayout
             android:layout_width="match_parent"

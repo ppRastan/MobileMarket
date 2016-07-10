@@ -11,11 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import ir.rastanco.mobilemarket.InfoActivity;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverLike;
-import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductOptionActivity;
 
 /**
  * Created by ParisaRashidhi on 29/03/2016.
@@ -166,7 +166,8 @@ public class ToolbarHandler {
     }
 
     public void displayInformationOfCurrentProduct(Product aProduct, Activity activity, Context context) {
-        Intent intentProductInfo = new Intent(context, ProductOptionActivity.class);
+
+        Intent intentProductInfo = new Intent(context, InfoActivity.class);
         intentProductInfo.putExtra("productId", aProduct.getId());
         intentProductInfo.putExtra("groupId", aProduct.getGroupId());
         context.startActivity(intentProductInfo);

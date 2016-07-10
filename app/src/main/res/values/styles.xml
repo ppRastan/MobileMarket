@@ -4,9 +4,13 @@
         <item name="android:typeface">monospace</item>
     </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"><item name="android:typeface">monospace</item></style>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:typeface">monospace</item>
+    </style>
 
-    <style name="CodeFont" parent="@android:style/TextAppearance.Medium"><item name="android:typeface">monospace</item></style>
+    <style name="CodeFont" parent="@android:style/TextAppearance.Medium">
+        <item name="android:typeface">monospace</item>
+    </style>
 
     <style name="Transparent" parent="@android:style/Theme.NoTitleBar">
         <item name="android:windowContentOverlay">@null</item>

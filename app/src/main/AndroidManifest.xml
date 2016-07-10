@@ -47,9 +47,6 @@
             android:name=".presenter.shoppingBagPresenter.ShoppingBagActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presenter.ProductInfoPresenter.ProductOptionActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".presenter.UserProfilePresenter.AccountManagerActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -58,7 +55,6 @@
         <activity
             android:name=".presenter.UserProfilePresenter.UserLastShoppingProduct"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".presenter.WebView"
             android:screenOrientation="portrait" />
@@ -68,7 +64,7 @@
         <service android:name=".presenter.Services.UpdateService" />
         <service android:name=".presenter.Services.CompleteDataAfterInstall" />
         <service android:name=".presenter.Services.DownloadProductOption" />
-        <service android:name=".presenter.Services.DownloadProductInformationService"/>
+        <service android:name=".presenter.Services.DownloadProductInformationService" />
 
         <receiver android:name=".presenter.Services.UpdateEveryConnectionOk">
             <intent-filter>
@@ -120,7 +116,11 @@
             android:name="co.ronash.pushe.token"
             android:value="f7-157d-4f_39109906948" />
         <!-- End Pushe Information -->
-        <activity android:name=".LoginPageActivity"></activity>
+        <activity android:name=".LoginPageActivity" />
+        <activity
+            android:name=".InfoActivity"
+            android:label="@string/title_activity_info"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

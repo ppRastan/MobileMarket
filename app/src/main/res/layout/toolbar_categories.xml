@@ -1,88 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="@color/white"
-    android:weightSum="2"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="2">
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/white">
 
 
-            <Button
-                android:paddingLeft="20dp"
-                tools:ignore="NestedWeights"
-                android:id="@+id/filter_dialogue"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_weight="1"
-                android:background="@drawable/button_background"
-                android:text="@string/add_filter"
-                android:textStyle="bold"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize" />
+    <Button
+        android:id="@+id/group_dialog"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/group_dialog_text"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_toLeftOf="@+id/filter_dialogue"
+        android:layout_toStartOf="@+id/filter_dialogue"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:paddingLeft="20dp"
+        android:text="@string/group"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize"
+        android:textStyle="bold" />
 
-            <Button
-                android:paddingLeft="20dp"
-                android:id="@+id/group_dialog"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_weight="1"
-                android:background="@drawable/button_background"
-                android:text="@string/group"
-                android:textStyle="bold"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize" />
+    <ir.rastanco.mobilemarket.utility.FontTextView
+        android:id="@+id/group_dialog_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/all"
+        android:textColor="@color/black"
+        android:textSize="@dimen/smallerTextSize"
+        android:layout_alignTop="@+id/filter_dialogue_text"
+        android:layout_toLeftOf="@+id/filter_dialogue"
+        android:layout_toStartOf="@+id/filter_dialogue" />
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="6dp"
+        android:background="@color/common_plus_signin_btn_text_light_disabled"
+        android:orientation="vertical"></LinearLayout>
 
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <ir.rastanco.mobilemarket.utility.FontTextView
-                tools:ignore="NestedWeights"
-                android:id="@+id/filter_dialogue_text"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_marginBottom="3dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/all"
-                android:textColor="@color/black"
-                android:textSize="@dimen/smallerTextSize" />
+    <Button
+        android:id="@+id/filter_dialogue"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_filter"
+        android:textColor="@color/black"
+        android:textSize="@dimen/textSize"
+        android:textStyle="bold"
+        tools:ignore="NestedWeights"
+        android:layout_above="@+id/filter_dialogue_text"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
-            <ir.rastanco.mobilemarket.utility.FontTextView
-                android:id="@+id/group_dialog_text"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_marginBottom="3dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal|center_vertical"
-                android:text="@string/all"
-                android:textColor="@color/black"
-                android:textSize="@dimen/smallerTextSize" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    <ir.rastanco.mobilemarket.utility.FontTextView
+        android:id="@+id/filter_dialogue_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:text="@string/all"
+        android:textColor="@color/black"
+        android:textSize="@dimen/smallerTextSize"
+        tools:ignore="NestedWeights"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>

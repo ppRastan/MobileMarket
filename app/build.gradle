@@ -49,6 +49,7 @@ dependencies {
         transitive = true;
     }
     compile 'com.android.support:design:24.0.0'
+    compile 'com.github.clans:fab:1.6.2'
 }
 
 

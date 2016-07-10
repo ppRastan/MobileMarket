@@ -176,7 +176,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:padding="4dp"
+                android:padding="7dp"
                 android:textStyle="bold"
                 android:drawableRight="@drawable/fullscreenpage_basket"
                 android:textColor="@color/white"
