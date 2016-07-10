@@ -326,6 +326,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
     }
 
     private void setupViewPager(ViewPager viewPager) {
+        viewPager.setOffscreenPageLimit(5);
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ArticleFragment(), getResources().getString(R.string.fifth_page));
         for (int i = mainCategoryTitle.size() - 1; i >= 0; i--) {
