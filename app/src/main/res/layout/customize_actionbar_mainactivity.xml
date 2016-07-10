@@ -21,12 +21,12 @@
             android:gravity="center">
 
             <ImageButton
-                android:padding="4dp"
                 android:id="@+id/actionbar_shoppingBag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:foregroundGravity="center"
+                android:padding="4dp"
                 android:scaleType="center"
                 android:src="@drawable/actionbar_shopping_basket" />
 
@@ -44,34 +44,38 @@
         </RelativeLayout>
 
         <ImageButton
-            android:src="@drawable/login"
-            android:padding="4dp"
             android:id="@+id/actionbar_userLogin"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
             android:background="?attr/selectableItemBackgroundBorderless"
-            />
+            android:padding="4dp"
+            android:src="@drawable/login" />
 
-        <!--<ImageButton-->
-            <!--android:padding="5dp"-->
-            <!--android:id="@+id/actionbar_search"-->
-            <!--android:layout_width="48dp"-->
-            <!--android:layout_height="48dp"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:background="?attr/selectableItemBackgroundBorderless"-->
-            <!--android:src="@drawable/search" />-->
-
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"></LinearLayout>
 
         <ImageButton
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@null"
-            android:scaleType="fitEnd"
+            android:paddingRight="0dp"
             android:src="@mipmap/persion_logo" />
+
+        <!--<ImageButton-->
+        <!--android:padding="5dp"-->
+        <!--android:id="@+id/actionbar_search"-->
+        <!--android:layout_width="48dp"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:background="?attr/selectableItemBackgroundBorderless"-->
+        <!--android:src="@drawable/search" />-->
 
 
     </LinearLayout>
+
 </android.support.v7.widget.Toolbar>
 
