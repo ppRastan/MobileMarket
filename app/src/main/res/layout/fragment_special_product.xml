@@ -14,14 +14,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!--<ProgressBar
+            <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/progressBar_Loading"
                 android:layout_above="@+id/no_thing_to_show1"
                 android:layout_centerInParent="true"
                 android:visibility="invisible"
-                android:paddingBottom="5dp" />-->
+                android:paddingBottom="5dp" />
 
             <ir.rastanco.mobilemarket.utility.FontTextView
                 android:id="@+id/no_thing_to_show1"

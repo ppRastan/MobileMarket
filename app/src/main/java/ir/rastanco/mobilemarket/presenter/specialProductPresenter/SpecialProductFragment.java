@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
     private ListView productListView;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private TextView noThingToShow;
-    //private ProgressBar progressBar;
+    private ProgressBar progressBar;
     private Context context;
     private Activity activity;
     private int existProductNumber;
@@ -55,11 +56,11 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
         context = getContext();
         activity=getActivity();
         sch = ServerConnectionHandler.getInstance(context);
-        View mainView = inflater.inflate(R.layout.fragment_home, container, false);
+        View mainView = inflater.inflate(R.layout.fragment_special_product, container, false);
         productListView = (ListView) mainView.findViewById(R.id.listView_picProduct);
         noThingToShow = (TextView) mainView.findViewById(R.id.no_thing_to_show1);
         //noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow, context);
-        //progressBar=(ProgressBar)mainView.findViewById(R.id.progressBar_Loading);
+        progressBar=(ProgressBar)mainView.findViewById(R.id.progressBar_Loading);
         existProductNumber = sch.getFirstIndexForGetProductFromJson();
         allProductNumber = sch.getNumberAllProduct();
         products = new ArrayList<>();
@@ -141,15 +142,16 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
         if (productSize == 0) {
             if (existProductNumber < allProductNumber || existProductNumber == 0) {
                 //Loading bar and please wait... text and grid view gone
-                //progressBar.setVisibility(View.VISIBLE);
-                noThingToShow.setText(getString(R.string.please_wait_message));
-                noThingToShow.setTextColor(ContextCompat.getColor(context, R.color.black));
-                noThingToShow.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
+                //noThingToShow.setText(getString(R.string.please_wait_message));
+                //noThingToShow.setTextColor(ContextCompat.getColor(context, R.color.black));
+                //noThingToShow.setVisibility(View.VISIBLE);
+                noThingToShow.setVisibility(View.GONE);
                 productListView.setVisibility(View.GONE);
                 return false;
             } else if (existProductNumber != 0) {
                 //Loading bar gone and no product text and grid view gone
-                //progressBar.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.GONE);
                 noThingToShow.setText(getString(R.string.no_product_to_show));
                 noThingToShow.setTextColor(ContextCompat.getColor(context, R.color.orange));
                 noThingToShow.setVisibility(View.VISIBLE);
@@ -159,7 +161,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
             return false;
         } else {
             //Loading bar gone text view gone grid view visible
-            //progressBar.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
             noThingToShow.setVisibility(View.GONE);
             productListView.setVisibility(View.VISIBLE);
             return true;
