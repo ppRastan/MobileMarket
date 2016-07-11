@@ -75,7 +75,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
         }
 
         if (products.size()==0){
-            getProductInformationFromServer(0);
+            getProductInformationFromServerWhenEnterToTab(0);
         }
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) mainView.findViewById(R.id.swipe_refresh_layout);
@@ -110,11 +110,8 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                     lockScroll =true;
                     int minLimited=productListView.getAdapter().getCount();
                     int maxLimited=minLimited+Configuration.getConfig().someOfFewProductNumberWhenScrollIsButton;
-                    String UrlGetProducts= Link.getInstance().generateUrlForGetSpecialProduct(minLimited,maxLimited);
-                    Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
-                    intent.putExtra("receiver", mReceiver);
-                    intent.putExtra("Link",UrlGetProducts);
-                    context.startService(intent);
+                    getProductInformationFromServerWhenScroll(minLimited,maxLimited);
+
                 }
             }
         });
@@ -170,12 +167,22 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
 
     }
 
-    private void getProductInformationFromServer(int minStarLimited){
+    private void getProductInformationFromServerWhenEnterToTab(int minStarLimited){
         String UrlGetProducts= Link.getInstance().generateUrlForGetSpecialProduct(minStarLimited,Configuration.getConfig().someOfFewSpecialProductNumber);
         Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
         intent.putExtra("receiver", mReceiver);
         intent.putExtra("Link",UrlGetProducts);
         context.startService(intent);
+    }
+
+    private void getProductInformationFromServerWhenScroll(int minStarLimited,int maxEndLimited){
+        String UrlGetProducts= Link.getInstance().generateUrlForGetSpecialProduct(minStarLimited,maxEndLimited);
+        Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
+        intent.putExtra("receiver", mReceiver);
+        intent.putExtra("Link",UrlGetProducts);
+        intent.putExtra("code",201);
+        context.startService(intent);
+
     }
 
 
