@@ -74,7 +74,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
             productListView.setAdapter(adapter);
         }
 
-        if (productListView.getAdapter().getCount()==0){
+        if (products.size()==0){
             getProductInformationFromServer(0);
         }
 
@@ -191,7 +191,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                 mSwipeRefreshLayout.setRefreshing(false);
                 ObserverUpdateCategories.setUpdateCategoriesStatus(true);
                 break;
-            case DownloadProductInformationService.STATUS_FINISHED:
+            case DownloadProductInformationService.STATUS_FINISHED_WHEN_SCROLL:
                 int lastSpecialProductNumber=products.size();
                 ArrayList<Product> newProducts = (ArrayList<Product>) resultData.getSerializable("newProduct");
 
