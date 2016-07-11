@@ -25,8 +25,8 @@ public class UpdateService extends IntentService {
 
         ServerConnectionHandler serverConnectionHandler=ServerConnectionHandler.getInstance(this);
         serverConnectionHandler.refreshCategories(Link.getInstance().generateURLForGetAllCategories());
-        /*serverConnectionHandler.getNewProducts();
-        serverConnectionHandler.getEditProducts();*/
+        serverConnectionHandler.getNewProducts();
+        serverConnectionHandler.getEditProducts();
         receiver.send(STATUS_FINISHED, null);
 
     }
