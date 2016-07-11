@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <include
@@ -10,38 +12,56 @@
         android:layout_width="match_parent"
         android:layout_height="68dp" />
 
-    <ImageView
-        android:id="@+id/img_productInfo"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/white"
-        android:contentDescription="@string/productFullScreenPhoto"
-        android:scaleType="centerInside" />
+        android:layout_weight="1">
+
+        <jp.shts.android.library.TriangleLabelView
+            android:id="@+id/ic_offer_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            app:backgroundColor="@color/offer_icon_color"
+            app:corner="leftTop"
+            app:labelBottomPadding="20dp"
+            app:labelCenterPadding="20dp"
+            app:labelTopPadding="20dp"
+            app:primaryTextColor="@color/white"
+            app:primaryTextSize="18sp"
+            app:primaryTextStyle="bold" />
+
+        <ImageView
+            android:id="@+id/img_productInfo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/productPicture"
+            android:scaleType="fitXY" />
+
+    </RelativeLayout>
 
     <HorizontalScrollView
         android:id="@+id/horizontal_scroll"
-        android:paddingRight="2dp"
-        android:paddingLeft="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/background_window"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
         android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/linear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:paddingLeft="2dp"
-            android:paddingRight="2dp"
-            android:background="@color/md_btn_selected_dark"
-            android:orientation="horizontal" />
+            android:paddingRight="2dp" />
     </HorizontalScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:gravity="center"
         android:padding="9dp"
         android:weightSum="10">

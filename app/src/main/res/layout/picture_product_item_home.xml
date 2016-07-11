@@ -39,7 +39,7 @@
                         android:id="@+id/img_picProduct"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:scaleType="fitXY" />
+                        />
 
                     <jp.shts.android.library.TriangleLabelView
                         android:id="@+id/ic_offer_right"
