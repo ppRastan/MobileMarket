@@ -146,8 +146,11 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                     lockScroll=true;
                     int minLimited=gridview.getAdapter().getCount();
                     int maxLimited=minLimited+Configuration.getConfig().someOfFewProductNumberWhenScrollIsButton;
-                    getProductInformationFromServerWhenScroll(pageId,minLimited,maxLimited);
-                                    }
+                    if (txtFilterCategorySelected.getText().equals(getString(R.string.all)) && txtFilterOptionProductSelected.getText().equals(getString(R.string.all)))
+                        getProductInformationFromServerWhenScroll(pageId,minLimited,maxLimited);
+                    else if(!txtFilterCategorySelected.getText().equals(getString(R.string.all)) && txtFilterOptionProductSelected.getText().equals(getString(R.string.all)))
+                        getProductInformationFromServerWhenScroll(Configuration.getConfig().filterCategoryId,minLimited,maxLimited);
+                }
 
             }
         });
@@ -311,6 +314,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                     public void changeFilterAll() {
                         txtFilterOptionProductSelected.setText(Configuration.getConfig().filterAll);
                         txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(myContext, R.color.colorFilterText));
+                        Configuration.getConfig().filterCategoryId=pageId;
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
@@ -353,7 +357,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
 
     }
 
-    private void getProductInformationFromServerWhenFilter(int categoryId,int minStarLimited){
+    private void getProductInformationFromServerWhenFilter(int categoryId, int minStarLimited){
         String UrlGetProducts= Link.getInstance().generateForGetLimitedProductOfAMainCategory(categoryId,
                 minStarLimited,Configuration.getConfig().someOfFewProductNumberForGetEveryTab);
         Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
@@ -362,7 +366,6 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         intent.putExtra("code",202);
         myContext.startService(intent);
     }
-
     private void loadingMessage(){
         //noThingToShow.setText(getString(R.string.please_wait_message));
         //noThingToShow.setTextColor(ContextCompat.getColor(myContext, R.color.black));

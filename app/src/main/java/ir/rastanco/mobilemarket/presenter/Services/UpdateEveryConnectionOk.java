@@ -5,12 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.view.View;
 
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
 import ir.rastanco.mobilemarket.utility.Configuration;
-import ir.rastanco.mobilemarket.utility.Link;
 
 /**
  * Created by ShaisteS on 1394/11/30.
@@ -29,15 +27,16 @@ public class UpdateEveryConnectionOk extends BroadcastReceiver {
             NetworkInfo netInfo = cm.getActiveNetworkInfo();
             if (netInfo != null && netInfo.isConnectedOrConnecting()){
                 Configuration.getConfig().connectionStatus=true;
-                if (sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer())) {
+                ObserverConnectionInternetOK.setChangeFragmentParameter(true);
+                /*if (sch.checkNewVersion(Link.getInstance().generateURLForGetLastVersionAppInServer())) {
                     if (Configuration.getConfig().upgradeButtonMenu != null ) {
                         Configuration.getConfig().upgradeButtonMenu.setImageResource(View.VISIBLE);
                     }
                     Intent notificationService = new Intent(context, NotificationService.class);
                     context.startService(notificationService);
                 }
-                if (!Configuration.getConfig().emptyProductTable)
-                    ObserverConnectionInternetOK.setChangeFragmentParameter(true);
+                /*if (!Configuration.getConfig().emptyProductTable)
+                    ObserverConnectionInternetOK.setChangeFragmentParameter(true);*/
             }
             if (intent.getExtras().getBoolean(ConnectivityManager.EXTRA_NO_CONNECTIVITY, Boolean.FALSE)) {
                 Configuration.getConfig().connectionStatus=false;

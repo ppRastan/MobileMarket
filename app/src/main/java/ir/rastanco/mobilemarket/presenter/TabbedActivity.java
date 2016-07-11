@@ -47,18 +47,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import co.ronash.pushe.Pushe;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.ArticlePresenter.ArticleFragment;
-import ir.rastanco.mobilemarket.presenter.Observer.ObserverChangeFragment;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOK;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverConnectionInternetOKListener;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShopping;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverShoppingBagClickListener;
-import ir.rastanco.mobilemarket.presenter.Observer.ObserverUpdateCategories;
-import ir.rastanco.mobilemarket.presenter.Observer.ObserverUpdateCategoriesListener;
-import ir.rastanco.mobilemarket.presenter.Services.CompleteDataAfterInstall;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadCategoryInformationService;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.UserProfilePresenter.AccountManagerActivity;
@@ -95,8 +92,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
         getSupportActionBar().setTitle("");
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinateLayout);
         text_count = (TextView) findViewById(R.id.txt_count);
-        //// TODO: 01/07/2016
-        //Pushe.initialize(this, true);//pushe Alert For Install Google Play
+       Pushe.initialize(this, true);//pushe Alert For Install Google Play
         this.InitializationParametersNecessary();
         this.setActionBar();
         //this.setFAb();
@@ -146,20 +142,20 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
         }
 
         //check get all product.if don't get all product start service get .
-        mReceiver = new DownloadResultReceiver(new Handler());
+        /*mReceiver = new DownloadResultReceiver(new Handler());
         mReceiver.setReceiver(this);
         int firstIndexGetProduct = sch.getFirstIndexForGetProductFromJson();
         int allNumberProducts = sch.getNumberAllProduct();
         if (firstIndexGetProduct < allNumberProducts) {
             Intent intent = new Intent(Intent.ACTION_SYNC, null, this, CompleteDataAfterInstall.class);
-            /* Send optional extras to Download IntentService */
+            /* Send optional extras to Download IntentService
             intent.putExtra("receiver", mReceiver);
             intent.putExtra("requestId", 101);
             startService(intent);
 
-        }
+        }*/
 
-        ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
+        /*ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
             @Override
             public void connectionOK() {
                 if (Configuration.getConfig().emptyProductTable &&
@@ -177,14 +173,27 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
                     startService(intent);
                 }
             }
+        });*/
+        ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
+            @Override
+            public void connectionOK() {
+                if (sch.emptyDBCategory()){
+                    Intent i = getBaseContext().getPackageManager()
+                            .getLaunchIntentForPackage(getBaseContext().getPackageName());
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+
+                }
+
+            }
         });
 
-        ObserverUpdateCategories.updateCategoriesListener(new ObserverUpdateCategoriesListener() {
+        /*ObserverUpdateCategories.updateCategoriesListener(new ObserverUpdateCategoriesListener() {
             @Override
             public void updateCategories() {
                 updateViewPager(Configuration.getConfig().mainPager);
             }
-        });
+        });*/
     }
 
     public boolean isStoragePermissionGranted() {
@@ -203,8 +212,6 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
             Log.v("TAG", "Permission is granted");
             return true;
         }
-
-
     }
 
 //    public void setStatusBarColor() {

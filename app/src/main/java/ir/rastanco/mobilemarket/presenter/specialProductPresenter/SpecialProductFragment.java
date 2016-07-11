@@ -62,6 +62,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
         noThingToShow = (TextView) mainView.findViewById(R.id.no_thing_to_show1);
         //noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow, context);
         progressBar=(ProgressBar)mainView.findViewById(R.id.progressBar_Loading_special_page);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
         existProductNumber = sch.getFirstIndexForGetProductFromJson();
         allProductNumber = sch.getNumberAllProduct();
         products = new ArrayList<>();
@@ -71,14 +72,26 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
 
 
 
-        if (showMessage(products.size())) {
+        if (products.size()>0) {
             PictureSpecialProductItemAdapter adapter = new PictureSpecialProductItemAdapter(getActivity(), products);
             productListView.setAdapter(adapter);
+            productListView.setVisibility(View.VISIBLE);
         }
 
-        if (products.size()==0){
+        else if (products.size()==0 && Configuration.getConfig().connectionStatus){
+            progressBar.setVisibility(View.VISIBLE);
+            productListView.setVisibility(View.GONE);
             getProductInformationFromServerWhenEnterToTab(0);
         }
+        else if(products.size()==0 && !Configuration.getConfig().connectionStatus){
+            progressBar.setVisibility(View.GONE);
+            productListView.setVisibility(View.GONE);
+            noThingToShow.setText(getString(R.string.checkConnection));
+            noThingToShow.setTextColor(ContextCompat.getColor(context, R.color.green));
+            noThingToShow.setVisibility(View.VISIBLE);
+        }
+
+
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) mainView.findViewById(R.id.swipe_refresh_layout);
         //refresh grid view
@@ -139,43 +152,12 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
         return mainView;
     }
 
-    private Boolean showMessage(int productSize) {
-        if (productSize == 0) {
-            if (existProductNumber < allProductNumber || existProductNumber == 0) {
-                //Loading bar and please wait... text and grid view gone
-                progressBar.setVisibility(View.VISIBLE);
-                progressBar.getIndeterminateDrawable().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
-                //noThingToShow.setText(getString(R.string.please_wait_message));
-                //noThingToShow.setTextColor(ContextCompat.getColor(context, R.color.black));
-                //noThingToShow.setVisibility(View.VISIBLE);
-                noThingToShow.setVisibility(View.GONE);
-                productListView.setVisibility(View.GONE);
-                return false;
-            } else if (existProductNumber != 0) {
-                //Loading bar gone and no product text and grid view gone
-                progressBar.setVisibility(View.GONE);
-                noThingToShow.setText(getString(R.string.no_product_to_show));
-                noThingToShow.setTextColor(ContextCompat.getColor(context, R.color.orange));
-                noThingToShow.setVisibility(View.VISIBLE);
-                productListView.setVisibility(View.GONE);
-                return false;
-            }
-            return false;
-        } else {
-            //Loading bar gone text view gone grid view visible
-            progressBar.setVisibility(View.GONE);
-            noThingToShow.setVisibility(View.GONE);
-            productListView.setVisibility(View.VISIBLE);
-            return true;
-        }
-
-    }
-
     private void getProductInformationFromServerWhenEnterToTab(int minStarLimited){
         String UrlGetProducts= Link.getInstance().generateUrlForGetSpecialProduct(minStarLimited,Configuration.getConfig().someOfFewSpecialProductNumber);
         Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
         intent.putExtra("receiver", mReceiver);
         intent.putExtra("Link",UrlGetProducts);
+        intent.putExtra("code",200);
         context.startService(intent);
     }
 
@@ -192,19 +174,29 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
 
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
-        PictureSpecialProductItemAdapter newAdapter;
+        ArrayList<Product> newProducts;
         switch (resultCode) {
             case UpdateService.STATUS_FINISHED:
                 products = sch.getSpecialProduct();
-                newAdapter = new PictureSpecialProductItemAdapter(getActivity(), products);
+                PictureSpecialProductItemAdapter newAdapter = new PictureSpecialProductItemAdapter(activity, products);
                 productListView.setAdapter(newAdapter);
                 newAdapter.notifyDataSetChanged();
                 mSwipeRefreshLayout.setRefreshing(false);
                 //ObserverUpdateCategories.setUpdateCategoriesStatus(true);
                 break;
+
+            case DownloadProductInformationService.STATUS_FINISHED_FIRST_ENTER_TAB:
+                progressBar.setVisibility(View.GONE);
+                noThingToShow.setVisibility(View.GONE);
+                productListView.setVisibility(View.INVISIBLE);
+                newProducts= (ArrayList<Product>) resultData.getSerializable("newProduct");
+                PictureSpecialProductItemAdapter newAdapter1 = new PictureSpecialProductItemAdapter(activity, newProducts);
+                productListView.setAdapter(newAdapter1);
+                break;
+
             case DownloadProductInformationService.STATUS_FINISHED_WHEN_SCROLL:
                 int lastSpecialProductNumber=products.size();
-                ArrayList<Product> newProducts = (ArrayList<Product>) resultData.getSerializable("newProduct");
+                newProducts = (ArrayList<Product>) resultData.getSerializable("newProduct");
 
                 if (newProducts.size()>0){
                     for(int i=0;i<newProducts.size();i++)
@@ -218,7 +210,6 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                 //productListView.setAdapter(newAdapter)
                 //newAdapter.notifyDataSetChanged();;
                 //productListView.setSelection(lastSpecialProductNumber);
-
                 break;
         }
     }
