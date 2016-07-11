@@ -141,4 +141,5 @@
     <string name="agree">موافقم</string>
     <string name="title_activity_product_info">ProductInfoActivity</string>
     <string name="title_activity_info">InfoActivity</string>
+    <string name="info_icon">مشاهده اطلاعات محصول و ارتباط با پشتیبان</string>
 </resources>
