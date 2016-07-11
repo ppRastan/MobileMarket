@@ -84,6 +84,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
         TriangleLabelView offerImageButton = (TriangleLabelView) viewLayout.findViewById(R.id.ic_offer_right);
         final Product aProduct = products.get(position);
         Button addToBasketBtn = (Button) viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
+        ImageButton backbtn = (ImageButton)viewLayout.findViewById(R.id.actionbar_back_icon);
+        backbtn.setVisibility(View.INVISIBLE);
         TextView nameOfCurrentProduct = (TextView) viewLayout.findViewById(R.id.actionbar_text);
         nameOfCurrentProduct.setText(aProduct.getTitle());
         setProductQuality(aProduct.getQualityRank());
