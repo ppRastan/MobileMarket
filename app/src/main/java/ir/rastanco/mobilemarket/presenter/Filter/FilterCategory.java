@@ -66,7 +66,7 @@ public class FilterCategory extends DialogFragment {
         final ImageButton btnCancelAlertDialog = (ImageButton) dialogView.findViewById(R.id.cancel);
         final TextView titleOfAlertDialog = (TextView) dialogView.findViewById(R.id.title_alert_dialogue_group);
         titleOfAlertDialog.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.choose_group));
-        btnCancelAlertDialog.setImageResource(R.drawable.ic_cancel);
+        btnCancelAlertDialog.setImageResource(R.drawable.cancel);
         /*ArrayList<String> subCategoryTitle = sch.getTitleOfChildOfACategory(pageId);
         subCategoryTitle.add(0, dialogView.getResources().getString(R.string.all));
         final ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
@@ -156,7 +156,7 @@ public class FilterCategory extends DialogFragment {
                     dismiss();
                 }
                 if (parentIdACategory == pageId) {
-                    btnCancelAlertDialog.setImageResource(R.drawable.ic_cancel);
+                    btnCancelAlertDialog.setImageResource(R.drawable.cancel);
                     titleOfAlertDialog.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.choose_group));
                     selectCategoryId = parentIdACategory;
                     mapCategoryTitleToId = sch.MapTitleToIDForChildOfACategory(selectCategoryId);

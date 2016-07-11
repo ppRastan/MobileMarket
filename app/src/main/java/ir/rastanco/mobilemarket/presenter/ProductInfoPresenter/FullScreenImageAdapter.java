@@ -80,10 +80,10 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewLayout = inflater.inflate(R.layout.activity_product_info, container, false);
-        ImageButton offerImageButton = (ImageButton) viewLayout.findViewById(R.id.ic_offer_full_screen_right);
+        //ImageButton offerImageButton = (ImageButton) viewLayout.findViewById(R.id.ic_offer_full_screen_right);
         final Product aProduct = products.get(position);
         Button addToBasketBtn = (Button) viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
-        TextView nameOfCurrentProduct = (TextView) viewLayout.findViewById(R.id.name_of_photo);
+        TextView nameOfCurrentProduct = (TextView) viewLayout.findViewById(R.id.actionbar_text);
         nameOfCurrentProduct.setText(aProduct.getTitle());
         setProductQuality(aProduct.getQualityRank());
         if (aProduct.getPrice() == 0) {
@@ -92,12 +92,12 @@ public class FullScreenImageAdapter extends PagerAdapter {
             addToBasketBtn.setEnabled(false);
 
         }
-        if (aProduct.getPriceOff() != 0) {
+     //   if (aProduct.getPriceOff() != 0) {
 
-            offerImageButton.setVisibility(View.VISIBLE);
-        } else {
-            offerImageButton.setVisibility(View.GONE);
-        }
+       //     offerImageButton.setVisibility(View.VISIBLE);
+        //} else {
+          //  offerImageButton.setVisibility(View.GONE);
+        //}
         if (aProduct.getPriceOff() == 0 && aProduct.getPrice() != 0) {
             int price = aProduct.getPrice();
             String numberOfFinalPrice = String.valueOf(price);
