@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,13 @@ public class ArticleFragment extends Fragment {
         if (sch.emptyDBArticle()) {
             String url = Link.getInstance().generateURLForGetArticle(startArticleNumber, leastArticleNumberInFirstTime);
             articles = sch.getAllArticlesAndNewsURL(url);
-            sch.addAllArticlesToTable(articles);
+            try {
+                sch.addAllArticlesToTable(articles);
+            }
+            catch (Exception e){
+                Log.d("add article","error in article add function");
+
+            }
         }
 
         ObserverConnectionInternetOK.ObserverConnectionInternetOKListener(new ObserverConnectionInternetOKListener() {
