@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
@@ -69,7 +68,6 @@ import ir.rastanco.mobilemarket.presenter.shoppingBagPresenter.ShoppingBagActivi
 import ir.rastanco.mobilemarket.presenter.specialProductPresenter.SpecialProductFragment;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
-import ir.rastanco.mobilemarket.utility.PriceUtility;
 
 /*created by parisa*/
 public class TabbedActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, DownloadResultReceiver.Receiver {
@@ -138,13 +136,13 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
             intent.putExtra("receiver", mReceiver);
             intent.putExtra("requestId", Configuration.getConfig().requestIdForGetCategoryInformationInFirstInstall);
             startService(intent);
-            Snackbar snackbar = Snackbar
+            /*Snackbar snackbar = Snackbar
                     .make(coordinatorLayout, getResources().getString(R.string.loading), Snackbar.LENGTH_LONG);
             View sbView = snackbar.getView();
             TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
             textView.setTextColor(Color.WHITE);
             PriceUtility.getInstance().changeTextViewFont(textView, this);
-            snackbar.show();
+            snackbar.show();*/
         }
 
         //check get all product.if don't get all product start service get .
@@ -483,7 +481,6 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
 
     @Override
     public void onBackPressed() {
-
         //Clear Cache
         ImageLoader imageLoader = new ImageLoader(Configuration.getConfig().mainActivityContext);
         imageLoader.clearCache();
