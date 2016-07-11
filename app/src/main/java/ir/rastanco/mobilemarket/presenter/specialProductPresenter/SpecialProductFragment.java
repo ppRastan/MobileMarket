@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
-import ir.rastanco.mobilemarket.presenter.Observer.ObserverUpdateCategories;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadProductInformationService;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.UpdateService;
@@ -198,7 +197,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                 productListView.setAdapter(newAdapter);
                 newAdapter.notifyDataSetChanged();
                 mSwipeRefreshLayout.setRefreshing(false);
-                ObserverUpdateCategories.setUpdateCategoriesStatus(true);
+                //ObserverUpdateCategories.setUpdateCategoriesStatus(true);
                 break;
             case DownloadProductInformationService.STATUS_FINISHED_WHEN_SCROLL:
                 int lastSpecialProductNumber=products.size();
