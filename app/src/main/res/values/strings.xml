@@ -111,21 +111,26 @@
     <string name="next">چه خوب</string>
     <string name="start">بزن بریم</string>
 
-    <string name="slide_1_title">سلام به دکوریس خوش اومدی !</string>
-    <string name="slide_1_desc">اگه موافقی در ابتدای آشنایی مون چند تا نکته رو با هم مرور کنیم؟
+    <string name="slide_1_title">خوش آمدید!</string>
+    <string name="slide_1_desc">دوست گرامی سلام،
+برای آشنایی بیشتر با دکوریس، لطفا صفحات بعدی رو مطالعه کن.
+
 </string>
 
     <string name="slide_2_title">بررسی آسان</string>
-    <string name="slide_2_desc">در دکوریس شما می تونی به آسانی محصولات تولیدکنندگان مبلمان رو بررسی کنی و همه اطلاعات لازم برای یه انتخاب درست رو به دست بیاری
+    <string name="slide_2_desc">شما می توانید به آسانی محصولات تولیدکنندگان مبلمان و صنایع چوبی را بررسی کنید و همه اطلاعات لازم برای یک انتخاب درست را به دست بیاورید
+
 
 </string>
 
     <string name="slide_3_title">ارتباط با تولیدکننده</string>
-    <string name="slide_3_desc"> میتونی به طور مستقیم با تولیدکننده در ارتباط باشی و سفارشت رو آنلاین یا حضوری تکمیل کنی</string>
+    <string name="slide_3_desc">می توانید به طور مستقیم با تولیدکنندگان در ارتباط باشید و سفارش خود را به صورت آنلاین و یا حضوری تکمیل کنید
+</string>
 
-    <string name="slide_4_title"></string>
-    <string name="slide_4_desc">هرسوالی داشتی میتونی از کارشناس دکوریس بپرسی
-کافیه دکمه راهنما رو  لمس کنی</string>
+    <string name="slide_4_title">کارشناس دکوریس
+
+</string>
+    <string name="slide_4_desc">در هر موردی اگر سوالی داشتید می توانید با استفاده از دکمه راهنما از کارشناس دکوریس پرسش کنید</string>
     <string name="home">خانه</string>
     <string name="specials">محصولات ویژه</string>
     <string name="visitAllProduct">همه ی محصولات</string>

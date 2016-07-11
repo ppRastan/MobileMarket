@@ -1,6 +1,8 @@
 package ir.rastanco.mobilemarket.presenter.shopPresenter;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -65,12 +67,15 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
     private Boolean lockScroll=false;
     private Boolean lockFirstVisitTab=true;
     private FragmentActivity activity;
+    private ProgressBar progress;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View mainView = inflater.inflate(R.layout.fragment_shop, container, false);
+        progress = (ProgressBar)mainView.findViewById(R.id.progressBar_Loading);
+        progress.getIndeterminateDrawable().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
         Configuration.getConfig().shopFragmentContext = getContext();
         myContext = (FragmentActivity) Configuration.getConfig().shopFragmentContext;
         activity=getActivity();

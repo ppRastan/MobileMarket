@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -41,6 +42,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
     private final ServerConnectionHandler serverConnectionHandler;
     private Drawable defaultPicture=null;
     private final ServerConnectionHandler sch;
+    private ProgressBar loading;
     private boolean isLikeButtonClicked = true;
     public PictureSpecialProductItemAdapter(Context context, ArrayList<Product> products) {
         super(context, R.layout.picture_product_item_home, products);
@@ -69,6 +71,8 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         if (convertView == null) {
             LayoutInflater inflater = myContext.getLayoutInflater();
             convertView = inflater.inflate(R.layout.picture_product_item_home, parent, false);
+            //loading = (ProgressBar)convertView.findViewById(R.id.progressBar_Loading_special_page);
+            //loading.getIndeterminateDrawable().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
             holder = new ViewHolder();
             //holder.priceOff = (TextView)convertView.findViewById(R.id.priceOff_specialPage);
             //holder.priceForYou = (TextView)convertView.findViewById(R.id.priceForYou_specialPage);

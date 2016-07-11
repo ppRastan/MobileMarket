@@ -17,7 +17,7 @@
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/progressBar_Loading"
+                android:id="@+id/progressBar_Loading_special_page"
                 android:layout_above="@+id/no_thing_to_show1"
                 android:layout_centerInParent="true"
                 android:visibility="invisible"

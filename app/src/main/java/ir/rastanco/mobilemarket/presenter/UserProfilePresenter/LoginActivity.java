@@ -20,10 +20,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 
-public class LoginActivity
-        extends AppCompatActivity {
-
-
+public class LoginActivity extends AppCompatActivity {
     private ServerConnectionHandler sch;
     private Security sec;
     private String user;
@@ -37,20 +34,18 @@ public class LoginActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1)
-            getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);*/
         Configuration.getConfig().userLoginActivityContext = this;
         sch = ServerConnectionHandler.getInstance(Configuration.getConfig().userLoginActivityContext);
         Button btnLogin = (Button) findViewById(R.id.btn_login);
         Button btnSignUp = (Button) findViewById(R.id.btn_enter);
         Button btnForgotPass = (Button) findViewById(R.id.btn_forgot);
         username = (EditText) findViewById(R.id.et_username);
-        username = PriceUtility.getInstance().changeEditTextFont(username,getApplicationContext());
+        username = PriceUtility.getInstance().changeEditTextFont(username, getApplicationContext());
         password = (EditText) findViewById(R.id.et_password);
-        password = PriceUtility.getInstance().changeEditTextFont(password,getApplicationContext());
+        password = PriceUtility.getInstance().changeEditTextFont(password, getApplicationContext());
         sec = new Security();
-        btnSignUp = PriceUtility.getInstance().ChangeButtonFont(btnSignUp,getApplicationContext());
-        btnLogin = PriceUtility.getInstance().ChangeButtonFont(btnLogin,getApplicationContext());
+        btnSignUp = PriceUtility.getInstance().ChangeButtonFont(btnSignUp, getApplicationContext());
+        btnLogin = PriceUtility.getInstance().ChangeButtonFont(btnLogin, getApplicationContext());
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,16 +86,16 @@ public class LoginActivity
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), WebView.class);
-                intent.putExtra("url",Link.getInstance().generateURLSignUp());
+                intent.putExtra("url", Link.getInstance().generateURLSignUp());
                 startActivity(intent);
             }
         });
-        btnForgotPass = PriceUtility.getInstance().ChangeButtonFont(btnForgotPass,getApplicationContext());
+        btnForgotPass = PriceUtility.getInstance().ChangeButtonFont(btnForgotPass, getApplicationContext());
         btnForgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getBaseContext(), WebView.class);
-                intent.putExtra("url",Link.getInstance().generateURLForForgotPassword());
+                intent.putExtra("url", Link.getInstance().generateURLForForgotPassword());
                 startActivity(intent);
 
             }

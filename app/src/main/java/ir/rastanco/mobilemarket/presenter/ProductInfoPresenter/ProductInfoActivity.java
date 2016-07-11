@@ -1,11 +1,11 @@
 package ir.rastanco.mobilemarket.presenter.ProductInfoPresenter;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ import ir.rastanco.mobilemarket.utility.Configuration;
  * Created by ShaisteS on 1394/10/16.
  * A Activity For show Product Information
  **/
-public class ProductInfoActivity extends Activity {
+public class ProductInfoActivity extends AppCompatActivity {
     private String isItFirstTimeRunningApplication = "firstTime";
     private String allProduct = "allProduct";
     private String position = "position";

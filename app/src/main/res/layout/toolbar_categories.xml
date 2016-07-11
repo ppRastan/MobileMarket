@@ -1,42 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:background="@color/white"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2">
 
 
         <Button
-            tools:ignore="NestedWeights"
             android:id="@+id/filter_dialogue"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:layout_gravity="center_horizontal|center_vertical"
             android:layout_weight="1"
             android:background="@drawable/button_background"
             android:text="@string/add_filter"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@color/black"
-            android:textSize="@dimen/textSize" />
+            android:textSize="@dimen/textSize"
+            tools:ignore="NestedWeights" />
+
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="7dp"
+            android:background="@color/md_btn_selected"></LinearLayout>
 
         <Button
             android:id="@+id/group_dialog"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="1"
             android:background="@drawable/button_background"
             android:text="@string/group"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@color/black"
             android:textSize="@dimen/textSize" />
 
@@ -46,12 +51,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:orientation="horizontal"
         android:weightSum="2">
 
-        <TextView
-            tools:ignore="NestedWeights"
+        <ir.rastanco.mobilemarket.utility.FontTextView
             android:id="@+id/filter_dialogue_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -62,10 +66,11 @@
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/all"
             android:textColor="@color/black"
-            android:textSize="@dimen/smallerTextSize" />
+            android:textSize="@dimen/smallerTextSize"
+            tools:ignore="NestedWeights" />
 
 
-        <TextView
+        <ir.rastanco.mobilemarket.utility.FontTextView
             android:id="@+id/group_dialog_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"

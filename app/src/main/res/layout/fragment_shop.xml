@@ -11,17 +11,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/background_window"/>
+            android:layout_height="2dp"
+            android:background="@color/md_btn_selected"/>
 
         <include layout="@layout/toolbar_categories"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/black"/>
+            android:layout_height="4dp"
+            android:background="@color/md_btn_selected"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -33,7 +33,6 @@
                 android:id="@+id/progressBar_Loading"
                 android:layout_above="@+id/no_thing_to_show1"
                 android:layout_centerInParent="true"
-                android:visibility="invisible"
                 android:paddingBottom="5dp" />
 
             <ir.rastanco.mobilemarket.utility.FontTextView

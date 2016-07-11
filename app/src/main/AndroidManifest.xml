@@ -76,6 +76,8 @@
         <activity
             android:name=".presenter.UserProfilePresenter.LoginActivity"
             android:screenOrientation="portrait" />
+
+
         <activity
             android:name=".presenter.FullScreenPAgeUserGuider"
             android:screenOrientation="portrait"
@@ -119,7 +121,6 @@
         <activity android:name=".LoginPageActivity" />
         <activity
             android:name=".InfoActivity"
-            android:label="@string/title_activity_info"
             android:theme="@style/AppTheme"></activity>
     </application>
 

@@ -3,6 +3,8 @@ package ir.rastanco.mobilemarket.presenter.specialProductPresenter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -60,7 +62,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
         productListView = (ListView) mainView.findViewById(R.id.listView_picProduct);
         noThingToShow = (TextView) mainView.findViewById(R.id.no_thing_to_show1);
         //noThingToShow = PriceUtility.getInstance().changeFontToYekan(noThingToShow, context);
-        progressBar=(ProgressBar)mainView.findViewById(R.id.progressBar_Loading);
+        progressBar=(ProgressBar)mainView.findViewById(R.id.progressBar_Loading_special_page);
         existProductNumber = sch.getFirstIndexForGetProductFromJson();
         allProductNumber = sch.getNumberAllProduct();
         products = new ArrayList<>();
@@ -143,6 +145,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
             if (existProductNumber < allProductNumber || existProductNumber == 0) {
                 //Loading bar and please wait... text and grid view gone
                 progressBar.setVisibility(View.VISIBLE);
+                progressBar.getIndeterminateDrawable().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
                 //noThingToShow.setText(getString(R.string.please_wait_message));
                 //noThingToShow.setTextColor(ContextCompat.getColor(context, R.color.black));
                 //noThingToShow.setVisibility(View.VISIBLE);
