@@ -1,87 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    android:weightSum="25">
+    android:orientation="vertical">
 
-    <LinearLayout
+    <include
+        layout="@layout/customactionbar_shpppingbag_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/img_productInfo"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_weight="3"
-        android:background="@color/decoriss"
-        android:orientation="horizontal">
-
-        <ir.rastanco.mobilemarket.utility.FontTextView
-            android:id="@+id/name_of_photo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|center_horizontal"
-            android:textColor="@color/white"
-            android:textSize="@dimen/textSize" />
-
-    </LinearLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_weight="12"
+        android:layout_weight="1"
         android:background="@color/white"
-        android:foregroundGravity="center"
-        android:gravity="center">
-
-        <ImageView
-            android:id="@+id/img_productInfo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="19dp"
-            android:layout_marginRight="19dp"
-            android:background="@color/white"
-            android:contentDescription="@string/productFullScreenPhoto"
-            android:scaleType="centerInside" />
-
-        <ImageButton
-            android:id="@+id/ic_offer_full_screen_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/img_productInfo"
-            android:layout_marginLeft="19dp"
-            android:background="@null"
-            android:contentDescription="@string/thisProductHasOffer"
-            />
-
-
-    </RelativeLayout>
+        android:contentDescription="@string/productFullScreenPhoto"
+        android:scaleType="centerInside" />
 
     <HorizontalScrollView
         android:id="@+id/horizontal_scroll"
+        android:paddingRight="2dp"
+        android:paddingLeft="2dp"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="4"
-        android:background="@color/white"
-        android:padding="2dp"
+        android:layout_height="wrap_content"
+        android:background="@color/background_window"
         android:scrollbars="none">
 
         <LinearLayout
             android:id="@+id/linear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:background="@color/md_btn_selected_dark"
             android:orientation="horizontal" />
     </HorizontalScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:gravity="center"
+        android:padding="9dp"
         android:weightSum="10">
 
         <ImageView
@@ -93,12 +55,12 @@
             tools:ignore="NestedWeights" />
 
         <ir.rastanco.mobilemarket.utility.FontTextView
+            android:id="@+id/product_guality"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4.5"
             android:gravity="center_vertical|center_horizontal"
             android:padding="7dp"
-            android:id="@+id/product_guality"
             android:textColor="@color/black"
             android:textSize="@dimen/smallerTextSize" />
 
@@ -107,22 +69,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
+        android:padding="9dp"
         android:weightSum="4">
 
-        <ImageButton
-            android:id="@+id/img_share_full_screen"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:contentDescription="@string/shareCurrentProduct"
-            android:src="@drawable/ic_share_toolbar"
-            tools:ignore="NestedWeights" />
 
         <ImageButton
             android:id="@+id/telegram_share"
@@ -130,7 +82,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical|center_horizontal"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/shareByTelegram"
             android:src="@mipmap/telegram" />
 
@@ -140,9 +92,21 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal|center_vertical"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/addProductToFavorits"
             android:src="@drawable/toolbar_add_to_favorite_border" />
+
+        <ImageButton
+            android:id="@+id/img_share_full_screen"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/shareCurrentProduct"
+            android:src="@drawable/ic_share_toolbar"
+            tools:ignore="NestedWeights" />
+
 
         <ImageButton
             android:id="@+id/img_info"
@@ -150,7 +114,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal|center_vertical"
             android:layout_weight="1"
-            android:background="@color/white"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/informationOfCurrentProduct"
             android:src="@drawable/toolbar_information" />
 
@@ -159,8 +123,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_height="wrap_content"
         android:background="@color/green"
         android:weightSum="4">
 
@@ -175,12 +138,12 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:drawableRight="@drawable/fullscreenpage_basket"
                 android:gravity="center"
                 android:padding="7dp"
-                android:textStyle="bold"
-                android:drawableRight="@drawable/fullscreenpage_basket"
                 android:textColor="@color/white"
-                android:textSize="@dimen/textSize" />
+                android:textSize="@dimen/textSize"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout

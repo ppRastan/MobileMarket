@@ -9,7 +9,6 @@ package ir.rastanco.mobilemarket.presenter.shopPresenter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
@@ -29,7 +28,6 @@ import java.util.ArrayList;
 
 import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
-import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.FileCache.ImageLoader;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.ProductInfoPresenter.ProductInfoActivity;
 import ir.rastanco.mobilemarket.utility.Configuration;
@@ -42,7 +40,6 @@ import jp.shts.android.library.TriangleLabelView;
 public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
 
     private final ArrayList<Product> allProduct;
-    private boolean isLikeButtonClicked = true;
     private final ServerConnectionHandler sch;
     private final Context myContext;
     private final Activity shopPresenterActivity;
@@ -73,7 +70,7 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         private ImageView imgP;
         private ImageButton likeToolBar;
         private TriangleLabelView offerRight;
-        private ImageLoader imgLoader;
+        //private ImageLoader imgLoader;
         private CardView cardView;
     }
 
@@ -94,7 +91,7 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
             holder.offerRight = (TriangleLabelView) convertView.findViewById(R.id.ic_offer_right);
 
             holder.likeToolBar = (ImageButton) convertView.findViewById(R.id.empty_like_toolbar);
-            holder.imgLoader = new ImageLoader(myContext);
+            //holder.imgLoader = new ImageLoader(myContext);
             convertView.setTag(holder);
         } else
             holder = (ViewHolder) convertView.getTag();
@@ -105,7 +102,6 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         if (eachProduct.getPriceOff() == 0 && eachProduct.getPrice() != 0) {
             holder.offerRight.setVisibility(View.GONE);
             holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(eachProduct.getPrice())));
-            holder.priceForYou.setTextColor(Color.BLACK);
         }
         else if (eachProduct.getPriceOff() !=0 && eachProduct.getPrice() != 0) {
             holder.offerRight.setVisibility(View.VISIBLE);
@@ -120,71 +116,14 @@ public class PictureProductShopItemAdapter extends ArrayAdapter<Product> {
         }
 
 
-//
-//        if (sch.checkSelectProductForShop(eachProduct.getId()))
-//            holder.basketToolbar.setImageResource(R.drawable.green_bye_toolbar);
-//        else
-//            holder.basketToolbar.setImageResource(R.drawable.toolbar_add_product_to_basket);
-//
-//        holder.basketToolbar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                    holder.basketToolbar.setImageResource(R.drawable.green_bye_toolbar);
-//                    sch.addProductToShoppingBag(eachProduct.getId());
-//                    myContext.startActivity(new Intent(myContext, ShoppingBagActivity.class));
-//                    ObserverShopping.setMyBoolean(true);
-//                }
-//        });
-
-//        holder.shareToolBar.setOnClickListener(new View.OnClickListener() {
-  //          @Override
-    //        public void onClick(View v) {
-      //          ToolbarHandler.getInstance().generalShare(shopPresenterActivity, eachProduct.getLinkInSite());
-//                shareDialog = new Dialog(myContext);
-//                shareDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//                shareDialog.setContentView(R.layout.share_alert_dialog);
-//                ImageButton cancelShareDialog = (ImageButton) shareDialog.findViewById(R.id.close_pm_to_friend);
-//                final Button sendBtn = (Button)shareDialog.findViewById(R.id.send_my_pm);
-//                final EditText editTextToShare = (EditText)shareDialog.findViewById(R.id.text_to_send);
-//                cancelShareDialog.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        shareDialog.dismiss();
-//                    }
-//                });
-//                sendBtn.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        sendBtn.setTextColor(Color.parseColor("#EB4D2A"));
-//                        textToSend = editTextToShare.getText().toString();
-//                        String share=textToSend+"\n\n"+
-//                                eachProduct.getLinkInSite()+ "\n\n"+
-//                                myContext.getResources().getString(R.string.text_to_advertise)+"\n\n"
-//                                + myContext.getResources().getString(R.string.LinkDownloadApp) ;
-//                        sendIntent = new Intent();
-//                        sendIntent.setAction(Intent.ACTION_SEND);
-//                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
-//                        sendIntent.putExtra(Intent.EXTRA_SUBJECT,textToSend);
-//                        sendIntent.putExtra(Intent.EXTRA_TEXT,share);
-//                        sendIntent.setType("text/plain");
-//                        myContext.startActivity(sendIntent);
-//                        shareDialog.cancel();
-//                    }
-//                });
-//                shareDialog.setCancelable(true);
-//                shareDialog.show();
-
-        //    }
-        //});
-
         if (sch.getAProduct(eachProduct.getId()).getLike() == 0) {
             //this Product No Favorite
             holder.likeToolBar.setImageResource(R.drawable.toolbar_add_to_favorite_border);
-            isLikeButtonClicked = false;
+            //isLikeButtonClicked = false;
         } else {
 
             holder.likeToolBar.setImageResource(R.drawable.toolbar_add_to_favorit_fill_like);
-            isLikeButtonClicked = true;
+            //isLikeButtonClicked = true;
         }
 
         holder.likeToolBar.setOnClickListener(new View.OnClickListener() {

@@ -67,7 +67,7 @@ public class FilterOptionProduct extends DialogFragment {
         ArrayList<String> optionProductFilter = new ArrayList<>();
         optionProductFilter.add(dialogView.getResources().getString(R.string.filterPriceTitle));
         optionProductFilter.add(dialogView.getResources().getString(R.string.filterBrandTitle));
-        btnCancelAlertDialog.setImageResource(R.drawable.ic_cancel);
+        btnCancelAlertDialog.setImageResource(R.drawable.cancel);
 
         ListView listCategory = (ListView) dialogView.findViewById(R.id.list);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),

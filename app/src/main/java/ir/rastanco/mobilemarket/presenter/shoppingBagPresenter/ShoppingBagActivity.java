@@ -55,7 +55,7 @@ public class ShoppingBagActivity extends Activity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         //window.setStatusBarColor(this.getResources().getColor(R.color.statusbar_color));
         setContentView(R.layout.activity_shopping_bag);
-        textviewForActionBar = (TextView)findViewById(R.id.actionbar_text);
+        textviewForActionBar = (TextView) findViewById(R.id.actionbar_text);
         textviewForActionBar.setText(getResources().getString(R.string.your_basket));
         //this.RTlizeShoppingBagXml();
         this.setYekanFont();
@@ -77,7 +77,7 @@ public class ShoppingBagActivity extends Activity {
 
         totalPriceTextView.setText(Configuration.getConfig().userLastShoppingActivityContext.getResources().getString(R.string.shoppingBagActivityFinalPrice, String.valueOf(PriceUtility.getInstance().formatPriceCommaSeparated(finalPrice))));
         Button confirmShopping = (Button) findViewById(R.id.ok_shop);
-        confirmShopping = PriceUtility.getInstance().ChangeButtonFont(confirmShopping,getApplicationContext());
+        confirmShopping = PriceUtility.getInstance().ChangeButtonFont(confirmShopping, getApplicationContext());
         confirmShopping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +93,7 @@ public class ShoppingBagActivity extends Activity {
                     } else {
                         String url = Link.getInstance().generateURLForSendShoppingProductsToServer(user.getUserEmail(), shopInfo);
                         Intent intent = new Intent(getBaseContext(), WebView.class);
-                        intent.putExtra("url",url);
+                        intent.putExtra("url", url);
                         startActivity(intent);
                         startActivity(intent);
                         sch.emptyShoppingBag();
