@@ -7,6 +7,7 @@ import android.os.ResultReceiver;
 import android.util.Log;
 
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
+import ir.rastanco.mobilemarket.presenter.Observer.ObserverUpdateCategories;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
 
@@ -32,23 +33,24 @@ public class DownloadCategoryInformationService extends IntentService {
         ServerConnectionHandler serverConnectionHandler=ServerConnectionHandler.getInstance(this);
 
         final ResultReceiver receiver = intent.getParcelableExtra("receiver");
+        int code = intent.getIntExtra("code",0);
 
         if (Configuration.getConfig().connectionStatus) {
             /* Update UI: Download Service is Running */
             receiver.send(STATUS_RUNNING, Bundle.EMPTY);
-
             try {
 
                 String urlGetCategories= Link.getInstance().generateURLForGetAllCategories();
                 serverConnectionHandler.setCategories(serverConnectionHandler.getAllCategoryInfoURL(urlGetCategories));
+                serverConnectionHandler.addAllCategoryToTable(serverConnectionHandler.getCategories());
+                Configuration.getConfig().emptyCategoryTable=false;
+                if (code==300)
+                    ObserverUpdateCategories.setUpdateCategoriesStatus(true);
+                receiver.send(STATUS_FINISHED, null);
 
                 /*String UrlGetProducts=Link.getInstance().generateUrlForGetNewProduct(this.getString(R.string.firstTimeStamp));
                 serverConnectionHandler.setProducts(serverConnectionHandler.getProductFromUrlInFirstInstall(UrlGetProducts));
                 receiver.send(STATUS_FINISHED_WHEN_SCROLL, null);*/
-
-                serverConnectionHandler.addAllCategoryToTable(serverConnectionHandler.getCategories());
-                Configuration.getConfig().emptyCategoryTable=false;
-                receiver.send(STATUS_FINISHED, null);
 
                 /*serverConnectionHandler.addProductInformationToDataBaseFirstInstall();
                 Configuration.getConfig().emptyProductTable=false;*/
