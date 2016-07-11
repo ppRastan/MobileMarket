@@ -37,6 +37,7 @@ import ir.rastanco.mobilemarket.presenter.Observer.ObserverSimilarProductListene
 import ir.rastanco.mobilemarket.presenter.Services.DownloadProductInformationService;
 import ir.rastanco.mobilemarket.presenter.Services.DownloadResultReceiver;
 import ir.rastanco.mobilemarket.presenter.Services.UpdateService;
+import ir.rastanco.mobilemarket.presenter.specialProductPresenter.PictureSpecialProductItemAdapter;
 import ir.rastanco.mobilemarket.utility.ColorUtility;
 import ir.rastanco.mobilemarket.utility.Configuration;
 import ir.rastanco.mobilemarket.utility.Link;
@@ -85,16 +86,22 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         resultReceiver.setReceiver(this);
 
 
-        final ArrayList<Product> products = sch.getProductsOfAParentCategory(pageId);
+        ArrayList<Product> products = new ArrayList<Product>();
+        products=sch.getProductsOfAParentCategory(pageId);
         adapter = new PictureProductShopItemAdapter(activity, products);
-        gridview.setAdapter(adapter);
-
-        if (gridview.getAdapter().getCount()==0)
-            getProductInformationFromServer(0);
-
-
-        existProductNumber = sch.getFirstIndexForGetProductFromJson();
-        int allProductNumber = sch.getNumberAllProduct();
+        if (products.size()==0) {
+            //TODO
+            noThingToShow.setText(getString(R.string.please_wait_message));
+            noThingToShow.setTextColor(ContextCompat.getColor(myContext, R.color.black));
+            noThingToShow.setVisibility(View.VISIBLE);
+            gridview.setVisibility(View.GONE);
+            getProductInformationFromServerWhenFirstEnterTab(categoryId,0);
+        }
+        else {
+            noThingToShow.setVisibility(View.INVISIBLE);
+            gridview.setVisibility(View.VISIBLE);
+            gridview.setAdapter(adapter);
+        }
 
         Configuration.getConfig().filterCategoryId = 0;
         Configuration.getConfig().filterCategoryTitle = getString(R.string.all);
@@ -138,13 +145,8 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                     lockScroll=true;
                     int minLimited=gridview.getAdapter().getCount();
                     int maxLimited=minLimited+Configuration.getConfig().someOfFewProductNumberWhenScrollIsButton;
-                    String UrlGetProducts= Link.getInstance().generateForGetLimitedProductOfAMainCategory(pageId,
-                            minLimited,maxLimited);
-                    Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
-                    intent.putExtra("receiver", resultReceiver);
-                    intent.putExtra("Link",UrlGetProducts);
-                    myContext.startService(intent);
-                }
+                    getProductInformationFromServerWhenScroll(pageId,minLimited,maxLimited);
+                                    }
 
             }
         });
@@ -225,7 +227,14 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 Configuration.getConfig().filterOption);
-                        if (showMessage(newProducts.size())) {
+                        if (newProducts.size()==0){
+                            getProductInformationFromServerWhenFilter(Configuration.getConfig().filterCategoryId,0);
+
+                        }
+                        else {
+                            //TODO
+                            gridview.setVisibility(View.VISIBLE);
+                            noThingToShow.setVisibility(View.GONE);
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -263,11 +272,20 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 Configuration.getConfig().filterOption);
-                        if (showMessage(newProducts.size())) {
+                        if (newProducts.size()==0){
+                            //TODO
+                            gridview.setVisibility(View.GONE);
+                            noThingToShow.setText(R.string.no_product_to_show);
+                            noThingToShow.setTextColor(ContextCompat.getColor(myContext, R.color.colorFilterText));
+                            noThingToShow.setVisibility(View.VISIBLE);
+                        }
+                        else  {
+
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
                         }
+
                     }
                 });
                 ObserverFilterBrand.changeFilterBrandListener(new ObserverFilterBrandListener() {
@@ -279,7 +297,16 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 Configuration.getConfig().filterOption);
-                        if (showMessage(newProducts.size())) {
+                        if (newProducts.size()==0){
+                            //TODO
+                            gridview.setVisibility(View.GONE);
+                            noThingToShow.setText(R.string.no_product_to_show);
+                            noThingToShow.setTextColor(ContextCompat.getColor(myContext, R.color.colorFilterText));
+                            noThingToShow.setVisibility(View.VISIBLE);
+
+                        }
+                        else  {
+
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -297,7 +324,16 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                                 Configuration.getConfig().filterCategoryId,
                                 txtFilterOptionProductSelected.getText().toString(),
                                 Configuration.getConfig().filterOption);
-                        if (showMessage(newProducts.size())) {
+                        if (newProducts.size()==0){
+                            //TODO
+                            gridview.setVisibility(View.GONE);
+                            noThingToShow.setText(R.string.no_product_to_show);
+                            noThingToShow.setTextColor(ContextCompat.getColor(myContext, R.color.colorFilterText));
+                            noThingToShow.setVisibility(View.VISIBLE);
+
+                        }
+                        else  {
+
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -310,17 +346,39 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         return mainView;
     }
 
-    private void getProductInformationFromServer(int minStarLimited){
+    private void getProductInformationFromServerWhenFirstEnterTab(int categoryId,int minStarLimited){
         String UrlGetProducts= Link.getInstance().generateForGetLimitedProductOfAMainCategory(categoryId,
                 minStarLimited,Configuration.getConfig().someOfFewProductNumberForGetEveryTab);
         Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
         intent.putExtra("receiver", resultReceiver);
         intent.putExtra("Link",UrlGetProducts);
+        intent.putExtra("code",200);
         myContext.startService(intent);
     }
 
-    private Boolean showMessage(int productSize) {
-        if (productSize == 0) {
+    private void getProductInformationFromServerWhenScroll(int categoryId,int minStarLimited,int maxEndLimited){
+        String UrlGetProducts= Link.getInstance().generateForGetLimitedProductOfAMainCategory(categoryId,
+                minStarLimited,maxEndLimited);
+        Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
+        intent.putExtra("receiver", resultReceiver);
+        intent.putExtra("Link",UrlGetProducts);
+        intent.putExtra("code",201);
+        myContext.startService(intent);
+
+    }
+
+    private void getProductInformationFromServerWhenFilter(int categoryId,int minStarLimited){
+        String UrlGetProducts= Link.getInstance().generateForGetLimitedProductOfAMainCategory(categoryId,
+                minStarLimited,Configuration.getConfig().someOfFewProductNumberForGetEveryTab);
+        Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
+        intent.putExtra("receiver", resultReceiver);
+        intent.putExtra("Link",UrlGetProducts);
+        intent.putExtra("code",202);
+        myContext.startService(intent);
+    }
+
+    /*private Boolean showMessage(int productSize) {
+        /*if (productSize == 0) {
             if (existProductNumber == 0) {
                 //Loading bar and please wait... text and grid view gone
                 //progressBar.setVisibility(View.VISIBLE);
@@ -336,7 +394,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                 gridview.setVisibility(View.GONE);
                 return false;
 
-            }
+            }*/
 
            /* else if(existProductNumber!=0){
                 //Loading bar gone and no product text and grid view gone
@@ -347,7 +405,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                 gridview.setVisibility(View.GONE);
                 return false;
             }
-            return false;*/
+            return false;
 
         } else {
             //Loading bar gone text view gone grid view visible
@@ -357,7 +415,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
             return true;
         }
 
-    }
+    }*/
 
     @Override
     public void onReceiveResult(int resultCode, Bundle resultData) {
@@ -382,28 +440,70 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                 }
                 //ObserverUpdateCategories.setUpdateCategoriesStatus(true);
                 break;
-            case DownloadProductInformationService.STATUS_FINISHED:
-               newProducts = (ArrayList<Product>) resultData.getSerializable("newProduct");
-                if (newProducts.size() == 0 && gridview.getAdapter().getCount()==0) {
+
+            case DownloadProductInformationService.STATUS_FINISHED_FIRST_ENTER_TAB:
+                newProducts= (ArrayList<Product>) resultData.getSerializable("newProduct");
+                if (newProducts.size()==0){
                     noThingToShow.setVisibility(View.VISIBLE);
+                    noThingToShow.setTextColor(ContextCompat.getColor(myContext, R.color.colorFilterText));
+                    noThingToShow.setText(R.string.no_product_to_show);
                     gridview.setVisibility(View.GONE);
                 }
                 else {
-                    int lastProductNumber;
-                    if (gridview.getAdapter()==null)
-                        lastProductNumber=0;
-                    else
-                        lastProductNumber=gridview.getAdapter().getCount();
                     noThingToShow.setVisibility(View.GONE);
                     gridview.setVisibility(View.VISIBLE);
-                    if (newProducts.size()>0){
-                        for(int i=0;i<newProducts.size();i++)
-                            ((PictureProductShopItemAdapter) gridview.getAdapter()).add(newProducts.get(i));
-                        if(lockScroll && lastProductNumber<newProducts.size())
-                            lockScroll=!lockScroll;
-                        if (lockFirstVisitTab)
-                            lockFirstVisitTab=!lockFirstVisitTab;
-                    }
+                    gridview.setAdapter(new PictureProductShopItemAdapter(activity,newProducts));
+                }
+                break;
+
+            case DownloadProductInformationService.STATUS_FINISHED_WHEN_SCROLL:
+                newProducts = (ArrayList<Product>) resultData.getSerializable("newProduct");
+                int lastProductNumber;
+                if (newProducts.size()==0 && gridview.getAdapter()==null){
+                    noThingToShow.setVisibility(View.VISIBLE);
+                    noThingToShow.setText(R.string.no_product_to_show);
+                    noThingToShow.setText(ContextCompat.getColor(myContext, R.color.colorFilterText));
+                    gridview.setVisibility(View.GONE);
+
+                }
+                else if(newProducts.size()>0 && gridview.getAdapter()==null){
+                    lastProductNumber=0;
+                    noThingToShow.setVisibility(View.GONE);
+                    gridview.setVisibility(View.VISIBLE);
+                    PictureSpecialProductItemAdapter adapter=new PictureSpecialProductItemAdapter(myContext,newProducts);
+                    gridview.setAdapter(adapter);
+                    if(lockScroll && lastProductNumber<newProducts.size())
+                        lockScroll=!lockScroll;
+                    if (lockFirstVisitTab)
+                        lockFirstVisitTab=!lockFirstVisitTab;
+
+                }
+                else if(newProducts.size()>0 && gridview.getAdapter()!=null){
+                    lastProductNumber=gridview.getAdapter().getCount();
+                    noThingToShow.setVisibility(View.GONE);
+                    gridview.setVisibility(View.VISIBLE);
+                    for(int i=0;i<newProducts.size();i++)
+                        ((PictureProductShopItemAdapter) gridview.getAdapter()).add(newProducts.get(i));
+                    if(lockScroll && lastProductNumber<newProducts.size())
+                        lockScroll=!lockScroll;
+                    if (lockFirstVisitTab)
+                        lockFirstVisitTab=!lockFirstVisitTab;
+
+                }
+                break;
+            case DownloadProductInformationService.STATUS_FINISHED_FILTER:
+                newProducts = (ArrayList<Product>) resultData.getSerializable("newProduct");
+                if (newProducts.size()==0){
+                    noThingToShow.setVisibility(View.VISIBLE);
+                    gridview.setVisibility(View.GONE);
+                    noThingToShow.setTextColor(ContextCompat.getColor(myContext, R.color.colorFilterText));
+                    noThingToShow.setText(R.string.no_product_to_show);
+
+                }
+                else{
+                    noThingToShow.setVisibility(View.GONE);
+                    gridview.setVisibility(View.VISIBLE);
+                    gridview.setAdapter(new PictureProductShopItemAdapter(activity,newProducts));
                 }
                 break;
         }
