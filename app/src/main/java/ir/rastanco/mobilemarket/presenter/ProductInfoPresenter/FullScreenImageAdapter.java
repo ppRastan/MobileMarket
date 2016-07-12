@@ -35,7 +35,6 @@ import ir.rastanco.mobilemarket.utility.Link;
 import ir.rastanco.mobilemarket.utility.PriceUtility;
 import ir.rastanco.mobilemarket.utility.ToolbarHandler;
 import ir.rastanco.mobilemarket.utility.Utilities;
-import jp.shts.android.library.TriangleLabelView;
 
 public class FullScreenImageAdapter extends PagerAdapter {
 
@@ -81,7 +80,7 @@ public class FullScreenImageAdapter extends PagerAdapter {
 
         LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewLayout = inflater.inflate(R.layout.activity_product_info, container, false);
-        TriangleLabelView offerImageButton = (TriangleLabelView) viewLayout.findViewById(R.id.ic_offer_right);
+        //TriangleLabelView offerImageButton = (TriangleLabelView) viewLayout.findViewById(R.id.ic_offer_right);
         final Product aProduct = products.get(position);
         Button addToBasketBtn = (Button) viewLayout.findViewById(R.id.full_screen_add_to_basket_btn);
         ImageButton backbtn = (ImageButton)viewLayout.findViewById(R.id.actionbar_back_icon);
@@ -95,13 +94,13 @@ public class FullScreenImageAdapter extends PagerAdapter {
             addToBasketBtn.setEnabled(false);
 
         }
-        if (aProduct.getPriceOff() != 0) {
+        /*if (aProduct.getPriceOff() != 0) {
 
             offerImageButton.setVisibility(View.VISIBLE);
             offerImageButton.setPrimaryText("%"+String.valueOf(aProduct.getPriceOff()));
         } else {
             offerImageButton.setVisibility(View.GONE);
-        }
+        }*/
         if (aProduct.getPriceOff() == 0 && aProduct.getPrice() != 0) {
             int price = aProduct.getPrice();
             String numberOfFinalPrice = String.valueOf(price);

@@ -17,7 +17,7 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <jp.shts.android.library.TriangleLabelView
+        <!--<jp.shts.android.library.TriangleLabelView
             android:id="@+id/ic_offer_right"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,7 +30,7 @@
             app:labelTopPadding="20dp"
             app:primaryTextColor="@color/white"
             app:primaryTextSize="18sp"
-            app:primaryTextStyle="bold" />
+            app:primaryTextStyle="bold" />-->
 
         <ImageView
             android:id="@+id/img_productInfo"
