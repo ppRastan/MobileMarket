@@ -119,20 +119,17 @@ public class ToolbarHandler {
     public void addCurrentProductToFavorite(Activity activity, Context myContext, ImageButton likeThisProduct, Product eachProduct, ServerConnectionHandler sch) {
 
         if (sch.getAProduct(eachProduct.getId()).getLike() == 0) {
-
             if (Configuration.getConfig().userLoginStatus)
                 ToastUtility.getConfig().displayToast(myContext.getResources().getString(R.string.thanks), activity);
             else
-
                 ToastUtility.getConfig().displayToast(myContext.getResources().getString(R.string.pleaseLogin), activity);
-            likeThisProduct.setImageResource(R.drawable.toolbar_add_to_favorite_border);
+            likeThisProduct.setImageResource(R.drawable.toolbar_add_to_favorit_fill_like);
             sch.changeProductLike(eachProduct.getId(), 1);
         } else if (sch.getAProduct(eachProduct.getId()).getLike() == 1) {
 
             if (!Configuration.getConfig().userLoginStatus)
-
                 ToastUtility.getConfig().displayToast(myContext.getResources().getString(R.string.pleaseLogin), activity);
-            likeThisProduct.setImageResource(R.drawable.toolbar_add_to_favorit_fill_like);
+            likeThisProduct.setImageResource(R.drawable.toolbar_add_to_favorite_border);
             sch.changeProductLike(eachProduct.getId(), 0);
         }
 
@@ -141,24 +138,20 @@ public class ToolbarHandler {
     public void addToFavoriteInProductPage(Activity productPageActivity, ServerConnectionHandler sch, Product aProduct, ImageButton btnLike, Activity activity, int position) {
 
         if (sch.getAProduct(aProduct.getId()).getLike() == 0) {
-
             if (Configuration.getConfig().userLoginStatus)
                 ToastUtility.getConfig().displayToast(activity.getResources().getString(R.string.thanks), productPageActivity);
             else
-
                 ToastUtility.getConfig().displayToast(activity.getResources().getString(R.string.pleaseLogin), productPageActivity);
             btnLike.setImageResource(R.drawable.toolbar_add_to_favorit_fill_like);
             aProduct.setLike(1);
             sch.changeProductLike(aProduct.getId(), 1);
             ObserverLike.setLikeStatus(position);
 
-
         } else if (sch.getAProduct(aProduct.getId()).getLike() == 1) {
 
             if (!Configuration.getConfig().userLoginStatus)
-
                 ToastUtility.getConfig().displayToast(activity.getResources().getString(R.string.pleaseLogin), productPageActivity);
-            btnLike.setImageResource(R.drawable.toolbar_add_to_favorit_fill_like);
+            btnLike.setImageResource(R.drawable.toolbar_add_to_favorite_border);
             aProduct.setLike(0);
             sch.changeProductLike(aProduct.getId(), 0);
             ObserverLike.setLikeStatus(position);
