@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import ir.rastanco.mobilemarket.InfoActivity;
@@ -175,17 +176,18 @@ public class ToolbarHandler {
         new MaterialDialog.Builder(myContext)
                 .contentColorRes(R.color.black)
                 .content(R.string.rateUsDialogTitle)
-                .positiveText(R.string.rateUsDialogNo)
-                .positiveColorRes(R.color.black)
-                .negativeText(R.string.rateUsDialogYes)
+                .contentGravity(GravityEnum.CENTER)
+                .negativeText(R.string.rateUsDialogNo)
                 .negativeColorRes(R.color.black)
+                .neutralText(R.string.rateUsDialogYes)
+                .neutralColorRes(R.color.green)
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         dialog.dismiss();
                     }
                 })
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         dialog.dismiss();

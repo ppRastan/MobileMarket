@@ -108,7 +108,7 @@
 
     <!-- Dialog box Rate Us -->
     <string name="rateUsDialogTitle">آیا مایلید به دکوریس امتیاز دهید ؟</string>
-    <string name="rateUsDialogYes">بله</string>
+    <string name="rateUsDialogYes">بله امتیاز می دهم</string>
     <string name="rateUsDialogNo">نه فعلا</string>
 
     <!--intro sliding strings-->
