@@ -81,6 +81,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
     private CoordinatorLayout coordinatorLayout;
     private TextView text_count;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -349,30 +350,37 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
     }
 
     private void updateViewPager(ViewPager viewPager) {
-        mainCategoryTitle = sch.getMainCategoryTitle();
-        mapTitleToIdMainCategory = sch.MapTitleToIDForMainCategory();
-        Configuration.getConfig().mainTabCount = mainCategoryTitle.size();
-        ViewPagerAdapter adapter = (ViewPagerAdapter) viewPager.getAdapter();
-        deleteAllFragmentPage(adapter);
-        adapter.clearAllTab();
-        adapter.addFragment(new ArticleFragment(), getResources().getString(R.string.fifth_page));
-        for (int i = mainCategoryTitle.size() - 1; i >= 0; i--) {
-            Bundle args = new Bundle();
-            args.putInt("pageId", mapTitleToIdMainCategory.get(mainCategoryTitle.get(i)));
-            ShopFragment shop = new ShopFragment();
-            shop.setArguments(args);
-            adapter.addFragment(shop, mainCategoryTitle.get(i));
+        try{
+            mainCategoryTitle = sch.getMainCategoryTitle();
+            mapTitleToIdMainCategory = sch.MapTitleToIDForMainCategory();
+            Configuration.getConfig().mainTabCount = mainCategoryTitle.size();
+            ViewPagerAdapter adapter = (ViewPagerAdapter) viewPager.getAdapter();
+            deleteAllFragmentPage(adapter);
+            adapter.clearAllTab();
+            adapter.addFragment(new ArticleFragment(), getResources().getString(R.string.fifth_page));
+            for (int i = mainCategoryTitle.size() - 1; i >= 0; i--) {
+                Bundle args = new Bundle();
+                args.putInt("pageId", mapTitleToIdMainCategory.get(mainCategoryTitle.get(i)));
+                ShopFragment shop = new ShopFragment();
+                shop.setArguments(args);
+                adapter.addFragment(shop, mainCategoryTitle.get(i));
+            }
+            adapter.addFragment(new SpecialProductFragment(), getResources().getString(R.string.first_page));
+            //ToDO Parisa For Show Home Tab
+            //adapter.addFragment(new HomeFragment(), getResources().getString(R.string.home));
+            viewPager.setAdapter(adapter);
+            tabLayout = (TabLayout) findViewById(R.id.tabs);
+            tabLayout.setupWithViewPager(viewPager);
+            tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
+            tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+            viewPager.setCurrentItem(adapter.getCount() - 1);
+            changeTabsFont();
+
+        }catch (IllegalStateException ignored) {
+            // There's no way to avoid getting this if saveInstanceState has already been called.
+            Log.d("force close",ignored.toString());
         }
-        adapter.addFragment(new SpecialProductFragment(), getResources().getString(R.string.first_page));
-        //ToDO Parisa For Show Home Tab
-        //adapter.addFragment(new HomeFragment(), getResources().getString(R.string.home));
-        viewPager.setAdapter(adapter);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabTextColors(Color.WHITE, Color.WHITE);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        viewPager.setCurrentItem(adapter.getCount() - 1);
-        changeTabsFont();
+
     }
 
     private void deleteAllFragmentPage(ViewPagerAdapter adapter) {
