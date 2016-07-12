@@ -104,7 +104,7 @@
             android:layout_weight="1"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/shareByTelegram"
-            android:src="@mipmap/telegram" />
+            android:src="@mipmap/telegram_black_white" />
 
         <ImageButton
             android:id="@+id/add_to_favorite"

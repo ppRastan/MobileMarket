@@ -45,7 +45,7 @@
             android:id="@+id/material_design_floating_action_menu_item2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/customer_support"
+            android:src="@mipmap/telegram"
             fab:fab_colorNormal="@color/blue"
             fab:fab_colorPressed="@color/blue"
             fab:fab_size="mini" />
