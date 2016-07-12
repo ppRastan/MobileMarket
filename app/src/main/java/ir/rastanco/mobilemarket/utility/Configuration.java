@@ -41,6 +41,8 @@ public class Configuration {
     public String shopDisplaySizeForURL;
     public String articleDisplaySizeForURL;
     public String filterCategoryTitle;
+    public String sharedPerformanceRateUs="sharedPrefRateUs";
+
 
 
     public Boolean userLoginStatus=false;

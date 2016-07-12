@@ -713,6 +713,14 @@ public class ServerConnectionHandler {
         return allProduct;
     }
 
+    public boolean rateUsDialogShow(){
+        int numberOfProductThatLike=DataBaseHandler.getInstance(context).selectNumberAllLikeProducts();
+        if(numberOfProductThatLike==5 || numberOfProductThatLike==15 || numberOfProductThatLike==30 || numberOfProductThatLike==50 )
+            return true;
+        else
+            return false;
+    }
+
     //article
     public Boolean emptyDBArticle(){
         return DataBaseHandler.getInstance(context).emptyArticleTable();

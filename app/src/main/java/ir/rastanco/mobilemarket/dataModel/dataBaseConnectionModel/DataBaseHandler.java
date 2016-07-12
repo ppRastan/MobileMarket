@@ -543,6 +543,22 @@ public class DataBaseHandler  extends SQLiteOpenHelper {
         Log.v("select", "Select Fist Index Get Product");
         return numberAllProduct;
     }
+
+    public int selectNumberAllLikeProducts() {
+        String query="select * "+
+                " from "+TABLE_PRODUCT+
+                " where "+ProductTable_Column_Like+"=1"; //product like true
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor rs = db.rawQuery(query, null);
+        int numberAllLikeProduct=0;
+        if (rs != null) {
+            numberAllLikeProduct=rs.getCount();
+            rs.close();
+        }
+        Log.v("select", "Select Number Of Product that user like");
+        return numberAllLikeProduct;
+    }
+
     public String selectLastUpdateTimeStamp() {
         String query="select "+SettingsTable_Column_Last_Update_TimeStamp+
                 " from "+TABLE_SETTINGS;

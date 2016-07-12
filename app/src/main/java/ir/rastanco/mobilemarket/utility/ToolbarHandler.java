@@ -5,11 +5,15 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import ir.rastanco.mobilemarket.InfoActivity;
 import ir.rastanco.mobilemarket.R;
@@ -125,6 +129,9 @@ public class ToolbarHandler {
                 ToastUtility.getConfig().displayToast(myContext.getResources().getString(R.string.pleaseLogin), activity);
             likeThisProduct.setImageResource(R.drawable.toolbar_add_to_favorit_fill_like);
             sch.changeProductLike(eachProduct.getId(), 1);
+            if(sch.rateUsDialogShow()){
+                displayAlertDialogForRateUs(myContext);
+            }
         } else if (sch.getAProduct(eachProduct.getId()).getLike() == 1) {
 
             if (!Configuration.getConfig().userLoginStatus)
@@ -146,6 +153,10 @@ public class ToolbarHandler {
             aProduct.setLike(1);
             sch.changeProductLike(aProduct.getId(), 1);
             ObserverLike.setLikeStatus(position);
+            if(sch.rateUsDialogShow()){
+               displayAlertDialogForRateUs(productPageActivity);
+            }
+
 
         } else if (sch.getAProduct(aProduct.getId()).getLike() == 1) {
 
@@ -156,6 +167,54 @@ public class ToolbarHandler {
             sch.changeProductLike(aProduct.getId(), 0);
             ObserverLike.setLikeStatus(position);
         }
+    }
+
+    public void displayAlertDialogForRateUs(Context context) {
+        //TODO Parisa
+        final Context myContext = context;
+        new MaterialDialog.Builder(myContext)
+                .contentColorRes(R.color.black)
+                .content(R.string.rateUsDialogTitle)
+                .positiveText(R.string.rateUsDialogNo)
+                .positiveColorRes(R.color.black)
+                .negativeText(R.string.rateUsDialogYes)
+                .negativeColorRes(R.color.black)
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                        Intent rateIntent = new Intent(Intent.ACTION_VIEW);
+                        rateIntent.setData(Uri.parse("market://details?id=" + Configuration.getConfig().applicationContext.getPackageName()));
+                        myContext.startActivity(rateIntent);
+                    }
+                })
+
+                /*.onNegative(R.string.rateUsDialogNo, new MaterialDialog().OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }
+                )
+
+                .setNeutralButton(R.string.rateUsDialogYes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                Intent rateIntent = new Intent(Intent.ACTION_VIEW);
+                                rateIntent.setData(Uri.parse("market://details?id=" + Configuration.getConfig().applicationContext.getPackageName()));
+                                myContext.startActivity(rateIntent);
+                            }
+                        }
+                )*/
+
+                .show();
     }
 
     public void displayInformationOfCurrentProduct(Product aProduct, Activity activity, Context context) {

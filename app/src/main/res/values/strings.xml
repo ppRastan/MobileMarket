@@ -106,6 +106,11 @@
     <string name="nobrand">فاقد برند می باشد</string>
     <string name="this_group">دسته </string>
 
+    <!-- Dialog box Rate Us -->
+    <string name="rateUsDialogTitle">آیا مایلید به دکوریس امتیاز دهید ؟</string>
+    <string name="rateUsDialogYes">بله</string>
+    <string name="rateUsDialogNo">نه فعلا</string>
+
     <!--intro sliding strings-->
     <string name="skip">بی خیال</string>
     <string name="next">چه خوب</string>
@@ -115,31 +120,35 @@
     <string name="slide_1_desc">دوست گرامی سلام،
 برای آشنایی بیشتر با دکوریس، لطفا صفحات بعدی رو مطالعه کن.
 
-</string>
+    </string>
 
-    <string name="slide_2_title">بررسی آسان</string>
-    <string name="slide_2_desc">شما می توانید به آسانی محصولات تولیدکنندگان مبلمان و صنایع چوبی را بررسی کنید و همه اطلاعات لازم برای یک انتخاب درست را به دست بیاورید
+        <string name="slide_2_title">بررسی آسان</string>
+        <string name="slide_2_desc">شما می توانید به آسانی محصولات تولیدکنندگان مبلمان و صنایع چوبی را بررسی کنید و همه اطلاعات لازم برای یک انتخاب درست را به دست بیاورید
 
 
-</string>
+    </string>
 
-    <string name="slide_3_title">ارتباط با تولیدکننده</string>
-    <string name="slide_3_desc">می توانید به طور مستقیم با تولیدکنندگان در ارتباط باشید و سفارش خود را به صورت آنلاین و یا حضوری تکمیل کنید
-</string>
+        <string name="slide_3_title">ارتباط با تولیدکننده</string>
+        <string name="slide_3_desc">می توانید به طور مستقیم با تولیدکنندگان در ارتباط باشید و سفارش خود را به صورت آنلاین و یا حضوری تکمیل کنید
+    </string>
 
-    <string name="slide_4_title">کارشناس دکوریس
+        <string name="slide_4_title">کارشناس دکوریس
 
-</string>
-    <string name="slide_4_desc">در هر موردی اگر سوالی داشتید می توانید با استفاده از دکمه راهنما از کارشناس دکوریس پرسش کنید</string>
-    <string name="home">خانه</string>
-    <string name="specials">محصولات ویژه</string>
-    <string name="visitAllProduct">همه ی محصولات</string>
-    <string name="sellers">تامین کننده ها</string>
-    <string name="mostSelled">پرفروش ترین ها</string>
-    <string name="rate_us">رای می دهم</string>
-    <string name="offer">فروش ویژه</string>
-    <string name="agree">موافقم</string>
-    <string name="title_activity_product_info">ProductInfoActivity</string>
-    <string name="title_activity_info">InfoActivity</string>
-    <string name="info_icon">مشاهده اطلاعات محصول و ارتباط با پشتیبان</string>
-</resources>
+    </string>
+        <string name="slide_4_desc">در هر موردی اگر سوالی داشتید می توانید با استفاده از دکمه راهنما از کارشناس دکوریس پرسش کنید</string>
+        <string name="home">خانه</string>
+        <string name="specials">محصولات ویژه</string>
+        <string name="visitAllProduct">همه ی محصولات</string>
+        <string name="sellers">تامین کننده ها</string>
+        <string name="mostSelled">پرفروش ترین ها</string>
+        <string name="rate_us">رای می دهم</string>
+        <string name="offer">فروش ویژه</string>
+        <string name="agree">موافقم</string>
+        <string name="title_activity_product_info">ProductInfoActivity</string>
+        <string name="title_activity_info">InfoActivity</string>
+        <string name="info_icon">مشاهده اطلاعات محصول و ارتباط با پشتیبان</string>
+    </resources>
+
+
+
+
