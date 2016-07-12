@@ -278,7 +278,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                             noProductMessage();
                         }
                         else  {
-
+                            loadProductMessage();
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -301,6 +301,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                         }
                         else  {
 
+                            loadProductMessage();
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
@@ -323,7 +324,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                             noProductMessage();
                         }
                         else  {
-
+                            loadProductMessage();
                             PictureProductShopItemAdapter newAdapter = new PictureProductShopItemAdapter(getActivity(), newProducts);
                             gridview.setAdapter(newAdapter);
                             newAdapter.notifyDataSetChanged();
