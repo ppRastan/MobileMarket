@@ -42,7 +42,7 @@
     <string name="your_account">حساب کاربری شما</string>
     <string name="thanks">سپاسگزار</string>
     <string name="pleaseLogin">لطفا با حساب کاربری خود وارد شوید</string>
-    <string name="sure_to_exit">مطمعنی ؟</string>
+    <string name="sure_to_exit">مطمئنی؟</string>
     <string name="welcome_to_decoriss">کاربر گرامی خوش آمدید</string>
     <string name="please_wait_message">بارگذاری اولیه ممکن است چند دقیقه طول بکشد</string>
     <string name="please_wait">لطفا منتظر بمانید . . .</string>
@@ -66,10 +66,10 @@
     <string name="not_correct">نام کاربری یا رمز عبور صحیح نمی باشد</string>
     <string name="coming_soon">به زودی</string>
     <string name="brand">brand</string>
-    <string name="over10million">بالاتر از 10 ملیون تومان</string>
-    <string name="up_to10million">تا سقف 10 ملیون تومان</string>
-    <string name="up_to5million">تا سقف 5 ملیون تومان</string>
-    <string name="up_to1million">تا سقف 1 ملیون تومان</string>
+    <string name="over10million">بالاتر از 10 میلیون تومان</string>
+    <string name="up_to10million">تا سقف 10 میلیون تومان</string>
+    <string name="up_to5million">تا سقف 5 میلیون تومان</string>
+    <string name="up_to1million">تا سقف 1 میلیون تومان</string>
     <string name="password">کلمه عبور:</string>
     <string name="update">آپدیت دکوریس</string>
     <string name="search">جست و جو</string>
