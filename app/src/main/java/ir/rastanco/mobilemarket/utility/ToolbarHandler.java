@@ -196,26 +196,6 @@ public class ToolbarHandler {
                         myContext.startActivity(rateIntent);
                     }
                 })
-
-                /*.onNegative(R.string.rateUsDialogNo, new MaterialDialog().OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }
-                )
-
-                .setNeutralButton(R.string.rateUsDialogYes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                                Intent rateIntent = new Intent(Intent.ACTION_VIEW);
-                                rateIntent.setData(Uri.parse("market://details?id=" + Configuration.getConfig().applicationContext.getPackageName()));
-                                myContext.startActivity(rateIntent);
-                            }
-                        }
-                )*/
-
                 .show();
     }
 
