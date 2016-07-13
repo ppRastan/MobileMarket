@@ -21,6 +21,7 @@ import ir.rastanco.mobilemarket.R;
 import ir.rastanco.mobilemarket.dataModel.Product;
 import ir.rastanco.mobilemarket.dataModel.serverConnectionModel.ServerConnectionHandler;
 import ir.rastanco.mobilemarket.presenter.Observer.ObserverLike;
+import ir.rastanco.mobilemarket.presenter.WebView;
 
 /**
  * Created by ParisaRashidhi on 29/03/2016.
@@ -209,6 +210,9 @@ public class ToolbarHandler {
     }
 
     public void productIndicative(String linkOfProduct, Activity activity) {
-        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(linkOfProduct)));
+        Intent intent = new Intent(activity, WebView.class);
+        intent.putExtra("url", linkOfProduct);
+        activity.startActivity(intent);
+       // activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(linkOfProduct)));
     }
 }
