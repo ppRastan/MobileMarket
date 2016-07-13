@@ -3,11 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="59dp"
         android:background="@color/decoriss"
         android:orientation="horizontal">
 
@@ -18,15 +19,15 @@
             android:background="@color/decoriss"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/your_account"
-            android:textColor="@color/black" />
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
     <ListView
         android:id="@+id/lsv_favouriteProduct"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="60dp"
+        android:layout_height="match_parent"
         android:background="@color/white"
         android:divider="@color/background_window"
         android:dividerHeight="2dp">

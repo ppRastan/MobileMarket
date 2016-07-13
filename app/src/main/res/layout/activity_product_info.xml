@@ -113,7 +113,7 @@
             android:layout_weight="1"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/addProductToFavorits"
-            android:src="@drawable/toolbar_add_to_favorite_border" />
+            android:src="@drawable/shopping_page_empty_like" />
 
         <ImageButton
             android:id="@+id/img_share_full_screen"

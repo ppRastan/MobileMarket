@@ -59,6 +59,7 @@ public class InfoActivity extends AppCompatActivity  implements DownloadResultRe
             public void onClick(View v) {
                 //TODO handle telegram
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://telegram.me/my_decoriss"));
+                browserIntent.putExtra(Intent.EXTRA_TEXT,"hello this is for test");
                 startActivity(browserIntent);
             }
         });

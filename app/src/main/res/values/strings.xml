@@ -147,7 +147,8 @@
         <string name="title_activity_product_info">ProductInfoActivity</string>
         <string name="title_activity_info">InfoActivity</string>
         <string name="info_icon">مشاهده اطلاعات محصول و ارتباط با پشتیبان</string>
-    </resources>
+    <string name="chat_with_admin">ارتباط با کارشناس فروش</string>
+</resources>
 
 
 
