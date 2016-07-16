@@ -177,7 +177,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                         sch.getNewProducts();
                         sch.getEditProducts();*/
                         pageIdForRefresh = pageId;
-                        txtFilterOptionForRefresh = (String) txtFilterOptionProductSelected.getText();
+                        txtFilterOptionForRefresh = txtFilterOptionProductSelected.getText().toString();
                         Intent intent = new Intent(Intent.ACTION_SYNC, null,activity, UpdateService.class);
                         intent.putExtra("receiver", mReceiver);
                         intent.putExtra("requestId", 101);
