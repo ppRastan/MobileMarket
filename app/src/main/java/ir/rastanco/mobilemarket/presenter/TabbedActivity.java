@@ -93,7 +93,7 @@ public class TabbedActivity extends AppCompatActivity implements BaseSliderView.
         getSupportActionBar().setTitle("");
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinateLayout);
         text_count = (TextView) findViewById(R.id.txt_count);
-       Pushe.initialize(this, true);//pushe Alert For Install Google Play
+        Pushe.initialize(this, true);//pushe Alert For Install Google Play
         this.InitializationParametersNecessary();
         this.setActionBar();
         //this.setFAb();

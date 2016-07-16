@@ -26,7 +26,7 @@ public class DownloadProductInformationService extends IntentService {
     private int code;
 
     public DownloadProductInformationService() {
-        super(DownloadCategoryInformationService.class.getName());
+        super(DownloadProductInformationService.class.getName());
     }
 
     @Override

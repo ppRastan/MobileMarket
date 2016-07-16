@@ -58,6 +58,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
     private TextView noThingToShow;
     private ProgressBar progressBar;
     private DownloadResultReceiver mReceiver;
+    private DownloadResultReceiver resultReceiver;
     private GridView gridview;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private PictureProductShopItemAdapter adapter;
@@ -65,7 +66,6 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
     private int pageIdForRefresh;
     private String txtFilterOptionForRefresh;
     private int categoryId;
-    private DownloadResultReceiver resultReceiver;
     private Boolean lockScroll=false;
     private Boolean lockFirstVisitTab=true;
     private FragmentActivity activity;
@@ -102,6 +102,8 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         gridview = (GridView) mainView.findViewById(R.id.gv_infoProduct);
         resultReceiver = new DownloadResultReceiver(new Handler());
         resultReceiver.setReceiver(this);
+        mReceiver = new DownloadResultReceiver(new Handler());
+        mReceiver.setReceiver(this);
 
 
         ArrayList<Product> products = new ArrayList<Product>();
@@ -122,10 +124,6 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         txtFilterCategorySelected.setText(getString(R.string.all));
         txtFilterOptionProductSelected.setText(getString(R.string.all));
         txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(activity, R.color.black));
-
-
-        mReceiver = new DownloadResultReceiver(new Handler());
-        mReceiver.setReceiver(this);
 
         //refresh grid view
         mSwipeRefreshLayout = (SwipeRefreshLayout) mainView.findViewById(R.id.swipe_refresh_layout);
