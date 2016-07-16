@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
@@ -84,41 +86,62 @@ public class ToolbarHandler {
 
     public void shareByTelegram(final Activity activity, String eachProduct) {
         final String appName = "org.telegram.messenger";
-        final String visitProductLinkInSite = eachProduct;
-        final Dialog shareByTelegram = new Dialog(activity);
-        shareByTelegram.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        shareByTelegram.setContentView(R.layout.share_alert_dialog);
-        cancelShareDialog = (ImageButton) shareByTelegram.findViewById(R.id.close_pm_to_friend);
-        Button sendBtn = (Button) shareByTelegram.findViewById(R.id.send_my_pm);
-        sendBtn = PriceUtility.getInstance().ChangeButtonFont(sendBtn, activity);
-        editTextToShare = (EditText) shareByTelegram.findViewById(R.id.text_to_send);
-        editTextToShare = PriceUtility.getInstance().changeEditTextFont(editTextToShare, activity);
-        cancelShareDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                shareByTelegram.dismiss();
-            }
-        });
-        sendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String telegramTextToSend = editTextToShare.getText().toString();
-                String Share = telegramTextToSend + "\n\n" +
-                        visitProductLinkInSite + "\n\n" +
-                        activity.getResources().getString(R.string.text_to_advertise) + "\n\n"
-                        + activity.getResources().getString(R.string.LinkDownloadApp);
-                Intent telegramSendIntent = new Intent();
-                telegramSendIntent.setAction(Intent.ACTION_SEND);
-                telegramSendIntent.putExtra(Intent.EXTRA_SUBJECT, telegramTextToSend);
-                telegramSendIntent.putExtra(Intent.EXTRA_TEXT, Share);
-                telegramSendIntent.setType("text/plain");
-                telegramSendIntent.setPackage(appName);
-                activity.startActivity(telegramSendIntent);
-                shareByTelegram.cancel();
-            }
-        });
-        shareByTelegram.setCancelable(true);
-        shareByTelegram.show();
+        final boolean isAppInstalled = isAppAvailable(activity.getApplicationContext(), appName);
+        if (isAppInstalled){
+
+            final String visitProductLinkInSite = eachProduct;
+            final Dialog shareByTelegram = new Dialog(activity);
+            shareByTelegram.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            shareByTelegram.setContentView(R.layout.share_alert_dialog);
+            cancelShareDialog = (ImageButton) shareByTelegram.findViewById(R.id.close_pm_to_friend);
+            Button sendBtn = (Button) shareByTelegram.findViewById(R.id.send_my_pm);
+            sendBtn = PriceUtility.getInstance().ChangeButtonFont(sendBtn, activity);
+            editTextToShare = (EditText) shareByTelegram.findViewById(R.id.text_to_send);
+            editTextToShare = PriceUtility.getInstance().changeEditTextFont(editTextToShare, activity);
+            cancelShareDialog.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    shareByTelegram.dismiss();
+                }
+            });
+            sendBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String telegramTextToSend = editTextToShare.getText().toString();
+                    String Share = telegramTextToSend + "\n\n" +
+                            visitProductLinkInSite + "\n\n" +
+                            activity.getResources().getString(R.string.text_to_advertise) + "\n\n"
+                            + activity.getResources().getString(R.string.LinkDownloadApp);
+                    Intent telegramSendIntent = new Intent();
+                    telegramSendIntent.setAction(Intent.ACTION_SEND);
+                    telegramSendIntent.putExtra(Intent.EXTRA_SUBJECT, telegramTextToSend);
+                    telegramSendIntent.putExtra(Intent.EXTRA_TEXT, Share);
+                    telegramSendIntent.setType("text/plain");
+                    telegramSendIntent.setPackage(appName);
+                    activity.startActivity(telegramSendIntent);
+                    shareByTelegram.cancel();
+                }
+            });
+            shareByTelegram.setCancelable(true);
+            shareByTelegram.show();
+        }
+        else {
+            Toast.makeText(activity,activity.getResources().getString(R.string.message_no_telegram_in_mobile),Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public static boolean isAppAvailable(Context context, String appName)
+    {
+        PackageManager pm = context.getPackageManager();
+        try
+        {
+            pm.getPackageInfo(appName, PackageManager.GET_ACTIVITIES);
+            return true;
+        }
+        catch (PackageManager.NameNotFoundException e)
+        {
+            return false;
+        }
     }
 
 

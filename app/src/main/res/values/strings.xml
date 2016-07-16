@@ -105,6 +105,7 @@
     <string name="noBrandMatches">دسته ی "%1$s" فاقد برند میباشد!</string>
     <string name="nobrand">فاقد برند می باشد</string>
     <string name="this_group">دسته </string>
+    <string name="message_no_telegram_in_mobile">برنامه ی تلگرام روی گوشی شما نصب نمی باشد</string>
 
     <!-- Dialog box Rate Us -->
     <string name="rateUsDialogTitle">آیا مایلید به دکوریس امتیاز دهید ؟</string>
