@@ -8,6 +8,7 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -50,12 +51,21 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
     private boolean lockScroll =false;
     private Boolean lockFirstVisitTab=true;
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity){
+            this.activity= (FragmentActivity) context;
+        }
+
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         context = getContext();
-        activity=getActivity();
         sch = ServerConnectionHandler.getInstance(context);
         View mainView = inflater.inflate(R.layout.fragment_special_product, container, false);
         productListView = (ListView) mainView.findViewById(R.id.listView_picProduct);
@@ -73,7 +83,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
 
 
         if (products.size()>0) {
-            PictureSpecialProductItemAdapter adapter = new PictureSpecialProductItemAdapter(getActivity(), products);
+            PictureSpecialProductItemAdapter adapter = new PictureSpecialProductItemAdapter(activity, products);
             productListView.setAdapter(adapter);
             productListView.setVisibility(View.VISIBLE);
         }
@@ -140,7 +150,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
                         /*sch.refreshCategories(Link.getInstance().generateURLForGetAllCategories());
                         sch.getNewProducts();
                         sch.getEditProducts();*/
-                        Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), UpdateService.class);
+                        Intent intent = new Intent(Intent.ACTION_SYNC, null,activity, UpdateService.class);
                         intent.putExtra("receiver", mReceiver);
                         intent.putExtra("requestId", 101);
                         getActivity().startService(intent);
@@ -154,7 +164,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
 
     private void getProductInformationFromServerWhenEnterToTab(int minStarLimited){
         String UrlGetProducts= Link.getInstance().generateUrlForGetSpecialProduct(minStarLimited,Configuration.getConfig().someOfFewSpecialProductNumber);
-        Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
+        Intent intent = new Intent(Intent.ACTION_SYNC, null, activity, DownloadProductInformationService.class);
         intent.putExtra("receiver", mReceiver);
         intent.putExtra("Link",UrlGetProducts);
         intent.putExtra("code",200);
@@ -163,7 +173,7 @@ public class SpecialProductFragment extends Fragment implements DownloadResultRe
 
     private void getProductInformationFromServerWhenScroll(int minStarLimited,int maxEndLimited){
         String UrlGetProducts= Link.getInstance().generateUrlForGetSpecialProduct(minStarLimited,maxEndLimited);
-        Intent intent = new Intent(Intent.ACTION_SYNC, null, getActivity(), DownloadProductInformationService.class);
+        Intent intent = new Intent(Intent.ACTION_SYNC, null,activity, DownloadProductInformationService.class);
         intent.putExtra("receiver", mReceiver);
         intent.putExtra("Link",UrlGetProducts);
         intent.putExtra("code",201);

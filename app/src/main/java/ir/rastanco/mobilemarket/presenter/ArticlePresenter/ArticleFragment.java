@@ -1,9 +1,12 @@
 package ir.rastanco.mobilemarket.presenter.ArticlePresenter;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +39,17 @@ public class ArticleFragment extends Fragment {
     private int leastArticleNumberInFirstTime;
     private int startArticleNumber;
     private SwipeRefreshLayout srlArticles;
+    private Activity activity;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity){
+            this.activity= (FragmentActivity) context;
+        }
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,7 +98,7 @@ public class ArticleFragment extends Fragment {
             customArticles.add(articles.get(i));
 
         }
-        final ArticleItemAdapter adapter = new ArticleItemAdapter(getActivity(),
+        final ArticleItemAdapter adapter = new ArticleItemAdapter(activity,
                 customArticles);
         articleList.setAdapter(adapter);
         final View finalMainView = mainView;
@@ -113,7 +127,7 @@ public class ArticleFragment extends Fragment {
                             helpArticlesShow.add(articles.get(i));
 
                         }
-                        ArticleItemAdapter newAdapter = new ArticleItemAdapter(getActivity(),
+                        ArticleItemAdapter newAdapter = new ArticleItemAdapter(activity,
                                 helpArticlesShow);
                         articleList.setAdapter(newAdapter);
                         newAdapter.notifyDataSetChanged();
