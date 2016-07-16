@@ -3,7 +3,6 @@ package ir.rastanco.mobilemarket.presenter.UserProfilePresenter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
                     pass = String.valueOf(password.getText());
                     String hashInfo = sec.encode(user, pass, key);
                     ArrayList<String> response = sch.GetAuthorizeResponse(hashInfo, key);
-                    Log.d("Response:", response.get(0));
                     if (response.get(0).equals("")) {
                         aUser.setUserId(Integer.parseInt(response.get(1)));
                         aUser.setUserLoginStatus(1);
