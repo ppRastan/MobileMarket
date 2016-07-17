@@ -11,7 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -271,7 +270,6 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
             public void onClick(View v) {
                 Bundle args = new Bundle();
                 if(FilterOptionProduct.getInstance().isAdded()&& Configuration.getConfig().filterOptionDialogShowStatus){
-                    Log.d("d","d");
                 }
                 else if (!FilterOptionProduct.getInstance().isAdded()&&!Configuration.getConfig().filterOptionDialogShowStatus ){
                     if (Configuration.getConfig().filterCategoryId == 0) {

@@ -7,6 +7,8 @@ import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.content.ContextCompat;
 
 import java.lang.reflect.Field;
@@ -135,5 +137,15 @@ public class Utilities {
         url=url.replace("roots/cube.php?code=","")
         .replace("+%28","%20(").replace("%29",")").replace("%2F","/");
         return url;
+    }
+
+    public Boolean checkNetworkConnection(Context context){
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting())
+            return true;
+        else
+            return false;
+
     }
 }
