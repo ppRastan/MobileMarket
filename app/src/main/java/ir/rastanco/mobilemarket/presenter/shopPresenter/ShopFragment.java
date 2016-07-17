@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -119,10 +120,10 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
         }
 
         Configuration.getConfig().filterCategoryId = 0;
-        Configuration.getConfig().filterCategoryTitle = getString(R.string.all);
-        Configuration.getConfig().filterOption = getString(R.string.all);
-        txtFilterCategorySelected.setText(getString(R.string.all));
-        txtFilterOptionProductSelected.setText(getString(R.string.all));
+        Configuration.getConfig().filterCategoryTitle = Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all);
+        Configuration.getConfig().filterOption = Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all);
+        txtFilterCategorySelected.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all));
+        txtFilterOptionProductSelected.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all));
         txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(activity, R.color.black));
 
         //refresh grid view
@@ -156,9 +157,9 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                     lockScroll=true;
                     int minLimited=gridview.getAdapter().getCount();
                     int maxLimited=minLimited+Configuration.getConfig().someOfFewProductNumberWhenScrollIsButton;
-                    if (txtFilterCategorySelected.getText().equals(getString(R.string.all)) && txtFilterOptionProductSelected.getText().equals(getString(R.string.all)))
+                    if (txtFilterCategorySelected.getText().equals(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all)) && txtFilterOptionProductSelected.getText().equals(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all)))
                         getProductInformationFromServerWhenScroll(pageId,minLimited,maxLimited);
-                    else if(!txtFilterCategorySelected.getText().equals(getString(R.string.all)) && txtFilterOptionProductSelected.getText().equals(getString(R.string.all)))
+                    else if(!txtFilterCategorySelected.getText().equals(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all)) && txtFilterOptionProductSelected.getText().equals(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all)))
                         getProductInformationFromServerWhenScroll(Configuration.getConfig().filterCategoryId,minLimited,maxLimited);
                 }
 
@@ -235,7 +236,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                         Configuration.getConfig().filterCategoryDialogShowStatus = false;//when category filter dialog close
                         txtFilterCategorySelected.setText(Configuration.getConfig().filterCategoryTitle);
                         txtFilterCategorySelected.setTextColor(ContextCompat.getColor(activity, R.color.colorFilterText));
-                        txtFilterOptionProductSelected.setText(getString(R.string.all));
+                        txtFilterOptionProductSelected.setText(Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.all));
                         txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(activity, R.color.black));
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
                                 Configuration.getConfig().filterCategoryId,
@@ -269,15 +270,23 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
             @Override
             public void onClick(View v) {
                 Bundle args = new Bundle();
-                if (Configuration.getConfig().filterCategoryId == 0) {
-                    args.putInt("pageId", pageId);
-                } else
-                    args.putInt("pageId", Configuration.getConfig().filterCategoryId);
-                FilterOptionProduct.getInstance().setArguments(args);
-                FilterOptionProduct.getInstance().show(activity.getFragmentManager(), "FilterProductOption");
+                if(FilterOptionProduct.getInstance().isAdded()&& Configuration.getConfig().filterOptionDialogShowStatus){
+                    Log.d("d","d");
+                }
+                else if (!FilterOptionProduct.getInstance().isAdded()&&!Configuration.getConfig().filterOptionDialogShowStatus ){
+                    if (Configuration.getConfig().filterCategoryId == 0) {
+                        args.putInt("pageId", pageId);
+                    } else
+                        args.putInt("pageId", Configuration.getConfig().filterCategoryId);
+
+                    FilterOptionProduct.getInstance().setArguments(args);
+                    FilterOptionProduct.getInstance().show(activity.getFragmentManager(), "FilterProductOption");
+                    Configuration.getConfig().filterOptionDialogShowStatus=true;
+                }
                 ObserverFilterPrice.changeFilterPriceListener(new ObserverFilterPriceListener() {
                     @Override
                     public void changeFilterPrice() {
+                        Configuration.getConfig().filterOptionDialogShowStatus=false;
                         txtFilterOptionProductSelected.setText(Configuration.getConfig().filterPriceTitle);
                         txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(activity, R.color.colorFilterText));
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,
@@ -299,6 +308,7 @@ public class ShopFragment extends Fragment implements DownloadResultReceiver.Rec
                 ObserverFilterBrand.changeFilterBrandListener(new ObserverFilterBrandListener() {
                     @Override
                     public void changeFilterBrand() {
+                        Configuration.getConfig().filterOptionDialogShowStatus=false;
                         txtFilterOptionProductSelected.setText(Configuration.getConfig().filterBrand);
                         txtFilterOptionProductSelected.setTextColor(ContextCompat.getColor(activity, R.color.colorFilterText));
                         ArrayList<Product> newProducts = sch.getProductAfterFilter(pageId,

@@ -2,9 +2,11 @@ package ir.rastanco.mobilemarket.presenter.Filter;
 
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +63,7 @@ public class FilterOptionProduct extends DialogFragment {
         btnCancelAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Configuration.getConfig().filterOptionDialogShowStatus=false;
                 dismiss();
             }
         });
@@ -87,6 +90,7 @@ public class FilterOptionProduct extends DialogFragment {
                         String categorySelectedTitle = serverConnectionHandler.getACategoryTitleWithCategoryId(pageId);
                         String message = Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.this_group) + " " + categorySelectedTitle + " " + Configuration.getConfig().shopFragmentContext.getResources().getString(R.string.nobrand);
                         Snackbar.make(Configuration.getConfig().mainActivityView, message, Snackbar.LENGTH_LONG).show();
+                        Configuration.getConfig().filterOptionDialogShowStatus=false;
                         getDialog().dismiss();
                     } else {
                         Bundle args = new Bundle();
@@ -106,19 +110,43 @@ public class FilterOptionProduct extends DialogFragment {
             public void filterCancel() {
                 if (ObserverFilterCancel.getFilterCancel() == true)
                     getDialog().show();
-                else
+                /*else {
+                    Configuration.getConfig().filterOptionDialogShowStatus=false;
                     dismiss();
+                }*/
             }
         });
 
+        getDialog().setOnKeyListener(new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if ((keyCode == android.view.KeyEvent.KEYCODE_BACK)) {
+                    if (ObserverFilterCancel.getFilterCancel() == true ) {
+                        getDialog().show();
+                        ObserverFilterCancel.setFilterCancel(false);
+                    }
+                    else {
+                        Configuration.getConfig().filterOptionDialogShowStatus=false;
+                        dismiss();
+                    }
+                    return true; // pretend we've processed it
+                } else
+                    return false; // pass on to be processed as normal
+            }
+        });
+
+
         return dialogView;
     }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 0:
                 //get price Selected from FilterOptionPrice Dialog
+                getDialog().dismiss();
                 Bundle bundlePrice = data.getExtras();
                 Configuration.getConfig().filterPriceTitle = bundlePrice.getString("priceTitle");
                 Configuration.getConfig().filterOption = context.getResources().getString(R.string.price);
@@ -126,6 +154,7 @@ public class FilterOptionProduct extends DialogFragment {
                 break;
             case 1:
                 //get brand Selected from FilterOptionBrand Dialog
+                getDialog().dismiss();
                 Bundle bundleBrand = data.getExtras();
                 Configuration.getConfig().filterBrand = bundleBrand.getString("brand");
                 Configuration.getConfig().filterOption = context.getResources().getString(R.string.brand);

@@ -51,6 +51,7 @@ public class Configuration {
     public Boolean emptyCategoryTable = false;//true is empty and false is full
     public Boolean connectionStatus = false;
     public Boolean filterCategoryDialogShowStatus = false; //false= no show dialog and true= show dialog
+    public Boolean filterOptionDialogShowStatus=false;//false= no show dialog and true= show dialog
 
 
     public Integer filterCategoryId = 0; //It is important that filterCategoryId=0

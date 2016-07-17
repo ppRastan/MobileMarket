@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class ObserverFilterCancel {
 
-    private static Boolean filterCancel;
+    private static Boolean filterCancel=false;
     private final static List<ObserverFilterCancelListener> ChangeSetFilterCancle =new ArrayList<>();
 
     public static Boolean getFilterCancel() {
