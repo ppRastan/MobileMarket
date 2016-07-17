@@ -274,12 +274,15 @@ public class ServerConnectionHandler {
     }
 
     public void refreshCategories(String url){
+        int index=-1;
         ArrayList<Category> allCategories=getAllCategoryInfoURL(url);
         ArrayList<Integer> allCategoriesIdInDataBase=getAllCategoriesID();
         for (int i=0;i<allCategories.size();i++){
             if (existACategoryInDataBase(allCategories.get(i).getId())) {
                 updateACategory(allCategories.get(i));
-                allCategoriesIdInDataBase.remove(allCategoriesIdInDataBase.indexOf(allCategories.get(i).getId()));
+                index=allCategoriesIdInDataBase.indexOf(allCategories.get(i).getId());
+                if(index>-1)
+                    allCategoriesIdInDataBase.remove(index);
             }
             else
                 addACategoryToDataBase(allCategories.get(i));
