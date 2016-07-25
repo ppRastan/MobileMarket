@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -42,7 +40,7 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
     private final ServerConnectionHandler serverConnectionHandler;
     private Drawable defaultPicture=null;
     private final ServerConnectionHandler sch;
-    private ProgressBar loading;
+    //private ProgressBar loading;
     private boolean isLikeButtonClicked = true;
     public PictureSpecialProductItemAdapter(Context context, ArrayList<Product> products) {
         super(context, R.layout.picture_product_item_home, products);
@@ -58,11 +56,10 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
         private ImageButton shareBtn;
         private ImageButton basketToolbar;
         private ImageButton btnAddThisProductToFavorites;
-       private TriangleLabelView offerRight;
+        private TriangleLabelView offerRight;
         //private ImageLoader imgLoader;
         private ImageView picProductImage;
-        private TextView priceOff;
-        private TextView priceForYou;
+
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -90,14 +87,13 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
             holder = (ViewHolder) convertView.getTag();
 
         final Product eachProduct = allProduct.get(position);
-        int price = eachProduct.getPrice();
-        int discountPercent = eachProduct.getPriceOff();
-        int finalPrice = Utilities.getInstance().calculatePriceOffProduct(price, discountPercent);
+        //int price = eachProduct.getPrice();
+        //int discountPercent = eachProduct.getPriceOff();
+        //int finalPrice = Utilities.getInstance().calculatePriceOffProduct(price, discountPercent);
         //holder.priceOff = PriceUtility.getInstance().changeFontToYekan(holder.priceOff, myContext);
         //holder.priceForYou = PriceUtility.getInstance().changeFontToYekan(holder.priceForYou , myContext);
         //holder.priceOff.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(price)));
         //holder.priceForYou.setText(myContext.getResources().getString(R.string.eachPrice, PriceUtility.getInstance().formatPriceCommaSeparated(finalPrice)));
-         holder.offerRight.setPrimaryText("%"+eachProduct.getPriceOff());
         //Special Icon
         //if (Configuration.getConfig().RTL) {
           //  if (allProduct.get(position).getPriceOff() != 0) {
@@ -107,6 +103,16 @@ public class PictureSpecialProductItemAdapter extends ArrayAdapter<Product> {
               //  holder.offerRight.setVisibility(View.GONE);
             //}
         //}
+
+        //holder.offerRight.setVisibility(View.GONE);
+        if(eachProduct.getPriceOff()!= 0 ) {
+            holder.offerRight.setVisibility(View.VISIBLE);
+            holder.offerRight.setPrimaryText("%" + eachProduct.getPriceOff());
+        }
+        else if(eachProduct.getPriceOff() == 0 ) {
+            holder.offerRight.setVisibility(View.GONE);
+
+        }
         if (serverConnectionHandler.checkSelectProductForShop(allProduct.get(position).getId()))
             holder.basketToolbar.setImageResource(R.drawable.green_bye_toolbar);
         else
