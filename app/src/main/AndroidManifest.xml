@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ir.rastanco.mobilemarket"
     android:installLocation="auto"
-    android:versionCode="7"
-    android:versionName="2.0.0">
+    android:versionCode="8"
+    android:versionName="2.0.1">
 
     <!-- Start  Pushe Permission -->
     <permission
